@@ -1,12 +1,12 @@
-## live.asp.net
-Code for the ASP.NET Community Stand-up site.
+## reactiveui.net
+Code for the reactiveui.net website.
 
-Staging - https://ms-asp-standup-staging.azurewebsites.net/
+Staging - https://reactiveui-staging.azurewebsites.net/
 
-Production - https://live.asp.net/
+Production - https://www.reactiveui.net/
 
 ### Local Development Configuration
-This project now requires [Visual Studio 2017 RC build 15.0.0-RC.3+26127.0](https://www.microsoft.com/net/core#windowsvs2017) or higher, or if using the .NET CLI with VS Code or an OmniSharp enabled editor, [.NET Core SDK 1.0 RC3 build 004530](https://github.com/dotnet/core/blob/master/release-notes/rc3-download.md) or higher.
+This project now requires [Visual Studio 2017](https://www.microsoft.com/net/core#windowsvs2017) or higher, or if using the .NET CLI with VS Code or an OmniSharp enabled editor, [.NET Core SDK 1.0 RC3 build 004530](https://github.com/dotnet/core/blob/master/release-notes/rc3-download.md) or higher.
 
 To run the site locally with live data and login, you'll need some configuration values in your user secrets store.
 If the values aren't found, hard-coded YouTube sample data will be used, and the next show details will be saved to
@@ -19,11 +19,16 @@ you want to allow.
 To configure the secret values, use the `user-secret` command, e.g.:
 
 ```
+cd src\reactiveui.net
+
+dotnet restore
+
 dotnet user-secrets set AppSettings:YouTubeApiKey <app-server-key>
   
 dotnet user-secrets set AppSettings:AzureStorageConnectionString <azure-storage-connection-string>
-
-dotnet user-secrets set Authentication:AzureAd:Domain <azure-ad-domain-name>
-
-dotnet user-secrets set Authentication:AzureAd:PostLogoutRedirectUri "https://localhost:44300/"
 ```
+
+### Production Configuration
+
+* [Authentication:AzureAd:TenantId](http://stackoverflow.com/questions/26384034/how-to-get-the-azure-account-tenant-id)
+* [Authentication:AzureAd:ApplicaitonId](https://docs.microsoft.com/en-us/azure/active-directory/develop/active-directory-integrating-applications) (aka ApplicationId)

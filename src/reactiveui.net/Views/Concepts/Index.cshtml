@@ -1,0 +1,80 @@
+﻿@using reactiveui.net.ViewModels
+@using reactiveui.net.Models
+
+
+@{
+    ViewData["Title"] = "ReactiveUI - Concepts";
+}
+
+@{ 
+    // nb. I hgave no doubt this framework will be around in 20 years. To whomever is maintaining
+    // this code in 2038 - hit me up and I'll buy you a beer - Geoff.
+    var numbers = new []{ "zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen" };
+
+    var inception = 2009;
+    var years = DateTime.Now.Year - inception;
+    var projectAge = numbers[years];
+}
+
+<div class="container">
+    <div class="row">
+        <div class="span12 col-sm-12">
+            <h1>Concepts</h1>
+            <p>ReactiveUI is a composable, cross-platform model-view-viewmodel framework for all .NET platforms that is inspired by functional reactive programming which allows you to abstract mutable state away from your user interfaces and express the idea around a feature in one readable place and improve the testability of your application.</p>
+            
+            <p>It is the father of the extremely popular <a href="https://github.com/ReactiveCocoa/">ReactiveCocoa</a> framework. Internally the maintainers debate whether ReactiveUI is or is not a framework, as at its core the project is essentially a bunch of extension methods for the Reactive Extensions. The project was started @projectAge years ago by Paul Betts and is now old enough to attend grade school but unlike a teenager is extremely stable and has matured over the years into a solid and fine choice for building your next application. <a href="https://github.com/reactiveui/ReactiveUI/issues/979#issuecomment-196735701" target="_blank">Slack uses us, as does GitHub, Elastic &amp; Microsoft</a>.</p>
+
+
+            <p>We believe that code is communication between people, that also happens to run on a computer. If you optimise for humans, then over a long time your project will end up better. Software should be understandable by other people; that is super important. We believe that only <a href="https://www.youtube.com/watch?v=5DZ8nC0ENdg" target="_blank">the power of the Reactive Extensions allows you to express the idea around a feature in one readable place</a>.</p>
+
+            <p>Let’s say you have a text field, and whenever the user types something into it, you want to make a network request which searches for that query. Your designer has requested that this search query automatically execute as the user is typing but your operation team wants guarantees that only one network request is ever in transit and roughly no often than once per second whilst the user is typing.</p>
+
+            <img src="~/images/search-autcomplete.gif" />
+
+        </div>
+    </div>
+</div>
+
+<div class="pattern-bg">
+    <div class=" container">
+        <div class=" row">
+            <div class=" span12 col-sm-12">
+                <h2>How would you usually implement this?</h2>
+
+                <p>Most modern programming today is basically imperative, meaning it models the traditional fetch-execute cycle of a CPU. Perform and instruction, fetch the next one. Perform that one, and so on. For decades, programmers have had to mould their brains to fit the paradigm of the CPU. It's been like this since the early 1980s.</p>
+
+                <p>When we rely on hoping that the behavior that emerges from a program is correct, and that reliance is based on nothing more than a programmer's correctness, then we can easily find ourselves in a sticky situation. We can try and mitigate the costs of imperative programming with things like unit tests or integration tests, but why mitigate the costs when there's a better way?</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="span12 col-sm-12">
+            <h1>There is a better way</h1>
+
+            <p>Long ago, when computer programming first came to be, machines had to be programmed quite manually. If the technician entered the correct sequence of machine codes in the correct order, then the resulting program behavior would satisfy the business requirements.  Instead of telling a computer how to do its job, which error-prone and relies too heavily on the infallibility of the programmer, why don't we just tell it what it's job is and let it figure the rest out?</p>
+
+            <p>ReactiveUI is inspired by the paradigm of Functional Reactive Programming, which allows you to model user input as a function that changes over time. This is super cool because it allows you to abstract mutable state away from your user interfaces and express the idea around a feature in one readable place whilst improving application testability. Reactive programming can look scary and complex at first glance, but the best way to describe reactive programming is to think of a spreadsheet:</p>
+
+            <br/>
+            <img src="~/images/frp-excel.gif" />
+            <br/>
+
+            <br />
+
+            <ul>
+                <li>Three cells, A, B, and C.</li>
+                <li>C is defined as the sum of A and B.</li>
+                <li>Whenever A or B changes, C reacts to update itself.</li>
+            </ul>
+
+            <p>That's reactive programming: changes propagate throughout a system automatically. Welcome to the peanut butter and chocolate of programming paradigms.</p>
+
+            <iframe width="100%" height="480" src="https://www.youtube.com/embed/DYEbUF4xs1Q" frameborder="0" allowfullscreen></iframe>
+
+        </div>
+    </div>
+</div>
+

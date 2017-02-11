@@ -37,6 +37,7 @@ version.h
 
 node_modules/
 src/*/wwwroot/lib/
+src/*/wwwroot/dashboard/
 
 *.min.js
 *.min.css

@@ -1,0 +1,52 @@
+﻿<nav class="navbar navbar-default">
+    <div class="container">
+        <div class="navbar-header">
+            <button class="navbar-toggle collapsed" data-target="#reactiveui-menu" data-toggle="collapse">
+                <span class="sr-only"></span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+            </button>
+            
+            @if (Context.Request.Path != "/")
+            {
+                <a asp-controller="Home" class="navbar-brand">
+                    <span class="logo">
+                        <img src="~/images/reactiveui-logo.png">
+                    </span>
+                </a>
+            }
+            
+        </div>
+
+
+        <div class="collapse navbar-collapse" id="reactiveui-menu">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a asp-controller="Concepts">Concepts</a>
+                </li>
+
+                @*<li>
+                    <a asp-controller="GettingStarted">Getting Started</a>
+                </li>*@
+
+                <li>
+                    <a asp-controller="Meetup">Meetup</a>
+                </li>
+
+                @*<li>
+                    <a asp-controller="GetHelp">Get Help</a>
+                </li>*@
+
+                <li>
+                    <a asp-controller="Contribute">Contribute</a>
+                </li>
+
+                <li>
+                    <a asp-controller="Donate">Donate</a>
+                </li>
+
+                <li>
+                    <a asp-controller="Support">Support</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>

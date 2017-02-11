@@ -1,0 +1,61 @@
+﻿@using reactiveui.net.Models
+@using reactiveui.net.ViewModels
+
+@model MeetupViewModel
+
+<h2>
+    Community Meetup
+    @if (Model.IsOnAir)
+    {
+        <span class="label label-danger"><strong>ON AIR</strong></span>
+    }
+    else if (Model.HasAdminMessage)
+    {
+        <span class="label label-warning"><strong>STANDBY</strong></span>
+    }
+</h2>
+@if (Model.HasAdminMessage)
+{
+    <h2>
+        @Model.AdminMessage
+    </h2>
+}
+else if (Model.IsOnAir)
+{
+    <partial name="_LiveShowPartial" model="Model"></partial>
+}
+else
+{
+    <div class="next-episode">
+        @if (Model.NextShowScheduled)
+        {
+            <p>Howdy, we run a monthly virtual standup right here on this page. It's our way of teaching the concepts behind functional reactive programming, to showcase neat stuff our community has done and to share opportunities with people who want to get started with open-source. We invest in you, in hope that you will stick around and <a asp-controller="Contribute">pay it forward</a>.</p>
+
+            <div id="nextShowDetails"
+                 data-utc-year="@Model.NextShowDateUtc.Value.Year"
+                 data-utc-month="@(Model.NextShowDateUtc.Value.Month-1)"
+                 data-utc-day="@Model.NextShowDateUtc.Value.Day"
+                 data-utc-hour="@Model.NextShowDateUtc.Value.Hour"
+                 data-utc-min="@Model.NextShowDateUtc.Value.Minute">
+
+                <p>Come back to this page on the <strong data-part="showTime" class="hidden">@Model.NextShowDateUtc.Value.ToString("u")</strong> which is in <strong><span data-part="countdown"></span></strong>. In the mean time, why not join us in <a asp-controller="Slack">Slack</a>?</p>
+            </div>
+            <div class="btn-group">
+                <button id="addToCalendar" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Add to calendar <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-left  text-center" aria-labelledby="addToCalendar">
+                    <li><a asp-controller="Meetup" asp-action="GetiCal" asp-protocol="https">Download iCalendar (ICS) file</a></li>
+                    <li><a asp-controller="Meetup" asp-action="GetiCal" asp-protocol="webcals">Add using webcal</a></li>
+                    <li><a href="@Model.AddToGoogleUrl" target="_blank">Add to Google Calendar</a></li>
+                </ul>
+            </div>
+        }
+        else
+        {
+            <p>Streaming live on the second Tuesday of every month at 8:00 AM Sydney Eastern Standard Time. In the mean time, why not join us in <a asp-controller="Slack">Slack</a>?</p>
+        }
+    </div>
+
+
+}

@@ -1,0 +1,64 @@
+﻿@using reactiveui.net.ViewModels
+@using reactiveui.net.Models
+@model MeetupViewModel
+
+@{
+    ViewData["Title"] = "ReactiveUI - Community Meetup";
+}
+
+<div id="next-meetup">
+    <div class="pattern-bg">
+        <div class=" container">
+            <partial name="_NextMeetupPartial"></partial>
+        </div>
+    </div>
+</div>
+
+<div id="previous-meetups">
+    <div class="container">
+        <h2>Previous Meetups</h2>
+        <div class="row">
+
+            @foreach (var show in Model.PreviousShows)
+            {
+                <partial name="_YouTubeShow" model="show"></partial>
+            }
+        </div>
+
+        @if (Model.ShowMoreShowsUrl)
+            {
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <a href="@Model.MoreShowsUrl" class="btn btn-primary">Previous Meetups</a>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+@section Scripts {
+    <environment names="Development">
+        @if (Model.NextShowScheduled)
+        {
+            <script src="~/js/home.js" inline="true"></script>
+        }
+    </environment>
+    <environment names="Staging,Production">
+        @if (Model.NextShowScheduled)
+        {
+            <cache>
+                <script src="~/js/home.min.js" inline="true"></script>
+            </cache>
+        }
+    </environment>
+    @if (Model.NextShowScheduled)
+    {
+        <script>
+            (function () {
+                window.siteJs.setNextShowDetails("nextShowDetails");
+            })();
+        </script>
+    }
+}
+
+
