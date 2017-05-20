@@ -18,7 +18,7 @@
                         <a href="http://ericsink.com/entries/dont_use_rxui.html" target="_blank">Passing on knowledge and teaching the next generation of developers</a>
                     </li>
                     <li>
-                        <a asp-controller="Donate" target="_blank">Donations and Corporate Sponsorships</a>
+                        <a asp-controller="Donate" target="_blank">Donations</a> and <a asp-controller="Sponsorship" target="_blank">Corporate Sponsorships</a>
                     </li>
                     <li>
                         <a asp-controller="Documentation" target="_blank">Submitting documentation updates where you see fit or lacking</a>
@@ -65,20 +65,6 @@
     <div class=" container">
         <div class="row">
             <div class=" span6 col-sm-12">
-                <h2>Sponsors</h2>
-                @for (var id = 1; id <= 40; id++)
-                {
-                    <a href="https://opencollective.com/reactiveui/sponsor/@id/website" target="_blank">
-                        <img src="//opencollective.com/reactiveui/sponsor/@id/avatar.svg"/>
-                    </a>
-                }
-                <h2>Backers</h2>
-                @for (var id = 1; id <= 130; id++)
-                {
-                    <a href="https://opencollective.com/reactiveui/backer/@id/website" target="_blank">
-                        <img src="//opencollective.com/reactiveui/backer/@id/avatar.svg"/>
-                    </a>
-                }
                 <h2>Contributors</h2>
                 <a href="https://github.com/reactiveui/ReactiveUI/graphs/contributors" target="_blank">
                     <img src="https://opencollective.com/reactiveui/contributors.png?avatarHeight=48&button=false&width=1000&margin=3" class="img-responsive">
