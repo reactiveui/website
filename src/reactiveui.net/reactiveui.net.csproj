@@ -13,9 +13,6 @@
     <DotNetCliToolReference Include="Microsoft.Extensions.SecretManager.Tools" Version="1.0.0" />
   </ItemGroup>
   <ItemGroup>
-    <Content Remove="wwwroot/images\slack-for-windows-phone.jpg" />
-  </ItemGroup>
-  <ItemGroup>
     <PackageReference Include="Microsoft.NETCore.Portable.Compatibility" Version="1.0.1" />
     <PackageReference Include="Microsoft.AspNetCore" Version="1.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="1.1.2" />
@@ -35,53 +32,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Update="**/*.json" CopyToPublishDirectory="Never" />
-    <Content Include="wwwroot\browserconfig.xml" />
-    <Content Include="wwwroot\css\reactiveui-logo.png" />
-    <Content Include="wwwroot\favicon.ico" />
-    <Content Include="wwwroot\images\espera.png" />
-    <Content Include="wwwroot\images\frp-excel.gif" />
-    <Content Include="wwwroot\images\github-extension-for-visual-studio.png" />
-    <Content Include="wwwroot\images\search-autcomplete.gif" />
-    <Content Include="wwwroot\images\android-icon-144x144.png" />
-    <Content Include="wwwroot\images\android-icon-192x192.png" />
-    <Content Include="wwwroot\images\android-icon-36x36.png" />
-    <Content Include="wwwroot\images\android-icon-48x48.png" />
-    <Content Include="wwwroot\images\android-icon-72x72.png" />
-    <Content Include="wwwroot\images\android-icon-96x96.png" />
-    <Content Include="wwwroot\images\apple-icon-114x114.png" />
-    <Content Include="wwwroot\images\apple-icon-120x120.png" />
-    <Content Include="wwwroot\images\apple-icon-144x144.png" />
-    <Content Include="wwwroot\images\apple-icon-152x152.png" />
-    <Content Include="wwwroot\images\apple-icon-180x180.png" />
-    <Content Include="wwwroot\images\apple-icon-57x57.png" />
-    <Content Include="wwwroot\images\apple-icon-60x60.png" />
-    <Content Include="wwwroot\images\apple-icon-72x72.png" />
-    <Content Include="wwwroot\images\apple-icon-76x76.png" />
-    <Content Include="wwwroot\images\apple-icon-precomposed.png" />
-    <Content Include="wwwroot\images\apple-icon.png" />
-    <Content Include="wwwroot\images\browserconfig.xml" />
-    <Content Include="wwwroot\images\favicon-16x16.png" />
-    <Content Include="wwwroot\images\favicon-32x32.png" />
-    <Content Include="wwwroot\images\favicon-96x96.png" />
-    <Content Include="wwwroot\images\manifest.json" />
-    <Content Include="wwwroot\images\ms-icon-144x144.png" />
-    <Content Include="wwwroot\images\ms-icon-150x150.png" />
-    <Content Include="wwwroot\images\ms-icon-310x310.png" />
-    <Content Include="wwwroot\images\ms-icon-70x70.png" />
-    <Content Include="wwwroot\images\reactiveui-logo.png" />
-    <Content Include="wwwroot\images\slack-beta-for-windows-phone-now-available-for-download-491226-2.jpg" />
-    <Content Include="wwwroot\images\slack-for-windows-phone.jpg" />
-    <Content Include="wwwroot\images\slack-for-windows-phone.png" />
-    <Content Include="wwwroot\images\tick.png" />
-    <Content Include="wwwroot\manifest.json" />
     <Content Update="appsettings*.json" CopyToPublishDirectory="Always" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\GetHelp\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Controllers\ConceptsController.cs" />
-  </ItemGroup>
+ <Target Name="PrepublishScript" BeforeTargets="PrepareForPublish">
+    <Exec Command="npm install" />
+    <Exec Command="gulp prepublish" />
+  </Target>
   <Target Name="DisableRefsPublishing" AfterTargets="_MvcRazorPrecompileOnPublish">
     <PropertyGroup>
       <PreserveCompilationContext>false</PreserveCompilationContext>
