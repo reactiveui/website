@@ -12,7 +12,7 @@ namespace reactiveui.net.Controllers
         [Route("/slack")]
         public IActionResult Index()
         {
-            return Redirect("mailto:hello@reactiveui.net?subject=" + WebUtility.UrlEncode("Howdy, can you send me an invite to Slack?"));
+            return Redirect("mailto:hello@reactiveui.net?subject=" + Uri.EscapeDataString("Howdy, can you send me an invite to Slack?"));
         }
     }
 
