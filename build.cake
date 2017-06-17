@@ -105,10 +105,8 @@ Task("Build")
     .IsDependentOn("CopyApiDocs")
     .Does(() =>
     {
-        var solution = File("./reactiveui.net.sln");
-
-        NuGetRestore(solution);
-        DotNetCoreBuild(solution);
+        StartProcess("dotnet", "restore");
+        StartProcess("dotnet", "build");
     });
     
 //////////////////////////////////////////////////////////////////////
