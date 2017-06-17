@@ -106,7 +106,7 @@ Task("Build")
     .Does(() =>
     {
         StartProcess("dotnet", "restore");
-        StartProcess("dotnet", "build");
+        StartProcess("dotnet", "publish");
     });
     
 //////////////////////////////////////////////////////////////////////
