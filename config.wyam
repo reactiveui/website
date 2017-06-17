@@ -4,7 +4,7 @@ Settings[Keys.Host] = "reactiveui.net";
 Settings[Keys.LinksUseHttps] = true;
 
 Settings[DocsKeys.IncludeGlobalNamespace] = true;
-Settings[DocsKeys.SourceFiles] = "../src/reactiveui/src/{!bin,!obj,!packages,!*.Tests,!*EventBuilder*,}/**/*.cs";
+Settings[DocsKeys.SourceFiles] = "../**/reactiveui/**/{!bin,!obj,!packages,!*.Tests,!*EventBuilder*,}/**/*.cs";
 Settings[DocsKeys.BaseEditUrl] = "https://github.com/reactiveui/reactiveui/tree/develop/input/";
 Settings[DocsKeys.NetlifyRedirects] = true;
 

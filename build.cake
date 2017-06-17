@@ -86,7 +86,7 @@ Task("BuildWyam")
     {
         Wyam(new WyamSettings
         {
-            InputPath = wyamInputDir
+            InputPaths = new List<DirectoryPath>() {wyamInputDir},
             OutputPath = wyamOutputDir
         });        
     });
