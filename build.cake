@@ -12,12 +12,13 @@ var target = Argument("target", "Default");
 //////////////////////////////////////////////////////////////////////
 
 var archiveDir = Directory("./archive");
-var wyamDir = Directory("./wyam");
-
 var wwwrootDir = Directory("./src/reactiveui.net/wwwroot");
 
 var dashboardUrl = "https://github.com/reactiveui/dashboard/archive/master.zip";
 var dashboardDir = wwwrootDir + Directory("dashboard");
+
+var wyamInputDir = Directory("./src/wyam");
+var wyamOutputDir = Directory("./output");
 
 var sourceCodeUrl = "https://github.com/reactiveui/ReactiveUI/archive/develop.zip";
 var sourceCodeDir = Directory("./src/reactiveui");
@@ -41,7 +42,7 @@ Task("Clean")
         };
 
         delete(archiveDir);
-        delete(wyamDir);
+        delete(wyamOutputDir);
         delete(dashboardDir);
         delete(sourceCodeDir);
         delete(apiDir);
@@ -85,7 +86,8 @@ Task("BuildWyam")
     {
         Wyam(new WyamSettings
         {
-            OutputPath = wyamDir
+            InputPaths = new List<DirectoryPath>() {wyamInputDir},
+            OutputPath = wyamOutputDir
         });        
     });
 
@@ -95,8 +97,8 @@ Task("CopyApiDocs")
     .IsDependentOn("BuildWyam")
     .Does(() =>
     {
-        CopyDirectory(wyamDir + Directory("api"), apiDir);
-        CopyDirectory(wyamDir + Directory("assets"), apiAssetsDir);
+        CopyDirectory(wyamOutputDir + Directory("api"), apiDir);
+        CopyDirectory(wyamOutputDir + Directory("assets"), apiAssetsDir);
     });
 
 Task("Build")
