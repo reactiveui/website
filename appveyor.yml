@@ -1,0 +1,8 @@
+branches:
+  only:
+    - master
+    
+image: Visual Studio 2017
+
+build_script:
+  - ps: .\build.ps1
