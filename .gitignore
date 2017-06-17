@@ -48,7 +48,7 @@ ShowDetails.json
 src/*/wwwroot/dashboard/
 
 # api docs
-wyam/
+output/
 src/reactiveui/
 src/*/wwwroot/assets/
 src/*/wwwroot/api/

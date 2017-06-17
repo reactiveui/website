@@ -1,0 +1,78 @@
+.content h1 {
+    color: #333 !important;
+}
+
+.hljs-title, .hljs-section {
+    color: #5d4f85 !important;
+}
+
+.content-header h1, .content-header small {
+   color: #333 !important;
+   background: none !important;
+   border-bottom: none !important;
+}
+
+.sidebar-menu li.header {
+    color: #5d4f85 !important;
+}
+
+.infobar-headings
+{
+    display: none !important;
+}
+
+.table thead tr {
+    background-color: #333 !important;
+}
+
+
+.sidebar-menu li.selected {
+    background: none !important;
+}
+
+.sidebar-menu li.selected > a
+{
+    background: none !important;
+}
+
+.infobar-headings a {
+    color: #5d4f85 !important;
+}
+
+.box
+{
+    border-top-color: #333;
+}
+
+a {
+    color: #6144b3 !important;
+    text-decoration: none !important;
+}
+
+a:focus, a:hover {
+    color: #3b3255 !important;
+    text-decoration: underline !important;
+}
+
+body {
+    font-family: "Source Sans Pro",Helvetica,Arial,sans-serif !important;
+    font-size: 16px !important;
+    line-height: 1.428571429 !important;
+    color: #333 !important;
+}
+
+.navbar a {
+    color: #777 !important;
+}
+
+.navbar a:focus, .navbar a:hover {
+    color: #777 !important;
+}
+
+.footer a {
+    color: #fff !important;
+}
+
+.footer a:focus, .footer a:hover {
+    color: #fff !important;
+}
