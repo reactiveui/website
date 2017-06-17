@@ -82,12 +82,6 @@
   <ItemGroup>
     <None Include="Controllers\ConceptsController.cs" />
   </ItemGroup>
-  <Target Name="PrepublishScript" BeforeTargets="PrepareForPublish">
-    <Exec Command="npm install" />
-    <Exec Command="gulp prepublish" />
-    <Exec Command="git clone https://github.com/reactiveui/ubersicht.git dashboard" WorkingDirectory="wwwroot" ContinueOnError="true" />
-    <Exec Command="git pull origin" WorkingDirectory="wwwroot/dashboard" ContinueOnError="false" />
-  </Target>
   <Target Name="DisableRefsPublishing" AfterTargets="_MvcRazorPrecompileOnPublish">
     <PropertyGroup>
       <PreserveCompilationContext>false</PreserveCompilationContext>
