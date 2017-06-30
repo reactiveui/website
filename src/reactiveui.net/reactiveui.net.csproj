@@ -34,9 +34,9 @@
     <Content Update="**/*.json" CopyToPublishDirectory="Never" />
     <Content Update="appsettings*.json" CopyToPublishDirectory="Always" />
   </ItemGroup>
- <Target Name="PrepublishScript" BeforeTargets="PrepareForPublish">
+ <Target Name="PrebuildScript" BeforeTargets="Build">
     <Exec Command="npm install" />
-    <Exec Command="gulp prepublish" />
+    <Exec Command="gulp" />
   </Target>
   <Target Name="DisableRefsPublishing" AfterTargets="_MvcRazorPrecompileOnPublish">
     <PropertyGroup>
