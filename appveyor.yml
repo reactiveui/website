@@ -1,3 +1,7 @@
+environment:
+  AZURE_PASSWORD:
+    secure: YgIscAy5BxXaTkZwnP33BZNijPJLwUSRPEOjBkP7x+cMv+G0OzNPKx6VDInS2p8Sd5wB3O3YVjvRU/EW47ux1A==
+
 branches:
   only:
     - master

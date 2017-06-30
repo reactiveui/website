@@ -56,3 +56,4 @@ src/*/wwwroot/api/
 # build
 archive/
 tools/
+publish/

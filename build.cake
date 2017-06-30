@@ -1,5 +1,6 @@
 #tool "nuget:https://api.nuget.org/v3/index.json?package=Wyam"
 #addin "nuget:https://api.nuget.org/v3/index.json?package=Cake.Wyam"
+#addin "nuget:https://api.nuget.org/v3/index.json?package=Cake.WebDeploy"
 
 //////////////////////////////////////////////////////////////////////
 // ARGUMENTS
@@ -7,9 +8,14 @@
 
 var target = Argument("target", "Default");
 
+var webDeployPassword = EnvironmentVariable("AZURE_PASSWORD");
+
 //////////////////////////////////////////////////////////////////////
 // PREPARATION
 //////////////////////////////////////////////////////////////////////
+
+var isPullRequest = AppVeyor.Environment.PullRequest.IsPullRequest;
+var isRepository = StringComparer.OrdinalIgnoreCase.Equals("reactiveui/website", AppVeyor.Environment.Repository.Name);
 
 var archiveDir = Directory("./archive");
 var wwwrootDir = Directory("./src/reactiveui.net/wwwroot");
@@ -108,15 +114,34 @@ Task("Build")
     .Does(() =>
     {
         StartProcess("dotnet", "restore");
-        StartProcess("dotnet", "publish");
+        StartProcess("dotnet", "publish --configuration release --output publish ../../");
     });
     
+
+Task("Deploy")
+    .WithCriteria(() => AppVeyor.IsRunningOnAppVeyor)
+    .WithCriteria(() => !isPullRequest)
+    .WithCriteria(() => isRepository)
+    .Does(() =>
+    {
+        DeployWebsite(new DeploySettings()
+        {
+            SourcePath = File("./publish"),
+            Delete = true,
+            SiteName = "reactiveui__staging",
+            ComputerName = "https://reactiveui-staging.scm.azurewebsites.net:443/msdeploy.axd?site=reactiveui__staging",
+            Username = "$reactiveui__staging",
+            Password = webDeployPassword
+        });
+    });
+
 //////////////////////////////////////////////////////////////////////
 // TASK TARGETS
 //////////////////////////////////////////////////////////////////////
 
 Task("Default")
-    .IsDependentOn("Build");
+    .IsDependentOn("Build")    
+    .IsDependentOn("Deploy");
     
 //////////////////////////////////////////////////////////////////////
 // EXECUTION
