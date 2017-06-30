@@ -113,10 +113,8 @@ Task("Build")
     .IsDependentOn("CopyApiDocs")
     .Does(() =>
     {
-        StartProcess("dotnet", "restore");
-        StartProcess("dotnet", "restore");
-        StartProcess("dotnet", "publish --configuration release");
-
+        StartProcess("dotnet", "restore reactiveui.net.sln");
+        StartProcess("dotnet", "publish reactiveui.net.sln --configuration release --output ../../publish");
     });
     
 
@@ -128,7 +126,7 @@ Task("Deploy")
     {
         DeployWebsite(new DeploySettings()
         {
-            SourcePath = File("./src/reactiveui.net/publish"),
+            SourcePath = File("./publish"),
             Delete = true,
             SiteName = "reactiveui__staging",
             ComputerName = "https://reactiveui-staging.scm.azurewebsites.net:443/msdeploy.axd?site=reactiveui__staging",

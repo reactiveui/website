@@ -12,4 +12,6 @@ init:
   - npm install -g gulp
    
 build_script:
-  - ps: .\build.ps1
+  - ps: cd src\reactiveui.net; npm install; gulp; cd ..\..; .\build.ps1
+
+test: off
