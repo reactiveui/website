@@ -1,4 +1,4 @@
-## reactiveui.net
+## reactiveui.net [![Build status](https://ci.appveyor.com/api/projects/status/v24m9qhsdsv2leok?svg=true)](https://ci.appveyor.com/project/ghuntley/website-mhrv8)
 Code for the reactiveui.net website.
 
 Staging - https://reactiveui-staging.azurewebsites.net/
