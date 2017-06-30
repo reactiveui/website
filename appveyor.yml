@@ -1,3 +1,5 @@
+image: Visual Studio 2017
+
 environment:
   AZURE_PASSWORD:
     secure: YgIscAy5BxXaTkZwnP33BZNijPJLwUSRPEOjBkP7x+cMv+G0OzNPKx6VDInS2p8Sd5wB3O3YVjvRU/EW47ux1A==
@@ -5,8 +7,9 @@ environment:
 branches:
   only:
     - master
-    
-image: Visual Studio 2017
 
+init:
+  - npm install -g gulp
+   
 build_script:
   - ps: .\build.ps1
