@@ -113,8 +113,8 @@ Task("Build")
     .IsDependentOn("CopyApiDocs")
     .Does(() =>
     {
-        StartProcess("dotnet", "restore");
-        StartProcess("dotnet", "publish --configuration release --output publish ../../");
+        StartProcess("dotnet", "restore reactiveui.net.sln");
+        StartProcess("dotnet", "publish reactiveui.net.sln --configuration release --output ../../publish");
     });
     
 
