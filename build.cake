@@ -39,7 +39,7 @@ var outputPath          = MakeAbsolute(Directory("./output"));
 Setup(ctx =>
 {
     // Executed BEFORE the first task.
-    Information("Building branch {0} ({1})...", currentBranch);
+    Information("Building branch {0}...", currentBranch);
 });
 
 
