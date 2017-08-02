@@ -21,7 +21,7 @@ var clearCookiesCommand = ReactiveCommand.CreateFromObservable(
 // combine all these commands into one "parent" command
 var clearAllCommand = ReactiveCommand
     .CreateCombined(
-        new [] { clearBrowsingHistoryCommand, clearDownloadHistoryCommand, clearAllCommand });
+        new [] { clearBrowsingHistoryCommand, clearDownloadHistoryCommand, clearCookiesCommand });
 ```
 
 The combined command respects the executability of all child commands. That is, if any child command cannot currently execute, neither can the combined command. In addition, it is also possible for you to pass in _extra_ executability logic when creating your combined command:
@@ -30,7 +30,7 @@ The combined command respects the executability of all child commands. That is, 
 IObservable<bool> canClearAll = ...;
 var clearAllCommand = ReactiveCommand
     .CreateCombined(
-        new [] { clearBrowsingHistoryCommand, clearDownloadHistoryCommand, clearAllCommand },
+        new [] { clearBrowsingHistoryCommand, clearDownloadHistoryCommand, clearCookiesCommand },
         canClearAll);
 ```
 
