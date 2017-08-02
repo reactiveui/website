@@ -2,6 +2,12 @@
 init:
   - git config --global core.autocrlf true
 
+# Temporarily needed until curl added to PATH
+# See http://help.appveyor.com/discussions/problems/6312-curl-command-not-found
+# And https://github.com/appveyor/ci/issues/1431
+install:
+- set PATH=C:\Program Files\Git\mingw64\bin;%PATH%
+
 # Build script
 build_script:
   - ps: .\build.ps1 -Target "AppVeyor"
