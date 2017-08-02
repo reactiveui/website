@@ -1,0 +1,9 @@
+Settings[Keys.Host] = "reactiveui.net";
+Settings[DocsKeys.Title] = "ReactiveUI";
+Settings[DocsKeys.Logo] = "/assets/img/logo.png";
+Settings[DocsKeys.SourceFiles] = "../dependencies/reactiveui/src/**/{!bin,!obj,!packages,!*.Tests,}/**/*.cs";
+Settings[DocsKeys.BaseEditUrl] = "https://github.com/reactiveui/website/blob/develop/input/";
+Settings[DocsKeys.IncludeDateInPostPath] = true;
+Settings[DocsKeys.BlogAtomPath] = "blog/feed/atom/index.xml";
+Settings[DocsKeys.BlogRssPath] = "blog/feed/rss/index.xml";
+Settings[DocsKeys.NetlifyRedirects] = "true";
