@@ -1,10 +1,4 @@
 
-# ViewModel Routing
-
-
-Kent: 
-> if you run into problems using `RoutedViewHost` in iOS, please see the fixes on my branch here which have not been merged yet (21/01/2016): https://github.com/kentcb/ReactiveUI/blob/TQ/ReactiveUI/Cocoa/RoutedViewHost.cs(edited)
-
 # Linker
 
     System.ExecutionEngineException: Attempting to JIT compile method 'System.Reactive.Linq.QueryLanguage:Switch (System.IObservable1<System.IObservable1>)' while running with --aot-only. See http://docs.xamarin.com/ios/about/limitations for more information.
