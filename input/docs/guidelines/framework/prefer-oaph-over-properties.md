@@ -1,4 +1,4 @@
-# Prefer Observable As Property Helpers to setting properties explicitly
+# Prefer ObservableAsPropertyHelpers over setting properties explicitly
 
 When a property's value depends on another property, a set of properties, or an 
 observable stream, rather than set the value explicitly, use 
