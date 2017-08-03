@@ -36,4 +36,4 @@ this.WhenAny(x => x.StuffFetched, y => y.OtherStuffNotBusy, (x, y) => x && y)
 2. `ObservableAsPropertyHelper` will take care of raising `INotifyPropertyChanged` events - if you're creating read-only properties, this can save so much boilerplate code.
 3. `WhenAny` lets you combine multiple properties, treat their changes as observable streams, and craft ViewModel-specific outputs.
 4. Scheduling. Simply pass in a value for the `scheduler` parameter, which avoids you needing to call `ObserveOn` yourself.
-5. Laziness. Simply set d`eferSubscription` to `true` and now your property is lazily-evaluated.
+5. Laziness. Simply set `deferSubscription` to `true` and now your property is lazily-evaluated.
