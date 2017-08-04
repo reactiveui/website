@@ -1,4 +1,6 @@
 # Xamarin Forms
 
+## Samples
+* https://github.com/GiusepeCasagrande/Cinephile
+* https://github.com/GiusepeCasagrande/RoutingSimpleSample
 
-https://github.com/reactiveui/ReactiveUI/pull/1115
