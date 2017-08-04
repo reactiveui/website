@@ -1,7 +1,5 @@
 Order: 10
 ---
-
-@Html.Partial("_ChildPages")
   
 # Example
 
