@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>ReactiveUI - An advanced, composable, functional reactive model-view-viewmodel framework for all .NET platforms</title>
+    
+    <link rel="shortcut icon" href="/assets/img/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/assets/img/favicon.ico" type="image/x-icon">
+
+
+    <link rel="apple-touch-icon" sizes="57x57" href="/assets/img/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/assets/img/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/assets/img/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/assets/img/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/assets/img/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/assets/img/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/assets/img/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/assets/img/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/assets/img/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/assets/img/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicon-16x16.png">
+
+    <link rel="stylesheet" href="normalize.css">
+    <link rel="stylesheet" href="master.css">
+
+  </head>
+  <body>
+    <div class="page grid">
+      <nav class="page-nav nav grid__item">
+        <h1 class="nav__title">
+          <a href=".">ReactiveUI</a>
+        </h1>
+      
+        <aside class="nav__subtitle">
+          <a href="https://reactiveui.net">reactiveui.net</a>
+        </aside>
+      
+        <ul class="nav__list">
+          <li>
+            <a class="nav__item" href="#factsheet">Factsheet</a>
+          </li>
+      
+          <li>
+            <a class="nav__item" href="#description">Description</a>
+          </li>
+      
+          <li>
+            <a class="nav__item" href="#there-is-a-better-way">There is a better way</a>
+          </li>
+      
+          <li>
+            <a class="nav__item" href="#trailers">Videos</a>
+          </li>
+      
+          <li>
+            <a class="nav__item" href="#quotes">Selected Articles</a>
+          </li>
+      
+          <li>
+            <a class="nav__item" href="#credits">Team</a>
+          </li>
+      
+          <li>
+            <a class="nav__item" href="#contact">Contact</a>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="page-wrapper grid__item">
+        <header class="page-header">
+        </header>
+
+        <main class="page-content" role="main">
+          <section class="block grid">
+            <aside class="factsheet grid__item">
+              <h2 id="factsheet" class="factsheet__title">Factsheet</h2>
+            
+              <dl class="factsheet__list">
+                <dt>Team:</dt>
+                <dd>Geoffrey Huntley</dd>
+                <dd>Kent Boogaart</dd>
+                <dd>Paul Betts</dd>
+                <dd>Olly Levett</dd>
+                <dd>Giusepe Casagrande</dd>
+                <dd>Brendan Forster</dd>
+                <dd>Oren Novotny</dd>
+
+                <dt>Customers:</dt>
+                <dd>Amazon</dd>
+                <dd>Slack</dd>
+                <dd>GitHub</dd>
+                <dd>Elastic</dd>
+
+                <dt>Founding date:</dt>
+                <dd>2009</dd>
+            
+                <dt>Website:</dt>
+                <dd>
+                  <a href="https://reactiveui.net">reactiveui.net</a>
+                </dd>
+
+                <dt>Donations:</dt>
+                <dd>
+                  <a href="https://reactiveui.net/donate">reactiveui.net/donate</a>
+                </dd>
+
+                <dt>Corporate Sponsorship:</dt>
+                <dd>
+                  <a href="https://reactiveui.net/sponsor">reactiveui.net/sponsor</a>
+                </dd>
+
+                <dt>Press &amp; Business contact:</dt>
+                <dd>
+                  <a href="mailto:hello@reactiveui.net">hello@reactiveui.net</a>
+                </dd>
+
+                <dt>Social:</dt>
+                <dd><a href="http://reactiveui.net/blog/">Blog</a></dd>
+                <dd><a href="https://twitter.com/reactivexui/">Twitter</a></dd>
+                <dd><a href="https://www.nuget.org/packages/reactiveui/">NuGet</a></dd>
+                
+              </dl>
+            
+            </aside>
+
+            <article class="description grid__item">
+              <h2 id="description">Description</h2>
+                <p>ReactiveUI is a composable, cross-platform model-view-viewmodel framework for all .NET platforms that is inspired by functional reactive programming which is a paradigm that allows you to express the idea around a feature in one readable place, abstract mutable state away from your user interfaces and improve improve the testability of your application.</p>
+ 
+                <p>ReactiveUI is the father of the extremely popular <a href="https://github.com/ReactiveCocoa/">ReactiveCocoa</a> framework. Internally the team debates whether ReactiveUI is or is not a framework, as at its core the project is essentially a bunch of extension methods for the <a href="https://dotnetfoundation.org/reactive-extensions-for-net">Reactive Extensions</a>.</p>
+
+                <p>The team believes that code is communication between people, that also happens to run on a computer. If you optimise for humans, then over a long time your software project will end up better. Software should be understandable by other people; that is super important. We believe that only <a href="https://www.youtube.com/watch?v=5DZ8nC0ENdg" target="_blank">the power of the Reactive Extensions allows you to express the idea around a feature in one readable place</a>.</p>
+              
+              <h2 id="there-is-a-better-way">There is a better way</h2>
+                <p>Long ago, when computer programming first came to be, machines had to be programmed quite manually. If the technician entered the correct sequence of machine codes in the correct order, then the resulting program behavior would satisfy the business requirements.  Instead of telling a computer how to do its job, which error-prone and relies too heavily on the infallibility of the programmer, why don't we just tell it what it's job is and let it figure the rest out?</p>
+
+                <p>Most modern programming today is basically imperative, meaning it models the traditional fetch-execute cycle of a CPU. Perform an instruction, fetch the next one. Perform that one, and so on. For decades, programmers have had to mould their brains to fit the paradigm of the CPU. It's been like this since the early 1980s. When we rely on hoping that the behavior that emerges from a program is correct, and that reliance is based on nothing more than a programmer's correctness, then we can easily find ourselves in a sticky situation. We can try and mitigate the costs of imperative programming with things like unit tests or integration tests, but why mitigate the costs when there's a better way?</p>
+              
+                <p>Reactive programming can look scary and complex at first glance, but the best way to describe reactive programming is to think of a spreadsheet:</p>
+                <img src="frp-excel.gif"/>
+
+                <ul>
+                  <li>Three cells, A, B, and C.</li>
+                  <li>C is defined as the sum of A and B.</li>
+                  <li>Whenever A or B changes, C reacts to update itself.</li>
+                </ul>
+              </ul>
+            </article>
+          </section>
+
+          <section class="block">
+            <h2 id="videos">Videos</h2>
+          
+            <div>
+              <p>
+                <strong>Why you should be building better mobile applications</strong> <a href="https://www.youtube.com/embed/DYEbUF4xs1Q?rel=0">YouTube</a>
+              </p>
+          
+              <div class="video-player">
+                <iframe class="video-player__frame" src="https://www.youtube.com/embed/DYEbUF4xs1Q?rel=0" frameborder="0" allowfullscreen></iframe>
+              </div>
+            </div>
+
+            <div>
+              <p>
+                <strong>Awaiting for Rx: A play in four acts</strong> <a href="https://www.youtube.com/embed/5DZ8nC0ENdg?rel=0">YouTube</a>
+              </p>
+          
+              <div class="video-player">
+                <iframe class="video-player__frame" src="https://www.youtube.com/embed/5DZ8nC0ENdg?rel=0" frameborder="0" allowfullscreen></iframe>
+              </div>
+            </div>
+
+            <div>
+              <p>
+                <strong>Function Reactive Programming: In practice</strong> <a href="https://www.youtube.com/embed/1XNATGjqM6U?rel=0">YouTube</a>
+              </p>
+          
+              <div class="video-player">
+                <iframe class="video-player__frame" src="https://www.youtube.com/embed/1XNATGjqM6U?rel=0" frameborder="0" allowfullscreen></iframe>
+              </div>
+            </div>
+
+          </section>
+          
+          
+          <section class="block">
+            <h2 id="logo">Logo &amp; Icon</h2>
+          
+            <aside class="block__notice">
+              <a href="logo.zip">
+                download logo files as .zip
+              </a>
+            </aside>
+          
+            <a href="logo.png">
+              <img src="logo.png" alt="logo" class="logo">
+            </a>
+          </section>
+
+          <section class="block">
+            <h2 id="articles">Selected Articles</h2>
+          
+            <ul>
+              <li class="quote">
+                <blockquote class="quote__content" cite="http://ericsink.com/entries/dont_use_rxui.html">
+                  The effort to learn Rx and ReactiveUI is worth the trouble. My claim is based on this notion that ReactiveUI shines as complexity increases, but also on my belief that most people underestimate the complexity of their app. If you disagree that most of your code is reacting to something that changed, you might be underestimating the complexity of your app.
+                </blockquote>
+                <cite class="quote__author">
+                  <a href="http://ericsink.com/entries/dont_use_rxui.html">Eric Sink</a>, creator of <a href="https://github.com/ericsink/SQLitePCL.raw">SQLitePCL.raw</a>
+                </cite>
+              </li>
+              <li class="quote">
+                <blockquote class="quote__content" cite="http://www.jon-douglas.com/2017/08/01/being-more-reactive/">
+                  It took me over 4 slow years to realize that the Reactive Extensions (RX) is a good idea. It’s never too late to start learning something new. Here’s a few reasons why I personally dived into RX. The influencers have double downed on the library, Google has moved to a RX mindset with their new Architecture Components and other languages/frameworks have implementations - Thus the knowledge is universal. 
+                </blockquote>
+                <cite class="quote__author">
+                  John Douglas, <a href="http://www.jon-douglas.com/2017/08/01/being-more-reactive/">Xamarin</a>
+                </cite>
+              </li>
+            </ul>
+          </section>
+          
+          <section class="block grid _team-fix-margin-top">
+            <article class="grid__item grid__item--flexible">
+              <h2 id="credits">Team</h2>
+              <table>
+                <tbody>
+                  <tr>
+                    <td align="center" valign="top">
+                      <a href="https://github.com/ghuntley.png?s=150" target="_blank"><img width="150" height="150" src="https://github.com/ghuntley.png?s=150" style="max-width:100%;"></a>
+                      <br>
+                      <a href="https://github.com/ghuntley">Geoffrey Huntley</a>
+                      <p>Sydney, Australia</p>
+                    </td>
+                    <td align="center" valign="top">
+                      <a href="https://github.com/kentcb.png?s=150" target="_blank"><img width="150" height="150" src="https://github.com/kentcb.png?s=150" style="max-width:100%;"></a>
+                      <br>
+                      <a href="https://github.com/kentcb">Kent Boogaart</a>
+                      <p>Adelaide, Australia</p>
+                    </td>
+                    <td align="center" valign="top">
+                      <a href="https://github.com/paulcbetts.png?s=150" target="_blank"><img width="150" height="150" src="https://github.com/paulcbetts.png?s=150" style="max-width:100%;"></a>
+                      <br>
+                      <a href="https://github.com/paulcbetts">Paul Betts</a>
+                      <p>San Francisco, USA</p>
+                    </td>
+                    <td align="center" valign="top">
+                      <a href="https://github.com/olevett.png?s=150" target="_blank"><img width="150" height="150" src="https://github.com/olevett.png?s=150" style="max-width:100%;"></a>
+                      <br>
+                      <a href="https://github.com/olevett">Olly Levett</a>
+                      <p>London, United Kingdom</p>
+                    </td>
+                    <td align="center" valign="top">
+                      <a href="https://github.com/giusepecasagrande.png?s=150" target="_blank"><img width="150" height="150" src="https://github.com/giusepecasagrande.png?s=150" style="max-width:100%;"></a>
+                      <br>
+                      <a href="https://github.com/giusepecasagrande">Giusepe Casagrande</a>
+                      <p>São Leopoldo, Brazil</p>
+                    </td>
+                    <td align="center" valign="top">
+                      <a href="https://github.com/shiftkey.png?s=150" target="_blank"><img width="150" height="150" src="https://github.com/shiftkey.png?s=150" style="max-width:100%;"></a>
+                      <br>
+                      <a href="https://github.com/shiftkey">Brendan Forster</a>
+                      <p>Melbourne, Australia</p>
+                    </td>
+                    <td align="center" valign="top">
+                      <a href="https://github.com/onovotny.png?s=150" target="_blank"><img width="150" height="150" src="https://github.com/onovotny.png?s=150" style="max-width:100%;"></a>
+                      <br>
+                      <a href="https://github.com/onovotny">Oren Novotny</a>
+                      <p>New York, USA</p>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </article>
+          </section>
+
+          <section class="block grid">
+
+            <h2 id="contact">Contact</h2>
+              <article class="grid__item grid__item--flexible">
+                <dl>
+                  <dt>Press &amp; Business contact</dt>
+            
+                  <dd>
+                    <a href="mailto:hello@reactiveui.net">hello@reactiveui.net</a>
+            
+                  </dd>
+                  <dt>Sponsorship &amp; Donations:</dt>
+            
+                  <dd>
+            
+                    <a href="https://reactiveui.net/donate">reactiveui.net/donate</a>
+                  </dd>
+                </dl>
+              </article>
+    
+              <article class="grid__item grid__item--flexible">
+                <dl>
+                  <dt>Twitter</dt>
+                  <dd>
+                    <a href="https://twitter.com/reactivexui">twitter.com/reactivexui</a>
+                  </dd>
+
+                  <dt>Web</dt>
+                  <dd>
+                    <a href="https://reactiveui.net/">reactiveui.net</a>
+                  </dd>
+                </dl>
+              </article>
+
+            </article>
+          </section>
+        </main>
+
+        <footer class="page-footer">
+          ReactiveUI is a <a href="https://dotnetfoundation.org">.NET Foundation</a> project. Other projects that are associated with the foundation include the Microsoft .NET Compiler Platform ("Roslyn") as well as the Microsoft ASP.NET family of projects, Microsoft .NET Core & Xamarin Forms.
+        </footer>
+      </div>
+    </div>
+
+    <script src="masonry.min.js"></script>
+    <script src="imagesloaded.min.js"></script>
+    <script>
+      // Initialize the grid on the images gallery.
+      document.addEventListener('DOMContentLoaded', function onContentLoaded() {
+        var images = document.querySelector('#gallery')
+    
+        imagesLoaded(images, function onImagesLoaded() {
+          new Masonry(images, {
+            itemSelector: '.gallery__item'
+          })
+        })
+      })
+    </script>
+    
+  </body>
+</html>
