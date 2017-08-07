@@ -1,3 +1,7 @@
+Title: TL;DR
+Order: 0
+---
+
 # Principles
 
 Good content is:
