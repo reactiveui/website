@@ -1,4 +1,4 @@
-.
+http://www.introtorx.com/content/v1.0.10621.0/20_Disposables.html
 
 # CompositeDisposable
 
