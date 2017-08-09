@@ -26,6 +26,11 @@ When appropriate, you can tag the subject of your post on Twitter or Facebook. B
 * Yes: "We talked with @GeoffreyHuntley about building an reactive application. https://reactiveui.net/blog”
 * No: "Hey @GeoffreyHuntley, can you RT this post we wrote about you? https://reactiveui.net/blog”
 
+<blockquote class="twitter-tweet" data-conversation="none" data-lang="en"><p lang="en" dir="ltr">Hot tip, don&#39;t shy away from having conversations between both accounts, you&#39;ll get great questions &amp; ppl will see you reply 😁</p>&mdash; Lyndsey Jackson (@ok_lyndsey) <a href="https://twitter.com/ok_lyndsey/status/895384141130211328">August 9, 2017</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+Reply to people using your personal account (if you want to - otherwise use the offical account) when people engage with social media posts to help build momentum. Think of it as putting a few bucks in the tip jar to give people a little prompt. If they know you reply they more likely to respond.
+
 # Hashtags
 We employ hashtags rarely and deliberately. We may use them to promote an event or connect with users at a conference. Do not use current event or trending hashtags to promote ReactiveUI.
 
