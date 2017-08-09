@@ -96,7 +96,7 @@ Assuming the following project structure:
 ```
 
 * Install `reactiveui-xamforms` into your portable class library, platform library, applications and tests.
-* Install `reactiveui-events-xamarin` into your portable class library and applications.
+* Install `reactiveui-events-xamforms` into your portable class library and applications.
 * Install `reactiveui-testing` into your tests.
 
 # Xamarin Mac
