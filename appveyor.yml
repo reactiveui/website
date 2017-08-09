@@ -2,6 +2,8 @@
 init:
   - git config --global core.autocrlf true
 
+skip_branch_with_pr: true
+
 # Temporarily needed until curl added to PATH
 # See http://help.appveyor.com/discussions/problems/6312-curl-command-not-found
 # And https://github.com/appveyor/ci/issues/1431
