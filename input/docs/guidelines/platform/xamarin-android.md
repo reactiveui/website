@@ -23,11 +23,16 @@ Don't use eventhandlers, use the extension methods shipped in `reactiveui-events
 
 Use your normal Android concepts that you would usually use in Android development, we have some base classes which you should use as they expose observables such as `Changed`, `Changing` and `Deactivated` that can be used for composition.
 
+- https://reactiveui.net/api/reactiveui.androidsupport/reactiveappcompatactivity_1/
 - https://reactiveui.net/api/reactiveui/reactiveactivity/
+- https://reactiveui.net/api/reactiveui/reactivefragment/
+- https://reactiveui.net/api/reactiveui.android.support/reactiverecyclerviewadapter_1/
 - https://reactiveui.net/api/reactiveui.androidsupport/reactiveactionbaractivity
 - https://reactiveui.net/api/reactiveui.androidsupport/reactivefragment/
+- https://reactiveui.net/api/reactiveui.androidsupport/reactivedialogfragment/
 - https://reactiveui.net/api/reactiveui/reactivefragmentactivity/
 - https://reactiveui.net/api/reactiveui/reactivelistadapter_1/
+- https://reactiveui.net/api/reactiveui/reactivepageradapter_1/
 - https://reactiveui.net/api/reactiveui/reactivepreferencefragment/
 - https://reactiveui.net/api/reactiveui/reactivepreferenceactivity/
 
@@ -38,8 +43,3 @@ There's also some extension methods which will make your life easier
 - https://reactiveui.net/api/reactiveui/usbmanagerextensions/
 - https://reactiveui.net/api/reactiveui/androidobservableforwidgets/
 - https://reactiveui.net/api/reactiveui/flexiblecommandbinder/
-
-## Navigation
-
-Since native Android doesn't support ViewModel based routing, you have to use View based navigation instead. That means that you will do as much logic as possible in the ViewModel, but the navigation in the view using intents.
-If you have other projects, for example a UWP, you want to use the view based navigation there aswell.
