@@ -50,4 +50,4 @@ this.Events().KeyUp
 [Source-code for this meetup talk](https://github.com/reactiveui/meetups/blob/master/002%20-%20reactiveui-events%20-%20the%20super%20cool%20package.zip)
 
 # See Also
-* http://www.introtorx.com/content/v1.0.10621.0/04_CreatingObservableSequences.html#FromEvent for information on the pattern
+* http://www.introtorx.com/content/v1.0.10621.0/04_CreatingObservableSequences.html#FromEvent
