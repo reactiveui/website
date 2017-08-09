@@ -17,7 +17,7 @@ MyCoolApps.UnitTests (tests)
 ```
 
 * Install `reactiveui-winforms` into your application and tests.
-* Install `reactiveui-events-winforms` into your portable class library and application.
+* Install `reactiveui-events-winforms` into your application.
 * Install `reactiveui-testing` into your tests.
 
 # Windows Presentation Framework
