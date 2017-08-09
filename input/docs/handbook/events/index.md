@@ -1,6 +1,7 @@
 # Events
 
 * Install the appropriate `reactiveui-events-*` package into your application.
+* You can use the events package standlone, without any references to ReactiveUI. `reactiveui-events-*` will always be a seperate package that has no dependancy on  the`reactiveui` package.
 * This package looks at all the `EventHandlers` for a platform and generates  `Observable.FromEventPattern` extension methods via this [Moustache template](https://github.com/reactiveui/ReactiveUI/blob/develop/src/EventBuilder/DefaultTemplate.mustache).
 * Don't use `EventHandlers` ever, use the generated `Observable.FromEventPattern` versions.
 * Combine multiple `Observable.FromEventPattern`together to get amazing composition.
