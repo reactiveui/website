@@ -18,7 +18,7 @@ The Subscribe method returns an IDisposable, so that you can unsubscribe to a se
 
 If you call a Subscribe method and ignore the return value, you have lost your only handle to unsubscribe. The subscription will still exist, and you have effectively lost access to this resource, which could result in leaking memory and running unwanted processes.
 
-The Reactive Extensions provides several different options to help you with managing [lifetime, scope and resources](disposables).
+ReactiveUI provides you with  [WhenActivated](/docs/handbook/when-activated) to help manage lifecyle and the Reactive Extensions provides several different options to help you with managing [lifetime, scope and resources](disposables).
 
 ## See Also
 
