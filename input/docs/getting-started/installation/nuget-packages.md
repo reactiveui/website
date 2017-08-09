@@ -63,6 +63,7 @@ Assuming the following project structure:
 ```
 
 * Install `reactiveui` into your portable class library, platform library, application and tests.
+* Install `reactiveui-androidsupport` into your application.
 * Install `reactiveui-events` into your portable class library and application.
 * Install `reactiveui-testing` into your tests.
 
