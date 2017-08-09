@@ -1,3 +1,4 @@
+Title: NuGet Packages
 Order: 10
 ---
 
