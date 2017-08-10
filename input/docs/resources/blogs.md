@@ -19,3 +19,9 @@ Title: Blog Posts
 > In my opinion (and it’s just that, my opinion) most commands don’t add any value to the main goals for using MVVM (maintainability, readability and testability). Typically they’re just an object that wraps a method, sometimes also a predicate for CanExecute but that’s it. What they mostly add is ceremony to the view model and not much more, you typically see this in commands named RelayCommand or DelegateCommand. Some commands are really useful however, ReactiveCommand in ReactiveUI adds a lot of value when building that style of application and I highly recommend them. - Maintainer of Caliburn.Micro
 
 * [Command conventions in Caliburn.Micro](http://compiledexperience.com/blog/posts/comand-conventions)
+
+## Eightbot
+
+> In Reactive vocabulary, a hen is like an IObservable<Egg>.  She lays eggs periodically – we don't know how often, or how many total eggs, or for how long.
+
+* [Merging IObservable<Egg>](https://www.eightbot.com/single-post/2017/08/10/Merging-IObservableEgg)
