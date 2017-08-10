@@ -6,7 +6,7 @@ Use it to inspect a pipeline without siseffefts. Great for logging and debugging
 
 # Where
 
-Watch "why you should be making better apps Xamarin Evolve video.
+Watch "why you should be making better apps with Reactice Programming" Xamarin Evolve video.
 
 Where fish is not a shrimp.
 
