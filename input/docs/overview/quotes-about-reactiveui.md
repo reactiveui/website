@@ -20,3 +20,9 @@ ReactiveUI is used successfully in real-world business applications around the w
 
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">😍Long ago &#39;events&#39; was my major contrib to <a href="https://twitter.com/ReactiveXUI">@ReactiveXUI</a> <a href="https://t.co/adc181AveS">https://t.co/adc181AveS</a>. I&#39;ve almost forgotten how to use bare metal C# events 😂</p>&mdash; brad phelan (@bradgonesurfing) <a href="https://twitter.com/bradgonesurfing/status/895580815500886017">August 10, 2017</a></blockquote>
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+# Nigel Sampson
+
+> In my opinion (and it’s just that, my opinion) most commands don’t add any value to the main goals for using MVVM (maintainability, readability and testability). Typically they’re just an object that wraps a method, sometimes also a predicate for CanExecute but that’s it. What they mostly add is ceremony to the view model and not much more, you typically see this in commands named RelayCommand or DelegateCommand. Some commands are really useful however, ReactiveCommand in ReactiveUI adds a lot of value when building that style of application and I highly recommend them. - Maintainer of Caliburn.Micro
+
+* [Command conventions in Caliburn.Micro](http://compiledexperience.com/blog/posts/comand-conventions)
