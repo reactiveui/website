@@ -6,6 +6,8 @@
 * Don't use `EventHandlers` ever, use the generated `Observable.FromEventPattern` versions.
 * Combine multiple `Observable.FromEventPattern`together to get amazing composition.
 
+<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">😍Long ago &#39;events&#39; was my major contrib to <a href="https://twitter.com/ReactiveXUI">@ReactiveXUI</a> <a href="https://t.co/adc181AveS">https://t.co/adc181AveS</a>. I&#39;ve almost forgotten how to use bare metal C# events 😂</p>&mdash; brad phelan (@bradgonesurfing) <a href="https://twitter.com/bradgonesurfing/status/895580815500886017">August 10, 2017</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 ```csharp
 var codes = new[]
