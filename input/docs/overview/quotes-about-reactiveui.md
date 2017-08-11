@@ -13,6 +13,12 @@ ReactiveUI is used successfully in real-world business applications around the w
 
 * [Being Reactive](http://www.jon-douglas.com/2017/08/01/being-more-reactive/)
 
+# Reactive Extensions in Action
+
+> Reactive programming lets you focus on what you’re trying to achieve rather than on the technical details of making it work. This leads to simple and readable code and eliminates most boilerplate code (such as change tracking or state management) that distracts you from the intent of your code logic. When the code is short and focused, it’s less buggy and easier to grasp.
+
+* https://www.manning.com/books/rx-dot-net-in-action
+
 # Brad Phelan
 
 <blockquote class="twitter-tweet" data-conversation="none" data-lang="en"><p lang="en" dir="ltr">I have 438 usages of WhenAnyValue, 92 ToProperty calls and 52 Events calls. I can&#39;t imagine working with raw INPC. <a href="https://twitter.com/hashtag/reactiveui?src=hash">#reactiveui</a> <a href="https://twitter.com/hashtag/win?src=hash">#win</a></p>&mdash; brad phelan (@bradgonesurfing) <a href="https://twitter.com/bradgonesurfing/status/895597814436188161">August 10, 2017</a></blockquote>
