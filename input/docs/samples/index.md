@@ -17,7 +17,7 @@ Ever noticed that little checkbox when installing Visual Studio to "Install GitH
 
 # Universal Windows Platform
 
-Send in a pull-request linking to what you have built.
+Send in a pull-request linking to the source code of something you have built.
 
 # Xamarin Android
 
