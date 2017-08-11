@@ -24,7 +24,6 @@
         <link rel="shortcut icon" href="@Context.GetLink("/assets/img/favicon.ico")" type="image/x-icon">
         <link rel="icon" href="@Context.GetLink("/assets/img/favicon.ico")" type="image/x-icon">
 
-
         <link rel="apple-touch-icon" sizes="57x57" href="@Context.GetLink("/assets/img/apple-icon-57x57.png")">
         <link rel="apple-touch-icon" sizes="60x60" href="@Context.GetLink("/assets/img/apple-icon-60x60.png")">
         <link rel="apple-touch-icon" sizes="72x72" href="@Context.GetLink("/assets/img/apple-icon-72x72.png")">
@@ -49,16 +48,26 @@
         <meta property="og:url" content="@Context.GetLink(Model, true)" />
         <meta property="og:type" content="article" />
         <meta property="og:title" content="@ViewData[Keys.Title]" />
-        <meta property="og:description" content="ReactiveUI is a composable, cross-platform model-view-viewmodel framework for all .NET platforms that is inspired by functional reactive programming which is a paradigm that allows you to express the idea around a feature in one readable place, abstract mutable state away from your user interfaces and improve improve the testability of your application." />
         <meta property="og:image" content="https://reactiveui.net/assets/img/facebook-card.png" />
 
         <meta name="twitter:card" content="summary_large_image">
         <meta name="twitter:site" content="@@reactivexui">
         <meta name="twitter:creator"content="@@reactivexui">
         <meta name="twitter:title" content="@ViewData[Keys.Title]">
-        <meta name="twitter:description" content="ReactiveUI is a composable, cross-platform model-view-viewmodel framework for all .NET platforms that is inspired by functional reactive programming which is a paradigm that allows you to express the idea around a feature in one readable place, abstract mutable state away from your user interfaces and improve improve the testability of your application.">
         <meta name="twitter:image" content="https://reactiveui.net/assets/img/twitter-card.png">
         <meta name="twitter:image:alt" content="An advanced, composable, functional reactive model-view-viewmodel framework for all .NET platforms">
+
+        @{
+            var description = @ViewData[DocsKeys.Description];
+            if (String.IsNullOrEmpty(description))
+            {
+                description = "ReactiveUI is a composable, cross-platform model-view-viewmodel framework for all .NET platforms that is inspired by functional reactive programming which is a paradigm that allows you to express the idea around a feature in one readable place, abstract mutable state away from your user interfaces and improve improve the testability of your application.";
+            }
+            
+            <meta property="og:description" content="@description" />
+            <meta name="twitter:description" content="@description">
+        }
+
 
         <title>@Context.String(DocsKeys.Title, "Docs") - @ViewData[Keys.Title]</title>
         <link href="@Context.GetLink("/assets/css/mermaid.css")" rel="stylesheet">
