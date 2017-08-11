@@ -1,6 +1,10 @@
 Order: 100
 ---
 
+# Ambitious (hfs!) within 6 months plan
+
+https://reactivex.slack.com/archives/C02AJB872/p1502462627603705
+
 # Help Wanted
 
 This page needs fleshing out, pretty much every interaction we have. If you have questions PR the answers here. It's the onboarding guide for other people who may wish to help with documentation:
