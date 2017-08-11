@@ -7,7 +7,7 @@ View Location is a feature of ReactiveUI that allows you to associate Views with
 The easiest way to use View Location is via the `ViewModelViewHost` control, which is a View (on Cocoa, a UIView/NSView, and on XAML-based platforms a Control) which has a single `ViewModel` property. When the ViewModel property is set, View Location looks up the associated View and loads it into the container. 
 
 `ViewModelViewHost` is great for lists - so much so, that if you Bind to
-`ItemsSource` on XAML-based platforms and don't set a DataTemplate, one gets
+`ItemsSource` on XAML-based platforms and don't set a DataTemplate nor the `DisplayMemberPath` property, one gets
 configured that just uses `ViewModelViewHost`.
 
 ```xml
@@ -31,6 +31,35 @@ Locator.CurrentMutable.Register(() => new ToasterView(), typeof(IViewFor<Toaster
 
 View Location internally uses a class called `ViewLocator` which can either be replaced, or the default one used. The `ResolveView` method will return the View associated with a given ViewModel object.
 
+### Manually setting the view
+
+Sometimes you need to manually set the view for the items in an `ItemsControl` or one of its subclasses.
+The easiest option is to set `DisplayMemberPath`, which will cause ReactiveUI to not assign a value to `ItemTemplate` and will instead show the referenced property as text. A more powerful option is manually setting a value for `ItemTemplate`, which gives you full control over how each item is displayed.
+
+```XAML
+<!--  ReactiveUI will set ItemTemplate to ViewModelViewHost -->
+<ItemsControl />
+
+<!--  ReactiveUI ignores this one because ItemTemplate is already set -->
+<ItemsControl> 
+    <ItemsControl.ItemTemplate>
+        ...
+    </ItemsControl.ItemTemplate>
+</ItemsControl>
+
+<!--  ReactiveUI ignores this one because DisplayMemberPath is already set -->
+<ItemsControl DisplayMemberPath="SomeValue" /> 
+```
+
+It's possible you want to use `DisplayMemberPath`, but don't know the value for it at compile time. Trying to bind the property will result in the following exception: "InvalidOperationException: Cannot set both DisplayMemberPath and ItemTemplate". This is because ReactiveUI looks at the control on initialization, does not see any preset value for `DisplayMemberPath` nor `ItemTemplate` and decides to set `ItemTemplate` to `ViewModelViewHost`. Then, when the ViewModel is attached to the View, the binding tries to set the value for `DisplayMemberPath`, and the aforementioned exception occurs. The solution is to set a dummy value for `DisplayMemberPath`, which will be replaced by the binding but will stop ReactiveUI from trying to set `ItemTemplate`.
+```XAML
+<!-- The dummy value will cause ReactiveUI to ignore this control -->
+<ItemsControl Name="MyItemsControl" DisplayMemberPath="DummyValue" /> 
+```
+```C#
+//This binding will override the dummy value
+this.OneWayBind(ViewModel, vm => vm.MyDisplayMemberPath, v => v.MyItemsControl.DisplayMemberPath);
+```
 
 ### Overriding ViewLocator
 
