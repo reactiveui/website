@@ -21,17 +21,17 @@ Send in a pull-request linking to what you have built.
 
 # Xamarin Android
 
-Source code @ https://github.com/kentcb/WorkoutWotch
-Video based learning @ https://github.com/kentcb/WorkoutWotch#where-are-the-videos
+* Source code @ https://github.com/kentcb/WorkoutWotch
+* Video based learning @ https://github.com/kentcb/WorkoutWotch#where-are-the-videos
 
 # Xamarin iOS
 
-Source code @ https://github.com/kentcb/WorkoutWotch
-Video based learning @ https://github.com/kentcb/WorkoutWotch#where-are-the-videos
+* Source code @ https://github.com/kentcb/WorkoutWotch
+* Video based learning @ https://github.com/kentcb/WorkoutWotch#where-are-the-videos
 
 # Xamarin Forms
 
-https://github.com/GiusepeCasagrande/Cinephile
+* https://github.com/GiusepeCasagrande/Cinephile
 
 # Xamarin Mac
 
