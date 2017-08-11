@@ -9,6 +9,9 @@
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">😍Long ago &#39;events&#39; was my major contrib to <a href="https://twitter.com/ReactiveXUI">@ReactiveXUI</a> <a href="https://t.co/adc181AveS">https://t.co/adc181AveS</a>. I&#39;ve almost forgotten how to use bare metal C# events 😂</p>&mdash; brad phelan (@bradgonesurfing) <a href="https://twitter.com/bradgonesurfing/status/895580815500886017">August 10, 2017</a></blockquote>
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
+<blockquote class="twitter-tweet" data-conversation="none" data-lang="en"><p lang="en" dir="ltr">Events remove crappy noise ceremonial: not only intent literally surfaces but it spares useless verbose protocol. There is no going back!</p>&mdash; Aku Studio (@Aku_Studio) <a href="https://twitter.com/Aku_Studio/status/895918988412190722">August 11, 2017</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
 ```csharp
 var codes = new[]
 {
