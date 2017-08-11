@@ -1,7 +1,7 @@
 Order: 100
 ---
 
-# Ambitious (hfs!) within 6 months plan
+# Ambitious (hfs!) plan of domination
 
 https://reactivex.slack.com/archives/C02AJB872/p1502462627603705
 
