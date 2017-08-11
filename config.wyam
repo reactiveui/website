@@ -7,3 +7,4 @@ Settings[DocsKeys.IncludeDateInPostPath] = true;
 Settings[DocsKeys.BlogAtomPath] = "blog/feed/atom/index.xml";
 Settings[DocsKeys.BlogRssPath] = "blog/feed/rss/index.xml";
 Settings[DocsKeys.NetlifyRedirects] = "true";
+Settings[DocsKeys.CaseInsensitiveAuthors] = "true";
