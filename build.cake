@@ -24,9 +24,8 @@ var currentBranch       = isRunningOnAppVeyor ? BuildSystem.AppVeyor.Environment
 
 // Define directories.
 var dependenciesDir     = Directory("./dependencies");
-var sourceDir           = dependenciesDir + Directory("reactiveui");
-var dashboardDir        = dependenciesDir + Directory("dashboard");
 var outputPath          = MakeAbsolute(Directory("./output"));
+var sourceDir           = dependenciesDir + Directory("reactiveui");
 
 // Variables
 
@@ -58,18 +57,6 @@ Task("Clean")
 
     CreateDirectory(dependenciesDir);
 });
-
-Task("GetDashboard")
-    .IsDependentOn("Clean")
-    .Does(() =>
-    {
-	    FilePath dashboardZip = DownloadFile("https://github.com/reactiveui/dashboard/archive/master.zip");
-        Unzip(dashboardZip, dependenciesDir);
-        
-        // Need to rename the container directory in the zip file to something consistent
-        var containerDir = GetDirectories(dependenciesDir.Path.FullPath + "/*").First(x => x.GetDirectoryName().StartsWith("dashboard"));
-        MoveDirectory(containerDir, dashboardDir);
-    });
 
 
 Task("GetSource")
@@ -138,7 +125,6 @@ Task("Default")
     .IsDependentOn("Build");
 
 Task("GetArtifacts")
-    .IsDependentOn("GetDashboard")
     .IsDependentOn("GetSource");
 
 Task("AppVeyor")
