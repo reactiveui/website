@@ -21,6 +21,11 @@ Michael Stonis & Geoffrey Huntley at Xamarin University
 Michael Stonis at Xamarin Evolve 2016
 <iframe width="1280" height="720" src="https://www.youtube.com/embed/DYEbUF4xs1Q" frameborder="0" allowfullscreen></iframe>
 
+## Reactive Programming, changing the world at Netflix, Microsoft, Slack and beyond!
+
+Matthew Podwysocki at AngularConf
+<iframe width="1280" height="720" src="https://www.youtube.com/embed/yEeDbHvg1vQ" frameborder="0" allowfullscreen></iframe>
+
 # 2014
 
 ## Awaiting for Rx: A Play in Four Acts
