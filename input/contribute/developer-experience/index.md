@@ -13,7 +13,14 @@ If you are sick of investing personal development energy in transitory framework
 
 # The Plan (tm)
 
-https://reactivex.slack.com/archives/C02AJB872/p1502462627603705
+ReactiveUI is the father of the extremely popular ReactiveCocoa AKA "RAC" (and also by extension ReactiveSwift framework which  literaly transformed and changed the way iOS software development is done. Whilst Paul was working at GitHub, the team behind ReactiveCocoa (also GitHub employees) over beers and coffee ported the concepts behind ReactiveUI to iOS :-)
+
+* https://github.com/ReactiveCocoa/ReactiveCocoa (17,675 stars, 3,289 forks)
+* https://github.com/ReactiveCocoa/ReactiveSwift
+
+The .NET ecosystem is behind the eightball with reactive programming _even though we are the ecosystem that invented the reactive extensions_. This is super embarassing. The developer experience (documentation, samples, people presenting and sharing their experiences at meetups) has been lacking. Let's fix htis. 
+
+See https://reactivex.slack.com/archives/C02AJB872/p1502462627603705 for some ideas on how to fix this, head on over to https://reactiveui.net/slack for an invite if you don't have access.
 
 # Help Wanted
 
