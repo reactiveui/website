@@ -13,7 +13,7 @@ If you are sick of investing personal development energy in transitory framework
 
 # The Plan (tm)
 
-ReactiveUI is the father of the extremely popular ReactiveCocoa AKA "RAC" (and also by extension ReactiveSwift framework which  literaly transformed and changed the way iOS software development is done. Whilst Paul was working at GitHub, the team behind ReactiveCocoa (also GitHub employees) over beers and coffee ported the concepts behind ReactiveUI to iOS :-)
+ReactiveUI is the father of the extremely popular ReactiveCocoa AKA "RAC" (and also by extension ReactiveSwift framework which  literaly transformed and changed the way iOS software development is done. Whilst Paul was working at GitHub, the team behind ReactiveCocoa (also GitHub employees) ported the concepts behind ReactiveUI to iOS via much beer and coffee  :-)
 
 * https://github.com/ReactiveCocoa/ReactiveCocoa (17,675 stars, 3,289 forks)
 * https://github.com/ReactiveCocoa/ReactiveSwift
