@@ -10,15 +10,19 @@ ShowInNavbar: false
 <div class="header">
     <div class=" container">
         <div class=" row">
+            <div class=" span12 col-sm-12">
+                <div class="branding">
+                    <img class="img-responsive" src="@Context.GetLink("/assets/img/logo.png")" />
+                </div>
+            </div>
+        </div>
+        <div class=" row">
             <div class=" span12 col-sm-12 hidden-xs">
                 <br>
             </div>
 
             <div class=" span6 col-md-6">
                 <div class="branding">
-                    <br class="hidden-xs">
-                    <img class="img-responsive" src="@Context.GetLink("/assets/img/logo.png")" />
-
                     <h3>An advanced, composable, functional reactive model-view-viewmodel framework for all .NET platforms</h3>
                     <h3 class="no-margin">
                         <a class="" href="@Context.GetLink("/docs/getting-started")">
