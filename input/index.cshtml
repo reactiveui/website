@@ -47,6 +47,38 @@ ShowInNavbar: false
     </div>
 </div>
 
+<div class="container">
+    @Html.Partial("_NextMeetup") 
+</div>
+
+<div class=" container">
+    <div class="row">
+        <div class=" span6 col-sm-12">
+            <h2>Support the Team</h2>
+            <p><a href="/contribute">Contributions</a>, <a href="/donate">donations</a>, and <a href="/sponsorship">corporate sponsorship</a> allows ReactiveUI to thrive. Your contributions &amp; donations directly support the community that supports you, ensures continued enhancements to the project, and most importantly, helps with the creation of great documentation and samples!</p>
+
+            <h3>Sponsors</h3>
+            @Html.Partial("_Sponsors")
+
+            <h3>Backers</h3>
+            @Html.Partial("_Backers")
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <h2>Previous Meetups</h2>
+    <div class="row">
+
+    </div>
+
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <a href="/meetup" class="btn btn-primary">Click to view previous meetups</a>
+        </div>
+    </div>
+</div>
+
 <div class=" container">
     <h2>Features</h2>
 
@@ -97,38 +129,6 @@ ShowInNavbar: false
             <p>ReactiveUI is developed under an <a href="License" target="_blank">OSI-approved open source license</a>, making it freely usable and distributable, even for commercial use. We ❤ the people who are involved in this project, and we’d love <a href="Contribute">to have you on board</a>, especially if you are just getting started or have never contributed to open-source before.</p>
             
             <p>ReactiveUI is a <a href="http://dotnetfoundation.org/" target="_blank">.NET Foundation</a> project. Other projects that are associated with the foundation include the .NET Compiler Platform ("Roslyn") as well as the ASP.NET family of projects, .NET Core &amp; Xamarin Forms.</p>
-        </div>
-    </div>
-</div>
-
-<div class="container">
-    @Html.Partial("_NextMeetup") 
-</div>
-
-<div class=" container">
-    <div class="row">
-        <div class=" span6 col-sm-12">
-            <h2>Support the Team</h2>
-            <p><a href="/contribute">Contributions</a>, <a href="/donate">donations</a>, and <a href="/sponsorship">corporate sponsorship</a> allows ReactiveUI to thrive. Your contributions &amp; donations directly support the community that supports you, ensures continued enhancements to the project, and most importantly, helps with the creation of great documentation and samples!</p>
-
-            <h3>Sponsors</h3>
-            @Html.Partial("_Sponsors")
-
-            <h3>Backers</h3>
-            @Html.Partial("_Backers")
-        </div>
-    </div>
-</div>
-
-<div class="container">
-    <h2>Previous Meetups</h2>
-    <div class="row">
-
-    </div>
-
-    <div class="row">
-        <div class="col-md-12 text-center">
-            <a href="/meetup" class="btn btn-primary">Click to view previous meetups</a>
         </div>
     </div>
 </div>
