@@ -20,7 +20,11 @@ _It is important to note that "stopped contributing" was the most common respons
 
 Now, with all of the above said, how do you determine what crosses the line? Well, there's the obvious ones like:
 
+![](obvious-abuse.png)
+
 But there are also the more subtle ones:
+
+![](subtle-abuse.png)
 
 Here's the rule of thumb:
 
