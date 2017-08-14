@@ -1,24 +1,14 @@
 Order: 0
 ---
 
-We are building something amazing; reactive programming changes you as a developer and makes you better. Knowledge of reactive programming is _universal across programming languages_.
+Knowledge of reactive programming changes you as a developer, makes you better and aligns your career with where the industry is going. One of the cool things about reactive programming is that the knowledge is _universal across programming languages_. 
 
-Case in point - AngularJS was released, people adopted it, and then Version v2.0 (cough 4.0) came out. All that accumulated knowledge - disposed of. Such a waste.
+When AngularJS was released, people adopted it, and then version v2.0 (cough 4.0) came out and all of that accumulated framework knowledge had to be thrown away; such a waste. Interesting enough, you now need to know reactive programming to be an Angular developer - that's what the breaking change was - the Angular team has embraced reactive programming and IObservable with open arms.
 
-Internally the we debate whether ReactiveUI is or is not a framework, as at its core the project is essentially a bunch of extension methods for the Reactive Extensions.
+If you ever decide to move away from user interface development to backend development you'll need to know reactive programming as it is the staple tool of choice with stream processing and event based architectures. Likewise, if you decide it's time to move on from the .NET ecosystem then this knowledge is directly portable and can be directly applied in that ecosystem because there's an implementation for and vibrant community in that ecosystem. 
 
-If you are sick of investing personal development energy in transitory frameworks whereby you must learn "how do I do $x with $framework specific way" knowing deep down in side that this knowledge has no value in the future; then please come and join us over at https://reactiveui.net/slack
+Have you ever screamed in frustration after a long debugging session related to mutable state or wondered if there was a better way to compose events when handling events? Welcome, you have stumbled upon the solution.
 
-# Have you decided to adopt Rx?
+Internally the maintainers debate whether ReactiveUI is or is not a framework, as at its core the project is essentially a bunch of extension methods for the Reactive Extensions. With ReactiveUI, a little bit of code goes a long way and you don't need to go all-in with the framework or reactive programming. Use as little as where needed, along side an existing framework, or as your end-to-end model-view-viewmodel framework. 
 
-Have you solved a complex problem with Reactive Extensions in your code?  Did you implement a new feature using Rx and want to learn more about Reactive Programming?  Are you looking for a better way to deal with mutable state?  Have you heard of this horrible concept of Rx and want to know why its bad and you should stay away from it?  If the answer is yes to any of these questions, welcome to ReactiveUI.
-
-# What Rx can do for you?
-
-> ReactiveUI at its core is a set of extension methods for the Reactive Extensions
-
- That means it isn't really an MVVM framework, but can be wired into MVVM programming to provide reactive functionality to your MVVM experience.  Your not learning another MVVM framework that will be obsolete in the future.  You are applying Reactive Programming, which exists across many popular languages.  The skills are transferable, because it's *all* reactive functional programming.  Buyer be warned! Rx is addictive.  Once you start reacting to behavior, you won't want to give explicit instructions.
-
-# ReactiveUI is the C# MVVM rockstar
-
-ReactiveUI is a little bit of manageable code that goes a long way.  It can be used just a little where needed, or as an MVVM Framework.  ReactiveUI can handle an asynchronous network call, or complex UI updates based on the mutable state of the UI itself.  The amount of ReactiveUI required is left to developer discretion.  If your interested in learning a better way to develop applications please come join us in [Slack](https://reactiveui.net/slack)
+Buyer be warned however, the Reactive Extensions are quite addictive. Once you start writing software in this manner you won't ever want to go back. If your interested in learning a better way to develop applications please come join us in [Slack](https://reactiveui.net/slack). Stick around, send in a pull-request if you see an opportunity for improvement and we will invest in you, in hope that you will stick around and pay it forward when you are ready.
