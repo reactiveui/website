@@ -1,3 +1,5 @@
+Title: Dealing with Angry, Negative, Problematic or Disruptive community members
+---
 
 https://medium.com/@eranhammer/so-you-decided-to-contribute-to-open-source-93b640cf2ae2
 
