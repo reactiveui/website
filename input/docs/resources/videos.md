@@ -10,7 +10,7 @@ ReactiveUI with Michael Stonis
 
 # 2016
 
-# ReactiveUI with Xamarin - Xamarin University Guest Lecture
+## ReactiveUI with Xamarin - Xamarin University Guest Lecture
 
 Michael Stonis & Geoffrey Huntley at Xamarin University
 
