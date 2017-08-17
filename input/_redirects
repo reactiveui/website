@@ -1,5 +1,7 @@
 /branding           https://github.com/reactiveui/styleguide
+/book               http://reactiveui-in-depth.launchrock.com/
 /changelog          https://github.com/reactiveui/reactiveui/releases
+/duality            /docs/concepts/reactive-programming/duality
 /code-of-conduct    https://github.com/reactiveui/ReactiveUI/blob/develop/CODE_OF_CONDUCT.md
 /concepts           /docs/
 /donate             https://opencollective.com/reactiveui
@@ -11,4 +13,3 @@
 /stack-overflow     https://stackoverflow.com/questions/tagged/reactiveui
 /twitch             https://www.twitch.tv/geoffreyhuntley
 /press              /about
-/book               http://reactiveui-in-depth.launchrock.com/
