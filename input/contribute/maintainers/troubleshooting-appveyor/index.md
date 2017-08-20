@@ -26,8 +26,6 @@ At a terminal:
 ```
 This will update the timestamp on the last commit and force push it, thereby triggering another build. Of course, like any forced push, this is only safe if no one is depending on said branch.
 
-TODO: rebuilding via AppVeyor (remove above instructions?)
-
 ## Waiting for status to be reported
 Ugh, isn't this annoying? Luckily it doesn't happen often. It happens when the Webhook payload from GitHub to AppVeyor failures for whatever reason. Luckily it's easy to fix.
 
