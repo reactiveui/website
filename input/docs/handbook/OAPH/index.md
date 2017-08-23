@@ -16,7 +16,7 @@
     Ryan:09:36 it might be the only _real_ way
     Ryan:09:37 but i think the topic is OAPH yeah
     Ryan:09:37 maybe it can be - OAPH (Derived properties) or something like that
-    
-    
+
 Goals:
-* OPAH is the foundation of a reactive application.
+
+* OAPH is the foundation of a reactive application.
