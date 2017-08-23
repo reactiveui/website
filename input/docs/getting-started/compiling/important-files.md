@@ -32,7 +32,7 @@
 # eventgenerator.binlog
 * https://reactiveui.net/docs/getting-started/compiling/troubleshooting#binary-logging
 
-# gitreleasemanager.yaml
+# gitreleasemanager.yml
 * This is how our release notes are automatically generated (look at build.cake)
 * See https://github.com/GitTools/GitReleaseManager
 * See https://reactiveui.net/contribute/maintainers/creating-a-new-release/workflow
