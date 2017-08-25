@@ -6,7 +6,7 @@ author: Geoffrey Huntley
 
 One of the perks of being a maintainer of an open-source project is you get to be part of the fantastic initiative by GitHub - [maintainers.github.com](https://maintainers.github.com) where some of the brightest minds in open-source leadership from across disciplines/ecosystems share their insights on how to run projects, productively at scale towards successful outcomes. 
 
-One of the lessons we have learned from that community is that having stale issues (or pull-requests) is a source of contention both maintainers and consumers of software. 
+One of the lessons we have learned from that community is that having stale issues (or pull-requests) is a source of contention for both maintainers and consumers of software. 
 
 Today we enabled `probot/stale` on our GitHub repository. What this means is a friendly robot will automatically close any open GitHub issue (including pull-request) with more than sixty-seven days of inactivity. 
 
