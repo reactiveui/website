@@ -48,7 +48,10 @@ Return 0 if you can't convert an object and return anything else if it is possib
 
 In most cases, usage is automatic.  When a binding is created, the converter(s) with the highest affinity are chosen from those registered with Splat. Optionally, you can provide a specific converter to override what the default would have been for either VM to View or View to VM. 
 
-    this.Bind(ViewModel, vm => vm.ViewModelProperty, v => v.Control.Property, new CustomTypeConverter());
+    this.Bind(ViewModel, vm => vm.ViewModelProperty, v => v.Control.Property,
+        vmToViewConverterOverride: new CustomTypeConverter());
+
+It's important to specify `vmToViewConverterOverride` to be sure not to accidentally pass your converter to the `conversionHint` parameter.
     
 ## Inline Binding Converters ##
 You can supply inline function methods to Bind. This allows you to quickly supply a conversion method. This avoids having to supply a IBindingTypeConverter for one off cases. 
