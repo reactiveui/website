@@ -8,9 +8,7 @@ One of the perks of being a maintainer of an open-source project is you get to b
 
 One of the lessons we have learned from that community is that having stale issues (or pull-requests) is a source of contention for both maintainers and consumers of software. 
 
-Today we enabled `probot/stale` on our GitHub repository. What this means is a friendly robot will automatically close any open GitHub issue (including pull-request) with more than sixty-seven days of inactivity. 
-
-Moments ago, eighty-five issues were visited by the robot and it asked the initiators what the status is - automatically. As a maintainer, it always feels awkward closing old issues or half-completed pull requests. We haven't always been the best with triaging and this is the first step of many to improve in this area. 
+Moments ago we enabled `probot/stale` on our GitHub repository. What this means is a friendly robot will automatically close any open GitHub issue (including pull-request) with more than sixty-seven days of inactivity.  Eighty-five issues were visited by the robot and it asked the initiators what the status is - automatically. As a maintainer, it always feels awkward closing old issues or half-completed pull requests. We haven't always been the best with triaging and this is the first step of many to improve in this area. 
 
 I've gone through by hand and where appropriate marked some of them to never be automatically closed (legitimate bugs or outstanding pull-requests), but if I've missed one, please accept our apologies if your contribution has not been attended to properly and perform some form of activity (comment, label, assign to milestone) to reset the clock.
 
