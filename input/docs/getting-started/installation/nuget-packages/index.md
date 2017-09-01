@@ -2,6 +2,9 @@ Title: NuGet Packages
 Order: 10
 ---
 
+<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Packages for <a href="https://twitter.com/ReactiveXUI">@ReactiveXUI</a> are now signed by the <a href="https://twitter.com/dotnetfdn">@dotnetfdn</a>. Only builds from their infrastructure carry this seal &lt;3 <a href="https://twitter.com/onovotny">@onovotny</a> for your help <a href="https://t.co/3PZt8GNtWl">pic.twitter.com/3PZt8GNtWl</a></p>&mdash; Geoffrey Huntley (@GeoffreyHuntley) <a href="https://twitter.com/GeoffreyHuntley/status/903619522883497984">September 1, 2017</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
 # Tizen
 
 * https://github.com/reactiveui/ReactiveUI/pull/1387
