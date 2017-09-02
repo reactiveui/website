@@ -1,5 +1,7 @@
 # Windows Forms
 
+ReactiveUI targets `NET452` (which is the oldest version that's still supported by microsoft) - there are NET40 forks you can use.
+
 Example at https://github.com/shiftkey/reactiveui-winforms-example
 
 Make sure you install `reactiveui-winforms` into your solution.  If you don't,
