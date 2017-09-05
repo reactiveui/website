@@ -268,3 +268,14 @@ Now we need to create a View for our view model, the following is an example
     </Grid>
 </Window>
 ```   
+
+# Further steps to begin mastering ReactiveUI
+A big part of understanding ReactiveUI is understanding Reactive Programming. As ReactiveUI is a library build on `Reactive Extension for .NET`. Here are some steps to begin with:
+- Create a net45 console app, install Akavache, use getandfetchlatest, pass in a Task to grab http content (for example use http://swapi.co/ for testing purpose), subscribe to it and observe how a async value returns multiple times. Unlike tasks, observables respesent one or more values over time whilst you subscribe.
+- Then next step move onto reactive programming disposables/subscriptions
+- Then look at whenacticated (reactive UI) and disposing subscriptions (reactive programming)
+- Now create a ViewModel (reactiveobject) that replicates your learning from the console app and plug that into the datacontext of your Xamarin forms app. Do everything else (for now) exactly how you normally would.
+
+--- finish ---
+You now know ReactiveUI, but not yet proficient in expressing yourself in an reactive manner/cleanly.
+Next step is [OAPH](https://reactiveui.net/docs/handbook/oaph/), [WhenAny](https://reactiveui.net/docs/handbook/when-any/) and [Reactive Command](https://reactiveui.net/docs/handbook/commands/). This is optional but you get immense power out of mastery of these.
