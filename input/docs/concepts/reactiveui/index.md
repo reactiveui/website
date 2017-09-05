@@ -1,10 +1,10 @@
 Title: ReactiveUI
 ---
 
-# WhenAny
+# [WhenAny](/docs/handbook/when-any)
 
-# ReactiveCommand
+# [ReactiveCommand](/docs/handbook/commands/reactive-commands)
 
-# WhenActivated
+# [WhenActivated](/docs/handbook/when-activated)
 
-# Interactions
+# [Interactions](/docs/handbook/interactions)
