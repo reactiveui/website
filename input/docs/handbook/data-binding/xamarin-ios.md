@@ -1,4 +1,5 @@
-# Xamarin iOS
+Title: Xamarin iOS
+---
 
 In order to use bindings in the View, you must first implement
 `IViewFor<TViewModel>` on your View. Depending on the platform, you must
