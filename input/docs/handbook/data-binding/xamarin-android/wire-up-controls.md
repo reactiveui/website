@@ -1,11 +1,9 @@
-# WireUpControls
-
 Since Xamarin Android doesn't provide some method to automatically generate properties for subviews in your layout, ReactiveUI provides a helper method to do this for you.
 Every `Activity`, `Fragment`, `View` or class implementing `ILayoutViewHost` can call the extensions method `WireUpControls` with one of three ways to resolve properties to their respective element in the layout.
 
 It works in a similar fashion to [Butterknife](http://jakewharton.github.io/butterknife/) for Android.
 
-### Naming policies
+# Naming policies
 
 When calling `WireUpControls` from your application, a dictionary is built of all resource ID names used in your layouts, converted to lowercase, mapped to the actual resource ID. Essentially it's based on the contents of the `Resource.designer.cs` file.
 
@@ -15,23 +13,24 @@ The reason this is mapping is made, is because you would often use camelCase nam
 
 So while you can use the same resource name multiple times in a single or multiple layout files like you normally can, they would have to use the exact same casing.
 
-### Resolving strategies
+# Resolving strategies
 
 You can choose from three different `ResolveStrategy` options when calling `WireUpControls`, of which the default implicit variant will work in most cases, but for specialized cases we also provide two explicit strategies. 
 
-#### Implicit
+## Implicit
 
 This is the default. `WireUpControls` tries to resolve every property that is a subclass of `View` in your class to a resource ID in your layout, regardless of visibility. Since your view should mainly be responsible for data-binding and not much else, this shouldn't impose a lot of problems. Mind you that properties of type `View` will be ignored since this causes propblems with default properties already present in activities for example.
 
-#### Explicit opt-in
+## Explicit opt-in
 
 In this case, you'll need to decorate properties you want to have wired up with the `WireUpResource` attribute. Every other property will be ignored by `WireUpControls`. No type-checking is imposed.
 
-#### Explicit opt-out
+## Explicit opt-out
 
 In this case, every property will be mapped to a resource ID in your layout file, unless it's decorated with the `IgnoreResource` attribute. This applies to all properties with a type of `View`, and subclasses thereof.
 
-## Examples
+# Examples
+
 For this layout:
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -50,7 +49,7 @@ For this layout:
 </LinearLayout>
 ```
 
-#### `ControlFetcherMixin.ResolveStrategy.Implicit`
+## `ControlFetcherMixin.ResolveStrategy.Implicit`
 
 ```csharp
 [Activity (Label = "WireUpControls-Sample", MainLauncher = true)]
@@ -76,7 +75,7 @@ public class TestActivity : ReactiveActivity<TheViewModel>
 }
 ```
 
-#### `ControlFetcherMixin.ResolveStrategy.ExplicitOptIn`
+## `ControlFetcherMixin.ResolveStrategy.ExplicitOptIn`
 
 ```csharp
 [Activity (Label = "WireUpControls-Sample", MainLauncher = true)]
@@ -104,7 +103,7 @@ public class TestActivity : ReactiveActivity<TheViewModel>
 }
 ```
 
-#### `ControlFetcherMixin.ResolveStrategy.ExplicitOptOut`
+## `ControlFetcherMixin.ResolveStrategy.ExplicitOptOut`
 
 ```csharp
 [Activity (Label = "WireUpControls-Sample", MainLauncher = true)]
