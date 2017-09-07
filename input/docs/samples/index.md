@@ -16,6 +16,8 @@ Send in a pull-request linking to the source code of something you have built.
 
 Ever noticed that little checkbox when installing Visual Studio to "Install GitHub for Visual Studio"? Yeah that extension is a enterprise grade application built with ReactiveUI and it's completely open-source. See https://github.com/github/VisualStudio/tree/master/src (especially the unit tests!)
 
+Additionally you absolutely must take https://github.com/RolandPheasant/Dynamic.Trader for a test-drive. So so good. 
+
 # Universal Windows Platform
 
 Send in a pull-request linking to the source code of something you have built.
