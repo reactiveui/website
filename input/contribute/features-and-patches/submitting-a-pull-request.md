@@ -7,7 +7,7 @@ Before you submit your pull request, please:
 Make your changes in a new git branch:
 
 ```shell
-git checkout -b my-fix-branch master
+git checkout -b my-fix-branch develop
 ```
 
 * Follow our [Coding Style](code-style.md).
