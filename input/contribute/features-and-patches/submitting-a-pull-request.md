@@ -38,8 +38,4 @@ If we suggest changes, then:
 * Commit your changes to your branch (e.g. `my-fix-branch`).
 * Push the changes to your GitHub repository (this will update your Pull Request).
 
-Finally, nerd snipe the appropriate team to review the pull-request.
-
-![](/en/images/contributing/nerd-snipe-the-appropriate-review-team.png)
-
 That's it! Thank you for your contribution!
