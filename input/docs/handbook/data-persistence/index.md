@@ -1,4 +1,4 @@
-# Data Suspension
+# Data Persistence
 
 Taking our classic ViewModel, we are going to decide what is important
 to save upon application death/resume. We specifically do not save the
