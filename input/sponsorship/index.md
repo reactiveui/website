@@ -1,0 +1,2 @@
+<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">I wonder how many(me included) who see these sponsors as &quot;Oh, they like <a href="https://twitter.com/hashtag/webpack?src=hash">#webpack</a>! That must be a nice place to work at as a dev! 😍&quot; <a href="https://t.co/RvcxfcKUAd">https://t.co/RvcxfcKUAd</a></p>&mdash; 🌍 🌳 🐝 🌊 🏳️‍🌈 (@reimertz) <a href="https://twitter.com/reimertz/status/912397014738104320">September 25, 2017</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
