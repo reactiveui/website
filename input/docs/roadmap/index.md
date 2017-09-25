@@ -6,6 +6,7 @@ Want to see something done sooner? Speak with one of the maintainers and ask how
 # Now
 - [Ship netstandard release](https://github.com/reactiveui/ReactiveUI/pull/1422)
 - Host virtual meetups on a regular interval.
+- Improve quality of website documentation.
 - Reference sample applications for each platform
 - Global roadshow on reactive programming, [the maintainers will present at your usergroup](https://reactiveui.net/meetup/co-host/).
 - Improve contributor experience (pull-request reviews, issue triage, processes documented, work with visuals studio for mac product team and help them implement the features that are missing from their product)
