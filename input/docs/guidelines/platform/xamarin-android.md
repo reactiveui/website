@@ -1,4 +1,5 @@
-# Xamarin Android
+Title: Xamarin Android
+---
 
 Your viewmodels should inherit from `ReactiveObject`
 
