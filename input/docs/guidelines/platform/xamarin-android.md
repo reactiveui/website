@@ -6,7 +6,7 @@ Your viewmodels should inherit from `ReactiveObject`
 
 Use wireupcontrols
 
-https://reactivex.slack.com/archives/C02AJB872/p1502910274000467?thread_ts=1502910274.000467&cid=C02AJB872
+- https://reactiveui.net/docs/handbook/data-binding/xamarin-android/wire-up-controls
 
 Use `ISupportsActivation` and `WhenActivated` for lifecycle
 
