@@ -1,4 +1,5 @@
-# Windows Presentation Framework
+Title: Windows Presentation Framework
+---
 
 Your viewmodels should inherit from `ReactiveObject`
 
