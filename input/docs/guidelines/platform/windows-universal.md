@@ -25,4 +25,5 @@ Use your normal UWP concepts that you would usually use in UWP development. Ther
 
 - https://reactiveui.net/api/reactiveui/reactiveusercontrol_1/
 - https://reactiveui.net/api/reactiveui/iviewfor_1/
+- https://reactiveui.net/api/reactiveui/routedviewhost/
 - https://reactiveui.net/api/reactiveui/autodatatemplatebindinghook/
