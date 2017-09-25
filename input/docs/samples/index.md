@@ -34,10 +34,8 @@ Send in a pull-request linking to the source code of something you have built.
 
 # Xamarin Forms
 
-* https://github.com/kentcb/WorkoutWotch
 * https://github.com/GiusepeCasagrande/Cinephile
 * https://github.com/GiusepeCasagrande/RoutingSimpleSample
-
 
 # Xamarin Mac
 
