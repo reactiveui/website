@@ -1,4 +1,5 @@
-# Windows Universal
+Title: Windows Universal
+---
 
 Your viewmodels should inherit from `ReactiveObject`
 
