@@ -31,7 +31,7 @@ public class LoggingService : ILogger
 
 Then at your composition root, register your implementation
 
-```
+```csharp
 public void ConfigureLogging()
 {
 #if DEBUG
