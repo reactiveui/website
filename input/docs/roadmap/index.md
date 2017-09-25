@@ -16,7 +16,7 @@ Want to see something done sooner? Speak with one of the maintainers and ask how
 
 # Next
 - [Add memory leak tests (ReactiveUI.LeakTests) to assert even more correctness](https://github.com/reactiveui/ReactiveUI/issues/1486)
-- Azure Mobile Centre
+- Increase testing coverage, increase amount of platforms that are tested & implement daily builds on real physical devices on Xamarin Test cloud.
 - [Benchmark everything, do a release focused on measuring allocations and reducing them](https://github.com/reactiveui/ReactiveUI/issues?q=is%3Aissue+is%3Aopen+label%3Aperformance)
 - [Add the tizen30 platform to reactiveui](https://github.com/reactiveui/ReactiveUI/pull/1387)
 
