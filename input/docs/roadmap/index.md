@@ -4,7 +4,7 @@ Title: Roadmap
 Want to see something done sooner? Speak with one of the maintainers and ask how you can help.
 
 # Now
-- Ship netstandard release
+- [Ship netstandard release](https://github.com/reactiveui/ReactiveUI/pull/1422)
 - Host virtual meetups on a regular interval.
 - Reference sample applications for each platform
 - Global roadshow on reactive programming, [the maintainers will present at your usergroup](https://reactiveui.net/meetup/co-host/).
