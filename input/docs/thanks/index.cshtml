@@ -1,0 +1,40 @@
+Title: Thanks
+NoSidebar: true
+NoContainer: false
+NoGutter: false
+---
+
+<div class="container">
+    <h2>Thanks for your contributions to the ReactiveUI Project</h2>
+    <h3><a href="https://github.com/reactiveui/website">https://github.com/reactiveui/website</a></h3>
+    <div class="container-website"></div>
+    <h3><a href="https://github.com/reactiveui/reactiveui">https://github.com/reactiveui/reactiveui</a></h3>
+    <div class="container-reactiveui"></div>
+</div>
+
+<script>
+  $.when(
+    $.ajax('https://api.github.com/repos/reactiveui/website/contributors?per_page=250'),
+    $.ajax('https://api.github.com/repos/reactiveui/reactiveui/contributors?per_page=250'))
+  .then(function(websiteData, reactiveUIData) {
+    buildUI(websiteData[0], '.container-website');
+    buildUI(reactiveUIData[0], '.container-reactiveui');
+  });
+
+  function buildUI(persons, containerClass) {
+    $(persons).each(function (index, person) {
+      var img = '<img class="contributor" src="' + person.avatar_url + '" />';
+      $(containerClass)
+        .append('<a title="' + person.login + '" href="' + person.html_url + '">' 
+                + img + '</a>');
+    });
+  }
+</script>
+
+<style>
+  .contributor {
+    width: 80px;
+    border-radius: 730px;
+    margin: 10px 10px 0 0;
+  }
+</style>
