@@ -30,6 +30,13 @@ Michael Stonis at Xamarin Evolve 2016
 Matthew Podwysocki at AngularConf
 <iframe width="1280" height="720" src="https://www.youtube.com/embed/yEeDbHvg1vQ" frameborder="0" allowfullscreen></iframe>
 
+# 2015
+
+## Reactive UI - It's pretty neat
+By Brendan Forster
+
+<iframe width="854" height="480" src="https://www.youtube.com/embed/HPyKHxy7X0w" frameborder="0" allowfullscreen></iframe>
+
 # 2014
 
 ## Awaiting for Rx: A Play in Four Acts
