@@ -3,6 +3,10 @@ Order: 10
 
 # 2017
 
+## There is a better way
+There is a better way - Geoffrey Huntley at NDC Sydney
+<iframe width="854" height="480" src="https://www.youtube.com/embed/4inY7TFEVT0" frameborder="0" allowfullscreen></iframe>
+
 ## The Xamarin Show: Episode 17
 ReactiveUI with Michael Stonis
 
