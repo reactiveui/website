@@ -47,6 +47,6 @@ Paul Betts at Strange Loop
 
 # 2012
 
-## Paul Betts at Reactive Extensions and ReactiveUI
+## Reactive Extensions and ReactiveUI: Paul Betts at QCon
 
 https://www.infoq.com/presentations/Reactive-Extensions-and-ReactiveUI
