@@ -49,3 +49,9 @@ Paul Betts at Xamarin Evolve 2014
 Paul Betts at Strange Loop
 <iframe width="640" height="360" src="https://www.youtube.com/embed/1XNATGjqM6U?list=PLM9jdoijSdhgiRR9Bd8KkLggD0LZK5K3C" frameborder="0" allowfullscreen></iframe>
 
+# 2012
+
+## Reactive Extensions and ReactiveUI: Paul Betts at QCon
+
+https://www.infoq.com/presentations/Reactive-Extensions-and-ReactiveUI
+
