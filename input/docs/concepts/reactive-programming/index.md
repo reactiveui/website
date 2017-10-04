@@ -14,7 +14,7 @@ On top of that, you are given an amazing toolbox of functions to combine, create
 If streams are so central to Reactive, let's take a careful look at them, starting with our familiar "clicks on a button" event stream.
 
 
-![](marble-diagram.png)
+![](marble-diagrams.jpg)
 
 
 A stream is a sequence of _ongoing events ordered in time_. It can emit three different things: a value (of some type), an error, or a "completed" signal. Consider that the "completed" takes place, for instance, when the current window or view containing that button is closed.
