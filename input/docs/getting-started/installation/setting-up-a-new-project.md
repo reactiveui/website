@@ -20,7 +20,7 @@ MyCoolApps.UnitTests (tests)
 * Install `reactiveui-events-winforms` into your portable class library and application.
 * Install `reactiveui-testing` into your tests.
 
-# Windows Presentation Framework
+# Windows Presentation Foundation
 
 _IMPORTANT_: The information below is forward looking that is relevant once ReactiveUI v8 ships. Until it does just use the drop `-wpf` off from all packages.
 
