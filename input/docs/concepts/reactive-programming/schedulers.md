@@ -21,3 +21,5 @@ The other thing that we use in some tests (e.g. if you're wanting to check wheth
 
 
 The advantage of the that way is you get the scheduler to play with, which is nice if you're using a `TestScheduler` because you don't have to worry about tidying up after yourself (e.g. (new TestScheduler()).With(sched=>{});)
+
+Each _thread_ has its own set of test schedulers that the `With` extension manages for you. This means that even if your tests run asynchronously, they will in theory not stomp on each other's schedulers.
