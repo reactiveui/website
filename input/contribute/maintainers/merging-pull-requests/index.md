@@ -6,13 +6,13 @@ We use [GitReleaseManager](https://gitreleasemanager.readthedocs.io/develop/) to
 
 1. Assign one or more labels to categorize what component of ReactiveUI was changed by this unit of work. ![](images/apply-one-or-more-labels.png)
 
-2. Rename the title of the GitHub issue to match [our convention](/input/contribute/software-style-guide/commit-message-convention.md). ![](images/rename-the-title.png)
+2. Rename the title of the GitHub issue to match [our convention](/contribute/software-style-guide/commit-message-convention). ![](images/rename-the-title.png)
 
 Ensure that the merge button is set to `Squash and Merge`, use the little arrow on the right hand side to switch to this mode.
 
 ![](images/squash-and-merge-commit.png)
 
-Mash the `Squash and Merge` button which will squash/rebasing all commits in the pull-request into one, this is your last chance to make sure the commit message follows [our established convention](/input/contribute/software-style-guide/commit-message-convention.md) with the existing suffix i.e. `(#$pullRequestNumber)`
+Mash the `Squash and Merge` button which will squash/rebasing all commits in the pull-request into one, this is your last chance to make sure the commit message follows [our established convention](/contribute/software-style-guide/commit-message-convention) with the existing suffix i.e. `(#$pullRequestNumber)`
 
 ![](images/ready-for-squash-and-merge.png)
 
