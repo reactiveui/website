@@ -8,6 +8,7 @@ Want to see something done sooner? Speak with one of the maintainers and ask how
 - Host virtual meetups on a regular interval.
 - Improve quality of website documentation.
 - Reference sample applications for each platform
+- [Add ReactiveUI to Microsoft Windows Template Studio](https://github.com/reactiveui/ReactiveUI/issues/1516)
 - Global roadshow on reactive programming, [the maintainers will present at your usergroup](https://reactiveui.net/meetup/co-host/).
 - Improve contributor experience (pull-request reviews, issue triage, processes documented, work with visuals studio for mac product team and help them implement the features that are missing from their product)
 - Encourage users and contributors to pull-request the website docs / lift high quality discussions from Slack and turn them into documentation
