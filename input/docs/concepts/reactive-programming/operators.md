@@ -2,7 +2,7 @@
 
 # Do
 
-Use it to inspect a pipeline without siseffefts. Great for logging and debugging.
+Use it to inspect a pipeline without side effects. Great for logging and debugging.
 
 # Where
 
