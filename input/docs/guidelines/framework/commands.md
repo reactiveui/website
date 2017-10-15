@@ -6,7 +6,7 @@ Prefer binding user interactions to commands rather than methods.
 
 ```csharp
 // In XAML
-&lt;Button Command="{Binding Delete}" .../&gt;
+<Button Command="{Binding Delete}" .../>;
 
 public class RepositoryViewModel : ReactiveObject
 {
