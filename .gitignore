@@ -5,3 +5,6 @@
 [Dd]ependencies/
 nuget.exe
 [Ll]ocal[Dd]eploy/
+config\.wyam\.dll
+
+config\.wyam\.hash
