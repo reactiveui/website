@@ -18,7 +18,6 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-        <meta name="description" content="@Context.String(DocsKeys.Description)" />
         <meta name="keywords" content="reactiveui,functional,reactive,framework,mvvm,viewmodel,xamarin,ios,android,uwp">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="shortcut icon" href="@Context.GetLink("/assets/img/favicon.ico")" type="image/x-icon">
@@ -58,16 +57,13 @@
         <meta name="twitter:image:alt" content="An advanced, composable, functional reactive model-view-viewmodel framework for all .NET platforms">
 
         @{
-            var description = @ViewData[DocsKeys.Description];
-            if (String.IsNullOrEmpty(description))
-            {
-                description = "ReactiveUI is a composable, cross-platform model-view-viewmodel framework for all .NET platforms that is inspired by functional reactive programming which is a paradigm that allows you to express the idea around a feature in one readable place, abstract mutable state away from your user interfaces and improve improve the testability of your application.";
-            }
-            
+            var defaultDescription = "ReactiveUI is a composable, cross-platform model-view-viewmodel framework for all .NET platforms that is inspired by functional reactive programming which is a paradigm that allows you to express the idea around a feature in one readable place, abstract mutable state away from your user interfaces and improve improve the testability of your application.";
+            var description = Metadata.Get(DocsKeys.Description, defaultDescription);
+           
             <meta property="og:description" content="@description" />
-            <meta name="twitter:description" content="@description">
+            <meta name="twitter:description" content="@description" />
+            <meta name="description" content="@description" />
         }
-
 
         <title>@Context.String(DocsKeys.Title, "Docs") - @ViewData[Keys.Title]</title>
         <link href="@Context.GetLink("/assets/css/mermaid.css")" rel="stylesheet">
