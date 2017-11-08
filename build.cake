@@ -1,8 +1,7 @@
-#tool "nuget:https://api.nuget.org/v3/index.json?package=Wyam&prerelease"
-#addin "nuget:https://api.nuget.org/v3/index.json?package=Cake.Git&version=0.15.0"
-#addin "nuget:https://api.nuget.org/v3/index.json?package=Cake.Wyam&version=0.18.6"
-#addin "nuget:https://api.nuget.org/v3/index.json?package=Cake.Yaml&version=1.0.3.7"
-#addin "nuget:https://api.nuget.org/v3/index.json?package=Octokit&version=0.26.0"
+#tool "nuget:https://api.nuget.org/v3/index.json?package=Wyam&version=1.0.0"
+#addin "nuget:https://api.nuget.org/v3/index.json?package=Cake.Git&version=0.16.0"
+#addin "nuget:https://api.nuget.org/v3/index.json?package=Cake.Wyam&version=1.0.0"
+#addin "nuget:https://api.nuget.org/v3/index.json?package=Octokit&version=0.27.0"
 
 using Octokit;
 
