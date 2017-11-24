@@ -10,5 +10,3 @@ This page is an overview of ReactiveUI.
 # What ReactiveUI is not
 
 # What’s next
-
-@Html.Partial("_ChildPages")
