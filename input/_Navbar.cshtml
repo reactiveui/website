@@ -1,18 +1,18 @@
 @{
-    List<Tuple<string, string>> pages = new List<Tuple<string, string>>
+    var pages = new Dictionary<string, string>
     {
-        Tuple.Create("Blog", Context.GetLink("blog")),
-        Tuple.Create("Meetup", Context.GetLink("meetup")),
-        Tuple.Create("Training", Context.GetLink("training")),
-        Tuple.Create("Documentation", Context.GetLink("docs")),
-        Tuple.Create("API", Context.GetLink("api")),
-        Tuple.Create("Contribute", Context.GetLink("contribute")),
-        Tuple.Create("Support", Context.GetLink("support")),
+        { "Blog", Context.GetLink("blog") },
+        { "Meetup", Context.GetLink("meetup") },
+        { "Training", Context.GetLink("training") },
+        { "Documentation", Context.GetLink("docs") },
+        { "API", Context.GetLink("api") },
+        { "Contribute", Context.GetLink("contribute") },
+        { "Support", Context.GetLink("support") },
     };
 
-    foreach(Tuple<string, string> page in pages)
+    foreach(var page in pages)
     {
-        string active = Context.GetLink(Document).StartsWith(page.Item2) ? "active" : null;
-        <li class="@active"><a href="@page.Item2">@Html.Raw(page.Item1)</a></li>
+        var activeClass = Context.GetLink(Document).StartsWith(page.Value) ? "active" : null;
+        <li class="@activeClass"><a href="@page.Value">@Html.Raw(page.Key)</a></li>
     }
 }
