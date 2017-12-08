@@ -3,13 +3,12 @@
 @import "adminlte/variables.less";
 @import "adminlte/mixins.less";
 
-
-ul.share-buttons{
+ul.share-buttons {
   list-style: none;
   padding: 0;
 }
 
-ul.share-buttons li{
+ul.share-buttons li {
   display: inline;
 }
 
@@ -24,31 +23,12 @@ ul.share-buttons .sr-only {
   overflow: hidden;
 }
 
-ul.share-buttons img{
+ul.share-buttons img {
   width: 32px;
 }
 
-// body.layout-boxed .top-banner,
-// .main-header,
-// .main-header .navbar,
-// .main-header .logo,
-// .main-header .logo:hover,
-// .layout-top-nav .main-header > .logo,
-// .layout-top-nav .main-header > .logo:hover {
-//   background-color: white;
-// }
-
-// .main-header .navbar .nav > li > a,
-// .main-header .navbar .nav > li > a:hover, .main-header .navbar .nav > li > a:active, .main-header .navbar .nav > li > a:focus, .main-header .navbar .nav .open > a, .main-header .navbar .nav .open > a:hover, .main-header .navbar .nav .open > a:focus, .main-header .navbar .nav > .active > a
-// {
-//   color: black;
-// }
-
-
 .jumbotron {
-  background: -webkit-gradient(linear,left bottom,right top,color-stop(0,#020031),color-stop(100%,#6d3353));
-  // padding-top: 0;
-  // padding-bottom: 0;
+  background: -webkit-gradient(linear, left bottom, right top, color-stop(0, #020031), color-stop(100%, #6d3353));
 }
 
 a:hover {
@@ -60,28 +40,23 @@ a:hover {
   li a:active {
     color: #02A1D8;
   }
-
   li a:hover {
     color: #0479A3;
     text-decoration: underline;
   }
 }
 
-.main-sidebar
-{
+.main-sidebar {
   padding-top: 128px;
 }
-
 
 // navigation logo
 .main-header .logo {
   height: 128px;
   padding: 0;
-
-  @media (max-width: @screen-sm) { 
+  @media (max-width: @screen-sm) {
     margin-left: -25px;
-    height:50px;
-
+    height: 50px;
     .logo-lg {
       width: 50px;
     }
@@ -93,8 +68,7 @@ a:hover {
   width: auto !important;
 }
 
-.content-header
-{
+.content-header {
   padding-top: 32px;
 }
 
@@ -102,8 +76,7 @@ a:hover {
 .top-banner,
 .main-header,
 .main-header .navbar,
-.main-header > .logo
-{
+.main-header > .logo {
   background-color: white !important;
 }
 
@@ -112,24 +85,19 @@ a:hover {
   color: #02A1D8;
 }
 
-.main-header .navbar .nav > li > a:hover {
-  text-decoration: underline;
-  color: #0479A3;
-}
-
-.main-header .navbar .nav > li > a:hover,
+.main-header .navbar .nav > li >a:hover,
 .main-header .navbar .nav > li > a:active,
 .main-header .navbar .nav > li > a:focus,
 .main-header .navbar .nav .open > a,
 .main-header .navbar .nav .open > a:hover,
 .main-header .navbar .nav .open > a:focus,
-.main-header .navbar .nav > .active > a
-{
-    color: #0479A3;
-    background: none;
+.main-header .navbar .nav > .active > a {
+  color: #0479A3;
+  background: none;
 }
 
-.main-header .navbar .nav > li.active {
+.main-header .navbar .nav > li.active a,
+.main-header .navbar .nav > li > a:hover {  
   border-bottom: 1px solid #0479A3;
 }
 
@@ -147,27 +115,26 @@ a:hover {
   }
 }
 
-.main-header .navbar .navbar-collapse{
+.main-header .navbar .navbar-collapse {
   box-shadow: 0 5px 10px lightgray;
 }
 
 // for desktop and tablets
 @media (min-width: @screen-xs-min) {
-  .main-header .navbar .navbar-collapse{
+  .main-header .navbar .navbar-collapse {
     box-shadow: 0 0 0;
   }
 }
 
 // code samples
-.hljs
-{
-  background:rgba(0, 0, 0, 0.024);
+.hljs {
+  background: rgba(0, 0, 0, 0.024);
   padding: 8px !important;
 }
 
 .code-sample pre {
   padding: 8px !important;
-  background:rgba(0, 0, 0, 0.024);
+  background: rgba(0, 0, 0, 0.024);
   border: none;
 }
 
@@ -188,8 +155,8 @@ section.content img {
 
 // for desktop and tablets
 @media (min-width: @screen-xs-min) {
- // position relative to shift image upwards without affecting margins and padding.
-  .bottom-footer .footer-logo{
+  // position relative to shift image upwards without affecting margins and padding.
+  .bottom-footer .footer-logo {
     bottom: 24px;
     position: relative;
   }
