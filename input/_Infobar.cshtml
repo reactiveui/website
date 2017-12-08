@@ -1,0 +1,30 @@
+@{
+    string baseEditUrl = Context.String(DocsKeys.BaseEditUrl);
+    string baseCreateIssueUrl = Context.String("BaseCreateIssueUrl");
+    FilePath editFilePath = Model.FilePath(Wyam.Web.WebKeys.EditFilePath);
+    if((!string.IsNullOrWhiteSpace(baseEditUrl) || !string.IsNullOrWhiteSpace(baseCreateIssueUrl) ) && editFilePath != null)
+    {
+        <div>
+            @if(!string.IsNullOrWhiteSpace(baseEditUrl))
+            {
+                <p>
+                    <a href="@(baseEditUrl + editFilePath.FullPath)">
+                        <i class="fa fa-pencil-square" aria-hidden="true"></i>
+                        Edit Content
+                    </a>
+                </p>
+            }
+
+            @if(!string.IsNullOrWhiteSpace(baseCreateIssueUrl))
+            {
+                <p>
+                    <a href="@(baseCreateIssueUrl + editFilePath.FullPath)">
+                        <i class="fa fa-github" aria-hidden="true"></i>
+                        Create Issue
+                    </a> 
+                </p>
+            }
+        </div>
+    }
+    <div id="infobar-headings"></div>
+}
