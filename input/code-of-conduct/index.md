@@ -1,6 +1,6 @@
 Title: Code of Conduct
 ---
-If you’re being harassed, noticed someone else being harassed, or have any other concerns, please <a href="mailto:hello@reactiveui.net">contact us immediately</a>. Your reports will be taken seriously and will not be dismissed or argued with. All members, committers and volunteers in this community are required to act according to the Code of Conduct. These guidelines help steer our interactions and strive to keep ReactiveUI a positive, growing project, community and help us provide and ensure a safe environment for everyone. When referring to a group of people, we aim to use gender-neutral terms like "team", "folks", "everyone". (For details, we recommend <a href="https://modelviewculture.com/pieces/gendered-language-feature-or-bug-in-software-documentation" target="_blank">this post</a>).</p>
+If you’re being harassed, noticed someone else being harassed, or have any other concerns, please [contact us immediately](mailto:hello@reactiveui.net). Your reports will be taken seriously and will not be dismissed or argued with. All members, committers and volunteers in this community are required to act according to the Code of Conduct. These guidelines help steer our interactions and strive to keep ReactiveUI a positive, growing project, community and help us provide and ensure a safe environment for everyone. When referring to a group of people, we aim to use gender-neutral terms like "team", "folks", "everyone". (For details, we recommend [this post](https://modelviewculture.com/pieces/gendered-language-feature-or-bug-in-software-documentation)).</p>
 
 As contributors and maintainers of this project, and in the interest of
 fostering an open and welcoming community, we pledge to respect all people who
@@ -42,7 +42,6 @@ complaints will be reviewed and investigated and will result in a response that
 is deemed necessary and appropriate to the circumstances. Maintainers are
 obligated to maintain confidentiality with regard to the reporter of an
 incident.
-
 
 This Code of Conduct is adapted from the [Contributor Covenant][homepage],
 version 1.3.0, available at
