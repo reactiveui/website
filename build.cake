@@ -82,7 +82,6 @@ Task("Build")
         });
     });
 
-// Does not download artifacts (run Build or GetArtifacts target first)
 Task("Preview")
     .IsDependentOn("GetArtifacts")
     .Does(() =>
