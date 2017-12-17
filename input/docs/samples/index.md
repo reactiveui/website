@@ -34,7 +34,7 @@ Send in a pull-request linking to the source code of something you have built.
 
 # Xamarin Forms
 
-* https://github.com/GiusepeCasagrande/Cinephile
+* https://github.com/reactiveui/ReactiveUI/tree/develop/samples/xamarin-forms
 * https://github.com/GiusepeCasagrande/RoutingSimpleSample
 
 # Xamarin Mac
