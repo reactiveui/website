@@ -1,10 +1,22 @@
 @{
     string baseEditUrl = Context.String(DocsKeys.BaseEditUrl);
+    string baseSiteSearchUrl = Context.String("BaseSiteSearchUrl");
     string baseCreateIssueUrl = Context.String("BaseCreateIssueUrl");
     FilePath editFilePath = Model.FilePath(Wyam.Web.WebKeys.EditFilePath);
-    if((!string.IsNullOrWhiteSpace(baseEditUrl) || !string.IsNullOrWhiteSpace(baseCreateIssueUrl) ) && editFilePath != null)
+
+    if((!string.IsNullOrWhiteSpace(baseEditUrl) || !string.IsNullOrWhiteSpace(baseSiteSearchUrl) || !string.IsNullOrWhiteSpace(baseCreateIssueUrl)) && editFilePath != null)
     {
         <div>
+            @if(!string.IsNullOrWhiteSpace(baseSiteSearchUrl))
+            {
+                <form action="@baseSiteSearchUrl" method="get">
+                    <label for="sitesearch">Search the docs</label>
+                    <input id="sitesearch" type="hidden" name="sitesearch" value="@(Context.String(Keys.Host) + "/docs/")" />
+                    <input type="text" name="q" />
+                </form>
+                <hr />
+            }
+
             @if(!string.IsNullOrWhiteSpace(baseEditUrl))
             {
                 <p>
