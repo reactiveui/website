@@ -1,4 +1,4 @@
-Title: Disposables
+cTitle: Disposables
 ---
 
 ReactiveUI provides you with  [WhenActivated](/docs/handbook/when-activated) to help manage lifecyle and the Reactive Extensions provides several different implementations of the IDisposable interface to help you with managing lifetime, scope and resources.
