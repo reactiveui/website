@@ -7,6 +7,7 @@ Order: 14
 
 * https://github.com/reactiveui/ReactiveUI/pull/1387
 * https://reactiveui.net/docs/guidelines/platform/tizen
+* https://github.com/reactiveui/ReactiveUI/pull/1546
 
 # Windows Forms
 
