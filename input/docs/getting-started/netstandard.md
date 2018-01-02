@@ -1,11 +1,11 @@
-Title: netstandard
+Title: .NET Standard
 Order: 10
 ---
 
 
 # .NET Standard Library
 
-As of version 8.0 of ReactiveUI, support for netstandard will be included. For any version lower than 8.0, you are still able to reference the RxUI nuget pacakge (along with other popular PCL-based packages) with a little modification.
+As of version 8.0 of ReactiveUI, support for [.NET Standard](https://docs.microsoft.com/en-us/dotnet/standard/net-standard) will be included. For any version lower than 8.0, you are still able to reference the RxUI nuget package (along with other popular PCL-based packages) with a little modification.
 
 ## Projects using Project.json:
 
