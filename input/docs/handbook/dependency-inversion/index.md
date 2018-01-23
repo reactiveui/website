@@ -92,7 +92,7 @@ public interface IDependencyResolver
 }
 ```
 
-Given a type T (usually an interface), you can now recieve an implementation of T. If the T registered is very common ("string" for example), or you want to distinguish by a method other than type, you can use the "contract"
+Given a type T (usually an interface), you can now receive an implementation of T. If the T registered is very common ("string" for example), or you want to distinguish by a method other than type, you can use the "contract"
 parameter which is an arbitrary key that you provide.
 
 The current resolver that ReactiveUI itself will use (as well as what your app
