@@ -50,9 +50,9 @@ this.WhenAnyValue(x => x.SearchText, x => x.Length)
     .ToProperty(this, x => x.SearchTextLength, out _searchTextLength);
 ```
 
-This initialises the `SearchTextLength` property (an [ObservableAsPropertyHelper](../observableaspropertyhelper/index.md) property) as a property that will be updated with the current search text length every time it changes. The property cannot be set in any other manner and raises change notifications, so can itself be used in a `WhenAny` expression or a binding. 
+This initialises the `SearchTextLength` property (an [ObservableAsPropertyHelper](../oaph/) property) as a property that will be updated with the current search text length every time it changes. The property cannot be set in any other manner and raises change notifications, so can itself be used in a `WhenAny` expression or a binding. 
 
-See the [ObservableAsPropertyHelper](../observableaspropertyhelper/index.md) section for more information on this pattern.
+See the [ObservableAsPropertyHelper](../oaph/) section for more information on this pattern.
 
 ### Supporting validation as a `CanExecute` criteria
 
