@@ -43,8 +43,8 @@ TweetList = new ReactiveList<Tweet>();
 var count = 0;
 
 var addedOrRemoved = Observable.Merge(
-    TweetList.ItemsAdded.Subscribe(_ => 1),
-    TweetList.ItemsRemoved.Subscribe(_ => -1));
+    TweetList.ItemsAdded.Select(_ => 1),
+    TweetList.ItemsRemoved.Select(_ => -1));
 
 addedOrRemoved.Subscribe(x => count += x);
 TweetList.ShouldReset.Subscribe(_ => count = TweetList.Count);
