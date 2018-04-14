@@ -21,7 +21,7 @@ Additionally you absolutely must take https://github.com/RolandPheasant/Dynamic.
 
 # Universal Windows Platform
 
-Send in a pull-request linking to the source code of something you have built.
+Tiny app for reading RSS feeds built for Universal Windows Platform. Uses ReactiveUI modern MVVM framework and PropertyChanged.Fody for INotifyPropertyChanged injections. https://github.com/worldbeater/myFeed
 
 # Xamarin Android
 
