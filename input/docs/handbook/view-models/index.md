@@ -20,9 +20,11 @@ regular class we can create. Then, we want the actual code in the View to be
 as boring, mechanical, and as short as possible, because it is inherently
 untestable.
 
-This class is called the **ViewModel**, and it is the *Model* of a *View*.
-This means, that you usually have one ViewModel per View. This doesn't have to
-be strictly true, but it is generally the case. 
+This regular, testable class is called the **ViewModel**, and it is the *Model* 
+of a *View*. A view is a composable piece of the UI that handles a particular
+and well-defined UI function on the page. This means, that each view will
+usually have one viewmodel to handle that function. This doesn't have to
+be strictly true, but it is generally the case.
 
 Another important aspect of understanding ViewModels is that they are an
 abstraction to separate *policy* from *mechanism*. ViewModels do not deal in
