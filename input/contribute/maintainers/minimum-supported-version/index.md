@@ -4,7 +4,7 @@ With that said however this is an open-source project and typically folks who ar
 
 The two rules of thumb maintainers should use are as follows: 
 
-1) What is the min version of a platform shipped by Visual Studio for Windows?
+1) What is the min version of a platform shipped by Visual Studio for Windows? (ie Help -> Xamarin -> Release Notes)
 2) When a new project is created by the File -> New project wizard what version is in the csproj?
 
 # References
