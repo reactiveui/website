@@ -6,5 +6,3 @@ The two rules of thumb maintainers should use are as follows:
 
 1) What is the min version of a platform shipped by Visual Studio for Windows?
 2) When a new project is created by the File -> New project wizard what version is in the csproj?
-
-
