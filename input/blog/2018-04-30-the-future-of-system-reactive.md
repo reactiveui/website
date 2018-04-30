@@ -20,8 +20,8 @@ Okay, so enough backstory - over the last week many folks in the community respo
 - [Move the GitHub repository to exist under dotnet/reactive](https://github.com/Reactive-Extensions/Rx.NET/issues/466)
 - Add approval tests to the public API surface
 - Increase test coverage and amount of platforms used as part validation.
-- Review outstanding pull-requests and the backlog
-- Solicit help from the community and the innovators/maintainers from other ecosystems to help define the future and help make it happen.
+- Review outstanding [issues](https://github.com/Reactive-Extensions/Rx.NET/issues) and [pull-requests](https://github.com/Reactive-Extensions/Rx.NET/pulls).
+- Solicit help from the community, the creators of these techniques and the innovators/maintainers from other ecosystems to help define the future and help make it happen.
 
 You may notice a central theme here - make it more accessible and safer for folks to contribute to the project. We would love to do a performance pass but not before these basics are crossed off.
 
