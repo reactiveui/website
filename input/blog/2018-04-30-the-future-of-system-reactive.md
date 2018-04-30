@@ -18,8 +18,8 @@ Okay, so enough backstory - over the last week many folks in the community respo
 
 - [Finish the pull-request that merges assemblies and ship System.Reactive 4.0.](https://github.com/Reactive-Extensions/Rx.NET/pull/418)
 - [Move the GitHub repository to exist under dotnet/reactive](https://github.com/Reactive-Extensions/Rx.NET/issues/466)
-- Add approval tests to the public API surface
-- Increase test coverage and amount of platforms used as validated against by the continuous integration.
+- [Add approval tests to the public API surface](https://github.com/Reactive-Extensions/Rx.NET/issues/479)
+- [Increase test coverage and amount of platforms used as validated against by the continuous integration.](https://github.com/Reactive-Extensions/Rx.NET/issues/478)
 - Review outstanding [issues](https://github.com/Reactive-Extensions/Rx.NET/issues) and [pull-requests](https://github.com/Reactive-Extensions/Rx.NET/pulls).
 - [Solicit help from the community, the creators of these techniques and the innovators/maintainers from other ecosystems to help define the future and help make it happen](https://twitter.com/GeoffreyHuntley/status/986163246724861952).
 
