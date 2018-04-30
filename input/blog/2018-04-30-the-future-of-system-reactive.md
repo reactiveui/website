@@ -16,7 +16,7 @@ It has always perplexed the community as to why System.Reactive hasn't been inve
 
 Okay, so enough backstory - over the last week many folks in the community responded to [the call to action on Twitter](https://twitter.com/GeoffreyHuntley/status/986163246724861952) and here's what we think the next steps should be:
 
-- Finish the pull-request that merges assemblies and ship System.Reactive 4.0.
+- [Finish the pull-request that merges assemblies and ship System.Reactive 4.0.](https://github.com/Reactive-Extensions/Rx.NET/pull/418)
 - [Move the GitHub repository to exist under dotnet/reactive](https://github.com/Reactive-Extensions/Rx.NET/issues/466)
 - Add approval tests to the public API surface
 - Increase test coverage and amount of platforms used as part validation.
