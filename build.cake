@@ -107,7 +107,6 @@ Task("Debug")
 Task("Deploy")
     .WithCriteria(isRunningOnAppVeyor)
     .WithCriteria(!isPullRequest)
-    .WithCriteria(!string.IsNullOrEmpty(netlifyToken))
     .IsDependentOn("Build")
     .Does(() =>
     {
