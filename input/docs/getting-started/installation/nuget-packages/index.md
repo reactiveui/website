@@ -25,8 +25,6 @@ MyCoolApps.UnitTests (tests)
 
 # Windows Presentation Foundation
 
-_IMPORTANT_: The information below is forward looking that is relevant once ReactiveUI v8 ships. Until it does just use the drop `-wpf` off from all packages.
-
 Assuming the following project structure:
 
 ```
