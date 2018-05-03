@@ -18,7 +18,7 @@ This pull-request will automatically generate binaries that the maintainers can 
 
 If something is merged that is later found to have caused a regression the immediate course of action for maintainers of ReactiveUI will be to revert the commit and ship a new release. The maintainers then can take as much time as needed to revisit why the regression occurred, resolve it and implement controls to ensure it doesn't happen again. In case that wasn't clear, we roll forward. Always.
 
-Consumers will no longer need to configure a the MyGet feed because we are now deploying to NuGet on a regular basis. Maintainers and contributors will still need to configure MyGet as that is where all build artifacts for unmerged code will land.
+Consumers will no longer need to configure the MyGet feed because we are now deploying to NuGet on a regular basis. Maintainers and contributors will still need to configure MyGet as that is where all build artifacts for unmerged code will land.
 
 - We intend to achieve this by moving away from AppVeyor as our needs have outgrown what they can currently offer. ReactiveUI needs to implement automated end-to-end tests that run as desktop apps and mobile apps on multiple operating system. VSTS has powerful build matrixes that make this a walk in the park. 
 - We intend to reduce the complexity of our build.cake by removing all release functionality and instead embracing the release management features of VSTS.
