@@ -10,7 +10,7 @@ It took us eight months to ship ReactiveUI 8.0.0 and to be frank that was way to
 
 Currently, ReactiveUI has two branches - develop and master. We intend to get rid of the develop branch and only have master. This ensures that maintainers are getting timely feedback from the community about quality and it provides assurances to contributors that time invested into contribution will have a fast ROI. Ultimately our goal as an open-source project is to reduce the burden on our maintainers and ensure that there are no single points of failure in leadership. By investing in the experience of our contributors, we are investing in people who someday may become maintainers of ReactiveUI.
 
-Once the integration tests (#1598) ship it opens up a world of possibility where the project can increase velocity without sacrificing quality. Done correctly it will ensure contributors receive immediate value for digging in and helping the project. 
+Once [the end-to-end integration tests ship](https://github.com/reactiveui/ReactiveUI/pull/1605) it opens up a world of possibility where the project can increase velocity without sacrificing quality. Done correctly it will ensure contributors receive immediate value for digging in and helping the project. 
 
 If a consumer is ever "blocked" by a fault in the framework, then the maintainers can have an open and honest discussion requesting the consumer to submit a pull-request to master. 
 
