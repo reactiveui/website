@@ -26,7 +26,7 @@ Consumers will no longer need to configure the MyGet feed because we are now dep
 - We intend to reduce the complexity of our build.cake by removing all release functionality and instead embracing the release management features of VSTS.
 - We are NOT moving our source control or issue management to VSTS as GitHub is where the community is.
     
-The .NET Foundation provides it's member projects with a subsidized VSTS instance and Oren Novontoy has volunteered to configure everything for us but if you want to help out I'm sure he would be keen to pair with you. Step up soon however as he _really_ wants to ship these improvements and if you delay you might just miss the boat. 
+The .NET Foundation provides it's member projects with a subsidized VSTS instance and Oren Novotny has volunteered to configure everything for us but if you want to help out I'm sure he would be keen to pair with you. Step up soon however as he _really_ wants to ship these improvements and if you delay you might just miss the boat. 
 
 ![release management](https://user-images.githubusercontent.com/127353/39577512-e39557e0-4f24-11e8-9209-0f049d3f86f1.jpg)
 
