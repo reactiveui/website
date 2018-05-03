@@ -20,7 +20,7 @@ If something is merged that is later found to have caused a regression the immed
 
 Consumers will no longer need to configure the MyGet feed because we are now deploying to NuGet on a regular basis. Maintainers and contributors will still need to configure MyGet as that is where all build artifacts for unmerged code will land.
 
-- We intend to achieve this by moving away from AppVeyor as our needs have outgrown what they can currently offer. ReactiveUI needs to implement automated end-to-end tests that run as desktop apps and mobile apps on multiple operating system. VSTS has powerful build matrixes that make this a walk in the park. 
+- We intend to achieve this by moving away from AppVeyor as our needs have outgrown what they can currently offer. ReactiveUI needs to implement automated end-to-end tests that run as desktop apps and mobile apps on multiple operating systems. VSTS has powerful build matrixes that make this a walk in the park.
 - We intend to reduce the complexity of our build.cake by removing all release functionality and instead embracing the release management features of VSTS.
 - We are NOT moving our source control or issue management to VSTS as GitHub is where the community is.
     
@@ -29,7 +29,7 @@ The .NET Foundation provides it's member projects with a subsidized VSTS instanc
 
 ![jpeg image 4520 x 4455 pixels - scaled 13](https://user-images.githubusercontent.com/127353/39573708-a2175a6e-4f17-11e8-8a2e-0284aaafe088.jpg)
 
-I believe these changes will provide the following benefits
+I believe these changes will provide the following benefits:
 
     - Reduced cycle time from pull-request raised until release meaning that people receive value sooner.
     - A reduction in cognitive overhead and stress for maintainers by automating manual tasks and allowing them to an aggressive issue ageing policy.
@@ -40,5 +40,3 @@ I believe these changes will provide the following benefits
     - An increase in the number of engaged community members authoring blog posts.
     - An increase in the number of engaged community members delivering talks.
     - An increase in the number of questions asked on StackOverflow.
-
-
