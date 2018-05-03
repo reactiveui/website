@@ -1,6 +1,6 @@
 ---
 title: Moving towards VSTS and continuous deployment
-category: Announcements
+category: Announcement
 author: Geoffrey Huntley
 ---
 
