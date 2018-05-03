@@ -14,7 +14,9 @@ Ultimately our goal as an open-source project is to reduce the burden on our mai
 
 Once [the end-to-end integration tests ship](https://github.com/reactiveui/ReactiveUI/pull/1605) it opens up a world of possibility where the project can increase velocity without sacrificing quality. Done correctly it will ensure contributors receive immediate value for digging in and helping the project. 
 
-If a consumer is ever "blocked" by a fault in the framework, then the maintainers can have an open and honest discussion requesting the consumer to submit a pull-request to master. This pull-request will automatically generate binaries that the maintainers can use to perform validation (in addition to our automated test suite). Maintainers operate under the rule that only pull-requests that are ready for shipping to production are merged. If the feature requires coordination with multiple parties and multiple attempts, then maintainers can work in a feature branch that once complete is merged to master as soon as possible. Feature branches will also generate binaries.
+If a consumer is ever "blocked" by a fault in the framework, then the maintainers can have an open and honest discussion requesting the consumer to submit a pull-request to master. This pull-request will automatically generate binaries that the maintainers can use to perform validation (in addition to our automated test suite). 
+
+Maintainers operate under the rule that only pull-requests that are ready for shipping to production are merged. If the feature requires coordination with multiple parties and multiple attempts, then maintainers can work in a feature branch that once complete is merged to master as soon as possible. Feature branches will also generate binaries.
 
 If something is merged that is later found to have caused a regression the immediate course of action for maintainers of ReactiveUI will be to revert the commit and ship a new release. The maintainers then can take as much time as needed to revisit why the regression occurred, resolve it and implement controls to ensure it doesn't happen again. In case that wasn't clear, we roll forward. Always.
 
