@@ -33,7 +33,7 @@ The .NET Foundation provides it's member projects with a subsidized VSTS instanc
 I believe these changes will provide the following benefits:
 
 - Reduced cycle time from pull-request raised until release meaning that people receive value sooner.
-- A reduction in cognitive overhead and stress for maintainers by automating manual tasks and allowing them to implement an aggressive issue ageing policy.
+- A reduction in cognitive overhead and stress for maintainers by automating manual tasks and allow them to implement an aggressive issue ageing policy.
 - An increase in first-time contributors.
 - An increase in repeat contributors.
 - An increase in contributors becoming maintainers.
