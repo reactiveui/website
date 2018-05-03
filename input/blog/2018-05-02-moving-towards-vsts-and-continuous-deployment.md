@@ -26,8 +26,7 @@ Consumers will no longer need to configure the MyGet feed because we are now dep
     
 The .NET Foundation provides it's member projects with a subsidized VSTS instance and Oren Novontoy has volunteered to configure everything for us but if you want to help out I'm sure he would be keen to pair with you. Step up soon however as he _really_ wants to ship these improvements and if you delay you might just miss the boat. 
 
-
-![jpeg image 4520 x 4455 pixels - scaled 13](https://user-images.githubusercontent.com/127353/39573708-a2175a6e-4f17-11e8-8a2e-0284aaafe088.jpg)
+![release management](https://user-images.githubusercontent.com/127353/39577512-e39557e0-4f24-11e8-9209-0f049d3f86f1.jpg)
 
 I believe these changes will provide the following benefits:
 
