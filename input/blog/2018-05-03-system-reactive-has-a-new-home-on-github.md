@@ -14,7 +14,7 @@ Today the community, in conjunction with Microsoft shipped the first milestone o
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 
-This is big news because `System.Reactive` for .NET is the OG and original implementation of the Reactive Extensions. Sadly it's potential was artificially limited over the years while other ecosystems saw massive growth. It's time to put that narrative to bed though. It's time to move on. Thank you Jon Galloway, Phil Carter, Bart de Smet, Immo Landwerth for your help with advancing the community past this historical narrative.
+This is big news because `System.Reactive` for .NET is the OG and original implementation of the Reactive Extensions. Sadly it's potential was artificially limited over the years while other ecosystems saw massive growth. It's time to put that narrative to bed though. It's time to move on. Thank you Jon Galloway, Phil Carter, Bart de Smet, Immo Landwerth for your help with advancing the community past [this historical narrative](https://twitter.com/GeoffreyHuntley/status/992486450733178887?s=09).
 
 [![image](https://user-images.githubusercontent.com/127353/39624525-f7ad51fc-4fdc-11e8-9546-4e56eae31033.png)](http://github.com/dotnet/reactive)
 
