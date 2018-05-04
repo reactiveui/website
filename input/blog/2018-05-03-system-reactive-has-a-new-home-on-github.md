@@ -18,6 +18,6 @@ This is big news because `System.Reactive` for .NET is the OG and original imple
 
 [![image](https://user-images.githubusercontent.com/127353/39624525-f7ad51fc-4fdc-11e8-9546-4e56eae31033.png)](http://github.com/dotnet/reactive)
 
-[Our new home under the .NET organization](https://github.com/dotnet/reactive) on GitHub provides better discoverability and visibility. It provides CI systems that keep up with the rapid evolution that's happening in .NET. The new location is closer to .NET development itself and components from System.Reactive which are logical base class library extensions now have a possible shorter integration path into corefxlabs. A great demonstration of this is how System.Reactive's (Ix) `IAsyncEnumerable` is graduating into a first-class citizen in C# v8.
+[Our new home under the .NET organization](https://github.com/dotnet/reactive) on GitHub provides better discoverability and visibility. It provides CI systems that keep up with the rapid evolution that's happening in .NET. The new location is closer to .NET development itself and components from System.Reactive which are logical base class library extensions now have shorter integration paths into corefxlabs. A great demonstration of this is how System.Reactive's (Ix) `IAsyncEnumerable` is graduating into a first-class citizen in C# v8.
 
 This is a new era. Join the conversation over at https://reactiveui.net/slack and ask how you can help.
