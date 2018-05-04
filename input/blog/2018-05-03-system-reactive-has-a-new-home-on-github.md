@@ -20,4 +20,6 @@ This is big news because `System.Reactive` for .NET is the OG and original imple
 
 [Our new home under the .NET organization](https://github.com/dotnet/reactive) on GitHub provides better discoverability and visibility. It provides CI systems that keep up with the rapid evolution that's happening in .NET. The new location is closer to .NET development itself and components from System.Reactive which are logical base class library extensions now have shorter integration paths into corefxlabs. A great demonstration of this is how System.Reactive's (Ix) `IAsyncEnumerable` is graduating into a first-class citizen in C# v8.
 
+It also means that the Reactive Extensions will now automatically show up in data exports of opensource activity on GitHub for Microsoft execs. This is a big deal as Microsoft is heavily driven by data. If the community shines bright, is open/inclusive, stays on track then the future is very very 🚀
+
 This is a new era. Join the conversation over at https://reactiveui.net/slack and ask how you can help.
