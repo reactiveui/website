@@ -4,10 +4,23 @@ category: Announcement
 author: Geoffrey Huntley
 ---
 
+As part of the v8.0.0 release, ReactiveUI changed the field separator used in our package names from dashes to periods which is the standard convention used in dotnet. It was a breaking change, and our documentation was updated as part of the release to provide you [with instructions of which package is needed](https://reactiveui.net/docs/getting-started/installation/nuget-packages/) for every platform.
 
-![2018-05-06_18-12-51](https://user-images.githubusercontent.com/127353/39672590-86985abc-5170-11e8-9104-24512c3520d1.png)
 ![2018-05-06_18-12-13](https://user-images.githubusercontent.com/127353/39672598-a216ffaa-5170-11e8-98ac-3bddb1016918.png)
 
+We changed the field separator as it allowed the project to implement the new [package identity verification](
+https://github.com/NuGet/Home/wiki/NuGet-Package-Identity-Verification
+) feature that was shipped recently by the NuGet team. This feature has allowed the ReactiveUI maintainers to reserve the `ReactiveUI.*` namespace and prevent other people from publishing to it. It also provides a visual indicator in Visual Studio - the blue tick - that the package has been verified as coming from the ReactiveUI maintainers.
+
+Unfortunately, there is no easy way for ReactiveUI to rename or alias existing packages or provide an easier migration path. We had had to unlist all of the packages before `v8.0.0` because they were turning up in the NuGet gallery search and causing consumer confusion. Unlisting a package does NOT delete the package from NuGet. 
+
+![2018-05-06_18-12-51](https://user-images.githubusercontent.com/127353/39672590-86985abc-5170-11e8-9104-24512c3520d1.png)
+
+If you have an existing project, then package restores will continue to function as is. If you need to scaffold up a project using an older version, then it will not appear in the search results, but you can install it by specifying the exact version. 
+
+We have created a table that lists out all of the possibilities and in the right-hand column of the table, you'll find the exact command that you can paste in the Package Manager console to install ReactiveUI.
+
+If you experience problems, please [open an issue on GitHub](http://github.com/reactiveui/reactiveui) with feedback. If you are from the NuGet team, please start a conversation as the maintainers didn't want to do this. Maybe you could implement a better way for us as we lost a couple million on our download stats.
 
 | Package Name  | Version       | Installation Instructions  |
 | ------------- |:-------------:| -----:|
