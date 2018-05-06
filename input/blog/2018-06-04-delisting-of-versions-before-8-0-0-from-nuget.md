@@ -4,6 +4,11 @@ category: Announcement
 author: Geoffrey Huntley
 ---
 
+
+![2018-05-06_18-12-51](https://user-images.githubusercontent.com/127353/39672590-86985abc-5170-11e8-9104-24512c3520d1.png)
+![2018-05-06_18-12-13](https://user-images.githubusercontent.com/127353/39672598-a216ffaa-5170-11e8-98ac-3bddb1016918.png)
+
+
 | Package Name  | Version       | Installation Instructions  |
 | ------------- |:-------------:| -----:|
 | reactiveui | 2.5.2.0 | PM> Install-Package reactiveui -Version 2.5.2.0 |
