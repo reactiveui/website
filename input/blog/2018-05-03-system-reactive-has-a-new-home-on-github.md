@@ -1,6 +1,8 @@
 ---
 title: System.Reactive has a new home on GitHub
-category: Announcement
+category: 
+  - Announcement
+  - System.Reactive
 author: Geoffrey Huntley
 ---
 
