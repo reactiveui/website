@@ -20,7 +20,7 @@ If you have an existing project, then package restores will continue to function
 
 We have created a table that lists out all of the possibilities and in the right-hand column of the table, you'll find the exact command that you can paste in the Package Manager console to install ReactiveUI.
 
-If you experience problems, please [open an issue on GitHub](http://github.com/reactiveui/reactiveui) with feedback. If you are from the NuGet team, please start a conversation as the maintainers didn't want to do this. Maybe you could implement a better way for us as we lost a couple million on our download stats.
+If you experience problems, please [open an issue on GitHub](http://github.com/reactiveui/reactiveui) with feedback. If you are from the NuGet team, please start a conversation with the maintainers as we didn't want to do this. Maybe you could implement a solution for us? We lost a couple million on our download stats. :/
 
 | Package Name  | Version       | Installation Instructions  |
 | ------------- |:-------------:| -----:|
