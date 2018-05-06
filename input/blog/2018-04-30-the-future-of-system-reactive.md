@@ -1,6 +1,8 @@
 ---
 title: The future of System.Reactive
-category: Announcement
+category:
+  - Announcement
+  - System.Reactive
 author: Geoffrey Huntley
 ---
 
