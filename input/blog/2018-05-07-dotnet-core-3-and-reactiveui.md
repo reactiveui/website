@@ -15,7 +15,7 @@ https://blogs.msdn.microsoft.com/dotnet/2018/05/07/net-core-3-and-support-for-wi
 
 ReactiveUI had some heads up that was coming and added `netcoreapp20` as a supported platform as part of [the release of v8.0.0 last week](https://reactiveui.net/blog/2018/05/reactiveui-v8.0.0-released). When `netcoreapp30` lands ReactiveUI fully intends to support these scenarios. It's unclear at this stage if it means that WPF/WinForms will be able to run on other platforms - I seriously doubt it as it would be a massive undertaking but if Microsoft does it - ReactiveUI will support it. 
 
-If you need to ship cross-platform applications on .NET core right now then the maintainers of ReactiveUI recommned that you check out [Avalonia](https://github.com/AvaloniaUI/Avalonia). Their community is as active and vibrant as ours, open by default and [you can drop in for a chat](https://gitter.im/AvaloniaUI/Avalonia).
+If you need to ship cross-platform applications on .NET core right now then the maintainers of ReactiveUI recommned that you check out [Avalonia](https://github.com/AvaloniaUI/Avalonia). Their community is as active, as vibrant as ours, open by default and [you can drop in for a chat](https://gitter.im/AvaloniaUI/Avalonia).
 
 <iframe width="100%" height="360" src="https://www.youtube.com/embed/wHcB3sGLVYg" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
