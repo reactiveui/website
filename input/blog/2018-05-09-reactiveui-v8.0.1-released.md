@@ -1,7 +1,7 @@
 ---
-title: .NET Core 3 and ReactiveUI
+title: ReactiveUI v8.0.1 released
 category: 
-  - Announcement
+  - Release Notes
 author: Geoffrey Huntley
 ---
 
