@@ -5,7 +5,7 @@ category:
 author: Geoffrey Huntley
 ---
 
-Elijah Reva noticed a `net461` regression that affected Windows Presentation Foundation and Windows Forms. During the netstandard refactor we missed renaming a compilation symbol which resulted in `PropertyChangedEventManager.DeliverEvent` being used when setting reactive proprties. WeakEventManager [should not be used](https://github.com/reactiveui/ReactiveUI/issues/661) on these platforms and this hotfix disables it.
+Elijah Reva noticed a `net461` regression that affected Windows Presentation Foundation and Windows Forms. During the netstandard refactor we missed renaming a compilation symbol which resulted in `PropertyChangedEventManager.DeliverEvent` being used when setting reactive properties. WeakEventManager [should not be used](https://github.com/reactiveui/ReactiveUI/issues/661) on these platforms and this hotfix disables it.
 
 Thank you Elijah for sending in this the hotfix - check your email for an invitation to the GitHub organization!
 
