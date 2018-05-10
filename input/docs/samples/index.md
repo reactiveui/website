@@ -11,7 +11,7 @@ Order: 14
 
 # Windows Forms
 
-Send in a pull-request linking to the source code of something you have built.
+Various samples https://github.com/Asesjix/ReactiveUI.Winforms.Samples
 
 # Windows Presentation Framework
 
