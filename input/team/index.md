@@ -51,6 +51,7 @@ The Learning Team is responsible for keeping the guides and API documentation ac
 * Geoffrey Huntley
 
 # The Winforms Team
+* Sebastian Richter
 
 # The WPF Team
 
