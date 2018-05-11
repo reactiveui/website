@@ -10,6 +10,7 @@ ReactiveUI is an Open Source project that relies on the tireless support of indi
 * Kent Boogaart
 * Olly Levett
 * Oren Novotny
+* Shane Neuville
 * Stefan Moonen
 
 # The Learning Team 
@@ -54,6 +55,8 @@ The Learning Team is responsible for keeping the guides and API documentation ac
 # The WPF Team
 
 # The Xamarin Forms Team
+* Shane Neuville
+* Kent Boogaart
 
 # Alumni
 
