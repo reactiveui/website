@@ -1,3 +1,4 @@
+
 Title: Team
 ---
 
@@ -45,7 +46,7 @@ The Learning Team is responsible for keeping the guides and API documentation ac
 
 # Alumni
 
-Serving as a member of an open source project like Ember is a huge amount of work. These are retired members of the ReactiveUI Team, to whom we will always be grateful. 
+Serving as a member of an open source project like ReactiveUI is a huge amount of work. These are retired members of the ReactiveUI Team, to whom we will always be grateful. 
 
 * Paul Betts
 * Brendan Forster
