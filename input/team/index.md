@@ -6,11 +6,11 @@ ReactiveUI is an Open Source project that relies on the tireless support of indi
 
 # The Core Team
 
+* Geoffrey Huntley
+* Kent Boogaart
 * Olly Levett
 * Oren Novotny
-* Kent Boogaart
 * Stefan Moonen
-* Geoffrey Huntley
 
 # The Learning Team 
 
@@ -25,12 +25,16 @@ The Learning Team is responsible for keeping the guides and API documentation ac
 # The Android Team
 
 * Colt Bauman
+* Stefan Moonen
 
 # The iOS Team
+
+* Stefan Moonen
 
 # The macOS Team
 
 # The NETCore Team
+
 * Geoffrey Huntley
 
 # The Tizen Team
