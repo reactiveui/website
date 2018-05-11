@@ -25,7 +25,7 @@ The Learning Team is responsible for keeping the guides and API documentation ac
 # The Translation Team
 
 * Ramon Esteban
-* Andres pineda
+* Andres Pineda
 
 # The Android Team
 
