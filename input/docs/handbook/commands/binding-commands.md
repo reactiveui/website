@@ -25,7 +25,7 @@ Here we bind the `myControl` control to the `MyCommand` command exposed by our v
 >     });
 > ```
 > 
-> Please see [the documentation on `WhenActivated`](http://docs.reactiveui.net/en/user-guide/when-activated/index.html) for more information.
+> Please see [the documentation on `WhenActivated`](https://reactiveui.net/docs/handbook/when-activated/) for more information.
 
 The form of `BindCommand` demonstrated above does not provide any hint as to which event instigates command execution. Hence, a default event will be used (such as `Click` or `Tapped`). If, on the other hand, you want to tie your command's execution to some event other than the default, you can use an overload of `BindCommand` that takes an event name:
 
