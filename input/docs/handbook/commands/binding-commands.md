@@ -10,7 +10,7 @@ this.BindCommand(
     x => x.myControl);
 ```
 
-Here we bind the `myControl` control to the `MyCommand` command exposed by our view model. What happens next is contingent upon any `ICreatesCommandBinding` instances registered in the [service locator](http://docs.reactiveui.net/en/user-guide/dependency-injection/index.html). However, normally `myControl` will be disabled whenever the command is unavailable. In addition, performing some default action against `myControl` will execute the command. For example, if `myControl` is a button, the required action would be a click (or tap).
+Here we bind the `myControl` control to the `MyCommand` command exposed by our view model. What happens next is contingent upon any `ICreatesCommandBinding` instances registered in the [service locator](https://reactiveui.net/docs/handbook/dependency-inversion/). However, normally `myControl` will be disabled whenever the command is unavailable. In addition, performing some default action against `myControl` will execute the command. For example, if `myControl` is a button, the required action would be a click (or tap).
 
 > **Note** The above example shows a naked call to `BindCommand`, but it will often be performed inside a `WhenActivated` block:
 > 
