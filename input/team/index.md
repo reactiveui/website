@@ -24,23 +24,20 @@ The Learning Team is responsible for keeping the guides and API documentation ac
 * Giusepe Casagrande
 
 # The Translation Team
-
 * Ramon Esteban
 * Andres Pineda
+* Adrián Romero
 
 # The Android Team
-
 * Colt Bauman
 * Stefan Moonen
 
 # The iOS Team
-
 * Stefan Moonen
 
 # The macOS Team
 
 # The NETCore Team
-
 * Geoffrey Huntley
 
 # The Tizen Team
