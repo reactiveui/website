@@ -62,7 +62,7 @@ Task("GetSource")
     .IsDependentOn("Clean")
     .Does(() =>
     {
-	    FilePath sourceZip = DownloadFile("https://codeload.github.com/reactiveui/ReactiveUI/zip/develop");
+	    FilePath sourceZip = DownloadFile("https://codeload.github.com/reactiveui/ReactiveUI/zip/master");
         Unzip(sourceZip, dependenciesDir);
         
         // Need to rename the container directory in the zip file to something consistent
