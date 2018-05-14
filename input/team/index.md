@@ -22,6 +22,7 @@ The Learning Team is responsible for keeping the guides and API documentation ac
 * Rune Jacobsen
 * Rodney Littles
 * Giusepe Casagrande
+* John Metta
 
 # The Translation Team
 * Ramon Esteban
@@ -41,8 +42,10 @@ The Learning Team is responsible for keeping the guides and API documentation ac
 * Geoffrey Huntley
 
 # The Tizen Team
+* Geoffrey Huntley
 
 # The UWP Team
+* Geoffrey Huntley
 
 # The WebAssembly Team
 * Geoffrey Huntley
@@ -51,6 +54,7 @@ The Learning Team is responsible for keeping the guides and API documentation ac
 * Sebastian Richter
 
 # The WPF Team
+* Sebastian Richter
 
 # The Xamarin Forms Team
 * Shane Neuville
