@@ -10,7 +10,7 @@ this.BindCommand(
     x => x.myControl);
 ```
 
-Here we bind the `myControl` control to the `MyCommand` command exposed by our view model. What happens next is contingent upon any `ICreatesCommandBinding` instances registered in the [service locator](http://docs.reactiveui.net/en/user-guide/dependency-injection/index.html). However, normally `myControl` will be disabled whenever the command is unavailable. In addition, performing some default action against `myControl` will execute the command. For example, if `myControl` is a button, the required action would be a click (or tap).
+Here we bind the `myControl` control to the `MyCommand` command exposed by our view model. What happens next is contingent upon any `ICreatesCommandBinding` instances registered in the [service locator](https://reactiveui.net/docs/handbook/dependency-inversion/). However, normally `myControl` will be disabled whenever the command is unavailable. In addition, performing some default action against `myControl` will execute the command. For example, if `myControl` is a button, the required action would be a click (or tap).
 
 > **Note** The above example shows a naked call to `BindCommand`, but it will often be performed inside a `WhenActivated` block:
 > 
@@ -25,7 +25,7 @@ Here we bind the `myControl` control to the `MyCommand` command exposed by our v
 >     });
 > ```
 > 
-> Please see [the documentation on `WhenActivated`](http://docs.reactiveui.net/en/user-guide/when-activated/index.html) for more information.
+> Please see [the documentation on `WhenActivated`](https://reactiveui.net/docs/handbook/when-activated/) for more information.
 
 The form of `BindCommand` demonstrated above does not provide any hint as to which event instigates command execution. Hence, a default event will be used (such as `Click` or `Tapped`). If, on the other hand, you want to tie your command's execution to some event other than the default, you can use an overload of `BindCommand` that takes an event name:
 
