@@ -15,31 +15,21 @@ var target = Argument("target", "Default");
 // PREPARATION
 //////////////////////////////////////////////////////////////////////
 
-// Define variables
-var isRunningOnAppVeyor = AppVeyor.IsRunningOnAppVeyor;
-var isPullRequest       = AppVeyor.Environment.PullRequest.IsPullRequest;
-var netlifyToken        = EnvironmentVariable("NETLIFY_TOKEN");
-var currentBranch       = isRunningOnAppVeyor ? BuildSystem.AppVeyor.Environment.Repository.Branch : GitBranchCurrent("./").FriendlyName;
-
 // Define directories.
 var dependenciesDir     = Directory("./dependencies");
 var outputPath          = MakeAbsolute(Directory("./output"));
 var sourceDir           = dependenciesDir + Directory("reactiveui");
-
-// Variables
 
 
 //////////////////////////////////////////////////////////////////////
 // SETUP
 //////////////////////////////////////////////////////////////////////
 
-
 Setup(ctx =>
 {
     // Executed BEFORE the first task.
     Information("Building branch {0}...", currentBranch);
 });
-
 
 //////////////////////////////////////////////////////////////////////
 // TASKS
@@ -80,6 +70,8 @@ Task("Build")
             Theme = "Samson",
             UpdatePackages = true
         });
+            
+        Zip("./output", "output.zip", "./output/**/*");
     });
 
 Task("Preview")
@@ -104,16 +96,6 @@ Task("Debug")
             "-a \"../Wyam/src/**/bin/Debug/*.dll\" -r \"docs -i\" -t \"../Wyam/themes/Docs/Samson\" -p --attach");
     });
 
-Task("Deploy")
-    .WithCriteria(isRunningOnAppVeyor)
-    .WithCriteria(!isPullRequest)
-    .IsDependentOn("Build")
-    .Does(() =>
-    {
-        Zip("./output", "output.zip", "./output/**/*");
-        StartProcess("curl", "--header \"Content-Type: application/zip\" --header \"Authorization: Bearer " + netlifyToken + "\" --data-binary \"@output.zip\" --url https://api.netlify.com/api/v1/sites/reactiveui.netlify.com/deploys");
-    });
-
 //////////////////////////////////////////////////////////////////////
 // TASK TARGETS
 //////////////////////////////////////////////////////////////////////
@@ -123,9 +105,6 @@ Task("Default")
 
 Task("GetArtifacts")
     .IsDependentOn("GetSource");
-
-Task("AppVeyor")
-    .IsDependentOn(isPullRequest ? "Build" : "Deploy");
 
 //////////////////////////////////////////////////////////////////////
 // EXECUTION
