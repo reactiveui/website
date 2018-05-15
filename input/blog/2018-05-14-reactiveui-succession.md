@@ -1,6 +1,7 @@
 ---
 title: ReactiveUI Succession
 category: 
+  - Announcement
   - Succession
 author: Rodney Littles, II
 ---
