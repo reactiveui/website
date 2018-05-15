@@ -26,3 +26,4 @@ I believe the community needs to take the following steps:
 - Grow the community, and help each other learn
 
 There has been a lot of conversation in the community around these topics over the last two weeks.  We are planning an overhaul in the way we deliver ReactiveUI.  These topics have been at the forefront of the ReactiveUI teams discussions and there will be some announcements over the next week explaining more.  If you can't wait for these announcements because you've just got to know how you can get involved, join us on Slack reactiveui.net/slack and head into the #reactiveui-succession channel to find out how you can be part of these changes that will shape the future of ReactiveUI!
+
