@@ -23,6 +23,7 @@ The Learning Team is responsible for keeping the guides and API documentation ac
 * Rodney Littles
 * Giusepe Casagrande
 * John Metta
+* Stephen Price
 
 # The Translation Team
 * Ramon Esteban
