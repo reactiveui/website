@@ -28,7 +28,6 @@ var sourceDir           = dependenciesDir + Directory("reactiveui");
 Setup(ctx =>
 {
     // Executed BEFORE the first task.
-    Information("Building branch {0}...", currentBranch);
 });
 
 //////////////////////////////////////////////////////////////////////
