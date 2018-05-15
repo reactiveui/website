@@ -17,7 +17,7 @@ There comes a time when a single point of failure in an application can bring do
 
 We, the consumers of this library, need to find a way to pull together and maintain this library as a community.  We need to establish a road map, identify new features, create a community stand up, delegate work so we can continue to react long after the current maintainers step away for some well deserved rest and relaxation.
 
-We have to accept that if we don't contribute, ReactiveUI won't grow.  That there may not be a fresh NuGet package when we need a bug fixed.  There may not be not be a library when the next evolution of .NET comes out of Microsoft.  I urge you to get involved. We don't want a tragedy of the commons.  We want a healthy way to tame mutable state in the .NET eco system.  ReactiveUI has been our tool this long, and we want to keep it healthy, stable and fresh for years to come.
+We have to accept that [if we don't contribute, ReactiveUI won't grow](https://www.youtube.com/watch?v=0t85TyH-h04).  That there may not be a fresh NuGet package when we need a bug fixed.  There may not be not be a library when the next evolution of .NET comes out of Microsoft.  I urge you to get involved. We [don't want a tragedy of the commons](https://www.youtube.com/watch?v=VS6IpvTWwkQ).  We want a healthy way to tame mutable state in the .NET eco system.  ReactiveUI has been our tool this long, and we want to keep it healthy, stable and fresh for years to come.
 
 I believe the community needs to take the following steps:
 
