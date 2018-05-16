@@ -2,7 +2,7 @@
 
 You'll need to do a pull-request similar to this [https://github.com/reactiveui/ReactiveUI/pull/1226](https://github.com/reactiveui/ReactiveUI/pull/1226)
 
-![](/images/contributing/release-failed-because-gitreleasemanager-could-not-find-the-milestone.png)
+![](/contribute/maintainers/release-failed-because-gitreleasemanager-could-not-find-the-milestone.png)
 
 Change to a clean copy of `master`
 
@@ -39,7 +39,7 @@ git push origin bump-release-version
 
 Open a pull-request to `master` and once the release has been approved, you'll need to switch your merge mode to `Create a merge commit` aka `Merge pull request` by using the little arrow on the right hand side.
 
-![](/images/contributing/merge-commit-option.png)
+![](/contribute/maintainers/merge-commit-option.png)
 
 Do not customize the merge commit message or more specifically, do not bump the semver in the merge commit message.
 
@@ -47,5 +47,5 @@ Do not customize the merge commit message or more specifically, do not bump the 
 
 Visit the issue, resolve the problem and then visit AppVeyor and click "Rebuild Commit". It is safe to do this multiple times because building `master` does not automatically release unless the commit has been tagged.
 
-![](/images/contributing/release-failed-because-of-labeling-issue.png)
+![](/contribute/maintainers/release-failed-because-of-labeling-issue.png)
 
