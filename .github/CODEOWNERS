@@ -9,4 +9,4 @@ packages.*                                 @reactiveui/devops-team
 config.*                                   @reactiveui/devops-team
 .vsts-ci.yml                               @reactiveui/devops-team
 
-input/*                                    @reactiveui/learning-team
+input/*                                    @reactiveui/maintainers
