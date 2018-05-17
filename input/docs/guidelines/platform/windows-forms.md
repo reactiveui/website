@@ -1,20 +1,31 @@
 # Windows Forms
 
-ReactiveUI targets `NET452` (which is the oldest version that's still supported by microsoft) - there are NET40 forks you can use.
+Ensure that you install `reactiveui.winforms` into your application.
 
-Example at https://github.com/shiftkey/reactiveui-winforms-example
+Your viewmodels should inherit from `ReactiveObject`
 
-Make sure you install `reactiveui-winforms` into your solution.  If you don't,
-you'll see very strange behavior like `Bind` and `OneWayBind` not working correctly,
-and `WhenAny` observables not being automatically observed on the UI thread.
+- https://reactiveui.net/api/reactiveui/reactiveobject/
 
+Use `ISupportsActivation` and `WhenActivated` for lifecycle
 
-Also see https://github.com/reactiveui/ReactiveUI/issues/997
+- https://reactiveui.net/api/reactiveui/isupportsactivation/
+- https://reactiveui.net/docs/handbook/when-activated/
 
-Gluck (https://github.com/gluck) has published an unoffical forms package which from a fork of ReactiveUI repo:
+Keep references to your subscriptions
 
-https://github.com/gluck/ReactiveUI/commits/Net40-support
+- https://reactiveui.net/docs/concepts/reactive-programming/subscriptions#lifecycle
 
-Note that reactiveui-*-events packages (neither the ones from Paul, nor Gluck's) have no adherence to ReactiveUI per-se, you can do RxUI without them, and you can use them without RxUI. They're simply "generated extension methods for every type exposing .Net events to expose corresponding IObservable wrappers", to save you the burden of writing the FromEvent/FromEventPattern yourself.
+Use disposables to manage lifetime, scope and resources:
 
-This winforms package contains helpers for every type in System.Windows.Forms.dll.
+- https://reactiveui.net/docs/concepts/reactive-programming/disposables
+
+Don't use eventhandlers, use the extension methods shipped in `reactiveui.events.winforms` instead
+
+- https://reactiveui.net/docs/handbook/events/
+
+Use your normal WinForms concepts that you would usually use in WinForms development. There's also some extension methods which will make your life easier
+
+- https://reactiveui.net/api/reactiveui/reactiveusercontrol_1/
+- https://reactiveui.net/api/reactiveui/iviewfor_1/
+- https://reactiveui.net/api/reactiveui/routedviewhost/
+- https://reactiveui.net/api/reactiveui/autodatatemplatebindinghook/
