@@ -1,6 +1,8 @@
 Title: Xamarin Forms
 ---
 
+Ensure that you install `reactiveui.xamforms` into your applications.
+
 Your viewmodels should inherit from `ReactiveObject`
 
 - https://reactiveui.net/api/reactiveui/reactiveobject/
@@ -22,7 +24,7 @@ Use disposables to manage lifetime, scope and resources:
 
 - https://reactiveui.net/docs/concepts/reactive-programming/disposables
 
-Don't use eventhandlers, use the extension methods shipped in `reactiveui-events-xamforms` instead
+Don't use eventhandlers, use the extension methods shipped in `reactiveui.events.xamforms` instead
 
 - https://reactiveui.net/docs/handbook/events/
 

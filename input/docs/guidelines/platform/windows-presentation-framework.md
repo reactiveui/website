@@ -1,6 +1,8 @@
 Title: Windows Presentation Framework
 ---
 
+Ensure that you install `reactiveui.wpf` into your application.
+
 Your viewmodels should inherit from `ReactiveObject`
 
 - https://reactiveui.net/api/reactiveui/reactiveobject/
@@ -18,7 +20,7 @@ Use disposables to manage lifetime, scope and resources:
 
 - https://reactiveui.net/docs/concepts/reactive-programming/disposables
 
-Don't use eventhandlers, use the extension methods shipped in `reactiveui-events-wpf` instead
+Don't use eventhandlers, use the extension methods shipped in `reactiveui.events.wpf` instead
 
 - https://reactiveui.net/docs/handbook/events/
 

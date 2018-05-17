@@ -22,7 +22,7 @@ Use disposables to manage lifetime, scope and resources:
 
 - https://reactiveui.net/docs/concepts/reactive-programming/disposables
 
-Don't use eventhandlers, use the extension methods shipped in `reactiveui-events` instead
+Don't use eventhandlers, use the extension methods shipped in `reactiveui.events` instead
 
 - https://reactiveui.net/docs/handbook/events/
 
