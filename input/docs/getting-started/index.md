@@ -1,7 +1,7 @@
 Order: 10
 ---
 
-A big part of understanding ReactiveUI is understanding Reactive Programming. As ReactiveUI is a library build on `Reactive Extension for .NET`. It's a bunch of extension methods for programming in an reactive manner. Here are some steps to begin with:
+A big part of understanding ReactiveUI is understanding Reactive Programming. As ReactiveUI is a library built on `Reactive Extension for .NET`. It's a bunch of extension methods for programming in a reactive manner. Here are some steps to begin with:
 - Create a net45 console app, install Akavache, use getandfetchlatest, pass in a Task to grab http content (for example use http://swapi.co/ for testing purpose), subscribe to it and observe how a async value returns multiple times. Unlike tasks, observables represent one or more values over time whilst you subscribe.
 - Then next step move onto reactive programming disposables/subscriptions
 - Then look at whenacticated (reactive UI) and disposing subscriptions (reactive programming)
