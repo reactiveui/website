@@ -24,6 +24,8 @@ var clearAllCommand = ReactiveCommand
         new [] { clearBrowsingHistoryCommand, clearDownloadHistoryCommand, clearCookiesCommand });
 ```
 
+The combined command will execute the child commands asynchronously when executed.
+
 The combined command respects the executability of all child commands. That is, if any child command cannot currently execute, neither can the combined command. In addition, it is also possible for you to pass in _extra_ executability logic when creating your combined command:
 
 ```cs
