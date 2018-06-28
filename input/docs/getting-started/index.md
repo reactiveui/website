@@ -1,14 +1,14 @@
 Order: 10
 ---
 
-A big part of understanding ReactiveUI is understanding Reactive Programming. As ReactiveUI is a library built on `Reactive Extension for .NET`. It's a bunch of extension methods for programming in a reactive manner. Here are some steps to begin with:
-- Create a net45 console app, install Akavache, use getandfetchlatest, pass in a Task to grab http content (for example use http://swapi.co/ for testing purpose), subscribe to it and observe how a async value returns multiple times. Unlike tasks, observables represent one or more values over time whilst you subscribe.
-- Then next step move onto reactive programming disposables/subscriptions
-- Then look at whenacticated (reactive UI) and disposing subscriptions (reactive programming)
-- Now create a ViewModel (reactiveobject) that replicates your learning from the console app and plug that into the datacontext of your Xamarin forms app. Do everything else (for now) exactly how you normally would.
+A big part of understanding ReactiveUI is understanding Reactive Programming. As ReactiveUI is a library built on `Reactive Extensions for .NET`. It's a bunch of extension methods for programming in a reactive manner. Here are some steps to begin with:
+- Create a net45 console app, install Akavache, use getandfetchlatest, pass in a Task to grab http content (for example use http://swapi.co/ for testing purposes), subscribe to it and observe how an async value returns multiple times. Unlike tasks, observables represent one or more values over time whilst you subscribe.
+- Then move onto reactive programming disposables/subscriptions.
+- Then look at WhenActivated (reactive UI) and disposing subscriptions (reactive programming).
+- Now create a ViewModel (ReactiveObject) that replicates your learning from the console app and plug that into the datacontext of your Xamarin forms app. Do everything else (for now) exactly how you normally would.
 
-You now know ReactiveUI, but not yet proficient in expressing yourself in an reactive manner/cleanly.
-Next step is [OAPH](https://reactiveui.net/docs/handbook/oaph/), [WhenAny](https://reactiveui.net/docs/handbook/when-any/) and [Reactive Command](https://reactiveui.net/docs/handbook/commands/). This is optional but you get immense power out of mastery of these.
+You now know ReactiveUI, but are not yet proficient in expressing yourself in an reactive manner/cleanly.
+Next step is [OAPH](https://reactiveui.net/docs/handbook/oaph/), [WhenAny](https://reactiveui.net/docs/handbook/when-any/) and [Reactive Command](https://reactiveui.net/docs/handbook/commands/). This is optional but you get immense power out of mastering these.
 
 # Example ViewModel
 
@@ -17,7 +17,7 @@ Let's create a simple application demonstrating a number of ReactiveUI functiona
 We will create a WPF application, which will allow us to search through Flickr public images.   
 The full code of the application is shown at the end of this chapter, and we will show relevant snippets as we go.
 
-In Visual Studio create a new WPF application (.Net 4.5 or above)
+In Visual Studio, create a new WPF application (.NET 4.5 or above).
 
 Our view has been already created for us, the `MainWindow`, so we will proceed with creating our ViewModel.
 
@@ -26,7 +26,7 @@ Our view has been already created for us, the `MainWindow`, so we will proceed w
 using System.Web;
 ```
 
-**Add NuGet Packages**
+**Add NuGet packages**
 ```
 Install-Package ReactiveUI
 ```
@@ -226,7 +226,7 @@ namespace FlickrBrowser
 
 **Our ViewModel is now complete**
 
-Now we need to create a View for our view model, the following is an example
+Now we need to create a View for our ViewModel, the following is an example:
 
 ```xml
 <Window x:Class="FlickrBrowser.MainWindow"
