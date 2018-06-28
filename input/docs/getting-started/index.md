@@ -2,7 +2,7 @@ Order: 10
 ---
 
 A big part of understanding ReactiveUI is understanding Reactive Programming. As ReactiveUI is a library built on `Reactive Extensions for .NET`. It's a bunch of extension methods for programming in a reactive manner. Here are some steps to begin with:
-- Create a net45 console app, install Akavache, use getandfetchlatest, pass in a Task to grab http content (for example use http://swapi.co/ for testing purposes), subscribe to it and observe how an async value returns multiple times. Unlike tasks, observables represent one or more values over time whilst you subscribe.
+- Create a net461 console app, install Akavache, use getandfetchlatest, pass in a Task to grab http content (for example use http://swapi.co/ for testing purposes), subscribe to it and observe how an async value returns multiple times. Unlike tasks, observables represent one or more values over time whilst you subscribe.
 - Then move onto reactive programming disposables/subscriptions.
 - Then look at WhenActivated (reactive UI) and disposing subscriptions (reactive programming).
 - Now create a ViewModel (ReactiveObject) that replicates your learning from the console app and plug that into the datacontext of your Xamarin forms app. Do everything else (for now) exactly how you normally would.
@@ -17,7 +17,7 @@ Let's create a simple application demonstrating a number of ReactiveUI functiona
 We will create a WPF application, which will allow us to search through Flickr public images.   
 The full code of the application is shown at the end of this chapter, and we will show relevant snippets as we go.
 
-In Visual Studio, create a new WPF application (.NET 4.5 or above).
+In Visual Studio, create a new WPF application (.NET 4.6.1 or above).
 
 Our view has been already created for us, the `MainWindow`, so we will proceed with creating our ViewModel.
 
