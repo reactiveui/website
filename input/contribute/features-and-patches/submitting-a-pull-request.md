@@ -7,7 +7,7 @@ Before you submit your pull request, please:
 Make your changes in a new git branch:
 
 ```shell
-git checkout -b my-fix-branch develop
+git checkout -b my-fix-branch master
 ```
 
 * Follow our [Coding Style](https://github.com/reactiveui/website/blob/master/input/contribute/software-style-guide/code-style.md).
@@ -29,7 +29,7 @@ Note: the optional commit `-a` command line option will automatically "add" and 
 git push origin my-fix-branch
 ```
 
-In GitHub, send a pull request to `reactiveui:develop`.
+In GitHub, send a pull request to `reactiveui:master`.
 
 If we suggest changes, then:
 
