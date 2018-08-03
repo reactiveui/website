@@ -41,3 +41,7 @@ Tiny app for reading RSS feeds built for Universal Windows Platform. Uses Reacti
 # Xamarin Mac
 
 Send in a pull-request linking to the source code of something you have built.
+
+# Avalonia UI Framework
+
+A cross-platform app example created using <a href="https://github.com/AvaloniaUI/Avalonia">Avalonia</a> and other XAML-based UI frameworks. https://github.com/worldbeater/ReactiveMvvm
