@@ -17,3 +17,11 @@ steps:
   displayName: Build
   inputs: 
     filePath: .\build.cmd
+
+- task: PublishBuildArtifacts@1
+  displayName: Publish Website Artifacts
+  inputs:
+    pathToPublish: '$(build.artifactstagingdirectory)\output'
+    artifactType: container
+    artifactName: Packages
+  condition: and(succeeded(), eq(variables['system.pullrequest.isfork'], false))
