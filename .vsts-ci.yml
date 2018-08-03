@@ -13,8 +13,9 @@ steps:
     modifyEnvironment: true
   displayName: Setup Environment Variables
 
-- powershell: |
-    .\build.cmd
-  displayName: Build 
+- task: powershell@2
+  displayName: Build
+  inputs: 
+    filePath: .\build.cmd
   env:
     VSTS_ACCESS_TOKEN: $(System.AccessToken)
