@@ -10,7 +10,7 @@ steps:
 - task: PublishBuildArtifacts@1
   displayName: Publish Website Artifacts
   inputs:
-    pathToPublish: '$(build.artifactstagingdirectory)\output'
+    pathToPublish: '$(System.DefaultWorkingDirectory)\output.zip'
     artifactType: container
     artifactName: Packages
   condition: and(succeeded(), eq(variables['system.pullrequest.isfork'], false))
