@@ -20,7 +20,7 @@ Assuming the following project structure:
 - MyCoolApp.UnitTests (tests)
 ```
 
-* Install `ReactiveUI` into your netstandard library, application and tests.
+* Install `ReactiveUI` into your netstandard libraries, application and tests.
 * Install `ReactiveUI.WinForms` into your application and tests.
 * Install `ReactiveUI.Events.WinForms` into your application.
 * Install `ReactiveUI.Testing` into your tests.
@@ -35,7 +35,7 @@ Assuming the following project structure:
 - MyCoolApp.UnitTests (tests)
 ```
 
-* Install `ReactiveUI` into your netstandard library, application and tests.
+* Install `ReactiveUI` into your netstandard libraries, application and tests.
 * Install `ReactiveUI.WPF` into your application and tests.
 * Install `ReactiveUI.Events.WPF` into your application.
 * Install `ReactiveUI.Testing` into your tests.
