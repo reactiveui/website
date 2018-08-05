@@ -50,7 +50,7 @@ public class AppViewModel : ReactiveObject
     // We will describe this later, but ReactiveCommand is a Command
     // (like "Open", "Copy", "Delete", etc), that manages a task running
     // in the background.
-    public ReactiveCommand<string, List<FlickrPhoto>> ExecuteSearch { get; protected set; }
+    public ReactiveCommand<string, List<FlickrPhoto>> ExecuteSearch { get; }
 
     /* ObservableAsPropertyHelper
      * 
@@ -71,7 +71,7 @@ public class AppViewModel : ReactiveObject
     // lets the user know that the app is busy). We also declare this property
     // to be the result of an Observable (i.e. its value is derived from 
     // some other property)
-    ObservableAsPropertyHelper<Visibility> _spinnerVisibility;
+    private readonly ObservableAsPropertyHelper<Visibility> _spinnerVisibility;
     public Visibility SpinnerVisibility => _spinnerVisibility.Value;
 
     public AppViewModel()
