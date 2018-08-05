@@ -19,7 +19,7 @@ In Visual Studio, create a new WPF application (.NET 4.6.1 or above). Our view h
 ```
 Install-Package ReactiveUI.WPF
 ```
-The complete list containing NuGet packages for all supported platforms can be found <a href="https://reactiveui.net/docs/getting-started/installation/nuget-packages/">here</a>.
+The complete list containing NuGet packages for all supported platforms can be found <a href="https://reactiveui.net/docs/getting-started/installation/nuget-packages/">here</a>. <a href="https://www.nuget.org/packages/reactiveui/">ReactiveUI</a> main package should normally be installed into you .NET Standard class libraries containing platform-agnostic code (repositories, services, DTOs, view-models), and ReactiveUI.XXX packages are platform-specific, so we use <a href="https://www.nuget.org/packages/ReactiveUI.WPF/">ReactiveUI.WPF</a> in this tutorial as we are developing a tiny WPF application that doesn't need code sharing.
 
 **Assign a new instance of a ViewModel to the MainWindow DataContext**
 ```csharp
