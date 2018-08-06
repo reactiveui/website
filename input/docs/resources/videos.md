@@ -1,6 +1,13 @@
 Order: 10
 ---
 
+# 2018
+
+## Lifting App State with Geoffrey Huntley | The Xamarin Show
+This week, James is joined by friend of the show and Microsoft MVP Geoffrey Huntley to discuss lifting app state with Reactive Extensions (RX). Geoffrey gives a full overview of RX and Reactive UI and how it can help developers compose their application logic easier. He walks through full concepts and how to convert some MVVM code over.
+
+<iframe src="https://www.youtube.com/embed/3HwEytvngXk" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
 # 2017
 
 ## There is a better way
