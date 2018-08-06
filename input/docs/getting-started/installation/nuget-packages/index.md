@@ -15,12 +15,14 @@ Order: 10
 Assuming the following project structure:
 
 ```
-MyCoolApp (application)
-MyCoolApps.UnitTests (tests)
+- MyCoolApp (netstandard)
+- MyCoolApp.WinForms (application)
+- MyCoolApp.UnitTests (tests)
 ```
 
+* Install `ReactiveUI` into your netstandard libraries, application and tests.
 * Install `ReactiveUI.WinForms` into your application and tests.
-* Install `ReactiveUI.Events.WinForms` into your application (NOTE: at time of writing, this package is missing from NuGet).
+* Install `ReactiveUI.Events.WinForms` into your application.
 * Install `ReactiveUI.Testing` into your tests.
 
 # Windows Presentation Foundation
@@ -28,10 +30,12 @@ MyCoolApps.UnitTests (tests)
 Assuming the following project structure:
 
 ```
-- MyCoolApp (application)
-- MyCoolApps.UnitTests (tests)
+- MyCoolApp (netstandard)
+- MyCoolApp.WPF (application)
+- MyCoolApp.UnitTests (tests)
 ```
 
+* Install `ReactiveUI` into your netstandard libraries, application and tests.
 * Install `ReactiveUI.WPF` into your application and tests.
 * Install `ReactiveUI.Events.WPF` into your application.
 * Install `ReactiveUI.Testing` into your tests.
@@ -44,7 +48,7 @@ Assuming the following project structure:
 - MyCoolApp (netstandard library)
 - MyCoolApp.Services.UWP (platform library)
 - MyCoolApp.UWP (application)
-- MyCoolApps.UnitTests (tests)
+- MyCoolApp.UnitTests (tests)
 ```
 
 * Install `ReactiveUI` into your netstandard library, platform library, application and tests.
@@ -59,11 +63,11 @@ Assuming the following project structure:
 - MyCoolApp (netstandard library)
 - MyCoolApp.Services.Droid (platform library)
 - MyCoolApp.Droid (application)
-- MyCoolApps.UnitTests (tests)
+- MyCoolApp.UnitTests (tests)
 ```
 
 * Install `ReactiveUI` into your netstandard library, platform library, application and tests.
-* Install `ReactiveUI.AndroidSupport` into your application (NOTE: at time of writing, this package is missing from NuGet).
+* Install `ReactiveUI.AndroidSupport` into your application.
 * Install `ReactiveUI.Events` into your application.
 * Install `ReactiveUI.Testing` into your tests.
 
@@ -75,7 +79,7 @@ Assuming the following project structure:
 - MyCoolApp (netstandard library)
 - MyCoolApp.Services.iOS (platform library)
 - MyCoolApp.iOS (application)
-- MyCoolApps.UnitTests (tests)
+- MyCoolApp.UnitTests (tests)
 ```
 
 * Install `ReactiveUI` into your netstandard library, platform library, application and tests.
@@ -88,16 +92,18 @@ Assuming the following project structure:
 
 ```
 - MyCoolApp (netstandard library)
+- MyCoolApp.UI (netstandard library)
 - MyCoolApp.Services.Droid (platform library)
 - MyCoolApp.Services.iOS (platform library)
 - MyCoolApp.Services.UWP (platform library)
 - MyCoolApp.Droid (application)
 - MyCoolApp.iOS (application)
 - MyCoolApp.UWP (application)
-- MyCoolApps.UnitTests (tests)
+- MyCoolApp.UnitTests (tests)
 ```
 
-* Install `ReactiveUI.XamForms` into your netstandard library, platform library, applications and tests.
+* Install `ReactiveUI` into your netstandard libraries, platform library, applications and tests.
+* Install `ReactiveUI.XamForms` into your netstandard UI library, platform library, applications and tests.
 * Install `ReactiveUI.Event.XamForms` into your netstandard library and applications.
 * Install `ReactiveUI.Testing` into your tests.
 
@@ -109,9 +115,23 @@ Assuming the following project structure:
 - MyCoolApp (netstandard library)
 - MyCoolApp.Services.Mac (platform library)
 - MyCoolApp.Mac (application)
-- MyCoolApps.UnitTests (tests)
+- MyCoolApp.UnitTests (tests)
 ```
 
 * Install `ReactiveUI` into your netstandard library, platform library, application and tests.
 * Install `ReactiveUI.Events` into your application.
+* Install `ReactiveUI.Testing` into your tests.
+
+# Avalonia
+
+Assuming the following project structure:
+
+```
+- MyCoolApp (netstandard library)
+- MyCoolApp.Avalonia (application)
+- MyCoolApp.UnitTests (tests)
+```
+
+* Install `ReactiveUI` into your netstandard library, application and tests.
+* Install `Avalonia.ReactiveUI` into your application.
 * Install `ReactiveUI.Testing` into your tests.
