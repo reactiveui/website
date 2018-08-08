@@ -13,7 +13,7 @@ Thank You to Glenn Watson for helping getting this released pushed.
 
 **Note:** There was a [WPF regression](https://github.com/reactiveui/ReactiveUI/pull/1710) in this release which has been fixed in release v8.4.4 that immediately followed this release. If you use WPF please skip this release.
 
-As part of this release we had [27 commits](https://github.com/reactiveui/reactiveui/compare/8.0.0...8.0.1) which resulted in [8 issues](https://github.com/reactiveui/ReactiveUI/issues?milestone=8&state=closed) being closed.
+As part of this release we had [27 commits](https://github.com/reactiveui/reactiveui/compare/8.3.1...8.4.1) which resulted in [8 issues](https://github.com/reactiveui/ReactiveUI/issues?milestone=8&state=closed) being closed.
 
 __ReactiveUI-Core__
 
