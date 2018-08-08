@@ -15,7 +15,7 @@ Order: 10
 Assuming the following project structure:
 
 ```
-- MyCoolApp (netstandard)
+- MyCoolApp (netstandard library)
 - MyCoolApp.WinForms (application)
 - MyCoolApp.UnitTests (tests)
 ```
@@ -30,7 +30,7 @@ Assuming the following project structure:
 Assuming the following project structure:
 
 ```
-- MyCoolApp (netstandard)
+- MyCoolApp (netstandard library)
 - MyCoolApp.WPF (application)
 - MyCoolApp.UnitTests (tests)
 ```
