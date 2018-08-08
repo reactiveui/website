@@ -19,7 +19,3 @@ __ReactiveUI Events__
 
 __Windows Presentation Foundation__
 - [__#1710__](https://github.com/reactiveui/ReactiveUI/pull/1710) fix: viewhost templates/themes weren't included
-
-__Xamarin Essentials__
-- [__#1682__](https://github.com/reactiveui/ReactiveUI/pull/1682) feature: generate events for xamarin essentials 
-
