@@ -112,6 +112,7 @@ The best way to execute ReactiveCommands is via the `Execute()` method:
 LoadUsers = ReactiveCommand.CreateFromTask(LoadUsersAsync);
 
 // Invoke LoadUsers command using async/await syntax.
+// We could also use .Subscribe() here.
 var users = await LoadUsers.Execute();
 Console.WriteLine("You've got {0} users!", users.Count());
 ```

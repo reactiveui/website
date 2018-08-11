@@ -5,26 +5,22 @@ http://stackoverflow.com/questions/26219105/what-is-the-reactiveui-way-to-handle
 
 ### Question
 
-    var reactiveCommandA = ReactiveCommand.CreateAsyncTask(_ => CanPossiblyThrowAsync());
-    reactiveCommandA.ThrownExceptions
-                    .Subscribe(ex => UserError.Throw("Oh no A", ex));
-    
-    var reactiveCommandB = ReactiveCommand.CreateAsyncTask(_ => CanAlsoPossiblyThrowAsync());
-    reactiveCommandB.ThrownExceptions
-                    .Subscribe(ex => UserError.Throw("Oh no B", ex));
-    
-    var reactiveCommandC = ReactiveCommand.CreateAsyncTask
-       (
-         async _ =>
-                   {
-                     await reactiveCommandA.ExecuteAsync(); // <= Could throw here
-                     await reactiveCommandB.ExecuteAsync();
-                     DoSomethingElse();
-                   }
-        );
-    
-    reactiveCommandC.ThrownExceptions
-                    .Subscribe(ex => UserError.Throw("Oh no C", ex));
+```cs
+var reactiveCommandA = ReactiveCommand.CreateAsyncTask(_ => CanPossiblyThrowAsync());
+reactiveCommandA.ThrownExceptions.Subscribe(ex => UserError.Throw("Oh no A", ex));
+
+var reactiveCommandB = ReactiveCommand.CreateAsyncTask(_ => CanAlsoPossiblyThrowAsync());
+reactiveCommandB.ThrownExceptions.Subscribe(ex => UserError.Throw("Oh no B", ex));
+
+var reactiveCommandC = ReactiveCommand.CreateAsyncTask(async _ =>
+{
+    await reactiveCommandA.ExecuteAsync(); // <= Could throw here
+    await reactiveCommandB.ExecuteAsync();
+    DoSomethingElse();
+});
+
+reactiveCommandC.ThrownExceptions.Subscribe(ex => UserError.Throw("Oh no C", ex));
+```
 
 So assume my background implementation for reactiveCommandA might throw an exception. That is OK, since I have subscribed to .ThrownExceptions and will theoretically notify the user and retry/fail/abort (not shown here for brevity). So it will not bubble up to the dispatcher.
 
@@ -41,6 +37,8 @@ Things I have thought of:
 
 ### Solution:
 
-    Observable.Merge(rxCmdA.ThrownExceptions, rxCmdB.ThrownExceptions, rxCmdC.ThrownExceptions)
-        .Throttle(TimeSpan.FromMilliseconds(250), RxApp.MainThreadScheduler)
-        .Subscribe(ex => UserError.Throw("Oh no C", ex));
+```cs
+Observable.Merge(rxCmdA.ThrownExceptions, rxCmdB.ThrownExceptions, rxCmdC.ThrownExceptions)
+    .Throttle(TimeSpan.FromMilliseconds(250), RxApp.MainThreadScheduler)
+    .Subscribe(ex => UserError.Throw("Oh no C", ex));
+```

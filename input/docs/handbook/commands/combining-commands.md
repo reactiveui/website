@@ -5,18 +5,15 @@ At times it can be useful to have several commands aggregated into one. As an ex
 ```cs
 IObservable<bool> canClearBrowsingHistory = ...;
 var clearBrowsingHistoryCommand = ReactiveCommand.CreateFromObservable(
-    this.ClearBrowsingHistory,
-    canClearBrowsingHistory);
+    this.ClearBrowsingHistory, canClearBrowsingHistory);
 
 IObservable<bool> canClearDownloadHistory = ...;
 var clearDownloadHistoryCommand = ReactiveCommand.CreateFromObservable(
-    this.ClearDownloadHistory,
-    canClearDownloadHistory);
+    this.ClearDownloadHistory, canClearDownloadHistory);
 
 IObservable<bool> canClearCookies = ...;
 var clearCookiesCommand = ReactiveCommand.CreateFromObservable(
-    this.ClearCookies,
-    canClearCookies);
+    this.ClearCookies, canClearCookies);
 
 // combine all these commands into one "parent" command
 var clearAllCommand = ReactiveCommand
@@ -26,9 +23,7 @@ var clearAllCommand = ReactiveCommand
                  clearCookiesCommand });
 ```
 
-The combined command will execute the child commands asynchronously when executed.
-
-The combined command respects the executability of all child commands. That is, if any child command cannot currently execute, neither can the combined command. In addition, it is also possible for you to pass in _extra_ executability logic when creating your combined command:
+The combined command will execute the child commands asynchronously when executed. The combined command respects the executability of all child commands. That is, if any child command cannot currently execute, neither can the combined command. In addition, it is also possible for you to pass in _extra_ executability logic when creating your combined command:
 
 ```cs
 IObservable<bool> canClearAll = ...;

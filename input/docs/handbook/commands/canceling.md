@@ -7,11 +7,9 @@ If your command's execution logic can take a long time to complete, it can be us
 At its most primitive form, canceling a command's execution involves disposing the execution subscription:
 
 ```cs
-var subscription = someReactiveCommand
-    .Execute()
-    .Subscribe();
+var subscription = someReactiveCommand.Execute().Subscribe();
 
-// this cancels the command's execution
+// This cancels the command's execution.
 subscription.Dispose();
 ```
 
@@ -30,10 +28,10 @@ var command = ReactiveCommand
             .Delay(TimeSpan.FromSeconds(3))
             .TakeUntil(cancel));
 
-// somewhere else
+// Somewhere else.
 command.Execute().Subscribe();
 
-// this cancels the above execution
+// This cancels the above execution.
 cancel.OnNext(Unit.Default);
 ```
 
@@ -55,17 +53,9 @@ public class SomeViewModel : ReactiveObject
             this.CancellableCommand.IsExecuting);
     }
 
-    public ReactiveCommand<Unit, Unit> CancelableCommand
-    {
-        get;
-        private set;
-    }
+    public ReactiveCommand<Unit, Unit> CancelableCommand { get; }
 
-    public ReactiveCommand<Unit, Unit> CancelCommand
-    {
-        get;
-        private set;
-    }
+    public ReactiveCommand<Unit, Unit> CancelCommand { get; }
 }
 ```
 
@@ -89,11 +79,7 @@ public class SomeViewModel : ReactiveObject
                 ct => this.DoSomethingAsync(ct));
     }
 
-    public ReactiveCommand<Unit, Unit> CancelableCommand
-    {
-        get;
-        private set;
-    }
+    public ReactiveCommand<Unit, Unit> CancelableCommand { get; }
 
     private async Task DoSomethingAsync(CancellationToken ct)
     {
@@ -116,7 +102,7 @@ var subscription = viewModel
     .Execute()
     .Subscribe();
 
-// this cancels the execution
+// This cancels the execution.
 subscription.Dispose();
 ```
 
@@ -139,17 +125,9 @@ public class SomeViewModel : ReactiveObject
             this.CancellableCommand.IsExecuting);
     }
 
-    public ReactiveCommand<Unit, Unit> CancelableCommand
-    {
-        get;
-        private set;
-    }
+    public ReactiveCommand<Unit, Unit> CancelableCommand { get; }
 
-    public ReactiveCommand<Unit, Unit> CancelCommand
-    {
-        get;
-        private set;
-    }
+    public ReactiveCommand<Unit, Unit> CancelCommand { get; }
 
     private async Task DoSomethingAsync(CancellationToken ct)
     {
@@ -159,4 +137,3 @@ public class SomeViewModel : ReactiveObject
 ```
 
 This approach allows us to use exactly the same technique as with the pure Rx solution discussed above. The difference is that our observable pipeline includes execution of TPL-based asychronous code.
-
