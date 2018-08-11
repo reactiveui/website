@@ -1,8 +1,4 @@
-# Asynchronous operations with ReactiveCommand
-
-One of the most important features of ReactiveCommand is its built-in facilities for orchestrating asynchronous operations. In previous versions of ReactiveUI, this was in a separate command class, but starting with ReactiveUI 5.0, this is built-in.
-
-### Creating commands from Tasks and Observables
+### Creating commands
 
 To use ReactiveCommand, create it using one of the following methods:
 
@@ -10,13 +6,22 @@ To use ReactiveCommand, create it using one of the following methods:
 * **CreateFromObservable** - Creates a command from `IObservable<T>`;
 * **CreateFromTask** - Creates a command from `Task` or `Task<T>`.
 
-All of these methods will parameterize the resulting ReactiveCommand to be the return result of the method (i.e. if your async method returns `Task<String>`, your Command will be `ReactiveCommand<String>`). This means, that Subscribing to the Command itself returns the results of the async method as an Observable.
+All of these methods will parameterize the resulting ReactiveCommand to be the return result of the method (i.e. if your async method returns `Task<String>`, your Command will be `ReactiveCommand<String>`). This means, that Subscribing to the Command itself returns the results of the async method as an Observable. 
 
-ReactiveCommand itself doesn't guarantee that its results will be delivered on the UI thread, so extra `ObserveOn`s may be necessary. Use `.ObserveOn(RxApp.MainThreadScheduler)` if you'd like to update the UI.
+### Synchronous operations
 
-It is important to know, that ReactiveCommand itself as an `IObservable` will never complete or OnError - errors that happen in the async method will instead show up on the `ThrownExceptions` property. If it is possible that your async method can throw an exception (and most can!), you **must** Subscribe to `ThrownExceptions` or the exception will be rethrown on the UI thread.
+If your command is not CPU-intensive or I/O-bound then it probably makes sense to provide synchronous execution logic. You can do so by creating a command via `ReactiveCommand.Create`:
 
-Here's a simple example:
+```cs
+// Create a command with synchronous execution logic.
+var command = ReactiveCommand.Create(
+    () => Console.WriteLine("A command is invoked!")
+);
+```
+
+### Asynchronous operations
+
+One of the most important features of ReactiveCommand is its built-in facilities for orchestrating asynchronous operations. If your command's logic is CPU- or I/O-bound, you'll want to create an asynchronous ReactiveCommand command using `CreateFromObservable` or `CreateFromTask` methods. Here's a simple example:
 
 ```cs
 // Create a command with asynchronous execution logic.
@@ -38,6 +43,10 @@ LoadUsersAndAvatars
     .Subscribe(ex => this.Log().WarnException("Failed to load users", ex));
 ```
 
+ReactiveCommand itself doesn't guarantee that its results will be delivered on the UI thread, so extra `ObserveOn`s may be necessary. Use `.ObserveOn(RxApp.MainThreadScheduler)` if you'd like to update the UI.
+
+It is important to know, that ReactiveCommand itself as an `IObservable` will never complete or OnError - errors that happen in the async method will instead show up on the `ThrownExceptions` property. If it is possible that your async method can throw an exception (and most can!), you **must** Subscribe to `ThrownExceptions` or the exception will be rethrown on the UI thread.
+
 ### Invoking commands
 
 The best way to execute ReactiveCommands is via the `Execute` method:
@@ -52,11 +61,15 @@ LoadUsersAndAvatars = ReactiveCommand.CreateFromTask(async () =>
 });
 
 // Invoke LoadUsersAndAvatars command using async/await syntax.
-var results = await LoadUsersAndAvatars.ExecuteAsync();
+var results = await LoadUsersAndAvatars.Execute();
 Console.WriteLine("You've got {0} users!", results.Count());
 ```
 
-It is important that you **must await Execute** or else it doesn't do anything! `Execute` returns a *Cold Observable*, which means that it only does work once someone Subscribes to it. For binding to XAML UI frameworks, the `ICommand.Execute(object)` method is still provided, but is deliberately hidden using explicit `ICommand` interface implementation.
+Regardless of whether your command is synchronous or asynchronous in nature, you execute it via the `Execute` method. You get back an observable that will tick the command's result value when execution completes. Synchronous commands will execute immediately, so the observable you get back will already have completed. The returned observable is behavioral though, so subscribing after the fact will still tick through the result value.
+
+> **Warning** As is often the case with idiomatic Rx, the observable returned by `Execute` is cold. That is, nothing will happen unless something subscribes to it or `await`s it. In those cases where you're calling `Execute` directly, it's very important to remember that it's lazy.
+
+For binding to XAML UI frameworks, the `ICommand.Execute(object)` method is still provided, but is deliberately hidden using explicit `ICommand` interface implementation, you should avoid using it.
 
 > **Hint** Try not to execute commands in the ViewModel constructor. If commands are invoked in the constructor, your ViewModel classes become more difficult to test, because you always have to mock out the effects of calling that commands, even if the thing you are testing is unrelated. Instead, use <a href="https://reactiveui.net/docs/handbook/when-activated/">WhenActivated</a>.
 
@@ -110,7 +123,7 @@ var errorResolution = "Check your Internet connection";
 // Any exceptions thrown by LoadTweets will end up being
 // sent through ThrownExceptions. Use ObserveOn to specify
 // a scheduler, use RxApp.MainThreadScheduler to
-// deliver exceptions on main thread.
+// deliver exceptions to the main thread.
 LoadTweetsCommand.ThrownExceptions
     .Select(ex => new UserError(errorMessage, errorResolution))
     .Subscribe(error => UserError.Throw(error));
