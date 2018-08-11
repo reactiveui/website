@@ -1,5 +1,5 @@
 ---
-title: ReactiveUI v8.4.1 released
+title: ReactiveUI v8.5.1 released
 category: 
   - Release Notes
 author: Rodney Littles, II
@@ -9,6 +9,9 @@ Release 8.5.1 of ReactiveUI is available!
 
 As part of this release we had [4 commits](https://github.com/ReactiveUI/ReactiveUI/compare/8.4.4...8.5.1) which resulted in [3 issues](https://github.com/reactiveui/ReactiveUI/issues?milestone=13&state=closed) being closed.
 
+Thanks to Sebastian who worked on some WinForms enhancement.
+
+Also thankyou to Colt Bauman who added some enhancements to the ReactiveTableViewSource component animation state.
 
 __ReactiveUI Core__
 
