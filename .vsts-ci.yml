@@ -4,7 +4,7 @@ trigger:
 queue: Hosted VS2017
 
 steps:
-- powershell: .\build.ps1
+- powershell: .\build.ps1 --settings_skipverification=true
   displayName: Build
   
 - task: PublishBuildArtifacts@1
