@@ -1,19 +1,46 @@
-# MVVM and ReactiveCommands
-
 `ReactiveCommand` is a Reactive Extensions and asynchronous aware implementation of the [`ICommand`](https://msdn.microsoft.com/en-us/library/system.windows.input.icommand.aspx) interface. `ICommand` is often used in the [MVVM design pattern](https://docs.microsoft.com/en-us/dotnet/framework/wpf/advanced/commanding-overview) to allow the View to trigger business logic defined in the ViewModel. This allows for easier maintenance, unit testing, and the ability to reuse ViewModels across different UI frameworks. Examples of where a View might invoke a command include clicking a *Save* menu item, tapping a phone icon, or stretching an image. In these cases, the ViewModel will then invoke the business logic of saving outstanding changes, performing a phone call, or zooming into an image.
-
-`ReactiveCommand` adds the concept of Input and Output generic types. The Input is often passed in by the View, and the Output is the result of executing the command. ReactiveCommand's are `IObservable<TOutput>` which can be used like any other IObservable. For example, since the `ReactiveCommand` is `IObservable<TOutput>` you can `Subscribe()` to it like any other observable, and add the output to a List on your view model. The `Unit` type is a functional programming construct analogous to void and can be used in cases where you don't care about either the input and/or output value.
 
 # Creating commands
 
 A `ReactiveCommand` is created using static factory methods which allows you to create command logic that executes either synchronously or asynchronously. The following are the different static factory methods:
 
-* `CreateFromTask()` - Executes a C# [Task Parallel Library (TPL)](https://docs.microsoft.com/en-us/dotnet/standard/parallel-programming/task-based-asynchronous-programming) Task. This allows use also of the C# [async/await](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/async) operators.
 * `CreateFromObservable()` - Execute the logic using an `IObservable`.
+* `CreateFromTask()` - Execute a C# [Task Parallel Library (TPL)](https://docs.microsoft.com/en-us/dotnet/standard/parallel-programming/task-based-asynchronous-programming) Task. This allows use also of the C# [async/await](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/async) operators. Read more on canceling commands [here](./canceling).
 * `Create()` - Execute a synchronous Func or Action.
-* `CreateCombined()` - Read more on combining commands [here](./combining-commands).
+* `CreateCombined()` - Execute one or more commands. Read more on combining commands [here](#combining-commands).
 
-All of these methods will parameterize the resulting `ReactiveCommand` to be the return result of the method (i.e. if your async method returns `Task<string>`, your Command will be `ReactiveCommand<TInput, string>`). This means, that subscribing to the command itself returns the results of the async method as an Observable.
+`ReactiveCommand<TInput, TOutput>` adds the concept of Input and Output generic types. The *Input* is often passed in by the View and it's type is captured as `TInput`, and the *Output* is the result of executing the command which type is captured as `TOutput`. `ReactiveCommand<TInput, TOutput>` is `IObservable<TOutput>` which can be used like any other `IObservable`. For example, since the `ReactiveCommand` is `IObservable` you can `Subscribe()` to it like any other observable, and add the output to a List on your view model. The `Unit` type is a functional programming construct analogous to void and can be used in cases where you don't care about either the input and/or output value.
+
+```cs
+// A synchronous command taking a parameter and returning nothing.
+// The Unit type is often used to denote the successfull completion
+// of a void-returning method (C#) or a sub procedure (VB).
+var command = ReactiveCommand.Create<int, Unit>(
+    integer => Console.WriteLine(integer)
+);
+
+// This outputs: 42
+command.Execute(42).Subscribe();
+```
+
+All of the static factory methods that the `ReactiveCommand` class has will parameterize the resulting `ReactiveCommand<TInput, TOutput>` to be the return result of the method (i.e. if your async method returns `Task<string>`, your command will be `ReactiveCommand<TInput, string>`). This means, that subscribing to the command itself returns the results of the async method as an `IObservable`.
+
+```cs
+// An asynchronous command created from IObservable<int> that 
+// waits 2 seconds and then returns 42 integer.
+var command = ReactiveCommand.CreateFromObservable<Unit, int>(
+    () => Observable.Return(42).Delay(TimeSpan.FromSeconds(2))
+);
+
+// Subscribing to the observable returned by `Execute()` will 
+// tick through the value `42` with a 2-second delay.
+command.Execute(Unit.Default).Subscribe();
+
+// We can also subscribe to _all_ values that a command
+// emits by using the `Subscribe()` method on the
+// ReactiveCommand itself.
+command.Subscribe(value => Console.WriteLine(value));
+```
 
 # Synchronous commands
 
@@ -22,7 +49,7 @@ If your command is not CPU-intensive or I/O-bound then it probably makes sense t
 ```cs
 // Creates a command with synchronous execution logic
 // which is always available for execution.
-ReactiveCommand<Unit, Unit> command = ReactiveCommand.Create(
+var command = ReactiveCommand.Create(
     () => Console.WriteLine("A reactive command is invoked!")
 );
 ```
@@ -34,7 +61,7 @@ One of the most important features of `ReactiveCommand` is its built-in faciliti
 It is important to know, that ReactiveCommand itself as an `IObservable` will never complete or OnError - errors that happen in the async method will instead show up on the `ThrownExceptions` property. If it is possible that your async method can throw an exception, you should subscribe to `ThrownExceptions` or the exception will be rethrown on the UI thread.
 
 ```cs
-// Here we declare a ReactiveCommand, OAPH and a property.
+// Here we declare a ReactiveCommand, an OAPH and a property.
 private readonly ObservableAsPropertyHelper<List<User>> _users;
 public ReactiveCommand<Unit, List<User>> LoadUsers { get; }
 public List<User> Users => _users.Value;
@@ -45,21 +72,26 @@ public List<User> Users => _users.Value;
 LoadUsers = ReactiveCommand.CreateFromTask(LoadUsersAsync);
 
 // Update the UI with a new value when users are loaded.
-// ToProperty extension method allows us to subscribe
-// to LoadUsers Observable, update our OAPH and notify
-// the UI that the value of Users property has changed.
-LoadUsers.ObserveOn(RxApp.MainThreadScheduler)
-    .ToProperty(this, x => x.Users, out _users);
+// ToProperty extension method allows us to subscribe to 
+// LoadUsers Observable, update our OAPH and notify the UI 
+// that the value of Users property has changed.
+_users = LoadUsers.ToProperty(
+    this, x => x.Users, RxApp.MainThreadScheduler
+);
 
 // Here we subscribe to all exceptions thrown by our 
 // command and log them using ReactiveUI logging system.
 // If we forget to do this, our application will crush
 // if anything goes wrong in LoadUsers command.
-LoadUsers.ThrownExceptions
-    .Subscribe(ex => this.Log().WarnException("Error!", ex));
+LoadUsers.ThrownExceptions.Subscribe(exception => 
+{
+    this.Log().WarnException("Error!", exception);
+});
 ```
 
-`ReactiveCommand` guarantees the result of events are delivered to the provided `IScheduler` (which defaults to the main thread scheduler). The executing logic thread safety is the user's responsibility but any result from the logic is guaranteed to arrive on the specified `outputScheduler`. In some cases `.ObserveOn(RxApp.MainThreadScheduler)` may be worth using.
+> **Note** For performance based solutions you can also use the nameof() operator override of ToProperty() which won't use the Expression. Read more on ObservableAsPropertyHelper [here](../oaph).
+
+`ReactiveCommand` guarantees the result of events are delivered to the provided `outputScheduler`. The executing logic thread safety is the user's responsibility but any result from the logic is guaranteed to arrive on the specified `outputScheduler`. Read more on scheduling [here](#controlling-scheduling).
 
 # Controlling executability
 
@@ -90,18 +122,20 @@ Parameters, unlike in other frameworks, are typically *not used* in the canExecu
 
 If the logic you provide to a `ReactiveCommand` can fail in expected ways, you need a means of dealing with those failures. For command execution, the pipeline you get back from `Execute` will tick any errors that occur in your execution logic. However, the subscription to this observable is often instigated by the binding infrastructure. As such, it's likely that you cannot even get a hold of the observable to observe any errors.
 
-To address this dilemma, `ReactiveCommand` includes a `ThrownExceptions` observable (of type `IObservable<Exception>`). Any errors that occur in your execution logic will *also* tick through this observable. If you haven't subscribed to it, ReactiveUI will bring down your application. This forces you towards a pit of error-handling success.
+To address this dilemma, `ReactiveCommand` includes a `ThrownExceptions` observable (of type `IObservable<Exception>`). Any errors that occur in your execution logic will *also* tick through this observable. If you haven't subscribed to it, ReactiveUI will bring down your application by default. This forces you towards a pit of error-handling success.
 
 ```cs
 // Here we prevent LoadCommand from bringing our app down.
 LoadCommand.ThrownExceptions.Subscribe(error => { });
 ```
 
+Use <a href="https://reactiveui.net/docs/handbook/default-exception-handler/">RxApp.DefaultExceptionHandler</a> if you'd like to override the default `ThrownExceptions` behaviour. This may be usefull if you have crush-analytics plugins installed and would like to handle all exceptions. 
+
 It can be tempting to *always* add a subscription to `ThrownExceptions`, even if the only recourse is to just log the problem. However, it is advisable to treat this like any other exception handling and only handle problems you can redress. If, for example, your command merely updates a property in your view model and it should never fail, any subscription to `ThrownExceptions` will serve only to obscure implementation problems. That said, be aware of the potential for intermittent problems, such as network and I/O errors. As always, a strong suite of tests will help you identify where a subscription to `ThrownExceptions` makes sense.
 
-> **Note** Your `canExecute` pipeline also has the potential to produce an error. Such cases are almost certainly a programmer error because you never want your `canExecute` pipeline to end in error. Even so, these errors will also tick through `ThrownExceptions`.
+Unfortunately you can't filter exceptions from `ThrownExceptions`. It's an "all-or-nothing affair" as Kent Boogaart says in <a href="https://kent-boogaart.com/you-i-and-reactiveui/">his book</a>. You have to do it manually by handling the exceptions you can and forwarding all the others somewhere else like the `RxApp.DefaultExceptionHandler`. Use `RxApp.DefaultExceptionHandler.OnNext(exceptionICantHandle)`.
 
-Use <a href="https://reactiveui.net/docs/handbook/default-exception-handler/">RxApp.DefaultExceptionHandler</a> if you'd like to override the default `ThrownExceptions` behaviour. This maybe usefull if you have crush-analytics plugins installed and would like to handle all exceptions. 
+> **Note** Your `canExecute` pipeline also has the potential to produce an error. Such cases are almost certainly a programmer error because you never want your `canExecute` pipeline to end in error. Even so, these errors will also tick through `ThrownExceptions`.
 
 # Invoking commands
 
@@ -125,7 +159,7 @@ Regardless of whether your command is synchronous or asynchronous in nature, you
 
 > **Hint** Try not to execute commands in the ViewModel constructor. If commands are invoked in the constructor, your ViewModel classes become more difficult to test, because you always have to mock out the effects of calling that commands, even if the thing you are testing is unrelated. Instead, use <a href="https://reactiveui.net/docs/handbook/when-activated/">WhenActivated</a>.
 
-### Invoking commands in an Observable pipeline
+## Invoking commands in an Observable pipeline
 
 At times it can be convenient to execute a command in response to some `Observable<T>` that isn't perhaps tied to a user interaction. For example, a feature that automatically saves the current document by executing a `ReactiveCommand` every 5 minutes. The `InvokeCommand` extension makes it easy to achieve this:
 
@@ -140,6 +174,45 @@ Observable.Timer(interval, interval)
 ```
 
 > **Hint** `InvokeCommand` respects the command's executability. That is, if the command's `CanExecute` method returns `false`, `InvokeCommand` will not execute the command when the source observable ticks.
+
+# Combining commands
+
+At times it can be useful to have several commands aggregated into one. As an example, consider a browser that allows the user to clear individual caches \(browsing history, download history, cookies\), or clear all caches. There would be a command for clearing each individual cache, each of which might have its own logic to dictate the executability of the command. It would be onerous and error-prone to have to repeat or combine all this logic for the command that clears all caches. Combined commands provide an elegant means of addressing this situation:
+
+```cs
+var clearBrowsingHistory = ReactiveCommand.CreateFromObservable(
+    this.ClearBrowsingHistoryAsync, canClearBrowsingHistory);
+
+var clearDownloadHistory = ReactiveCommand.CreateFromObservable(
+    this.ClearDownloadHistoryAsync, canClearDownloadHistory);
+
+var clearCookies = ReactiveCommand.CreateFromObservable(
+    this.ClearCookiesAsync, canClearCookies);
+
+// Combine all these commands into one "parent" command.
+// This "parent" command will respect the executability 
+// of all child commands defined above.
+var clearAll = ReactiveCommand.CreateCombined(
+    new [] { clearBrowsingHistory, 
+             clearDownloadHistory, 
+             clearCookies });
+```
+
+The combined command will execute the child commands asynchronously when executed. The combined command respects the executability of all child commands. That is, if any child command cannot currently execute, neither can the combined command. In addition, it is also possible for you to pass in _extra_ executability logic when creating your combined command:
+
+```cs
+// In this case, `clearAll` command will only be 
+// executable if all child commands are executable 
+// _and_ the latest value from `canClearAll` is `true`.
+IObservable<bool> canClearAll = ...;
+var clearAll = ReactiveCommand.CreateCombined(
+    new [] { clearBrowsingHistory, 
+             clearDownloadHistory, 
+             clearCookies },
+    canClearAll);
+```
+
+All child commands provided to the `CreateCombined` method must be of the same type. You cannot combine, say, a `ReactiveCommand<Unit, Unit>` with a `ReactiveCommand<int, Unit>`. Nor can you combine, say, a `ReactiveCommand<Unit, Unit>` with a `ReactiveCommand<Unit, int>`. This is because all child commands will receive the parameter provided to the combined command, and the result of executing the combined command is a list of all child results.
 
 # Controlling scheduling
 

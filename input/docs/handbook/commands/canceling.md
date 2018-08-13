@@ -1,8 +1,6 @@
-## Canceling
-
 If your command's execution logic can take a long time to complete, it can be useful to allow the execution to be canceled. This cancellation support can be used internally by your view models, or exposed so that users have a say in the matter.
 
-### Basic Cancelation
+# Basic Cancelation
 
 At its most primitive form, canceling a command's execution involves disposing the execution subscription:
 
@@ -15,7 +13,7 @@ subscription.Dispose();
 
 However, this requires you to obtain, and keep a hold of the subscription. If you're using bindings to execute your commands you won't have access to the subscription.
 
-### Canceling via Another Observable
+# Canceling via Another Observable
 
 Rx itself has intrinsic support for canceling one observable when another observable ticks. It provides this via the `TakeUntil` operator:
 
@@ -63,7 +61,7 @@ Here we have a view model with a command, `CancelableCommand`, that can be cance
 
 > **Note** At first glance there may appear to be an irresolvable circular dependency between `CancelableCommand` and `CancelCommand`. However, note that `CancelableCommand` does not need to resolve its execution pipeline until it is executed. So as long as `CancelCommand` exists before `CancelableCommand` is executed, the circular dependency is resolved.
 
-### Cancellation with the Task Parallel Library
+# Cancellation with the Task Parallel Library
 
 Cancellation in the TPL is handled with `CancellationToken` and `CancellationTokenSource`. Rx operators that provide TPL integration will normally have overloads that will pass you a `CancellationToken` with which to create your `Task`. The idea of these overloads is that the `CancellationToken` you receive will be canceled if the subscription is disposed. So you should pass the token through to all relevant asynchronous operations. `ReactiveCommand` provides similar overloads for `CreateFromTask`.
 
