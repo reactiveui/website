@@ -12,6 +12,7 @@ ReactiveUI is an Open Source project that relies on the tireless support of indi
 * Oren Novotny
 * Shane Neuville
 * Stefan Moonen
+* Glenn Watson
 
 # The Learning Team 
 
