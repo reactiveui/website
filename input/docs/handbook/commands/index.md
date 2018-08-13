@@ -133,9 +133,40 @@ Use <a href="https://reactiveui.net/docs/handbook/default-exception-handler/">Rx
 
 It can be tempting to *always* add a subscription to `ThrownExceptions`, even if the only recourse is to just log the problem. However, it is advisable to treat this like any other exception handling and only handle problems you can redress. If, for example, your command merely updates a property in your view model and it should never fail, any subscription to `ThrownExceptions` will serve only to obscure implementation problems. That said, be aware of the potential for intermittent problems, such as network and I/O errors. As always, a strong suite of tests will help you identify where a subscription to `ThrownExceptions` makes sense.
 
+> **Note** Your `canExecute` pipeline also has the potential to produce an error. Such cases are almost certainly a programmer error because you never want your `canExecute` pipeline to end in error. Even so, these errors will also tick through `ThrownExceptions`.
+
 Unfortunately you can't filter exceptions from `ThrownExceptions`. It's an "all-or-nothing affair" as Kent Boogaart says in <a href="https://kent-boogaart.com/you-i-and-reactiveui/">his book</a>. You have to do it manually by handling the exceptions you can and forwarding all the others somewhere else like the `RxApp.DefaultExceptionHandler`. Use `RxApp.DefaultExceptionHandler.OnNext(exceptionICantHandle)`.
 
-> **Note** Your `canExecute` pipeline also has the potential to produce an error. Such cases are almost certainly a programmer error because you never want your `canExecute` pipeline to end in error. Even so, these errors will also tick through `ThrownExceptions`.
+Assume your command calls another command that might throw an exception. Likely, you would like to handle that exception only once, but ReactiveUI will propagate it to `ThrownExceptions` observables for both commands. See an example:
+
+```cs
+// Create a command with implementation that might throw an exception.
+var commandA = ReactiveCommand.CreateFromTask(() => throw new Exception());
+commandA.ThrownExceptions.Subscribe(ex => ErrorInteraction.Handle("Error in A!"));
+
+// Create a command that calls command A.
+var commandB = ReactiveCommand.CreateFromTask(async () =>
+{
+    // If command A throws an exception, the .Execute() method call 
+    // will also throw. That's why we get two error notifications - 
+    // one from commandA.ThrownExceptions and another from 
+    // commandB.ThrownExceptions.
+    await commandA.Execute(); // <= Could throw here!
+    DoSomethingElse();
+});
+
+// If anything goes wrong in command A, we get ErrorInteraction handled twice.
+commandB.ThrownExceptions.Subscribe(ex => ErrorInteraction.Handle("Error in B!"));
+```
+
+The easiest way of resolving this issue is using `Throttle()` operator over merged `ThrownExceptions` from both commands. See [StackOverflow](https://stackoverflow.com/questions/26219105/what-is-the-reactiveui-way-to-handle-exceptions-when-executing-inferior-reactive). Read more on handling Interactions [here](../interactions).
+
+```cs
+// Now our ErrorInteraction will be handled only once if command A throws!
+commandA.ThrownExceptions.Merge(commandB.ThrownExceptions)
+    .Throttle(TimeSpan.FromMilliseconds(250), RxApp.MainThreadScheduler)
+    .Subscribe(error => ErrorInteraction.Handle("Error in B!"));
+```
 
 # Invoking commands
 
