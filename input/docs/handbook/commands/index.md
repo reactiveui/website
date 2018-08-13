@@ -129,7 +129,7 @@ To address this dilemma, `ReactiveCommand` includes a `ThrownExceptions` observa
 LoadCommand.ThrownExceptions.Subscribe(error => { });
 ```
 
-Use <a href="https://reactiveui.net/docs/handbook/default-exception-handler/">RxApp.DefaultExceptionHandler</a> if you'd like to override the default `ThrownExceptions` behaviour. This may be useful if you have crush analytics plugins installed and would like to handle all exceptions. 
+Use <a href="https://reactiveui.net/docs/handbook/default-exception-handler/">RxApp.DefaultExceptionHandler</a> if you'd like to override the default `ThrownExceptions` behaviour. This may be useful if you have crash analytics plugins installed and would like to handle all exceptions. 
 
 It can be tempting to *always* add a subscription to `ThrownExceptions`, even if the only recourse is to just log the problem. However, it is advisable to treat this like any other exception handling and only handle problems you can redress. If, for example, your command merely updates a property in your view model and it should never fail, any subscription to `ThrownExceptions` will serve only to obscure implementation problems. That said, be aware of the potential for intermittent problems, such as network and I/O errors. As always, a strong suite of tests will help you identify where a subscription to `ThrownExceptions` makes sense.
 
