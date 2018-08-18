@@ -1,23 +1,19 @@
-## Canceling
-
 If your command's execution logic can take a long time to complete, it can be useful to allow the execution to be canceled. This cancellation support can be used internally by your view models, or exposed so that users have a say in the matter.
 
-### Basic Cancelation
+# Basic Cancelation
 
 At its most primitive form, canceling a command's execution involves disposing the execution subscription:
 
 ```cs
-var subscription = someReactiveCommand
-    .Execute()
-    .Subscribe();
+var subscription = someReactiveCommand.Execute().Subscribe();
 
-// this cancels the command's execution
+// This cancels the command's execution.
 subscription.Dispose();
 ```
 
 However, this requires you to obtain, and keep a hold of the subscription. If you're using bindings to execute your commands you won't have access to the subscription.
 
-### Canceling via Another Observable
+# Canceling via Another Observable
 
 Rx itself has intrinsic support for canceling one observable when another observable ticks. It provides this via the `TakeUntil` operator:
 
@@ -30,10 +26,10 @@ var command = ReactiveCommand
             .Delay(TimeSpan.FromSeconds(3))
             .TakeUntil(cancel));
 
-// somewhere else
+// Somewhere else.
 command.Execute().Subscribe();
 
-// this cancels the above execution
+// This cancels the above execution.
 cancel.OnNext(Unit.Default);
 ```
 
@@ -55,17 +51,9 @@ public class SomeViewModel : ReactiveObject
             this.CancellableCommand.IsExecuting);
     }
 
-    public ReactiveCommand<Unit, Unit> CancelableCommand
-    {
-        get;
-        private set;
-    }
+    public ReactiveCommand<Unit, Unit> CancelableCommand { get; }
 
-    public ReactiveCommand<Unit, Unit> CancelCommand
-    {
-        get;
-        private set;
-    }
+    public ReactiveCommand<Unit, Unit> CancelCommand { get; }
 }
 ```
 
@@ -73,7 +61,7 @@ Here we have a view model with a command, `CancelableCommand`, that can be cance
 
 > **Note** At first glance there may appear to be an irresolvable circular dependency between `CancelableCommand` and `CancelCommand`. However, note that `CancelableCommand` does not need to resolve its execution pipeline until it is executed. So as long as `CancelCommand` exists before `CancelableCommand` is executed, the circular dependency is resolved.
 
-### Cancellation with the Task Parallel Library
+# Cancellation with the Task Parallel Library
 
 Cancellation in the TPL is handled with `CancellationToken` and `CancellationTokenSource`. Rx operators that provide TPL integration will normally have overloads that will pass you a `CancellationToken` with which to create your `Task`. The idea of these overloads is that the `CancellationToken` you receive will be canceled if the subscription is disposed. So you should pass the token through to all relevant asynchronous operations. `ReactiveCommand` provides similar overloads for `CreateFromTask`.
 
@@ -89,11 +77,7 @@ public class SomeViewModel : ReactiveObject
                 ct => this.DoSomethingAsync(ct));
     }
 
-    public ReactiveCommand<Unit, Unit> CancelableCommand
-    {
-        get;
-        private set;
-    }
+    public ReactiveCommand<Unit, Unit> CancelableCommand { get; }
 
     private async Task DoSomethingAsync(CancellationToken ct)
     {
@@ -116,7 +100,7 @@ var subscription = viewModel
     .Execute()
     .Subscribe();
 
-// this cancels the execution
+// This cancels the execution.
 subscription.Dispose();
 ```
 
@@ -139,17 +123,9 @@ public class SomeViewModel : ReactiveObject
             this.CancellableCommand.IsExecuting);
     }
 
-    public ReactiveCommand<Unit, Unit> CancelableCommand
-    {
-        get;
-        private set;
-    }
+    public ReactiveCommand<Unit, Unit> CancelableCommand { get; }
 
-    public ReactiveCommand<Unit, Unit> CancelCommand
-    {
-        get;
-        private set;
-    }
+    public ReactiveCommand<Unit, Unit> CancelCommand { get; }
 
     private async Task DoSomethingAsync(CancellationToken ct)
     {
@@ -159,4 +135,3 @@ public class SomeViewModel : ReactiveObject
 ```
 
 This approach allows us to use exactly the same technique as with the pure Rx solution discussed above. The difference is that our observable pipeline includes execution of TPL-based asychronous code.
-

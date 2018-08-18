@@ -8,7 +8,7 @@ The motivation is intuitive enough when you think about it. It's not hard to ima
 
 ReactiveUI provides several variants of `WhenAny` to help you work with properties as an observable stream. 
 
-## Basic syntax
+# Basic syntax
 
 The following examples demonstrate simple uses of `WhenAnyValue`, the `WhenAny` variant you are likely to use most frequently.
 
@@ -26,7 +26,7 @@ This returns an observable that yields a new `Color` with the latest RGB values 
 
 ```cs
 this.WhenAnyValue(x => x.Red, x => x.Green, x => x.Blue, 
-                 (r,g,b) => new Color(r, g, b));
+                  (r, g, b) => new Color(r, g, b));
 ```
 
 ### Watching a nested property
@@ -37,7 +37,7 @@ this.WhenAnyValue(x => x.Red, x => x.Green, x => x.Blue,
 this.WhenAnyValue(x => x.Foo.Bar.Baz);
 ```
 
-## Idiomatic usage
+# Idiomatic usage
 
 Naturally, once you have an observable of property changes you can `Subscribe` to it in order to perform actions in response to the changed values. However, in many cases there may be a Better Way to achieve what you want. Below are some typical usages of the observables returned by the `WhenAny` variants:
 
@@ -59,43 +59,47 @@ See the [ObservableAsPropertyHelper](../oaph/) section for more information on t
 `WhenAny` can make specifying and adhering to validation logic clean and simple. Here, `WhenAnyValue` is used to observe the changing values of the `Username` and `Password` fields, and project whether the current pair of values is valid. This becomes the `canExecute` parameter for `CreateUserCommand`, preventing the user from proceeding until the validation conditions are met.
 
 ```cs
-var canCreateUser =
-    this.WhenAnyValue(x => x.Username, x => x.Password, 
-        (user, pass) => 
-            !String.IsNullOrWhiteSpace(user) && !String.IsNullOrWhiteSpace(pass) 
-            && user.Length >= 3 && pass.Length >= 8)
-        .DistinctUntilChanged();
+var canCreateUser = this.WhenAnyValue(
+    x => x.Username, x => x.Password, 
+    (user, pass) => 
+        !string.IsNullOrWhiteSpace(user) && 
+        !string.IsNullOrWhiteSpace(pass) && 
+        user.Length >= 3 && 
+        pass.Length >= 8)
+    .DistinctUntilChanged();
 
-CreateUserCommand = ReactiveCommand.CreateAsyncTask(canCreateUser, CreateUser); 
+CreateUserCommand = ReactiveCommand.CreateFromTask(canCreateUser, CreateUser); 
 ```
 
 ### Invoking commands
-Commands are often bound to buttons or controls in the view that can be triggered by the user. However, it often makes sense to perform work in response to changes in property values. For example, a 'live search' feature may be designed to perform searches as the user types into a textbox, after a small delay is detected. `WhenAny` in conjunction with the `InvokeCommand` operator can be used to achieve this.
+
+[Commands](./commands) are often bound to buttons or controls in the view that can be triggered by the user. However, it often makes sense to perform work in response to changes in property values. For example, a 'live search' feature may be designed to perform searches as the user types into a textbox, after a small delay is detected. `WhenAny` in conjunction with the `InvokeCommand` operator can be used to achieve this.
 
 ```cs
-// in the viewmodel
+// In the ViewModel.
 this.WhenAnyValue(x => x.SearchText)
     .Where(x => !String.IsNullOrWhiteSpace(x))
     .Throttle(TimeSpan.FromSeconds(.25))
     .InvokeCommand(SearchCommand)
 
-// in the view
+// In the View.
 this.Bind(ViewModel, x => x.SearchText, x => x.SearchTextField.Text);
 ```
 
 In addition to being able to simply and declaratively handle search throttling, building the search execution logic on top of the property change has made it easy to keep all the logic in the viewmodel - all the view needs to do is bind a control to the property.
 
 ### Performing view-specific transforms as an input to `BindTo`
+
 Ideally, controls on your view bind directly to properties on your viewmodel. In cases where you need to convert a viewmodel value to a view-specific value (e.g. `bool` to `Visibility`), you should register a `BindingConverter`. Still, you may come across a situation in which you want to perform a transformation in the view directly. Here, we observe the `ShowToolTip` property of the viewmodel, transform the `true`/`false` values to `1` and `0` respectively, then bind the result to the `ToolTipLabel`'s alpha property. 
 
 ```cs
-// In the view
+// In the View.
 ViewModel.WhenAny(x => x.ShowToolTip)
-         .Select(t => t ? 1f : 0f)
+         .Select(show => show ? 1f : 0f)
          .BindTo(this, x => x.ToolTipLabel.Alpha);
 ```
 
-## Variants of `WhenAny`
+# Variants of `WhenAny`
  
 Several variants of `WhenAny` exist, suited for different scenarios.
 
@@ -107,6 +111,7 @@ Several variants of `WhenAny` exist, suited for different scenarios.
 - `this.WhenAnyValue(x => x.SearchText)`
 
 When needing to observe one or many properties for changes, `WhenAnyValue` is quick to type and results in simpler looking code. Working with `WhenAny` directly gives you access to the `ObservedChange<,>` object that ReactiveUI produces on each property change. This is typically useful for framework code or extension methods. `ObservedChange` exposes the following properties:
+
 * `Value` - the updated value
 * `Sender` - the object whose has property changed 
 * `Expression` - the expression that changed.
@@ -119,7 +124,7 @@ At the risk of extreme repetition - use `WhenAnyValue` unless you know you need 
 
 An example of where this can come in handy is when a view wants to observe an observable on a viewmodel, but the viewmodel can be replaced during the view's lifetime. Rather than needing to resubscribe to the target observable after every change of viewmodel, you can use `WhenAnyObservable` to specify the 'path' to watch. This allows you to use a single subscription in the view, regardless of the life of the target viewmodel. 
 
-## Additional Considerations
+# Additional Considerations
 
 Using `WhenAny` variants is fairly straightforward. However, there are a few aspects of their behaviour that are worth highlighting.
 
@@ -134,6 +139,7 @@ Watched properties must implement ReactiveUI's `RaiseAndSetIfChanged` or raise t
 Additionally, `WhenAny` always provides you with the current value as soon as you subscribe to it - in this sense it is effectively a `BehaviorSubject`.
 
 ### `WhenAny` will not propagate `NullReferenceException`s within the watched expression
+
 `WhenAny` will only send notifications if reading the given expression would not throw a `NullReferenceException`. Consider the following code:
 
 ```cs
@@ -157,6 +163,7 @@ this.Foo.Bar = new Bar() { Baz = "Something" };
 * In Example 2 however, evaluating this.Foo.Bar.Baz wouldn't give you null, it would crash. `WhenAny` therefore suppresses any notifications from being generated. Setting `Bar` to a new value generates a new notification.
 
 ### `WhenAny` only notifies on change of the output value
+
 `WhenAny` only tells you when the final value of the input expression has changed. This is true even if the resulting change is because of an intermediate value in the expression chain. Here's an explaining example:
 
 ```cs
@@ -179,7 +186,3 @@ this.Foo.Bar = new Bar() { Baz = "Else" };
 ```
 
 Notably, in Example 3, even though the intermediate `Bar` object was replaced with a new instance, no change is fired - as the result of the full `Foo.Bar.Baz` expression has not changed.
-
-# Relevant Samples
-
-Samples demonstrating `WhenAny` use will be listed below.

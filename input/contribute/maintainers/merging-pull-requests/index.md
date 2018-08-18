@@ -1,9 +1,3 @@
-Assign the GitHub issue to the `vNext` milestone.
-
-![](images/assign-to-a-milestone.png)
-
-We use [GitReleaseManager](https://gitreleasemanager.readthedocs.io/develop/) to automatically generate our release notes as per [configured in this file](https://github.com/reactiveui/ReactiveUI/blob/develop/GitReleaseManager.yaml). By doing a little bit of leg work here, right in this moment it makes releasing software so much easier.
-
 1. Assign one or more labels to categorize what component of ReactiveUI was changed by this unit of work. ![](images/apply-one-or-more-labels.png)
 
 2. Rename the title of the GitHub issue to match [our convention](/contribute/software-style-guide/commit-message-convention). ![](images/rename-the-title.png)
@@ -24,3 +18,4 @@ Shower the contributor in flowers and encourage them to come join us in Slack.
 
 ![](images/contribution-merged.png)
 
+3. Our robot (https://probot.github.io/apps/delete-merged-branch/) will automatically delete merged branches so you don't have to.
