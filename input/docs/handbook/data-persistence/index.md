@@ -15,7 +15,7 @@ in..
     public class SearchViewModel : ISearchViewModel
     {
         [IgnoreDataMember]
-        public ReactiveList<SearchResults> SearchResults { get; set; }
+        public ObservableCollection<SearchResults> SearchResults { get; set; }
     
     
         private string searchQuery;
