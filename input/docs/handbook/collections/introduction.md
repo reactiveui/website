@@ -1,6 +1,3 @@
-Title: Introduction for ReactiveList users
----
-
 # What DynamicData is
  
 [DynamicData](https://github.com/RolandPheasant/DynamicData/) is reactive collections based on Rx.Net. The idea is you create a collection and maintain these collections like you would do for any other collection. So far nothing that interesting, however the collections provided by the library (either an observable cache or an observable list) provide an API which allows the consumers to observe changes and act on those changes. The changes are accessible via  `.Connect()`  which provides notifications of what has changed within the collection. The convention in dynamic data is that any consumer which calls `Connect` receive a notification of any items which are already in the collection plus subsequent changes. These changes are transmitted via the monad of DynamicData which is the observable change set. The simplicity of this concept enables the definition of a myriad of specialised operators which allows the consumer to easily define how they want the results of the reactive chain to be shaped and how it should behave. 

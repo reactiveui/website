@@ -1,6 +1,3 @@
-Title: DynamicData
----
-
 [Dynamic Data](https://github.com/RolandPheasant/DynamicData/) is a portable class library which brings the power of [Reactive Extensions](https://github.com/dotnet/reactive) (Rx) to collections. 
 
 # Why use DynamicData?
