@@ -29,6 +29,9 @@ https://msdn.microsoft.com/en-us/library/system.reactive.disposables.compositedi
 
 https://msdn.microsoft.com/en-us/library/system.reactive.disposables.serialdisposable(v=vs.103).aspx
 
+See this tweet thread https://twitter.com/paulcbetts/status/1034168666739200000?s=19
+
+
 # SingleAssignmentDisposable
 
 For a full rundown of each of the implementations see the Disposables
