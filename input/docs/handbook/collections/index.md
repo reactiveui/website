@@ -64,13 +64,12 @@ The advantage of creating your own data sources is that they can be maintained o
 ReadOnlyObservableCollection<T> bindingData;
 var myBindingOperation = mySource
 		.Sort(SortExpressonComparer<T>.Ascending(t=>t.DateTime))
-		.ObserveOn(RxApp.MainThreadScheduler)
+		.ObserveOn(RxApp.MainThreadScheduler) // Make sure this is only right before the Bind()
 		.Bind(out bindingData)
 		.Subscribe(); 
 ```
 The API for the above is the same for cache and list.
 
-*NB: need to install DynamicData.ReactiveUI package to have this functionality on reactive list.
 
 ## So what's the difference between an observable list and an observable cache
 
