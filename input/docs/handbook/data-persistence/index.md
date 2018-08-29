@@ -15,7 +15,7 @@ in..
     public class SearchViewModel : ISearchViewModel
     {
         [IgnoreDataMember]
-        public ReactiveList<SearchResults> SearchResults { get; set; }
+        public ObservableCollection<SearchResults> SearchResults { get; set; }
     
     
         private string searchQuery;
@@ -244,7 +244,7 @@ in..
     
     
     
-    # AutoSuspendHelper
+# AutoSuspendHelper
 
 The AutoSuspendHelper can help you in persisting your AppState. In this example i create a AppState that generates a random new Guid and persists it. So every App installation has unique key persisted.
 
@@ -256,7 +256,7 @@ There are several steps in creating a AppState. You need to have a object for th
 
 I used a implementation that uses Akavache for its persistense. The SuspensionDriver is platform independent
 
-```
+```cs
 public class AkavacheSuspensionDriver<TAppState> : ISuspensionDriver where TAppState : class
 {
 	const string appStateKey = "appState";
@@ -283,7 +283,7 @@ public class AkavacheSuspensionDriver<TAppState> : ISuspensionDriver where TAppS
 
 The AppState is a object with Newtonsoft.Json notations The AppState is platform independent
 
-```
+```cs
 [JsonObject]
 public class AppState
 {
@@ -297,7 +297,7 @@ public class AppState
 
 You need to assign a function that creates a new AppState when there is none persisted. And the driver that is used for persistence. This can be done in the PCL for example. Or if it's a application for one platform in the application startup code.
 
-```
+```cs
 RxApp.SuspensionHost.CreateNewAppState = () => new AppState ();
 RxApp.SuspensionHost.SetupDefaultSuspendResume (new AkavacheSuspensionDriver<AppState> ());
 ```
@@ -306,7 +306,7 @@ RxApp.SuspensionHost.SetupDefaultSuspendResume (new AkavacheSuspensionDriver<App
 
 For Android you need to implement the `Android.App.Application.IActivityLifecycleCallbacks` interface. Then add the following to the Application class
 
-```
+```cs
 AutoSuspendHelper suspendHelper;
 
 public MyApplication (IntPtr javaReference, JniHandleOwnership transfer) : base (javaReference, transfer)
@@ -356,7 +356,7 @@ public override void OnCreate ()
 
 For iOS you need to add the following to the AppDelegate
 
-```
+```cs
 readonly AutoSuspendHelper autoSuspendHelper;
 
 public AppDelegate ()
@@ -386,8 +386,8 @@ public override void OnActivated (UIApplication application)
 ```
 
 ## Retrieving the appstate
+
 When you want to store or retrieve data you can get the AppState object with the following code
-```
+```cs
 var appState = RxApp.SuspensionHost.GetAppState<AppState> ();
 ```
-
