@@ -21,7 +21,7 @@ Many people believe that the MVVM pattern means that there should be zero code i
 
 So then, how do I decide what to put in the View? Concepts such as scroll position and control focus are great examples of code that is View-specific. Handling animation and Window position / minimize are also great examples of code that often should be in the View.
 
-Another common misconception is that of separation - while it is very important that the ViewModel have no reference to the View or any of the controls that the View creates, **the reverse is not true**. The View is free to be very tightly bound to the ViewModel, and in fact, it is often useful for the View to "reach into" the ViewModel via [WhenAny, WhenAnyValue and WhenAnyObservable](./when-any).
+Another common misconception is that of separation - while it is very important that the ViewModel have no reference to the View or any of the controls that the View creates, **the reverse is not true**. The View is free to be very tightly bound to the ViewModel, and in fact, it is often useful for the View to "reach into" the ViewModel via [WhenAny, WhenAnyValue and WhenAnyObservable](../when-any).
 
 With the theory out of the way, let's see how to create ViewModels in ReactiveUI.
 
@@ -46,7 +46,7 @@ public string Name
 }
 ```
 
-Note, that unlike in other frameworks, they are **always written this way**, using the exact same boilerplate code. If you are attempting to put *anything* in the setter, you are almost certainly Doing It Wrong, and instead should be using [WhenAnyValue](./when-any) and [ToProperty](./oaph) instead. 
+Note, that unlike in other frameworks, they are **always written this way**, using the exact same boilerplate code. If you are attempting to put *anything* in the setter, you are almost certainly Doing It Wrong, and instead should be using [WhenAnyValue](../when-any) and [ToProperty](../oaph) instead. 
 
 # Read-Only Properties
 
@@ -67,7 +67,7 @@ public PostViewModel()
 
 So far, nothing here has been particularly surprising, just boilerplate MVVM features. However, there is another type of Property in ReactiveUI that doesn't exist in other frameworks that is **very important** to effectively use ReactiveUI, the "Output Property".
 
-Output properties are a way to take *Observables* and convert them into *ViewModel Properties*. We'll often use them with the opposite method, which turns ViewModel Properties into Observables, [WhenAnyValue](./when-any). As the name implies, Output Properties are usually read-only (i.e. the source Observable dictates when the property changes).
+Output properties are a way to take *Observables* and convert them into *ViewModel Properties*. We'll often use them with the opposite method, which turns ViewModel Properties into Observables, [WhenAnyValue](../when-any). As the name implies, Output Properties are usually read-only (i.e. the source Observable dictates when the property changes).
 
 First, we need to be able to declare an Output Property, using a class called `ObservableAsPropertyHelper<T>`:
 
@@ -76,7 +76,7 @@ private readonly ObservableAsPropertyHelper<string> firstName;
 public string FirstName => firstName.Value;
 ```
 
-Similar to read-write properties, this code should always be 100% boilerplate. Next, we'll use a helper method `ToProperty` to initialize `firstName` in the constructor:
+Similar to read-write properties, this code should always be 100% boilerplate. Next, we'll use a helper method [ToProperty](../oaph) to initialize `firstName` in the constructor:
 
 ```cs
 this.WhenAnyValue(x => x.Name)
@@ -88,7 +88,7 @@ Here, `ToProperty` creates an `ObservableAsPropertyHelper` instance which will s
 
 # Best Practices
 
-One of the core concepts of Functional Reactive Programming, is that instead of writing *imperative code* (i.e. "Do A right now, then do B, then do C"), we want to write *Functional, Declarative code* - instead of writing event handlers and methods to change properties, we want **to Describe how properties are related to each other**, using [WhenAnyValue](./when-any) and [ToProperty](./oaph).
+One of the core concepts of Functional Reactive Programming, is that instead of writing *imperative code* (i.e. "Do A right now, then do B, then do C"), we want to write *Functional, Declarative code* - instead of writing event handlers and methods to change properties, we want **to Describe how properties are related to each other**, using [WhenAnyValue](../when-any) and [ToProperty](../oaph).
 
 As a result, almost all of the interesting code in a well-written ReactiveUI ViewModel will be in the *constructor*; this code will describe how the properties in the ViewModel are related to each other. Your goal when writing the code for a ViewModel, is to take statements that describe how the view *should* work in terms of its commands and properties, and to translate them into things to put into the constructor. For example:
 
