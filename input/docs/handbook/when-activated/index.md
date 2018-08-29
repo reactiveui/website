@@ -1,6 +1,6 @@
 # ViewModel
 
-WhenActivated is a way to track disposables. Behind that, it can be used to defer the setup of a ViewModel until it's truly required. It also gives us an ability to stop reacting to hot observables, like a background task that periodically pings a network endpoint or an observable updating users current location. See an example:
+WhenActivated is a way to track disposables. Besides that, it can be used to defer the setup of a ViewModel until it's truly required. It also gives us an ability to stop reacting to hot observables, like a background task that periodically pings a network endpoint or an observable updating users current location. See an example:
 
 ```cs
 public class ActivatableViewModel : ISupportsActivation 
