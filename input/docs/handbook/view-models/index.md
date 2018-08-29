@@ -27,7 +27,7 @@ With the theory out of the way, let's see how to create ViewModels in ReactiveUI
 
 # Creating a ViewModel class
 
-**ReactiveObject** is the base object for ViewModel classes, and it implements `INotifyPropertyChanged`. In addition, ReactiveObject provides `Changing` and `Changed` Observables to monitor object changes. A typical ViewModel created using ReactiveUI framework should inherit from ReactiveObject:
+**ReactiveObject** is the base object for ViewModel classes, and it implements `INotifyPropertyChanged`. In addition, ReactiveObject provides `Changing` and `Changed` Observables to monitor object changes. A typical ViewModel created using ReactiveUI framework should inherit from `ReactiveObject` or implement `IReactiveObject` interface:
 
 ```cs
 public class ExampleViewModel : ReactiveObject { }
@@ -99,7 +99,7 @@ As a result, almost all of the interesting code in a well-written ReactiveUI Vie
 
 All of these statements are concise descriptions of parts of how your UI should work, and these statements can all be directly translated into Rx expressions in your ViewModel constructor.
 
-# Dealing with Boilerplate code
+# Managing boilerplate code
 
 If you are tired of writing boilerplate code for property change notifications, you can try either <a href="https://github.com/Fody/PropertyChanged">PropertyChanged.Fody</a> or <a href="https://www.nuget.org/packages/ReactiveUI.Fody/">ReactiveUI.Fody</a>. These libraries are both based on <a href="https://github.com/Fody/">Fody</a> - an extensible tool for weaving .NET assemblies, and they'll inject `INotifyPropertyChanged` code into properties at compile time for you. We recommend using <a href="https://www.nuget.org/packages/ReactiveUI.Fody/">ReactiveUI.Fody</a> package. See an example:
 
