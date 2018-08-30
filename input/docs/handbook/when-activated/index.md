@@ -11,7 +11,11 @@ public class ActivatableViewModel : ISupportsActivation
     {
         Activator = new ViewModelActivator();
         this.WhenActivated(disposables => 
-        {
+        {        
+            // Here we use WhenActivated to execute 
+            // startup logic for our ViewModel.
+            this.ExecuteStartupLogic();
+        
             // Here we create a hot observable and 
             // subscribe to its notifications. The
             // subscription should be disposed when we'd 
@@ -50,7 +54,7 @@ public class ActivatableControl : ReactiveUserControl<ActivatableViewModel>
     {
         this.InitializeComponent();
         this.WhenActivated(disposables =>
-        {
+        {        
             // Dispose bindings to prevent dependency property memory 
             // leaks that may occur on XAML based platforms. 
             this.Bind(ViewModel, vm => vm.UserName, v => v.Username.Text)
