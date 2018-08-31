@@ -1,19 +1,19 @@
 Order: 10
 ---
 
-ReactiveUI is a composable, cross-platform model-view-viewmodel framework for all .NET platforms that is inspired by functional reactive programming which is a paradigm that allows you to express the idea around a feature in one readable place, abstract mutable state away from your user interfaces and improve the testability of your application.
+ReactiveUI is a composable, cross-platform model-view-viewmodel framework for all .NET platforms, that is inspired by functional reactive programming, which is a paradigm that allows you to express the idea around a feature in one readable place, abstract mutable state away from your user interfaces and improve the testability of your application.
 
-It is the father of the extremely popular <a href="https://github.com/ReactiveCocoa/">ReactiveCocoa</a> framework. Internally the maintainers debate whether ReactiveUI is or is not a framework, as at its core the project is essentially a bunch of extension methods for the Reactive Extensions. The project was started nine years ago by Paul Betts and is now old enough to attend grade school but unlike a teenager it is extremely stable and has matured over the years into a solid and fine choice for building your next application. <a href="https://github.com/reactiveui/ReactiveUI/issues/979#issuecomment-196735701">Slack uses us, as does GitHub, Amazon, Elastic & Microsoft</a>.
+It is the father of the extremely popular <a href="https://github.com/ReactiveCocoa/">ReactiveCocoa</a> framework. Internally the maintainers debate whether ReactiveUI is or is not a framework, as at its core the project is essentially a bunch of extension methods for the Reactive Extensions. The project was started nine years ago by Paul Betts and is now old enough to attend grade school but unlike a teenager it is extremely stable and has matured over the years into a solid and fine choice for building your next application. <a href="https://github.com/reactiveui/ReactiveUI/issues/979#issuecomment-196735701">The framework is used by Slack, GitHub, Amazon, Elastic and Microsoft</a>.
 
 We believe that code is communication between people, that also happens to run on a computer. If you optimise for humans, then over a long time your project will end up better. Software should be understandable by other people; that is super important. 
 
 # Understanding ReactiveUI
 
-A big part of understanding ReactiveUI is understanding Reactive Programming, as ReactiveUI is a library built on <a href="https://github.com/dotnet/reactive">Reactive Extensions</a>. Reactive Extensions is a bunch of extension methods for programming in a reactive manner. Reactive programming is programming with asynchronous data streams, called <a href="http://reactivex.io/documentation/observable.html">observables</a>. Unlike tasks, <a href="http://reactivex.io/documentation/observable.html">observables</a> represent one or more values over time whilst you subscribe. 
+A big part of understanding ReactiveUI is understanding Reactive Programming, as ReactiveUI is a library built on <a href="https://github.com/dotnet/reactive">Reactive Extensions</a>. Reactive Extensions is a bunch of extension methods for programming in a reactive manner. Reactive programming is programming with asynchronous data streams, called <a href="http://reactivex.io/documentation/observable.html">observables</a>. Unlike tasks, <a href="http://reactivex.io/documentation/observable.html">observables</a> represent one or more values over time. It allows for Linq like operations to mutate the observable event stream and allows for flexible marshalling onto desired threads.
 
 When you develop .NET applications, especially large-scale and cross-platform ones, you need to write portable and maintainable code. In XAML-powered platforms, such as Windows Presentation Foundation (WPF), Universal Windows Platform (UWP), Xamarin Forms and Avalonia UI you can achieve this by implementing the MVVM pattern. MVVM stands for Model-View-ViewModel, where Model represents services, data transfer objects and database entities related to the application domain, View is the UI and ViewModel’s responsibility is to tie these two layers together. ViewModel encapsulates interaction with Model, exposing properties and commands for XAML UI to bind to.
 
-ReactiveUI allows you to combine the MVVM pattern with Reactive Programming using such features, as [WhenAny](https://reactiveui.net/docs/handbook/when-any/), [ReactiveCommand](https://reactiveui.net/docs/handbook/commands/), [ObservableAsPropertyHelper](https://reactiveui.net/docs/handbook/oaph/) and [WhenActivated](https://reactiveui.net/docs/handbook/when-activated/).
+ReactiveUI allows you to combine the MVVM pattern with Reactive Programming using such features, as [WhenAnyValue](https://reactiveui.net/docs/handbook/when-any/), [ReactiveCommand](https://reactiveui.net/docs/handbook/commands/), [ObservableAsPropertyHelper](https://reactiveui.net/docs/handbook/oaph/) and [WhenActivated](https://reactiveui.net/docs/handbook/when-activated/).
 
 # A Compelling Example
 
@@ -129,12 +129,12 @@ public class AppViewModel : ReactiveObject
             .ToProperty(this, x => x.IsAvailable, false);
 
         // We subscribe to the "ThrownExceptions" property of our ReactiveCommand,
-        // where ReactiveUI pipes any exceptions that are thrown in command implementation. 
+        // where ReactiveUI marshals exceptions that are thrown in command implementation. 
         // See the "Error Handling" section for more information about this.
         ExecuteSearch.ThrownExceptions.Subscribe(error => { /* Handle errors here */ });
 
-        // Here, we're going to actually describe what happens when the ExecuteSearch
-        // command gets invoked. The important bit here is the return value - an Observable. 
+        // Here, we're going to describe what happens when the ExecuteSearch command
+        // gets invoked. The important bit here is the return value - an Observable. 
         // We're going to end up here with a Stream of Users Lists: every time someone 
         // calls Execute, we eventually end up with a new list which we then 
         // immediately put into the SearchResults property, that will then 
