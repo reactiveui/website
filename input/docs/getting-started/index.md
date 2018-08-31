@@ -1,32 +1,25 @@
 Order: 10
 ---
-
-ReactiveUI is a composable, cross-platform model-view-viewmodel framework for all .NET platforms, that is inspired by functional reactive programming, which is a paradigm that allows you to express the idea around a feature in one readable place, abstract mutable state away from your user interfaces and improve the testability of your application.
-
-It is the father of the extremely popular <a href="https://github.com/ReactiveCocoa/">ReactiveCocoa</a> framework. Internally the maintainers debate whether ReactiveUI is or is not a framework, as at its core the project is essentially a bunch of extension methods for the Reactive Extensions. The project was started nine years ago by Paul Betts and is now old enough to attend grade school but unlike a teenager it is extremely stable and has matured over the years into a solid and fine choice for building your next application. <a href="https://github.com/reactiveui/ReactiveUI/issues/979#issuecomment-196735701">The framework is used by Slack, GitHub, Amazon, Elastic and Microsoft</a>.
-
-We believe that code is communication between people, that also happens to run on a computer. If you optimise for humans, then over a long time your project will end up better. Software should be understandable by other people; that is super important. 
-
-# Understanding ReactiveUI
-
 A big part of understanding ReactiveUI is understanding Reactive Programming, as ReactiveUI is a library built on <a href="https://github.com/dotnet/reactive">Reactive Extensions</a>. Reactive Extensions is a bunch of extension methods for programming in a reactive manner. Reactive programming is programming with asynchronous data streams, called <a href="http://reactivex.io/documentation/observable.html">observables</a>. Unlike tasks, <a href="http://reactivex.io/documentation/observable.html">observables</a> represent one or more values over time. It allows for Linq like operations to mutate the observable event stream and allows for flexible marshalling onto desired threads.
 
-When you develop .NET applications, especially large-scale and cross-platform ones, you need to write portable and maintainable code. In XAML-powered platforms, such as Windows Presentation Foundation (WPF), Universal Windows Platform (UWP), Xamarin Forms and Avalonia UI you can achieve this by implementing the MVVM pattern. MVVM stands for Model-View-ViewModel, where Model represents services, data transfer objects and database entities related to the application domain, View is the UI and ViewModel’s responsibility is to tie these two layers together. ViewModel encapsulates interaction with Model, exposing properties and commands for XAML UI to bind to.
+When you develop .NET applications, especially large-scale and cross-platform ones, you need to write portable and maintainable code. In XAML-powered platforms, such as Windows Presentation Foundation, Universal Windows Platform, Xamarin Forms and Avalonia UI you can achieve this by implementing the MVVM pattern. MVVM stands for Model-View-ViewModel, where Model represents services, data transfer objects and database entities related to the application domain, View is the UI and ViewModel’s responsibility is to tie these two layers together. ViewModel encapsulates interaction with Model, exposing properties and commands for XAML UI to bind to. 
 
 ReactiveUI allows you to combine the MVVM pattern with Reactive Programming using such features, as [WhenAnyValue](https://reactiveui.net/docs/handbook/when-any/), [ReactiveCommand](https://reactiveui.net/docs/handbook/commands/), [ObservableAsPropertyHelper](https://reactiveui.net/docs/handbook/oaph/) and [WhenActivated](https://reactiveui.net/docs/handbook/when-activated/).
+
+<img src="./mvvm.png" width="500">
 
 # A Compelling Example
 
 Let's create a simple application demonstrating a number of ReactiveUI functionalities, without getting into too many under-the-hood details. We will create a WPF application, which will allow us to search through Github public repositories. The full code of the application is shown at the end of this chapter, and we will show relevant snippets as we go. 
 
-### 1. Creating the project
-In Visual Studio, create a new WPF application (.NET 4.6.1 or above), use `ReactiveDemo` app name. Our view has been already created for us, the `MainWindow`, so we will proceed with creating our ViewModel.
+### 1. Create the project
+In <a href="https://visualstudio.microsoft.com/">Visual Studio</a>, create a new WPF application (.NET 4.6.1 or above), use `ReactiveDemo` app name. Our view has been already created for us, the `MainWindow`, so we will proceed with creating our ViewModel.
 
 ### 2. Add NuGet packages
 ```
 Install-Package ReactiveUI.WPF
 ```
-The complete list containing NuGet packages for all supported platforms can be found <a href="https://reactiveui.net/docs/getting-started/installation/nuget-packages/">here</a>. <a href="https://www.nuget.org/packages/reactiveui/">ReactiveUI</a> main package should normally be installed into you .NET Standard class libraries containing platform-agnostic code (repositories, services, DTOs, view-models), and ReactiveUI.XXX packages are platform-specific, so we use <a href="https://www.nuget.org/packages/ReactiveUI.WPF/">ReactiveUI.WPF</a> in this tutorial as we are developing a tiny WPF application that doesn't need code sharing.
+The complete list containing NuGet packages for all supported platforms <a href="https://reactiveui.net/docs/getting-started/installation/nuget-packages/">can be found here</a>. <a href="https://www.nuget.org/packages/reactiveui/">ReactiveUI</a> main package should normally be installed into you .NET Standard class libraries containing platform-agnostic code (repositories, services, DTOs, view-models), and ReactiveUI.XXX packages are platform-specific, so we use <a href="https://www.nuget.org/packages/ReactiveUI.WPF/">ReactiveUI.WPF</a> in this tutorial as we are developing a tiny WPF application that doesn't need code sharing.
 ```
 Install-Package Octokit
 ```
@@ -217,7 +210,10 @@ Now we need to create a View for our ViewModel, the following is an example:
 
 Now you can search repositories on Github using your own app!
 
+<img src="./demo-app.jpg" width="600"/>
+<br />
+
 # Discover ReactiveUI
 
-Now you know ReactiveUI, but we have more to offer. If you'd like to discover all features ReactiveUI has, visit our <a href="https://reactiveui.net/docs/handbook/">Handbook</a>! You can also watch <a href="https://reactiveui.net/docs/resources/videos">videos about Reactive Extensions and ReactiveUI</a>, or view source code of <a href="https://reactiveui.net/docs/samples/">open-source applications built with ReactiveUI</a>. We also have a <a href="https://reactiveui.net/blog/">blog</a> and <a href="https://twitter.com/reactivexui">Twitter</a>.
+Now you know ReactiveUI, but we have more to offer. If you'd like to discover all features ReactiveUI has, visit our <a href="https://reactiveui.net/docs/handbook/">Handbook</a>! You can also watch <a href="https://reactiveui.net/docs/resources/videos">videos about Reactive Extensions and ReactiveUI</a>, or view source code of <a href="https://reactiveui.net/docs/samples/">open-source applications built with ReactiveUI</a>. We also have <a href="https://reactiveui.net/blog/">blog</a> and <a href="https://twitter.com/reactivexui">twitter</a>.
 
