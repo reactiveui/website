@@ -20,7 +20,7 @@ ReactiveUI allows you to combine the MVVM pattern with Reactive Programming usin
 Let's create a simple application demonstrating a number of ReactiveUI functionalities, without getting into too many under-the-hood details. We will create a WPF application, which will allow us to search through Github public repositories. The full code of the application is shown at the end of this chapter, and we will show relevant snippets as we go. 
 
 ### 1. Creating the project
-In Visual Studio, create a new WPF application (.NET 4.6.1 or above). Our view has been already created for us, the `MainWindow`, so we will proceed with creating our ViewModel.
+In Visual Studio, create a new WPF application (.NET 4.6.1 or above), use `ReactiveDemo` app name. Our view has been already created for us, the `MainWindow`, so we will proceed with creating our ViewModel.
 
 ### 2. Add NuGet packages
 ```
