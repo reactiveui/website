@@ -107,7 +107,8 @@ public class AppViewModel : ReactiveObject
         // and calls the Execute method on the ExecuteSearch Command, after 
         // making sure the Command can be executed via calling CanExecute.
         this.WhenAnyValue(x => x.SearchTerm)
-            .Throttle(TimeSpan.FromMilliseconds(800), RxApp.MainThreadScheduler)
+            .Throttle(TimeSpan.FromMilliseconds(800))
+            .ObserveOn(RxApp.MainThreadScheduler)
             .Select(term => term?.Trim())
             .DistinctUntilChanged()
             .Where(term => !string.IsNullOrWhiteSpace(term))
