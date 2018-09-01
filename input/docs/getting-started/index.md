@@ -154,7 +154,7 @@ public class NugetDetailsViewModel : ReactiveObject
     public NugetDetailsViewModel(IPackageSearchMetadata searchMetadata)
     {
         metadata = searchMetadata;
-        defaultUrl = new Uri("https://github.com/NuGet/Media/blob/master/Images/MainLogo/128x128/nuget_128.png?raw=true");
+        defaultUrl = new Uri("https://git.io/fAlfh");
         OpenPage = ReactiveCommand.Create(() => { Process.Start(ProjectUrl.ToString()); });
     }
     
