@@ -104,11 +104,10 @@ public class AppViewModel : ReactiveObject
             .ObserveOn(RxApp.MainThreadScheduler)
             .ToProperty(this, x => x.SearchResults);
             
-        // Here we listen for all exceptions that our reactive pipeline might throw. In
-        // most cases using MessageBox.Show at the ViewModel layer isn't a good practice,
-        // especially if you are goind to build a cross-platform app, but for a hello-world
-        // app which we are building now it's fine.
-        _searchResults.ThrownExceptions.Subscribe(x => MessageBox.Show(x.Message));
+        // We subscribe to the "ThrownExceptions" property of our OAPH, where ReactiveUI 
+        // marshals any exceptions that are thrown in SearchNuGetPackages method. 
+        // See the "Error Handling" section for more information about this.
+        _searchResults.ThrownExceptions.Subscribe(error => { /* Handle errors here */ });
 
         // A helper method we can use for Visibility or Spinners to show if results are available.
         // We get the latest value of the SearchResults and make sure it's not null.
