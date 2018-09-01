@@ -86,11 +86,11 @@ public class AppViewModel : ReactiveObject
         // then pull the Value of the change, then filter out changes that are identical, 
         // as well as strings that are empty.
         //
-        // We then do a SelectMany() which converts a async task that returns a 
-        // IEnumerable<T> into IObservable<IEnumerable<T>>. If subsequent requests are 
-        // made the CancellationToken is called. We then ObservableOn the main thread, 
+        // We then do a SelectMany() which starts the task by converting Task<IEnumerable<T>> 
+        // into IObservable<IEnumerable<T>>. If subsequent requests are made, the 
+        // CancellationToken is called. We then ObservableOn the main thread, 
         // everything up until this point has been running on a separate thread due 
-        // to the Throttle() 
+        // to the Throttle().
         //
         // We then use a ObservableAsPropertyHelper and the ToProperty() method to allow
         // us to have the latest results that we can expose through the property to the View.
@@ -365,9 +365,9 @@ Now you can search repositories on NuGet using your own app!
 </details>
 <details><summary>Create Views using traditional XAML markup bindings</summary>
 
-If you would like to use XAML bindings (remember, they don't guarantee type-safety and don't provide tools for memory management, such as `WhenActivated`, but ReactiveUI bindings do), then this tutorial is for you. 
+If you would like to use XAML bindings (remember, they don't guarantee type-safety and don't provide tools for memory management, such as [WhenActivated](https://reactiveui.net/docs/handbook/when-activated/), but ReactiveUI bindings do), then this tutorial is for you. 
 
-The first thing you need to do is creating a converter, while we have a boolean property `AppViewModel.IsAvailable` indicating if our ViewModel has content loaded. Let's create a new class `BoolToVisibilityConverter.cs`.
+The first thing you need to do is creating a converter, while we have a boolean property AppViewModel.IsAvailable indicating if our ViewModel has content loaded. Let's create a new class `BoolToVisibilityConverter.cs`.
 
 ```cs
 // If we would like to do value conversion using Binding markup extension,
@@ -376,8 +376,8 @@ public class BoolToVisibilityConverter : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        // We need to convert `True` value to `Visibility.Visible` and `False` value to
-        // `Visibility.Collapsed`. Then we need to declare the converter as a static resource.
+        // We need to convert True value to Visibility.Visible and False value to
+        // Visibility.Collapsed. Then we need to declare the converter as a static resource.
         return (bool)value ? Visibility.Visible : Visibility.Collapsed;
     }
 
@@ -389,7 +389,7 @@ public class BoolToVisibilityConverter : IValueConverter
 }
 ```
 
-Now we should initialize the `DataContext` of our `MainWindow` by assigning an instance of the `AppViewModel` to it. Go to `MainWindow.xaml.cs` and do this:
+Now we should initialize the DataContext of our MainWindow by assigning an instance of the AppViewModel to it. Go to `MainWindow.xaml.cs` and do this:
 
 ```cs
 public partial class MainWindow : Window
