@@ -66,13 +66,6 @@ public class AppViewModel : ReactiveObject
 
     public AppViewModel()
     {
-        // These are provided as part of the Nuget.Core nuget package.
-        // Our example will allow you to search the main nuget.org library.
-        var providers = new List<Lazy<INuGetResourceProvider>>();
-        providers.AddRange(Repository.Provider.GetCoreV3()); // Add v3 API support
-        var packageSource = new PackageSource("https://api.nuget.org/v3/index.json");
-        var sourceRepository = new SourceRepository(packageSource, providers);
-
         // Creating our UI declaratively
         // 
         // The Properties in this ViewModel are related to each other in different 
@@ -107,13 +100,7 @@ public class AppViewModel : ReactiveObject
             .Select(term => term?.Trim())
             .DistinctUntilChanged()
             .Where(term => !string.IsNullOrWhiteSpace(term))
-            .SelectMany(async (term, token) =>
-            {
-                var filter = new SearchFilter(false);
-                var searchResource = await sourceRepository.GetResourceAsync<PackageSearchResource>();
-                var searchMetadata = await searchResource.SearchAsync(term, filter, 0, 10, null, token);
-                return searchMetadata.Select(x => new NugetDetailsViewModel(x));
-            })
+            .SelectMany(SearchNuGetPackages)
             .ObserveOn(RxApp.MainThreadScheduler)
             .ToProperty(this, x => x.SearchResults);
             
@@ -129,6 +116,21 @@ public class AppViewModel : ReactiveObject
             .WhenAnyValue(x => x.SearchResults)
             .Select(searchResults => searchResults != null)
             .ToProperty(this, x => x.IsAvailable);
+    }
+    
+    // Here we search NuGet packages using the NuGet.Client library.
+    private async Task<IEnumerable<NugetDetailsViewModel>> SearchNuGetPackages(
+        string term, CancellationToken token)
+    {
+        var providers = new List<Lazy<INuGetResourceProvider>>();
+        providers.AddRange(Repository.Provider.GetCoreV3()); // Add v3 API support
+        var packageSource = new PackageSource("https://api.nuget.org/v3/index.json");
+        var sourceRepository = new SourceRepository(packageSource, providers);
+
+        var filter = new SearchFilter(false);
+        var searchResource = await sourceRepository.GetResourceAsync<PackageSearchResource>();
+        var searchMetadata = await searchResource.SearchAsync(term, filter, 0, 10, null, token);
+        return searchMetadata.Select(x => new NugetDetailsViewModel(x));
     }
 }
 ```
