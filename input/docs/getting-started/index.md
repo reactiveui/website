@@ -171,6 +171,8 @@ public class NugetDetailsViewModel : ReactiveObject
 
 ### 4.Create Views
 
+ReactiveUI allows you to create views using two different approaches. The recommended approach is using [type-safe ReactiveUI bindings](https://reactiveui.net/docs/handbook/data-binding/) that can save you from memory leaks and runtime errors. The second approach is using XAML markup bindings.
+
 <details><summary>Create Views using ReactiveUI type-safe bindings (recommended)</summary>
 
 First, we need to register our views in the `App.cs` file.
@@ -362,7 +364,133 @@ Now you can search repositories on NuGet using your own app!
 </details>
 <details><summary>Create Views using traditional XAML markup bindings</summary>
 
-TODO: Add xaml markup bindigns
+If you would like to use XAML bindings (remember, they don't guarantee type-safety and don't provide tools for memory management, such as `WhenActivated`, but ReactiveUI bindings do), then this tutorial is for you. 
+
+The first thing you need to do is creating a converter, while we have a boolean property `AppViewModel.IsAvailable` indicating if our ViewModel has content loaded. Let's create a new class `BoolToVisibilityConverter.cs`.
+
+```cs
+// If we would like to do value conversion using Binding markup extension,
+// we need to implement the IValueConverter interface.
+public class BoolToVisibilityConverter : IValueConverter
+{
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        // We need to convert `True` value to `Visibility.Visible` and `False` value to
+        // `Visibility.Collapsed`. Then we need to declare the converter as a static resource.
+        return (bool)value ? Visibility.Visible : Visibility.Collapsed;
+    }
+
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        // Our app doesn't need to be able to convert values back, so we won't implement this.
+        throw new NotImplementedException();
+    }
+}
+```
+
+Now we should initialize the `DataContext` of our `MainWindow` by assigning an instance of the `AppViewModel` to it. Go to `MainWindow.xaml.cs` and do this:
+
+```cs
+public partial class MainWindow : Window
+{
+    public MainWindow()
+    {
+        InitializeComponent();
+        DataContext = new AppViewModel();
+    }
+}
+```
+
+Finally, we need to create XAML markup for our app.
+
+```xml
+<Window x:Class="ReactiveDemo.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        Title="NuGet Browser" mc:Ignorable="d" Height="450" Width="800">
+    <Window.Resources>
+        <ResourceDictionary>
+            <!-- 
+            Here we declare the value converter that we've implemented 
+            on the previous step. We will need it later to convert the
+            IsAvailable boolean property to Visibility.
+            -->
+            <BooleanToVisibilityConverter x:Key="BoolToVisible" />
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid Margin="12">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <TextBlock FontSize="16" 
+                   FontWeight="SemiBold" 
+                   VerticalAlignment="Center" 
+                   Text="Search for: "/>
+        <!-- 
+        Here we create a two-way binding for the SearchTerm property
+        of our ViewModel. When a user types something into the TextBox,
+        value of the SearchTerm property will be updated automatically.
+        Don't forget to set UpdateSourceTrigger to PropertyChanged on
+        WPF and UWP platforms.
+        -->
+        <TextBox Grid.Column="1" 
+                 Margin="6 0 0 0"
+                 Text="{Binding SearchTerm, 
+                                Mode=TwoWay, 
+                                UpdateSourceTrigger=PropertyChanged}"/>
+        <!--
+        Here we bind the IsAvailable property to ListView's Visibility
+        using the value converter we've declared above. Also, we bind
+        SearchResults list to ListView's ItemsSource.
+        -->
+        <ListBox Grid.ColumnSpan="3" 
+                 Grid.Row="1" Margin="0,6,0,0" 
+                 ItemsSource="{Binding SearchResults}"
+                 HorizontalContentAlignment="Stretch"
+                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                 Visibility="{Binding IsAvailable, 
+                                      Mode=OneWay,
+                                      Converter={StaticResource BoolToVisible}}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Image Margin="6" Width="64" Height="64" 
+                               Source="{Binding IconUrl, Mode=OneWay}"
+                               HorizontalAlignment="Center" 
+                               VerticalAlignment="Center"/>
+                        <TextBlock Grid.Column="1" Margin="6"
+                                   TextWrapping="WrapWithOverflow" 
+                                   VerticalAlignment="Center">
+                            <Run FontSize="14" FontWeight="SemiBold" 
+                                 Text="{Binding Title, Mode=OneWay}"/>
+                            <LineBreak />
+                            <Run FontSize="12" Text="{Binding Description, Mode=OneWay}"/>
+                            <LineBreak />
+                            <Hyperlink Command="{Binding OpenPage}">Open</Hyperlink>
+                        </TextBlock>
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+    </Grid>
+</Window>
+```
+
+Now you can search repositories on NuGet using your own app!
+
+<img src="./demo-app.jpg" width="600"/>
+<br />
 
 </details>
 
