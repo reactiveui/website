@@ -28,16 +28,6 @@ We also need a Nuget client library in this tutorial, and we are going to instal
 
 ### 3. Create ViewModels
 ```csharp
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reactive.Linq;
-using System.Windows;
-using NuGet.Configuration;
-using NuGet.Protocol;
-using NuGet.Protocol.Core.Types;
-using ReactiveUI;
-
 // AppViewModel is where we will describe the interaction of our application.
 // We can describe the entire application in one class since it's very small now. 
 // Most ViewModels will derive off ReactiveObject, while most Model classes will 
@@ -154,12 +144,6 @@ This also works in the opposite direction, when we take the `SearchTerm` propert
 Let's now create a `NugetDetailsViewModel` that will wrap out NuGet metadata into a more usable class for our View. It includes a [ReactiveCommand](../handbook/commands) for opening the NuGet Repository URL.
 
 ```cs
-using System;
-using System.Diagnostics;
-using System.Reactive;
-using NuGet.Protocol.Core.Types;
-using ReactiveUI;
-
 // This class wraps out NuGet model object into a ViewModel and allows
 // us to have a ReactiveCommand to open the NuGet package URL.
 public class NugetDetailsViewModel : ReactiveObject
@@ -207,10 +191,6 @@ public partial class App : Application
 Then we need to derive the MainWindow from `IViewFor<T>`. We are going to use <a href="https://reactiveui.net/docs/handbook/data-binding/">ReactiveUI Binding</a> to bind our ViewModel to our View. Reactive binding is a cross platform way of consistently binding properties on your ViewModel to controls on your View. The ReactiveUI binding has a few advantages over the XAML based binding. The first advantage is that property name changes will generate a compile error rather than runtime errors. 
 
 ```csharp
-using System.Reactive.Disposables;
-using System.Windows;
-using ReactiveUI;
-
 public partial class MainWindow : IViewFor<AppViewModel>
 {
     // Using a DependencyProperty as the backing store for ViewModel.  
@@ -305,10 +285,6 @@ Now we declare the XAML for our Main Window.
 We are now going to create a view for our NugetDetailsViewModel. This will automatically get displayed in the ListBox in the MainWindow. When using Reactive Binding on XAML platforms, if no ItemTemplate has been set, it will look for a IViewFor<T> inside our Dependency Injection and display the Item using that control.
 
 ```cs
-using System.Reactive.Disposables;
-using System.Windows.Media.Imaging;
-using ReactiveUI;
-
 // The class derives off ReactiveUserControl which contains the ViewModel property.
 // In our MainWindow when we register the ListBox with the collection of 
 // NugetDetailsViewModels if no ItemTemplate has been declared it will search for 
