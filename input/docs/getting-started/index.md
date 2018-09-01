@@ -383,7 +383,7 @@ public class BoolToVisibilityConverter : IValueConverter
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
     {
         // Our app doesn't need to be able to convert values back, so we won't implement this.
-        throw new NotImplementedException();
+        return Binding.DoNothing;
     }
 }
 ```
