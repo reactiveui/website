@@ -149,20 +149,20 @@ Let's now create a `NugetDetailsViewModel.cs` class that will wrap out NuGet met
 // us to have a ReactiveCommand to open the NuGet package URL.
 public class NugetDetailsViewModel : ReactiveObject
 {
-    private readonly IPackageSearchMetadata metadata;
-    private readonly Uri defaultUrl;
+    private readonly IPackageSearchMetadata _metadata;
+    private readonly Uri _defaultUrl;
 
-    public NugetDetailsViewModel(IPackageSearchMetadata searchMetadata)
+    public NugetDetailsViewModel(IPackageSearchMetadata metadata)
     {
-        metadata = searchMetadata;
-        defaultUrl = new Uri("https://git.io/fAlfh");
+        _metadata = metadata;
+        _defaultUrl = new Uri("https://git.io/fAlfh");
         OpenPage = ReactiveCommand.Create(() => { Process.Start(ProjectUrl.ToString()); });
     }
     
-    public Uri IconUrl => metadata.IconUrl ?? defaultUrl;
-    public string Description => metadata.Description;
-    public Uri ProjectUrl => metadata.ProjectUrl;
-    public string Title => metadata.Title;
+    public Uri IconUrl => _metadata.IconUrl ?? _defaultUrl;
+    public string Description => _metadata.Description;
+    public Uri ProjectUrl => _metadata.ProjectUrl;
+    public string Title => _metadata.Title;
 
     // ReactiveCommand allows us to execute logic without exposing any of the 
     // implementation details with the View. The generic parameters are the 
