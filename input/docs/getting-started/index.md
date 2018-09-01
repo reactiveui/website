@@ -103,7 +103,6 @@ public class AppViewModel : ReactiveObject
         //
         // We then use a ObservableAsPropertyHelper and the ToProperty() method to allow
         // us to have the latest results that we can expose through the property to the View.
-        
         _searchResults = this
             .WhenAnyValue(x => x.SearchTerm)
             .Throttle(TimeSpan.FromMilliseconds(800))
@@ -149,16 +148,18 @@ Let's now create a `NugetDetailsViewModel` that will wrap out NuGet metadata int
 public class NugetDetailsViewModel : ReactiveObject
 {
     private readonly IPackageSearchMetadata metadata;
+    private readonly Uri defaultUrl;
 
     public NugetDetailsViewModel(IPackageSearchMetadata searchMetadata)
     {
         metadata = searchMetadata;
+        defaultUrl = new Uri("https://github.com/NuGet/Media/blob/master/Images/MainLogo/128x128/nuget_128.png?raw=true");
         OpenPage = ReactiveCommand.Create(() => { Process.Start(ProjectUrl.ToString()); });
     }
-
+    
+    public Uri IconUrl => metadata.IconUrl ?? defaultUrl;
     public string Description => metadata.Description;
     public Uri ProjectUrl => metadata.ProjectUrl;
-    public Uri IconUrl => metadata.IconUrl;
     public string Title => metadata.Title;
 
     // ReactiveCommand allows us to execute logic without exposing any of the 
@@ -328,35 +329,32 @@ Notice we convert our URI above into a BitmapImage just for the OneWayBind. Reac
 ```xml
 <reactiveui:ReactiveUserControl
     x:Class="ReactiveDemo.NugetDetailsView"
-    x:TypeArguments="reactivedemo:NugetDetailsViewModel"
+    xmlns:reactiveDemo="clr-namespace:ReactiveDemo"
+    x:TypeArguments="reactiveDemo:NugetDetailsViewModel"
     xmlns:reactiveui="http://reactiveui.net"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:reactivedemo="clr-namespace:ReactiveDemo">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
-        <Image x:Name="iconImage" Margin="6" MaxWidth="128"
+        <Image x:Name="iconImage" Margin="6" Width="64" Height="64"
                HorizontalAlignment="Center" VerticalAlignment="Center"/>
         <TextBlock Grid.Column="1" TextWrapping="WrapWithOverflow" 
                    Margin="6" VerticalAlignment="Center">
             <Run FontSize="14" FontWeight="SemiBold" x:Name="titleRun"/>
             <LineBreak />
             <Run FontSize="12" x:Name="descriptionRun"/>
+            <LineBreak />
+            <Hyperlink x:Name="openButton">Open</Hyperlink>
         </TextBlock>
-        <Button Content="Open" x:Name="openButton" Grid.Column="2" Height="25"/>
     </Grid>
 </reactiveui:ReactiveUserControl>
 ```
 
 Now you can search repositories on NuGet using your own app!
 
-// TODO: replace picture
 <img src="./demo-app.jpg" width="600"/>
 <br />
 
