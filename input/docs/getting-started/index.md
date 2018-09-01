@@ -26,7 +26,7 @@ Install-Package NuGet.Protocol.Core.v3
 ```
 We also need a Nuget client library in this tutorial, and we are going to install and use <a href="https://docs.microsoft.com/en-us/nuget/reference/nuget-client-sdk">NuGet Client</a>.
 
-### 3. Create a new AppViewModel class
+### 3. Create ViewModels
 ```csharp
 using System;
 using System.Collections.Generic;
@@ -81,7 +81,7 @@ public class AppViewModel : ReactiveObject
         // These are provided as part of the Nuget.Core nuget package.
         // Our example will allow you to search the main nuget.org library.
         var providers = new List<Lazy<INuGetResourceProvider>>();
-        providers.AddRange(Repository.Provider.GetCoreV3());  // Add v3 API support
+        providers.AddRange(Repository.Provider.GetCoreV3()); // Add v3 API support
         var packageSource = new PackageSource("https://api.nuget.org/v3/index.json");
         var sourceRepository = new SourceRepository(packageSource, providers);
 
@@ -100,38 +100,45 @@ public class AppViewModel : ReactiveObject
         // Observable will yield a value every time the Search term changes, which in
         // the XAML, is connected to the TextBox. 
         //
-        // We're going to use the Throttle operator to ignore changes that 
-        // happen too quickly, since we don't want to issue a search for each 
-        // key pressed! We then pull the Value of the change, then filter 
-        // out changes that are identical, as well as strings that are empty.
+        // We're going to use the Throttle operator to ignore changes that happen too 
+        // quickly, since we don't want to issue a search for each key pressed! We 
+        // then pull the Value of the change, then filter out changes that are identical, 
+        // as well as strings that are empty.
         //
         // We then do a SelectMany() which converts a async task that returns a 
-        // IEnumerable<T> into IObservable<IEnumerable<T>>
-        // If subsequent requests are made the CancellationToken is called.
-        //
-        // We then ObservableOn the main thread, everything up until this point has been 
-        // running on a separate thread due to the Throttle() 
+        // IEnumerable<T> into IObservable<IEnumerable<T>>. If subsequent requests are 
+        // made the CancellationToken is called. We then ObservableOn the main thread, 
+        // everything up until this point has been running on a separate thread due 
+        // to the Throttle() 
         //
         // We then use a ObservableAsPropertyHelper and the ToProperty() method to allow
         // us to have the latest results that we can expose through the property to the View.
-        _searchResults = this.WhenAnyValue(x => x.SearchTerm)
+        
+        _searchResults = this
+            .WhenAnyValue(x => x.SearchTerm)
             .Throttle(TimeSpan.FromMilliseconds(800))
             .Select(term => term?.Trim())
             .DistinctUntilChanged()
             .Where(term => !string.IsNullOrWhiteSpace(term))
-            .SelectMany(async (term, cancellationToken) =>
+            .SelectMany(async (term, token) =>
             {
                 var searchResource = await sourceRepository.GetResourceAsync<PackageSearchResource>();
-                var searchMetadata = await searchResource.SearchAsync(term, new SearchFilter(false), 0, 10, null, cancellationToken);
+                var searchMetadata = await searchResource.SearchAsync(term, new SearchFilter(false), 0, 10, null, token);
                 return searchMetadata.Select(x => new NugetDetailsViewModel(x));
             })
             .ObserveOn(RxApp.MainThreadScheduler)
             .ToProperty(this, x => x.SearchResults);
+            
+        // Here we listen for all exceptions that our reactive pipeline might throw. In
+        // most cases using MessageBox.Show at the ViewModel layer isn't a good practice,
+        // especially if you are goind to build a cross-platform app, but for a hello-world
+        // app which we are building now it's fine.
         _searchResults.ThrownExceptions.Subscribe(x => MessageBox.Show(x.Message));
 
         // A helper method we can use for Visibility or Spinners to show if results are available.
         // We get the latest value of the SearchResults and make sure it's not null.
-        _isAvailable = this.WhenAnyValue(x => x.SearchResults)
+        _isAvailable = this
+            .WhenAnyValue(x => x.SearchResults)
             .Select(searchResults => searchResults != null)
             .ToProperty(this, x => x.IsAvailable);
     }
@@ -142,12 +149,9 @@ The goal of the ReactiveUI syntax for read-write properties is to notify Observe
   
 In cases when we don't need to provide for two-way binding between the View and the ViewModel, we can use one of many ReactiveUI Helpers, to notify Observers of a changing read-only value in the ViewModel. We use the <a href="https://reactiveui.net/docs/handbook/oaph/">ObservableAsPropertyHelper</a> twice, once to turn a generic IEnumerable<T> into an observable read-only collection, and then to change the visibility of an indicator to show that a request is currently executing.
 
-This also works in the opposite direction, when we take the `SearchTerm` property and <a href="https://reactiveui.net/docs/handbook/when-any/">turn it into an observable</a>. This means that we are notified every time a change occurs in the UI. Using Reactive Extensions, we then <a href="http://reactivex.io/documentation/operators/debounce.html">throttle</a> those events, and ensure that the search occurs no sooner than 800ms after the last keystroke. And if at that point the user did not change the last value, or if the search term is blank, we ignore the event completely.
+This also works in the opposite direction, when we take the `SearchTerm` property and <a href="https://reactiveui.net/docs/handbook/when-any/">turn it into an observable</a>. This means that we are notified every time a change occurs in the UI. Using Reactive Extensions, we then <a href="http://reactivex.io/documentation/operators/debounce.html">throttle</a> those events, and ensure that the search occurs no sooner than 800ms after the last keystroke. And if at that point the user did not change the last value, or if the search term is blank, we ignore the event completely. We have another ObservableAsPropertyHelper property `IsAvailable` which is generated by determining if our current SearchResults is null.
 
-We have another ObservableAsPropertyHelper property `IsAvailable` which is generated by determining if our current SearchResults is null.
-
-### 4. Create a NugetDetailsViewModel class
-This wraps out NuGet metadata into a more usable class for our View. It includes a Command for opening the NuGet Repository URL.
+Let's now create a `NugetDetailsViewModel` that will wrap out NuGet metadata into a more usable class for our View. It includes a [ReactiveCommand](../handbook/commands) for opening the NuGet Repository URL.
 
 ```cs
 using System;
@@ -157,10 +161,10 @@ using NuGet.Protocol.Core.Types;
 using ReactiveUI;
 
 // This class wraps out NuGet model object into a ViewModel and allows
-// us to have a ReactiveCommand to open the NuGet package URL
+// us to have a ReactiveCommand to open the NuGet package URL.
 public class NugetDetailsViewModel : ReactiveObject
 {
-    private IPackageSearchMetadata metadata;
+    private readonly IPackageSearchMetadata metadata;
 
     public NugetDetailsViewModel(IPackageSearchMetadata searchMetadata)
     {
@@ -168,38 +172,39 @@ public class NugetDetailsViewModel : ReactiveObject
         OpenPage = ReactiveCommand.Create(() => { Process.Start(ProjectUrl.ToString()); });
     }
 
-    public Uri IconUrl => metadata.IconUrl ?? new Uri("https://github.com/NuGet/Media/blob/master/Images/MainLogo/128x128/nuget_128.png?raw=true");
     public string Description => metadata.Description;
     public Uri ProjectUrl => metadata.ProjectUrl;
+    public Uri IconUrl => metadata.IconUrl;
     public string Title => metadata.Title;
 
     // ReactiveCommand allows us to execute logic without exposing any of the 
-    // implementation details with the View. The generic parameters are 
-    // the input into the command and it's output. In our case 
-    // we don't have any input or output so we use Unit which in Reactive speak
-    // means a void type.
+    // implementation details with the View. The generic parameters are the 
+    // input into the command and it's output. In our case we don't have any 
+    // input or output so we use Unit which in Reactive speak means a void type.
     public ReactiveCommand<Unit, Unit> OpenPage { get; }
 }
 ```
 
-### 5. Declare our views in the main App.cs
+### 4.Create Views
+
+<details><summary>Create Views using ReactiveUI type-safe bindings (recommended)</summary>
+
+First, we need to register our views in the `App.cs` file.
 
 ```cs
 public partial class App : Application
 {
     public App()
     {
-        // A helper method that will register all classes that derive off IViewFor into
-        // our dependency injection container. ReactiveUI uses Splat for it's dependency
-        // injection by default.
+        // A helper method that will register all classes that derive off IViewFor 
+        // into our dependency injection container. ReactiveUI uses Splat for it's 
+        // dependency injection by default, but you can override this if you like.
         Locator.CurrentMutable.RegisterViewsForViewModels(Assembly.GetCallingAssembly());
     }
 }
 ```
 
-### 6. Create a MainWindow View
-
-Derive your MainWindow from IViewFor<T>, 
+Then we need to derive the MainWindow from `IViewFor<T>`. We are going to use <a href="https://reactiveui.net/docs/handbook/data-binding/">ReactiveUI Binding</a> to bind our ViewModel to our View. Reactive binding is a cross platform way of consistently binding properties on your ViewModel to controls on your View. The ReactiveUI binding has a few advantages over the XAML based binding. The first advantage is that property name changes will generate a compile error rather than runtime errors. 
 
 ```csharp
 using System.Reactive.Disposables;
@@ -208,48 +213,67 @@ using ReactiveUI;
 
 public partial class MainWindow : IViewFor<AppViewModel>
 {
-    // Using a DependencyProperty as the backing store for ViewModel.  This enables animation, styling, binding, etc...
+    // Using a DependencyProperty as the backing store for ViewModel.  
+    // This enables animation, styling, binding, etc...
     public static readonly DependencyProperty ViewModelProperty =
-        DependencyProperty.Register("ViewModel", typeof(AppViewModel), typeof(MainWindow), new PropertyMetadata(null));
+        DependencyProperty.Register("ViewModel", 
+            typeof(AppViewModel), typeof(MainWindow), 
+            new PropertyMetadata(null));
 
     public MainWindow()
     {
         InitializeComponent();
-
         ViewModel = new AppViewModel();
 
-        // We create our bindings here. These are the code behind bindings which allow type safety.
-        // The bindings will only become active when the Window is being shown.
+        // We create our bindings here. These are the code behind bindings which allow 
+        // type safety. The bindings will only become active when the Window is being shown.
         // We register our subscription in our disposableRegistration, this will cause 
         // the binding subscription to become inactive when the Window is closed.
-        // The disposableRegistration is a CompositeDisposable which is a container of other Disposables. 
-        // We use the DisposeWith() extension method which simply adds the subscription disposable to the CompositeDisposable.
+        // The disposableRegistration is a CompositeDisposable which is a container of 
+        // other Disposables. We use the DisposeWith() extension method which simply adds 
+        // the subscription disposable to the CompositeDisposable.
         this.WhenActivated(disposableRegistration =>
         {
-            this.OneWayBind(ViewModel, viewModel => viewModel.SearchResults, view => view.searchResultsListBox.ItemsSource).DisposeWith(disposableRegistration);
-            // Notice we don't have to provide a converter, on WPF a global converter is registered which knows how to convert a boolean into visibility.
-            this.OneWayBind(ViewModel, viewModel => viewModel.IsAvailable, view => view.searchResultsListBox.Visibility).DisposeWith(disposableRegistration); 
-            this.Bind(ViewModel, viewModel => viewModel.SearchTerm, view => view.searchTextBox.Text).DisposeWith(disposableRegistration);
+            // Notice we don't have to provide a converter, on WPF a global converter is
+            // registered which knows how to convert a boolean into visibility.
+            this.OneWayBind(ViewModel, 
+                viewModel => viewModel.IsAvailable, 
+                view => view.searchResultsListBox.Visibility)
+                .DisposeWith(disposableRegistration); 
+                
+            this.OneWayBind(ViewModel, 
+                viewModel => viewModel.SearchResults, 
+                view => view.searchResultsListBox.ItemsSource)
+                .DisposeWith(disposableRegistration); 
+                
+            this.Bind(ViewModel, 
+                viewModel => viewModel.SearchTerm, 
+                view => view.searchTextBox.Text)
+                .DisposeWith(disposableRegistration);
         });
     }
 
     // Our main view model instance.
     public AppViewModel ViewModel
     {
-        get { return (AppViewModel)GetValue(ViewModelProperty); }
-        set { SetValue(ViewModelProperty, value); }
+        get => (AppViewModel)GetValue(ViewModelProperty);
+        set => SetValue(ViewModelProperty, value);
     }
 
-    // This is required by the interface IViewFor, you always just set it to use the main ViewModel property.
-    // Note on XAML based platforms we have a control called ReactiveUserControl that abstracts this.
-    object IViewFor.ViewModel { get => ViewModel; set => ViewModel = (AppViewModel)value; }
+    // This is required by the interface IViewFor, you always just set it to use the 
+    // main ViewModel property. Note on XAML based platforms we have a control called
+    // ReactiveUserControl that abstracts this.
+    object IViewFor.ViewModel 
+    { 
+        get => ViewModel; 
+        set => ViewModel = (AppViewModel)value; 
+    }
 }
 ```
 
-We are going to use <a href="https://reactiveui.net/docs/handbook/data-binding/">ReactiveUI Binding</a> to bind our ViewModel to our View. Reactive binding is a cross platform way of consistently binding properties on your ViewModel to controls on your View. The ReactiveUI binding has a few advantages over the XAML based binding. The first advantage is that property name changes will generate a compile error rather than runtime errors. 
-Reactive Binding allows you to modify the ViewModel property by using Binding Converters. These are Binding Converters are able to be registered globally or they can be declared locally. We are going to use Binding Converters in two instances, firstly we have a global converter registered by default on XAML projects that converts a boolean to Visibility, and the second to convert our project URL into a BitmapImage locally once.
+Reactive Binding allows you to modify the ViewModel property by using Binding Converters. These are Binding Converters are able to be registered globally or they can be declared locally. We are going to use Binding Converters in two instances, firstly we have a global converter registered by default on XAML projects that converts a boolean to Visibility, and the second to convert our project URL into a BitmapImage locally one.
 
-Now we declare the XAML for our Main Window
+Now we declare the XAML for our Main Window.
 
 ```xml
 <Window x:Class="ReactiveDemo.MainWindow"
@@ -268,14 +292,16 @@ Now we declare the XAML for our Main Window
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <TextBlock FontSize="16" FontWeight="SemiBold" VerticalAlignment="Center" Text="Search for: "/>
+        <TextBlock FontSize="16" FontWeight="SemiBold" 
+                   VerticalAlignment="Center" Text="Search for: "/>
         <TextBox Grid.Column="1" Margin="6 0 0 0" x:Name="searchTextBox" />
-        <ListBox x:Name="searchResultsListBox" Grid.ColumnSpan="3" Grid.Row="1" Margin="0,6,0,0"  HorizontalContentAlignment="Stretch"
+        <ListBox x:Name="searchResultsListBox" Grid.ColumnSpan="3" 
+                 Grid.Row="1" Margin="0,6,0,0" HorizontalContentAlignment="Stretch"
                  ScrollViewer.HorizontalScrollBarVisibility="Disabled" />
     </Grid>
 </Window>
 ```
-### 7. Create a NuGet Details View
+
 We are now going to create a view for our NugetDetailsViewModel. This will automatically get displayed in the ListBox in the MainWindow. When using Reactive Binding on XAML platforms, if no ItemTemplate has been set, it will look for a IViewFor<T> inside our Dependency Injection and display the Item using that control.
 
 ```cs
@@ -284,36 +310,45 @@ using System.Windows.Media.Imaging;
 using ReactiveUI;
 
 // The class derives off ReactiveUserControl which contains the ViewModel property.
-// In our MainWindow when we register the ListBox with the collection of NugetDetailsViewModel
-// if no ItemTemplate has been declared it will search for a class derived off 
-// IViewFor<NugetDetailsViewModel> and show that for the item.
+// In our MainWindow when we register the ListBox with the collection of 
+// NugetDetailsViewModels if no ItemTemplate has been declared it will search for 
+// a class derived off IViewFor<NugetDetailsViewModel> and show that for the item.
 public partial class NugetDetailsView : ReactiveUserControl<NugetDetailsViewModel>
 {
     public NugetDetailsView()
     {
         InitializeComponent();
-
         this.WhenActivated(disposableRegistration =>
         {
-            // Our 4th parameter we convert our Url into a BitmapImage. This is a easy 
-            // way of doing value using ReactiveUI binding.
-            this.OneWayBind(
-                ViewModel, 
+            // Our 4th parameter we convert from Url into a BitmapImage. 
+            // This is an easy way of doing value conversion using ReactiveUI binding.
+            this.OneWayBind(ViewModel, 
                 viewModel => viewModel.IconUrl, 
                 view => view.iconImage.Source, 
-                url => url == null ? null : new BitmapImage(url)).DisposeWith(disposableRegistration);
+                url => url == null ? null : new BitmapImage(url))
+                .DisposeWith(disposableRegistration);
 
-            this.OneWayBind(ViewModel, viewModel => viewModel.Title, view => view.titleRun.Text).DisposeWith(disposableRegistration);
-            this.OneWayBind(ViewModel, viewModel => viewModel.Description, view => view.descriptionRun.Text).DisposeWith(disposableRegistration);
-            this.BindCommand(ViewModel, viewModel => viewModel.OpenPage, view => view.openButton).DisposeWith(disposableRegistration);
+            this.OneWayBind(ViewModel, 
+                viewModel => viewModel.Title, 
+                view => view.titleRun.Text)
+                .DisposeWith(disposableRegistration);
+                
+            this.OneWayBind(ViewModel, 
+                viewModel => viewModel.Description, 
+                view => view.descriptionRun.Text)
+                .DisposeWith(disposableRegistration);
+            
+            this.BindCommand(ViewModel, 
+                viewModel => viewModel.OpenPage, 
+                view => view.openButton)
+                .DisposeWith(disposableRegistration);
         });
     }
 }
 ```
 
-Notice we convert our URI above into a BitmapImage just for the OneWayBind. ReactiveUI allows us to quickly convert types which is much easier syntax than the XAML Value Converters.
+Notice we convert our URI above into a BitmapImage just for the OneWayBind. ReactiveUI allows us to quickly convert types which is much easier syntax than the XAML Value Converters. Now let's declare our XAML for the NuGet details View:
 
-Now we declare our XAML for the NuGet Details View
 ```xml
 <reactiveui:ReactiveUserControl
     x:Class="ReactiveDemo.NugetDetailsView"
@@ -323,9 +358,7 @@ Now we declare our XAML for the NuGet Details View
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:reactivedemo="clr-namespace:ReactiveDemo"
-    mc:Ignorable="d" 
-    d:DesignHeight="450" d:DesignWidth="800">
+    xmlns:reactivedemo="clr-namespace:ReactiveDemo">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
@@ -333,21 +366,30 @@ Now we declare our XAML for the NuGet Details View
             <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
         <Image x:Name="iconImage" Margin="6" MaxWidth="128"
-                       HorizontalAlignment="Center" VerticalAlignment="Center" />
-        <TextBlock Grid.Column="1" Margin="6" TextWrapping="WrapWithOverflow" VerticalAlignment="Center">
-                    <Run FontSize="14" FontWeight="SemiBold"  x:Name="titleRun"/>
-                    <LineBreak />
-                    <Run FontSize="12" x:Name="descriptionRun"/>
+               HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBlock Grid.Column="1" TextWrapping="WrapWithOverflow" 
+                   Margin="6" VerticalAlignment="Center">
+            <Run FontSize="14" FontWeight="SemiBold" x:Name="titleRun"/>
+            <LineBreak />
+            <Run FontSize="12" x:Name="descriptionRun"/>
         </TextBlock>
-        <Button Content="Open" x:Name="openButton" Grid.Column="2" Height="25" />
+        <Button Content="Open" x:Name="openButton" Grid.Column="2" Height="25"/>
     </Grid>
 </reactiveui:ReactiveUserControl>
 ```
 
 Now you can search repositories on NuGet using your own app!
 
+// TODO: replace picture
 <img src="./demo-app.jpg" width="600"/>
 <br />
+
+</details>
+<details><summary>Create Views using traditional XAML markup bindings</summary>
+
+TODO: Add xaml markup bindigns
+
+</details>
 
 # Discover ReactiveUI
 
