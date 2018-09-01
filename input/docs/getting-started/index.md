@@ -117,7 +117,9 @@ public class AppViewModel : ReactiveObject
             .ToProperty(this, x => x.IsAvailable);
     }
     
-    // Here we search NuGet packages using the NuGet.Client library.
+    // Here we search NuGet packages using the NuGet.Client library. Ideally, we should
+    // extract such code into a separate service, say, INuGetSearchService, but let's 
+    // try to avoid overcomplicating things at this time.
     private async Task<IEnumerable<NugetDetailsViewModel>> SearchNuGetPackages(
         string term, CancellationToken token)
     {
