@@ -176,7 +176,7 @@ public class NugetDetailsViewModel : ReactiveObject
 
 ReactiveUI allows you to create views using two different approaches. The recommended approach is using [type-safe ReactiveUI bindings](https://reactiveui.net/docs/handbook/data-binding/) that can save you from memory leaks and runtime errors. The second approach is using XAML markup bindings.
 
-<details><summary>Create Views using ReactiveUI type-safe bindings (recommended)</summary>
+<details open><summary>Create Views using ReactiveUI type-safe bindings (recommended)</summary>
 
 First, we need to register our views in the `App.xaml.cs` file.
 
