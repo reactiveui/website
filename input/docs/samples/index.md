@@ -35,7 +35,7 @@ Tiny app for reading RSS feeds built for Universal Windows Platform. Uses Reacti
 
 # Xamarin Forms
 
-* https://github.com/reactiveui/ReactiveUI/tree/develop/samples/xamarin-forms
+* https://github.com/reactiveui/ReactiveUI/tree/master/samples/xamarin-forms
 * https://github.com/GiusepeCasagrande/RoutingSimpleSample
 
 # Xamarin Mac
