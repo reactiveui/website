@@ -35,6 +35,10 @@ a:hover {
   text-decoration: underline;
 }
 
+p {
+  line-height: 1.7
+}
+
 // documentation sidebar
 .sidebar-menu {
   li a:active {
@@ -144,6 +148,7 @@ a:hover {
 .hljs {
   background: rgba(0, 0, 0, 0.024);
   padding: 8px !important;
+  white-space: pre;
 }
 
 .code-sample pre {
@@ -179,4 +184,78 @@ section.content img {
 iframe.embedded-video {
   width: 100%;
   height: 500px;
+}
+
+summary {
+  background: #02a1d8;
+  color: white;
+  font-weight: bold;
+  padding: 10px;
+  border-radius: 5px;
+  margin: 10px 0;
+  cursor: pointer;
+}
+
+pre {
+  border-color: #eeeeee;
+}
+.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 0.5em;
+  color: #383a42;
+  background: #fafafa;
+}
+.hljs-comment,
+.hljs-quote {
+  color: #a0a1a7;
+}
+.hljs-doctag,
+.hljs-keyword,
+.hljs-formula,
+.hljs-section,
+.hljs-name,
+.hljs-selector-tag,
+.hljs-deletion,
+.hljs-subst {
+  color: #a626a4;
+}
+.hljs-literal {
+  color: #0184bb;
+}
+.hljs-string,
+.hljs-regexp,
+.hljs-addition,
+.hljs-attribute,
+.hljs-meta-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-link,
+.hljs-meta,
+.hljs-selector-id,
+.hljs-title {
+  color: #4078f2;
+}
+.hljs-built_in,
+.hljs-class .hljs-title {
+  color: #c18401;
+}
+.hljs-attr,
+.hljs-variable,
+.hljs-template-variable,
+.hljs-type,
+.hljs-selector-class,
+.hljs-selector-attr,
+.hljs-selector-pseudo,
+.hljs-number {
+  color: #686a72;
+}
+.hljs-emphasis {
+  font-style: italic;
+}
+.hljs-strong {
+  font-weight: bold;
+}
+.hljs-link {
+  text-decoration: underline;
 }
