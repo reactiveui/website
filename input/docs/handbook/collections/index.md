@@ -2,23 +2,30 @@ ReactiveUI recommends the use of DynamicData framework for collection based oper
 
 # Overview of Dynamic Data
 
-DynamicData is reactive collections based on Rx.Net.  
+Dynamic Data is reactive collections based on Rx.Net. 
 
-DynamicData is built around the concept of Observables of ```IChangeSet``` which contains a set of ```IChange``` items.
+Whenever a change is made to one of Dynamic Data's collections a notification is produced. A notification reflects what has changed in the collection. This notification is represented as a `ChangeSet ` which can contain one or more changes.  Each item in the change set is represented as a `Change` which contains information about each individual change since the last notification.
 
-A ```IChange``` specifies changes that individual actions that have occurred within a collection. For example adding or deleting items. The ```IChangeSet``` contains a series of changes that have occurred to the collection.
+The changes sets are published as an `IObservable<ChangeSet>`.  
 
-DynamicData contains several ```IChangeSet``` aware Collections such as the ```SourceList<T>``` and ```SourceCache<TObject, TKey>```. The ```SourceList<T>``` is for items that do not have a unique key for item, and the ```SourceCache<TObject, TKey>``` is for objects that should maintain a common key.
+This basic signature is the monad of Dynamic Data on which a rich set of Linq operators are provided which enable declarative querying and manipulation of data as it changes, and in a thread safe manner.
 
-You can then ```Connect()``` to IObservable of ChangeSet's for each container to receive the notifications about items already inside the container and any subsequent changes to the collection. The convention in dynamic data is that any consumer which calls ```Connect``` receive a notification of any items which are already in the collection plus subsequent changes. The simplicity of this concept enables the definition of a myriad of specialised operators which allows the consumer to easily define how they want the results of the reactive chain to be shaped and how it should behave.
+## Maintaining and consuming data 
 
-DynamicData can also hook into any existing Container that derives of ```INotifyCollectionChanged``` and ```IEnumerable<T>```, these include ```ObservableCollection<T>```, and also ```ObservableCollectionExtended<T>``` which is provided by DynamicData.
+Dynamic Data provides two specialized  `IObservable<ChangeSet>`  producing collections:
 
-DynamicData is designed to hook into existing collection classes. For example after you apply the chain of Reactive operators on your IObservable of ChangeSet's you often will ```Bind()``` your results into a ```ReadOnlyObservableCollection<T>``` for consumption by your GUI framework.
+ 1. `SourceCache<TObject, TKey>` for items which have a unique key.
+ 2. `SourceList<T>` for items which do not have a unique key.
+
+These objects each provide an API for maintaining data which have typical collection methods such as add and remove.  The idea is you maintain data in one of these collections, then use the extensive Linq API to dynamicaly query the data in a similar manner as Linq-to-Objects.
+
+To convert these collections into an `IObservable<ChangeSet>` you call `Connect()` at which point notifications can be observed and the provided Linq operators can be applied. The convention in dynamic data is that any consumer which calls `Connect` receive a notification of any items which are already in the collection plus any subsequent changes.
+
+Additionally there are several other means of creating observable changes sets from existing collections which implement `INotifyCollectionChanged` and `IEnumerable<T>`.
 
 ## What it is not
 
-Dynamic data collections are not an alternative implementation to ```ObservableCollection<T>```.   The architecture of it has been based first and foremost on domain driven concepts. The idea is you load and maintain your data in one of the provided collections which can then use operators to manipulate the data without the complexity of managing collections. It can be used to react to your collections however you want, be it binding to a screen or producing some other kind of notification. The collections can be connected to as many times as required and a single collection can in turn become the source of many other derived collections.
+Dynamic data collections are not an alternative implementation to ```ObservableCollection<T>```.  The architecture of it has been based first and foremost on domain driven concepts. The idea is you load and maintain your data in one of the provided collections which can then use operators to manipulate the data without the complexity of managing collections. It can be used to react to your collections however you want, be it binding to a screen or producing some other kind of notification. The collections can be connected to as many times as required and a single collection can in turn become the source of many other derived collections.
 
 ## For ReactiveUI users
   
