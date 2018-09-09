@@ -70,32 +70,43 @@ However, instead of doing this, we can use Rx's operators to solve this in a
 more elegant way.
 
 ```cs
+using System;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Reactive;
+using System.Reactive.Linq;
+using DynamicData;
+using DynamicData.Binding;
+using ReactiveUI;
+
 public class DocumentViewModel : ReactiveObject
 {
-    public ReactiveCommand<Object> Close { get; set; }
+    public ReactiveCommand<Unit, Unit> Close { get; set; }
 
     public DocumentViewModel() 
     {
         // Note that we don't actually *subscribe* to Close here or implement
         // anything in DocumentViewModel, because Closing is a responsibility
         // of the document list.
-        Close = ReactiveCommand.Create();
+        Close = ReactiveCommand.Create(() => { });
     }
 }
 
 public class MainViewModel : ReactiveObject
 {
-    public ReactiveList<DocumentViewModel> OpenDocuments { get; protected set; }
+    public ObservableCollection<DocumentViewModel> OpenDocuments { get; protected set; }
 
     public MainViewModel()
     {
-        OpenDocuments = new ReactiveList<DocumentViewModel>();
+        OpenDocuments = new ObservableCollection<DocumentViewModel>();
 
         // Whenever the list of documents change, calculate a new Observable
         // to represent whenever any of the *current* documents have been
         // requested to close, then Switch to that. When we get something
         // to close, remove it from the list.
-        OpenDocuments.Changed
+        OpenDocuments
+            .ToObservableChangeSet()
+            .AutoRefreshOnObservable(document => document.Close)
             .Select(_ => WhenAnyDocumentClosed())
             .Switch()
             .Subscribe(x => OpenDocuments.Remove(x));
@@ -109,6 +120,23 @@ public class MainViewModel : ReactiveObject
         return OpenDocuments
             .Select(x => x.Close.Select(_ => x))
             .Merge();
+    }
+}
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            var mainViewModel = new MainViewModel();
+            mainViewModel.OpenDocuments.Add(new DocumentViewModel());
+            mainViewModel.OpenDocuments.Add(new DocumentViewModel());
+            mainViewModel.OpenDocuments.Add(new DocumentViewModel());
+            mainViewModel.OpenDocuments.Add(new DocumentViewModel());
+
+            mainViewModel.OpenDocuments.First().Close.Execute().Subscribe();
+
+            Console.WriteLine("Hello World!");
+        }
     }
 }
 ```
