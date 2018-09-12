@@ -4,7 +4,7 @@ Use it to inspect a pipeline without side effects. Great for logging and debuggi
 
 # Where
 
-Watch "why you should be making better apps with Reactice Programming" Xamarin Evolve video.
+Watch "why you should be making better apps with Reactive Programming" Xamarin Evolve video.
 
 Where fish is not a shrimp.
 
