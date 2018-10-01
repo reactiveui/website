@@ -1,0 +1,20 @@
+# Observable.TakeWhile Method
+
+Include Protected Members  
+Include Inherited Members
+
+Returns values from an observable sequence.
+
+This member is overloaded. For complete information about this member, including syntax, usage, and examples, click a name in the overload list.
+
+## Overload List
+
+NameDescription![Public method](images\Hh303103.pubmethod(en-us,VS.103).gif "Public method")![Static member](images\Hh244319.static(en-us,VS.103).gif "Static member")[TakeWhile<TSource>(IObservable<TSource>, Func<TSource, Boolean>)](https://msdn.microsoft.com/en-us/library/m:system.reactive.linq.observable.takewhile%60%601(system.iobservable%7b%60%600%7d%2csystem.func%7b%60%600%2csystem.boolean%7d)(v=VS.103))Returns values from an observable sequence as long as a specified condition is true, and then skips the remaining values.![Public method](images\Hh303103.pubmethod(en-us,VS.103).gif "Public method")![Static member](images\Hh244319.static(en-us,VS.103).gif "Static member")[TakeWhile<TSource>(IObservable<TSource>, Func<TSource, Int32, Boolean>)](https://msdn.microsoft.com/en-us/library/m:system.reactive.linq.observable.takewhile%60%601(system.iobservable%7b%60%600%7d%2csystem.func%7b%60%600%2csystem.int32%2csystem.boolean%7d)(v=VS.103))Returns values from an observable sequence as long as a specified condition is true, and then skips the remaining values.Top
+
+## See Also
+
+#### Reference
+
+[Observable Class](Observable\Observable.md)
+
+[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)

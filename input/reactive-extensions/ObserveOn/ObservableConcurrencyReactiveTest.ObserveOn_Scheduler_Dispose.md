@@ -1,0 +1,51 @@
+# ObservableConcurrencyReactiveTest.ObserveOn\_Scheduler\_Dispose Method
+
+**Namespace:**  [ReactiveTests.Tests](ReactiveTests.Tests\ReactiveTests.Tests.md)  
+**Assembly:**  Tests.System.Reactive (in Tests.System.Reactive.dll)
+
+## Syntax
+
+```vb
+'Declaration
+<TestMethodAttribute> _
+Public Sub ObserveOn_Scheduler_Dispose
+```
+
+```vb
+'Usage
+Dim instance As ObservableConcurrencyReactiveTest
+
+instance.ObserveOn_Scheduler_Dispose()
+```
+
+```csharp
+[TestMethodAttribute]
+public void ObserveOn_Scheduler_Dispose()
+```
+
+```c++
+[TestMethodAttribute]
+public:
+void ObserveOn_Scheduler_Dispose()
+```
+
+```fsharp
+[<TestMethodAttribute>]
+member ObserveOn_Scheduler_Dispose : unit -> unit 
+```
+
+```jscript
+public function ObserveOn_Scheduler_Dispose()
+```
+
+## See Also
+
+#### Reference
+
+[ObservableConcurrencyReactiveTest Class](ObservableConcurrencyReactiveTest\ObservableConcurrencyReactiveTest.md)
+
+[ReactiveTests.Tests Namespace](ReactiveTests.Tests\ReactiveTests.Tests.md)
+
+
+
+
