@@ -77,6 +77,26 @@ var myBindingOperation = mySource
 ```
 The API for the above is the same for cache and list.
 
+### Migrate from ReactiveList to DynamicData
+
+A starting point of migration from ReactiveList to DynamicData is to change the code of 
+
+```cs
+public ReactiveList<ItemViewModel> BindingData {get;set;}  //used for binding like ItemsSource="{Binding BindingData}"
+```
+
+to 
+
+```cs
+protected SourceList<ItemViewModel> mySource;
+public ReadOnlyObservableCollection<ItemViewModel> BindingData {get;} //used for binding like ItemsSource="{Binding BindingData}"
+...
+mySource.Connect()
+		.ObserveOn(RxApp.MainThreadScheduler) // Make sure this is only right before the Bind()
+		.Bind(out var bindingData)
+		.Subscribe(); 
+BindingData = bindingData;
+```
 
 ## So what's the difference between an observable list and an observable cache
 
