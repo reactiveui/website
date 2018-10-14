@@ -5,7 +5,7 @@
 
 Install the appropriate `ReactiveUI.Events.*` package into your application. See <a href="https://reactiveui.net/docs/getting-started/installation/">installation page</a> for more info. You can use the events package standlone, without any references to ReactiveUI. `ReactiveUI.Events.*` will always be a seperate package that has no dependancy on the `ReactiveUI` package.
 
-This package looks at all the `EventHandlers` for a platform and generates  `Observable.FromEventPattern` extension methods via this [Moustache template](https://github.com/reactiveui/ReactiveUI/blob/develop/src/EventBuilder/DefaultTemplate.mustache). Don't use `EventHandlers` ever, use the generated `Observable.FromEventPattern` versions. Combine multiple `Observable.FromEventPattern`together to get amazing composition. Remember to [dispose of your subscriptions](https://reactiveui.net/docs/concepts/reactive-programming/subscriptions#lifecycle) using the features provided by the Reactive Extensions.
+This package looks at all the `EventHandlers` for a platform and generates  `Observable.FromEventPattern` extension methods via this [Moustache template](https://github.com/reactiveui/ReactiveUI/blob/master/src/EventBuilder/DefaultTemplate.mustache). Don't use `EventHandlers` ever, use the generated `Observable.FromEventPattern` versions. Combine multiple `Observable.FromEventPattern`together to get amazing composition. Remember to [dispose of your subscriptions](https://reactiveui.net/docs/concepts/reactive-programming/subscriptions#lifecycle) using the features provided by the Reactive Extensions.
 
 ```csharp
 var codes = new[]
