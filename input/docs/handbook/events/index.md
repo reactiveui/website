@@ -1,6 +1,3 @@
-<blockquote class="twitter-tweet" data-conversation="none" data-lang="en"><p lang="en" dir="ltr">Events remove crappy noise ceremonial: not only intent literally surfaces but it spares useless verbose protocol. There is no going back!</p>&mdash; Aku Studio (@Aku_Studio) <a href="https://twitter.com/Aku_Studio/status/895918988412190722">August 11, 2017</a></blockquote>
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-
 # Getting Started
 
 Install the appropriate `ReactiveUI.Events.*` package into your application. See <a href="https://reactiveui.net/docs/getting-started/installation/">installation page</a> for more info. You can use the events package standlone, without any references to ReactiveUI. `ReactiveUI.Events.*` will always be a seperate package that has no dependancy on the `ReactiveUI` package.
