@@ -182,3 +182,7 @@ this.Events().KeyUpObs
 this.WhenAnyObservable(x => x.ViewModel.Cancel)
     .Subscribe(_ => this.Close());
 ```
+
+### Creating custom global Value Converters
+
+See [Value Converters](./value-converters) for details.
