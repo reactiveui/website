@@ -41,7 +41,7 @@ public bool TryConvert(object from, Type toType, object conversionHint, out obje
 
 ## Registration
 
-You need to register your custom converter using Splat Locator so ReactiveUI can use it.
+If you'd like to use a custom converter globally, you need to register it using Splat Locator.
 
 ```csharp
 Locator.CurrentMutable.RegisterConstant(
@@ -52,7 +52,7 @@ Locator.CurrentMutable.RegisterConstant(
 
 ## Usage
 
-In most cases, usage is automatic. When a binding is created, the converter(s) with the highest affinity are chosen from those registered with Splat. Optionally, you can provide a specific converter to override what the default would have been for either VM to View or View to VM. 
+For globally registered converters, usage is **automatic**. When a binding is created, the converter(s) with the highest affinity are chosen from those registered with Splat. Optionally, you can provide a specific converter to override what the default would have been for either VM to View or View to VM. In this case you don't need to register a converter:
 
 ```csharp
 this.Bind(ViewModel, 
