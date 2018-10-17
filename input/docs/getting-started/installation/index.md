@@ -1,9 +1,27 @@
 Title: Installation
 Order: 10
 ---
+
 # ReactiveUI Packages
 
 ReactiveUI packages are now signed by the dotnet foundation. Only builds from their infrastructure carry this seal.  ReactiveUI uses Azure Dev Ops for our CI pipeline.
+
+# Install Packages
+
+Each platform has packages that extend the base ReactiveUI offerings for it's concerns.  Installing the correct packages for the correct platform can be somewhat of a pain.
+
+| Target Platform                 | Required ReactiveUI Packages | <a href="https://reactiveui.net/docs/handbook/events/">Events</a> Packages   |
+| ------------------------------- | ---------------------------- | ---------------------------- |
+| <a href="/">Class library</a> | `ReactiveUI` | None |  
+| <a href="universal-windows-platform">Universal Windows Platform</a> | `ReactiveUI` | `ReactiveUI.Events` |
+| <a href="windows-presentation-foundation">Windows Presentation Foundation</a> | `ReactiveUI.WPF` | `ReactiveUI.Events.WPF` |
+| <a href="windows-forms">Windows Forms</a> | `ReactiveUI.WinForms` | `ReactiveUI.Events.WinForms` |
+| <a href="xamarin-forms">Xamarin Forms</a> | `ReactiveUI.XamForms` | `ReactiveUI.Events.XamForms` |
+| <a href="xamarin-ios">Xamarin.iOS</a> | `ReactiveUI` | `ReactiveUI.Events` |
+| <a href="xamarin-android">Xamarin.Android</a> | `ReactiveUI.AndroidSupport`  | `ReactiveUI.Events`          |
+| <a href="xamarin-mac">Xamarin.Mac</a> | `ReactiveUI` | `ReactiveUI.Events` |
+| <a href="avalonia">AvaloniaUI</a> | `Avalonia.ReactiveUI` | None |
+| <a href="../../handbook/testing/">Unit testing library</a> | `ReactiveUI.Testing` | None |
 
 # Release Packages
 
