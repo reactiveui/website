@@ -2,46 +2,52 @@ Title: Samples
 Order: 15
 ---
 
-
 # Tizen
 
 * https://github.com/reactiveui/ReactiveUI/pull/1387
 * https://reactiveui.net/docs/guidelines/platform/tizen
 * https://github.com/reactiveui/ReactiveUI/pull/1546
 
-# Windows Forms
-
-Various samples https://github.com/Asesjix/ReactiveUI.Winforms.Samples
-
 # Windows Presentation Framework
 
-Ever noticed that little checkbox when installing Visual Studio to "Install GitHub for Visual Studio"? Yeah that extension is a enterprise grade application built with ReactiveUI and it's completely open-source. See https://github.com/github/VisualStudio/tree/master/src (especially the unit tests!)
+* **GitHub Extension for Visual Studio** Ever noticed that little checkbox when installing Visual Studio to "Install GitHub for Visual Studio"? Yeah that extension is an enterprise grade application built with ReactiveUI and it's completely open-source. See https://github.com/github/VisualStudio/tree/master/src (especially the unit tests!)
 
-Additionally you absolutely must take https://github.com/RolandPheasant/Dynamic.Trader for a test-drive. So so good. 
+* **Dynamic.Trader** Additionally you absolutely must take https://github.com/RolandPheasant/Dynamic.Trader for a test-drive. So so good. 
+
+* **FirstStepsRUI**  ReactiveUI Binding and Routing tutorial covering all the `ReactiveUI.WPF` basics https://github.com/kondaskondas/FirstsStepsRUI
+
+# Windows Forms
+
+* **ReactiveUI.Winforms.Samples** A set of sample projects to quickly get started with ReactiveUI and Windows Forms. https://github.com/Asesjix/ReactiveUI.Winforms.Samples Includes Windows Forms routing example!
 
 # Universal Windows Platform
 
-Tiny app for reading RSS feeds built for Universal Windows Platform. Uses ReactiveUI modern MVVM framework and PropertyChanged.Fody for INotifyPropertyChanged injections. https://github.com/worldbeater/myFeed
-
-# Xamarin Android
-
-* Source code @ https://github.com/kentcb/WorkoutWotch
-* Video based learning @ https://github.com/kentcb/WorkoutWotch#where-are-the-videos
-
-# Xamarin iOS
-
-* Source code @ https://github.com/kentcb/WorkoutWotch
-* Video based learning @ https://github.com/kentcb/WorkoutWotch#where-are-the-videos
+* **MyFeed** A tiny app for reading RSS feeds built for Universal Windows Platform. Uses ReactiveUI and <a href="https://github.com/Fody/PropertyChanged">PropertyChanged.Fody</a> for INotifyPropertyChanged injections. https://github.com/worldbeater/MyFeed Still supports Lumia devices.
 
 # Xamarin Forms
 
-* https://github.com/reactiveui/ReactiveUI/tree/master/samples/xamarin-forms
-* https://github.com/GiusepeCasagrande/RoutingSimpleSample
+* **WorkoutWotch** — a mobile application that allows users to have their exercise programs dictated to them https://github.com/kentcb/WorkoutWotch The vast majority of the application was built as part of a *video series* (!) called "Building an iOS app with C#" https://github.com/kentcb/WorkoutWotch#where-are-the-videos
+
+* **MasterDetail** — ReactiveUI MasterDetail and Routing sample for Xamarin.Forms https://github.com/reactiveui/ReactiveUI/tree/master/samples/xamarin-forms/MasterDetail
+
+* **RoutingSimpleSample** — ReactiveUI simple Routing sample https://github.com/GiusepeCasagrande/RoutingSimpleSample
+
+# Xamarin iOS
+
+* **CodeHub** is the most complete, unofficial, client for GitHub on the iOS platform @ https://github.com/CodeHubApp/CodeHub
+
+# Xamarin Android
+
+* Send in a pull-request linking to the source code of something you have built.
 
 # Xamarin Mac
 
-Send in a pull-request linking to the source code of something you have built.
+* Send in a pull-request linking to the source code of something you have built.
 
-# Avalonia UI Framework
+# AvaloniaUI
 
-A cross-platform app example created using <a href="https://github.com/AvaloniaUI/Avalonia">Avalonia</a> and other XAML-based UI frameworks. https://github.com/worldbeater/ReactiveMvvm
+* **Egram** — an unofficial crossplatform Telegram client written in C#, .NET Core and Avalonia. https://github.com/egramtel/egram.tel
+
+# Cross Platform
+
+* **ReactiveMvvm** — a cross-platform demo app created using Avalonia, Xamarin.Forms, WPF, UWP and Windows Forms. Demonstrates the use of <a href="https://github.com/Fody/PropertyChanged">PropertyChanged.Fody</a> library alongside with ReactiveUI bindings, activation, commands, interactions. https://github.com/worldbeater/ReactiveMvvm
