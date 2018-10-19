@@ -82,7 +82,9 @@ this.OneWayBind(ViewModel,
     value => value.ToString()); // In the last parameter, we .ToString() the integer
 ```
 
-For type conversion on two-way bindings, see the details about [Binding Type Converters](./value-converters) for more information about how to extend property type conversion and how to register global converters.
+### Creating custom Value Converters classes
+
+You can also register converters globally and convert types for two-way bindings. See [Value Converters](./value-converters) page for details.
 
 # Choosing when to update the source
 
