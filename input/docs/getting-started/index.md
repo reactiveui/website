@@ -2,6 +2,8 @@ Order: 10
 ---
 ReactiveUI is built on a reactive programming foundation and specifically implemented utilizing <a href="https://github.com/dotnet/reactive">Reactive Extensions</a>. <a href="http://reactivex.io/documentation/observable.html">Observables</a>, asynchronous data streams, are core to reactive programming and what makes ReactiveUI impressive. Dealing with Observables is a large part of working with ReactiveUI. Observables can represent one or more values over time. With Observables, a developer can apply LINQ like operations to mutate observable event streams and accomplish their goals more elegantly. Achieve more and worry less, ReactiveUI and the reactive programming model are a perfect choice for most UIs.
 
+> **Tip** To quickly get started, visit the <a href="https://reactiveui.net/docs/getting-started/installation/">Installation</a> page and install appropriate ReactiveUI packages. Platform-specific packages are required. This means your app won't perform as expected until you install the packages properly. 
+
 A portable and maintainable codebase is important, especially in large-scale and cross-platform .NET implementations. The Model-View-ViewModel pattern, MVVM for short, helps achieve maintainability goals in .NET powered platforms, such as Windows Presentation Foundation, Universal Windows Platform, Xamarin Forms, and Avalonia UI. With MVVM, the Model represents services, data transfer objects and database entities related to the application domain. The View is the user interface and exposes elements for user interactions. Finally, the ViewModel encapsulates the logic that facilitates communication between the Model and the View.
 
 ReactiveUI allows you to combine the MVVM pattern with Reactive Programming using such features, as [WhenAnyValue](https://reactiveui.net/docs/handbook/when-any/), [ReactiveCommand](https://reactiveui.net/docs/handbook/commands/), [ObservableAsPropertyHelper](https://reactiveui.net/docs/handbook/oaph/), [Binding](https://reactiveui.net/docs/handbook/data-binding/) and [WhenActivated](https://reactiveui.net/docs/handbook/when-activated/).
@@ -19,12 +21,12 @@ In <a href="https://visualstudio.microsoft.com/">Visual Studio</a>, create a new
 ```
 Install-Package ReactiveUI.WPF
 ```
-The complete list containing NuGet packages for all supported platforms <a href="https://reactiveui.net/docs/getting-started/installation/nuget-packages/">can be found here</a>. <a href="https://www.nuget.org/packages/reactiveui/">ReactiveUI</a> main package should normally be installed into you .NET Standard class libraries containing platform-agnostic code (repositories, services, DTOs, view-models), and ReactiveUI.XXX packages are platform-specific, so we use <a href="https://www.nuget.org/packages/ReactiveUI.WPF/">ReactiveUI.WPF</a> in this tutorial as we are developing a tiny WPF application that doesn't need code sharing.
+The complete list containing NuGet packages for all supported platforms <a href="https://reactiveui.net/docs/getting-started/installation/">can be found here</a>. <a href="https://www.nuget.org/packages/reactiveui/">ReactiveUI</a> main package should normally be installed into you .NET Standard class libraries containing platform-agnostic code (repositories, services, DTOs, view-models), and `ReactiveUI.XXX` packages are platform-specific, so we use <a href="https://www.nuget.org/packages/ReactiveUI.WPF/">ReactiveUI.WPF</a> in this tutorial as we are developing a tiny WPF application that doesn't need code sharing.
 ```
-Install-Package Nuget.Client
+Install-Package NuGet.Client
 Install-Package NuGet.Protocol.Core.v3
 ```
-We also need a Nuget client library in this tutorial, and we are going to install and use <a href="https://docs.microsoft.com/en-us/nuget/reference/nuget-client-sdk">NuGet Client</a>.
+We also need a NuGet client library in this tutorial, and we are going to install and use <a href="https://docs.microsoft.com/en-us/nuget/reference/nuget-client-sdk">NuGet Client</a>.
 
 ### 3. Create ViewModels
 ```csharp
@@ -503,6 +505,6 @@ Source code of the application described in this guide can be found on [GitHub](
 
 Now you know ReactiveUI, but we have more to offer. If you'd like to discover all features ReactiveUI has, visit our <a href="https://reactiveui.net/docs/handbook/">Handbook</a>! Take a look at a <a href="https://github.com/reactiveui/ReactiveUI/tree/master/integrationtests">truly cross-platform demo app</a> that works on each platform ReactiveUI supports.
 
-Also give a try to <a href="https://github.com/RolandPheasant/DynamicData">DynamicData</a> - reactive collections based on reactive extensions. Use <a href="https://github.com/RolandPheasant/DynamicData">DynamicData</a> for transforming and observing dynamically changing data sets in your ReactiveUI applications. You can also watch <a href="https://reactiveui.net/docs/resources/videos">videos about Reactive Extensions and ReactiveUI</a>, or view sources of <a href="https://reactiveui.net/docs/samples/">open-source applications built with ReactiveUI</a>. We have a <a href="https://reactiveui.net/blog/">blog</a> and a <a href="https://twitter.com/reactivexui">twitter account</a> for you to stay tuned. <a href="https://github.com/reactiveui/ReactiveUI">Star ReactiveUI on Github</a>!
+Also give a try to <a href="https://github.com/RolandPheasant/DynamicData">DynamicData</a> - reactive collections based on reactive extensions. Use <a href="https://github.com/RolandPheasant/DynamicData">DynamicData</a> for transforming and observing dynamically changing data sets in your ReactiveUI applications. You can also watch <a href="https://reactiveui.net/docs/resources/videos">videos about Reactive Extensions and ReactiveUI</a>, or view sources of <a href="https://reactiveui.net/docs/resources/samples/">open-source applications built with ReactiveUI</a>. We have a <a href="https://reactiveui.net/blog/">blog</a> and a <a href="https://twitter.com/reactivexui">twitter account</a> for you to stay tuned. <a href="https://github.com/reactiveui/ReactiveUI">Star ReactiveUI on Github</a>!
 
 
