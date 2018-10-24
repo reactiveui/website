@@ -1,6 +1,6 @@
 # Windows Store
 
-For Universal Windows applications, you need to implement `IViewFor<T>` by hand and ensure that ViewModel is a `DependencyProperty`. Also, always dispose bindings via [WhenActivated](../../when-activated), or else the bindings leak memory. You can easily use the new `x:Bind` syntax with ReactiveUI. All you need is doing `{x:Bind ViewModel.TheText, Mode=OneWay}`. Remember, that `x:Bind` bindings are `OneTime` by default, not `OneWay`, so in certain scenarios you need to specify the `OneWay` mode explicitly.
+For Universal Windows applications, you need to implement `IViewFor<T>` by hands and ensure that ViewModel is a `DependencyProperty`. Also, always dispose bindings via [WhenActivated](../when-activated), or else the bindings leak memory. You can easily use the new `x:Bind` syntax with ReactiveUI. All you need is doing `{x:Bind ViewModel.TheText, Mode=OneWay}`. Remember, that `x:Bind` bindings are `OneTime` by default, not `OneWay`, so in certain scenarios you need to specify the `OneWay` mode explicitly.
 
 > **Warning** There are known issues with compiling apps that use `Bind` and `BindCommand` methods using .NET Native toolchain. You can track those issues and find a temporary solution here — https://github.com/reactiveui/ReactiveUI/issues/1750
 
