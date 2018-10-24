@@ -24,7 +24,21 @@ In order to use bindings in the View, you must first implement `IViewFor<TViewMo
   is a `DependencyProperty`. Additionally, for `UserControl`s you can use a base 
   class that encapsulates `IViewFor` behavior - `ReactiveUserControl<TViewModel>`.
   
-For a detailed overview of the bindings on each platform, see the "Binding" section.
+### Platforms
+
+For a detailed overview of the bindings on each platform, see the following sections:
+
+* [Universal Windows Platform](./windows-store)
+
+* [Xamarin.Forms](./xamarin-forms)
+
+* [Xamarin.Android](./xamarin-android)
+
+* [Xamarin.iOS](./xamarin-ios)
+
+* [Windows Presentation Foundation](./windows-presentation-foundation)
+
+* [Windows Forms](./windows-forms)
 
 # Types of Bindings
 
