@@ -48,3 +48,9 @@ public partial class TheContentPage : ReactiveContentPage<TViewModel>
     }
 }
 ```
+
+# Routing
+
+Want to know how this affects ViewModel based routing? 
+
+See [Routing documentation](../routing)!
