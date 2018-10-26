@@ -8,19 +8,18 @@ The goal in the example below is to two-way bind `TheText` property of `TheViewM
 public class TheViewModel : ReactiveObject
 {
     private string theText;
-
     public string TheText
     {
         get => theText;
-        set => RaiseAndSetIfChanged(ref theText, value);
+        set => this.RaiseAndSetIfChanged(ref theText, value);
     }
 
-    ReactiveCommand<Unit,Unit> TheTextCommand { get; set; }
+    ReactiveCommand<Unit, Unit> TheTextCommand { get; }
 
     public TheViewModel()
     {
-        TheTextCommand =
-                ReactiveCommand.CreateFromObservable(ExecuteTextCommand);
+        TheTextCommand = ReactiveCommand
+            .CreateFromObservable(ExecuteTextCommand);
     }
 
     private IObservable<Unit> ExecuteTextCommand()
@@ -33,8 +32,12 @@ public class TheViewModel : ReactiveObject
 
 ```xml
 <rxui:ReactiveContentPage
-  x:Class="local:TheContentPage"
-  x:TypeArguments="vm:TheViewModel">
+  x:Class="App.Views.TheContentPage"
+  x:TypeArguments="vm:TheViewModel"          
+  xmlns:vm="clr-namespace:App.ViewModels;assembly=App"
+  xmlns:rxui="clr-namespace:ReactiveUI.XamForms;assembly=ReactiveUI.XamForms"
+  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+  xmlns="http://xamarin.com/schemas/2014/forms">
   <StackLayout>
     <Entry x:Name="TheTextBox" />
     <Label x:Name="TheTextBlock" />
@@ -49,6 +52,7 @@ public partial class TheContentPage : ReactiveContentPage<TheViewModel>
     public ThePage()
     {
         InitializeComponent();
+        ViewModel = new TheViewModel();
 
         // Setup the bindings.
         // Note: We have to use WhenActivated here, since we need to dispose the
