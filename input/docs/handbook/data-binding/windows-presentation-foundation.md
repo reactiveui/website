@@ -1,6 +1,6 @@
 # Windows Presentation Foundation
 
-Implement `IViewFor<T>` by hand and ensure that ViewModel is a `DependencyProperty`. Also, always dispose bindings via [WhenActivated](../../when-activated), or else the bindings leak memory. The XAML `DependencyProperty` system causes memory leaks if you don't use `WhenActivated`. There's a few rules, but the number one rule is: if you do a `WhenAny` on anything other than `this`, then you need to put it inside a `WhenActivated`. See [WhenActivated](../../when-activated) for details.
+Implement `IViewFor<T>` by hand and ensure that ViewModel is a `DependencyProperty`. Also, always dispose bindings via [WhenActivated](../when-activated), or else the bindings leak memory. The XAML `DependencyProperty` system causes memory leaks if you don't use `WhenActivated`. There's a few rules, but the number one rule is: if you do a `WhenAny` on anything other than `this`, then you need to put it inside a `WhenActivated`. See [WhenActivated](../when-activated) for details.
   
 The goal in this example is to two-way bind `TheText` property of the ViewModel to the TextBox and one-way bind `TheText` property to the TextBlock, so the TextBlock updates when the user types text into the TextBox. 
   
@@ -13,6 +13,20 @@ public class TheViewModel : ReactiveObject
         get => theText;
         set => this.RaiseAndSetIfChanged(ref this.theText, value);
     }
+    
+    ReactiveCommand<Unit,Unit> TheTextCommand { get; set; }
+
+    public TheViewModel()
+    {
+        TheTextCommand = ReactiveCommand
+            .CreateFromObservable(ExecuteTextCommand);
+    }
+
+    private IObservable<Unit> ExecuteTextCommand()
+    {
+        TheText = "Hello ReactiveUI";
+        return Observable.Return(Unit.Default);
+    }
 }
 ```
 
@@ -21,6 +35,7 @@ public class TheViewModel : ReactiveObject
   <StackPanel>
     <TextBox x:Name="TheTextBox" />
     <TextBlock x:Name="TheTextBlock" />
+    <Button x:Name="TheTextButton" />
   </StackPanel>
 </Window>
 ```
@@ -46,6 +61,8 @@ public partial class TheView : Window, IViewFor<TheViewModel>
             this.Bind(this.ViewModel, x => x.TheText, x => x.TheTextBox.Text)
                 .DisposeWith(disposable);
             this.OneWayBind(this.ViewModel, x => x.TheText, x => x.TheTextBlock.Text)
+                .DisposeWith(disposable);
+            this.BindCommand(ViewModel, x => x.TheTextCommand, x => x.TheTextButton)
                 .DisposeWith(disposable);
         });
     }

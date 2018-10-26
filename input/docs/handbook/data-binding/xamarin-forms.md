@@ -1,63 +1,73 @@
-In the app.xaml file register your viewmodels (If you want the viewmodel based navigation)
-```    
-this.Router = new RoutingState();
-Locator.CurrentMutable.RegisterConstant(this, typeof(IScreen));
-Locator.CurrentMutable.Register(() => new LoginPage(), typeof(IViewFor<LoginViewModel>));
-Locator.CurrentMutable.Register(() => new RegisterPage(), typeof(IViewFor<RegisterViewModel>));
-```
-Include the splat package for Locator (Service locator) class (https://github.com/paulcbetts/splat). To start the app and navigate to the default page login page in our case use the below code
-```
-this.Router.Navigate.Execute(new HomeViewModel());
-MainPage = new RoutedViewHost();
-```
-You can implement logic here checking if the user has a valid token and may be navigate to the home page bypassing the login page. It could be a check with in the akavache storage for the presense of a token.
+# Xamarin Forms
 
-Below is the sample loginviewmodel
+For Xamarin.Forms applications, you need to install the `ReactiveUI.XamForms` package and use base classes for your Views from there. Your `ContentPage` should inherit from `ReactiveContentPage<TViewModel>`, your `TextCell` should inherit from `ReactiveTextCell<TViewModel>`, etc. Those classes contain the `IViewFor<TViewModel>` interface implementation. Also, always dispose bindings via [WhenActivated](../when-activated), or else the bindings leak memory.
 
-```
-public LoginViewModel(IScreen screen = null)
+The goal in the example below is to two-way bind `TheText` property of `TheViewModel` to the Entry and one-way bind `TheText` property to the Label, so the Label updates when the user types text into the Entry.
+ 
+```csharp
+public class TheViewModel : ReactiveObject
 {
-    HostScreen = screen ?? Locator.Current.GetService<IScreen>();
-    var canLogin = (this).WhenAnyValue(
-      x => x.Email,
-      x => x.Password,
-      (em, pa) => 
-      {
-          LoginError = "";
-          return !string.IsNullOrWhiteSpace(em) &&
-          !string.IsNullOrWhiteSpace(pa);
-      });
+    private string theText;
 
-    this.WhenAnyValue(x => x.Email).Subscribe(n => user.username = n);
-    this.WhenAnyValue(x => x.Password).Subscribe(p => user.password = p);
-
-    Register = ReactiveCommand.CreateFromObservable(() => HostScreen.Router.Navigate.Execute(new RegSelectionViewModel()));
-
-    Login = ReactiveCommand.CreateFromTask<object, LoginResponse>(
-        async _ => 
-        {
-          return await App.userManager.Login(user);
-        }, canLogin);
-
-    Login.IsExecuting.ToProperty(this, x => x.IsLoading, out _isLoading);
-
-    this.WhenAnyObservable(x => x.Login).Subscribe(response => 
+    public string TheText
     {
-            Debug.WriteLine(response.access_token);
-            LoginError = response.error_description;
+        get => theText;
+        set => RaiseAndSetIfChanged(ref theText, value);
+    }
 
-            if(response.access_token != null) 
-            {
-                    Debug.WriteLine("From Blob--> " + x);
-                    App.userManager.setToken(response.access_token);
-                    HostScreen.Router.NavigateAndReset.Execute(new HomeViewModel()).Subscribe();
-            }
-    });
+    ReactiveCommand<Unit,Unit> TheTextCommand { get; set; }
+
+    public TheViewModel()
+    {
+        TheTextCommand =
+                ReactiveCommand.CreateFromObservable(ExecuteTextCommand);
+    }
+
+    private IObservable<Unit> ExecuteTextCommand()
+    {
+        TheText = "Hello ReactiveUI";
+        return Observable.Return(Unit.Default);
+    }
 }
-
 ```
 
-In the above view model `canLogin` will listen to changes in the email and password fields and can enable the login command if the fields are not empty. One can even do a regex based email validation. One thing would be to bind this command to a login button inside your view like below
+```xml
+<rxui:ReactiveContentPage
+  x:Class="local:TheContentPage"
+  x:TypeArguments="vm:TheViewModel">
+  <StackLayout>
+    <Entry x:Name="TheTextBox" />
+    <Label x:Name="TheTextBlock" />
+    <Button x:Name="TheTextButton" />
+  </StackLayout>
+</rxui:ReactiveContentPage>
 ```
-this.BindCommand(ViewModel, vm => vm.Login, v => v.loginButton) ;
+
+```csharp
+public partial class TheContentPage : ReactiveContentPage<TheViewModel>
+{
+    public ThePage()
+    {
+        InitializeComponent();
+
+        // Setup the bindings.
+        // Note: We have to use WhenActivated here, since we need to dispose the
+        // bindings on XAML-based platforms, or else the bindings leak memory.
+        this.WhenActivated(disposable =>
+        {
+            this.Bind(ViewModel, x => x.TheText, x => x.TheTextBox.Text)
+                .DisposeWith(disposable);
+            this.OneWayBind(ViewModel, x => x.TheText, x => x.TheTextBlock.Text)
+                .DisposeWith(disposable);
+            this.BindCommand(ViewModel, x => x.TheTextCommand, x => x.TheTextButton)
+                .DisposeWith(disposable);
+        });
+    }
+}
 ```
+
+# Routing
+
+Want to know how this affects ViewModel based routing?
+
+See [Routing documentation](../routing)!

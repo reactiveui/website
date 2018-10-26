@@ -1,6 +1,6 @@
 # Windows Store
 
-For Universal Windows applications, you need to implement `IViewFor<T>` by hand and ensure that ViewModel is a `DependencyProperty`. Also, always dispose bindings via [WhenActivated](../../when-activated), or else the bindings leak memory. You can easily use the new `x:Bind` syntax with ReactiveUI. All you need is doing `{x:Bind ViewModel.TheText, Mode=OneWay}`. Remember, that `x:Bind` bindings are `OneTime` by default, not `OneWay`, so in certain scenarios you need to specify the `OneWay` mode explicitly.
+For Universal Windows applications, you need to implement `IViewFor<T>` by hand and ensure that ViewModel is a `DependencyProperty`. Also, always dispose bindings via [WhenActivated](../when-activated), or else the bindings leak memory. You can easily use the new `x:Bind` syntax with ReactiveUI. All you need is doing `{x:Bind ViewModel.TheText, Mode=OneWay}`. Remember, that `x:Bind` bindings are `OneTime` by default, not `OneWay`, so in certain scenarios you need to specify the `OneWay` mode explicitly.
 
 > **Warning** There are known issues with compiling apps that use `Bind` and `BindCommand` methods using .NET Native toolchain. You can track those issues and find a temporary solution here — https://github.com/reactiveui/ReactiveUI/issues/1750
 
@@ -15,6 +15,20 @@ public class TheViewModel : ReactiveObject
         get => theText;
         set => RaiseAndSetIfChanged(ref theText, value);
     }
+    
+    ReactiveCommand<Unit,Unit> TheTextCommand { get; set; }
+
+    public TheViewModel()
+    {
+        TheTextCommand = ReactiveCommand
+            .CreateFromObservable(ExecuteTextCommand);
+    }
+
+    private IObservable<Unit> ExecuteTextCommand()
+    {
+        TheText = "Hello ReactiveUI";
+        return Observable.Return(Unit.Default);
+    }
 }
 ```
 
@@ -23,6 +37,7 @@ public class TheViewModel : ReactiveObject
   <StackPanel>
     <TextBox x:Name="TheTextBox" />
     <TextBlock x:Name="TheTextBlock" />
+    <Button x:Name="TheTextButton" />
   </StackPanel>
 </Page>
 ```
@@ -46,6 +61,8 @@ public partial class ThePage : Page, IViewFor<TheViewModel>
             this.Bind(ViewModel, x => x.TheText, x => x.TheTextBox.Text)
                 .DisposeWith(disposable);
             this.OneWayBind(ViewModel, x => x.TheText, x => x.TheTextBlock.Text)
+                .DisposeWith(disposable);
+            this.BindCommand(ViewModel, x => x.TheTextCommand, x => x.TheTextButton)
                 .DisposeWith(disposable);
         });
     }
