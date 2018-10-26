@@ -8,33 +8,48 @@ The goal in the example below is to two-way bind `TheText` property of `TheViewM
 public class TheViewModel : ReactiveObject
 {
     private string theText;
+
     public string TheText
     {
         get => theText;
         set => RaiseAndSetIfChanged(ref theText, value);
     }
+
+    ReactiveCommand<Unit,Unit> TheTextCommand { get; set; }
+
+    public TheViewModel()
+    {
+        TheTextCommand =
+                ReactiveCommand.CreateFromObservable(ExecuteTextCommand);
+    }
+
+    private IObservable<Unit> ExecuteTextCommand()
+    {
+        TheText = "Hello ReactiveUI";
+        return Observable.Return(Unit.Default);
+    }
 }
 ```
 
 ```xml
-<rxui:ReactiveContentPage 
+<rxui:ReactiveContentPage
   x:Class="local:TheContentPage"
   x:TypeArguments="vm:TheViewModel">
   <StackLayout>
     <Entry x:Name="TheTextBox" />
     <Label x:Name="TheTextBlock" />
+    <Button x:Name="TheTextButton" />
   </StackLayout>
 </rxui:ReactiveContentPage>
 ```
 
 ```csharp
-public partial class TheContentPage : ReactiveContentPage<TViewModel>
+public partial class TheContentPage : ReactiveContentPage<TheViewModel>
 {
     public ThePage()
     {
-        InitializeComponent(); 
-        ViewModel = new TheViewModel();
-        
+        InitializeComponent();
+
         // Setup the bindings.
         // Note: We have to use WhenActivated here, since we need to dispose the
         // bindings on XAML-based platforms, or else the bindings leak memory.
@@ -44,6 +59,8 @@ public partial class TheContentPage : ReactiveContentPage<TViewModel>
                 .DisposeWith(disposable);
             this.OneWayBind(ViewModel, x => x.TheText, x => x.TheTextBlock.Text)
                 .DisposeWith(disposable);
+            this.BindCommand(ViewModel, x => x.TheTextCommand, x => x.TheTextButton)
+                .DisposeWith(disposable);
         });
     }
 }
@@ -51,6 +68,6 @@ public partial class TheContentPage : ReactiveContentPage<TViewModel>
 
 # Routing
 
-Want to know how this affects ViewModel based routing? 
+Want to know how this affects ViewModel based routing?
 
 See [Routing documentation](../routing)!
