@@ -7,7 +7,7 @@ your applications as well as ReactiveUI itself. You may ask yourself,
 "Seriously, another logging framework?". The reason RxUI does this itself is
 for portability - none of the common popular logging frameworks support all of
 the platforms that ReactiveUI supports, and many are server-oriented
-frameworks and ill-suited for simple mobile app logging. ReactiveUI logging
+frameworks and ill-suited for simple mobile app logging.
 
 ### this.Log() and IEnableLogger
 
@@ -46,7 +46,7 @@ straightforward one is `Log`, which logs events that happen to an Observable:
 ```cs
 // Note: Since Log acts like another Rx operator like Select or Where,
 // it won't do anything by itself unless someone Subscribes to it.
-this.WhenAny(x => x.Name, x => x.Value)
+this.WhenAnyValue(x => x.Name)
     .SelectMany(async x => GoogleForTheName(x))
     .Log(this, "Result of Search")
     .Subscribe();
@@ -63,9 +63,7 @@ var userAvatar = await FetchUserAvatar()
 
 ### Configuring the logger
 
-To configure the logger, register an implementation of `ILogger` (there are
-several built-in ones, such as `DebugLogger`). Here's an example where we use
-a built-in logger, but a custom log level:
+To configure the logger, register an implementation of `ILogger` class (there are several built-in ones, such as `DebugLogger`). Here's an example where we use a built-in logger, but a custom log level:
 
 ```cs
 // I only want to hear about errors
