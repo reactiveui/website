@@ -13,6 +13,20 @@ public class TheViewModel : ReactiveObject
         get => theText;
         set => this.RaiseAndSetIfChanged(ref this.theText, value);
     }
+    
+    ReactiveCommand<Unit,Unit> TheTextCommand { get; set; }
+
+    public TheViewModel()
+    {
+        TheTextCommand = ReactiveCommand
+            .CreateFromObservable(ExecuteTextCommand);
+    }
+
+    private IObservable<Unit> ExecuteTextCommand()
+    {
+        TheText = "Hello ReactiveUI";
+        return Observable.Return(Unit.Default);
+    }
 }
 ```
 
@@ -21,6 +35,7 @@ public class TheViewModel : ReactiveObject
   <StackPanel>
     <TextBox x:Name="TheTextBox" />
     <TextBlock x:Name="TheTextBlock" />
+    <Button x:Name="TheTextButton" />
   </StackPanel>
 </Window>
 ```
@@ -46,6 +61,8 @@ public partial class TheView : Window, IViewFor<TheViewModel>
             this.Bind(this.ViewModel, x => x.TheText, x => x.TheTextBox.Text)
                 .DisposeWith(disposable);
             this.OneWayBind(this.ViewModel, x => x.TheText, x => x.TheTextBlock.Text)
+                .DisposeWith(disposable);
+            this.BindCommand(ViewModel, x => x.TheTextCommand, x => x.TheTextButton)
                 .DisposeWith(disposable);
         });
     }
