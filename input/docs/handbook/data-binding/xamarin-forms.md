@@ -2,25 +2,24 @@
 
 For Xamarin.Forms applications, you need to install the `ReactiveUI.XamForms` package and use base classes for your Views from there. Your `ContentPage` should inherit from `ReactiveContentPage<TViewModel>`, your `TextCell` should inherit from `ReactiveTextCell<TViewModel>`, etc. Those classes contain the `IViewFor<TViewModel>` interface implementation. Also, always dispose bindings via [WhenActivated](../when-activated), or else the bindings leak memory.
 
-The goal in the example below is to two-way bind `TheText` property of `TheViewModel` to the Entry and one-way bind `TheText` property to the Label, so the Label updates when the user types text into the Entry.
+The goal in the example below is to two-way bind `TheText` property of `TheViewModel` to the Entry and one-way bind `TheText` property to the Label, so the Label updates when the user types text into the Entry. This example assumes you are using ReactiveUI Dependency Inversion to register ViewModels and corresponding Views, see [Dependency Inversion](../dependency-inversion) for details.
  
 ```csharp
 public class TheViewModel : ReactiveObject
 {
     private string theText;
-
     public string TheText
     {
         get => theText;
-        set => RaiseAndSetIfChanged(ref theText, value);
+        set => this.RaiseAndSetIfChanged(ref theText, value);
     }
 
-    ReactiveCommand<Unit,Unit> TheTextCommand { get; set; }
+    ReactiveCommand<Unit, Unit> TheTextCommand { get; }
 
     public TheViewModel()
     {
-        TheTextCommand =
-                ReactiveCommand.CreateFromObservable(ExecuteTextCommand);
+        TheTextCommand = ReactiveCommand
+            .CreateFromObservable(ExecuteTextCommand);
     }
 
     private IObservable<Unit> ExecuteTextCommand()
@@ -33,8 +32,12 @@ public class TheViewModel : ReactiveObject
 
 ```xml
 <rxui:ReactiveContentPage
-  x:Class="local:TheContentPage"
-  x:TypeArguments="vm:TheViewModel">
+  x:Class="App.Views.TheContentPage"
+  x:TypeArguments="vm:TheViewModel"          
+  xmlns:vm="clr-namespace:App.ViewModels;assembly=App"
+  xmlns:rxui="clr-namespace:ReactiveUI.XamForms;assembly=ReactiveUI.XamForms"
+  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+  xmlns="http://xamarin.com/schemas/2014/forms">
   <StackLayout>
     <Entry x:Name="TheTextBox" />
     <Label x:Name="TheTextBlock" />
