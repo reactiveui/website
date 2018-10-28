@@ -128,12 +128,12 @@ public class AppViewModel : ReactiveObject
         var providers = new List<Lazy<INuGetResourceProvider>>();
         providers.AddRange(Repository.Provider.GetCoreV3()); // Add v3 API support
         var packageSource = new PackageSource("https://api.nuget.org/v3/index.json");
-        var sourceRepository = new SourceRepository(packageSource, providers);
+        var source = new SourceRepository(packageSource, providers);
 
         var filter = new SearchFilter(false);
-        var searchResource = await sourceRepository.GetResourceAsync<PackageSearchResource>();
-        var searchMetadata = await searchResource.SearchAsync(term, filter, 0, 10, null, token);
-        return searchMetadata.Select(x => new NugetDetailsViewModel(x));
+        var resource = await source.GetResourceAsync<PackageSearchResource>().ConfigureAwait(false);
+        var meta = await resource.SearchAsync(term, filter, 0, 10, null, token).ConfigureAwait(false);
+        return meta.Select(x => new NugetDetailsViewModel(x));
     }
 }
 ```
@@ -198,13 +198,17 @@ public partial class App : Application
 Then we declare the XAML for our Main Window.
 
 ```xml
-<Window x:Class="ReactiveDemo.MainWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        Title="NuGet Browser"
-        mc:Ignorable="d" Height="450" Width="800">
+<reactiveui:ReactiveWindow 
+    x:Class="ReactiveDemo.MainWindow"
+    x:TypeArguments="reactivedemo:AppViewModel"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:reactivedemo="clr-namespace:ReactiveDemo"
+    xmlns:reactiveui="http://reactiveui.net"
+    Title="NuGet Browser" Height="450" Width="800"
+    mc:Ignorable="d">
     <Grid Margin="12">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
@@ -221,21 +225,21 @@ Then we declare the XAML for our Main Window.
                  Grid.Row="1" Margin="0,6,0,0" HorizontalContentAlignment="Stretch"
                  ScrollViewer.HorizontalScrollBarVisibility="Disabled" />
     </Grid>
-</Window>
+</reactiveui:ReactiveWindow>
 ```
 
-Now we need to derive the MainWindow from `IViewFor<T>`. We are going to use <a href="https://reactiveui.net/docs/handbook/data-binding/">ReactiveUI Binding</a> to bind our ViewModel to our View. Reactive binding is a cross platform way of consistently binding properties on your ViewModel to controls on your View. The ReactiveUI binding has a few advantages over the XAML based binding. The first advantage is that property name changes will generate a compile error rather than runtime errors. 
+We need to derive the MainWindow from `IViewFor<T>`, so we use `ReactiveWindow<TViewModel>` base class.
+
+> **Note** If there is no reactive base class for your view control that can suite you, simply implement the `IViewFor<TViewModel>` interface by hand. Remember to store the ViewModel in a DependencyProperty or in a BindableProperty. See [Data Binding](https://reactiveui.net/docs/handbook/data-binding/#getting-started) for platform-specific examples.
+
+We are going to use <a href="https://reactiveui.net/docs/handbook/data-binding/">ReactiveUI Binding</a> to bind our ViewModel to our View. Reactive binding is a cross platform way of consistently binding properties on your ViewModel to controls on your View. The ReactiveUI binding has a few advantages over the XAML based binding. The first advantage is that property name changes will generate a compile error rather than runtime errors. 
 
 ```csharp
-public partial class MainWindow : IViewFor<AppViewModel>
+// MainWindow class derives off ReactiveWindow which implements the IViewFor<TViewModel>
+// interface using a WPF DependencyProperty. We need this to use WhenActivated extension
+// method that helps us handling View and ViewModel activation and deactivation.
+public partial class MainWindow : ReactiveWindow<AppViewModel>
 {
-    // Using a DependencyProperty as the backing store for ViewModel.  
-    // This enables animation, styling, binding, etc...
-    public static readonly DependencyProperty ViewModelProperty =
-        DependencyProperty.Register("ViewModel", 
-            typeof(AppViewModel), typeof(MainWindow), 
-            new PropertyMetadata(null));
-
     public MainWindow()
     {
         InitializeComponent();
@@ -267,22 +271,6 @@ public partial class MainWindow : IViewFor<AppViewModel>
                 view => view.searchTextBox.Text)
                 .DisposeWith(disposableRegistration);
         });
-    }
-
-    // Our main view model instance.
-    public AppViewModel ViewModel
-    {
-        get => (AppViewModel)GetValue(ViewModelProperty);
-        set => SetValue(ViewModelProperty, value);
-    }
-
-    // This is required by the interface IViewFor, you always just set it to use the 
-    // main ViewModel property. Note on XAML based platforms we have a control called
-    // ReactiveUserControl that abstracts this.
-    object IViewFor.ViewModel 
-    { 
-        get => ViewModel; 
-        set => ViewModel = (AppViewModel)value; 
     }
 }
 ```
@@ -506,5 +494,3 @@ Source code of the application described in this guide can be found on [GitHub](
 Now you know ReactiveUI, but we have more to offer. If you'd like to discover all features ReactiveUI has, visit our <a href="https://reactiveui.net/docs/handbook/">Handbook</a>! Take a look at a <a href="https://github.com/reactiveui/ReactiveUI/tree/master/integrationtests">truly cross-platform demo app</a> that works on each platform ReactiveUI supports.
 
 Also give a try to <a href="https://github.com/RolandPheasant/DynamicData">DynamicData</a> - reactive collections based on reactive extensions. Use <a href="https://github.com/RolandPheasant/DynamicData">DynamicData</a> for transforming and observing dynamically changing data sets in your ReactiveUI applications. You can also watch <a href="https://reactiveui.net/docs/resources/videos">videos about Reactive Extensions and ReactiveUI</a>, or view sources of <a href="https://reactiveui.net/docs/resources/samples/">open-source applications built with ReactiveUI</a>. We have a <a href="https://reactiveui.net/blog/">blog</a> and a <a href="https://twitter.com/reactivexui">twitter account</a> for you to stay tuned. <a href="https://github.com/reactiveui/ReactiveUI">Star ReactiveUI on Github</a>!
-
-
