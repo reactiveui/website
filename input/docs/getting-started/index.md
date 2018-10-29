@@ -132,8 +132,8 @@ public class AppViewModel : ReactiveObject
 
         var filter = new SearchFilter(false);
         var resource = await source.GetResourceAsync<PackageSearchResource>().ConfigureAwait(false);
-        var meta = await resource.SearchAsync(term, filter, 0, 10, null, token).ConfigureAwait(false);
-        return meta.Select(x => new NugetDetailsViewModel(x));
+        var metadata = await resource.SearchAsync(term, filter, 0, 10, null, token).ConfigureAwait(false);
+        return metadata.Select(x => new NugetDetailsViewModel(x));
     }
 }
 ```
