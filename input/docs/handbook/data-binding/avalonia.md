@@ -6,7 +6,7 @@ For [WhenActivated](../when-activated) to work, you need to use custom base clas
 // Activatable ViewModel.
 public ViewModel : ReactiveObject, ISupportsActivation 
 { 
-    public ViewModelActivator { get; }
+    public ViewModelActivator Activator { get; }
 
     public ViewModel()
     {
@@ -37,4 +37,4 @@ public partial class View : ReactiveWindow<ViewModel>
 }
 ```
 
-Unfortunately, Avalonia XAML rendering engine won't generate strongly type `x:Name` references to controls for you, so the only way for now is to use the `FindControl` method that will find a control with specified name, or to use `{Binding Path}` syntax. But still, handling interactions, events or activation in the `WhenActivated` block is still a nice reason to use this feature.
+Unfortunately, Avalonia XAML rendering engine won't generate strongly type `x:Name` references to controls for you, so the only way for now is to use the `FindControl` method that will find a control with specified name, or to use `{Binding Path}` syntax. But handling interactions, events and activation in the `WhenActivated` block is still a nice reason to use `IViewFor`.
