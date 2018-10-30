@@ -40,6 +40,8 @@ For a detailed overview of the bindings on each platform, see the following sect
 
 * [Windows Forms](./windows-forms)
 
+* [Avalonia UI](./avalonia)
+
 # Types of Bindings
 
 Once you implement `IViewFor<T>`, binding methods are now available as extension methods on your class, as well as [activation and deactivation](../when-activated) feature for your views and associated view models. Like many other things in ReactiveUI, you should only set up bindings in a constructor or even better in a [WhenActivated](../when-activated) block.
