@@ -1,66 +1,82 @@
 # Windows Store
 
-Implement `IViewFor<T>` by hand and ensure that ViewModel is a DependencyProperty.  
-Also, always dispose bindings view `WhenActivated`, or else the bindings leak memory.
-  
-The goal in this example is to two-way bind the `TheText` property of the
-ViewModel to the TextBox and one-way bind the `TheText` property to the TextBlock, 
-so the TextBlock updates when the user types text into the TextBox.
+For Universal Windows applications, you need to implement `IViewFor<T>` by hand and ensure that ViewModel is a `DependencyProperty`. Also, always dispose bindings via [WhenActivated](../when-activated), or else the bindings leak memory. You can easily use the new `x:Bind` syntax with ReactiveUI. All you need is doing `{x:Bind ViewModel.TheText, Mode=OneWay}`. Remember, that `x:Bind` bindings are `OneTime` by default, not `OneWay`, so in certain scenarios you need to specify the `OneWay` mode explicitly.
+
+> **Warning** There are known issues with compiling apps that use `Bind` and `BindCommand` methods using .NET Native toolchain. You can track those issues and find a temporary solution here — https://github.com/reactiveui/ReactiveUI/issues/1750
+
+The goal in the example below is to two-way bind `TheText` property of `TheViewModel` to the TextBox and one-way bind `TheText` property to the TextBlock, so the TextBlock updates when the user types text into the TextBox.
   
 ```csharp
 public class TheViewModel : ReactiveObject
 {
     private string theText;
-    
     public string TheText
     {
-        get { return this.theText; }
-        set { this.RaiseAndSetIfChanged(ref this.theText, value); }
+        get => theText;
+        set => RaiseAndSetIfChanged(ref theText, value);
+    }
+    
+    ReactiveCommand<Unit,Unit> TheTextCommand { get; set; }
+
+    public TheViewModel()
+    {
+        TheTextCommand = ReactiveCommand
+            .CreateFromObservable(ExecuteTextCommand);
+    }
+
+    private IObservable<Unit> ExecuteTextCommand()
+    {
+        TheText = "Hello ReactiveUI";
+        return Observable.Return(Unit.Default);
     }
 }
 ```
 
 ```xml
-<Window /* snip */>
+<Page /* snip */>
   <StackPanel>
     <TextBox x:Name="TheTextBox" />
     <TextBlock x:Name="TheTextBlock" />
+    <Button x:Name="TheTextButton" />
   </StackPanel>
-</Window>
+</Page>
 ```
 
 ```csharp
-public partial class TheView : IViewFor<TheViewModel>
+public partial class ThePage : Page, IViewFor<TheViewModel>
 {
-    public TheView()
-    {
-        InitializeComponent();
+    public static readonly DependencyProperty ViewModelProperty = DependencyProperty
+        .Register(nameof(ViewModel), typeof(TheViewModel), typeof(TheView), new PropertyMetadata(null));
         
+    public ThePage()
+    {
+        InitializeComponent(); 
         ViewModel = new TheViewModel();
         
-        // Setup the bindings
+        // Setup the bindings.
         // Note: We have to use WhenActivated here, since we need to dispose the
         // bindings on XAML-based platforms, or else the bindings leak memory.
-        this.WhenActivated(d =>
+        this.WhenActivated(disposable =>
         {
-            d(this.Bind(this.ViewModel, x => x.TheText, x => x.TheTextBox.Text));
-            d(this.OneWayBind(this.ViewModel, x => x.TheText, x => x.TheTextBlock.Text));
+            this.Bind(ViewModel, x => x.TheText, x => x.TheTextBox.Text)
+                .DisposeWith(disposable);
+            this.OneWayBind(ViewModel, x => x.TheText, x => x.TheTextBlock.Text)
+                .DisposeWith(disposable);
+            this.BindCommand(ViewModel, x => x.TheTextCommand, x => x.TheTextButton)
+                .DisposeWith(disposable);
         });
-    }
-
-    object IViewFor.ViewModel
-    {
-        get { return ViewModel; }
-        set { ViewModel = (TheViewModel)value; }
     }
 
     public TheViewModel ViewModel
     {
-        get { return (TheViewModel)GetValue(ViewModelProperty); }
-        set { SetValue(ViewModelProperty, value); }
+        get => (TheViewModel)GetValue(ViewModelProperty);
+        set => SetValue(ViewModelProperty, value);
     }
-
-    public static readonly DependencyProperty ViewModelProperty =
-        DependencyProperty.Register("ViewModel", typeof(TheViewModel), typeof(TheView));
+    
+    object IViewFor.ViewModel
+    {
+        get => ViewModel;
+        set => ViewModel = (TheViewModel)value;
+    }
 }
 ```
