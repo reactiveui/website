@@ -1,6 +1,9 @@
 trigger:
 - master
 
+pr:
+- master
+
 pool:
   vmImage: vs2017-win2016
 
@@ -14,4 +17,3 @@ steps:
     pathToPublish: '$(System.DefaultWorkingDirectory)\output.zip'
     artifactType: container
     artifactName: Packages
-  condition: and(succeeded(), eq(variables['system.pullrequest.isfork'], false))
