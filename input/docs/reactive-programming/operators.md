@@ -10,6 +10,6 @@ Where fish is not a shrimp.
 
 # Merge
 
-Handle multuple chickens layijg eggs, make pancakes
+Handle multiple chickens laying eggs, make pancakes
 
 https://www.eightbot.com/single-post/2017/08/10/Merging-IObservableEgg
