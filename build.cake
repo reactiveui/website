@@ -40,7 +40,7 @@ Task("Clean")
     if(DirectoryExists(dependenciesDir))
     {
         CleanDirectory(dependenciesDir);
-        DeleteDirectory(dependenciesDir, true);
+        DeleteDirectory(dependenciesDir, new DeleteDirectorySettings { Recursive = true, Force = true });
     }
 
     CreateDirectory(dependenciesDir);
