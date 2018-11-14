@@ -10,10 +10,12 @@
         { "Support", Context.GetLink("support") },
     };
 
-    foreach(var page in pages)
+    foreach(var currentPage in pages)
     {
-        var activeClass = Context.GetLink(Document).StartsWith(page.Value) ? "active" : null;
-        <li class="@activeClass"><a href="@page.Value">@Html.Raw(page.Key)</a></li>
+        var activeClass = Context.GetLink(Document).StartsWith(currentPage.Value) ? "active" : null;
+        <li class="@activeClass">
+          <a href="@currentPage.Value">@Html.Raw(currentPage.Key)</a>
+        </li>
     }
 
     <li>
