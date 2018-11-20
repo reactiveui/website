@@ -7,7 +7,7 @@ author: Glenn Watson
 
 Release 9.2.2 of ReactiveUI is available!
 
-Note there has been a major change to the ReactiveCommand. See [here](./2018-10-28-reactiveui-v9.1.1-released.md) for details.
+Note there has been a major change to the ReactiveCommand. See [here](https://reactiveui.net/blog/2018/11/reactive-command-abstract) for details.
 
 ## What's Changed
 
