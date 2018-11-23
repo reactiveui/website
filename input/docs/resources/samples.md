@@ -46,6 +46,8 @@ Order: 15
 
 # AvaloniaUI
 
+* **Camelotia** — file manager for remote file systems created using ReactiveUI, ReactiveUI.Fody and Avalonia. https://github.com/worldbeater/Camelotia
+
 * **Egram** — an unofficial crossplatform Telegram client written in C#, .NET Core and Avalonia. https://github.com/egramtel/egram.tel
 
 # Cross Platform
