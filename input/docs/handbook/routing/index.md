@@ -1,4 +1,4 @@
-ViewModel-based routing is supported for Xamarin.Forms, WinRT, WP8, UWP, Windows Forms and WPF Desktop applications. Routing is also possible on iOS and Android without Xamarin.Forms, but sometimes it can be difficult to make it work as expected. In case ViewModel-based routing is hard to implement in your particulat case, you can always use View-first routing and customize almost everything.
+ViewModel-based routing is supported for Xamarin.Forms, WinRT, WP8, UWP, Windows Forms and WPF Desktop applications. Routing is also possible on iOS and Android without Xamarin.Forms, but sometimes it can be difficult to make it work as expected. In case ViewModel-based routing is hard to implement, you can always use View-first routing and customize almost everything.
 
 # About ReactiveUI Routing
 
