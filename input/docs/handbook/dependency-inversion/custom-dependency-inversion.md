@@ -4,7 +4,7 @@ We understand that some developers would prefer to use their favorite dependency
 
 *Note*: This implementation is against Autofac, but can be used with most DI containers.
 
-## Implement an `IMuatableDependencyResolver`
+## Implement an `IMutableDependencyResolver`
 
 ```csharp
 public class AutofacDependencyResolver : IMutableDependencyResolver
@@ -90,25 +90,13 @@ public class AutofacDependencyRegistrar
         RegisterScreen();
     }
 
-    public void RegisterViews()
-    {
+    public void RegisterViews() { }
 
-    }
+    public void RegisterViewModels() { }
 
-    public void RegisterViewModels()
-    {
+    public void RegisterServices() { }
 
-    }
-
-    public void RegisterServices()
-    {
-
-    }
-
-    public void RegisterScreen()
-    {
-
-    }
+    public void RegisterScreen() { }
 }
 ```
 
