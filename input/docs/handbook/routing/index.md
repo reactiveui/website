@@ -44,9 +44,15 @@ public sealed class RouterViewModel : IScreen
         // Router uses Splat.Locator to resolve views for
         // view models, so we need to register our views
         // using Locator.CurrentMutable.Register* methods.
+        //
+        // Instead of registering views manually, you 
+        // can use custom IViewLocator implementation,
+        // see "View Location" section for details.
+        //
         var firstViewModel = new FirstViewModel(this);
         Locator.CurrentMutable.Register<IViewFor<FirstViewModel>>(
-            () => new FirstView { DataContext = firstViewModel });
+            () => new FirstView { DataContext = firstViewModel }
+        );
             
         // Manage the routing state. Use the 'Execute'
         // method to navigate to different pages.
@@ -76,17 +82,36 @@ Now we need to place the `RoutedViewHost` XAML control to our view that will con
 </rxui:ReactiveWindow>
 ```
 
-Now, ReactiveUI view model -first routing works! You can use as many nested `IScreen`s and `RoutedViewHost`s as you wish and the routing will work fine. But remember, this works now only for XAML controls pages, for modals and popups it's better to use ReactiveUI `Interaction` feature.
+Now, ReactiveUI view model -first routing works! You can use as many nested `IScreen`s and `RoutedViewHost`s as you wish and the routing will work fine. But remember, this works only for XAML pages, for modals and popups it's better to use ReactiveUI [Interaction](../interactions) feature.
+
+# View Location
+
+Instead of registering Views by hand, you can override default `IViewLocator` implementation. While bootstrapping your routing, register your view locator using `Locator.CurrentMutable.RegisterLazySingleton`. See [View Location](../views) for details.
+
+```cs
+public class SimpleViewLocator : IViewLocator
+{
+    public IViewFor ResolveView<T>(T viewModel, string contract = null) where T : class
+    {
+        if (viewModel is FirstViewModel)
+            return new FirstView { DataContext = viewModel };
+        throw new Exception($"Could not find the view for view model {typeof(T).Name}.")
+    }
+}
+
+// Register the SimpleViewLocator.
+Locator.CurrentMutable.RegisterLazySingleton(
+    () => new SimpleViewLocator(), typeof(IViewLocator)
+);
+```
 
 # Assembly Scanning
 
 If you'd like to register all view models and associated views in your application, use the following code:
 
-```
+```cs
 // Splat uses assembly scanning here to register all views and view models.
 Locator.CurrentMutable.RegisterViewsForViewModels(
   Assembly.GetCallingAssembly()
 );
 ```
-
-
