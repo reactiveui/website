@@ -8,18 +8,24 @@ By default, `ReactiveCommand` uses `RxApp.MainThreadScheduler` and `ObservableAs
 
 ```cs
 // Inject custom schedulers into your view model.
-public LoginViewModel(IScheduler customScheduler)
+public LoginViewModel(IScheduler customMainThreadScheduler = null)
 {
+  // If custom main thread scheduler isn't initialized, fallback to default one.
+  // For current thread scheduler, use CurrentThreadScheduler.Instance;
+  // For task pool scheduler, use RxApp.TaskPoolScheduler.
+  customMainThreadScheduler = customMainThreadScheduler ?? RxApp.MainThreadScheduler;
+
   // Initialize a reactive command with a custom output scheduler.
   _loginCommand = ReactiveCommand.CreateFromTask(
     async () => { /* login logic */ },
-    outputScheduler: customScheduler
+    outputScheduler: customMainThreadScheduler
   );
 
   // Initialize an OAPH with a custom output scheduler.
   _errorMessage = _loginCommand.ThrownExceptions
     .Select(exception => exception.Message)
-    .ToProperty(this, x => x.ErrorMessage, scheduler: customScheduler);
+    .ToProperty(this, x => x.ErrorMessage, 
+      scheduler: customMainThreadScheduler);
 }
 ```
 
