@@ -1,7 +1,7 @@
-#tool "nuget:https://api.nuget.org/v3/index.json?package=Wyam&version=1.6.0"
-#addin "nuget:https://api.nuget.org/v3/index.json?package=Cake.Git&version=0.18.0"
-#addin "nuget:https://api.nuget.org/v3/index.json?package=Cake.Wyam&version=1.6.0"
-#addin "nuget:https://api.nuget.org/v3/index.json?package=Octokit&version=0.27.0"
+#tool "nuget:https://api.nuget.org/v3/index.json?package=Wyam&version=2.0.0"
+#addin "nuget:https://api.nuget.org/v3/index.json?package=Cake.Git&version=0.19.0"
+#addin "nuget:https://api.nuget.org/v3/index.json?package=Cake.Wyam&version=2.0.0"
+#addin "nuget:https://api.nuget.org/v3/index.json?package=Octokit&version=0.32.0"
 
 using Octokit;
 
@@ -40,7 +40,7 @@ Task("Clean")
     if(DirectoryExists(dependenciesDir))
     {
         CleanDirectory(dependenciesDir);
-        DeleteDirectory(dependenciesDir, true);
+        DeleteDirectory(dependenciesDir, new DeleteDirectorySettings { Recursive = true, Force = true });
     }
 
     CreateDirectory(dependenciesDir);
