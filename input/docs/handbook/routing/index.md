@@ -1,96 +1,117 @@
-https://stackoverflow.com/questions/26898381/reactiveui-view-viewmodel-injection-and-di-in-general
+ViewModel-based routing is supported for Xamarin.Forms, WinRT, WP8, UWP, Windows Forms and WPF Desktop applications. Routing is also possible on iOS and Android without Xamarin.Forms, but sometimes it can be difficult to make it work as expected. In case ViewModel-based routing is hard to implement, you can always use View-first routing and customize almost everything.
 
-View-First or ViewModel-First?
+# About ReactiveUI Routing
 
-Whether you can use VM-based routing (i.e. RoutedViewHost, IScreen, RoutingState, and friends) in ReactiveUI depends on the platform you're on:
+ReactiveUI routing consists of an `IScreen` that contains current `RoutingState`, several  `IRoutableViewModel`s, and a platform-specific XAML control called `RoutedViewHost`. `RoutingState` manages the ViewModel Stack and allows ViewModels to navigate to other ViewModels. `IScreen` is the root of a navigation stack; despite the name, its views don't have to occupy the whole screen. `RoutedViewHost` monitors an instance of `RoutingState`, responding to any changes in the navigation stack by creating and embedding the appropriate view.
 
-* WPF, Xamarin Forms: Absolutely
-* WP8, WinRT: You can make it work, you lose some transitions and niceties
-* Android, iOS Native: Very difficult to make work
+# Getting Started
 
-# XAML-based Platforms
+First, we need to create a view model that implements the `IRoutableViewModel` interface.
 
-In the App.xaml file register your viewmodels (If you want the viewmodel based navigation)
-```    
-this.Router = new RoutingState();
-Locator.CurrentMutable.RegisterConstant(this, typeof(IScreen));
-Locator.CurrentMutable.Register(() => new LoginPage(), typeof(IViewFor<LoginViewModel>));
-Locator.CurrentMutable.Register(() => new RegisterPage(), typeof(IViewFor<RegisterViewModel>));
-```
-To start the app and navigate to the default page login page in our case use the below code
-```
-this.Router.Navigate.Execute(new HomeViewModel());
-MainPage = new RoutedViewHost();
-```
-You can implement logic here checking if the user has a valid token and may be navigate to the home page bypassing the login page. It could be a check with in the akavache storage for the presense of a token. Below is the sample loginviewmodel
-```
-public LoginViewModel(IScreen screen = null)
+```cs
+public sealed class FirstViewModel : IRoutableViewModel
 {
-    HostScreen = screen ?? Locator.Current.GetService<IScreen>();
-    var canLogin = this.WhenAnyValue(x => x.Email, x => x.Password, 
-        (email, password) => !string.IsNullOrWhiteSpace(email) && 
-                             !string.IsNullOrWhiteSpace(password));
-
-    _isLoading = Login.IsExecuting.ToProperty(this, x => x.IsLoading);
+    // A string token representing the current view model, 
+    // such as 'login' or 'user'. "first" in our case,
+    // but can be whatever you like.
+    public string UrlPathSegment => "first";
     
-    Register = ReactiveCommand.CreateFromObservable(
-        () => HostScreen.Router.Navigate.Execute(new RegSelectionViewModel())
-    );
+    // Instance of the host screen containing routing state 
+    // to which this view model belongs.
+    public IScreen HostScreen { get; }
 
-    Login = ReactiveCommand.CreateFromTask<object, LoginResponse>(
-        () => { /* Handle Login here */ }, canLogin);
+    public FirstViewModel(IScreen screen)
+    {
+        // Inject the host screen via the constructor.
+        HostScreen = screen;
+    }
 }
 ```
 
-In the above view model `canLogin` will listen to changes in the email and password fields and can enable the login command if the fields are not empty. One can even do a regex based email validation. One thing would be to bind this command to a login button inside your view like below:
+Then, we create an `IScreen` implementation containing current `RoutingState`.
+
+```cs
+public sealed class RouterViewModel : IScreen
+{
+    // The Router associated with this Screen.
+    public RoutingState Router { get; }
+  
+    public RouterViewModel() 
+    {
+        // Initialize the Router.
+        Router = new RoutingState();
+        
+        // Router uses Splat.Locator to resolve views for
+        // view models, so we need to register our views
+        // using Locator.CurrentMutable.Register* methods.
+        //
+        // Instead of registering views manually, you 
+        // can use custom IViewLocator implementation,
+        // see "View Location" section for details.
+        //
+        var firstViewModel = new FirstViewModel(this);
+        Locator.CurrentMutable.Register<IViewFor<FirstViewModel>>(
+            () => new FirstView { DataContext = firstViewModel }
+        );
+            
+        // Manage the routing state. Use the 'Execute'
+        // method to navigate to different pages.
+        Router.Navigate.Execute(syncViewModel).Subscribe();
+    }
+}
 ```
-this.BindCommand(ViewModel, vm => vm.Login, v => v.loginButton) ;
+
+Now we need to place the `RoutedViewHost` XAML control to our view that will contain our routable views and view models. Assuming the view model of this Window is an instance of `RouterViewModel` defined above. We bind the view model `Router` property to `RoutedViewHost.Router` property. 
+
+```xml
+<rxui:ReactiveWindow
+    xmlns:rxui="http://reactiveui.net" 
+    x:Class="ReactiveUI.Example.Views.RouterView"
+    x:TypeArguments="vm:RouterViewModel"
+    xmlns:vm="clr-namespace:ReactiveUI.Example.ViewModels"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DataContext="{d:DesignInstance vm:RouterViewModel, IsDesignTimeCreatable=False}"
+    mc:Ignorable="d" Title="ReactiveUI.Routing" Height="360" Width="620">
+    <rxui:RoutedViewHost 
+        HorizontalContentAlignment="Stretch"
+        VerticalContentAlignment="Stretch"
+        Router="{Binding Router}"/>
+</rxui:ReactiveWindow>
 ```
 
-# Wizard Navigation
+Now, ReactiveUI view model -first routing works! You can use as many nested `IScreen`s and `RoutedViewHost`s as you wish and the routing will work fine. But remember, this works only for XAML pages, for modals and popups it's better to use ReactiveUI [Interaction](../interactions) feature.
 
+# View Location
+
+Instead of registering Views by hand, you can override default `IViewLocator` implementation. While bootstrapping your routing, register your view locator using `Locator.CurrentMutable.RegisterLazySingleton`. See [View Location](../views) for details.
+
+```cs
+public class SimpleViewLocator : IViewLocator
+{
+    public IViewFor ResolveView<T>(T viewModel, string contract = null) where T : class
+    {
+        if (viewModel is FirstViewModel)
+            return new FirstView { DataContext = viewModel };
+        throw new Exception($"Could not find the view for view model {typeof(T).Name}.")
+    }
+}
+
+// Register the SimpleViewLocator.
+Locator.CurrentMutable.RegisterLazySingleton(
+    () => new SimpleViewLocator(), typeof(IViewLocator)
+);
 ```
-phil.cleveland [8:16 AM] 
-@moswald: I see how that could work.  I give up the default binding goodness of the command
 
-phil.cleveland [8:18 AM]
-@michaelteper: Not sure I follow where you are indicating to put those subjects
+# Assembly Scanning
 
-phil.cleveland [8:19 AM]
-My original design had each page impl the Next and Back and also the xaml for the buttons.  I didn't like it because each page then had to know about all the other pages it could possibly go to or go back to.  So I moved all the logic to the shell, but that forces me to recreate the command each time a page changes. (Which I think is legit, but doesn't work)
+If you'd like to register all view models and associated views in your application, use the following code:
 
-moswald [8:20 AM] 
-well, my solution is a little bit wrong, combine it with @michaelteper's
-
-moswald [8:20 AM]
-pass two `Subject<bool>`s into your page VMs
-
-moswald [8:20 AM]
-those subjects are your `CanExecute`s
-
-moswald [8:21 AM]
-that way you keep your `ReactiveCommand` binding goodness
-
-phil.cleveland [8:21 AM] 
-I see. So set up the cmd with those and then the pages OnNext to define the enabled
-
-phil.cleveland [8:21 AM]
-Ok.  I like that
-
-phil.cleveland [8:22 AM]
-Thanks :simple_smile:
-
-michaelteper [8:23 AM] 
-```var canGoBack = new Subject<bool>();
-var canGoNext = new Subject<bool>();
-BackButton = ReactiveCommand.Create(canGoBack);
-NextButton = ReactiveCommand.Create(canGoNext);
-this.WhenAnyValue(x => x.Router.CurrentViewModel)
-                .Subscribe(cvm =>
-                {
-                    var page = Router.GetCurrentViewModel() as IWizardPage;
-                    canGoBack.OnNext(page.CanMoveBack);
-                    canGoNext.OnNext(page.CanMoveNext);
-
-          ...
+```cs
+// Splat uses assembly scanning here to register all views and view models.
+Locator.CurrentMutable.RegisterViewsForViewModels(
+  Assembly.GetCallingAssembly()
+);
 ```
