@@ -25,11 +25,6 @@ public LoginViewModel(IScheduler customScheduler)
 
 This allows you to inject custom schedulers via the constructor of your view model. 
 
-```cs
-// Regular execution.
-var model = new LoginViewModel(RxApp.MainThreadScheduler);
-```
-
 ## Unit Tests
 
 Then, in unit tests project, you can inject a `TestScheduler` instance that allows you to play with time:
@@ -46,7 +41,22 @@ new TestScheduler().With(scheduler =>
 });
 ```
 
-The `With` method also replaces the schedulers ReactiveUI is using. This means, that both `RxApp.MainThreadScheduler` and `RxApp.ThreadPoolScheduler` are being replaced with `TestScheduler` until the `With` method returns. See details on the [API docs site](https://reactiveui.net/api/reactiveui.testing/testutils/).
+## Replacing Schedulers Without Injecting Them
+
+The `With` method also replaces the schedulers ReactiveUI is using. This means, that both `RxApp.MainThreadScheduler` and `RxApp.TaskPoolScheduler` will stay replaced with `TestScheduler` until the `With` method returns. See details on the [API docs site](https://reactiveui.net/api/reactiveui.testing/testutils/). 
+
+`ReactiveCommand`s use `RxApp.MainThreadScheduler` as an output scheduler by default, but OAPHs don't. OAPHs use `CurrentThreadScheduler.Instance`, which won't get replaced during test execution. 
+
+> Just a judgement call for performance. It’s assumed that more often than not the observable that pipes into ToProperty is already ticking on the main thread, so scheduling work on the main thread is superfluous and degrades performance. — [Kent Boogaart - You, I and ReactiveUI](https://kent-boogaart.com/you-i-and-reactiveui/)
+
+That's why in some cases you may need to replace the default scheduler with the `RxApp.MainThreadScheduler` by hand to handle unit testing.
+
+```cs
+_errorMessage = _loginCommand.ThrownExceptions
+  .Select(exception => exception.Message)
+  .ToProperty(this, x => x.ErrorMessage, 
+    scheduler: RxApp.MainThreadScheduler);
+```
 
 ## Playing With Ticks
 
