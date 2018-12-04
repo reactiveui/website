@@ -14,7 +14,7 @@ Order: 15
 
 * **Dynamic.Trader** Additionally you absolutely must take https://github.com/RolandPheasant/Dynamic.Trader for a test-drive. So so good. 
 
-* **FirstStepsRUI**  ReactiveUI Binding and Routing tutorial covering all the `ReactiveUI.WPF` basics https://github.com/kondaskondas/FirstsStepsRUI
+* **ReactiveGit** — ReactiveUI open-source app covering all ReactiveUI features including Binding and Routing https://github.com/glennawatson/reactivegit
 
 # Windows Forms
 
