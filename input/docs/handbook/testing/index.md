@@ -80,7 +80,6 @@ If you have an asynchronous scenario in your view model implementation (and you 
 public sealed class LoginViewModel 
 {
   private readonly ObservableAsPropertyHelper<bool> _isBusy;
-  private readonly ReactiveCommand<Unit, Unit> _login;
   
   public LoginViewModel(
     IScheduler currentThread,
@@ -88,7 +87,7 @@ public sealed class LoginViewModel
     IProvider provider)
   {
     // Create a command using an injected scheduler.
-    _login = ReactiveCommand.CreateFromTask(
+    Login = ReactiveCommand.CreateFromTask(
       () => provider.OAuth(), 
       outputScheduler: mainThread);
 
@@ -99,7 +98,7 @@ public sealed class LoginViewModel
   
   public bool IsBusy => _isBusy.Value;
  
-  public ICommand Login => _login;
+  public ReactiveCommand<Unit, Unit> Login { get; }
 }
 ```
 
