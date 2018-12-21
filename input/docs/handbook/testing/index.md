@@ -114,7 +114,11 @@ public void ShouldBeBusyWhenLoggingIn() => new TestScheduler().With(scheduler =>
   
   // IsBusy indicator should be false on init.
   model.IsBusy.Should().BeFalse();
-  model.Login.Execute(null);
+  // A test needs to subscribe to a ReactiveCommand,
+  // because the execution is lazy and won't trigger
+  // with no subscribers.
+  // Note that this is not necessary in production code.
+  model.Login.Execute().Subscribe();
 
   // We advance our scheduler with two ticks.
   // On the first tick, IsExecuting emits a new value,
