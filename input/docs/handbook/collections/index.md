@@ -36,17 +36,19 @@ If you are already using ```ObservableCollection<T>``` the easiest and quickest 
 For example if you have an existing reactive list ```ObservableCollection<T> myList``` you can do something like this:
 
 ```cs
-var myDerivedList = myList.ToObservableChangeSet()
-    .Filter(t=> t.Status = "Something")
+var myDerivedList = myList
+    .ToObservableChangeSet()
+    .Filter(t => t.Status = "Something")
     .AsObservableList();
 ```
 
 And voila you have create a filtered observable list. Or if you specify a key
 
 ```cs
-var myDerivedCache = myList.ToObservableChangeSet(t = >t.Id)
-	.Filter(t=> t.Status = "Something")
-	.AsObservableCache();
+var myDerivedCache = myList
+    .ToObservableChangeSet(t => t.Id)
+    .Filter(t => t.Status = "Something")
+    .AsObservableCache();
 ```
 
 you have a derived observable cache.
@@ -55,14 +57,16 @@ A caveat to this approach is if you are using ```myList``` will likely not be th
 
 ```cs
 var myList = new SourceList<T>() 
-var myConnection = myList.Connect() //make the source an observable change set
-	.\\some other operation
+var myConnection = myList
+    .Connect() // make the source an observable change set
+    .\\some other operation
 ```
 or similarly for the observable cache 
 ```cs
-var myCache = new SourceCache<T, int>(t=>t.Id) 
-var myConnection = myCache.Connect() //make the source an observable change set
-	.\\some other operation
+var myCache = new SourceCache<T, int>(t => t.Id) 
+var myConnection = myCache
+    .Connect() // make the source an observable change set
+    .\\some other operation
 ```
 
 The advantage of creating your own data sources is that they can be maintained on a background thread which frees up valuable main thread time. Then should there be a need, bind as follows:
@@ -70,10 +74,10 @@ The advantage of creating your own data sources is that they can be maintained o
 ```cs
 ReadOnlyObservableCollection<T> bindingData;
 var myBindingOperation = mySource
-		.Sort(SortExpressonComparer<T>.Ascending(t=>t.DateTime))
-		.ObserveOn(RxApp.MainThreadScheduler) // Make sure this is only right before the Bind()
-		.Bind(out bindingData)
-		.Subscribe(); 
+    .Sort(SortExpressonComparer<T>.Ascending(t => t.DateTime))
+    .ObserveOn(RxApp.MainThreadScheduler) // Make sure this is only right before the Bind()
+    .Bind(out bindingData)
+    .Subscribe(); 
 ```
 The API for the above is the same for cache and list.
 
@@ -84,3 +88,17 @@ I get asked this question a lot and the answer is really simple.  If you have a 
 an observable cache as it is dictionary based which will ensure no duplicates can be added and it notifies on adds, updates and removes, whereas list allows duplicates and only has no concept of an update.
 
 There is another difference. The cache side of dynamic data is much more mature and has a wider range of operators. Having more operators is mainly because I found it easier to achieve good all round performance with the key based operators and do not want to add anything to Dynamic Data which inherently has poor performance.
+
+## How to track changes in collections of Reactive Objects?
+
+DynamicData supports change tracking for classes that implement the `INotifyPropertyChanged` interface — `ReactiveObject`s. For example, if you'd like to do a `WhenAnyValue` on each element in a collection of changing objects, use the `AutoRefresh()` DynamicData operator:
+
+```cs
+var databasesValid = collectionOfReactiveObjects
+    .ToObservableChangeSet()
+    .AutoRefresh(model => model.IsValid) // Subscribe only to IsValid property changes
+    .ToCollection()                      // Get the new collection of items
+    .Select(x => x.All(y => y.IsValid)); // Verify all elements satisfy a condition etc.
+```
+
+See more examples in [DynamicData.Snippets](https://github.com/RolandPheasant/DynamicData.Snippets/tree/master/DynamicData.Snippets) project.
