@@ -186,3 +186,13 @@ this.Foo.Bar = new Bar() { Baz = "Else" };
 ```
 
 Notably, in Example 3, even though the intermediate `Bar` object was replaced with a new instance, no change is fired - as the result of the full `Foo.Bar.Baz` expression has not changed.
+
+### null propogation inside `WhenAnyValue`
+`WhenAnyValue` is not directly able to perform null propogation due to the fact Expression's don't support this feature yet.
+
+You can simulate null propogation support by chaining your WhenAnyValue() call to each property along the way. Here's an example:
+
+```cs
+this.WhenAnyValue(x => x.Foo, x => x.Foo.Bar, x => x.Foo.Bar.Baz, (foo, bar, baz) => foo?.Bar?.Baz)
+    .Subscribe(x => Console.WriteLine(x));
+```
