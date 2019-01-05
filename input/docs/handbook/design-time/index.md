@@ -1,80 +1,83 @@
-# Design Time
+# ReactiveUI Bindings
 
-## Chatlogs
+ReactiveUI offers a better design-time data system for solutions that use [ReactiveUI type-safe bindings](../data-binding). `this.Bind` methods family overwrite whatever has been put into XAML. If your XAML markup looks like this:
 
-      RxUI has a better (IMO) system for design-time data
-      `this.Bind` and family overwrite whatever has been put into the Xaml
-      so your Xaml can look like this, and will be overridden by the following code: (edited)
+```xml
+<TextBlock 
+    x:Name="ExampleTextBlock" 
+    Text="This is design time text" />
+```
 
-      ```<TextBlock x:Name="SomeField" 
-                        Text="-this is design time-" />
+You'll see `This is design time text` string in design time, that will be overridden by the code where binding magic happens at run time:
 
-      this.Bind(ViewModel, vm => vm.Something, v => v.SomeField.Text);
-      ```
+```cs
+this.WhenActivated(disposable => 
+{
+    // ReactiveUI will bind ExampleString ViewModel property 
+    // to ExampleTextBlock.Text property (defined above)
+    this.Bind(ViewModel, 
+        viewModel => viewModel.ExampleString, 
+        view => view.ExampleTextBlock.Text)
+        .DisposeWith(disposable);
+});
+```
 
-      now, if you're on UWP, `{x:Bind}` is superior to both
+# Regular Bindings
 
-## Reference
+If you use regular bindings, or type-safe `{x:Bind }` markup extension available on UWP, then you can import the `d` directive and set design-time `DataContext`. For the ease of use, you can extract an interface from your ViewModel and create two implementations for it, one implementation would display design-time data only, and another one would be your actual view model. See an example.
 
-https://github.com/shiftkey/octohipster/blob/reactive-ui/OctoHipster/ViewModels/Design/DesignShellViewModel.cs
+**Views.AboutView.xaml**
 
-
-https://github.com/shiftkey/octohipster/blob/reactive-ui/OctoHipster/Views/ShellView.xaml#L6-L15
-
-
-Views/AboutView.xaml:
-
-
-    <Page
-        x:Class="MyCoolApp.UWP.Views.AboutView"
-
-        xmlns:designTime="using:MyCoolApp.UWP.DesignTime"
-        d:DataContext="{d:DesignInstance designTime:DesignTimeAboutViewModel,
+```xml
+<Page x:Class="MyCoolApp.UWP.Views.AboutView"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:designTime="using:MyCoolApp.UWP.DesignTime"
+      d:DataContext="{d:DesignInstance designTime:DesignTimeAboutViewModel,
                                                   IsDesignTimeCreatable=True}"
-        d:DesignHeight="600"
-        d:DesignWidth="600"
+      d:DesignHeight="600"
+      d:DesignWidth="600">
+  <!-- Page Content -->
+</Page>
+```
 
+**Interfaces.IAboutViewModel.cs**
 
+```cs
+public interface IAboutViewModel : INotifyPropertyChanged
+{
+    IEnumerable<AboutSection> AboutSections { get; set; }
 
-DesignTime/DesignTimeAboutViewModel.cs:
+    ReactiveCommand<AboutFeed> RefreshCommand { get; set; }
+}
+```
 
-    using System.Collections.ObjectModel;
-    using System.Threading.Tasks;
-    using MyCoolApp.Core.ViewModels;
-    using ReactiveUI;
-    using MyCoolApp.Core.ServiceModel;
+**DesignTime.DesignTimeAboutViewModel.cs**
 
-    namespace MyCoolApp.UWP.DesignTime
-    {
-        public class DesignTimeAboutViewModel : AboutViewModel
-        {
-            public DesignTimeAboutViewModel()
-            {
-                AboutSections = new ObservableCollection<AboutSectionViewModel>(new Collection<AboutSectionViewModel>
-                {
-                    new AboutSectionViewModel {Title = "Title 1", Body = "Lorum Ipsum"},
-                    new AboutSectionViewModel {Title = "Title 2", Body = "Lorum Ipsum"},
-                    new AboutSectionViewModel {Title = "Title 3", Body = "Lorum Ipsum"}
-                });
+```cs
+public class DesignTimeAboutViewModel : IAboutViewModel
+{
+  public DesignTimeAboutViewModel()
+  {
+      AboutSections = new List<AboutSectionViewModel>
+      {
+          new AboutSection {Title = "Title 1", Body = "Lorum Ipsum"},
+          new AboutSection {Title = "Title 2", Body = "Lorum Ipsum"},
+          new AboutSection {Title = "Title 3", Body = "Lorum Ipsum"}
+      });
+      RefreshCommand = ReactiveCommand.CreateFromTask(o => Task.FromResult(new AboutFeed()));
+  }
+  
+  /* Properties and commands are deliberately omitted */
+}
+```
 
-                RefreshCommand = ReactiveCommand.CreateAsyncTask(o => Task.FromResult(new AboutFeed()));
-            }
-        }
-    }
+**ViewModels.AboutViewModel.cs**
+
+```cs
+public class AboutViewModel : ReactiveObject, IAboutViewModel
+{
+  /* Actual interface implementation */
+}
+```
+
     
-  ViewModels/IAboutViewModel.cs:
-
-    public interface IAboutViewModel : IRoutableViewModel
-    {
-        ObservableCollection<AboutSectionViewModel> AboutSections { get; set; }
-
-        ReactiveCommand<AboutFeed> RefreshCommand { get; set; }
-    }
-
-ViewModels/IAboutSectionViewModel.cs:
-
-    public interface IAboutSectionViewModel
-    {
-        string Title { get; set; }
-        string Body { get; set; }
-    }
