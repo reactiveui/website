@@ -12,7 +12,7 @@ public class RepositoryViewModel : ReactiveObject
 {
   public RepositoryViewModel() 
   {
-    Delete = ReactiveCommand.CreateAsyncObservable(x => DeleteImpl());
+    Delete = ReactiveCommand.CreateFromObservable(x => DeleteImpl());
     Delete.ThrownExceptions.Subscribe(ex => /*...*/);
   }
 
