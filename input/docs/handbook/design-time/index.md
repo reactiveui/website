@@ -74,7 +74,7 @@ public class DesignTimeAboutViewModel : IAboutViewModel
 **ViewModels.AboutViewModel.cs**
 
 ```cs
-public class AboutViewModel : ReactiveObject
+public class AboutViewModel : ReactiveObject, IAboutViewModel
 {
   /* Actual interface implementation */
 }
