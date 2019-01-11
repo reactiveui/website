@@ -7,7 +7,7 @@ Taking our classic ViewModel, we are going to decide what is important to save u
 public class SearchViewModel : ReactiveObject, ISearchViewModel
 {
     private readonly ObservableAsPropertyHelper<IEnumerable<SearchResults>> _searchResults;
-    private ISearchService searchService;
+    private readonly ISearchService searchService;
     private string searchQuery;
     
     public SearchViewModel(ISearchService searchService) 
@@ -48,15 +48,15 @@ Here is an implementation that uses [Akavache](https://github.com/reactiveui/Aka
 ```cs
 public class AkavacheSuspensionDriver<TAppState> : ISuspensionDriver where TAppState : class
 {
-	const string appStateKey = "appState";
+  const string appStateKey = "appState";
   
   public AkavacheSuspensionDriver() => BlobCache.ApplicationName = "Your Application Name";
 
-	public IObservable<Unit> InvalidateState() => BlobCache.UserAccount.InvalidateObject<TAppState>(appStateKey);
+  public IObservable<Unit> InvalidateState() => BlobCache.UserAccount.InvalidateObject<TAppState>(appStateKey);
+  
+  public IObservable<object> LoadState() => BlobCache.UserAccount.GetObject<TAppState>(appStateKey);
 
-	public IObservable<object> LoadState() => BlobCache.UserAccount.GetObject<TAppState>(appStateKey);
-
-	public IObservable<Unit> SaveState(object state) => BlobCache.UserAccount.InsertObject(appStateKey, (TAppState)state);
+  public IObservable<Unit> SaveState(object state) => BlobCache.UserAccount.InsertObject(appStateKey, (TAppState)state);
 }
 ```
 
@@ -68,7 +68,7 @@ The AppState is an object with `DataContract` or `Newtonsoft.Json` notations, th
 [JsonObject]
 public class AppState
 {
-	  public string AuthToken = Guid.NewGuid().ToString();
+    public string AuthToken = Guid.NewGuid().ToString();
 }
 ```
 
