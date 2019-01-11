@@ -55,6 +55,11 @@ Once you implement `IViewFor<T>`, binding methods are now available as extension
 this.OneWayBind(ViewModel, 
     viewModel => viewModel.Name, 
     view => view.Name.Text);
+    
+// OR
+
+this.WhenAnyValue(x => x.ViewModel.Name)
+    .BindTo(this, view => view.Name.Text);
 ```
 
 * **Bind:** - Sets up a two-way binding between a property on the ViewModel to
@@ -124,7 +129,7 @@ this.Bind(ViewModel,
 
 # "Hack" bindings and BindTo
 
-Should you find that direct one and two-way bindings aren't enough to get the job done (or should you want View => ViewModel bindings), a flexible, Rx-based approach is also available, via combining `WhenAnyValue` with the `BindTo` operator, which allows you to bind an arbitrary `IObservable` to a property on an object.
+Should you find that direct one and two-way bindings aren't enough to get the job done (or should you want View => ViewModel bindings), a flexible, Rx-based approach is also available, via combining `WhenAnyValue` with the `BindTo` operator, which allows you to one-way-bind an arbitrary `IObservable` to a property on an object.
 
 For example, here is a simple example of binding a ListBox's `SelectedItem` to a ViewModel:
 
