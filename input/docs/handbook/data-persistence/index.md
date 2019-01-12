@@ -31,7 +31,7 @@ public class SearchViewModel : ReactiveObject, ISearchViewModel
 }
 ```
 
-If you use Newtonsoft.Json library for serialization, you can replace the `[DataContract]` attribute with `[JsonObject]` attribute, use `[JsonIgnore]` instead of `[IgnoreDataMember]`, and use `[JsonProperty]` instead of `[DataMember]`, although Newtonsoft.Json fully supports [DataContract attributes](https://www.newtonsoft.com/json/help/html/DataContractAndDataMember.htm).
+If you use Newtonsoft.Json library for serialization, you can replace the `[DataContract]` attribute with `[JsonObject]` attribute, use `[JsonIgnore]` instead of `[IgnoreDataMember]`, and use `[JsonProperty]` instead of `[DataMember]`, although Newtonsoft.Json fully supports [DataContract attributes](https://www.newtonsoft.com/json/help/html/DataContractAndDataMember.htm). Note, that `Newtonsoft.Json` uses opt-out approach by default, in contrast to `DataContractSerializer` which uses opt-in. Opt-out means that all public fields and properties will be serialized, unless you explicitly ignore them by placing `[IgnoreDataMember]` or `[JsonIgnore]` attributes, opt-in means the opposite.
 
 # Suspension
 
