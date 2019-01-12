@@ -31,7 +31,7 @@ public class SearchViewModel : ReactiveObject, ISearchViewModel
 }
 ```
 
-If you use Newtonsoft.JSON library for serialization, replace the `[DataContract]` attribute with `[JsonObject]` attribute, use `[JsonIgnore]` instead of `[IgnoreDataMember]`, and use `[JsonProperty]` instead of `[DataMember]`. Other things are the same.
+If you use Newtonsoft.Json library for serialization, you can replace the `[DataContract]` attribute with `[JsonObject]` attribute, use `[JsonIgnore]` instead of `[IgnoreDataMember]`, and use `[JsonProperty]` instead of `[DataMember]`, although Newtonsoft.Json fully supports [DataContract attributes](https://www.newtonsoft.com/json/help/html/DataContractAndDataMember.htm). Note, that `Newtonsoft.Json` uses opt-out approach by default, in contrast to `DataContractSerializer` which uses opt-in. Opt-out means that all public fields and properties will be serialized, unless you explicitly ignore them by placing `[IgnoreDataMember]` or `[JsonIgnore]` attributes, opt-in means the opposite.
 
 # Suspension
 
@@ -48,15 +48,15 @@ Here is an implementation that uses [Akavache](https://github.com/reactiveui/Aka
 ```cs
 public class AkavacheSuspensionDriver<TAppState> : ISuspensionDriver where TAppState : class
 {
-  const string appStateKey = "appState";
+    const string appStateKey = "appState";
   
-  public AkavacheSuspensionDriver() => BlobCache.ApplicationName = "Your Application Name";
+    public AkavacheSuspensionDriver() => BlobCache.ApplicationName = "Your Application Name";
 
-  public IObservable<Unit> InvalidateState() => BlobCache.UserAccount.InvalidateObject<TAppState>(appStateKey);
+    public IObservable<Unit> InvalidateState() => BlobCache.UserAccount.InvalidateObject<TAppState>(appStateKey);
   
-  public IObservable<object> LoadState() => BlobCache.UserAccount.GetObject<TAppState>(appStateKey);
+    public IObservable<object> LoadState() => BlobCache.UserAccount.GetObject<TAppState>(appStateKey);
 
-  public IObservable<Unit> SaveState(object state) => BlobCache.UserAccount.InsertObject(appStateKey, (TAppState)state);
+    public IObservable<Unit> SaveState(object state) => BlobCache.UserAccount.InsertObject(appStateKey, (TAppState)state);
 }
 ```
 
