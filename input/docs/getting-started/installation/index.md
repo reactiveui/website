@@ -2,30 +2,67 @@ Title: Installation
 Order: 10
 ---
 
-# ReactiveUI Packages
+# Install ReactiveUI Packages
 
-ReactiveUI packages are now signed by the dotnet foundation. Only builds from their infrastructure carry this seal.  ReactiveUI uses Azure Dev Ops for our CI pipeline.
+ReactiveUI packages are now signed by the dotnet foundation. Only builds from their infrastructure carry this seal.  ReactiveUI uses Azure Dev Ops for our CI pipeline. Each platform has packages that extend the base ReactiveUI offerings for it's concerns.  Installing the correct packages for the correct platform can be somewhat of a pain.
 
-# Install Packages
+| Platform          | ReactiveUI Package                  | NuGet                | [Events][EventsDocs] Package            |
+| ----------------- | ----------------------------------- | -------------------- | --------------------------------------- |
+| .NET Standard     | [ReactiveUI][CoreDoc]               | [![CoreBadge]][Core] | None                                    |
+| Unit Testing      | [ReactiveUI.Testing][TestDoc]       | [![TestBadge]][Test] | None                                    |
+| Universal Windows | [ReactiveUI][UniDoc]                | [![CoreBadge]][Core] | [ReactiveUI.Events][CoreEvents]         |
+| WPF               | [ReactiveUI.WPF][WpfDoc]            | [![WpfBadge]][Wpf]   | [ReactiveUI.Events.WPF][WpfEvents]      |
+| Windows Forms     | [ReactiveUI.WinForms][WinDoc]       | [![WinBadge]][Win]   | [ReactiveUI.Events.WinForms][WinEvents] |
+| Xamarin.Forms     | [ReactiveUI.XamForms][XamDoc]       | [![XamBadge]][Xam]   | [ReactiveUI.Events.XamForms][XamEvents] |
+| Xamarin.Essentials| [ReactiveUI][XamDoc]                | [![CoreBadge]][Core] | [ReactiveUI.Events.XamEssentials][XamE] |
+| Xamarin.Android   | [ReactiveUI.AndroidSupport][DroDoc] | [![DroBadge]][Dro]   | [ReactiveUI.Events][CoreEvents]         |
+| Xamarin.iOS       | [ReactiveUI][IosDoc]                | [![CoreBadge]][Core] | [ReactiveUI.Events][CoreEvents]         |
+| Xamarin.Mac       | [ReactiveUI][MacDoc]                | [![CoreBadge]][Core] | [ReactiveUI.Events][CoreEvents]         |
+| Tizen             | [ReactiveUI][CoreDoc]               | [![CoreBadge]][Core] | [ReactiveUI.Events][CoreEvents]         |
+| Avalonia          | [Avalonia.ReactiveUI][AvaDoc]       | [![AvaBadge]][Ava]   | None                                    |
 
-Each platform has packages that extend the base ReactiveUI offerings for it's concerns.  Installing the correct packages for the correct platform can be somewhat of a pain.
+[Core]: https://www.nuget.org/packages/ReactiveUI/
+[CoreEvents]: https://www.nuget.org/packages/ReactiveUI.Events/
+[CoreBadge]: https://img.shields.io/nuget/vpre/ReactiveUI.svg
+[CoreDoc]: https://reactiveui.net/docs/getting-started/installation/
 
-| Target Platform                 | Required ReactiveUI Packages | <a href="https://reactiveui.net/docs/handbook/events/">Events</a> Packages   |
-| ------------------------------- | ---------------------------- | ---------------------------- |
-| <a href="/">Class library</a> | `ReactiveUI` | None |  
-| <a href="universal-windows-platform">Universal Windows Platform</a> | `ReactiveUI` | `ReactiveUI.Events` |
-| <a href="windows-presentation-foundation">Windows Presentation Foundation</a> | `ReactiveUI.WPF` | `ReactiveUI.Events.WPF` |
-| <a href="windows-forms">Windows Forms</a> | `ReactiveUI.WinForms` | `ReactiveUI.Events.WinForms` |
-| <a href="xamarin-forms">Xamarin Forms</a> | `ReactiveUI.XamForms` | `ReactiveUI.Events.XamForms` |
-| <a href="xamarin-ios">Xamarin.iOS</a> | `ReactiveUI` | `ReactiveUI.Events` |
-| <a href="xamarin-android">Xamarin.Android</a> | `ReactiveUI.AndroidSupport`  | `ReactiveUI.Events`          |
-| <a href="xamarin-mac">Xamarin.Mac</a> | `ReactiveUI` | `ReactiveUI.Events` |
-| <a href="avalonia">AvaloniaUI</a> | `Avalonia.ReactiveUI` | None |
-| <a href="../../handbook/testing/">Unit testing library</a> | `ReactiveUI.Testing` | None |
+[Test]: https://www.nuget.org/packages/ReactiveUI.Testing/
+[TestBadge]: https://img.shields.io/nuget/vpre/ReactiveUI.Testing.svg
+[TestDoc]: https://reactiveui.net/docs/handbook/testing/
+
+[UniDoc]: https://reactiveui.net/docs/getting-started/installation/universal-windows-platform
+
+[Wpf]: https://www.nuget.org/packages/ReactiveUI.WPF/
+[WpfEvents]: https://www.nuget.org/packages/ReactiveUI.Events.WPF/
+[WpfBadge]: https://img.shields.io/nuget/vpre/ReactiveUI.WPF.svg
+[WpfDoc]: https://reactiveui.net/docs/getting-started/installation/windows-presentation-foundation
+
+[Win]: https://www.nuget.org/packages/ReactiveUI.WinForms/
+[WinEvents]: https://www.nuget.org/packages/ReactiveUI.Events.WinForms/
+[WinBadge]: https://img.shields.io/nuget/vpre/ReactiveUI.WinForms.svg
+[WinDoc]: https://reactiveui.net/docs/getting-started/installation/windows-forms
+
+[Xam]: https://www.nuget.org/packages/ReactiveUI.XamForms/
+[XamEvents]: https://www.nuget.org/packages/ReactiveUI.Events.XamForms/
+[XamBadge]: https://img.shields.io/nuget/vpre/ReactiveUI.XamForms.svg
+[XamDoc]: https://reactiveui.net/docs/getting-started/installation/xamarin-forms
+[XamE]: https://www.nuget.org/packages/ReactiveUI.Events.XamEssentials/
+
+[Dro]: https://www.nuget.org/packages/ReactiveUI.AndroidSupport/
+[DroBadge]: https://img.shields.io/nuget/vpre/ReactiveUI.AndroidSupport.svg
+[DroDoc]: https://reactiveui.net/docs/getting-started/installation/xamarin-android
+
+[MacDoc]: https://reactiveui.net/docs/getting-started/installation/xamarin-mac
+[IosDoc]: https://reactiveui.net/docs/getting-started/installation/xamarin-ios
+
+[Ava]: https://www.nuget.org/packages/Avalonia.ReactiveUI/
+[AvaBadge]: https://img.shields.io/nuget/vpre/Avalonia.ReactiveUI.svg
+[AvaDoc]: https://reactiveui.net/docs/getting-started/installation/avalonia
+[EventsDocs]: https://reactiveui.net/docs/handbook/events/
 
 # Release Packages
 
-ReactiveUI is published to [NuGet.org](https://www.nuget.org/packages?q=ReactiveUI) when a release of the software is done.
+ReactiveUI is published to [NuGet.org](https://www.nuget.org/packages?q=ReactiveUI) when a release of the software is done. Get email notifications when new release is pushed over at https://libraries.io/nuget/reactiveui
 
 - ReactiveUI
     - [ReactiveUI](https://www.nuget.org/packages/ReactiveUI/) is the base package that has the base platform implementations.

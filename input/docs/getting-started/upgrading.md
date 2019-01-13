@@ -1,4 +1,4 @@
-Title: .NET Standard
+Title: Upgrading to .NET Standard
 Order: 10
 ---
 
