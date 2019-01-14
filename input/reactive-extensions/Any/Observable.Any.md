@@ -18,7 +18,3 @@ NameDescription![Public method](images\Hh303103.pubmethod(en-us,VS.103).gif "Pub
 [Observable Class](Observable\Observable.md)
 
 [System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
-
-
-
-

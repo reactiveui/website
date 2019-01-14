@@ -83,11 +83,3 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 [Qbservable Class](Qbservable\Qbservable.md)
 
 [System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
-
-
-
-
-
-
-
-
