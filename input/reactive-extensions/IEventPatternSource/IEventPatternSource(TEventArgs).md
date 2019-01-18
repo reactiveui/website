@@ -7,7 +7,7 @@ The [IEventPatternSource\<TEventArgs\>](IEventPatternSource\IEventPatternSource(
 
 ## Events
 
-NameDescription![Public event](images\Hh315336.pubevent(en-us,VS.103).gif "Public event")[OnNext](OnNext\IEventPatternSource(TEventArgs).OnNext.md)Raises the Next event signaling the next element in the data stream.Top
+NameDescription![Public event](https://reactiveui.net/assets/img/Hh315336.pubevent(en-us,VS.103).gif "Public event")[OnNext](OnNext\IEventPatternSource(TEventArgs).OnNext.md)Raises the Next event signaling the next element in the data stream.Top
 
 ## See Also
 
@@ -68,7 +68,7 @@ The IEventPatternSource\<TEventArgs\> type exposes the following members.
 
 ## Events
 
-NameDescription![Public event](images\Hh315336.pubevent(en-us,VS.103).gif "Public event")[OnNext](OnNext\IEventPatternSource(TEventArgs).OnNext.md)Raises the Next event signaling the next element in the data stream.Top
+NameDescription![Public event](https://reactiveui.net/assets/img/Hh315336.pubevent(en-us,VS.103).gif "Public event")[OnNext](OnNext\IEventPatternSource(TEventArgs).OnNext.md)Raises the Next event signaling the next element in the data stream.Top
 
 ## See Also
 

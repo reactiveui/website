@@ -78,7 +78,7 @@ This member is overloaded. For complete information about this member, including
 
 ## Overload List
 
-NameDescription![Public method](images\Hh303103.pubmethod(en-us,VS.103).gif "Public method")![Static member](images\Hh244319.static(en-us,VS.103).gif "Static member")[Subscribe(Int64)](https://msdn.microsoft.com/en-us/library/m:microsoft.reactive.testing.reactivetest.subscribe(system.int64)(v=VS.103))Factory method for a recorded subscription.![Public method](images\Hh303103.pubmethod(en-us,VS.103).gif "Public method")![Static member](images\Hh244319.static(en-us,VS.103).gif "Static member")[Subscribe(Int64, Int64)](https://msdn.microsoft.com/en-us/library/m:microsoft.reactive.testing.reactivetest.subscribe(system.int64%2csystem.int64)(v=VS.103))Factory method for a recorded subscription.Top
+NameDescription![Public method](https://reactiveui.net/assets/img/Hh303103.pubmethod(en-us,VS.103).gif "Public method")![Static member](https://reactiveui.net/assets/img/Hh244319.static(en-us,VS.103).gif "Static member")[Subscribe(Int64)](https://msdn.microsoft.com/en-us/library/m:microsoft.reactive.testing.reactivetest.subscribe(system.int64)(v=VS.103))Factory method for a recorded subscription.![Public method](https://reactiveui.net/assets/img/Hh303103.pubmethod(en-us,VS.103).gif "Public method")![Static member](https://reactiveui.net/assets/img/Hh244319.static(en-us,VS.103).gif "Static member")[Subscribe(Int64, Int64)](https://msdn.microsoft.com/en-us/library/m:microsoft.reactive.testing.reactivetest.subscribe(system.int64%2csystem.int64)(v=VS.103))Factory method for a recorded subscription.Top
 
 ## See Also
 

@@ -85,7 +85,7 @@ This member is overloaded. For complete information about this member, including
 
 ## Overload List
 
-NameDescription![Public method](images\Hh303103.pubmethod(en-us,VS.103).gif "Public method")![Static member](images\Hh244319.static(en-us,VS.103).gif "Static member")[Bar(IObservable<Int32>)](https://msdn.microsoft.com/en-us/library/m:reactivetests.tests.myext.bar(system.iobservable%7bsystem.int32%7d)(v=VS.103))![Public method](images\Hh303103.pubmethod(en-us,VS.103).gif "Public method")![Static member](images\Hh244319.static(en-us,VS.103).gif "Static member")[Bar(IQbservable<Int32>)](https://msdn.microsoft.com/en-us/library/m:reactivetests.tests.myext.bar(system.reactive.linq.iqbservable%7bsystem.int32%7d)(v=VS.103))Top
+NameDescription![Public method](https://reactiveui.net/assets/img/Hh303103.pubmethod(en-us,VS.103).gif "Public method")![Static member](https://reactiveui.net/assets/img/Hh244319.static(en-us,VS.103).gif "Static member")[Bar(IObservable<Int32>)](https://msdn.microsoft.com/en-us/library/m:reactivetests.tests.myext.bar(system.iobservable%7bsystem.int32%7d)(v=VS.103))![Public method](https://reactiveui.net/assets/img/Hh303103.pubmethod(en-us,VS.103).gif "Public method")![Static member](https://reactiveui.net/assets/img/Hh244319.static(en-us,VS.103).gif "Static member")[Bar(IQbservable<Int32>)](https://msdn.microsoft.com/en-us/library/m:reactivetests.tests.myext.bar(system.reactive.linq.iqbservable%7bsystem.int32%7d)(v=VS.103))Top
 
 ## See Also
 

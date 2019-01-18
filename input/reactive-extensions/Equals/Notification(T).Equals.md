@@ -90,7 +90,7 @@ This member is overloaded. For complete information about this member, including
 
 ## Overload List
 
-NameDescription![Public method](images\Hh303103.pubmethod(en-us,VS.103).gif "Public method")[Equals(Object)](https://msdn.microsoft.com/en-us/library/m:system.reactive.notification%601.equals(system.object)(v=VS.103))Indicates whether this instance and a specified object are equal. (Overrides [Object.Equals(Object)](https://msdn.microsoft.com/en-us/library/m:system.object.equals(system.object)(v=VS.103)).)![Public method](images\Hh303103.pubmethod(en-us,VS.103).gif "Public method")[Equals(Notification<T>)](https://msdn.microsoft.com/en-us/library/m:system.reactive.notification%601.equals(system.reactive.notification%7b%600%7d)(v=VS.103))Indicates whether this instance and other are equal.Top
+NameDescription![Public method](https://reactiveui.net/assets/img/Hh303103.pubmethod(en-us,VS.103).gif "Public method")[Equals(Object)](https://msdn.microsoft.com/en-us/library/m:system.reactive.notification%601.equals(system.object)(v=VS.103))Indicates whether this instance and a specified object are equal. (Overrides [Object.Equals(Object)](https://msdn.microsoft.com/en-us/library/m:system.object.equals(system.object)(v=VS.103)).)![Public method](https://reactiveui.net/assets/img/Hh303103.pubmethod(en-us,VS.103).gif "Public method")[Equals(Notification<T>)](https://msdn.microsoft.com/en-us/library/m:system.reactive.notification%601.equals(system.reactive.notification%7b%600%7d)(v=VS.103))Indicates whether this instance and other are equal.Top
 
 ## See Also
 

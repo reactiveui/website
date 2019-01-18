@@ -9,7 +9,7 @@ This member is overloaded. For complete information about this member, including
 
 ## Overload List
 
-NameDescription![Public method](images\Hh303103.pubmethod(en-us,VS.103).gif "Public method")[Equals(Object)](https://msdn.microsoft.com/en-us/library/m:system.reactive.unit.equals(system.object)(v=VS.103))Indicates whether the current unit is equal to the specified object. (Overrides [ValueType.Equals(Object)](https://msdn.microsoft.com/en-us/library/m:system.valuetype.equals(system.object)(v=VS.103)).)![Public method](images\Hh303103.pubmethod(en-us,VS.103).gif "Public method")[Equals(Unit)](https://msdn.microsoft.com/en-us/library/m:system.reactive.unit.equals(system.reactive.unit)(v=VS.103))Indicates whether the current unit is equal to the specified unit.Top
+NameDescription![Public method](https://reactiveui.net/assets/img/Hh303103.pubmethod(en-us,VS.103).gif "Public method")[Equals(Object)](https://msdn.microsoft.com/en-us/library/m:system.reactive.unit.equals(system.object)(v=VS.103))Indicates whether the current unit is equal to the specified object. (Overrides [ValueType.Equals(Object)](https://msdn.microsoft.com/en-us/library/m:system.valuetype.equals(system.object)(v=VS.103)).)![Public method](https://reactiveui.net/assets/img/Hh303103.pubmethod(en-us,VS.103).gif "Public method")[Equals(Unit)](https://msdn.microsoft.com/en-us/library/m:system.reactive.unit.equals(system.reactive.unit)(v=VS.103))Indicates whether the current unit is equal to the specified unit.Top
 
 ## See Also
 

@@ -87,7 +87,7 @@ This member is overloaded. For complete information about this member, including
 
 ## Overload List
 
-NameDescription![Public method](images\Hh303103.pubmethod(en-us,VS.103).gif "Public method")[Equals(Object)](https://msdn.microsoft.com/en-us/library/m:microsoft.reactive.testing.subscription.equals(system.object)(v=VS.103))Checks whether the given object is equal to the current instance. (Overrides [ValueType.Equals(Object)](https://msdn.microsoft.com/en-us/library/m:system.valuetype.equals(system.object)(v=VS.103)).)![Public method](images\Hh303103.pubmethod(en-us,VS.103).gif "Public method")[Equals(Subscription)](https://msdn.microsoft.com/en-us/library/m:microsoft.reactive.testing.subscription.equals(microsoft.reactive.testing.subscription)(v=VS.103))Checks whether the given subscription is equal to the current instance.Top
+NameDescription![Public method](https://reactiveui.net/assets/img/Hh303103.pubmethod(en-us,VS.103).gif "Public method")[Equals(Object)](https://msdn.microsoft.com/en-us/library/m:microsoft.reactive.testing.subscription.equals(system.object)(v=VS.103))Checks whether the given object is equal to the current instance. (Overrides [ValueType.Equals(Object)](https://msdn.microsoft.com/en-us/library/m:system.valuetype.equals(system.object)(v=VS.103)).)![Public method](https://reactiveui.net/assets/img/Hh303103.pubmethod(en-us,VS.103).gif "Public method")[Equals(Subscription)](https://msdn.microsoft.com/en-us/library/m:microsoft.reactive.testing.subscription.equals(microsoft.reactive.testing.subscription)(v=VS.103))Checks whether the given subscription is equal to the current instance.Top
 
 ## See Also
 

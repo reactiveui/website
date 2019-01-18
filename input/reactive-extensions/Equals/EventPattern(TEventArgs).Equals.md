@@ -168,7 +168,7 @@ This member is overloaded. For complete information about this member, including
 
 ## Overload List
 
-NameDescription![Public method](images\Hh303103.pubmethod(en-us,VS.103).gif "Public method")[Equals(Object)](https://msdn.microsoft.com/en-us/library/m:system.reactive.eventpattern%601.equals(system.object)(v=VS.103))Compares this type with the specified object. (Overrides [Object.Equals(Object)](https://msdn.microsoft.com/en-us/library/m:system.object.equals(system.object)(v=VS.103)).)![Public method](images\Hh303103.pubmethod(en-us,VS.103).gif "Public method")[Equals(EventPattern<TEventArgs>)](https://msdn.microsoft.com/en-us/library/m:system.reactive.eventpattern%601.equals(system.reactive.eventpattern%7b%600%7d)(v=VS.103))Compares this type with the specified object.Top
+NameDescription![Public method](https://reactiveui.net/assets/img/Hh303103.pubmethod(en-us,VS.103).gif "Public method")[Equals(Object)](https://msdn.microsoft.com/en-us/library/m:system.reactive.eventpattern%601.equals(system.object)(v=VS.103))Compares this type with the specified object. (Overrides [Object.Equals(Object)](https://msdn.microsoft.com/en-us/library/m:system.object.equals(system.object)(v=VS.103)).)![Public method](https://reactiveui.net/assets/img/Hh303103.pubmethod(en-us,VS.103).gif "Public method")[Equals(EventPattern<TEventArgs>)](https://msdn.microsoft.com/en-us/library/m:system.reactive.eventpattern%601.equals(system.reactive.eventpattern%7b%600%7d)(v=VS.103))Compares this type with the specified object.Top
 
 ## See Also
 

@@ -37,7 +37,7 @@ The IQbservable type exposes the following members.
 
 ## Properties
 
-NameDescription![Public property](images\Hh211972.pubproperty(en-us,VS.103).gif "Public property")[ElementType](ElementType\IQbservable.ElementType.md)Gets the type of the element(s) that are returned when the expression tree associated with this instance of IQbservable is executed.![Public property](images\Hh211972.pubproperty(en-us,VS.103).gif "Public property")[Expression](Expression\IQbservable.Expression.md)Gets the expression tree that is associated with the instance of IQbservable.![Public property](images\Hh211972.pubproperty(en-us,VS.103).gif "Public property")[Provider](Provider\IQbservable.Provider.md)Gets the query provider that is associated with this data source.Top
+NameDescription![Public property](https://reactiveui.net/assets/img/Hh211972.pubproperty(en-us,VS.103).gif "Public property")[ElementType](ElementType\IQbservable.ElementType.md)Gets the type of the element(s) that are returned when the expression tree associated with this instance of IQbservable is executed.![Public property](https://reactiveui.net/assets/img/Hh211972.pubproperty(en-us,VS.103).gif "Public property")[Expression](Expression\IQbservable.Expression.md)Gets the expression tree that is associated with the instance of IQbservable.![Public property](https://reactiveui.net/assets/img/Hh211972.pubproperty(en-us,VS.103).gif "Public property")[Provider](Provider\IQbservable.Provider.md)Gets the query provider that is associated with this data source.Top
 
 ## See Also
 
@@ -59,7 +59,7 @@ The [IQbservable](IQbservable\IQbservable.md) type exposes the following members
 
 ## Properties
 
-NameDescription![Public property](images\Hh211972.pubproperty(en-us,VS.103).gif "Public property")[ElementType](ElementType\IQbservable.ElementType.md)Gets the type of the element(s) that are returned when the expression tree associated with this instance of IQbservable is executed.![Public property](images\Hh211972.pubproperty(en-us,VS.103).gif "Public property")[Expression](Expression\IQbservable.Expression.md)Gets the expression tree that is associated with the instance of IQbservable.![Public property](images\Hh211972.pubproperty(en-us,VS.103).gif "Public property")[Provider](Provider\IQbservable.Provider.md)Gets the query provider that is associated with this data source.Top
+NameDescription![Public property](https://reactiveui.net/assets/img/Hh211972.pubproperty(en-us,VS.103).gif "Public property")[ElementType](ElementType\IQbservable.ElementType.md)Gets the type of the element(s) that are returned when the expression tree associated with this instance of IQbservable is executed.![Public property](https://reactiveui.net/assets/img/Hh211972.pubproperty(en-us,VS.103).gif "Public property")[Expression](Expression\IQbservable.Expression.md)Gets the expression tree that is associated with the instance of IQbservable.![Public property](https://reactiveui.net/assets/img/Hh211972.pubproperty(en-us,VS.103).gif "Public property")[Provider](Provider\IQbservable.Provider.md)Gets the query provider that is associated with this data source.Top
 
 ## See Also
 
