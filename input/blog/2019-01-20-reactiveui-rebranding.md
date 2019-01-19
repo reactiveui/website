@@ -1,7 +1,7 @@
 ---
 title: ReactiveUI Rebranding
 category: 
-  - Release Notes
+  - Announcement
 author: Artyom Gorchakov
 ---
 
