@@ -60,6 +60,16 @@ public class AutofacDependencyResolver : IMutableDependencyResolver
 
         builder.Update(_container);
     }
+    
+    public void UnregisterCurrent(Type serviceType, string contract = null)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void UnregisterAll(Type serviceType, string contract = null)
+    {
+        throw new NotImplementedException();
+    }
 
     public IDisposable ServiceRegistrationCallback(Type serviceType, string contract, Action<IDisposable> callback)
     {
@@ -105,11 +115,34 @@ public class AutofacDependencyRegistrar
 
 ```csharp
 var resolver = new AutofacDependencyResolver(container);
-// These Initialize methods will add ReactiveUI platform registrations to your container
-// They MUST be present if you override the default Locator
-resolver.InitializeSplat();
-resolver.InitializeReactiveUI();
+// Assigning your custom resolver to Locator.Current will automatically take care of
+// adding all default Splat and ReactiveUI registrations to your container.
 Locator.Current = resolver;
 ```
 
 From this point on calls `Locator.Current` will go against your custom implementation!
+
+## Bonus
+
+The following is a simple example of using a FuncDependencyResolver with NInject:
+
+```
+var kernel = new StandardKernel();
+var customResolver = new FuncDependencyResolver(
+    getAllServices: (service, contract) =>
+        {
+            if (contract != null)
+                return kernel.GetAll(service, contract);
+            var items = kernel.GetAll(service);
+            var list = items.ToList();
+            return list;
+        },
+    register: (factory, service, contract) =>
+        {
+            var binding = kernel.Bind(service).ToMethod(_ => factory());
+            if (contract != null)
+                binding.Named(contract);
+        },
+    unregisterCurrent: null,
+    unregisterAll: null);
+```
