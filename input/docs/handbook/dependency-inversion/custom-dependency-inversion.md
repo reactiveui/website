@@ -84,6 +84,8 @@ public class AutofacDependencyResolver : IMutableDependencyResolver
 }
 ```
 
+*Note*: Technically, Autofac doesn't provide unregister functionality, but there are ways of getting around it. If interested, refer to [the following SO thread](https://stackoverflow.com/questions/5091101/is-it-possible-to-remove-an-existing-registration-from-autofac-container-builder) for one possibility.
+
 ## Register services
 
 ```csharp
@@ -109,7 +111,6 @@ public class AutofacDependencyRegistrar
     public void RegisterScreen() { }
 }
 ```
-
 
 ## Set the Locator.Current to your implementation
 
