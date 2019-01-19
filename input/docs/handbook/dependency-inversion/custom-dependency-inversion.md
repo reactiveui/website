@@ -126,13 +126,15 @@ From this point on calls `Locator.Current` will go against your custom implement
 
 The following is a simple example of using a FuncDependencyResolver with NInject:
 
-```
+```csharp
 var kernel = new StandardKernel();
 var customResolver = new FuncDependencyResolver(
     getAllServices: (service, contract) =>
         {
             if (contract != null)
+            {
                 return kernel.GetAll(service, contract);
+            }
             var items = kernel.GetAll(service);
             var list = items.ToList();
             return list;
@@ -141,7 +143,9 @@ var customResolver = new FuncDependencyResolver(
         {
             var binding = kernel.Bind(service).ToMethod(_ => factory());
             if (contract != null)
+            {
                 binding.Named(contract);
+            }
         },
     unregisterCurrent: null,
     unregisterAll: null);
