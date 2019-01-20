@@ -9,6 +9,7 @@ ReactiveUI packages are now signed by the dotnet foundation. Only builds from th
 | Platform          | ReactiveUI Package                  | NuGet                | [Events][EventsDocs] Package            |
 | ----------------- | ----------------------------------- | -------------------- | --------------------------------------- |
 | .NET Standard     | [ReactiveUI][CoreDoc]               | [![CoreBadge]][Core] | None                                    |
+|                   | [ReactiveUI.Fody][FodyDoc]          | [![FodyBadge]][Fody] | None                                    |
 | Unit Testing      | [ReactiveUI.Testing][TestDoc]       | [![TestBadge]][Test] | None                                    |
 | Universal Windows | [ReactiveUI][UniDoc]                | [![CoreBadge]][Core] | [ReactiveUI.Events][CoreEvents]         |
 | WPF               | [ReactiveUI.WPF][WpfDoc]            | [![WpfBadge]][Wpf]   | [ReactiveUI.Events.WPF][WpfEvents]      |
@@ -25,6 +26,10 @@ ReactiveUI packages are now signed by the dotnet foundation. Only builds from th
 [CoreEvents]: https://www.nuget.org/packages/ReactiveUI.Events/
 [CoreBadge]: https://img.shields.io/nuget/v/ReactiveUI.svg
 [CoreDoc]: https://reactiveui.net/docs/getting-started/installation/
+
+[Fody]: https://www.nuget.org/packages/ReactiveUI.Fody/
+[FodyDoc]: https://reactiveui.net/docs/handbook/view-models/#managing-boilerplate-code
+[FodyBadge]: https://img.shields.io/nuget/v/ReactiveUI.Fody.svg
 
 [Test]: https://www.nuget.org/packages/ReactiveUI.Testing/
 [TestBadge]: https://img.shields.io/nuget/v/ReactiveUI.Testing.svg
