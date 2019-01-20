@@ -42,39 +42,50 @@ p {
 // documentation sidebar
 .sidebar-menu {
   li a:active {
-    color: #02A1D8;
+    color: #319af3;
   }
   li a:hover {
-    color: #0479A3;
+    color: #319af3;
     text-decoration: underline;
   }
 }
 
 .main-sidebar {
-  padding-top: 128px;
+  padding-top: 60px;
 }
 
 // navigation logo
 .main-header .logo {
-  height: 128px;
+  height: 60px;
   padding: 0;
-  @media (max-width: @screen-sm) {
-    margin-left: -25px;
-    height: 50px;
-    .logo-lg {
-      width: 50px;
-    }
+}
+
+// navigation logo narrow
+@media (max-width: 767px) {
+  .main-header .logo {
+    width: 200px;
+    left: 45%;
   }
 }
 
-.main-header a {
-  height: auto;
-  width: auto !important;
+// navigation logo text
+.logo-lg {
+  position: relative;
+  .logo-caption {
+    font-family: "Dosis", "Source Sans Pro", Helvetica, Arial, sans-serif;
+    position: absolute;
+    font-weight: 700;
+    font-size: 24px;
+    color: #61b2f6;
+    left: 80px;
+    top: 5px;
+  }
+  .logo-image {
+    position: absolute;
+    left: 10px;
+  }
 }
 
-.content-header {
-  padding-top: 32px;
-}
 
 // navigation background
 .top-banner,
@@ -86,7 +97,7 @@ p {
 
 // navigation items
 .main-header .navbar .nav > li > a {
-  color: #02A1D8;
+  color: #319af3;
 }
 
 .main-header .navbar .nav > li >a:hover,
@@ -96,7 +107,7 @@ p {
 .main-header .navbar .nav .open > a:hover,
 .main-header .navbar .nav .open > a:focus,
 .main-header .navbar .nav > .active > a {
-  color: #0479A3;
+  color: #319af3;
   background: none;
 }
 
@@ -108,7 +119,7 @@ p {
 
 .main-header .navbar .nav > li.active a,
 .main-header .navbar .nav > li > a:hover {  
-  border-bottom: 1px solid #0479A3;
+  border-bottom: 1px solid #319af3;
 }
 
 .main-header .navbar .nav > li a.github {
@@ -117,15 +128,15 @@ p {
 
 // navigation button (mobile)
 .navbar-toggle {
-  color: #0479A3;
+  color: #2979bb;
 }
 
 .main-header .navbar .sidebar-toggle {
-  color: #0479A3;
+  color: #2979bb;
   &:hover {
     background-color: white;
     text-decoration: none;
-    color: #0479A3;
+    color: #2979bb;
   }
 }
 
@@ -134,7 +145,7 @@ p {
 }
 
 .infobar {
-  top: 140px;
+  top: 60px;
 }
 
 // for desktop and tablets
@@ -159,8 +170,18 @@ p {
 
 // content header
 .content-header h1 {
-  background: #02a1d8 !important;
-  color: white;
+  background: transparent;
+  font-weight: 200;
+  font-size: 51px;
+  color: #319af3;
+  border: none;
+  padding: 0;
+}
+
+@media (max-width: 767px) {
+  .content-header h1 {
+    font-size: 41px;
+  }
 }
 
 // thx paul - https://reactivex.slack.com/archives/C02AJB872/p1502676096944250
@@ -187,7 +208,7 @@ iframe.embedded-video {
 }
 
 summary {
-  background: #02a1d8;
+  background: #319af3;
   color: white;
   font-weight: bold;
   padding: 10px;
@@ -197,7 +218,7 @@ summary {
 }
 
 pre {
-  border-color: #eeeeee;
+  border: none;
 }
 .hljs {
   display: block;
@@ -218,7 +239,7 @@ pre {
 .hljs-selector-tag,
 .hljs-deletion,
 .hljs-subst {
-  color: #31708f;
+  color: #3f729d;
 }
 .hljs-literal {
   color: #a94442;
@@ -263,4 +284,35 @@ pre {
 // Issue 163
 .affix {
   position: static;
+}
+
+.content h1 {
+	font-style: normal;
+	font-weight: 600;
+}
+
+.sidebar-menu li.selected {
+	background-color: #e3f1fc;
+}
+
+.blockquote {
+	background-color: #fafafa;
+	border-left: 5px solid #319af3;
+	font-size: inherit;
+}
+p a {
+	border-bottom: 1px dashed #319af3;
+	text-decoration: none;
+}
+p a:hover {
+	border-bottom: 1px solid #319af3;
+	text-decoration: none;
+}
+#infobar-headings {
+	margin-top: 20px;
+}
+
+// fixes #175 issue
+.sidebar-menu li.active > a.expand {
+	left: -14px;
 }
