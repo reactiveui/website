@@ -74,8 +74,9 @@ p {
   .logo-caption {
     font-family: "Dosis", "Source Sans Pro", Helvetica, Arial, sans-serif;
     position: absolute;
+    font-weight: 700;
     font-size: 25px;
-    color: #777788;
+    color: #61b2f6;
     left: 80px;
     top: 5px;
   }
@@ -175,6 +176,12 @@ p {
   color: #319af3;
   border: none;
   padding: 0;
+}
+
+@media (max-width: 767px) {
+  .content-header h1 {
+    font-size: 41px;
+  }
 }
 
 // thx paul - https://reactivex.slack.com/archives/C02AJB872/p1502676096944250
@@ -303,4 +310,9 @@ p a:hover {
 }
 #infobar-headings {
 	margin-top: 20px;
+}
+
+// fixes #175 issue
+.sidebar-menu li.active > a.expand {
+	left: -14px;
 }
