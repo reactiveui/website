@@ -10,7 +10,7 @@
             @if(!string.IsNullOrWhiteSpace(baseSiteSearchUrl))
             {
                 <form action="@baseSiteSearchUrl" method="get">
-                    <label for="sitesearch">Search the docs</label>
+                    <label for="sitesearch">SEARCH THE DOCS</label>
                     <input id="sitesearch" type="hidden" name="sitesearch" value="@(Context.String(Keys.Host) + "/docs/")" />
                     <input type="text" name="q" />
                 </form>
