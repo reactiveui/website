@@ -2,13 +2,12 @@ Title: Installation
 Order: 10
 ---
 
-# Install ReactiveUI Packages
-
 ReactiveUI packages are now signed by the dotnet foundation. Only builds from their infrastructure carry this seal.  ReactiveUI uses Azure Dev Ops for our CI pipeline. Each platform has packages that extend the base ReactiveUI offerings for it's concerns.  Installing the correct packages for the correct platform can be somewhat of a pain.
 
 | Platform          | ReactiveUI Package                  | NuGet                | [Events][EventsDocs] Package            |
 | ----------------- | ----------------------------------- | -------------------- | --------------------------------------- |
 | .NET Standard     | [ReactiveUI][CoreDoc]               | [![CoreBadge]][Core] | None                                    |
+|                   | [ReactiveUI.Fody][FodyDoc]          | [![FodyBadge]][Fody] | None                                    |
 | Unit Testing      | [ReactiveUI.Testing][TestDoc]       | [![TestBadge]][Test] | None                                    |
 | Universal Windows | [ReactiveUI][UniDoc]                | [![CoreBadge]][Core] | [ReactiveUI.Events][CoreEvents]         |
 | WPF               | [ReactiveUI.WPF][WpfDoc]            | [![WpfBadge]][Wpf]   | [ReactiveUI.Events.WPF][WpfEvents]      |
@@ -23,40 +22,44 @@ ReactiveUI packages are now signed by the dotnet foundation. Only builds from th
 
 [Core]: https://www.nuget.org/packages/ReactiveUI/
 [CoreEvents]: https://www.nuget.org/packages/ReactiveUI.Events/
-[CoreBadge]: https://img.shields.io/nuget/vpre/ReactiveUI.svg
+[CoreBadge]: https://img.shields.io/nuget/v/ReactiveUI.svg
 [CoreDoc]: https://reactiveui.net/docs/getting-started/installation/
 
+[Fody]: https://www.nuget.org/packages/ReactiveUI.Fody/
+[FodyDoc]: https://reactiveui.net/docs/handbook/view-models/#managing-boilerplate-code
+[FodyBadge]: https://img.shields.io/nuget/v/ReactiveUI.Fody.svg
+
 [Test]: https://www.nuget.org/packages/ReactiveUI.Testing/
-[TestBadge]: https://img.shields.io/nuget/vpre/ReactiveUI.Testing.svg
+[TestBadge]: https://img.shields.io/nuget/v/ReactiveUI.Testing.svg
 [TestDoc]: https://reactiveui.net/docs/handbook/testing/
 
 [UniDoc]: https://reactiveui.net/docs/getting-started/installation/universal-windows-platform
 
 [Wpf]: https://www.nuget.org/packages/ReactiveUI.WPF/
 [WpfEvents]: https://www.nuget.org/packages/ReactiveUI.Events.WPF/
-[WpfBadge]: https://img.shields.io/nuget/vpre/ReactiveUI.WPF.svg
+[WpfBadge]: https://img.shields.io/nuget/v/ReactiveUI.WPF.svg
 [WpfDoc]: https://reactiveui.net/docs/getting-started/installation/windows-presentation-foundation
 
 [Win]: https://www.nuget.org/packages/ReactiveUI.WinForms/
 [WinEvents]: https://www.nuget.org/packages/ReactiveUI.Events.WinForms/
-[WinBadge]: https://img.shields.io/nuget/vpre/ReactiveUI.WinForms.svg
+[WinBadge]: https://img.shields.io/nuget/v/ReactiveUI.WinForms.svg
 [WinDoc]: https://reactiveui.net/docs/getting-started/installation/windows-forms
 
 [Xam]: https://www.nuget.org/packages/ReactiveUI.XamForms/
 [XamEvents]: https://www.nuget.org/packages/ReactiveUI.Events.XamForms/
-[XamBadge]: https://img.shields.io/nuget/vpre/ReactiveUI.XamForms.svg
+[XamBadge]: https://img.shields.io/nuget/v/ReactiveUI.XamForms.svg
 [XamDoc]: https://reactiveui.net/docs/getting-started/installation/xamarin-forms
 [XamE]: https://www.nuget.org/packages/ReactiveUI.Events.XamEssentials/
 
 [Dro]: https://www.nuget.org/packages/ReactiveUI.AndroidSupport/
-[DroBadge]: https://img.shields.io/nuget/vpre/ReactiveUI.AndroidSupport.svg
+[DroBadge]: https://img.shields.io/nuget/v/ReactiveUI.AndroidSupport.svg
 [DroDoc]: https://reactiveui.net/docs/getting-started/installation/xamarin-android
 
 [MacDoc]: https://reactiveui.net/docs/getting-started/installation/xamarin-mac
 [IosDoc]: https://reactiveui.net/docs/getting-started/installation/xamarin-ios
 
 [Ava]: https://www.nuget.org/packages/Avalonia.ReactiveUI/
-[AvaBadge]: https://img.shields.io/nuget/vpre/Avalonia.ReactiveUI.svg
+[AvaBadge]: https://img.shields.io/nuget/v/Avalonia.ReactiveUI.svg
 [AvaDoc]: https://reactiveui.net/docs/getting-started/installation/avalonia
 [EventsDocs]: https://reactiveui.net/docs/handbook/events/
 
