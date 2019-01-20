@@ -2,8 +2,6 @@ Title: Installation
 Order: 10
 ---
 
-# Install ReactiveUI Packages
-
 ReactiveUI packages are now signed by the dotnet foundation. Only builds from their infrastructure carry this seal.  ReactiveUI uses Azure Dev Ops for our CI pipeline. Each platform has packages that extend the base ReactiveUI offerings for it's concerns.  Installing the correct packages for the correct platform can be somewhat of a pain.
 
 | Platform          | ReactiveUI Package                  | NuGet                | [Events][EventsDocs] Package            |
