@@ -288,7 +288,7 @@ pre {
 
 .content h1 {
 	font-style: normal;
-	font-weight: 600;
+	font-weight: 400;
 }
 
 .sidebar-menu li.selected {
@@ -318,8 +318,14 @@ p a:hover {
 }
 
 // rounded menu buttons
-.main-header .navbar .nav > li.active a {
+.main-header .navbar .nav > li.active a,
+.main-header .navbar .nav > li > a:hover {
 	background: #f5f5f5;
 	border-radius: 70px;
 	border: none;
+}
+
+#infobar-headings > h6 {
+    font-weight: bold;
+	text-transform: uppercase;
 }
