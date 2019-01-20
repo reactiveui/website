@@ -1,6 +1,6 @@
 ReactiveUI includes a few tools to help testing, built on what Reactive Extensions for .NET already include. The utilities are included in the `ReactiveUI.Testing` NuGet package. Make sure to install it into your unit tests project.
 
-## Custom Scheduler
+# Custom Scheduler
 
 > Scheduling, and therefore threading, is generally avoided in test scenarios as it can introduce race conditions which may lead to non-deterministic tests — [Intro to Rx @ Testing Rx](http://introtorx.com/Content/v1.0.10621.0/16_TestingRx.html)
 
@@ -40,7 +40,7 @@ public interface ISchedulerProvider
 }
 ```
 
-## Unit Tests
+# Unit Tests
 
 Then, in unit tests project, you can inject a `TestScheduler` instance that allows you to play with time. There are a few more utility classes to help handle testing, see details on the [API documentation site](https://reactiveui.net/api/reactiveui.testing/testutils/). 
 
@@ -72,7 +72,7 @@ _errorMessage = _loginCommand.ThrownExceptions
     scheduler: RxApp.MainThreadScheduler);
 ```
 
-## Playing With Ticks
+# Playing With Ticks
 
 If you have an asynchronous scenario in your view model implementation (and you do, for sure), you can use `.AdvanceBy` method to play with ticks. See [AdvanceBy](http://introtorx.com/Content/v1.0.10621.0/16_TestingRx.html#AdvanceBy) docs for details. The example below provides a demo view model code and a unit test for it.
 
