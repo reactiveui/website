@@ -65,105 +65,11 @@ namespace System.Collections.Generic
         public event NotifyCollectionChangedEventHandler CollectionChanged;
 
         public int Count
-
-### Example File:
-
-``ObservableLinkedList`1.cs:``
-
-```C#
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.ComponentModel;
-using System.Diagnostics;
-using Microsoft.Win32;
-
-namespace System.Collections.Generic
-{
-    public partial class ObservableLinkedList<T> 
-        : INotifyCollectionChanged, INotifyPropertyChanged
-    {
-        private ObservableLinkedListNode<T> _head;
-        private int _count;
-
-        public ObservableLinkedList(IEnumerable<T> items)
         {
-            if (items == null)
-            {
-                throw new ArgumentNullException(nameof(items));
-            }
-
-            foreach (T item in items)
-            {
-                AddLast(item);
-            }
+            get { return _count; }
         }
 
-        public event NotifyCollectionChangedEventHandler CollectionChanged;
-
-        public int Count => _count;
-
-        public ObservableLinkedListNode AddLast(T value)
-        {
-            var newNode = new LinkedListNode<T>(this, value);
-
-            InsertNodeBefore(_head, node);
-        }
-
-        protected virtual void OnCollectionChanged(NotifyCollectionChangedEventArgs e)
-        {
-            NotifyCollectionChangedEventHandler handler = CollectionChanged;
-            if (handler != null)
-            {
-                handler(this, e);
-            }
-        }
-
-        private void InsertNodeBefore(LinkedListNode<T> node, LinkedListNode<T> newNode)
-        {
-           ...
-        }
-        
-        ...
-    }
-}
-```
-
-``ObservableLinkedList`1.ObservableLinkedListNode.cs:``
-
-```C#
-using System;
-
-namespace System.Collections.Generics
-{
-    partial class ObservableLinkedList<T>
-    {
-        public class ObservableLinkedListNode
-        {
-            private readonly ObservableLinkedList<T> _parent;
-            private readonly T _value;
-
-            internal ObservableLinkedListNode(ObservableLinkedList<T> parent, T value)
-            {
-                Debug.Assert(parent != null);
-
-                _parent = parent;
-                _value = value;
-            }
-
-            public T Value
-            {
-               get { return _value; }
-            }
-        }
-
-        ...
-    }
-}
-```
-
-        public ObservableLinkedListNode AddLast(T value)
+        public ObservableLinkedListNode AddLast(T value) 
         {
             var newNode = new LinkedListNode<T>(this, value);
 
