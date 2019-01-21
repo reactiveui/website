@@ -1,7 +1,7 @@
-#tool "nuget:https://api.nuget.org/v3/index.json?package=Wyam&version=2.1.2"
-#addin "nuget:https://api.nuget.org/v3/index.json?package=Cake.Git&version=0.19.0"
-#addin "nuget:https://api.nuget.org/v3/index.json?package=Cake.Wyam&version=2.1.2"
-#addin "nuget:https://api.nuget.org/v3/index.json?package=Octokit&version=0.32.0"
+#tool "nuget:?package=Wyam&version=2.1.2"
+#addin "nuget:?package=Cake.Git&version=0.19.0"
+#addin "nuget:?package=Cake.Wyam&version=2.1.2"
+#addin "nuget:?package=Octokit&version=0.32.0"
 
 using Octokit;
 
@@ -67,7 +67,7 @@ Task("Build")
         {
             Recipe = "Docs",
             Theme = "Samson",
-            UpdatePackages = true
+            UpdatePackages = true,
         });
             
         Zip("./output", "output.zip", "./output/**/*");
@@ -87,13 +87,22 @@ Task("Preview")
         });
     });
 
-// Assumes Wyam source is local and at ../Wyam
+// Assumes Wyam source is local and at ../../WyamIO/Wyam
 Task("Debug")
     .Does(() =>
     {
-        DotNetCoreBuild("../Wyam/tests/integration/Wyam.Examples.Tests/Wyam.Examples.Tests.csproj");        
-        DotNetCoreExecute("../Wyam/tests/integration/Wyam.Examples.Tests/bin/Debug/netcoreapp2.1/Wyam.dll",
-            "-a \"../Wyam/tests/integration/Wyam.Examples.Tests/bin/Debug/netcoreapp2.1/**/*.dll\" -r \"docs -i\" -t \"../Wyam/themes/Docs/Samson\" -p");
+        var wyamFolder = MakeAbsolute(Directory("../../wyamio/Wyam")).ToString();
+        var wyamExecutable = wyamFolder + "/src/clients/Wyam/bin/Debug/netcoreapp2.1/Wyam.dll";
+        var wyamIntegrationFolder = wyamFolder + "/tests/integration/Wyam.Examples.Tests";
+        var wyamIntegrationBinFolder = wyamIntegrationFolder + "/bin/Debug/netcoreapp2.1";
+        var wyamProject = wyamIntegrationFolder + "/Wyam.Examples.Tests.csproj";
+
+
+        Information($"Building project {wyamProject}");
+        DotNetCoreBuild(wyamProject);        
+        Information($"Running WYAM at {wyamExecutable}");
+        DotNetCoreExecute(wyamExecutable,
+            $"-a \"{wyamIntegrationBinFolder}/**/*.dll\" -r \"docs -i\" -t \"{wyamFolder}/themes/Docs/Samson\" -p");
     });
 
 //////////////////////////////////////////////////////////////////////
