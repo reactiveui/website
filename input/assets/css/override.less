@@ -163,7 +163,7 @@ p {
 }
 
 .code-sample pre {
-  padding: 8px !important;
+  padding: 12px !important;
   background: rgba(0, 0, 0, 0.024);
   border: none;
 }
@@ -171,7 +171,7 @@ p {
 // content header
 .content-header h1 {
   background: transparent;
-  font-weight: 200;
+  font-weight: 300;
   font-size: 51px;
   color: #319af3;
   border: none;
@@ -326,6 +326,57 @@ p a:hover {
 }
 
 #infobar-headings > h6 {
-    font-weight: bold;
-	text-transform: uppercase;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+// landing page styles.
+.branding-title {
+  color: #319af3;
+  font-size: 51px;
+  font-weight: 300;
+  margin-top: 10px;
+}
+.branding-caption {    
+  margin-top: 0;
+  margin-bottom: 10px;
+  line-height: 1.45em;
+  font-weight: 300;
+  font-size: 21px;
+}
+.branding-button {
+  border-radius: 30px;
+  border: 1px solid #319af3;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+  margin-bottom: 10px;
+  padding: 7px 15px;
+}
+.secondary-button {
+  border-color: #f5f5f5;
+  background-color: #f5f5f5;
+  transition: all 0.3s ease;
+  margin-bottom: 10px;
+  color: #777777;
+}
+.branding-button:hover {
+  transition: all 0.3s ease;
+  border-color: #319af3;
+  background-color: #319af3;
+  text-decoration: none;
+  color: #ffffff;
+}
+.branding-subheader {
+  font-weight: 300;
+  font-size: 30px;
+}
+.branding-code {
+  font-size: 14px;
+  line-height: 1.6em;
+}
+@media (max-width: 767px) {
+  .branding-image {
+    max-width: 40%;
+  }
 }
