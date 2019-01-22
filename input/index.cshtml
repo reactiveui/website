@@ -37,12 +37,12 @@ ShowInNavbar: false
                     <h3 class="branding-subheader">Declarative, composable code!</h3>
                     <div class="code-sample">
                     	<pre class="branding-code">
-<span class="text-danger">this</span>.<span class="text-info">WhenAnyValue</span>(x => x.SearchQuery)
-    .<span class="text-info">Throttle</span>(<span class="text-danger">TimeSpan</span>.<span class="text-info">FromMilliseconds</span>(<span class="text-danger">800</span>))
-    .<span class="text-info">Select</span>(query => query?.<span class="text-info">Trim</span>())
-    .<span class="text-info">DistinctUntilChanged</span>()
-    .<span class="text-info">Where</span>(query => !<span class="text-danger">String</span>.<span class="text-info">IsNullOrWhiteSpace</span>(query))
-    .<span class="text-info">InvokeCommand</span>(ExecuteSearch);</pre>
+<a class="text-danger" href="/docs/handbook/view-models/">this</a>.<a class="text-info" href="/docs/handbook/when-any/">WhenAnyValue</a>(x => x.SearchQuery)
+    .<a class="text-info" href="http://reactivex.io/documentation/operators/debounce.html">Throttle</a>(<span class="text-danger">TimeSpan</span>.<span class="text-info">FromMilliseconds</span>(<span class="text-danger">800</span>))
+    .<a class="text-info" href="http://reactivex.io/documentation/operators/map.html">Select</a>(query => query?.<span class="text-info">Trim</span>())
+    .<a class="text-info" href="http://reactivex.io/documentation/operators/distinct.html">DistinctUntilChanged</a>()
+    .<a class="text-info" href="http://reactivex.io/documentation/operators/filter.html">Where</a>(query => !<span class="text-danger">String</span>.<span class="text-info">IsNullOrWhiteSpace</span>(query))
+    .<a class="text-info" href="/docs/handbook/commands/">InvokeCommand</a>(ExecuteSearch);</pre>
                     </div>
                 </div>
             </div>
