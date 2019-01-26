@@ -2,8 +2,8 @@ For [WhenActivated](../when-activated) to work, you need to use custom base clas
 
 ```cs
 // Activatable ViewModel.
-public class ViewModel : ReactiveObject, ISupportsActivation 
-{ 
+public class ViewModel : ReactiveObject, ISupportsActivation
+{
     public ViewModelActivator Activator { get; }
 
     public ViewModel()

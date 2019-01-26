@@ -4,13 +4,13 @@ ReactiveUI recommends the use of DynamicData framework for collection based oper
 
 Dynamic Data is reactive collections based on Rx.Net. 
 
-Whenever a change is made to one of Dynamic Data's collections a notification is produced. A notification reflects what has changed in the collection. This notification is represented as a `ChangeSet ` which can contain one or more changes.  Each item in the change set is represented as a `Change` which contains information about each individual change since the last notification.
+Whenever a change is made to one of Dynamic Data's collections a notification is produced. A notification reflects what has changed in the collection. This notification is represented as a `ChangeSet` which can contain one or more changes.  Each item in the change set is represented as a `Change` which contains information about each individual change since the last notification.
 
 The changes sets are published as an `IObservable<ChangeSet>`.  
 
 This basic signature is the monad of Dynamic Data on which a rich set of Linq operators are provided which enable declarative querying and manipulation of data as it changes, and in a thread safe manner.
 
-## Maintaining and consuming data 
+## Maintaining and consuming data
 
 Dynamic Data provides two specialized  `IObservable<ChangeSet>`  producing collections:
 
@@ -27,9 +27,7 @@ Additionally there are several other means of creating observable changes sets f
 
 Dynamic data collections are not an alternative implementation to ```ObservableCollection<T>```.  The architecture of it has been based first and foremost on domain driven concepts. The idea is you load and maintain your data in one of the provided collections which can then use operators to manipulate the data without the complexity of managing collections. It can be used to react to your collections however you want, be it binding to a screen or producing some other kind of notification. The collections can be connected to as many times as required and a single collection can in turn become the source of many other derived collections.
 
-## For ReactiveUI users
-  
-Dynamic data is also not an alternative to ReactiveUI. ReactiveUI is a cross platform MVVM library whereas DynamicData is a cross platform library which aims take the pain out of the management of in memory data. They are sister projects, complement each other and are easily used side by side.
+## How to use it
 
 If you are already using ```ObservableCollection<T>``` the easiest and quickest way to try out dynamic data is to use the extension ```.ToObservableChangeSet()```  which produces an observable change set and subsequently enables Dynamic Data operators.
 
@@ -56,12 +54,14 @@ you have a derived observable cache.
 A caveat to this approach is if you are using ```myList``` will likely not be thread safe. Assuming ```myList``` is bound to a screen, then the observable change set is created and notified on the UI thread which I avoid for all operations except binding. The other approach is to create a data source first and bind later.
 
 ```cs
-var myList = new SourceList<T>() 
+var myList = new SourceList<T>()
 var myConnection = myList
     .Connect() // make the source an observable change set
     .\\some other operation
 ```
-or similarly for the observable cache 
+
+or similarly for the observable cache
+
 ```cs
 var myCache = new SourceCache<T, int>(t => t.Id) 
 var myConnection = myCache
@@ -79,8 +79,8 @@ var myBindingOperation = mySource
     .Bind(out bindingData)
     .Subscribe(); 
 ```
-The API for the above is the same for cache and list.
 
+The API for the above is the same for cache and list.
 
 ## So what's the difference between an observable list and an observable cache
 
@@ -102,3 +102,41 @@ var databasesValid = collectionOfReactiveObjects
 ```
 
 See more examples in [DynamicData.Snippets](https://github.com/RolandPheasant/DynamicData.Snippets/tree/master/DynamicData.Snippets) project.
+
+## Tips to converting ReactiveList/IReactiveDerivedList to DynamicData
+
+* If you are using `ReactiveList<T>`, and only adding/removing from the UI thread use `ObservableCollectionExtended<T>`. It provides similar functionality where you `AddRange()` and suppress notifications. This approach should only be used if you are doing Single Threaded operations and wanting to mutate your data.
+  A lot of users try to do the following even though it's unnecessary for single threaded applications.
+
+```cs
+var myList = new SourceList<T>()
+var myConnection = myList
+    .Connect() // make the source an observable change set
+    .ObserveOn(RxApp.MainThreadScheduler)
+    .Bind(out _myOutputList)
+    .Subscribe();
+```
+
+* A common mistake a lot of users make is trying to expose DynamicData classes to the world. Use the `Bind()` method instead to expose your data through a `ReadOnlyObservableCollection<T>` field, which you then expose as a property.
+* Try to reuse your `IObservableChangeSet<T>` where it makes sense. It's a expensive operation to generate and you can use the Reactive Extension's method `Publish()`.
+
+```cs
+// use standard rx Publish() / Connect() to share published changesets
+var shared = _source.Connect().Publish();
+var selectedChanged = shared.WhenPropertyChanged(si => si.IsSelected).ToUnit().StartWith(Unit.Default);
+shared.ToCollection().CombineLatest(selectedChanged, (items, _) => items);
+shared.Maximum(i => i).Subscribe(max => Max = max);
+shared.Connect();
+```
+
+* [Common operations](https://github.com/RolandPheasant/DynamicData#consuming-observable-change-sets) in DynamicData have slightly different names than Reactive Extension operators.
+  * `Where()` is `Filter()`
+  * `Select()` is `Transform()`
+
+## Other Resources
+
+* [DynamicData GitHub page](https://github.com/RolandPheasant/DynamicData)
+* [DynamicData Snippets](https://github.com/RolandPheasant/DynamicData.Snippets) - Snippets curated based on small example problems
+* [DynamicData Trader App](https://github.com/RolandPheasant/Dynamic.Trader) - A sample stock trading application showing off various implementations.
+* [DynamicData Tail Blazer](https://github.com/RolandPheasant/TailBlazer) - A sample closer to a end application.
+* [DynamicData Samplz](https://github.com/RolandPheasant/DynamicData.Samplz) - More advanced snippets.
