@@ -4,7 +4,7 @@ A core part of being able to use the MVVM pattern is the very specific relations
 * Bindings are written via Expressions. This means that they are strongly typed, and renaming a ViewModel property, or a control in the UI layout without updating the binding, the build will fail.
 * Controlling how types bind to properties is flexible and can be customized.
 
-# Getting Started
+## Getting Started
 
 In order to use bindings in the View, you must first implement `IViewFor<TViewModel>` on your View. Depending on the platform, you must implement it differently:
 
@@ -40,7 +40,7 @@ For a detailed overview of the bindings on each platform, see the following sect
 
 * [Avalonia UI](./avalonia)
 
-# Types of Bindings
+## Types of Bindings
 
 Once you implement `IViewFor<T>`, binding methods are now available as extension methods on your class, as well as [activation and deactivation](../when-activated) feature for your views and associated view models. Like many other things in ReactiveUI, you should only set up bindings in a constructor or even better in a [WhenActivated](../when-activated) block.
 
@@ -50,10 +50,10 @@ Once you implement `IViewFor<T>`, binding methods are now available as extension
   to the View.
 
 ```csharp
-this.OneWayBind(ViewModel, 
-    viewModel => viewModel.Name, 
+this.OneWayBind(ViewModel,
+    viewModel => viewModel.Name,
     view => view.Name.Text);
-    
+
 // OR
 
 this.WhenAnyValue(x => x.ViewModel.Name)
@@ -72,21 +72,21 @@ this.Bind(ViewModel,
 * **BindCommand:** - Bind an `ICommand` to a control, or to a specific event on that control (how this is implemented depends on the UI framework):
 
 ```csharp
-// Bind the OK command to the button. 
-// This uses the default "Click" event on XAML-based platforms 
+// Bind the OK command to the button.
+// This uses the default "Click" event on XAML-based platforms
 // and equivalent events on Android and iOS.
-this.BindCommand(ViewModel, 
-    viewModel => viewModel.OkCommand, 
+this.BindCommand(ViewModel,
+    viewModel => viewModel.OkCommand,
     view => view.OkButton);
 
 // Bind the OK command to when the user presses a key
-this.BindCommand(ViewModel, 
-    viewModel => viewModel.OkCommand, 
-    view => view.RootView, 
+this.BindCommand(ViewModel,
+    viewModel => viewModel.OkCommand,
+    view => view.RootView,
     "KeyUp");
 ```
 
-# Converting between types
+## Converting between types
 
 Direct bindings between properties are convenient, but often the two types are not assignable to each other. For example, binding an "Age" property to a TextBox would normally fail, because the TextBox expects a string value. Instead, ReactiveUI has an extensible system for coercing between types.
 
@@ -105,7 +105,7 @@ this.OneWayBind(ViewModel,
 
 You can also register converters globally and convert types for two-way bindings. See [Value Converters](./value-converters) page for details.
 
-# Choosing when to update the source
+## Choosing when to update the source
 
 By default, the source of a binding will be updated when the target changes, which is equivalent to setting `UpdateSourceTrigger = PropertyChanged` on a WPF binding. Sometimes it is desirable to have more fine-grained control over when the source will be updated (for example, the binding updating will trigger some expensive work which isn't necessary on every keystroke).
 
