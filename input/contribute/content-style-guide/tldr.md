@@ -12,6 +12,7 @@ Good content is:
 * Appropriate
 
 # Voice and tone
+
 ReactiveUI’s voice is:
 
 * Human
@@ -24,15 +25,18 @@ Our tone changes depending on the situation, but it's generally informal. We hav
 Our priorities are to educate our users without patronizing or confusing them, so they can get their work done and get on with their lives.
 
 # Writing about people
+
 We write and build apps with a person-first perspective. 
 
 * Don't reference age or disability unless it’s relevant to what you’re writing.
 * Avoid gendered language and use the singular "they."
 * When writing about a person, use their preferred pronouns; if you don’t know those, just use their name.
+* In online conversations unless you know their preferences around their name use their username. You can use in Slack for instance can use @username.
 
 Related resource: [The Conscious Style Guide](http://consciousstyleguide.com/).
 
 # Grammar and mechanics
+
 * Some people will read every word you write. Others will just scan. Help everyone by grouping related ideas together and using descriptive headers and subheaders.
 * Focus your message, and create a hierarchy of information. Lead with the main point or the most important content.
 * Use active voice and positive language.
@@ -47,6 +51,7 @@ Related resource: [The Conscious Style Guide](http://consciousstyleguide.com/).
 * When in doubt, read your writing out loud.
 
 # Web elements
+
 * Organize your page around one topic.
 * Use clear, descriptive terms that relate to the topic in titles and headings.
 * Give every image descriptive alt text.
@@ -63,6 +68,7 @@ Related resource: [The Conscious Style Guide](http://consciousstyleguide.com/).
 * Use lists to present steps, groups, or sets of info. Set up your list with a brief introduction. Number lists when the order of information is important.
 
 # Writing for accessibility
+
 * Create a hierarchy, with the most important information first.
 * Place similar topics in the same paragraph, and clearly separate different topics with headings.
 * Use plain language. Write short sentences and familiar words.
