@@ -18,7 +18,7 @@ For this example we will use [Rg.Plugins.Popup](https://github.com/rotorgames/Rg
 
 The first thing we need to do is bridge the `PopupPage`, which is a concrete implementation, by extending from `IViewFor`.
 
-``` csharp
+``` cs
  public abstract class BasePopupPage<TViewModel> : PopupPage, IViewFor<TViewModel>
         where TViewModel : class
     {
@@ -66,7 +66,7 @@ The first thing we need to do is bridge the `PopupPage`, which is a concrete imp
 
 From here all we need to inherit from `BasePopupPage`.
 
-``` csharp
+``` cs
     public partial class ExtendingPopupPage : BasePopupPage<ExtendingPopupViewModel>
     {
         public ExtendingPopupPage()
@@ -80,7 +80,7 @@ From here all we need to inherit from `BasePopupPage`.
 
 In our XAML we need to make sure that we inherit from the same page so that the partial class will resolve correctly.  That should look similar to below.
 
-``` xaml
+``` xml
 <ui:BasePopupPage
     x:TypeArguments="ui:ExtendingPopupViewModel"
     xmlns="http://xamarin.com/schemas/2014/forms"
