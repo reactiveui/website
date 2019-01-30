@@ -4,20 +4,16 @@ Here are some guides on how to upgrade to newer features.
 
 ## Net Standard 2.0
 
-As of version 8.0 of ReactiveUI, support for [.NET Standard](https://docs.microsoft.com/en-us/dotnet/standard/net-standard) will be included.
-
-We recommend using .Net Standard in any utility libraries you develop that are meant to be cross platform.
+As of version 8.0 of ReactiveUI, support for [.NET Standard](https://docs.microsoft.com/en-us/dotnet/standard/net-standard) will be included. We recommend using .Net Standard in any utility libraries you develop that are meant to be cross platform.
 
 Edit your .Net Standard project file and locate the following:
-
-  then change it as such:
 
 ```xml
 <PropertyGroup>
   <TargetFramework>netstandard2.0</TargetFramework>
 </PropertyGroup>
 <ItemGroup>
-  <PackageReference Include="ReactiveUI" Version="9.4.1" />
+  <PackageReference Include="ReactiveUI" Version="9.9.1" />
 </ItemGroup>
 ```
 
@@ -29,7 +25,7 @@ Follow the [Upgrade Guide](https://docs.microsoft.com/en-us/nuget/reference/migr
 
 If you have any packages that rely on `System.Reactive` less than v4, make sure you include a `PackageReference` to `System.Reactive.Compatibility`.
 
-A tip in the new PackageReference you no longer have to include dependencies such as `System.Reactive` unless you want to deliberately upgrade to a newer version then we have set. We recommend only including `ReactiveUI` and [Platform Packages](../getting-started/installation/index.md).
+A tip in the new PackageReference you no longer have to include dependencies such as `System.Reactive` unless you want to deliberately upgrade to a newer version then we have set. We recommend only including `ReactiveUI` and [Platform Packages](../getting-started/installation/).
 
 TIP: if the upgrade option does not show when right clicking on the `packages.config` file, make sure that PackageReference are your default choice under Tools -> Options -> NuGet Package Manager -> General, You can change the "Default package management format" to "PackageReference".
 
@@ -37,7 +33,7 @@ TIP: if the upgrade option does not show when right clicking on the `packages.co
 
 We had to introduce a number of new NuGet packages for various platforms. This is because Visual Studio for Mac would be looking for Windows only symbols if we didn't exclude them from the main package.
 
-See [Platform Package](../getting-started/installation/index.md) for more details.
+See [Platform Package](../getting-started/installation/) for more details.
 
 NOTE: The Event packages also are separated for some platforms also.
 
@@ -59,10 +55,10 @@ someCommand.Execute(Unit.Default).Subscribe();
 
 ## Use Interactions instead of UserError
 
-UserError were replaced by a much more generic mechanism called [Interactions](../interactions/index.md).
+UserError were replaced by a much more generic mechanism called [Interactions](../interactions/).
 
 ## Use DynamicData instead of ReactiveList
 
 ReactiveList was starting to get rather buggy and a maintenance issue for maintainers.
 
-We decided to recommend [DynamicData](../collections/index.md) as many of the maintainers were already using that library.
+We decided to recommend [DynamicData](../collections/) as many of the maintainers were already using that library.
