@@ -1,7 +1,7 @@
 Title: Windows Presentation Framework
 ---
 
-Ensure that you install `reactiveui.wpf` into your application.
+Ensure that you install `ReactiveUI.WPF` into your application.
 
 Your viewmodels should inherit from `ReactiveObject`
 

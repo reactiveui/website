@@ -1,11 +1,13 @@
 Title: Xamarin Android
 ---
 
+Ensure that you install `ReactiveUI.AndroidSupport` into your applications.
+
 Your viewmodels should inherit from `ReactiveObject`
 
 - https://reactiveui.net/api/reactiveui/reactiveobject/
 
-Use wireupcontrols
+Use `WireUpControls`
 
 - https://reactiveui.net/docs/handbook/data-binding/xamarin-android/wire-up-controls
 

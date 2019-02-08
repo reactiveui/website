@@ -1,6 +1,6 @@
 # Windows Forms
 
-Ensure that you install `reactiveui.winforms` into your application.
+Ensure that you install `ReactiveUI.WinForms` into your application.
 
 Your viewmodels should inherit from `ReactiveObject`
 
