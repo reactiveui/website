@@ -158,6 +158,8 @@ public class ViewModel : ReactiveObject
 }
 ```
 
+> **Note** If you are updating an observable list or an observable cache from a background thread, adding `.ObserveOn(RxApp.MainThreadScheduler)` right before a call to `.Bind()` might be neccessary, to ensure the updates arrive on the UI thread.
+
 # Tracking Changes in Collections of Reactive Objects
 
 DynamicData supports change tracking for classes that implement the `INotifyPropertyChanged` interface — `ReactiveObject`s. For example, if you'd like to do a `WhenAnyValue` on each element in a collection of changing objects, use the `AutoRefresh()` DynamicData operator:
