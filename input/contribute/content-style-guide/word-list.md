@@ -31,7 +31,8 @@ These words can be slippery. Here’s how we write them.
 * website
 * WiFi
 
-# Words to avoid
+## Words to avoid
+
 * crazy, insane, or similar words to describe people
 * crushing it, killing it
 * funnel, incentivize, leverage, disruption, thought leader, or other fluffy corporate terms

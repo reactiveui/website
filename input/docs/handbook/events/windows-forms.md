@@ -1,5 +1,3 @@
-# Windows Forms
-
 See https://github.com/reactiveui/ReactiveUI/issues/997 and https://github.com/reactiveui/ReactiveUI/issues/758
 
 Gluck (https://github.com/gluck) has published an unoffical forms package which from a fork of ReactiveUI repo:

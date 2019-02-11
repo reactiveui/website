@@ -1,6 +1,6 @@
 # Windows Forms
 
-Ensure that you install `reactiveui.winforms` into your application.
+Ensure that you install `ReactiveUI.WinForms` into your application.
 
 Your viewmodels should inherit from `ReactiveObject`
 
@@ -13,11 +13,11 @@ Use `ISupportsActivation` and `WhenActivated` for lifecycle
 
 Keep references to your subscriptions
 
-- https://reactiveui.net/docs/concepts/reactive-programming/subscriptions#lifecycle
+- https://reactiveui.net/docs/reactive-programming#lifecycle
 
 Use disposables to manage lifetime, scope and resources:
 
-- https://reactiveui.net/docs/concepts/reactive-programming/disposables
+- https://reactiveui.net/docs/reactive-programming#disposables
 
 Don't use eventhandlers, use the extension methods shipped in `reactiveui.events.winforms` instead
 

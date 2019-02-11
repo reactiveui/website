@@ -1,11 +1,13 @@
 Title: Xamarin Android
 ---
 
+Ensure that you install `ReactiveUI.AndroidSupport` into your applications.
+
 Your viewmodels should inherit from `ReactiveObject`
 
 - https://reactiveui.net/api/reactiveui/reactiveobject/
 
-Use wireupcontrols
+Use `WireUpControls`
 
 - https://reactiveui.net/docs/handbook/data-binding/xamarin-android/wire-up-controls
 
@@ -16,11 +18,11 @@ Use `ISupportsActivation` and `WhenActivated` for lifecycle
 
 Keep references to your subscriptions
 
-- https://reactiveui.net/docs/concepts/reactive-programming/subscriptions#lifecycle
+- https://reactiveui.net/docs/reactive-programming#lifecycle
 
 Use disposables to manage lifetime, scope and resources:
 
-- https://reactiveui.net/docs/concepts/reactive-programming/disposables
+- https://reactiveui.net/docs/reactive-programming#disposables
 
 Don't use eventhandlers, use the extension methods shipped in `reactiveui.events` instead
 

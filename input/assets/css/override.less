@@ -42,39 +42,50 @@ p {
 // documentation sidebar
 .sidebar-menu {
   li a:active {
-    color: #02A1D8;
+    color: #319af3;
   }
   li a:hover {
-    color: #0479A3;
+    color: #319af3;
     text-decoration: underline;
   }
 }
 
 .main-sidebar {
-  padding-top: 128px;
+  padding-top: 60px;
 }
 
 // navigation logo
 .main-header .logo {
-  height: 128px;
+  height: 60px;
   padding: 0;
-  @media (max-width: @screen-sm) {
-    margin-left: -25px;
-    height: 50px;
-    .logo-lg {
-      width: 50px;
-    }
+}
+
+// navigation logo narrow
+@media (max-width: 767px) {
+  .main-header .logo {
+    width: 200px;
+    left: 45%;
   }
 }
 
-.main-header a {
-  height: auto;
-  width: auto !important;
+// navigation logo text
+.logo-lg {
+  position: relative;
+  .logo-caption {
+    font-family: "Dosis", "Source Sans Pro", Helvetica, Arial, sans-serif;
+    position: absolute;
+    font-weight: 700;
+    font-size: 24px;
+    color: #61b2f6;
+    left: 80px;
+    top: 5px;
+  }
+  .logo-image {
+    position: absolute;
+    left: 10px;
+  }
 }
 
-.content-header {
-  padding-top: 32px;
-}
 
 // navigation background
 .top-banner,
@@ -86,7 +97,7 @@ p {
 
 // navigation items
 .main-header .navbar .nav > li > a {
-  color: #02A1D8;
+  color: #319af3;
 }
 
 .main-header .navbar .nav > li >a:hover,
@@ -96,7 +107,7 @@ p {
 .main-header .navbar .nav .open > a:hover,
 .main-header .navbar .nav .open > a:focus,
 .main-header .navbar .nav > .active > a {
-  color: #0479A3;
+  color: #319af3;
   background: none;
 }
 
@@ -108,7 +119,7 @@ p {
 
 .main-header .navbar .nav > li.active a,
 .main-header .navbar .nav > li > a:hover {  
-  border-bottom: 1px solid #0479A3;
+  border-bottom: 1px solid #319af3;
 }
 
 .main-header .navbar .nav > li a.github {
@@ -117,15 +128,15 @@ p {
 
 // navigation button (mobile)
 .navbar-toggle {
-  color: #0479A3;
+  color: #2979bb;
 }
 
 .main-header .navbar .sidebar-toggle {
-  color: #0479A3;
+  color: #2979bb;
   &:hover {
     background-color: white;
     text-decoration: none;
-    color: #0479A3;
+    color: #2979bb;
   }
 }
 
@@ -134,7 +145,7 @@ p {
 }
 
 .infobar {
-  top: 140px;
+  top: 60px;
 }
 
 // for desktop and tablets
@@ -152,15 +163,25 @@ p {
 }
 
 .code-sample pre {
-  padding: 8px !important;
+  padding: 14px !important;
   background: rgba(0, 0, 0, 0.024);
   border: none;
 }
 
 // content header
 .content-header h1 {
-  background: #02a1d8 !important;
-  color: white;
+  background: transparent;
+  font-weight: 300;
+  font-size: 51px;
+  color: #319af3;
+  border: none;
+  padding: 0;
+}
+
+@media (max-width: 767px) {
+  .content-header h1 {
+    font-size: 41px;
+  }
 }
 
 // thx paul - https://reactivex.slack.com/archives/C02AJB872/p1502676096944250
@@ -187,7 +208,7 @@ iframe.embedded-video {
 }
 
 summary {
-  background: #02a1d8;
+  background: #319af3;
   color: white;
   font-weight: bold;
   padding: 10px;
@@ -197,7 +218,7 @@ summary {
 }
 
 pre {
-  border-color: #eeeeee;
+  border: none;
 }
 .hljs {
   display: block;
@@ -218,7 +239,7 @@ pre {
 .hljs-selector-tag,
 .hljs-deletion,
 .hljs-subst {
-  color: #31708f;
+  color: #3f729d;
 }
 .hljs-literal {
   color: #a94442;
@@ -263,4 +284,122 @@ pre {
 // Issue 163
 .affix {
   position: static;
+}
+
+.content h1 {
+	font-style: normal;
+	font-weight: 400;
+}
+
+.sidebar-menu li.selected {
+	background-color: #f5f5f5;
+}
+
+.blockquote {
+	background-color: #f5f5f5;
+	border-left: 5px solid #319af3;
+	font-size: inherit;
+}
+p a {
+	border-bottom: 1px dashed #319af3;
+	text-decoration: none;
+}
+p a:hover {
+	border-bottom: 1px solid #319af3;
+	text-decoration: none;
+}
+#infobar-headings {
+	margin-top: 20px;
+}
+
+// fixes #175 issue
+.sidebar-menu li.active > a.expand {
+	left: -14px;
+}
+
+// rounded menu buttons
+.main-header .navbar .nav > li > a {
+  transition: all 0.3s ease;
+}
+.main-header .navbar .nav > li.active a,
+.main-header .navbar .nav > li > a:hover {
+  transition: all 0.3s ease;
+	background: #f5f5f5;
+	border-radius: 70px;
+	border: none;
+}
+
+#infobar-headings > h6 {
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+// landing page styles.
+.branding-title {
+  color: #319af3;
+  font-size: 51px;
+  font-weight: 300;
+  margin-top: 10px;
+}
+.branding-caption {    
+  margin-top: 0;
+  margin-bottom: 10px;
+  line-height: 1.45em;
+  font-weight: 300;
+  font-size: 21px;
+}
+.branding-button {
+  border-radius: 30px;
+  border: 1px solid #319af3;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+  margin-bottom: 10px;
+  padding: 7px 15px;
+}
+.secondary-button {
+  border-color: #f5f5f5;
+  background-color: #f5f5f5;
+  transition: all 0.3s ease;
+  margin-bottom: 10px;
+  color: #777777;
+}
+.branding-button:hover {
+  transition: all 0.3s ease;
+  border-color: #319af3;
+  background-color: #319af3;
+  text-decoration: none;
+  color: #ffffff;
+}
+.branding-subheader {
+  font-size: 25px;
+  color: #319af3;
+}
+.branding-sub-caption {
+  color: #2a4249;
+}
+.branding-code {
+  font-size: 14px;
+  line-height: 1.8em;
+  margin-top: 20px;
+  overflow: hidden;
+}
+@media (max-width: 767px) {
+  .branding-image {
+    max-width: 40%;
+  }
+}
+.branding {
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+.branding-sponsors {
+  font-size: 16px;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  color: #999999;
+}
+.branding-backers {
+  margin-top: 20px;
+  max-width: 970px;
 }
