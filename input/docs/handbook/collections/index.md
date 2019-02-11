@@ -108,8 +108,12 @@ public class Service
         // Use the .Connect() operator to connect to
         // the data set and turn it into a DynamicData monad.
         // This gives you the ability to use all DynamicData
-        // LINQ-like query operators.
-        Items = _items.Connect();
+        // LINQ-like query operators. Publish() creates a 
+        // Subject() after the first subscription, use this 
+        // to avoid issues with multiple subscribers.
+        Items = _items
+            .Publish()
+            .Connect();
         
         // With DynamicData you can easily manage mutable datasets,
         // even if they are extremely large. In this complex scenario 
