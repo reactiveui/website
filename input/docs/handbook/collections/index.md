@@ -84,7 +84,7 @@ The API for the above is the same for cache and list.
 
 ## So what's the difference between a SourceList and a SourceCache
 
-If you have a unique id, you should use an observable cache as it is dictionary based which will ensure no duplicates can be added and it notifies on adds, updates and removes, whereas list allows duplicates and only has no concept of an update.
+If you have a unique id, you should use an observable cache as it is dictionary based which will ensure no duplicates can be added and it notifies on adds, updates and removes, whereas list allows duplicates and only has no concept of an update. `SourceCache` has several performance advantages over `SourceList`, so if possible, always prefer `SourceCache` over `SourceList`.
 
 There is another difference. The cache side of dynamic data is much more mature and has a wider range of operators. Having more operators is mainly because I found it easier to achieve good all round performance with the key based operators and do not want to add anything to Dynamic Data which inherently has poor performance.
 
@@ -135,7 +135,9 @@ public class ViewModel : ReactiveObject
 ```cs
 public class ComplexService 
 {
-    public SourceList<bool> Items { get; } = new SourceList<bool>();
+    private readonly SourceList<bool> _items = new SourceList<bool>();
+
+    public IObservableList<bool> Items => _items;
 
     public Service()
     {
@@ -144,9 +146,9 @@ public class ComplexService
         // a service mutates the collection, by using .Add(), .Remove(), 
         // .Clear(), .Insert(), etc. DynamicData takes care of
         // allowing you to observe all of those changes.
-        Items.Add(true);
-        Items.RemoveAt(0);
-        Items.Add(false);
+        _items.Add(true);
+        _items.RemoveAt(0);
+        _items.Add(false);
     }
 }
 ```
@@ -156,17 +158,14 @@ There are two approaches to make the items in `SourceList` stay in sync with the
 ```cs
 public class ViewModel : ReactiveObject
 {
-    private readonly ObservableAsPropertyHelper<IEnumerable<bool>> _first;
-    public IEnumerable<bool> First => _first.Value;
-
-    private readonly ReadOnlyObservableCollection<bool> _second;
-    public ReadOnlyObservableCollection<bool> Second => _second;
+    private readonly ReadOnlyObservableCollection<bool> _items;
+    public ReadOnlyObservableCollection<bool> Items => _items;
 
     public ViewModel()
     {
         var service = new ComplexService();
-        var changes = service.Items
-            // We use the .Connect() operator to connect to
+        service.Items
+            // Use the .Connect() operator to connect to
             // the data set and turn it into a DynamicData monad.
             // This gives you the ability to use all DynamicData
             // LINQ-like query operators.
@@ -177,24 +176,11 @@ public class ViewModel : ReactiveObject
             .Transform(x => !x)
             // Filter is basically same as .Where() operator
             // from LINQ. See all operators in DynamicData docs.
-            .Filter(x => x);
-
-        // Now you need to update the UI with those Items.
-        // There are two ways of doing this.
-        _first = changes
-            // Turn the DynamicData monad into a simple
-            // IObservable<T>. So now you can bind it
-            // to ReactiveUI ObservableAsPropertyHelper.
-            // Easy! But again, it refreshes the *whole*
-            // collection at once.
-            .ToCollection()
-            .ToProperty(this, x => x.First);
-
-        // Another way is to use DynamicData .Bind()
-        // operator. We .Bind() and now our mutable
-        // Second collection will show the new items
-        // and the GUI will get refreshed.
-        changes.Bind(out _second).Subscribe();
+            .Filter(x => x)
+            // We .Bind() and now our mutable Items collection 
+            // contains the new items and the GUI gets refreshed.
+            .Bind(out _second)
+            .Subscribe();
     }
 }
 ```
@@ -209,7 +195,13 @@ var databasesValid = collectionOfReactiveObjects
     .AutoRefresh(model => model.IsValid) // Subscribe only to IsValid property changes
     .ToCollection()                      // Get the new collection of items
     .Select(x => x.All(y => y.IsValid)); // Verify all elements satisfy a condition etc.
+
+// Then you can convert that IObservable<bool> to a view model
+// property declared as ObservableAsPropertyHelper<bool>.
+_databasesValid = databasesValid.ToProperty(this, x => x.DatabasesValid);
 ```
+
+> **Note** `ToCollection()` works pretty differently internally, it re-generates the entire list every time while SourceCache/SourceList `Bind()` does addition/removals etc. `ToCollection()` is only meant for aggregation based on operations where you really need a full collection each time as an observable.
 
 # Converting ReactiveList to DynamicData
 
