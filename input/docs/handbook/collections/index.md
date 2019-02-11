@@ -148,7 +148,7 @@ public class ViewModel : ReactiveObject
             .Filter(x => x)
             // We .Bind() and now our mutable Items collection 
             // contains the new items and the GUI gets refreshed.
-            .Bind(out _second)
+            .Bind(out _items)
             .Subscribe();
     }
 }
