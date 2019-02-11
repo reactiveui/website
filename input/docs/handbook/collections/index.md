@@ -101,7 +101,10 @@ public class Service
 {
     private readonly SourceList<bool> _items = new SourceList<bool>();
 
-    public IObservable<IChangeSet<bool>> Items { get; }
+    // We expose the Connect() since we are interested in a stream of changes.
+    // If we have more than one subscriber, and the subscribers are known, it is recommended you look into 
+    // the Reactive Extension method Publish().
+    public IObservable<IChangeSet<bool>> Connect() => _items.Connect();
 
     public Service()
     {
