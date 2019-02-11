@@ -101,10 +101,16 @@ public class Service
 {
     private readonly SourceList<bool> _items = new SourceList<bool>();
 
-    public IObservableList<bool> Items => _items;
+    public IObservable<IChangeSet<bool>> Items { get; }
 
     public Service()
     {
+        // Use the .Connect() operator to connect to
+        // the data set and turn it into a DynamicData monad.
+        // This gives you the ability to use all DynamicData
+        // LINQ-like query operators.
+        Items = _items.Connect();
+        
         // With DynamicData you can easily manage mutable datasets,
         // even if they are extremely large. In this complex scenario 
         // a service mutates the collection, by using .Add(), .Remove(), 
@@ -133,11 +139,6 @@ public class ViewModel : ReactiveObject
     {
         var service = new Service();
         service.Items
-            // Use the .Connect() operator to connect to
-            // the data set and turn it into a DynamicData monad.
-            // This gives you the ability to use all DynamicData
-            // LINQ-like query operators.
-            .Connect()
             // Transform in DynamicData works like Select from
             // LINQ, it observes changes in one collection, and
             // projects it's elements to another collection.
