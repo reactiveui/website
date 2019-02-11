@@ -1,4 +1,3 @@
-# Overview
 The ObservableAsPropertyHelper, which is often abbreviated OAPH, is a class that will simplify the interop between a IObservable and a property on your View Model. It will allow you to have a property which reflects the latest value that has been sent through the IObservable<T> stream. `ObservableAsPropertyHelper<T>` properties are a way to take *Observables* and convert them into *ViewModel Properties*. 
 
 `ObservableAsPropertyHelper<T>` is often used with Extension Method(MixIn) for `IObservable<T>` called `ToProperty()`. `ToProperty` allows to construct to a `ObservableAsPropertyHelper<T>` for a particular `IObservable<T>` and `ToProperty()` will provide interaction with the `INotifyPropertyChanged` and `INotifyPropertyChanging` interfaces for the ViewModel. When a new value has been added to the `IObservable<T>`, it will use the overload methods in the IReactiveObject interface to trigger the required events.

@@ -1,11 +1,10 @@
-# Debugging Symbols
+We use [SourceLink](https://docs.microsoft.com/en-us/dotnet/standard/library-guidance/sourcelink) which allows you to break and get live debugging into our code base.
 
-We use [GitLink](https://github.com/Gittools/GitLink) instead of shipping symbols so that you don't have to specify custom symbol servers (such as symbolsource.org).
+The only requirement is to ensure the check the `Enable source link support` under `Debugging`  in Visual Studio preferences as shown below:
 
-![We use GitLink](/images/getting-started/git-link.gif)
+![Configure Visual Studio as follows](sourcelink-howto.png)
 
-The only requirement is to ensure the check the `Enable source server support` option in Visual Studio as shown below:
+<iframe width="100%" height="480" src="https://youtu.be/gyRGhCQPkB4" frameborder="0" allowfullscreen></iframe>
 
-![Configure Visual Studio as follows](/contribute/maintainers/gitlink-visualstudio-enablesourceserversupport.png)
-
-Refer to [this guide if you experience problems](https://github.com/GitTools/GitLink#troubleshooting).
+## Troubleshooting
+It is worth noting that at the moment SourceLink support is not active in the Xamarin debugger (platforms such as iOS, Android are not supported).
