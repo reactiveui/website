@@ -2,7 +2,7 @@ ReactiveUI recommends the use of DynamicData framework for collection based oper
 
 # Overview of Dynamic Data
 
-Dynamic Data is reactive collections based on Rx.Net. 
+Dynamic Data is reactive collections based on [Reactive Extensions for .NET](/docs/reactive-programming/). 
 
 Whenever a change is made to one of Dynamic Data's collections a notification is produced. A notification reflects what has changed in the collection. This notification is represented as a `ChangeSet` which can contain one or more changes.  Each item in the change set is represented as a `Change` which contains information about each individual change since the last notification.
 
@@ -82,14 +82,115 @@ var myBindingOperation = mySource
 
 The API for the above is the same for cache and list.
 
-## So what's the difference between an observable list and an observable cache
+## So what's the difference between a SourceList and a SourceCache
 
-I get asked this question a lot and the answer is really simple.  If you have a unique id, you should use
-an observable cache as it is dictionary based which will ensure no duplicates can be added and it notifies on adds, updates and removes, whereas list allows duplicates and only has no concept of an update.
+If you have a unique id, you should use an observable cache as it is dictionary based which will ensure no duplicates can be added and it notifies on adds, updates and removes, whereas list allows duplicates and only has no concept of an update. `SourceCache` has several performance advantages over `SourceList`, so if possible, always prefer `SourceCache` over `SourceList`.
 
 There is another difference. The cache side of dynamic data is much more mature and has a wider range of operators. Having more operators is mainly because I found it easier to achieve good all round performance with the key based operators and do not want to add anything to Dynamic Data which inherently has poor performance.
 
-## How to track changes in collections of Reactive Objects?
+# Using DynamicData with ReactiveUI
+
+When building applications with ReactiveUI and DynamicData, you have a choice to work with mutable or with immutable collections. When working with immutable ones, using an `ObservableAsPropertyHelper<T>` is enough in simple cases. The `ObservableAsPropertyHelper<T>` represents an `Observable<T>`, a stream of values over time. You can treat those values as events, and the new values as event arguments. This means if you are using immutable collections, you can treat them as event arguments and update a property with a new collection each time it changes. See [ObservableAsPropertyHelper Handbook section](/docs/handbook/oaph/) to learn how to use this feature. Note, that creating a new colletion for each update degrades performance and should be generally avoided, prefer to use DynamicData instead.
+
+### An Example
+
+Imagine your application needs a service that will expose a collection mutated by a background worker. You need to get change notifications from it somehow to synchronize it with the user interface. Here DynamicData comes to the rescue. You expose an `IObservable<IChangeSet<bool>>` from your service to the outer world, and DynamicData takes case of allowing you to observe changes of your mutable `SourceList` of items. Use the `.Connect()` operator to turn your `SourceList<T>` to an observable change set `IObservable<IChangeSet<bool>>`.
+
+```cs
+public class Service 
+{
+    private readonly SourceList<bool> _items = new SourceList<bool>();
+
+    // We expose the Connect() since we are interested in a stream of changes.
+    // If we have more than one subscriber, and the subscribers are known, it is recommended you look into 
+    // the Reactive Extension method Publish().
+    public IObservable<IChangeSet<bool>> Connect() => _items.Connect();
+
+    public Service()
+    {        
+        // With DynamicData you can easily manage mutable datasets,
+        // even if they are extremely large. In this complex scenario 
+        // a service mutates the collection, by using .Add(), .Remove(), 
+        // .Clear(), .Insert(), etc. DynamicData takes care of
+        // allowing you to observe all of those changes.
+        _items.Add(true);
+        _items.RemoveAt(0);
+        _items.Add(false);
+    }
+}
+```
+
+DynamicData uses .NET types to expose to the outside world, such as `ReadOnlyObservableCollection<T>`, rather than exposing their own types. `IObservable<IChangeSet<T>>` (and `IObservable<IChangeSet<TObject, TKey>>`) are the two base observables you can create derived based functionality from. `IObservable<IChangeSet<T>>` indicates what has changed to a collection. The first time you use `ToObservableChangeSet()` it emits the current state of the collection.
+
+`SourceList`, `SourceCache` are multithreaded aware and optimised to create `IObservable<IChangeSet<T>>` and `IObservable<IChangeSet<TObject, TKey>>`. Generally SourceList/SourceCache are meant to be private to your classes, and you expose using the `Bind()` method. You generate the change sets by using the `Connect()` method on them.
+
+Using the powerful DynamicData operators, you convert the `IObservable<IChangeSet<T>>` to a `ReadOnlyObservableCollection<T>` to which you can easily bind the platform-specific user interface. Declaring the read-only collection as a field or as a variable is required for the `.Bind()` operator to work as it uses `out` variables.
+
+```cs
+public class ViewModel : ReactiveObject
+{
+    private readonly ReadOnlyObservableCollection<bool> _items;
+    public ReadOnlyObservableCollection<bool> Items => _items;
+
+    public ViewModel()
+    {
+        var service = new Service();
+        service.Connect()
+            // Transform in DynamicData works like Select in
+            // LINQ, it observes changes in one collection, and
+            // projects it's elements to another collection.
+            .Transform(x => !x)
+            // Filter is basically the same as .Where() operator
+            // from LINQ. See all operators in DynamicData docs.
+            .Filter(x => x)
+            // Ensure the updates arrive on the UI thread.
+            .ObserveOn(RxApp.MainThreadScheduler)
+            // We .Bind() and now our mutable Items collection 
+            // contains the new items and the GUI gets refreshed.
+            .Bind(out _items)
+            .Subscribe();
+    }
+}
+```
+
+> **Note** If you are updating an observable list or an observable cache from a background thread, adding `.ObserveOn(RxApp.MainThreadScheduler)` right before a call to `.Bind()` might be neccessary, to ensure the updates arrive on the UI thread.
+
+`ObservableCollectionExtended<T>` is a good single threaded collection where you don't need to do derived based functionality. To synchronize two collections in your view model, declare one of your collections as `ObservableCollectionExtended<T>` and another one as `ReadOnlyObservableCollection<T>`. Then you apply the `.ToObservableChangeSet()` operator to your observable collection that turns it to `IObservable<IChangeSet<T>>`.
+
+```cs
+public class SynchronizedCollectionsViewModel : ReactiveObject
+{
+    private readonly ReadOnlyObservableCollection<bool> _derived;
+    public ReadOnlyObservableCollection<bool> Derived => _derived;
+
+    public ObservableCollectionExtended<bool> Source { get; }
+
+    public SynchronizedCollectionsViewModel()
+    {
+        Source = new ObservableCollectionExtended<bool>();
+
+        // Use the ToObservableChangeSet operator to convert
+        // the observable collection to IObservable<IChangeSet<T>>
+        // which describes the changes. Then, use any DD operators
+        // to transform the collection. 
+        Source.ToObservableChangeSet()
+            .Transform(value => !value)
+            // No need to use the .ObserveOn() operator here, as
+            // ObservableCollectionExtended is single-threaded.
+            .Bind(out _derived)
+            .Subscribe();
+        
+        // Update the source collection and the derived
+        // collection will update as well.
+        Source.Add(true);
+        Source.RemoveAt(0);
+        Source.Add(false);
+        Source.Add(true);
+    }
+}
+```
+
+# Tracking Changes in Collections of Reactive Objects
 
 DynamicData supports change tracking for classes that implement the `INotifyPropertyChanged` interface — `ReactiveObject`s. For example, if you'd like to do a `WhenAnyValue` on each element in a collection of changing objects, use the `AutoRefresh()` DynamicData operator:
 
@@ -99,14 +200,19 @@ var databasesValid = collectionOfReactiveObjects
     .AutoRefresh(model => model.IsValid) // Subscribe only to IsValid property changes
     .ToCollection()                      // Get the new collection of items
     .Select(x => x.All(y => y.IsValid)); // Verify all elements satisfy a condition etc.
+
+// Then you can convert that IObservable<bool> to a view model
+// property declared as ObservableAsPropertyHelper<bool>.
+_databasesValid = databasesValid.ToProperty(this, x => x.DatabasesValid);
 ```
 
-See more examples in [DynamicData.Snippets](https://github.com/RolandPheasant/DynamicData.Snippets/tree/master/DynamicData.Snippets) project.
+> **Note** `ToCollection()` works pretty differently internally, it re-generates the entire list every time while SourceCache/SourceList `Bind()` does addition/removals etc. `ToCollection()` is only meant for aggregation based on operations where you really need a full collection each time as an observable.
 
-## Tips to converting ReactiveList/IReactiveDerivedList to DynamicData
+# Converting ReactiveList to DynamicData
 
-* If you are using `ReactiveList<T>`, and only adding/removing from the UI thread use `ObservableCollectionExtended<T>`. It provides similar functionality where you `AddRange()` and suppress notifications. This approach should only be used if you are doing Single Threaded operations and wanting to mutate your data.
-  A lot of users try to do the following even though it's unnecessary for single threaded applications.
+If you are using `ReactiveList<T>`, and only adding/removing from the UI thread use `ObservableCollectionExtended<T>`. It provides similar functionality where you `AddRange()` and suppress notifications. This approach should only be used if you are doing Single Threaded operations and wanting to mutate your data.
+
+A lot of users try to do the following even though it's unnecessary for single threaded applications.
 
 ```cs
 var myList = new SourceList<T>()
@@ -117,23 +223,27 @@ var myConnection = myList
     .Subscribe();
 ```
 
-* A common mistake a lot of users make is trying to expose DynamicData classes to the world. Use the `Bind()` method instead to expose your data through a `ReadOnlyObservableCollection<T>` field, which you then expose as a property.
-* Try to reuse your `IObservableChangeSet<T>` where it makes sense. It's a expensive operation to generate and you can use the Reactive Extension's method `Publish()`.
+A common mistake a lot of users make is trying to expose DynamicData classes to the world. Use the `Bind()` method instead to expose your data through a `ReadOnlyObservableCollection<T>` field, which you then expose as a property.
+
+Try to reuse your `IObservableChangeSet<T>` where it makes sense. It's a expensive operation to generate and you can use the Reactive Extension's method `Publish()`.
 
 ```cs
 // use standard rx Publish() / Connect() to share published changesets
 var shared = _source.Connect().Publish();
-var selectedChanged = shared.WhenPropertyChanged(si => si.IsSelected).ToUnit().StartWith(Unit.Default);
+var selectedChanged = shared
+    .WhenPropertyChanged(si => si.IsSelected)
+    .ToUnit()
+    .StartWith(Unit.Default);
 shared.ToCollection().CombineLatest(selectedChanged, (items, _) => items);
 shared.Maximum(i => i).Subscribe(max => Max = max);
 shared.Connect();
 ```
 
-* [Common operations](https://github.com/RolandPheasant/DynamicData#consuming-observable-change-sets) in DynamicData have slightly different names than Reactive Extension operators.
+[Common operations](https://github.com/RolandPheasant/DynamicData#consuming-observable-change-sets) in DynamicData have slightly different names than Reactive Extension operators.
   * `Where()` is `Filter()`
   * `Select()` is `Transform()`
 
-## Other Resources
+# Explore DynamicData
 
 * [DynamicData GitHub page](https://github.com/RolandPheasant/DynamicData)
 * [DynamicData Snippets](https://github.com/RolandPheasant/DynamicData.Snippets) - Snippets curated based on small example problems
