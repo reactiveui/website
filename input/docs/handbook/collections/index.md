@@ -187,6 +187,13 @@ public class SynchronizedCollectionsViewModel : ReactiveObject
             // ObservableCollectionExtended is single-threaded.
             .Bind(out _derived)
             .Subscribe();
+        
+        // Update the source collection and the derived
+        // collection will update as well.
+        Source.Add(true);
+        Source.RemoveAt(0);
+        Source.Add(false);
+        Source.Add(true);
     }
 }
 ```
