@@ -94,7 +94,7 @@ When building applications with ReactiveUI and DynamicData, you have a choice to
 
 ### An Example
 
-Imagine your application needs a service that will expose a collection mutated by a background worker. You need to get change notifications from it somehow to synchronize it with the user interface. Here DynamicData comes to the rescue. You expose an `IObservable<IChangeSet<bool>>` from your service to the outer world, and DynamicData takes case of allowing you to observe changes of your mutable `SourceList` of items. Use the `.Connect()` operator to turn your `SourceList<T>` to an observable change set `IObservable<IChangeSet<bool>>`.
+Imagine your application needs a service that will expose a collection mutated by a background worker. You need to get change notifications from it somehow to synchronize it with the user interface. Here DynamicData comes to the rescue. You expose an `IObservable<IChangeSet<bool>>` from your service to the outer world, and DynamicData takes care of allowing you to observe changes of your mutable `SourceList` of items. Use the `.Connect()` operator to turn your `SourceList<T>` to an observable change set `IObservable<IChangeSet<bool>>`.
 
 ```cs
 public class Service 
@@ -102,8 +102,8 @@ public class Service
     private readonly SourceList<bool> _items = new SourceList<bool>();
 
     // We expose the Connect() since we are interested in a stream of changes.
-    // If we have more than one subscriber, and the subscribers are known, it is recommended you look into 
-    // the Reactive Extension method Publish().
+    // If we have more than one subscriber, and the subscribers are known, 
+    // it is recommended you look into the Reactive Extension method Publish().
     public IObservable<IChangeSet<bool>> Connect() => _items.Connect();
 
     public Service()
