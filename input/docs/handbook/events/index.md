@@ -87,7 +87,7 @@ this.Events().Tapped
 
 ## How do I convert my own C# events into Observables?
 
-There are three approaches how you can do this. The first one is using `Observable.FromEventPattern`.
+[Reactive Extensions for .NET](https://github.com/dotnet/reactive) provide three approaches how you can do this. The first one is using `Observable.FromEventPattern`.
 
 ```cs
 Observable.FromEventPattern<RoutedEventHandler, RoutedEventArgs>(
@@ -112,3 +112,5 @@ Observable.FromEvent<KeyPressEventHandler, KeyPressEventArgs>(
   handler => KeyPress += handler,
   handler => KeyPress -= handler)
 ```
+
+See [Reactive Extensions documentation](http://reactivex.io/documentation/operators/from.html) for more info.
