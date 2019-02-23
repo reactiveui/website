@@ -66,7 +66,7 @@ this.WhenActivated(disposables =>
 
 ## Prefer ReactiveUI.Events over XAML behaviors
 
-Although XAML behaviors is a nice technique which allows you to bind to any event exposed by a control, it has several drawbacks. First, its syntax is quite verbose. Second, you loose intellisence when typing the event name. Third, if you'd like to modify the way how your view model reacts to an event, you need to write a new action and/or behavior. Consider the following example which uses UWP XAML behaviors:
+Although XAML behaviors is a nice technique which allows you to bind to any event exposed by a control, it has several drawbacks. First, its syntax is quite verbose. Second, you lose intellisence when typing the event name. Third, if you'd like to modify the way how your view model reacts to an event, you need to write a new action and/or behavior. Consider the following example which uses UWP XAML behaviors:
 
 ```xml
 <interactivity:Interaction.Behaviors>
