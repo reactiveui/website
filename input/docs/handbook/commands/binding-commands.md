@@ -59,5 +59,102 @@ this.BindCommand(
     x => x.myControl,
     x => x.SomeProperty);
 ```
-**Platform Specific **
-WPF: Arguments passed through CommandParameter in the view are automatically bound to `TInput` in `ReactiveCommand<Input, Unit>`.
+
+|Platform Feature Description|WPF|Window Forms|Xamarin Android|Xamarin iOS|UWP|Xamarin Forms|
+|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|
+|CommandParameter binding|&#x2714;|-|-|-|&#x2714;|&#x2714;|
+
+<details><summary>Command Execution using CommandParameter binding</summary>
+
+CommandParameter binds automatically to `TInput` in `ReactiveCommand<TInput, Unit>`
+
+```xml
+//In the view
+<Button x:Name="FeedType"
+    Content="Live Feed"
+    CommandParameter="LiveFeed">
+</Button>
+```
+
+```cs
+ //In the code-behind file
+ this.WhenActivated(disposableRegistration =>
+ {
+    this.BindCommand(ViewModel,
+    viewModel => viewModel.ProcessFeed,
+    view => view.FeedType)
+    .DisposeWith(disposableRegistration);
+ });
+
+ //In the ViewModel
+ public class MyViewModel
+ {
+    public ReactiveCommand<string, Unit> ProcessFeed { get; }
+   
+    public MyViewModel()
+    {
+        //Create a ReactiveCommand that accepts an input of type string.
+        ProcessFeed = ReactiveCommand.Create<string>(x => FeedProcessor(x));
+    }
+
+    private void FeedProcessor(string feedType)
+    {
+        //Here feedType will be "LiveFeed"
+    }
+ }
+ ```
+
+</details>
+
+<details><summary>Execution using ViewModel Properties</summary>
+
+```xml
+//In the view
+<Button x:Name="FeedType"
+    Content="Live Feed">
+</Button>
+```
+
+```cs
+ //In the code-behind file
+ this.WhenActivated(disposableRegistration =>
+ {
+    this.BindCommand(ViewModel,
+    viewModel => viewModel.ProcessFeed,
+    view => view.FeedType)
+    .DisposeWith(disposableRegistration);
+ });
+
+ //In the ViewModel
+ public class MyViewModel
+ {
+    public ReactiveCommand<Unit, Unit> ProcessFeed { get; }
+
+    private string _feedType;
+    public string FeedType
+    {
+        get => _feedType;
+        set => this.RaiseAndSetIfChanged(ref _feedType, value);
+    }
+
+    public MyViewModel()
+    {
+        //Create a ReactiveCommand that accepts an input of type string.
+        ProcessFeed = ReactiveCommand.Create(FeedProcessor);
+    }
+
+    private void FeedProcessor()
+    {
+        var feedName = FeedType;
+         //Here FeedType will be the value assigned when the ViewModel was created
+    }
+ }
+ ```
+
+</details>
+
+
+`CommandParameter` can be a good choice when the view contains multiple buttons that cannot be generated using an `ItemTemplate`. 
+Creating ViewModel properties for such buttons adds an unnecessary overhead in the design of the ViewModel and is best avoided.
+
+However, if the buttons can be generated at runtime through `ItemTemplate`, it is highly recommended to use ViewModel properties for CommandExecution.
