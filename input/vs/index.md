@@ -1,9 +1,6 @@
 Title: ReactiveUI vs.
 ---
-Request.Url.AbsoluteUri
-Request.Url.ToString()
-Request.RawUrl
-Request.Url
+
 ## Chosing an MVVM Framework
 
 The choice of a MVVM Framework can have implications on your development life cycle.  When choosing an MVVM Framework should be based on the features that are provided and whether your technology decisions align with the framework.  Most frameworks (this one included) can be opinionated.  When making a selection the opinions of the framework match the direction you want to take the technology of the application you are working on.
