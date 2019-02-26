@@ -41,7 +41,7 @@ Here, the `SomeEvent` on `myControl` will be used to trigger command execution i
 
 > **Note** When using this overload inside `WhenActivated`, it's important to dispose the binding when deactivating the view. `BindCommand` will subscribe to the given event each time the view is activated, if the binding is not disposed it will not unsubscribe from the event. This will lead to multiple subscriptions to the event, which will make the command execute once for each of the event subscriptions.
 
-`BindCommand` also provides overloads that allow you to specify a parameter with which to execute the command. The parameter can be provided as a function, an observable, or even an expression that resolves a property on the view model:
+`BindCommand` also provides overloads that allow you to specify a parameter with which to execute the command. The parameter can be provided as a function, an observable or an expression that resolves a property on the view model:
 
 ```cs
 // use an observable as the source for command parameters
@@ -106,7 +106,7 @@ CommandParameter binds automatically to `TInput` in `ReactiveCommand<TInput, Uni
 
 </details>
 
-<details><summary>Execution using ViewModel Properties</summary>
+<details><summary>Command Execution using ViewModel Properties</summary>
 
 ```xml
 //In the view
@@ -155,6 +155,6 @@ CommandParameter binds automatically to `TInput` in `ReactiveCommand<TInput, Uni
 
 
 `CommandParameter` can be a good choice when the view contains multiple buttons that cannot be generated using an `ItemTemplate`. 
-Creating ViewModel properties for such buttons adds an unnecessary overhead in the design of the ViewModel and is best avoided.
+`CommandParameter` is a way to reuse a command without having to create additional properties on the ViewModel. Be aware that `CommandParameter` cannot be used to determine if a command can execute or not.
 
 However, if the buttons can be generated at runtime through `ItemTemplate`, it is highly recommended to use ViewModel properties for CommandExecution.
