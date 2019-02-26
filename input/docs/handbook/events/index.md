@@ -39,7 +39,7 @@ this.Events().KeyUp
     .Subscribe(y => { });
 ```
 
-<iframe width="100%" height="520" src="https://www.youtube.com/embed/tNn-7fen3DA" frameborder="0" allowfullscreen></iframe>
+<?# YouTube tNn-7fen3DA /?>
 
 [Source-code for this meetup talk](https://github.com/reactiveui/meetups/blob/master/002%20-%20reactiveui-events%20-%20the%20super%20cool%20package.zip)
 
