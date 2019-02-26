@@ -41,7 +41,7 @@ Here, the `SomeEvent` on `myControl` will be used to trigger command execution i
 
 > **Note** When using this overload inside `WhenActivated`, it's important to dispose the binding when deactivating the view. `BindCommand` will subscribe to the given event each time the view is activated, if the binding is not disposed it will not unsubscribe from the event. This will lead to multiple subscriptions to the event, which will make the command execute once for each of the event subscriptions.
 
-`BindCommand` also provides overloads that allow you to specify a parameter with which to execute the command. The parameter can be provided as a function, an observable, or even an expression that resolves a property on the view model:
+`BindCommand` also provides overloads that allow you to specify a parameter with which to execute the command. The parameter can be provided as a function, an observable, or an expression that resolves a property on the view model:
 
 ```cs
 // use an observable as the source for command parameters
