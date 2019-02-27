@@ -16,7 +16,7 @@ ReactiveUI had some heads up what was coming and added `netcoreapp20` as a suppo
 
 If you need to ship cross-platform applications on .NET core right now, then the maintainers of ReactiveUI recommends that you check out [Avalonia](https://github.com/AvaloniaUI/Avalonia). Their community is as active, as vibrant as ours, open by default and [you can drop in for a chat](https://gitter.im/AvaloniaUI/Avalonia).
 
-<iframe width="100%" height="360" src="https://www.youtube.com/embed/wHcB3sGLVYg" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+<?# YouTube wHcB3sGLVYg /?>
 
 If you want to get a head start on .NET Core 3.0 and want to make it possible sooner - send in a PR that 🚢's this:
 
