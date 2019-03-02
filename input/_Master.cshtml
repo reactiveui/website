@@ -1,16 +1,15 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 
     <!--
-    MM"""""""`MM                              dP   oo                   M""MMMMM""M M""M 
-    MM  mmmm,  M                              88                        M  MMMMM  M M  M 
-    M'        .M .d8888b. .d8888b. .d8888b. d8888P dP dP   .dP .d8888b. M  MMMMM  M M  M 
-    MM  MMMb. "M 88ooood8 88'  `88 88'  `""   88   88 88   d8' 88ooood8 M  MMMMM  M M  M 
-    MM  MMMMM  M 88.  ... 88.  .88 88.  ...   88   88 88 .88'  88.  ... M  `MMM'  M M  M 
-    MM  MMMMM  M `88888P' `88888P8 `88888P'   dP   dP 8888P'   `88888P' Mb       dM M  M 
-    MMMMMMMMMMMM                                                        MMMMMMMMMMM MMMM 
-                                                                                        
-
+   ____                            __                        __  __  ______     
+  /\  _`\                         /\ \__  __                /\ \/\ \/\__  _\    
+  \ \ \L\ \     __     __      ___\ \ ,_\/\_\  __  __     __\ \ \ \ \/_/\ \/    
+   \ \ ,  /   /'__`\ /'__`\   /'___\ \ \/\/\ \/\ \/\ \  /'__`\ \ \ \ \ \ \ \    
+    \ \ \\ \ /\  __//\ \L\.\_/\ \__/\ \ \_\ \ \ \ \_/ |/\  __/\ \ \_\ \ \_\ \__ 
+     \ \_\ \_\ \____\ \__/.\_\ \____\\ \__\\ \_\ \___/ \ \____\\ \_____\/\_____\
+      \/_/\/ /\/____/\/__/\/_/\/____/ \/__/ \/_/\/__/   \/____/ \/_____/\/_____/
+                                                                                                                                                                      
     We <3 the people who are involved in this project, and we’d love
     to have you on board: https://reactiveui.net/contribute
     -->
@@ -18,60 +17,16 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+        <meta name="description" content="@Context.String(DocsKeys.Description)" />
         <meta name="keywords" content="reactiveui,functional,reactive,framework,mvvm,viewmodel,xamarin,ios,android,uwp">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="shortcut icon" href="@Context.GetLink("/assets/img/favicon.ico")" type="image/x-icon">
         <link rel="icon" href="@Context.GetLink("/assets/img/favicon.ico")" type="image/x-icon">
-
-        <link rel="apple-touch-icon" sizes="57x57" href="@Context.GetLink("/assets/img/apple-icon-57x57.png")">
-        <link rel="apple-touch-icon" sizes="60x60" href="@Context.GetLink("/assets/img/apple-icon-60x60.png")">
-        <link rel="apple-touch-icon" sizes="72x72" href="@Context.GetLink("/assets/img/apple-icon-72x72.png")">
-        <link rel="apple-touch-icon" sizes="76x76" href="@Context.GetLink("/assets/img/apple-icon-76x76.png")">
-        <link rel="apple-touch-icon" sizes="114x114" href="@Context.GetLink("/assets/img/apple-icon-114x114.png")">
-        <link rel="apple-touch-icon" sizes="120x120" href="@Context.GetLink("/assets/img/apple-icon-120x120.png")">
-        <link rel="apple-touch-icon" sizes="144x144" href="@Context.GetLink("/assets/img/apple-icon-144x144.png")">
-        <link rel="apple-touch-icon" sizes="152x152" href="@Context.GetLink("/assets/img/apple-icon-152x152.png")">
-        <link rel="apple-touch-icon" sizes="180x180" href="@Context.GetLink("/assets/img/apple-icon-180x180.png")">
-        <link rel="icon" type="image/png" sizes="192x192" href="@Context.GetLink("/assets/img/android-icon-192x192.png")">
-        <link rel="icon" type="image/png" sizes="32x32" href="@Context.GetLink("/assets/img/favicon-32x32.png")">
-        <link rel="icon" type="image/png" sizes="96x96" href="@Context.GetLink("/assets/img/favicon-96x96.png")">
-        <link rel="icon" type="image/png" sizes="16x16" href="@Context.GetLink("/assets/img/favicon-16x16.png")">
-        <link rel="manifest" href="~/manifest.json">
-        <meta name="msapplication-TileColor" content="#ffffff">
-        <meta name="msapplication-TileImage" content="@Context.GetLink("/assets/img/ms-icon-144x144.png")">
-        <meta name="theme-color" content="#ffffff">
-
-        <link rel="alternate" type="application/atom+xml" title="ReactiveUI" href="/rss" />
-
-        <meta property="og:url" content="@Context.GetLink(Model, true)" />
-        <meta property="og:type" content="article" />
-        <meta property="og:title" content="@ViewData[Keys.Title]" />
-        <meta property="og:image" content="https://reactiveui.net/assets/img/facebook-card.png" />
-
-        <meta name="twitter:card" content="summary_large_image">
-        <meta name="twitter:site" content="@@reactivexui">
-        <meta name="twitter:creator" content="@@reactivexui">
-        <meta name="twitter:title" content="@ViewData[Keys.Title]">
-        <meta name="twitter:image" content="https://reactiveui.net/assets/img/twitter-card.png">
-        <meta name="twitter:image:alt" content="An advanced, composable, functional reactive model-view-viewmodel framework for all .NET platforms">
-
-        @{
-            var defaultDescription = "ReactiveUI is a composable, cross-platform model-view-viewmodel framework for all .NET platforms that is inspired by functional reactive programming which is a paradigm that allows you to express the idea around a feature in one readable place, abstract mutable state away from your user interfaces and improve improve the testability of your application.";
-            var description = Metadata.Get(DocsKeys.Description, defaultDescription);
-           
-            <meta property="og:description" content="@description" />
-            <meta name="twitter:description" content="@description" />
-            <meta name="description" content="@description" />
-        }
-
         <title>@Context.String(DocsKeys.Title, "Docs") - @ViewData[Keys.Title]</title>
-        <link href="@Context.GetLink("/assets/css/mermaid.css")" rel="stylesheet">
         <link href="@Context.GetLink("/assets/css/highlight.css")" rel="stylesheet">
         <link href="@Context.GetLink("/assets/css/bootstrap/bootstrap.css")" rel="stylesheet" />
         <link href="@Context.GetLink("/assets/css/adminlte/AdminLTE.css")" rel="stylesheet" />
         <link href="@Context.GetLink("/assets/css/theme/theme.css")" rel="stylesheet" />
-        <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400|Dosis:700" rel="stylesheet" type="text/css">
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
         <link href="@Context.GetLink("/assets/css/override.css")" rel="stylesheet" />
         <script src="@Context.GetLink("/assets/js/jquery-2.2.3.min.js")"></script>
         <script src="@Context.GetLink("/assets/js/bootstrap.min.js")"></script>        
@@ -80,11 +35,11 @@
         <script src="@Context.GetLink("/assets/js/jquery.slimscroll.min.js")"></script>
         <script src="@Context.GetLink("/assets/js/jquery.sticky-kit.min.js")"></script>
         <script src="@Context.GetLink("/assets/js/mermaid.min.js")"></script>
+        <script src="@Context.GetLink("/assets/js/svg-pan-zoom.min.js")"></script>
         <!--[if lt IE 9]>
         <script src="@Context.GetLink("/assets/js/html5shiv.min.js")"></script>
         <script src="@Context.GetLink("/assets/js/respond.min.js")"></script>
         <![endif]-->  
-
 
         @Html.Partial("_Head")
     </head>
@@ -148,11 +103,13 @@
                 <section class="infobar" data-spy="affix" data-offset-top="60" data-offset-bottom="200"> 
                     @RenderSection("Infobar", false)
                 </section>
-                <section class="sidebar">                    
+                <section class="sidebar">    
+                    @Html.Partial("_SidebarHeader")                 
                     @RenderSection("Search", false)
                     <ul class="sidebar-menu">
                         @RenderSection("Sidebar", false)
                     </ul>
+                    @Html.Partial("_SidebarFooter")        
                 </section>                
             </aside>
             
@@ -165,10 +122,21 @@
             <footer class="main-footer">
             </footer>
             
+            @*
+            <!-- Control Sidebar -->
+            <aside class="control-sidebar control-sidebar-dark">
+                
+            </aside>
+            <!-- Add the sidebar's background. This div must be placed
+                immediately after the control sidebar -->
+            <div class="control-sidebar-bg"></div>
+            *@
         </div>
-        <footer class="bottom-footer">
-            @Html.Partial("_Footer")
-        </footer>
+        <div class="wrapper bottom-wrapper">
+            <footer class="bottom-footer">
+                @Html.Partial("_Footer")
+            </footer>
+        </div>
         <a href="javascript:" id="return-to-top"><i class="fa fa-chevron-up"></i></a>
         @Html.Partial("_Bottom")
         <script>           
@@ -177,22 +145,53 @@
                 $(document.body).removeClass('sidebar-open');
             });
             
-            $(document).load(function() {
+            $(document).ready(function() {
                 mermaid.initialize(
                 {
                     flowchart:
                     {
-                        htmlLabels: false,
-                        useMaxWidth:false
-                    }
-                });  
-                mermaid.init(undefined, ".mermaid")
-                $('svg').addClass('img-responsive');
+                        useMaxWidth: false
+                    },
+					startOnLoad: false,
+					cloneCssStyles: false
+                });     
+                mermaid.init(undefined, ".mermaid");
+
+                // Remove the max-width setting that Mermaid sets
+                var mermaidSvg = $('.mermaid svg');
+                mermaidSvg.addClass('img-responsive');
+                mermaidSvg.css('max-width', '');
+
+                // Make it scrollable
+				var target = document.querySelector(".mermaid svg");
+				if(target !== null)
+				{
+					var panZoom = window.panZoom = svgPanZoom(target, {
+						zoomEnabled: true,
+						controlIconsEnabled: true,
+						fit: true,
+						center: true,
+                        maxZoom: 20,
+                        zoomScaleSensitivity: 0.6
+					});			                          
+
+                    // Do the reset once right away to fit the diagram
+                    panZoom.resize();
+                    panZoom.fit();
+                    panZoom.center();
+                    
+                    $(window).resize(function(){
+                        panZoom.resize();
+                        panZoom.fit();
+                        panZoom.center();
+                    });
+		}
                 
                 $('pre code').each(function(i, block) {
                     hljs.highlightBlock(block);
                 });  
             });
+
             hljs.initHighlightingOnLoad();
 
             // Back to top

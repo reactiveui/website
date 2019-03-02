@@ -12,12 +12,12 @@ public class RepositoryViewModel : ReactiveObject
 {
   public RepositoryViewModel() 
   {
-    Delete = ReactiveCommand.CreateAsyncObservable(x => DeleteImpl());
+    Delete = ReactiveCommand.CreateFromObservable(DeleteImpl);
     Delete.IsExecuting.ToProperty(this, x => x.IsDeleting, out _isDeleting);
     Delete.ThrownExceptions.Subscribe(ex => this.Log().ErrorException("Something went wrong", ex));
   }
 
-  public ReactiveCommand<Unit> Delete { get; private set; }
+  public ReactiveCommand<Unit, Unit> Delete { get; private set; }
 
   readonly ObservableAsPropertyHelper<bool> _isDeleting;
   public bool IsDeleting { get { return _isDeleting.Value; } }
@@ -47,7 +47,7 @@ public class RepositoryViewModel : ReactiveObject
     Delete.ThrownExceptions.Subscribe(ex => this.Log().ErrorException("Something went wrong", ex));
   }
 
-  public ReactiveCommand<object> Delete { get; private set; }
+  public ReactiveCommand<Unit, Unit> Delete { get; private set; }
 
   readonly ObservableAsPropertyHelper<bool> _isDeleting;
   public bool IsDeleting { get { return _isDeleting.Value; } }
