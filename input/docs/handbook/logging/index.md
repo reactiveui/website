@@ -67,7 +67,7 @@ To configure the logger, register an implementation of `ILogger` class (there ar
 
 ```cs
 // I only want to hear about errors
-var logger = new DebugLogger() { LogLevel = LogLevel.Error };
+var logger = new DebugLogger() { Level = LogLevel.Error };
 Locator.CurrentMutable.RegisterConstant(logger, typeof(ILogger));
 ```
 
