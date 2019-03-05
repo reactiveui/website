@@ -36,7 +36,7 @@ For example if you have an existing reactive list ```ObservableCollection<T> myL
 ```cs
 var myDerivedList = myList
     .ToObservableChangeSet()
-    .Filter(t => t.Status = "Something")
+    .Filter(t => t.Status == "Something")
     .AsObservableList();
 ```
 
@@ -45,7 +45,7 @@ And voila you have create a filtered observable list. Or if you specify a key
 ```cs
 var myDerivedCache = myList
     .ToObservableChangeSet(t => t.Id)
-    .Filter(t => t.Status = "Something")
+    .Filter(t => t.Status == "Something")
     .AsObservableCache();
 ```
 
