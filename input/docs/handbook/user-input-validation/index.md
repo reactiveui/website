@@ -1,1 +1,9 @@
-See https://github.com/jcmm33/ReactiveUI.Validation and https://slack-files.com/T02AG6QJM-F2N110BCJ-b4d0a11a0c and https://blog.xamarin.com/validation-xamarin-forms-enterprise-apps/
+# ReactiveUI.Validation
+
+This is the main way we make validations. This package contains validations for ReactiveUI based solutions, functioning in a reactive way. You can get it from the NuGet gallery.
+
+More info about [ReactiveUI.Validation](https://github.com/reactiveui/ReactiveUI.Validation).
+
+# Alternatives
+
+You can also use Xamarin validations as explained in the [David Britch's article](https://blog.xamarin.com/validation-xamarin-forms-enterprise-apps/).
