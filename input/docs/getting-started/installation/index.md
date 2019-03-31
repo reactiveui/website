@@ -63,6 +63,8 @@ ReactiveUI packages are now signed by the dotnet foundation. Only builds from th
 [AvaDoc]: https://reactiveui.net/docs/getting-started/installation/avalonia
 [EventsDocs]: https://reactiveui.net/docs/handbook/events/
 
+> **Note** ReactiveUI has packages for older .NET versions. Those packages are unlisted from NuGet and not supported, but you can still use them at your own risk to have ReactiveUI running on good old devices, such as Lumias, Surface Hubs, Windows XP, etc. See [Delisting of versions before 8.0.0 from NuGet](https://reactiveui.net/blog/2018/05/delisting-of-versions-before-8-0-0-from-nuget) blog post for more info.
+
 # Release Packages
 
 ReactiveUI is published to [NuGet.org](https://www.nuget.org/packages?q=ReactiveUI) when a release of the software is done. Get email notifications when new release is pushed over at https://libraries.io/nuget/reactiveui
