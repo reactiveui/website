@@ -10,4 +10,5 @@ Settings[DocsKeys.BlogAtomPath] = "blog/feed/atom/index.xml";
 Settings[DocsKeys.BlogRssPath] = "blog/feed/rss/index.xml";
 Settings[DocsKeys.NetlifyRedirects] = "true";
 Settings[DocsKeys.CaseInsensitiveAuthors] = "true";
+Settings[DocsKeys.AutoLinkTypes] = "false";
 Settings["BaseSiteSearchUrl"] = "https://www.google.com/search";
