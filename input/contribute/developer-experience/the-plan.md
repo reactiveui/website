@@ -6,7 +6,7 @@ ReactiveUI is the father of the extremely popular ReactiveCocoa AKA "RAC" (and a
 * https://github.com/ReactiveCocoa/ReactiveCocoa (17,675 stars, 3,289 forks)
 * https://github.com/ReactiveCocoa/ReactiveSwift
 
-IMHO (Geoff here) the .NET ecosystem is behind the eightball with reactive programming _even though we are the ecosystem that invented the reactive extensions_. This is super embarassing. Alot has changed in the nine years since the birth of the Reactive Extensions, there's been huge growth in the Javascript community (all angular developers, now must know reactive programming, the birth of the much loved ELM framework), Scala (server-side; play framework) and in particular the (Java "native") Android Mobile commuinity have turned to the reactive extensions to help cope with the complexity of Android development. 
+IMHO (Geoff here) the .NET ecosystem is behind the eight-ball with reactive programming _even though we are the ecosystem that invented the reactive extensions_. This is super embarrassing. A lot has changed in the nine years since the birth of the Reactive Extensions, there's been huge growth in the JavaScript community (all angular developers, now must know reactive programming, the birth of the much loved ELM framework), Scala (server-side; play framework) and in particular the (Java "native") Android Mobile community have turned to the reactive extensions to help cope with the complexity of Android development. 
 
 Why? It's cause the the developer experience (documentation, samples, people presenting and sharing their experiences at meetups) has been lacking. Let's fix this.
 
