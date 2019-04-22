@@ -1,4 +1,4 @@
-> One thing that motivates me to write my own instead of using the legion of others, is that most loggers give zero thought to perf concerns on mobile devices - they're all written for servers, so none of them think about CPU perf or allocations. The best imho is Serilog, but it allocates way too much stuff imho to be usable on mobile — Paul Betts https://github.com/paulcbetts/splat/issues/46#issuecomment-56550457
+> One thing that motivates me to write my own instead of using the legion of others, is that most loggers give zero thought to perf concerns on mobile devices - they're all written for servers, so none of them think about CPU perf or allocations. The best imho is Serilog, but it allocates way too much stuff imho to be usable on mobile — Anaïs Betts https://github.com/reactiveui/splat/issues/46#issuecomment-56550457
 
 # Logging
 

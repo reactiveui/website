@@ -66,5 +66,5 @@ The Learning Team is responsible for keeping the guides and API documentation ac
 
 Serving as a member of an open source project like ReactiveUI is a huge amount of work. These are retired members of the ReactiveUI Team, to whom we will always be grateful. 
 
-* Paul Betts
+* Anaïs Betts
 * Brendan Forster

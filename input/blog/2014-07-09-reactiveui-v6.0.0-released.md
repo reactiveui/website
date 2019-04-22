@@ -1,7 +1,7 @@
 ---
 title: ReactiveUI v6.0.0 released
 category: Release Notes
-author: Paul Betts
+author: Anaïs Betts
 ---
 
 # Welcome to ReactiveUI 6.0
@@ -70,4 +70,4 @@ ReactiveUI 5.x used a separate installation of the Reactive Extensions for .NET 
 There are three great venues for problems / questions related to this release:
 - [The ReactiveUI mailing list](http://groups.google.com/group/reactivexaml)
 - [Issues on GitHub](https://github.com/reactiveui/ReactiveUI/issues)
-- The ReactiveUI Slack chat room - if you're interested in joining this chat room, please Email paul@paulbetts.org from the Email you want to use and I can add you.
+- The ReactiveUI Slack chat room - if you're interested in joining this chat room, please Email anais@anaisbetts.org from the Email you want to use and I can add you.

@@ -6,7 +6,7 @@ Dependency resolution is a feature built into the core framework, which allows l
 
 ReactiveUI's use of dependency resolution can more properly be called the Service Location pattern. If you service location doesn't fit your situation then have a look at how to do composition root.
 
-Since ReactiveUI 6, [Splat](https://github.com/paulcbetts/splat) is used by ReactiveUI for service location and dependency injection. Earlier versions included a RxUI resolver. If you come across samples for RxUI versions earlier than 6, you should replace references to `RxApp.DependencyResolver` with `Locator.Current` and `RxApp.MutableResolver` with `Locator.CurrentMutable`.
+Since ReactiveUI 6, [Splat](https://github.com/reactiveui/splat) is used by ReactiveUI for service location and dependency injection. Earlier versions included a RxUI resolver. If you come across samples for RxUI versions earlier than 6, you should replace references to `RxApp.DependencyResolver` with `Locator.Current` and `RxApp.MutableResolver` with `Locator.CurrentMutable`.
 
 ## Why Splat?
 
@@ -21,7 +21,7 @@ It encapsulates several different common object lifetime models (i.e. 'create ne
 It's Mono Linker friendly (generally)
 Service Location allows us to register types in platform-specific code, but use them in PCL code."
 >
-> Paul Betts @ http://stackoverflow.com/a/26924067/496857
+> Anaïs Betts @ http://stackoverflow.com/a/26924067/496857
 
 
 ## Registration
@@ -96,5 +96,5 @@ Given a type T (usually an interface), you can now receive an implementation of 
 parameter which is an arbitrary key that you provide.
 
 The current resolver that ReactiveUI itself will use (as well as what your app
-should use as well), is provided by [Splat.ModernDependencyResolver](https://github.com/paulcbetts/splat/blob/b833718d1b7940d1d02403e86864d03d2af5cea7/Splat/ServiceLocation.cs).
+should use as well), is provided by [Splat.ModernDependencyResolver](https://github.com/reactiveui/splat/blob/b833718d1b7940d1d02403e86864d03d2af5cea7/Splat/ServiceLocation.cs).
 

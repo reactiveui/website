@@ -1,7 +1,7 @@
 ---
 title: ReactiveUI v6.0.0 Preview 6 released
 category: Release Notes
-author: Paul Betts
+author: Anaïs Betts
 ---
 
 
