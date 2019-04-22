@@ -4,7 +4,7 @@
     does anyone have a good way to find which property on a View is being accessed from the wrong thread?
     sigh. found it, but there should be an easier way than just adding `.ObserveOn(RxApp.MainThreadScheduler)` everywhere until it goes away
     
-    paulcbetts [6:43 AM] 
+    anaisbetts [6:43 AM] 
     Can't you just see it on the call stack?
     
     Disable Just My Code
@@ -15,7 +15,7 @@
     it's turned off already
     it throws inside the setter for the View's VM, which is weird because the VM has been set already - that's why I have to guess which one is doing it
     
-    paulcbetts [7:27 AM] 
+    anaisbetts [7:27 AM] 
     Just go back up the stack
 
 	ghuntley [2:17 PM] 
@@ -27,7 +27,7 @@
 
 
 
-	paulcbetts [5:58 PM] 
+	anaisbetts [5:58 PM] 
 	I'm not super excited about this change, because it costs a lot of perf in order to basically just change an error message (i.e. on most platforms it will crash anyways, we're just changing how it crashes)
 
 	​[5:59] 

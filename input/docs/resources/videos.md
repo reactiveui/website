@@ -52,18 +52,18 @@ By Brendan Forster
 
 ## Awaiting for Rx: A Play in Four Acts
 
-Paul Betts at Xamarin Evolve 2014
+Anaïs Betts at Xamarin Evolve 2014
 
 <?# YouTube 5DZ8nC0ENdg /?>
 
 ## FRP In Practice: Taking a look at Reactive[UI/Cocoa]
 
-Paul Betts at Strange Loop
+Anaïs Betts at Strange Loop
 
 <?# YouTube 1XNATGjqM6U /?>
 
 # 2012
 
-## Reactive Extensions and ReactiveUI: Paul Betts at QCon
+## Reactive Extensions and ReactiveUI: Anaïs Betts at QCon
 
 https://www.infoq.com/presentations/Reactive-Extensions-and-ReactiveUI

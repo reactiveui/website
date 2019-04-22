@@ -1,7 +1,7 @@
 ---
 title: ReactiveUI v6.1.0 released
 category: Release Notes
-author: Paul Betts
+author: Anaïs Betts
 ---
 
 ## [What's New](https://github.com/reactiveui/ReactiveUI/compare/6.0.7...6.1.0)

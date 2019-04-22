@@ -238,7 +238,7 @@ __Documentation__
 - [__#1457__](https://github.com/reactiveui/ReactiveUI/pull/1457) documentation: added baseline for xamarin.forms sample application
 - [__#1415__](https://github.com/reactiveui/ReactiveUI/pull/1415) Improve wording on PR template
 - [__#1412__](https://github.com/reactiveui/ReactiveUI/pull/1412) chore: tweaking comments in TestUtils
-- [__#1204__](https://github.com/reactiveui/ReactiveUI/pull/1204) docs: email geoff, not paul for slack invitation
+- [__#1204__](https://github.com/reactiveui/ReactiveUI/pull/1204) docs: email Geoff Huntley, not Anaïs Betts for slack invitation
 
 # Where to get it
 

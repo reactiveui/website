@@ -30,8 +30,8 @@ Instead of doing the typical ViewModel isLoading = true/false mutable dance by t
 
 **Still not convinced?**
 - [Why You Should Be Building Better Mobile Apps with Reactive Programming](https://www.youtube.com/watch?v=DYEbUF4xs1Q) – Michael Stonis (Xamarin Univeristy Trainer/Eightbot)
-- [Awaiting for Rx: A Play in Four Acts](https://www.youtube.com/watch?v=5DZ8nC0ENdg) - Paul Betts (Slack/GitHub) 
-- [FRP In Practice: Taking a look at ReactiveUI/ReactiveCocoa](https://www.youtube.com/watch?v=1XNATGjqM6U) by Paul Betts (Slack/GitHub)
+- [Awaiting for Rx: A Play in Four Acts](https://www.youtube.com/watch?v=5DZ8nC0ENdg) - Anaïs Betts (Slack/GitHub) 
+- [FRP In Practice: Taking a look at ReactiveUI/ReactiveCocoa](https://www.youtube.com/watch?v=1XNATGjqM6U) by Anaïs Betts (Slack/GitHub)
 
 Maybe you need to watch this insanely smart, and eccentric guy in a tie-dye t-shirt do maths on a whiteboard:
 

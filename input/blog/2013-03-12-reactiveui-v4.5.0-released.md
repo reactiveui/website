@@ -1,7 +1,7 @@
 ---
 title: ReactiveUI v4.5.0 released
 category: Release Notes
-author: Paul Betts
+author: Anaïs Betts
 ---
 
 # [What's New](https://github.com/reactiveui/reactiveui/compare/4.4.3...4.5.0)
