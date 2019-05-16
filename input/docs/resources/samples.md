@@ -24,7 +24,7 @@ Order: 15
 
 * [WorkoutWotch](https://github.com/kentcb/WorkoutWotch) — a mobile application that allows users to have their exercise programs dictated to them. The vast majority of the application was built as part of a [video series "Building an iOS app with C#"](https://github.com/kentcb/WorkoutWotch#where-are-the-videos).
 
-* [MasterDetail](https://github.com/reactiveui/ReactiveUI/tree/master/samples/xamarin-forms/MasterDetail) — ReactiveUI MasterDetail and Routing sample for Xamarin.Forms.
+* [MasterDetail](https://github.com/reactiveui/ReactiveUI.Samples/tree/master/xamarin-forms/MasterDetail) — ReactiveUI MasterDetail and Routing sample for Xamarin.Forms.
 
 * [RoutingSimpleSample](https://github.com/GiusepeCasagrande/RoutingSimpleSample) — ReactiveUI simple Routing sample.
 

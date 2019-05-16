@@ -487,7 +487,7 @@ Now you can search repositories on NuGet using your own app!
 
 </details>
 
-Source code of the application described in this guide can be found on [GitHub](https://github.com/reactiveui/ReactiveUI/tree/master/samples/wpf/getting-started).
+Source code of the application described in this guide can be found on [GitHub](https://github.com/reactiveui/ReactiveUI.Samples/tree/master/wpf/getting-started).
 
 # Explore ReactiveUI
 
