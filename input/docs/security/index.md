@@ -1,6 +1,3 @@
-
-<?# Twitter 903619522883497984 /?>
-
 # Digital Signature Details
 
 ## Issuer
