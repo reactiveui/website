@@ -233,6 +233,26 @@ sealed partial class App : Application
 }
 ```
 
+### WPF
+
+For WPF, add the following to your `App.xaml.cs` file:
+
+```cs
+public partial class App : Application
+{
+    private readonly AutoSuspendHelper autoSuspendHelper;
+
+    public App()
+    {
+        this.autoSuspendHelper = new AutoSuspendHelper(this);
+
+        // Initialize the suspension driver after AutoSuspendHelper.
+        RxApp.SuspensionHost.CreateNewAppState = () => new AppState();
+        RxApp.SuspensionHost.SetupDefaultSuspendResume(new AkavacheSuspensionDriver<AppState>());
+    }
+}
+```
+
 ## Retrieving the AppState
 
 The application state will be serialized and persisted using the `ISuspensionDriver` once the application gets closed, suspended or deactivated, depending on the platform. When you want to update data or retrieve data you can get the `AppState` object with the following code:
