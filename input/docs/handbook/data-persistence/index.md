@@ -44,7 +44,7 @@ Make sure you `[IgnoreDataMember]` or `[JsonIgnore]` the HostScreen if your seri
 
 The `AutoSuspendHelper` class can help you in persisting your `AppState`. In the example below we create an `AppState` that generates a random new Guid and persists it. So every App installation has unique key persisted. There are several steps in creating an `AppState`. You need to have an object for the AppState itself (there are cases when it can be your root view model). You need a `SuspensionDriver` to persist the data. Then you need to wire it all together in the app composition root.
 
-## 1. Set Up the Suspension Driver
+## 1. Create the Suspension Driver
 
 Create a class that implements the `ISuspensionDriver` interface. There are several production-ready implementations below, especially the Akavache suspension driver that works on any platform supported by ReactiveUI. We highly recommend using [Akavache](https://github.com/reactiveui/akavache) suspension driver. Xamarin.iOS and Universal Windows Platform will replicate [Akavache](https://github.com/reactiveui/akavache) data to the cloud and synchronize it to all user devices on which the app is installed!
 
@@ -157,6 +157,8 @@ public override void OnCreate()
 {
     base.OnCreate();
     suspendHelper = new AutoSuspendHelper(this);
+    
+    // Initialize the suspension driver after AutoSuspendHelper. 
     RxApp.SuspensionHost.CreateNewAppState = () => new AppState();
     RxApp.SuspensionHost.SetupDefaultSuspendResume(new AkavacheSuspensionDriver<AppState>());
 }
@@ -176,6 +178,7 @@ public AppDelegate()
 
 public override bool FinishedLaunching(UIApplication application, NSDictionary launchOptions)
 {
+    // Initialize the suspension driver after AutoSuspendHelper.
     RxApp.SuspensionHost.CreateNewAppState = () => new AppState();
     RxApp.SuspensionHost.SetupDefaultSuspendResume(new AkavacheSuspensionDriver<AppState>());
     autoSuspendHelper.FinishedLaunching(application, launchOptions);
@@ -205,14 +208,16 @@ sealed partial class App : Application
     public App()
     {
         autoSuspendHelper = new AutoSuspendHelper(this);
+        
+        // Initialize the suspension driver after AutoSuspendHelper.
+        RxApp.SuspensionHost.CreateNewAppState = () => new AppState();
+        RxApp.SuspensionHost.SetupDefaultSuspendResume(new AkavacheSuspensionDriver<AppState>());
         InitializeComponent();
     }
 
     protected override void OnLaunched(LaunchActivatedEventArgs e)
     {
-        // Call OnLaunched on AutoSuspendHelper.
         autoSuspendHelper.OnLaunched(args);
-
         if (!(Window.Current.Content is Frame rootFrame))
         {
             rootFrame = new Frame();
