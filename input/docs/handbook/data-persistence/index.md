@@ -135,11 +135,10 @@ You need to assign a function that creates a new AppState when there is none per
 For Android you need to implement the `Android.App.Application.IActivityLifecycleCallbacks` interface. Then add the following to the Application class:
 
 ```cs
-public class AndroidApplication : Application, Android.App.Application.IActivityLifecycleCallbacks
+[Activity(Label = "@string/app_name", Theme = "@style/AppTheme.NoActionBar", MainLauncher = true)]
+public class MainActivity : Activity, Android.App.Application.IActivityLifecycleCallbacks
 {
     private readonly AutoSuspendHelper suspendHelper;
-
-    public MyApplication(IntPtr javaReference, JniHandleOwnership transfer) : base(javaReference, transfer) { }
 
     public void OnActivityCreated(Activity activity, Bundle savedInstanceState) { }
 
@@ -155,9 +154,9 @@ public class AndroidApplication : Application, Android.App.Application.IActivity
 
     public void OnActivityStopped(Activity activity) { }
 
-    public override void OnCreate()
+    public override void OnCreate(Bundle bundle)
     {
-        base.OnCreate();
+        base.OnCreate(bundle);
         suspendHelper = new AutoSuspendHelper(this);
 
         // Initialize the suspension driver after AutoSuspendHelper. 
