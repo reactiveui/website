@@ -74,7 +74,7 @@ public class AkavacheSuspensionDriver<TAppState> : ISuspensionDriver where TAppS
 <details><summary>Newtonsoft.JSON Suspension Driver</summary>
 <p>
 
-Here is an implementation that uses [Newtonsoft.Json](https://github.com/JamesNK/Newtonsoft.Json) with `TypeNameHandling.All` json serialization setting for its persistense. The type information is included into the serialized JSON file, which means that `RoutingState` navigation stack consisting of `IRoutableViewModel`s could be restored. However, this driver isn't compatible with UWP. If you'd like to persist UWP state to a file, use `StorageFile` APIs instead of `System.IO.File`.
+Here is an implementation that uses [Newtonsoft.Json](https://github.com/JamesNK/Newtonsoft.Json) with `TypeNameHandling.All` json serialization setting for its persistense. The type information is included into the serialized JSON file, which means that `RoutingState` navigation stack consisting of `IRoutableViewModel`s could be restored. However, this driver isn't compatible with UWP. If you'd like to persist UWP state to a file, use `StorageFile` APIs instead of `System.IO.File`. You can also use [Xamarin.Essentials SecureStorage APIs](https://docs.microsoft.com/en-us/xamarin/essentials/secure-storage?tabs=android) to read and write serialized JSON objects, `SecureStorage.SetAsync` and  `SecureStorage.GetAsync`. 
 
 ```cs
 public class NewtonsoftJsonSuspensionDriver : ISuspensionDriver
@@ -264,3 +264,5 @@ The application state will be serialized and persisted using the `ISuspensionDri
 ```cs
 var appState = RxApp.SuspensionHost.GetAppState<AppState>();
 ```
+
+If you use your root view model as the app state object, then most likely you need to call the `GetAppState` method once in your composition root and assign the result to your root `DataContext` or `BindingContext`. When your application gets closed or suspended, the root view model state will be saved to the disc.
