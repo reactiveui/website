@@ -17,7 +17,7 @@ public class SearchViewModel : ReactiveObject, ISearchViewModel
             .Select(query => !string.IsNullOrWhiteSpace(query));
 
         Search = ReactiveCommand.CreateFromTask(
-            () => searchService.Search(SearchQuery),
+            () => this.searchService.Search(SearchQuery),
             canSearch);
         
         _searchResults = Search.ToProperty(this, x => x.SearchResults);
@@ -135,32 +135,35 @@ You need to assign a function that creates a new AppState when there is none per
 For Android you need to implement the `Android.App.Application.IActivityLifecycleCallbacks` interface. Then add the following to the Application class:
 
 ```cs
-AutoSuspendHelper suspendHelper;
-
-public MyApplication(IntPtr javaReference, JniHandleOwnership transfer) : base (javaReference, transfer) { }
-
-public void OnActivityCreated(Activity activity, Bundle savedInstanceState) { }
-
-public void OnActivityDestroyed(Activity activity) { }
-
-public void OnActivityPaused(Activity activity) { }
-
-public void OnActivityResumed(Activity activity) { }
-
-public void OnActivitySaveInstanceState(Activity activity, Bundle outState) { }
-
-public void OnActivityStarted(Activity activity) { }
-
-public void OnActivityStopped(Activity activity) { }
-
-public override void OnCreate()
+public class AndroidApplication : Application, Android.App.Application.IActivityLifecycleCallbacks
 {
-    base.OnCreate();
-    suspendHelper = new AutoSuspendHelper(this);
-    
-    // Initialize the suspension driver after AutoSuspendHelper. 
-    RxApp.SuspensionHost.CreateNewAppState = () => new AppState();
-    RxApp.SuspensionHost.SetupDefaultSuspendResume(new AkavacheSuspensionDriver<AppState>());
+    private readonly AutoSuspendHelper suspendHelper;
+
+    public MyApplication(IntPtr javaReference, JniHandleOwnership transfer) : base(javaReference, transfer) { }
+
+    public void OnActivityCreated(Activity activity, Bundle savedInstanceState) { }
+
+    public void OnActivityDestroyed(Activity activity) { }
+
+    public void OnActivityPaused(Activity activity) { }
+
+    public void OnActivityResumed(Activity activity) { }
+
+    public void OnActivitySaveInstanceState(Activity activity, Bundle outState) { }
+
+    public void OnActivityStarted(Activity activity) { }
+
+    public void OnActivityStopped(Activity activity) { }
+
+    public override void OnCreate()
+    {
+        base.OnCreate();
+        suspendHelper = new AutoSuspendHelper(this);
+
+        // Initialize the suspension driver after AutoSuspendHelper. 
+        RxApp.SuspensionHost.CreateNewAppState = () => new AppState();
+        RxApp.SuspensionHost.SetupDefaultSuspendResume(new AkavacheSuspensionDriver<AppState>());
+    }
 }
 ```
 
