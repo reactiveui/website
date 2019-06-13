@@ -172,30 +172,31 @@ public class AndroidApplication : Application, Android.App.Application.IActivity
 For iOS you need to add the following to the AppDelegate:
 
 ```cs
-readonly AutoSuspendHelper autoSuspendHelper;
-
-public AppDelegate()
+[Register("AppDelegate")]
+public class AppDelegate : UIApplicationDelegate
 {
-    autoSuspendHelper = new AutoSuspendHelper(this);
-}
+    private readonly AutoSuspendHelper autoSuspendHelper;
 
-public override bool FinishedLaunching(UIApplication application, NSDictionary launchOptions)
-{
-    // Initialize the suspension driver after AutoSuspendHelper.
-    RxApp.SuspensionHost.CreateNewAppState = () => new AppState();
-    RxApp.SuspensionHost.SetupDefaultSuspendResume(new AkavacheSuspensionDriver<AppState>());
-    autoSuspendHelper.FinishedLaunching(application, launchOptions);
-    return true;
-}
+    public AppDelegate() => autoSuspendHelper = new AutoSuspendHelper(this);
 
-public override void DidEnterBackground(UIApplication application)
-{
-    autoSuspendHelper.DidEnterBackground(application);
-}
+    public override bool FinishedLaunching(UIApplication application, NSDictionary launchOptions)
+    {
+        // Initialize the suspension driver after AutoSuspendHelper.
+        RxApp.SuspensionHost.CreateNewAppState = () => new AppState();
+        RxApp.SuspensionHost.SetupDefaultSuspendResume(new AkavacheSuspensionDriver<AppState>());
+        autoSuspendHelper.FinishedLaunching(application, launchOptions);
+        return true;
+    }
 
-public override void OnActivated(UIApplication application)
-{
-    autoSuspendHelper.OnActivated(application);
+    public override void DidEnterBackground(UIApplication application)
+    {
+        autoSuspendHelper.DidEnterBackground(application);
+    }
+
+    public override void OnActivated(UIApplication application)
+    {
+        autoSuspendHelper.OnActivated(application);
+    }
 }
 ```
 
