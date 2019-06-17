@@ -4,6 +4,38 @@ Scheduling is a core part of writing any app that uses the Reactive Extensions, 
 
 * **RxApp.TaskpoolScheduler** - This scheduler executes code via the TPL taskpool. This is equivalent to Task.Run.
 
+To use these two inbuilt schedulers use the 'ObserveOn' extension method in your Observable chain.
+
+If you want to use it as part of a observable chain use the ObserveOn operator:
+```cs
+this.WhenAnyValue(x => x.MyImportantProperty).ObserveOn(RxApp.MainThreadScheduler).Subscribe(x => ...);
+```
+
+To control where a `ReactiveControl` runs the `Subscribe` you can pass in a scheduler. By default it will use whatever the current thread's scheduler is, so if you initialize from the UI thread it will use that thread.
+
+```cs
+myCommand = ReactiveCommand.Create<Unit, string>(() => ...do stuff..., scheduler: RxApp.MainThreadScheduler);
+```
+
+To control where a `ObservableAsPropertyHelper` triggers the `INotifyPropertyChanged` events from pass in a scheduler. By default it will use whatever the current thread's scheduler is, so if you initialize from the UI thread it will use that thread.
+
+```cs
+public class MyVm : ReactiveObject
+{
+  private static readonly ObservableAsPropertyHelper<bool> _isRunning;
+
+  public MyVm()
+  {
+    MyCommand = ReactiveCommand.Create<Unit, string>(() => ...do stuff..., scheduler: RxApp.MainThreadScheduler);
+    _isRunning = running = myCommand.IsExecuting.ToProperty(this, nameof(Running), scheduler: RxApp.MainThreadScheduler);  
+  }
+
+  public ReactiveCommand<Unit, string> MyCommand { get; }
+  public bool IsRunning => _isRunning.Value;
+```
+
+**Note**: Often on the iOS platform you need to pass in the main thread scheduler, since the default scheduler may not be the correct one.
+
 # When should I care about scheduling
 
 You should try to attempt to remove all sources of concurrency other than scheduling via RxApp. This isn't always possible, but threads created via "new Thread()" or "Task.Run" can't be controlled in a unit test. The most straightforward way to fix these is by replacing them with "Observable.Start":
