@@ -21,7 +21,7 @@ The general rule we follow is "use Visual Studio defaults".
    Consider enabling "View White Space (Ctrl+E, S)" if using Visual Studio to aid detection.
 9. If a file happens to differ in style from these guidelines (e.g. private members are named `m_member`
    rather than `_member`), the existing style in that file takes precedence.
-10. We only use `var` when it's obvious what the variable type is (e.g. `var stream = new FileStream(...)` not `var stream = OpenStandardInput()`).
+10. The use of `var` is encouraged if it makes sense to do so. Good use cases are where the return type has a large name, where refactoring is possible. If there is a need for clarity than using the full type name is allowed.
 11. We use language keywords instead of BCL types (e.g. `int, string, float` instead of `Int32, String, Single`, etc) for both type references as well as method calls (e.g. `int.Parse` instead of `Int32.Parse`). See issue [391](https://github.com/dotnet/corefx/issues/391) for examples.
 12. We use PascalCasing to name all our constant local variables and fields. The only exception is for interop code where the constant value should exactly match the name and value of the code you are calling via interop.
 13. We use ```nameof(...)``` instead of ```"..."``` whenever possible and relevant.
