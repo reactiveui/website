@@ -28,6 +28,10 @@ The general rule we follow is "use Visual Studio defaults".
 14. Fields should be specified at the top within type declarations.
 15. When including non-ASCII characters in the source code use Unicode escape sequences (\uXXXX) instead of literal characters. Literal non-ASCII characters occasionally get garbled by a tool or editor.
 16. When using labels (for goto), indent the label one less than the current indentation.
+17. All publically exposed methods and properties should have a .net XML comment associated with them. This includes protected methods of public declared classes.
+18. Use of method groups is encourged where appropriate.
+19. Use the C# 7 style pattern matching when possible.
+20. When using methods with `out` parameters, try to use the inline variable feature within C# 7.
 
 We have provided an analyzer ruleset (`analyzers.ruleset`) at the root of the reactiveui repository, enabling C# auto-formatting conforming to the above guidelines.
 
