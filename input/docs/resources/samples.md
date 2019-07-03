@@ -2,6 +2,10 @@ Title: Samples
 Order: 15
 ---
 
+# Samples Repository
+
+You can find a number of samples over in our [sample repository](https://github.com/reactiveui/reactiveui.samples).
+
 # Windows Presentation Framework
 
 * [GitHub Extension for Visual Studio](https://github.com/github/VisualStudio/tree/master/src) Ever noticed that little checkbox when installing Visual Studio to "Install GitHub for Visual Studio"? Yeah that extension is an enterprise grade application built with ReactiveUI and it's completely open-source. Includes unit tests!
