@@ -9,13 +9,13 @@ Title: Compiling
 
 3. ReactiveUI and other projects within the group make use of msbuild.sdk.extras. Each project repository contains a global.json that denotes the version of the .Net Core SDK being used. If you do not have the correct version you will see a solution with a bunch of unloaded projects. When you attempt to load a project you will get a message akin to:
 
-`
-Unable to locate the .NET Core SDK. Check that it is installed and that the version specified in global.json (if any) matches the installed version.
+   ```
+   Unable to locate the .NET Core SDK. Check that it is installed and that the version specified in global.json (if any) matches the installed version.
 
-D:\github\reactiveui\splat\src\Splat\Splat.csproj : error  : The expression "[System.IO.Path]::GetDirectoryName('')" cannot be evaluated. The path is not of a legal form.  C:\Users\username\.nuget\packages\msbuild.sdk.extras\2.0.29\Sdk\Sdk.props
-`
+   D:\github\reactiveui\splat\src\Splat\Splat.csproj : error  : The expression "[System.IO.Path]::GetDirectoryName('')" cannot be evaluated. The path is not of a legal form.  C:\Users\username\.nuget\packages\msbuild.sdk.extras\2.0.29\Sdk\Sdk.props
+   ```
 
-To get the correct version (or later) please visit https://dotnet.microsoft.com/download/dotnet-core
+   To get the correct version (or later) please visit https://dotnet.microsoft.com/download/dotnet-core
 
 
 4. Run `./build.cmd` from a Windows machine. Make sure you have the UWP and Windows 10 SDK's installed. They are checkboxes in the Visual Studio installer.
