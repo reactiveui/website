@@ -90,7 +90,7 @@ public class AppViewModel : ReactiveObject
         //
         // We then do a SelectMany() which starts the task by converting Task<IEnumerable<T>> 
         // into IObservable<IEnumerable<T>>. If subsequent requests are made, the 
-        // CancellationToken is called. We then ObservableOn the main thread, 
+        // CancellationToken is called. We then ObserveOn the main thread, 
         // everything up until this point has been running on a separate thread due 
         // to the Throttle().
         //
