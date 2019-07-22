@@ -6,7 +6,17 @@ The motivation is intuitive enough when you think about it. It's not hard to ima
 - This logic can be composed and expressed declaratively, using the power of Rx operators
 - Concepts like time and asynchronicity become easier to reason about, due to their first-class treatment in an Observable context.
 
-ReactiveUI provides several variants of `WhenAny` to help you work with properties as an observable stream. 
+ReactiveUI provides several variants of `WhenAny` to help you work with properties as an observable stream.
+
+# What is WhenAny
+
+`WhenAny` is a set of extension methods that allow you to get notifications when property on objects change.
+
+`WhenAny` supports multiple property types including `INotifyPropertyChanged`, `DependencyProperty` and `BindableProperty`. 
+
+It will check the property for support for each of those property types, and when you `Subscribe()` it will subscribe to the events offered by the applicable property notification mechanism.
+
+`WhenAny` by default is just a wrapper around these property notification events, and won't store any values before a `Subscribe`. You can use techniques such as `Publish`, `Replay()` to get it to store these values. This is useful in the case you are using `ObservableAsPropertyChanged`.
 
 # Basic syntax
 
