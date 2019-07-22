@@ -10,13 +10,17 @@ ReactiveUI provides several variants of `WhenAny` to help you work with properti
 
 # What is WhenAny
 
-`WhenAny` is a set of extension methods that allow you to get notifications when property on objects change.
+`WhenAny` is a set of extension methods starting the prefix `WhenAny` that allow you to get notifications when property on objects change.
+
+You can think of the `WhenAny` set of extension methods notifying you when one or many property values have changed.
 
 `WhenAny` supports multiple property types including `INotifyPropertyChanged`, `DependencyProperty` and `BindableProperty`. 
 
 It will check the property for support for each of those property types, and when you `Subscribe()` it will subscribe to the events offered by the applicable property notification mechanism.
 
-`WhenAny` by default is just a wrapper around these property notification events, and won't store any values before a `Subscribe`. You can use techniques such as `Publish`, `Replay()` to get it to store these values. This is useful in the case you are using `ObservableAsPropertyChanged`.
+`WhenAny` by default is just a wrapper around these property notification events, and won't store any values before a `Subscribe`. You can use techniques such as `Publish`, `Replay()` to get it to store these values.
+
+You can also wrap the `WhenAny` in a `Observable.Defer` to avoid the value being calculated until a `Subscribe` has happened. This is useful for `ObservableAsPropertyHelper` when you using the defer feature.
 
 # Basic syntax
 
@@ -206,3 +210,17 @@ You can simulate null propogation support by chaining your WhenAnyValue() call t
 this.WhenAnyValue(x => x.Foo, x => x.Foo.Bar, x => x.Foo.Bar.Baz, (foo, bar, baz) => foo?.Bar?.Baz)
     .Subscribe(x => Console.WriteLine(x));
 ```
+
+# How WhenAny knows about different type of properties
+
+`WhenAny` operators will look for services registered with Splat with the `ICreatesObservableForProperty` interface.
+
+The interface has two methods, `GetAffinityForObject` and `GetNotificationForProperty`.
+
+The first method `GetAffinityForObject` based on the property type, property name, and it should notify before or after the property change, will ask for a "vote" on how confident the property changed observable is at converting the value. A value of 0 from `GetAffinityForObject` means it cannot create a property changed observable at all. The system will then take votes from all registered `ICreatesObservableForProperty` interfaces and the one with the highest numeric vote wins. In the worst case a `POCOObservableForProperty` will always have a value greater than 0. This type of property changed observable will only get the initial value for the property and never update.
+
+After the voting has finished it will call `GetNotificationForProperty` with the property type, name and if it should be before or after the property changed. It will then create the property changed observable.
+
+When you are calling as part of a `WhenAny` chain it will get the property changed observable for each property along the chain.
+
+So for instance `this.WhenAnyValue(x => x.Property1.Property2)` will get the property changed observables for the Property1, then for the Property2. So each can be a different type of observable property, for example a `INotifyPropertyChanged` and a `DependencyObject`.
