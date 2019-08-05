@@ -1,6 +1,6 @@
-#tool "nuget:?package=Wyam&version=2.2.4"
-#addin "nuget:?package=Cake.Git&version=0.19.0"
-#addin "nuget:?package=Cake.Wyam&version=2.2.4"
+#tool "nuget:?package=Wyam&version=2.2.5"
+#addin "nuget:?package=Cake.Git&version=0.21.0"
+#addin "nuget:?package=Cake.Wyam&version=2.2.5"
 #addin "nuget:?package=Octokit&version=0.32.0"
 
 using Octokit;
