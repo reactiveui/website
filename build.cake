@@ -1,6 +1,6 @@
-#tool "nuget:?package=Wyam&version=2.2.5"
+#module nuget:?package=Cake.DotNetTool.Module&version=0.3.0
+#tool "dotnet:?package=Wyam.Tool&version=2.2.5"
 #addin "nuget:?package=Cake.Git&version=0.21.0"
-#addin "nuget:?package=Cake.Wyam&version=2.2.5"
 #addin "nuget:?package=Octokit&version=0.32.0"
 
 using Octokit;
@@ -51,7 +51,7 @@ Task("GetSource")
     .IsDependentOn("Clean")
     .Does(() =>
     {
-	FilePath sourceZip = DownloadFile("https://codeload.github.com/reactiveui/ReactiveUI/zip/master");
+	    FilePath sourceZip = DownloadFile("https://codeload.github.com/reactiveui/ReactiveUI/zip/master");
         Unzip(sourceZip, dependenciesDir);
         
         // Need to rename the container directory in the zip file to something consistent
@@ -63,12 +63,13 @@ Task("Build")
     .IsDependentOn("GetArtifacts")
     .Does(() =>
     {
-        Wyam(new WyamSettings
-        {
-            Recipe = "Docs",
-            Theme = "Samson",
-            UpdatePackages = true,
-        });
+        StartProcess(Context.Tools.Resolve("Wyam*"), new ProcessSettings {
+                    Arguments = new ProcessArgumentBuilder()
+                        .Append("build")
+                        .AppendSwitch("--recipe", "Docs")
+                        .AppendSwitch("--theme", "Samson")
+                        .Append("-l")
+                    });
             
         Zip("./output", "output.zip", "./output/**/*");
     });
@@ -77,14 +78,15 @@ Task("Preview")
     .IsDependentOn("GetArtifacts")
     .Does(() =>
     {
-        Wyam(new WyamSettings
-        {
-            Recipe = "Docs",
-            Theme = "Samson",
-            UpdatePackages = false,
-            Preview = true,
-            Watch = true
-        });
+        StartProcess(Context.Tools.Resolve("Wyam*"), new ProcessSettings {
+                    Arguments = new ProcessArgumentBuilder()
+                        .Append("build")
+                        .AppendSwitch("--recipe", "Docs")
+                        .AppendSwitch("--theme", "Samson")
+                        .Append("-l")
+                        .Append("--preview")
+                        .Append("--watch")
+                    });
     });
 
 // Assumes Wyam source is local and at ../../WyamIO/Wyam
