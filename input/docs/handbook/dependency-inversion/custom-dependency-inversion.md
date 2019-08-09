@@ -104,7 +104,8 @@ public class AutofacDependencyRegistrar
 ## Set the Locator.Current to your implementation
 
 ```csharp
-var resolver = new AutofacDependencyResolver(container);
+container.UseAutofacDependencyResolver();
+var resolver = Locator.CurrentMutable;
 // These Initialize methods will add ReactiveUI platform registrations to your container
 // They MUST be present if you override the default Locator
 resolver.InitializeSplat();
