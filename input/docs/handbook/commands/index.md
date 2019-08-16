@@ -85,7 +85,7 @@ _users = LoadUsers.ToProperty(
 // if anything goes wrong in LoadUsers command.
 LoadUsers.ThrownExceptions.Subscribe(exception => 
 {
-    this.Log().WarnException("Error!", exception);
+    this.Log().Warn("Error!", exception);
 });
 ```
 
