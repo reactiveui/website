@@ -4,6 +4,7 @@ Order: 10
 
 ReactiveUI packages are now signed by the dotnet foundation. Only builds from their infrastructure carry this seal.  ReactiveUI uses Azure Dev Ops for our CI pipeline. Each platform has packages that extend the base ReactiveUI offerings for it's concerns.  Installing the correct packages for the correct platform can be somewhat of a pain.
 
+
 | Platform          | ReactiveUI Package                  | NuGet                | [Events][EventsDocs] Package            |
 | ----------------- | ----------------------------------- | -------------------- | --------------------------------------- |
 | .NET Standard     | [ReactiveUI][CoreDoc]               | [![CoreBadge]][Core] | None                                    |
@@ -18,7 +19,9 @@ ReactiveUI packages are now signed by the dotnet foundation. Only builds from th
 | Xamarin.iOS       | [ReactiveUI][IosDoc]                | [![CoreBadge]][Core] | [ReactiveUI.Events][CoreEvents]         |
 | Xamarin.Mac       | [ReactiveUI][MacDoc]                | [![CoreBadge]][Core] | [ReactiveUI.Events][CoreEvents]         |
 | Tizen             | [ReactiveUI][CoreDoc]               | [![CoreBadge]][Core] | [ReactiveUI.Events][CoreEvents]         |
+| Platform Uno      | [ReactiveUI.Uno][UnoDoc]            [ [![CoreBadge]][Uno]  | [Coming soon][UnoEvents]                |
 | Avalonia          | [Avalonia.ReactiveUI][AvaDoc]       | [![AvaBadge]][Ava]   | None                                    |
+| Any               | [ReactiveUI.Validation][ValidationsDocs]    | [![ValidationsBadge]][ValidationsCore] | None
 
 [Core]: https://www.nuget.org/packages/ReactiveUI/
 [CoreEvents]: https://www.nuget.org/packages/ReactiveUI.Events/
@@ -58,10 +61,21 @@ ReactiveUI packages are now signed by the dotnet foundation. Only builds from th
 [MacDoc]: https://reactiveui.net/docs/getting-started/installation/xamarin-mac
 [IosDoc]: https://reactiveui.net/docs/getting-started/installation/xamarin-ios
 
+[Uno]: https://www.nuget.org/packages/ReactiveUI.Uno/
+[UnoEvents]: https://github.com/reactiveui/ReactiveUI/issues/2135
+[UnoBadge]: https://img.shields.io/nuget/v/ReactiveUI.Uno.svg
+[UnoDoc]: https://reactiveui.net/docs/getting-started/installation/uno-platform
+
+
 [Ava]: https://www.nuget.org/packages/Avalonia.ReactiveUI/
 [AvaBadge]: https://img.shields.io/nuget/v/Avalonia.ReactiveUI.svg
 [AvaDoc]: https://reactiveui.net/docs/getting-started/installation/avalonia
 [EventsDocs]: https://reactiveui.net/docs/handbook/events/
+
+[ValidationsCore]: https://www.nuget.org/packages/ReactiveUI.Validation/
+[ValidationsBadge]: https://img.shields.io/nuget/v/ReactiveUI.Validation.svg
+[ValidationsDocs]: https://reactiveui.net/docs/handbook/user-input-validation/
+
 
 > **Note** ReactiveUI has packages for older .NET versions. Those packages are unlisted from NuGet and not supported, but you can still use them at your own risk to have ReactiveUI running on good old devices, such as Lumias, Surface Hubs, Windows XP, etc. See [Delisting of versions before 8.0.0 from NuGet](https://reactiveui.net/blog/2018/05/delisting-of-versions-before-8-0-0-from-nuget) blog post for more info.
 
