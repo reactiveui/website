@@ -62,7 +62,6 @@ ReactiveUI packages are now signed by the dotnet foundation. Only builds from th
 [IosDoc]: https://reactiveui.net/docs/getting-started/installation/xamarin-ios
 
 [Uno]: https://www.nuget.org/packages/ReactiveUI.Uno/
-[UnoEvents]: https://github.com/reactiveui/ReactiveUI/issues/2135
 [UnoBadge]: https://img.shields.io/nuget/v/ReactiveUI.Uno.svg
 [UnoDoc]: https://reactiveui.net/docs/getting-started/installation/uno-platform
 
