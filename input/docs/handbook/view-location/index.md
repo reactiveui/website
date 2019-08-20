@@ -39,7 +39,7 @@ View Location internally uses a class called `ViewLocator` which can either be r
 ReactiveUI has some helper methods that use Reflection to register all the view's that implement the `IViewFor` interface. Be aware that due to the fact it is using Reflection it is slower than manually registering each view by hand.
 
 ```cs
-Locator.CurrentMutable.RegisterViewsForViewModels(Assembly.GetCallingAssembly());
+Locator.CurrentMutable.RegisterViewsForViewModels(Assembly.GetExecutingAssembly());
 ```
 
 ### Overriding ViewLocator
