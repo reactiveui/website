@@ -80,7 +80,7 @@ Similar to read-write properties, this code should always be 100% boilerplate. N
 
 ```cs
 this.WhenAnyValue(x => x.Name)
-    .Select(x => x.Split(' ')[0])
+    .Select(x => x?.Split(' ')[0])
     .ToProperty(this, x => x.FirstName, out firstName);
 ```
 
