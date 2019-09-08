@@ -100,7 +100,7 @@ ReactiveUI is published to [NuGet.org](https://www.nuget.org/packages?q=Reactive
 
 # Development Packages
 
-Pre-release nuget packages are uploaded to the Reactive UI [MyGet Feed](https://www.myget.org/F/reactiveui/api/v2/package/). You can use this feed to access hotfixes before they are released and to help the maintainers verify resolution to issues.
+Pre-release nuget packages are uploaded to the Reactive UI [GitHub Packages](https://github.com/orgs/reactiveui/packages). You can use this feed to access hotfixes before they are released and to help the maintainers verify resolution to issues.
 
 1. Visit https://www.visualstudio.com/en-us/docs/package/nuget/consume
-2. Configure in the following address `https://www.myget.org/F/reactiveui/api/v3/index.json`
+2. Configure in the following address `https://nuget.pkg.github.com/reactiveui/index.json`
