@@ -168,7 +168,7 @@ public class NugetDetailsViewModel : ReactiveObject
 
     // ReactiveCommand allows us to execute logic without exposing any of the 
     // implementation details with the View. The generic parameters are the 
-    // input into the command and it's output. In our case we don't have any 
+    // input into the command and its output. In our case we don't have any 
     // input or output so we use Unit which in Reactive speak means a void type.
     public ReactiveCommand<Unit, Unit> OpenPage { get; }
 }
