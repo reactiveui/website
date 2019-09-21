@@ -24,10 +24,10 @@ This is the primary way we make validations. The package contains validation hel
 
 ## Getting Started
 
-1. Decorate existing ViewModel with `ISupportsValidation`, which has a single member, `ValidationContext`. The `ValidationContext` contains all of the functionality surrounding the validation of the view model. Most access to the specification of validation rules is performed through extension methods on the `ISupportsValidation` interface. Then, add validation to the view model.
+1. Decorate existing ViewModel with `IValidatableViewModel` (`ISupportsValidation` for version 1.3 and lower), which has a single member, `ValidationContext`. The `ValidationContext` contains all of the functionality surrounding the validation of the view model. Most access to the specification of validation rules is performed through extension methods on the `IValidatableViewModel` interface. Then, add validation to the view model.
 
 ```cs
-public class SampleViewModel : ReactiveObject, ISupportsValidation
+public class SampleViewModel : ReactiveObject, IValidatableViewModel
 {    
     // Initialize validation context that manages reactive validations.
     public ValidationContext ValidationContext { get; } = new ValidationContext();
@@ -119,6 +119,26 @@ public class MainActivity : ReactiveAppCompatActivity<SampleViewModel>
 
         // bind to an Android TextInputLayout control, utilising the Error property.
         this.BindValidation(ViewModel, vm => vm.ComplexRule, til);
+    }
+}
+```
+
+## INotifyDataErrorInfo Support 
+
+For those platforms which support the `INotifyDataErrorInfo` interface (including WPF, Avalonia, Xamarin.Forms), ReactiveUI.Validation provides [a helper base class](https://github.com/reactiveui/ReactiveUI.Validation/blob/master/src/ReactiveUI.Validation/Helpers/ReactiveValidationObject.cs) named `ReactiveValidationObject<TViewModel>`. The helper class implements both the `IValidatableViewModel` interface and the `INotifyDataErrorInfo` interface. It listens to any changes in the `ValidationContext` and invokes `INotifyDataErrorInfo` events. 
+
+```cs
+public class SampleViewModel : ReactiveValidationObject<SampleViewModel>
+{
+    [Reactive]
+    public string Name { get; set; } = string.Empty;
+
+    public SampleViewModel()
+    {
+        this.ValidationRule(
+            x => x.Name, 
+            name => !string.IsNullOrWhiteSpace(name),
+            "Name shouldn't be empty.");
     }
 }
 ```
