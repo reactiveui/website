@@ -158,7 +158,13 @@ public class NugetDetailsViewModel : ReactiveObject
     {
         _metadata = metadata;
         _defaultUrl = new Uri("https://git.io/fAlfh");
-        OpenPage = ReactiveCommand.Create(() => { Process.Start(ProjectUrl.ToString()); });
+        OpenPage = ReactiveCommand.Create(() =>
+        {
+            Process.Start(new ProcessStartInfo(this.ProjectUrl.ToString())
+            {
+                UseShellExecute = true
+            });
+        });
     }
     
     public Uri IconUrl => _metadata.IconUrl ?? _defaultUrl;
