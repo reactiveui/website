@@ -6,11 +6,11 @@ Interactions are ReactiveUI's solution to the problem of suspending the view mod
 
 ## API Overview
 
-Underpinning the interaction infrastructure is the `Interaction<TInput, TOutput>` class. This class provides the glue between collaborating components of the interaction. It is responsible for coordinating and distributing interactions to handlers.
+The `Interaction<TInput, TOutput>` class is the foundation of the interaction infrastructure. It glues together collaborating components of the interaction, and coordinates and distributes interactions to handlers.
 
-Interactions accept an input and produce an output. The input is something views can use when handling the interaction. The output is something that the view model gets back from the interaction. For example, imagine a view model that needs to ask the user whether a file can be deleted. To do so, it could pass the name of the file as the input, and get back a Boolean as the output, indicating whether the file can be deleted.
+Interactions accept an input and produce an output. Views can use the input when handling the interaction. The view model gets back the output from the interaction. For example, a view model may need to ask the user for confirmation before deleting a file. Using an interaction, it could pass the file path as the input, and get back a boolean as output indicating whether the file can be deleted.
 
-The input and output types for an interaction are entirely under your control. They are generalized by the `TInput` and `TOutput` generic type arguments to `Interaction<TInput, TOutput>`. As such, you are not at all restricted in what your interactions use as input, nor in what they produce as output.
+The input and output types of an `Interaction<TInput, TOutput>` are generic type parameters and therefore under the control of the programmer; there aren't any restrictions as to what you can use as input or output types.
 
 > **Note** There may be times you don't particularly care about the input type. In such cases, you can just use `Unit`. You can also use `Unit` as your output type, though this implies that your view model is not using the interaction to make a decision. Instead, it is merely informing the view that something is about to happen.
 
