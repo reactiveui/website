@@ -1,8 +1,8 @@
-At times you may find yourself writing view model code that needs to confirm something with the user. For example, checking if it's OK to delete a file, or asking what to do about an error that has occurred.
+Sometimes view model code needs to request a confirmation from the user. For example, before deleting a file or after an error occurs.
 
-It might be tempting to simply throw up a message box right from within the view model. But that would be a mistake. Not only does this tie your view model to a particular UI technology, it also makes testing difficult (or even impossible).
+Displaying an interactive dialog from the view model is an easy solution, but it ties the view model to a particular UI framework and makes the application harder or impossible to test.
 
-Instead what is needed is a means of suspending the view model's execution path until some data is provided by the user. ReactiveUI's interaction mechanism facilitates just this.
+Interactions are ReactiveUI's solution to the problem of suspending the view model's execution path until the user has provided some input.
 
 ## API Overview
 
