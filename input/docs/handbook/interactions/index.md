@@ -159,7 +159,7 @@ This chain of precedence makes it possible to define a default handler, and then
 
 ## Unhandled Interactions
 
-If there are no handlers for a given interaction, or none of the handlers set a result, the interaction is itself considered unhandled. In this circumstance, the invocation of `Handle` will result in an `UnhandledInteractionException<TInput, TOutput>` being thrown. This exception includes both an `Interaction` and `Input` property, so you can examine the details of the failed interaction.
+An interaction is considered to be unhandled if it has no handlers or none of them set a result. In this case, invoking `Handle` will throw an `UnhandledInteractionException<TInput, TOutput>`. This exception has an `Interaction` and an `Input` property that provide further details on the error.
 
 ## Testing
 
