@@ -155,8 +155,6 @@ public class RootView
 
 `Interaction<TInput, TOutput>` implements a handler chain. Any number of handlers can be registered in the handler chain, and the handler registered last alway has higher precedence than the previous handler. When the `Handle` method is called on an interaction, each handler in the handler chain is given the chance to handle that interaction (normally, by setting an output). However, handlers need not handle the current interaction. Handlers in the handler chain keep being invoked in order of precedence until one of them finally handles the interaction.
 
-<!-- TODO: What happens if no handler handles the interaction? -->
-
 > **Note:** The `Interaction<TInput, TOutput>` class is designed to be extensible. Subclasses can override the default behavior of the `Handle` method. For example, you could write an implementation that tries only the first handler in the handler chain.
 
 The order of precedence in the handler chain makes it possible to define a default handler that can be temporarily overridden. For example, a handler with the lowest priority in the handler chain may provide default error recovery by displaying an interactive dialog to the user. However, a view may be able to recover from an error without user intervention. The view could then register a new handler when it gets activated, and dispose it when it gets deactivated again. The handler registered by the view now has higher priority than the default handler and will get a chance to handle the interaction before the default handler. This approach requires a shared `Interaction<TInput, TOutput>` instance.
