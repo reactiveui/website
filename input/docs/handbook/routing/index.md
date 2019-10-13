@@ -1,26 +1,43 @@
-Routing enables an application to keep track of the user's navigation through multiple views.
+Routing enables an application to coordinate navigation through multiple views and their corresponding view models, and to keep track of the user's navigation state.
 
 ReactiveUI supports routing for the following platforms:
 
-- Xamarin Forms
-- WinRT
-- WP8
-- Universal Windows Platform
+- Avalonia
+- Universal Windows Platform (UWP)
 - Windows Forms
 - Windows Presentation Foundation (WPF)
-- Avalonia
+- WinRT
+- WP8
+- Xamarin Forms
 
-Routing works also on iOS and Android without Xamarin.Forms, but it isn't always easy to use. If view model routing turns out hard to implement on those platforms, you can use view-first routing and customize most aspects of it.
+Routing also works on iOS and Android without Xamarin.Forms, but it isn't always easy to use. If view model routing turns out hard to implement on those platforms, you can use view-first routing and customize most aspects of it.
 
 # About ReactiveUI Routing
 
-ReactiveUI routing consists of an `IScreen` that contains the current `RoutingState`, several  `IRoutableViewModel`s, and a platform-specific XAML `RoutedViewHost` control. `RoutingState` manages the view model's navigation stack and allows view models to navigate to other view models. `IScreen` is the root of a navigation stack; despite the name, its views don't need to extend to the full screen. `RoutedViewHost` monitors an instance of `RoutingState` and responds to any changes in the navigation stack by creating and embedding the required view.
+The following elements participate in routing:
+
+- One `IScreen`,
+- one `RoutingState` (contained in the `ISCreen` instance),
+- two or more  `IRoutableViewModel`s, and
+- a platform-specific `RoutedViewHost` XAML control.
+
+`IScreen` is the root of the navigation stack. Despite the name, views associated with an `IScreen` do not need to extend to the full screen. `RoutingState` manages the view model's navigation stack and allows view models to navigate to other view models. `RoutedViewHost` monitors an instance of `RoutingState` and responds to changes in the navigation stack by creating and embedding the required view.
 
 # A Compelling Example
 
-> **Note:** The example below is adapted for WPF, but RactiveUI's routing supports more platforms. See the [Xamarin Forms routing sample](https://github.com/reactiveui/ReactiveUI.Samples/tree/master/xamarin-forms/MasterDetail) and the [Windows Forms routing sample](https://github.com/Asesjix/ReactiveUI.Winforms.Samples). See also the [ViewModel Routing with ReactiveUI and Xamarin.Forms](https://jamilgeor.com/viewmodel-routing-with-reactiveui-and-xamarin-forms/) blog post by Jamil Geor and the [Sextant](https://github.com/reactiveui/sextant) library for advanced XF routing. See also the [AvaloniaUI routing guide](http://avaloniaui.net/docs/reactiveui/routing) and the [Universal Windows Platform routing samples](https://github.com/reactiveui/ReactiveUI.Samples/tree/master/uwp).
+> **Note:** The example below is adapted for WPF, but RactiveUI's routing supports more platforms.
+>
+> Samples:
+> - [Xamarin Forms](https://github.com/reactiveui/ReactiveUI.Samples/tree/master/xamarin-forms/MasterDetail) 
+> - [Windows Forms](https://github.com/Asesjix/ReactiveUI.Winforms.Samples).
+>
+> Other resources: 
+> - [ViewModel Routing with ReactiveUI and Xamarin.Forms](https://jamilgeor.com/viewmodel-routing-with-reactiveui-and-xamarin-forms/), by Jamil Geor
+> - [Sextant](https://github.com/reactiveui/sextant) library for advanced XF routing
+> - [AvaloniaUI routing guide](http://avaloniaui.net/docs/reactiveui/routing)
+> - [Universal Windows Platform routing samples](https://github.com/reactiveui/ReactiveUI.Samples/tree/master/uwp).
 
-Using Visual Studio, create a new WPF project and name it 'ReactiveRouting'. Install the `ReactiveUI.WPF` NuGet package into the project. Now create a view model named `FirstViewModel` that implements the `IRoutableViewModel` interface. The `IRoutableViewModel.UrlPathSegment` property is a string token representing the current view model, such as 'login' or 'user'. You are free to choose any string. In this example, it's 'first'. The `HostScreen` property typically contains the instance of the host screen used by an application.
+Using Visual Studio, create a new WPF project and name it 'ReactiveRouting'. Install the `ReactiveUI.WPF` NuGet package into the project. Now create a view model named `FirstViewModel` that implements the `IRoutableViewModel` interface. The `IRoutableViewModel.UrlPathSegment` property is a string token representing the current view model, such as 'login' or 'user'. You are free to choose any string. In this example, we use 'first'. The `HostScreen` property typically contains the instance of the host screen used by an application.
 
 **FirstViewModel.cs**
 
@@ -185,9 +202,9 @@ public partial class MainWindow : ReactiveWindow<MainViewModel>
 
 <img src="./routing.gif" width="60%" />
 
-Now ReactiveUI's view model-first routing should work as expected. `IScreen`s and `RoutedViewHost`s can be nested any number of levels without impacting routing. However, this only works for XAML pages; for modal and pop-up dialogs it's better to use [Interactions](../interactions). 
+Now ReactiveUI's view model-first routing should work as expected. `IScreen`s and `RoutedViewHost`s can be nested any number of levels without impacting routing. However, this only works for XAML pages; for modal and pop-up dialogs [Interactions](../interactions) are a better choice. 
 
-> **Note:** If you experience any difficulties with this tutorial, you can join the [ReactiveUI Slack](https://reactiveui.net/slack) channel ask questions. We are always ready to help out.
+> **Note:** If you experience any difficulties with this tutorial, you can join the [ReactiveUI Slack](https://reactiveui.net/slack) channel and ask for help. We are always ready to give a hand.
 
 # View Location
 
