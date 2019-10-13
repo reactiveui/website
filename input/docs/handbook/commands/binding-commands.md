@@ -1,6 +1,6 @@
 # Binding
 
-Commands exposed in the view model are typically meant to be consumed by the view through any of its `BindCommand` methods. The `BindCommand` set of methods tie view model commands that implement `ICommand` to the controls in the view. Here's an example:
+View model commands that need to be bound to view controls must implement the `ICommand` interface. View model commands are typically bound to view controls using one of the `BindCommand` overloads available in the view. Let's see an example:
 
 ```cs
 // In a view
@@ -39,9 +39,9 @@ this.BindCommand(
 
 Here `myControl.SomeEvent` (and not the default event) will cause the command to execute.
 
-> **Note:** When this `BindCommand` overload is used in a `WhenActivated` block, it is important to dispose the binding when the view gets deactivated. `BindCommand` will subscribe to the given event each time the view is activated. If the binding is not disposed, the subscription to the event will not be canceled. This will lead to multiple subscriptions to the same event event, which will make the command execute once for each of the event subscriptions whenever the event is triggered.
+> **Note:** When this `BindCommand` overload is used in a `WhenActivated` block, it is important to dispose the binding when the view gets deactivated. `BindCommand` subscribes to the given event each time the view is activated. If the binding is not disposed, the subscription to the event will not be canceled. This will lead to multiple subscriptions to the same event, and the command will execute once for each of the event subscriptions whenever the event is triggered.
 
-`BindCommand` also provides overloads that allow to specify a parameter for the command. The parameter can be a function, an observable, or an expression that resolves to a property on the view model:
+Some `BindCommand` overloads also accept a parameter for the command. The parameter can be a function, an observable, or an expression that resolves to a property of the view model:
 
 ```cs
 // use an observable as the source for command parameters
