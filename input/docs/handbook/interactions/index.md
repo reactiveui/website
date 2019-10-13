@@ -6,24 +6,24 @@ Interactions are ReactiveUI's solution to the problem of suspending the view mod
 
 ## API Overview
 
-The `Interaction<TInput, TOutput>` class is the foundation of the interaction infrastructure. It glues together collaborating components of the interaction, and coordinates and distributes interactions to handlers.
+The `Interaction<TInput, TOutput>` class is the foundation of the interaction infrastructure. It glues together collaborating components of the interaction, coordinates interactions, and distributes them to handlers.
 
-Interactions accept an input and produce an output. Views can use the input when handling the interaction. The view model gets back the output from the interaction. For example, a view model may need to ask the user for confirmation before deleting a file. Using an interaction, it could pass the file path as the input, and get back a boolean as output indicating whether the file can be deleted.
+Interactions accept an input and produce an output. Views use the input to handle the interaction. The view model receives the output from the interaction. For example, a view model may need to ask the user for confirmation before deleting a file. Using an interaction, it could pass the file path as the input, and get back a boolean as output indicating whether the file can be deleted.
 
-The input and output types of an `Interaction<TInput, TOutput>` are generic type parameters and therefore under the control of the programmer; there aren't any restrictions as to what you can use as input or output types.
+The input and output types of an `Interaction<TInput, TOutput>` are generic type parameters and therefore under the control of the programmer; there aren't any restrictions as to what you can use as the input or output type.
 
-> **Note** There may be times you don't particularly care about the input type. In such cases, you can just use `Unit`. You can also use `Unit` as your output type, though this implies that your view model is not using the interaction to make a decision. Instead, it is merely informing the view that something is about to happen.
+> **Note:** Sometimes the input type isn't important. Use `Unit` in that case. `Unit` can also be used as the output type, but this implies that the view model isn't using the interaction to make a decision; it's merely informing the view that something is about to happen.  
 
-Interaction handlers receive an `InteractionContext<TInput, TOutput>`. The interaction context exposes the input for the interaction via the `Input` property. In addition, it provides a means for handlers to supply the interaction's output by calling the `SetOutput` method.
+Interaction handlers receive an `InteractionContext<TInput, TOutput>`. The interaction's input is exposed through the `Input` property of the interaction context. Handlers can supply the interaction's output using the `SetOutput` method of the interaction context. 
 
-A typical arrangement of interaction components - one that has been assumed until now - is:
+Here's a typical arrangement of interaction components:
 
-* **View Model**: wants to know the answer to a question, such as "is it OK to delete this file?"
-* **View**: asks the user the question, and supplies the answer during the interaction
+* **View Model**: Needs to know the answer to a question such as "Is it OK to delete this file?".
+* **View**: Asks the user the question, and supplies the answer during the interaction.
 
-Whilst this configuration is the most common, it is by no means required. You could, for example, have the view answer the question itself without user intervention. Or perhaps both components are view models. The interactions infrastructure provided by ReactiveUI does not place any restrictions on collaborating components.
+While this scenario is the most common, it isn't mandatory. For example, the view could answer the question on its own without any user intervention. Or the two components could both be view models. ReactiveUI's interactions don't restrict collaborating components in any way.
 
-Assuming the common configuration, a view model would create and expose an instance of `Interaction<TInput, TOutput>`. The corresponding view would register a handler against this interaction by calling one of the `RegisterHandler` methods on it. To instigate an interaction, the view model would pass in an instance of `TInput` to the `Handle` method. It would then asynchronously receive a result of type `TOutput`.
+Assuming the most common scenario, however, a view model creates and exposes an instance of `Interaction<TInput, TOutput>`. Its associated view registers a handler for this interaction by calling one of the interaction's `RegisterHandler` methods. To start the interaction, the view model passes in an instance of `TInput` to the interaction's `Handle` method. When the asynchronous method finally returns, the view model receives a result of type `TOutput`.
 
 ## An Example
 
