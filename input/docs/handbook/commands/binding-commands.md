@@ -1,6 +1,6 @@
 # Binding
 
-Commands exposed in the view model are typically meant to be consumed by the view through its `BindCommand` method. `BindCommand` and its overloads' job is to tie `ICommand`s in the view model to controls in the view. Here's an example:
+Commands exposed in the view model are typically meant to be consumed by the view through any of its `BindCommand` methods. The `BindCommand` set of methods tie view model commands that implement `ICommand` to the controls in the view. Here's an example:
 
 ```cs
 // In a view
