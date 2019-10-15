@@ -208,7 +208,7 @@ Now ReactiveUI's view model-first routing should work as expected. `IScreen`s an
 
 # View Location
 
-Override the default `IViewLocator` implementation to avoid having to manually register views. In the bootstrapping stage of your routing, register your view locator using `Locator.CurrentMutable.RegisterLazySingleton`. See [View Location](../views) for details.
+Override the default `IViewLocator` implementation to avoid having to manually register views. In the bootstrapping stage of your routing, register your view locator using `Locator.CurrentMutable.RegisterLazySingleton`. See [View Location](../view-location) for details.
 
 ```cs
 public class SimpleViewLocator : IViewLocator
