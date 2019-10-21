@@ -1,3 +1,5 @@
+title: Notification<T>.Accept<TResult>(Func<T, TResult>, Func<Exception, TResult>, Func<TResult>)
+---
 # Notification\<T\>.Accept\<TResult\> Method (Func\<T, TResult\>, Func\<Exception, TResult\>, Func\<TResult\>)
 
 Invokes the delegate corresponding to the notification and returns the produced result.
