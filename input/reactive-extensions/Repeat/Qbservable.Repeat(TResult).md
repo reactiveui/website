@@ -1,3 +1,5 @@
+title: Qbservable.Repeat<TResult>(IQbservableProvider, TResult, Int32)
+---
 # Qbservable.Repeat\<TResult\> Method (IQbservableProvider, TResult, Int32)
 
 Generates a queryable observable sequence that repeats the given element the specified number of times.

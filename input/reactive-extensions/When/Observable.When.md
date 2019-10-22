@@ -1,3 +1,5 @@
+title: Observable.When()
+---
 # Observable.When Method
 
 Include Protected Members  

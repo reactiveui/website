@@ -1,3 +1,5 @@
+title: Observable.TimeInterval<TSource>(IObservable<TSource>, IScheduler)
+---
 # Observable.TimeInterval\<TSource\> Method (IObservable\<TSource\>, IScheduler)
 
 Records the time interval between consecutive values in an observable sequence with the specified source and scheduler.

@@ -1,3 +1,5 @@
+title: Observable.Throttle<TSource>(IObservable<TSource>, TimeSpan, IScheduler)
+---
 # Observable.Throttle\<TSource\> Method (IObservable\<TSource\>, TimeSpan, IScheduler)
 
 Ignores the values from an observable sequence which are followed by another value before due time with the specified source, dueTime and scheduler.

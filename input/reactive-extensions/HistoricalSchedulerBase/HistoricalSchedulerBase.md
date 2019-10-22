@@ -1,3 +1,5 @@
+title: HistoricalSchedulerBase()s
+---
 # HistoricalSchedulerBase Methods
 
 Include Protected Members  

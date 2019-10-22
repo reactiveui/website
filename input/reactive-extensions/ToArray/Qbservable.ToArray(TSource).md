@@ -1,3 +1,5 @@
+title: Qbservable.ToArray<TSource>()
+---
 # Qbservable.ToArray\<TSource\> Method
 
 Creates an array from a queryable observable sequence.

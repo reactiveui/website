@@ -1,3 +1,5 @@
+title: Observable.Then<TSource, TResult>()
+---
 # Observable.Then\<TSource, TResult\> Method
 
 Matches when the observable sequence has an available value and projects the value.

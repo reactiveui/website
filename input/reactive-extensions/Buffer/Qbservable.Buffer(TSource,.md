@@ -1,3 +1,5 @@
+title: Qbservable.Buffer<TSource, TBufferClosing>(IQbservable<TSource>, Expression<Func<IObservable<TBufferClosing>>>)
+---
 # Qbservable.Buffer\<TSource, TBufferClosing\> Method (IQbservable\<TSource\>, Expression\<Func\<IObservable\<TBufferClosing\>\>\>)
 
 Indicates each element of a queryable observable sequence into consecutive non-overlapping buffers.

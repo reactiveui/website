@@ -1,3 +1,5 @@
+title: Disposable Class
+---
 # Disposable Class
 
 Provides a set of static methods for creating Disposables.

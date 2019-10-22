@@ -1,3 +1,5 @@
+title: VirtualTimeSchedulerBase<TAbsolute, TRelative>.Now Property
+---
 # VirtualTimeSchedulerBase\<TAbsolute, TRelative\>.Now Property
 
 Gets the scheduler's notion of current time.

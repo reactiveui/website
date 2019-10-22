@@ -1,3 +1,5 @@
+title: HistoricalSchedulerTest.AdvanceBy()
+---
 # HistoricalSchedulerTest.AdvanceBy Method
 
 **Namespace:**  [ReactiveTests.Tests](ReactiveTests.Tests\ReactiveTests.Tests.md)  

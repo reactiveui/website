@@ -1,3 +1,5 @@
+title: Qbservable.AsQbservable<TSource>()
+---
 # Qbservable.AsQbservable\<TSource\> Method
 
 Converts an observable sequence into a queryable observable sequence.

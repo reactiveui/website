@@ -1,3 +1,5 @@
+title: Qbservable.Range(IQbservableProvider, Int32, Int32)
+---
 # Qbservable.Range Method (IQbservableProvider, Int32, Int32)
 
 Generates a queryable observable sequence of integral numbers within a specified range.

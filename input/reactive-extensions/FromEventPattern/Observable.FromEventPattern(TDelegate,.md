@@ -1,3 +1,5 @@
+title: Observable.FromEventPattern<TDelegate, TEventArgs>(Func<EventHandler<TEventArgs>, TDelegate>, Action<TDelegate>, Action<TDelegate>)
+---
 # Observable.FromEventPattern\<TDelegate, TEventArgs\> Method (Func\<EventHandler\<TEventArgs\>, TDelegate\>, Action\<TDelegate\>, Action\<TDelegate\>)
 
 Converts a .NET event, conforming to the standard .NET event pattern, to an observable sequence with the specified conversion, add handler and remove handler.

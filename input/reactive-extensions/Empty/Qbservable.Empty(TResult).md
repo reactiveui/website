@@ -1,3 +1,5 @@
+title: Qbservable.Empty<TResult>(IQbservableProvider)
+---
 # Qbservable.Empty\<TResult\> Method (IQbservableProvider)
 
 Returns an empty queryable observable sequence with the specified provider.

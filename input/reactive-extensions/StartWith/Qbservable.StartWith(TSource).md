@@ -1,3 +1,5 @@
+title: Qbservable.StartWith<TSource>(IQbservable<TSource>, array<TSource[])
+---
 # Qbservable.StartWith\<TSource\> Method (IQbservable\<TSource\>, array\<TSource\[\])
 
 Prepends a sequence of values to a queryable observable sequence with the specified source and values.

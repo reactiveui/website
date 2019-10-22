@@ -1,3 +1,5 @@
+title: Recorded<T>.Equality Operator
+---
 # Recorded\<T\>.Equality Operator
 
 Checks whether the two given recorded objects are equal.

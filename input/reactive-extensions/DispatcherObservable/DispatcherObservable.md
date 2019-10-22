@@ -1,3 +1,5 @@
+title: DispatcherObservable Class
+---
 # DispatcherObservable Class
 
 ## Inheritance Hierarchy

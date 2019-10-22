@@ -1,3 +1,5 @@
+title: Qbservable.And<TLeft, TRight>()
+---
 # Qbservable.And\<TLeft, TRight\> Method
 
 Matches when both queryable observable sequences have an available value.

@@ -1,3 +1,5 @@
+title: System Namespace
+---
 # System Namespace
 
 ## Classes

@@ -1,3 +1,5 @@
+title: Scheduler.Schedule(IScheduler, Action)
+---
 # Scheduler.Schedule Method (IScheduler, Action)
 
 Schedules an action to be executed.

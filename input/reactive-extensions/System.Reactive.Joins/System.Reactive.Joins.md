@@ -1,3 +1,5 @@
+title: System.Reactive.Joins Namespace
+---
 # System.Reactive.Joins Namespace
 
 ## Classes

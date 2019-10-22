@@ -1,3 +1,5 @@
+title: MultipleAssignmentDisposable Constructor
+---
 # MultipleAssignmentDisposable Constructor
 
 Initializes a new instance of the [MultipleAssignmentDisposable](MultipleAssignmentDisposable\MultipleAssignmentDisposable.md) class with no current underlying disposable.

@@ -1,3 +1,5 @@
+title: Observable.Replay<TSource>(IObservable<TSource>, Int32, TimeSpan)
+---
 # Observable.Replay\<TSource\> Method (IObservable\<TSource\>, Int32, TimeSpan)
 
 Returns a connectable observable sequence that shares a single subscription to the underlying sequence replaying bufferSize notifications within window.

@@ -1,3 +1,5 @@
+title: Qbservable.Catch<TSource, TException>(IQbservable<TSource>, Expression<Func<TException, IObservable<TSource>>>)
+---
 # Qbservable.Catch\<TSource, TException\> Method (IQbservable\<TSource\>, Expression\<Func\<TException, IObservable\<TSource\>\>\>)
 
 Continues a queryable observable sequence that is terminated by an exception of the specified type with the queryable observable sequence produced by the handler.

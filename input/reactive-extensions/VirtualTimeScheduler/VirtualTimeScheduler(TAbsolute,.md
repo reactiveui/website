@@ -1,3 +1,5 @@
+title: VirtualTimeScheduler<TAbsolute, TRelative>()s
+---
 # VirtualTimeScheduler\<TAbsolute, TRelative\> Methods
 
 Include Protected Members  

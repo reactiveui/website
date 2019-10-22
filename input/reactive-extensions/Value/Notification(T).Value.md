@@ -1,3 +1,5 @@
+title: Notification<T>.Value Property
+---
 # Notification\<T\>.Value Property
 
 Returns the value of an OnNext notification or throws an exception.

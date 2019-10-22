@@ -1,3 +1,5 @@
+title: Unit.Inequality Operator
+---
 # Unit.Inequality Operator
 
 Indicates whether first and second arguments are not equal.

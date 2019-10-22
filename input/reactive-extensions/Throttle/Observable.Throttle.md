@@ -1,3 +1,5 @@
+title: Observable.Throttle()
+---
 # Observable.Throttle Method
 
 Include Protected Members  

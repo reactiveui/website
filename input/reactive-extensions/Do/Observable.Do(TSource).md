@@ -1,3 +1,5 @@
+title: Observable.Do<TSource>(IObservable<TSource>, Action<TSource>, Action<Exception>, Action)
+---
 # Observable.Do\<TSource\> Method (IObservable\<TSource\>, Action\<TSource\>, Action\<Exception\>, Action)
 
 Invokes an action for each element in the observable sequence, and invokes an action upon graceful or exceptional termination of the observable sequence.

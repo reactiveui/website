@@ -1,3 +1,5 @@
+title: Observable.Delay<TSource>(IObservable<TSource>, TimeSpan)
+---
 # Observable.Delay\<TSource\> Method (IObservable\<TSource\>, TimeSpan)
 
 Indicates the observable sequence by due time with the specified source and dueTime.

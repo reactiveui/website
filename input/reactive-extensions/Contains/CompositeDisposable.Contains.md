@@ -1,3 +1,5 @@
+title: CompositeDisposable.Contains()
+---
 # CompositeDisposable.Contains Method
 
 Determines whether the CompositeDisposable contains a specific disposable.

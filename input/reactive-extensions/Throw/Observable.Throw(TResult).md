@@ -1,3 +1,5 @@
+title: Observable.Throw<TResult>(Exception)
+---
 # Observable.Throw\<TResult\> Method (Exception)
 
 Returns an observable sequence that terminates with an exception.

@@ -1,3 +1,5 @@
+title: Waiter.Set()
+---
 # Waiter.Set Method
 
 **Namespace:**  [ReactiveTests](ReactiveTests\ReactiveTests.md)  

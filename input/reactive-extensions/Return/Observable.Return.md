@@ -1,3 +1,5 @@
+title: Observable.Return()
+---
 # Observable.Return Method
 
 Include Protected Members  

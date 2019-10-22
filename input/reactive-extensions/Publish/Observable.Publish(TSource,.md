@@ -1,3 +1,5 @@
+title: Observable.Publish<TSource, TResult>(IObservable<TSource>, Func<IObservable<TSource>, IObservable<TResult>>, TSource)
+---
 # Observable.Publish\<TSource, TResult\> Method (IObservable\<TSource\>, Func\<IObservable\<TSource\>, IObservable\<TResult\>\>, TSource)
 
 Returns a connectable observable sequence that shares a single subscription to the underlying sequence and starts with initialValue.

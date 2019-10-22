@@ -1,3 +1,5 @@
+title: TestScheduler.ScheduleAbsolute<TState>(TState, Int64, Func<IScheduler, TState, IDisposable>)
+---
 # TestScheduler.ScheduleAbsolute\<TState\> Method (TState, Int64, Func\<IScheduler, TState, IDisposable\>)
 
 Schedules an action to be executed at the specified virtual time.

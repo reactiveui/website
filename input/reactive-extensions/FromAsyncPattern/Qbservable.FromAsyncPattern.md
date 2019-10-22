@@ -1,3 +1,5 @@
+title: Qbservable.FromAsyncPattern()
+---
 # Qbservable.FromAsyncPattern Method
 
 Include Protected Members  

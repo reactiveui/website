@@ -1,3 +1,5 @@
+title: Qbservable.TimeInterval()
+---
 # Qbservable.TimeInterval Method
 
 Include Protected Members  

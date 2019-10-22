@@ -1,3 +1,5 @@
+title: Qbservable.Distinct<TSource, TKey>(IQbservable<TSource>, Expression<Func<TSource, TKey>>, IEqualityComparer<TKey>)
+---
 # Qbservable.Distinct\<TSource, TKey\> Method (IQbservable\<TSource\>, Expression\<Func\<TSource, TKey\>\>, IEqualityComparer\<TKey\>)
 
 Returns a queryable observable sequence that contains only distinct elements according to the keySelector and comparer.

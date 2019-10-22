@@ -1,3 +1,5 @@
+title: System.Reactive.Threading.Tasks Namespace
+---
 # System.Reactive.Threading.Tasks Namespace
 
 ## Classes

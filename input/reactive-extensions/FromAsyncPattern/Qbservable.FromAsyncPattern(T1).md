@@ -1,3 +1,5 @@
+title: Qbservable.FromAsyncPattern<T1>(IQbservableProvider, Expression<Func<T1, AsyncCallback, Object, IAsyncResult>>, Expression<Action<IAsyncResult>>)
+---
 # Qbservable.FromAsyncPattern\<T1\> Method (IQbservableProvider, Expression\<Func\<T1, AsyncCallback, Object, IAsyncResult\>\>, Expression\<Action\<IAsyncResult\>\>)
 
 Converts a Begin/End invoke function pair into an asynchronous function.

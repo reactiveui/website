@@ -1,3 +1,5 @@
+title: IQbservable.Provider Property
+---
 # IQbservable.Provider Property
 
 Gets the query provider that is associated with this data source.

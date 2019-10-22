@@ -1,3 +1,5 @@
+title: Observable.Zip()
+---
 # Observable.Zip Method
 
 Include Protected Members  

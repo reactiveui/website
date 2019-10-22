@@ -1,3 +1,5 @@
+title: Qbservable.Using<TSource, TResource>()
+---
 # Qbservable.Using\<TSource, TResource\> Method
 
 Constructs a queryable observable sequence that depends on a resource object.

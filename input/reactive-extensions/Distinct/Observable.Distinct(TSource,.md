@@ -1,3 +1,5 @@
+title: Observable.Distinct<TSource, TKey>(IObservable<TSource>, Func<TSource, TKey>)
+---
 # Observable.Distinct\<TSource, TKey\> Method (IObservable\<TSource\>, Func\<TSource, TKey\>)
 
 Returns an observable sequence that contains only distinct elements according to the keySelector.

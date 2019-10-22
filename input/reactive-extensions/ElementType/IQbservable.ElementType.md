@@ -1,3 +1,5 @@
+title: IQbservable.ElementType Property
+---
 # IQbservable.ElementType Property
 
 Gets the type of the element(s) that are returned when the expression tree associated with this instance of IQbservable is executed.

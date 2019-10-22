@@ -1,3 +1,5 @@
+title: Observable.ToObservable()
+---
 # Observable.ToObservable Method
 
 Include Protected Members  

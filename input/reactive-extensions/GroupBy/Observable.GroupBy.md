@@ -1,3 +1,5 @@
+title: Observable.GroupBy()
+---
 # Observable.GroupBy Method
 
 Include Protected Members  

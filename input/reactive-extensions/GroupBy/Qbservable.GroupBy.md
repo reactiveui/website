@@ -1,3 +1,5 @@
+title: Qbservable.GroupBy()
+---
 # Qbservable.GroupBy Method
 
 Include Protected Members  

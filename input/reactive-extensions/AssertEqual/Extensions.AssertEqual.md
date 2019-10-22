@@ -1,3 +1,5 @@
+title: Extensions.AssertEqual()
+---
 # Extensions.AssertEqual Method
 
 Include Protected Members  

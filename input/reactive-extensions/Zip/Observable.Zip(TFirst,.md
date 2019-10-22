@@ -1,3 +1,5 @@
+title: Observable.Zip<TFirst, TSecond, TResult>(IObservable<TFirst>, IEnumerable<TSecond>, Func<TFirst, TSecond, TResult>)
+---
 # Observable.Zip\<TFirst, TSecond, TResult\> Method (IObservable\<TFirst\>, IEnumerable\<TSecond\>, Func\<TFirst, TSecond, TResult\>)
 
 Merges an observable sequence and an enumerable sequence into one observable sequence by using the selector function.

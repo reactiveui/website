@@ -1,3 +1,5 @@
+title: Qbservable.Distinct()
+---
 # Qbservable.Distinct Method
 
 Include Protected Members  

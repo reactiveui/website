@@ -1,3 +1,5 @@
+title: Observable.Aggregate<TSource>(IObservable<TSource>, Func<TSource, TSource, TSource>)
+---
 # Observable.Aggregate\<TSource\> Method (IObservable\<TSource\>, Func\<TSource, TSource, TSource\>)
 
 Applies an accumulator function over an observable sequence.

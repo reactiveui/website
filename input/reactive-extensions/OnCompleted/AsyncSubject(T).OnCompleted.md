@@ -1,3 +1,5 @@
+title: AsyncSubject<T>.OnCompleted()
+---
 # AsyncSubject\<T\>.OnCompleted Method
 
 Notifies all subscribed observers of the end of the sequence, also causing the last received value to be sent out (if any).

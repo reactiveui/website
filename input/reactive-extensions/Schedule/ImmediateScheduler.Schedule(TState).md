@@ -1,3 +1,5 @@
+title: ImmediateScheduler.Schedule<TState>(TState, DateTimeOffset, Func<IScheduler, TState, IDisposable>)
+---
 # ImmediateScheduler.Schedule\<TState\> Method (TState, DateTimeOffset, Func\<IScheduler, TState, IDisposable\>)
 
 Schedules an action to be executed at dueTime.

@@ -1,3 +1,5 @@
+title: Observable.MinBy()
+---
 # Observable.MinBy Method
 
 Include Protected Members  

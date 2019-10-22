@@ -1,3 +1,5 @@
+title: Qbservable.Return<TResult>(IQbservableProvider, TResult)
+---
 # Qbservable.Return\<TResult\> Method (IQbservableProvider, TResult)
 
 Returns a queryable observable sequence that contains a single element with a specified value.

@@ -1,3 +1,5 @@
+title: Qbservable.Timer(IQbservableProvider, DateTimeOffset, TimeSpan, IScheduler)
+---
 # Qbservable.Timer Method (IQbservableProvider, DateTimeOffset, TimeSpan, IScheduler)
 
 Returns a queryable observable sequence that produces a value at due time and then after each period.

@@ -1,3 +1,5 @@
+title: Scheduler.Schedule<TState>(IScheduler, TState, Action<TState, Action<TState>>)
+---
 # Scheduler.Schedule\<TState\> Method (IScheduler, TState, Action\<TState, Action\<TState\>\>)
 
 Schedules an action to be executed recursively.

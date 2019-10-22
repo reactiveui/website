@@ -1,3 +1,5 @@
+title: Qbservable.Then<TSource, TResult>()
+---
 # Qbservable.Then\<TSource, TResult\> Method
 
 Matches when the queryable observable sequence has an available value and projects the value.

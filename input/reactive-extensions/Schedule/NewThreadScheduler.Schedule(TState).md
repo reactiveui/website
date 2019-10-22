@@ -1,3 +1,5 @@
+title: NewThreadScheduler.Schedule<TState>(TState, Func<IScheduler, TState, IDisposable>)
+---
 # NewThreadScheduler.Schedule\<TState\> Method (TState, Func\<IScheduler, TState, IDisposable\>)
 
 Schedules an action to be executed.

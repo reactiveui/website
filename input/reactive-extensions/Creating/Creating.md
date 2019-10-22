@@ -1,3 +1,5 @@
+title: Creating and Subscribing to Simple Observable Sequences
+---
 # Creating and Subscribing to Simple Observable Sequences
 
 You do not need to implement the IObservable\<T\> interface manually to create an observable sequences. Similarly, you do not need to implement IObserver\<T\> either to subscribe to a sequence. By installing the Reactive Extension assemblies, you can take advantage of the [Observable](Observable\Observable.md) type which provides many static LINQ operators for you to create a simple sequence with zero, one or more elements. In addition, Rx provides Subscribe extension methods that take various combinations of OnNext, OnError and OnCompleted handlers in terms of delegates.

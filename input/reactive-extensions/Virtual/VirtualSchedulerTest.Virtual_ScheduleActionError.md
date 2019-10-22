@@ -1,3 +1,5 @@
+title: VirtualSchedulerTest.Virtual_ScheduleActionError()
+---
 # VirtualSchedulerTest.Virtual\_ScheduleActionError Method
 
 **Namespace:**  [ReactiveTests.Tests](ReactiveTests.Tests\ReactiveTests.Tests.md)  

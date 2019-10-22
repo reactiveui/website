@@ -1,3 +1,5 @@
+title: BooleanDisposable.Dispose()
+---
 # BooleanDisposable.Dispose Method
 
 Sets the status to Disposed.

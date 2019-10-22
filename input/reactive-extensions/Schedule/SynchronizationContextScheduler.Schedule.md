@@ -1,3 +1,5 @@
+title: SynchronizationContextScheduler.Schedule()
+---
 # SynchronizationContextScheduler.Schedule Method
 
 Include Protected Members  

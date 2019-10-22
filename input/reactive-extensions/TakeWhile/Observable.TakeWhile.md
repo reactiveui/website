@@ -1,3 +1,5 @@
+title: Observable.TakeWhile()
+---
 # Observable.TakeWhile Method
 
 Include Protected Members  

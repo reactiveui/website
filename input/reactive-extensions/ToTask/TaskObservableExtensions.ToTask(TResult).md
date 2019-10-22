@@ -1,3 +1,5 @@
+title: TaskObservableExtensions.ToTask<TResult>(IObservable<TResult>, CancellationToken)
+---
 # TaskObservableExtensions.ToTask\<TResult\> Method (IObservable\<TResult\>, CancellationToken)
 
 Returns a task that contains the last value of the observable sequence.

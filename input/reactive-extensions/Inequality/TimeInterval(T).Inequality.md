@@ -1,3 +1,5 @@
+title: TimeInterval<T>.Inequality Operator
+---
 # TimeInterval\<T\>.Inequality Operator
 
 Indicates whether first and second arguments are not equal.

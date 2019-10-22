@@ -1,3 +1,5 @@
+title: Observable.Start<TSource>(Func<TSource>)
+---
 # Observable.Start\<TSource\> Method (Func\<TSource\>)
 
 Invokes the function asynchronously.

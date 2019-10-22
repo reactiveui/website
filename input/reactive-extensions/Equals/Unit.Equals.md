@@ -1,3 +1,5 @@
+title: Unit.Equals()
+---
 # Unit.Equals Method
 
 Include Protected Members  

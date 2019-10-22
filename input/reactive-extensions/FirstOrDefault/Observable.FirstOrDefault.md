@@ -1,3 +1,5 @@
+title: Observable.FirstOrDefault()
+---
 # Observable.FirstOrDefault Method
 
 Include Protected Members  

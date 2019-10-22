@@ -1,3 +1,5 @@
+title: Extensions.Schedule()
+---
 # Extensions.Schedule Method
 
 **Namespace:**  [ReactiveTests](ReactiveTests\ReactiveTests.md)  

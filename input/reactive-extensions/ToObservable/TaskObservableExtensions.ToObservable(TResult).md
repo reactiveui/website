@@ -1,3 +1,5 @@
+title: TaskObservableExtensions.ToObservable<TResult>(Task<TResult>)
+---
 # TaskObservableExtensions.ToObservable\<TResult\> Method (Task\<TResult\>)
 
 Returns an observable sequence that propagates the result of the task.

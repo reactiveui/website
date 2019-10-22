@@ -1,3 +1,5 @@
+title: Observable.StartWith<TSource>(IObservable<TSource>, IScheduler, array<TSource[])
+---
 # Observable.StartWith\<TSource\> Method (IObservable\<TSource\>, IScheduler, array\<TSource\[\])
 
 Prepends a sequence of values to an observable sequence with the specified source, scheduler and values.

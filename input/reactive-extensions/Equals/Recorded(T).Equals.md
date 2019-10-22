@@ -1,3 +1,5 @@
+title: Recorded<T>.Equals(Object)
+---
 # Recorded\<T\>.Equals Method (Object)
 
 Checks whether the given object is equal to the current instance.

@@ -1,3 +1,5 @@
+title: Observable.ToObservable<TSource>(IEnumerable<TSource>)
+---
 # Observable.ToObservable\<TSource\> Method (IEnumerable\<TSource\>)
 
 Converts an enumerable sequence to an observable sequence with a specified source.

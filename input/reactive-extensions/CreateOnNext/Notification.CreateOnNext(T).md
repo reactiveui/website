@@ -1,3 +1,5 @@
+title: Notification.CreateOnNext<T>()
+---
 # Notification.CreateOnNext\<T\> Method
 
 Creates an object that represents an OnNext notification to an observer.

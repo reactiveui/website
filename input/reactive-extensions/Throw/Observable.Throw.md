@@ -1,3 +1,5 @@
+title: Observable.Throw()
+---
 # Observable.Throw Method
 
 Include Protected Members  

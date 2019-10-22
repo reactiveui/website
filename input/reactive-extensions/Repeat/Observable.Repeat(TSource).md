@@ -1,3 +1,5 @@
+title: Observable.Repeat<TSource>(IObservable<TSource>, Int32)
+---
 # Observable.Repeat\<TSource\> Method (IObservable\<TSource\>, Int32)
 
 Repeats the observable sequence indefinitely.

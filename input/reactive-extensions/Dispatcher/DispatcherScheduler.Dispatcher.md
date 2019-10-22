@@ -1,3 +1,5 @@
+title: DispatcherScheduler.Dispatcher Property
+---
 # DispatcherScheduler.Dispatcher Property
 
 Gets the dispatcher associated with the DispatcherScheduler.

@@ -1,3 +1,5 @@
+title: Subject<T> Class
+---
 # Subject\<T\> Class
 
 Represents an object that is both an observable sequence as well as an observer.

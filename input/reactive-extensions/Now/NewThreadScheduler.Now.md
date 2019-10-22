@@ -1,3 +1,5 @@
+title: NewThreadScheduler.Now Property
+---
 # NewThreadScheduler.Now Property
 
 Gets the scheduler's notion of current time.

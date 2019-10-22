@@ -1,3 +1,5 @@
+title: Timestamped<T>.Equals()
+---
 # Timestamped\<T\>.Equals Method
 
 Indicates whether this instance and a specified object are equal.

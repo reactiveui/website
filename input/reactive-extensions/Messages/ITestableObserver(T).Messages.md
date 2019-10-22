@@ -1,3 +1,5 @@
+title: ITestableObserver<T>.Messages Property
+---
 # ITestableObserver\<T\>.Messages Property
 
 Gets the recorded notifications received by the observer.

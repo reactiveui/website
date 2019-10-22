@@ -1,3 +1,5 @@
+title: Observable.ToAsync<T, TResult>(Func<T, TResult>)
+---
 # Observable.ToAsync\<T, TResult\> Method (Func\<T, TResult\>)
 
 Converts the function into an asynchronous function.

@@ -1,3 +1,5 @@
+title: Qbservable.Amb()
+---
 # Qbservable.Amb Method
 
 Include Protected Members  

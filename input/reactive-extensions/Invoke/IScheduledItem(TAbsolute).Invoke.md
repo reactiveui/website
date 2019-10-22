@@ -1,3 +1,5 @@
+title: IScheduledItem<TAbsolute>.Invoke()
+---
 # IScheduledItem\<TAbsolute\>.Invoke Method
 
 Invokes the work item.

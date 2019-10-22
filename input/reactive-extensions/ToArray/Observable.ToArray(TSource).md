@@ -1,3 +1,5 @@
+title: Observable.ToArray<TSource>()
+---
 # Observable.ToArray\<TSource\> Method
 
 Creates an array from an observable sequence.

@@ -1,3 +1,5 @@
+title: System.Reactive.Subjects Namespace
+---
 # System.Reactive.Subjects Namespace
 
 ## Classes

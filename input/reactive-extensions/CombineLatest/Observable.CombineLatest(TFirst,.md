@@ -1,3 +1,5 @@
+title: Observable.CombineLatest<TFirst, TSecond, TResult>()
+---
 # Observable.CombineLatest\<TFirst, TSecond, TResult\> Method
 
 Merges two observable sequences into one observable sequence by using the selector function whenever one of the observable sequences produces an element.

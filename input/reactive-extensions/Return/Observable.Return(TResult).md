@@ -1,3 +1,5 @@
+title: Observable.Return<TResult>(TResult, IScheduler)
+---
 # Observable.Return\<TResult\> Method (TResult, IScheduler)
 
 Returns an observable sequence that contains a single value with a specified value and scheduler.

@@ -1,3 +1,5 @@
+title: Qbservable.PublishLast<TSource, TResult>()
+---
 # Qbservable.PublishLast\<TSource, TResult\> Method
 
 Returns a queryable observable sequence that is the result of invoking the selector on a connectable queryable observable sequence that shares a single subscription to the underlying sequence containing only the last notification.

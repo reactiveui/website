@@ -1,3 +1,5 @@
+title: Observer.ToNotifier<T>()
+---
 # Observer.ToNotifier\<T\> Method
 
 Creates a notification callback from an observer.

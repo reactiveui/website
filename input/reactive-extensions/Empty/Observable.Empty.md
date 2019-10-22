@@ -1,3 +1,5 @@
+title: Observable.Empty()
+---
 # Observable.Empty Method
 
 Include Protected Members  

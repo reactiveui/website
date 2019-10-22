@@ -1,3 +1,5 @@
+title: Qbservable.Start(IQbservableProvider, Expression<Action>)
+---
 # Qbservable.Start Method (IQbservableProvider, Expression\<Action\>)
 
 Invokes the action asynchronously.

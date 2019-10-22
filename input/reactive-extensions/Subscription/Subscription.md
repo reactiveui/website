@@ -1,3 +1,5 @@
+title: Subscription()s
+---
 # Subscription Methods
 
 Include Protected Members  

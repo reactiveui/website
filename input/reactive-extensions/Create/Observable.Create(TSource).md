@@ -1,3 +1,5 @@
+title: Observable.Create<TSource>(Func<IObserver<TSource>, Action>)
+---
 # Observable.Create\<TSource\> Method (Func\<IObserver\<TSource\>, Action\>)
 
 Creates an observable sequence from a specified subscribe method implementation with a specified subscribe.

@@ -1,3 +1,5 @@
+title: ObservableExtensions.Subscribe<TSource>(IObservable<TSource>, Action<TSource>, Action)
+---
 # ObservableExtensions.Subscribe\<TSource\> Method (IObservable\<TSource\>, Action\<TSource\>, Action)
 
 Subscribes an element handler and a completion handler to an observable sequence.

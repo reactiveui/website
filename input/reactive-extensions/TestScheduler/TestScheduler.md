@@ -1,3 +1,5 @@
+title: TestScheduler Constructor
+---
 # TestScheduler Constructor
 
 Initializes a new instance of the [TestScheduler](TestScheduler\TestScheduler.md) class.

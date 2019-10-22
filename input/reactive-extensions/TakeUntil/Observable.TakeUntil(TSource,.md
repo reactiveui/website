@@ -1,3 +1,5 @@
+title: Observable.TakeUntil<TSource, TOther>()
+---
 # Observable.TakeUntil\<TSource, TOther\> Method
 
 Returns the values from the source observable sequence until the other observable sequence produces a value.

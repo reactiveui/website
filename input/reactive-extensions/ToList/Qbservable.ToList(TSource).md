@@ -1,3 +1,5 @@
+title: Qbservable.ToList<TSource>()
+---
 # Qbservable.ToList\<TSource\> Method
 
 Creates a list from a queryable observable sequence.

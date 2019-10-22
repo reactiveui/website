@@ -1,3 +1,5 @@
+title: Observable.Count<TSource>()
+---
 # Observable.Count\<TSource\> Method
 
 Returns a [Int32](https://msdn.microsoft.com/en-us/library/td2s409d) that represents the total number of elements in an observable sequence.

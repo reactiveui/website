@@ -1,3 +1,5 @@
+title: BehaviorSubject<T> Constructor
+---
 # BehaviorSubject\<T\> Constructor
 
 Initializes a new instance of the [BehaviorSubject\<T\>](BehaviorSubject\BehaviorSubject(T).md) class which creates a subject that caches its last value and starts with the specified value.

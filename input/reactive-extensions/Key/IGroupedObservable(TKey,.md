@@ -1,3 +1,5 @@
+title: IGroupedObservable<TKey, TElement>.Key Property
+---
 # IGroupedObservable\<TKey, TElement\>.Key Property
 
 Gets the common key.

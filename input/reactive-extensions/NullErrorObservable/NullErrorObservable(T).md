@@ -1,3 +1,5 @@
+title: NullErrorObservable<T> Class
+---
 # NullErrorObservable\<T\> Class
 
 ## Inheritance Hierarchy

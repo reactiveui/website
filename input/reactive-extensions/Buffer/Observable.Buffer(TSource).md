@@ -1,3 +1,5 @@
+title: Observable.Buffer<TSource>(IObservable<TSource>, TimeSpan, TimeSpan, IScheduler)
+---
 # Observable.Buffer\<TSource\> Method (IObservable\<TSource\>, TimeSpan, TimeSpan, IScheduler)
 
 Indicates each element of an observable sequence into zero or more buffers which are produced based on timing information.

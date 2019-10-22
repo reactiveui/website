@@ -1,3 +1,5 @@
+title: Observable.Defer<TValue>()
+---
 # Observable.Defer\<TValue\> Method
 
 Returns an observable sequence that invokes the observable factory whenever a new observer subscribes.

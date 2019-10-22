@@ -1,3 +1,5 @@
+title: System.Reactive.Disposables Namespace
+---
 # System.Reactive.Disposables Namespace
 
 ## Classes

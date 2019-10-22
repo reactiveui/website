@@ -1,3 +1,5 @@
+title: Observable.SequenceEqual<TSource>(IObservable<TSource>, IObservable<TSource>)
+---
 # Observable.SequenceEqual\<TSource\> Method (IObservable\<TSource\>, IObservable\<TSource\>)
 
 Determines whether two sequences are equal by comparing the elements pairwise.

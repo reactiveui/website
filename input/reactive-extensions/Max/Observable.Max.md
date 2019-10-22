@@ -1,3 +1,5 @@
+title: Observable.Max(IObservable<Nullable<Int32>>)
+---
 # Observable.Max Method (IObservable\<Nullable\<Int32\>\>)
 
 Returns the maximum value in an observable sequence of nullable [Int32](https://msdn.microsoft.com/en-us/library/td2s409d) values.

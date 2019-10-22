@@ -1,3 +1,5 @@
+title: Observable.ToList<TSource>()
+---
 # Observable.ToList\<TSource\> Method
 
 Creates a list from an observable sequence.

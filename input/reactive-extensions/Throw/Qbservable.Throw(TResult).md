@@ -1,3 +1,5 @@
+title: Qbservable.Throw<TResult>(IQbservableProvider, Exception)
+---
 # Qbservable.Throw\<TResult\> Method (IQbservableProvider, Exception)
 
 Returns a queryable observable sequence that terminates with an exception.

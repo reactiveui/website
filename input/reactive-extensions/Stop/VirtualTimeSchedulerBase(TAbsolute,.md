@@ -1,3 +1,5 @@
+title: VirtualTimeSchedulerBase<TAbsolute, TRelative>.Stop()
+---
 # VirtualTimeSchedulerBase\<TAbsolute, TRelative\>.Stop Method
 
 Stops the virtual time scheduler.

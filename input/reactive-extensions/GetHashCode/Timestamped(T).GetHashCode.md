@@ -1,3 +1,5 @@
+title: Timestamped<T>.GetHashCode()
+---
 # Timestamped\<T\>.GetHashCode Method
 
 Returns the hash code for this instance.

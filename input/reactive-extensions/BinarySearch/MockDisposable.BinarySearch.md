@@ -1,3 +1,5 @@
+title: MockDisposable.BinarySearch()
+---
 # MockDisposable.BinarySearch Method
 
 Include Protected Members  

@@ -1,3 +1,5 @@
+title: QueryablePlan<TResult>.Expression Property
+---
 # QueryablePlan\<TResult\>.Expression Property
 
 Gets the expression tree that is associated with the instance of queryable.

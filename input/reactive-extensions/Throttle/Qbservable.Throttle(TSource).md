@@ -1,3 +1,5 @@
+title: Qbservable.Throttle<TSource>(IQbservable<TSource>, TimeSpan, IScheduler)
+---
 # Qbservable.Throttle\<TSource\> Method (IQbservable\<TSource\>, TimeSpan, IScheduler)
 
 Ignores the values from a queryable observable sequence which are followed by another value before due time with the specified source, dueTime and scheduler.

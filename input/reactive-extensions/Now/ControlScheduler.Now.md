@@ -1,3 +1,5 @@
+title: ControlScheduler.Now Property
+---
 # ControlScheduler.Now Property
 
 Gets the scheduler's notion of current time.

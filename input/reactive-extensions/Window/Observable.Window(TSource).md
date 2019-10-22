@@ -1,3 +1,5 @@
+title: Observable.Window<TSource>(IObservable<TSource>, TimeSpan, Int32, IScheduler)
+---
 # Observable.Window\<TSource\> Method (IObservable\<TSource\>, TimeSpan, Int32, IScheduler)
 
 Projects each element of an observable sequence into a window that is completed when either it’s full or a given amount of time has elapsed.

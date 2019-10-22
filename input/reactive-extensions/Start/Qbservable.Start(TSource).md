@@ -1,3 +1,5 @@
+title: Qbservable.Start<TSource>(IQbservableProvider, Expression<Func<TSource>>, IScheduler)
+---
 # Qbservable.Start\<TSource\> Method (IQbservableProvider, Expression\<Func\<TSource\>\>, IScheduler)
 
 Invokes the function asynchronously.

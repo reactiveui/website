@@ -1,3 +1,5 @@
+title: TaskPoolScheduler Class
+---
 # TaskPoolScheduler Class
 
 Represents an object that schedules units of work using a provided TaskFactory.

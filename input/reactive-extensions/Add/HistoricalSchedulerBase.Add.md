@@ -1,3 +1,5 @@
+title: HistoricalSchedulerBase.Add()
+---
 # HistoricalSchedulerBase.Add Method
 
 Adds a relative time to an absolute time value.

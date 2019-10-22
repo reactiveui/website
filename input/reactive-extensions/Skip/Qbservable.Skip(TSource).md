@@ -1,3 +1,5 @@
+title: Qbservable.Skip<TSource>()
+---
 # Qbservable.Skip\<TSource\> Method
 
 Bypasses a specified number of values in an observable sequence and then returns the remaining values.

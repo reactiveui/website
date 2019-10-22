@@ -1,3 +1,5 @@
+title: VirtualSchedulerTest.Virtual_Now()
+---
 # VirtualSchedulerTest.Virtual\_Now Method
 
 **Namespace:**  [ReactiveTests.Tests](ReactiveTests.Tests\ReactiveTests.Tests.md)  

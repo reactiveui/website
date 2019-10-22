@@ -1,3 +1,5 @@
+title: Qbservable.Return()
+---
 # Qbservable.Return Method
 
 Include Protected Members  

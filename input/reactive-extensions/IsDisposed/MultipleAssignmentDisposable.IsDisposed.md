@@ -1,3 +1,5 @@
+title: MultipleAssignmentDisposable.IsDisposed Property
+---
 # MultipleAssignmentDisposable.IsDisposed Property
 
 **Namespace:**  [System.Reactive.Disposables](System.Reactive.Disposables\System.Reactive.Disposables.md)  

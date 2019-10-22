@@ -1,3 +1,5 @@
+title: Recorded<T>.Inequality Operator
+---
 # Recorded\<T\>.Inequality Operator
 
 Checks whether the two given recorded objects are not equal.

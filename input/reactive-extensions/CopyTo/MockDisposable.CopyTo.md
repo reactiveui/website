@@ -1,3 +1,5 @@
+title: MockDisposable.CopyTo()
+---
 # MockDisposable.CopyTo Method
 
 Include Protected Members  

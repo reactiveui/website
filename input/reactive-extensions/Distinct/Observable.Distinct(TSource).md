@@ -1,3 +1,5 @@
+title: Observable.Distinct<TSource>(IObservable<TSource>)
+---
 # Observable.Distinct\<TSource\> Method (IObservable\<TSource\>)
 
 Returns an observable sequence that contains only distinct elements with a specified source.

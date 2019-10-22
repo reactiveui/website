@@ -1,3 +1,5 @@
+title: CompositeDisposable Constructor
+---
 # CompositeDisposable Constructor
 
 Initializes a new instance of the [CompositeDisposable](CompositeDisposable\CompositeDisposable.md) class from a group of disposables.

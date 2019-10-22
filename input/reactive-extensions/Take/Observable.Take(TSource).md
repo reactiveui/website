@@ -1,3 +1,5 @@
+title: Observable.Take<TSource>()
+---
 # Observable.Take\<TSource\> Method
 
 Returns a specified number of contiguous values from the start of an observable sequence.

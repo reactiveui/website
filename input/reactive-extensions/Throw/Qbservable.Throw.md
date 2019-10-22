@@ -1,3 +1,5 @@
+title: Qbservable.Throw()
+---
 # Qbservable.Throw Method
 
 Include Protected Members  

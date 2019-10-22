@@ -1,3 +1,5 @@
+title: CompositeDisposable.Add()
+---
 # CompositeDisposable.Add Method
 
 Adds a disposable to the CompositeDisposable or disposes the disposable if the CompositeDisposable is disposed.

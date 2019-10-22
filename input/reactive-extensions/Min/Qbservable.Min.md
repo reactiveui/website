@@ -1,3 +1,5 @@
+title: Qbservable.Min(IQbservable<Double>)
+---
 # Qbservable.Min Method (IQbservable\<Double\>)
 
 Returns the minimum value in a queryable observable sequence of [Double](https://msdn.microsoft.com/en-us/library/643eft0t) values.

@@ -1,3 +1,5 @@
+title: Qbservable.ToObservable()
+---
 # Qbservable.ToObservable Method
 
 Include Protected Members  

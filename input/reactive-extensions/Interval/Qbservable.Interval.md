@@ -1,3 +1,5 @@
+title: Qbservable.Interval(IQbservableProvider, TimeSpan)
+---
 # Qbservable.Interval Method (IQbservableProvider, TimeSpan)
 
 Returns a queryable observable sequence that produces a value after each period.

@@ -1,3 +1,5 @@
+title: Subscription.Inequality Operator
+---
 # Subscription.Inequality Operator
 
 Checks whether the two given subscription objects are not equal.

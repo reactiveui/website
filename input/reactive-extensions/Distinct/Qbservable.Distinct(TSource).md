@@ -1,3 +1,5 @@
+title: Qbservable.Distinct<TSource>(IQbservable<TSource>)
+---
 # Qbservable.Distinct\<TSource\> Method (IQbservable\<TSource\>)
 
 Returns a queryable observable sequence that contains only distinct elements with a specified source.

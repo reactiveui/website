@@ -1,3 +1,5 @@
+title: Observable.Synchronize()
+---
 # Observable.Synchronize Method
 
 Include Protected Members  

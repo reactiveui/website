@@ -1,3 +1,5 @@
+title: IQbservableProvider.CreateQuery<TResult>()
+---
 # IQbservableProvider.CreateQuery\<TResult\> Method
 
 Constructs an IQbservable\>TResult\< object that can evaluate the query represented by a specified expression tree.

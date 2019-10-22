@@ -1,3 +1,5 @@
+title: Qbservable.Zip()
+---
 # Qbservable.Zip Method
 
 Include Protected Members  

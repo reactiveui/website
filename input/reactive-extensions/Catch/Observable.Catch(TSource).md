@@ -1,3 +1,5 @@
+title: Observable.Catch<TSource>(IEnumerable<IObservable<TSource>>)
+---
 # Observable.Catch\<TSource\> Method (IEnumerable\<IObservable\<TSource\>\>)
 
 Continues an observable sequence that is terminated by an exception with the next observable sequence.

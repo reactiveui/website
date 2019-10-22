@@ -1,3 +1,5 @@
+title: ImmediateScheduler.Now Property
+---
 # ImmediateScheduler.Now Property
 
 Gets the scheduler's notion of current time.

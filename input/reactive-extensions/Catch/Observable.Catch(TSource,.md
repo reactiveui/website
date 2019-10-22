@@ -1,3 +1,5 @@
+title: Observable.Catch<TSource, TException>(IObservable<TSource>, Func<TException, IObservable<TSource>>)
+---
 # Observable.Catch\<TSource, TException\> Method (IObservable\<TSource\>, Func\<TException, IObservable\<TSource\>\>)
 
 Continues an observable sequence that is terminated by an exception of the specified type with the observable sequence produced by the handler.

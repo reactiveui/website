@@ -1,3 +1,5 @@
+title: VirtualTimeSchedulerBase<TAbsolute, TRelative>.ToDateTimeOffset()
+---
 # VirtualTimeSchedulerBase\<TAbsolute, TRelative\>.ToDateTimeOffset Method
 
 Converts the absolute time value to a DateTimeOffset value.

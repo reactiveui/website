@@ -1,3 +1,5 @@
+title: CurrentThreadScheduler Class
+---
 # CurrentThreadScheduler Class
 
 Represents an object that schedules units of work on the current thread.

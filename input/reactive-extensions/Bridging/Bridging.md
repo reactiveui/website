@@ -1,3 +1,5 @@
+title: Bridging with Existing .NET Events
+---
 # Bridging with Existing .NET Events
 
 Rx provides factory methods for you to bridge with existing asynchronous sources in .NET so that you can employ the rich composing, filtering and resource management features provided by Rx on any kind of data streams. This topic examines the FromEventPattern operator that allows “importing” a .NET event into Rx as an observable sequence. Every time an event is raised, an OnNext message will be delivered to the observable sequence. You can then manipulate event data just like any other observable sequences.

@@ -1,3 +1,5 @@
+title: Waiter.Wait()
+---
 # Waiter.Wait Method
 
 **Namespace:**  [ReactiveTests](ReactiveTests\ReactiveTests.md)  

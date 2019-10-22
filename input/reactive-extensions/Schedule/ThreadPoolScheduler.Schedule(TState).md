@@ -1,3 +1,5 @@
+title: ThreadPoolScheduler.Schedule<TState>(TState, TimeSpan, Func<IScheduler, TState, IDisposable>)
+---
 # ThreadPoolScheduler.Schedule\<TState\> Method (TState, TimeSpan, Func\<IScheduler, TState, IDisposable\>)
 
 Schedules an action to be executed after dueTime, using a System.Threading.Timer object.

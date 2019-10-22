@@ -1,3 +1,5 @@
+title: VirtualTimeSchedulerBase<TAbsolute, TRelative>.GetNext()
+---
 # VirtualTimeSchedulerBase\<TAbsolute, TRelative\>.GetNext Method
 
 Gets the next scheduled item to be executed.

@@ -1,3 +1,5 @@
+title: Observable.TakeWhile<TSource>(IObservable<TSource>, Func<TSource, Boolean>)
+---
 # Observable.TakeWhile\<TSource\> Method (IObservable\<TSource\>, Func\<TSource, Boolean\>)
 
 Returns values from an observable sequence as long as a specified condition is true, and then skips the remaining values.

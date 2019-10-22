@@ -1,3 +1,5 @@
+title: Qbservable.Concat<TSource>(IQbservableProvider, array<IObservable<TSource>[])
+---
 # Qbservable.Concat\<TSource\> Method (IQbservableProvider, array\<IObservable\<TSource\>\[\])
 
 Concatenates a queryable observable sequence of queryable observable sequences.

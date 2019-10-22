@@ -1,3 +1,5 @@
+title: Qbservable.Any()
+---
 # Qbservable.Any Method
 
 Include Protected Members  

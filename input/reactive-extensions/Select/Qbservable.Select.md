@@ -1,3 +1,5 @@
+title: Qbservable.Select()
+---
 # Qbservable.Select Method
 
 Include Protected Members  

@@ -1,3 +1,5 @@
+title: VirtualTimeSchedulerBase<TAbsolute, TRelative>.Comparer Property
+---
 # VirtualTimeSchedulerBase\<TAbsolute, TRelative\>.Comparer Property
 
 Gets the comparer used to compare absolute time values.

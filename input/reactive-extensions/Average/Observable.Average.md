@@ -1,3 +1,5 @@
+title: Observable.Average(IObservable<Nullable<Int64>>)
+---
 # Observable.Average Method (IObservable\<Nullable\<Int64\>\>)
 
 Computes the average of an observable sequence of nullable [Int64](https://msdn.microsoft.com/en-us/library/6yy583ek) values.

@@ -1,3 +1,5 @@
+title: Qbservable.TakeUntil<TSource, TOther>()
+---
 # Qbservable.TakeUntil\<TSource, TOther\> Method
 
 Returns the values from the source queryable observable sequence until the other queryable observable sequence produces a value.

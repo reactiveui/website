@@ -1,3 +1,5 @@
+title: CancellationDisposable.Dispose()
+---
 # CancellationDisposable.Dispose Method
 
 Cancels the CancellationTokenSource.

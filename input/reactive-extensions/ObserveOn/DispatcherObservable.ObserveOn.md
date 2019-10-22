@@ -1,3 +1,5 @@
+title: DispatcherObservable.ObserveOn()
+---
 # DispatcherObservable.ObserveOn Method
 
 Include Protected Members  

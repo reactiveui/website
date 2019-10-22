@@ -1,3 +1,5 @@
+title: Querying Observable Sequences using LINQ Operators
+---
 # Querying Observable Sequences using LINQ Operators
 
 In [Bridging with Existing .NET Events](Bridging\Bridging.md), we have converted existing .NET events into observable sequences to subscribe to them. In this topic, we will look at the first-class nature of observable sequences as IObservable\<T\> objects, in which generic LINQ operators are supplied by the Rx assemblies to manipulate these objects. Most operators take an observable sequence and perform some logic on it and output another observable sequence. In addition, as you can see from our code samples, you can even chain multiple operators on a source sequence to tweak the resulting sequence to your exact requirement.

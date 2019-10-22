@@ -1,3 +1,5 @@
+title: ReactiveTests Namespace
+---
 # ReactiveTests Namespace
 
 ## Classes

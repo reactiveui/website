@@ -1,3 +1,5 @@
+title: Observable.Timestamp<TSource>(IObservable<TSource>, IScheduler)
+---
 # Observable.Timestamp\<TSource\> Method (IObservable\<TSource\>, IScheduler)
 
 Records the timestamp for each value in an observable sequence with the specified source and scheduler.

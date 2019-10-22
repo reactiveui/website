@@ -1,3 +1,5 @@
+title: NullErrorObservable<T>.Instance Field
+---
 # NullErrorObservable\<T\>.Instance Field
 
 **Namespace:**  [ReactiveTests](ReactiveTests\ReactiveTests.md)  

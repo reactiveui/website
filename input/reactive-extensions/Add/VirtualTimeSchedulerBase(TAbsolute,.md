@@ -1,3 +1,5 @@
+title: VirtualTimeSchedulerBase<TAbsolute, TRelative>.Add()
+---
 # VirtualTimeSchedulerBase\<TAbsolute, TRelative\>.Add Method
 
 Adds a relative time to an absolute time value.

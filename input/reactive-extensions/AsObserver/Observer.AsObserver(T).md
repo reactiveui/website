@@ -1,3 +1,5 @@
+title: Observer.AsObserver<T>()
+---
 # Observer.AsObserver\<T\> Method
 
 Hides the identity of an observer.

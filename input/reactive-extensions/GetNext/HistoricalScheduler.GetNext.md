@@ -1,3 +1,5 @@
+title: HistoricalScheduler.GetNext()
+---
 # HistoricalScheduler.GetNext Method
 
 Gets the next scheduled item to be executed.

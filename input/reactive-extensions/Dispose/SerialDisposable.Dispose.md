@@ -1,3 +1,5 @@
+title: SerialDisposable.Dispose()
+---
 # SerialDisposable.Dispose Method
 
 Disposes the underlying disposable as well as all future replacements.

@@ -1,3 +1,5 @@
+title: Qbservable.Contains()
+---
 # Qbservable.Contains Method
 
 Include Protected Members  

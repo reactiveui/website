@@ -1,3 +1,5 @@
+title: Observable.Start()
+---
 # Observable.Start Method
 
 Include Protected Members  

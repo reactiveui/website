@@ -1,3 +1,5 @@
+title: Observable.Subscribe()
+---
 # Observable.Subscribe Method
 
 Include Protected Members  

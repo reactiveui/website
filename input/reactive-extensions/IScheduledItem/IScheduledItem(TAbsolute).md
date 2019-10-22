@@ -1,3 +1,5 @@
+title: IScheduledItem<TAbsolute> Interface
+---
 # IScheduledItem\<TAbsolute\> Interface
 
 Represents a work item that has been scheduled.

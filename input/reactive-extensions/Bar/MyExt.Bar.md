@@ -1,3 +1,5 @@
+title: MyExt.Bar(IObservable<Int32>)
+---
 # MyExt.Bar Method (IObservable\<Int32\>)
 
 **Namespace:**  [ReactiveTests.Tests](ReactiveTests.Tests\ReactiveTests.Tests.md)  

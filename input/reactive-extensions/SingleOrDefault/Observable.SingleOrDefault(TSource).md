@@ -1,3 +1,5 @@
+title: Observable.SingleOrDefault<TSource>(IObservable<TSource>)
+---
 # Observable.SingleOrDefault\<TSource\> Method (IObservable\<TSource\>)
 
 Returns the only element of an observable sequence, or a default value if the observable sequence is empty.

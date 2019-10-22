@@ -1,3 +1,5 @@
+title: Qbservable.ToObservable<TSource>(IQbservableProvider, IEnumerable<TSource>)
+---
 # Qbservable.ToObservable\<TSource\> Method (IQbservableProvider, IEnumerable\<TSource\>)
 
 Converts an enumerable sequence to a queryable observable sequence with a specified source.

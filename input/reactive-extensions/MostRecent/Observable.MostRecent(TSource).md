@@ -1,3 +1,5 @@
+title: Observable.MostRecent<TSource>()
+---
 # Observable.MostRecent\<TSource\> Method
 
 Samples the most recent value in an observable sequence.

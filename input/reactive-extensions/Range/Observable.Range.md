@@ -1,3 +1,5 @@
+title: Observable.Range(Int32, Int32)
+---
 # Observable.Range Method (Int32, Int32)
 
 Generates an observable sequence of integral numbers within a specified range.

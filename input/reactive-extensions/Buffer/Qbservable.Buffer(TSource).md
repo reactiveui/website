@@ -1,3 +1,5 @@
+title: Qbservable.Buffer<TSource>(IQbservable<TSource>, TimeSpan, IScheduler)
+---
 # Qbservable.Buffer\<TSource\> Method (IQbservable\<TSource\>, TimeSpan, IScheduler)
 
 Indicates each element of a queryable observable sequence into consecutive non-overlapping buffers which are produced based on timing information.

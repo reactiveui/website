@@ -1,3 +1,5 @@
+title: NewThreadScheduler Constructor (Func<ThreadStart, Thread>)
+---
 # NewThreadScheduler Constructor (Func\<ThreadStart, Thread\>)
 
 Creates an object that schedules each unit of work on a separate thread.

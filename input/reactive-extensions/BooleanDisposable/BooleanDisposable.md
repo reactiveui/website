@@ -1,3 +1,5 @@
+title: BooleanDisposable Properties
+---
 # BooleanDisposable Properties
 
 Include Protected Members  

@@ -1,3 +1,5 @@
+title: ControlObservable.SubscribeOn<TSource>()
+---
 # ControlObservable.SubscribeOn\<TSource\> Method
 
 **Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  

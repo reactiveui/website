@@ -1,3 +1,5 @@
+title: SynchronizationContextScheduler.Now Property
+---
 # SynchronizationContextScheduler.Now Property
 
 Gets the scheduler's notion of current time.

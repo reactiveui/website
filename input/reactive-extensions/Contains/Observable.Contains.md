@@ -1,3 +1,5 @@
+title: Observable.Contains()
+---
 # Observable.Contains Method
 
 Include Protected Members  

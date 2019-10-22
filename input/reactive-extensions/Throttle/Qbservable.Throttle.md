@@ -1,3 +1,5 @@
+title: Qbservable.Throttle()
+---
 # Qbservable.Throttle Method
 
 Include Protected Members  

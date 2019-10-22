@@ -1,3 +1,5 @@
+title: Observable.Publish()
+---
 # Observable.Publish Method
 
 Include Protected Members  

@@ -1,3 +1,5 @@
+title: ITestableObservable<T>.Subscriptions Property
+---
 # ITestableObservable\<T\>.Subscriptions Property
 
 Gets the subscriptions to the observable.

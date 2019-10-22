@@ -1,3 +1,5 @@
+title: Qbservable.All<TSource>()
+---
 # Qbservable.All\<TSource\> Method
 
 Determines whether all elements of a queryable observable sequence satisfies a condition.

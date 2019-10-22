@@ -1,3 +1,5 @@
+title: IConnectableObservable<T>()s
+---
 # IConnectableObservable\<T\> Methods
 
 Include Protected Members  

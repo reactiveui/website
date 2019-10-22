@@ -1,3 +1,5 @@
+title: Notification<T>.HasValue Property
+---
 # Notification\<T\>.HasValue Property
 
 Returns a value that indicates whether the notification has a value.

@@ -1,3 +1,5 @@
+title: MockDisposable.IndexOf()
+---
 # MockDisposable.IndexOf Method
 
 Include Protected Members  

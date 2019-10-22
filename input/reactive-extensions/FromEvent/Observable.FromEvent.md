@@ -1,3 +1,5 @@
+title: Observable.FromEvent(Action<Action>, Action<Action>)
+---
 # Observable.FromEvent Method (Action\<Action\>, Action\<Action\>)
 
 Converts a .NET event to an observable sequence.

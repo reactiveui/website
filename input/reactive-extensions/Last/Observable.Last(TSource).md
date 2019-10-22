@@ -1,3 +1,5 @@
+title: Observable.Last<TSource>(IObservable<TSource>, Func<TSource, Boolean>)
+---
 # Observable.Last\<TSource\> Method (IObservable\<TSource\>, Func\<TSource, Boolean\>)
 
 Returns the last element of an observable sequence that matches the predicate.

@@ -1,3 +1,5 @@
+title: SerialDisposable.IsDisposed Property
+---
 # SerialDisposable.IsDisposed Property
 
 Gets a value indicating whether the object is disposed.

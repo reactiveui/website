@@ -1,3 +1,5 @@
+title: NullErrorObservable<T>.Subscribe()
+---
 # NullErrorObservable\<T\>.Subscribe Method
 
 **Namespace:**  [ReactiveTests](ReactiveTests\ReactiveTests.md)  

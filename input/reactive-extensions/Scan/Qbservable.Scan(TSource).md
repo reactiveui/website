@@ -1,3 +1,5 @@
+title: Qbservable.Scan<TSource>(IQbservable<TSource>, Expression<Func<TSource, TSource, TSource>>)
+---
 # Qbservable.Scan\<TSource\> Method (IQbservable\<TSource\>, Expression\<Func\<TSource, TSource, TSource\>\>)
 
 Applies an accumulator function over a queryable observable sequence and returns each intermediate result with the specified source and accumulator.

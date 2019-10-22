@@ -1,3 +1,5 @@
+title: Observable.LastOrDefault()
+---
 # Observable.LastOrDefault Method
 
 Include Protected Members  

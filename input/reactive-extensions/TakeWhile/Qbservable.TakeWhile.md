@@ -1,3 +1,5 @@
+title: Qbservable.TakeWhile()
+---
 # Qbservable.TakeWhile Method
 
 Include Protected Members  

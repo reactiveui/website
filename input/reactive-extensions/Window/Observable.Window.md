@@ -1,3 +1,5 @@
+title: Observable.Window()
+---
 # Observable.Window Method
 
 Include Protected Members  

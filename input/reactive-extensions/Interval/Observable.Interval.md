@@ -1,3 +1,5 @@
+title: Observable.Interval(TimeSpan)
+---
 # Observable.Interval Method (TimeSpan)
 
 Returns an observable sequence that produces a value after each period.

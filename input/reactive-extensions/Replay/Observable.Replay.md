@@ -1,3 +1,5 @@
+title: Observable.Replay()
+---
 # Observable.Replay Method
 
 Include Protected Members  

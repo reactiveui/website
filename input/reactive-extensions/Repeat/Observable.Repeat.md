@@ -1,3 +1,5 @@
+title: Observable.Repeat()
+---
 # Observable.Repeat Method
 
 Include Protected Members  

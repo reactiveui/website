@@ -1,3 +1,5 @@
+title: Observable.Retry()
+---
 # Observable.Retry Method
 
 Include Protected Members  

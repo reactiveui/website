@@ -1,3 +1,5 @@
+title: Qbservable.Merge()
+---
 # Qbservable.Merge Method
 
 Include Protected Members  

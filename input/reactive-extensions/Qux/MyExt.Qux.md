@@ -1,3 +1,5 @@
+title: MyExt.Qux()
+---
 # MyExt.Qux Method
 
 Include Protected Members  

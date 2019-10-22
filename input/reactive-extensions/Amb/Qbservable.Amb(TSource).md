@@ -1,3 +1,5 @@
+title: Qbservable.Amb<TSource>(IQbservableProvider, IEnumerable<IObservable<TSource>>)
+---
 # Qbservable.Amb\<TSource\> Method (IQbservableProvider, IEnumerable\<IObservable\<TSource\>\>)
 
 Propagates the queryable observable sequence that reacts first with a specified sources.

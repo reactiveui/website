@@ -1,3 +1,5 @@
+title: Observable.Catch()
+---
 # Observable.Catch Method
 
 Include Protected Members  

@@ -1,3 +1,5 @@
+title: Unit.Equality Operator
+---
 # Unit.Equality Operator
 
 Indicates whether first and second arguments are equal.

@@ -1,3 +1,5 @@
+title: HistoricalSchedulerBase.ToDateTimeOffset()
+---
 # HistoricalSchedulerBase.ToDateTimeOffset Method
 
 Converts the absolute time value to a DateTimeOffset value.

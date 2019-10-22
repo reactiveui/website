@@ -1,3 +1,5 @@
+title: Qbservable.Do()
+---
 # Qbservable.Do Method
 
 Include Protected Members  

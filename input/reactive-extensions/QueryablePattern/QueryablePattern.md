@@ -1,3 +1,5 @@
+title: QueryablePattern Properties
+---
 # QueryablePattern Properties
 
 Include Protected Members  

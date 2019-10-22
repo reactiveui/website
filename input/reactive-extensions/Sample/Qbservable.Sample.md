@@ -1,3 +1,5 @@
+title: Qbservable.Sample()
+---
 # Qbservable.Sample Method
 
 Include Protected Members  

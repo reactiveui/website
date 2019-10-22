@@ -1,3 +1,5 @@
+title: Qbservable.SkipLast<TSource>()
+---
 # Qbservable.SkipLast\<TSource\> Method
 
 Bypasses a specified number of elements at the end of a queryable observable sequence.

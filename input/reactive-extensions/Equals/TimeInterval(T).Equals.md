@@ -1,3 +1,5 @@
+title: TimeInterval<T>.Equals()
+---
 # TimeInterval\<T\>.Equals Method
 
 Indicates whether this instance and a specified object are equal.

@@ -1,3 +1,5 @@
+title: BehaviorSubject<T>.Dispose()
+---
 # BehaviorSubject\<T\>.Dispose Method
 
 Unsubscribe all observers and release resources.

@@ -1,3 +1,5 @@
+title: Observable.Sum(IObservable<Nullable<Single>>)
+---
 # Observable.Sum Method (IObservable\<Nullable\<Single\>\>)
 
 Computes the sum of a sequence of nullable Float values.

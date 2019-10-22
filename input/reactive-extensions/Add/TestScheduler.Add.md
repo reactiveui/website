@@ -1,3 +1,5 @@
+title: TestScheduler.Add()
+---
 # TestScheduler.Add Method
 
 Adds a relative virtual time to an absolute virtual time value.

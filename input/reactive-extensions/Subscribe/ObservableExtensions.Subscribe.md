@@ -1,3 +1,5 @@
+title: ObservableExtensions.Subscribe()
+---
 # ObservableExtensions.Subscribe Method
 
 Include Protected Members  

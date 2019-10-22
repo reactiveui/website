@@ -1,3 +1,5 @@
+title: Qbservable.Latest<TSource>()
+---
 # Qbservable.Latest\<TSource\> Method
 
 Samples the most recent value in a queryable observable sequence.

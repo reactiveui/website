@@ -1,3 +1,5 @@
+title: Observable.Contains<TSource>(IObservable<TSource>, TSource, IEqualityComparer<TSource>)
+---
 # Observable.Contains\<TSource\> Method (IObservable\<TSource\>, TSource, IEqualityComparer\<TSource\>)
 
 Determines whether an observable sequence contains a specified element by using a specified System.Collections.Generic.IEqualityComparer\&lt;T\&gt;.

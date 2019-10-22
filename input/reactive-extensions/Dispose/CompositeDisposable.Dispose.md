@@ -1,3 +1,5 @@
+title: CompositeDisposable.Dispose()
+---
 # CompositeDisposable.Dispose Method
 
 Disposes all disposables in the group and removes them from the group.

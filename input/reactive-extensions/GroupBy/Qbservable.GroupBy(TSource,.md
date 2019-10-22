@@ -1,3 +1,5 @@
+title: Qbservable.GroupBy<TSource, TKey, TElement>(IQbservable<TSource>, Expression<Func<TSource, TKey>>, Expression<Func<TSource, TElement>>)
+---
 # Qbservable.GroupBy\<TSource, TKey, TElement\> Method (IQbservable\<TSource\>, Expression\<Func\<TSource, TKey\>\>, Expression\<Func\<TSource, TElement\>\>)
 
 Groups the elements of a queryable observable sequence and selects the resulting elements by using a specified function.

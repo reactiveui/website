@@ -1,3 +1,5 @@
+title: CrashTaskPool.InitializeLifetimeService()
+---
 # CrashTaskPool.InitializeLifetimeService Method
 
 This member overrides [MarshalByRefObject.InitializeLifetimeService()](https://msdn.microsoft.com/en-us/library/zwt5tzck).

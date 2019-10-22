@@ -1,3 +1,5 @@
+title: MultipleAssignmentDisposable.Dispose()
+---
 # MultipleAssignmentDisposable.Dispose Method
 
 Disposes the underlying disposable as well as all future replacements.

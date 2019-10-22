@@ -1,3 +1,5 @@
+title: HistoricalSchedulerBase.Schedule()
+---
 # HistoricalSchedulerBase.Schedule Method
 
 Include Protected Members  

@@ -1,3 +1,5 @@
+title: Qbservable.When()
+---
 # Qbservable.When Method
 
 Include Protected Members  

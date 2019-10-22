@@ -1,3 +1,5 @@
+title: ReplaySubject<T>.Subscribe()
+---
 # ReplaySubject\<T\>.Subscribe Method
 
 Subscribes an observer to the subject.

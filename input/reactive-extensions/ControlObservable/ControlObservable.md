@@ -1,3 +1,5 @@
+title: ControlObservable()s
+---
 # ControlObservable Methods
 
 Include Protected Members  

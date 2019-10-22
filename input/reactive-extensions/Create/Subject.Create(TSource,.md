@@ -1,3 +1,5 @@
+title: Subject.Create<TSource, TResult>()
+---
 # Subject.Create\<TSource, TResult\> Method
 
 Creates a subject from the specified observer and observable.

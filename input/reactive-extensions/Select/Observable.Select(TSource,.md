@@ -1,3 +1,5 @@
+title: Observable.Select<TSource, TResult>(IObservable<TSource>, Func<TSource, Int32, TResult>)
+---
 # Observable.Select\<TSource, TResult\> Method (IObservable\<TSource\>, Func\<TSource, Int32, TResult\>)
 
 Projects each element of an observable sequence into a new form by incorporating the element’s index with the specified source and selector.

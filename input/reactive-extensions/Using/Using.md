@@ -1,3 +1,5 @@
+title: Using Rx
+---
 # Using Rx
 
 This section includes topics that explain how you use Rx to create and subscribe to sequences, bridge existing .NET events and existing asynchronous patterns, as well as using schedulers. It also describes more advanced tasks such as testing and debugging an observable sequence, as well as implementing your own operators.

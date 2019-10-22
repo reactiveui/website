@@ -1,3 +1,5 @@
+title: Observable.Sample<TSource>(IObservable<TSource>, TimeSpan, IScheduler)
+---
 # Observable.Sample\<TSource\> Method (IObservable\<TSource\>, TimeSpan, IScheduler)
 
 Samples the observable sequence at each interval with the specified source, interval and scheduler.

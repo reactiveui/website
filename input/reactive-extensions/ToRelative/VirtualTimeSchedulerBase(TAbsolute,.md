@@ -1,3 +1,5 @@
+title: VirtualTimeSchedulerBase<TAbsolute, TRelative>.ToRelative()
+---
 # VirtualTimeSchedulerBase\<TAbsolute, TRelative\>.ToRelative Method
 
 Converts the TimeSpan value to a relative time value.

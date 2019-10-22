@@ -1,3 +1,5 @@
+title: Observable.Min<TSource>(IObservable<TSource>)
+---
 # Observable.Min\<TSource\> Method (IObservable\<TSource\>)
 
 Returns the minimum element in an observable sequence.

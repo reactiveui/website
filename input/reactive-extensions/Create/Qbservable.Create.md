@@ -1,3 +1,5 @@
+title: Qbservable.Create()
+---
 # Qbservable.Create Method
 
 Include Protected Members  

@@ -1,3 +1,5 @@
+title: QueryablePattern<T1, T2, T3, T4, T5, T6>.Then<TResult>()
+---
 # QueryablePattern\<T1, T2, T3, T4, T5, T6\>.Then\<TResult\> Method
 
 Matches when all observable sequences have an available value and projects the values.

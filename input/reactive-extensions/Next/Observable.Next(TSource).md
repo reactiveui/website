@@ -1,3 +1,5 @@
+title: Observable.Next<TSource>()
+---
 # Observable.Next\<TSource\> Method
 
 Samples the next value (blocking without buffering) from in an observable sequence.

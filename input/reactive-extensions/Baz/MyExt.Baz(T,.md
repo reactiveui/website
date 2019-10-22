@@ -1,3 +1,5 @@
+title: MyExt.Baz<T, R>()
+---
 # MyExt.Baz\<T, R\> Method
 
 **Namespace:**  [ReactiveTests.Tests](ReactiveTests.Tests\ReactiveTests.Tests.md)  

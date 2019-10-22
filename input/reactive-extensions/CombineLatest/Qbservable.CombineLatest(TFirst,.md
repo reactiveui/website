@@ -1,3 +1,5 @@
+title: Qbservable.CombineLatest<TFirst, TSecond, TResult>()
+---
 # Qbservable.CombineLatest\<TFirst, TSecond, TResult\> Method
 
 Merges two queryable observable sequences into one queryable observable sequence by using the selector function whenever one of the queryable observable sequences produces an element.

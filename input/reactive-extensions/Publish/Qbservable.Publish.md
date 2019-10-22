@@ -1,3 +1,5 @@
+title: Qbservable.Publish()
+---
 # Qbservable.Publish Method
 
 Include Protected Members  

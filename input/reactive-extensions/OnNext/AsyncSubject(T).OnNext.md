@@ -1,3 +1,5 @@
+title: AsyncSubject<T>.OnNext()
+---
 # AsyncSubject\<T\>.OnNext Method
 
 Sends a value to the subject. The last value received before successful termination will be sent to all subscribed observers.

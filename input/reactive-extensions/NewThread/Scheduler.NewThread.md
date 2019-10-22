@@ -1,3 +1,5 @@
+title: Scheduler.NewThread Property
+---
 # Scheduler.NewThread Property
 
 Gets the scheduler that schedules work on a new thread.

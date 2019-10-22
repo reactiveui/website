@@ -1,3 +1,5 @@
+title: Qbservable.GroupByUntil<TSource, TKey, TDuration>(IQbservable<TSource>, Expression<Func<TSource, TKey>>, Expression<Func<IGroupedObservable<TKey, TSource>, IObservable<TDuration>>>, IEqualityComparer<TKey>)
+---
 # Qbservable.GroupByUntil\<TSource, TKey, TDuration\> Method (IQbservable\<TSource\>, Expression\<Func\<TSource, TKey\>\>, Expression\<Func\<IGroupedObservable\<TKey, TSource\>, IObservable\<TDuration\>\>\>, IEqualityComparer\<TKey\>)
 
 Groups the elements of a queryable observable sequence according to a specified key selector function and comparer.

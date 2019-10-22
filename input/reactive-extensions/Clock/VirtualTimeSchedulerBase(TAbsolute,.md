@@ -1,3 +1,5 @@
+title: VirtualTimeSchedulerBase<TAbsolute, TRelative>.Clock Property
+---
 # VirtualTimeSchedulerBase\<TAbsolute, TRelative\>.Clock Property
 
 Gets the scheduler's absolute time clock value.

@@ -1,3 +1,5 @@
+title: DispatcherScheduler.Now Property
+---
 # DispatcherScheduler.Now Property
 
 Gets the scheduler's notion of current time.

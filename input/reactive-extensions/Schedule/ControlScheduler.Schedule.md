@@ -1,3 +1,5 @@
+title: ControlScheduler.Schedule()
+---
 # ControlScheduler.Schedule Method
 
 Include Protected Members  

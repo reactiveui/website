@@ -1,3 +1,5 @@
+title: IQbservable.Expression Property
+---
 # IQbservable.Expression Property
 
 Gets the expression tree that is associated with the instance of IQbservable.

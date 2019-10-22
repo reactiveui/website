@@ -1,3 +1,5 @@
+title: Observable.OnErrorResumeNext()
+---
 # Observable.OnErrorResumeNext Method
 
 Include Protected Members  

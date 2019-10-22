@@ -1,3 +1,5 @@
+title: Observable.SkipWhile<TSource>(IObservable<TSource>, Func<TSource, Boolean>)
+---
 # Observable.SkipWhile\<TSource\> Method (IObservable\<TSource\>, Func\<TSource, Boolean\>)
 
 Bypasses values in an observable sequence as long as a specified condition is true and then returns the remaining values.

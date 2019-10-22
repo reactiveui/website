@@ -1,3 +1,5 @@
+title: Timestamped<T>.Equality Operator
+---
 # Timestamped\<T\>.Equality Operator
 
 Indicates whether first and second arguments are equal.

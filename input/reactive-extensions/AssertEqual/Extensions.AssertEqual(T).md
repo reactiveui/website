@@ -1,3 +1,5 @@
+title: Extensions.AssertEqual<T>(IEnumerable<T>, array<T[])
+---
 # Extensions.AssertEqual\<T\> Method (IEnumerable\<T\>, array\<T\[\])
 
 **Namespace:**  [ReactiveTests](ReactiveTests\ReactiveTests.md)  

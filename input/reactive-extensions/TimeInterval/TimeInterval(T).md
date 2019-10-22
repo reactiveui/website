@@ -1,3 +1,5 @@
+title: TimeInterval<T> Structure
+---
 # TimeInterval\<T\> Structure
 
 Represents a time interval value.

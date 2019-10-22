@@ -1,3 +1,5 @@
+title: Observable.Retry<TSource>(IObservable<TSource>)
+---
 # Observable.Retry\<TSource\> Method (IObservable\<TSource\>)
 
 Repeats the source observable sequence until it successfully terminates.

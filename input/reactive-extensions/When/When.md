@@ -1,3 +1,5 @@
+title: When Will You Use Rx
+---
 # When Will You Use Rx
 
 This topic describes the advantage of using Rx for users who are currently using the .NET event model for asynchronous programming.

@@ -1,3 +1,5 @@
+title: Observable.Generate<TState, TResult>(TState, Func<TState, Boolean>, Func<TState, TState>, Func<TState, TResult>, Func<TState, DateTimeOffset>, IScheduler)
+---
 # Observable.Generate\<TState, TResult\> Method (TState, Func\<TState, Boolean\>, Func\<TState, TState\>, Func\<TState, TResult\>, Func\<TState, DateTimeOffset\>, IScheduler)
 
 Generates an observable sequence by iterating a state from an initial state until the condition fails.

@@ -1,3 +1,5 @@
+title: Subject()s
+---
 # Subject Methods
 
 Include Protected Members  

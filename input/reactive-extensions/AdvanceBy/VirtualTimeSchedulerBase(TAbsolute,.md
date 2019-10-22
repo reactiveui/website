@@ -1,3 +1,5 @@
+title: VirtualTimeSchedulerBase<TAbsolute, TRelative>.AdvanceBy()
+---
 # VirtualTimeSchedulerBase\<TAbsolute, TRelative\>.AdvanceBy Method
 
 Advances the scheduler's clock by the specified relative time, running all work scheduled for that timespan.

@@ -1,3 +1,5 @@
+title: Qbservable.Generate<TState, TResult>(IQbservableProvider, TState, Expression<Func<TState, Boolean>>, Expression<Func<TState, TState>>, Expression<Func<TState, TResult>>, IScheduler)
+---
 # Qbservable.Generate\<TState, TResult\> Method (IQbservableProvider, TState, Expression\<Func\<TState, Boolean\>\>, Expression\<Func\<TState, TState\>\>, Expression\<Func\<TState, TResult\>\>, IScheduler)
 
 Generates a queryable observable sequence by iterating a state from an initial state until the condition fails.

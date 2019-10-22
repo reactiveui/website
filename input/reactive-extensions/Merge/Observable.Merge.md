@@ -1,3 +1,5 @@
+title: Observable.Merge()
+---
 # Observable.Merge Method
 
 Include Protected Members  

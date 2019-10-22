@@ -1,3 +1,5 @@
+title: Qbservable.Aggregate<TSource>(IQbservable<TSource>, Expression<Func<TSource, TSource, TSource>>)
+---
 # Qbservable.Aggregate\<TSource\> Method (IQbservable\<TSource\>, Expression\<Func\<TSource, TSource, TSource\>\>)
 
 Applies an accumulator function over a queryable observable sequence.

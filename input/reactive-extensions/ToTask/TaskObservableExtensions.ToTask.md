@@ -1,3 +1,5 @@
+title: TaskObservableExtensions.ToTask()
+---
 # TaskObservableExtensions.ToTask Method
 
 Include Protected Members  

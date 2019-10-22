@@ -1,3 +1,5 @@
+title: Qbservable.Catch()
+---
 # Qbservable.Catch Method
 
 Include Protected Members  

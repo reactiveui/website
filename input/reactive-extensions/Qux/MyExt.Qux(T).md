@@ -1,3 +1,5 @@
+title: MyExt.Qux<T>(T)
+---
 # MyExt.Qux\<T\> Method (T)
 
 **Namespace:**  [ReactiveTests.Tests](ReactiveTests.Tests\ReactiveTests.Tests.md)  

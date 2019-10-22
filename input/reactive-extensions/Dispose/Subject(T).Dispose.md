@@ -1,3 +1,5 @@
+title: Subject<T>.Dispose()
+---
 # Subject\<T\>.Dispose Method
 
 Releases all resources used by the current instance of the [Subject\<T\>](Subject\Subject(T).md) class and unsubscribe all observers

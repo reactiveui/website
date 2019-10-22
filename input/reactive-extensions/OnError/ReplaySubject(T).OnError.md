@@ -1,3 +1,5 @@
+title: ReplaySubject<T>.OnError()
+---
 # ReplaySubject\<T\>.OnError Method
 
 Notifies all subscribed observers with the exception.

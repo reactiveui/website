@@ -1,3 +1,5 @@
+title: Observable.SelectMany()
+---
 # Observable.SelectMany Method
 
 Include Protected Members  

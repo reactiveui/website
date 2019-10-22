@@ -1,3 +1,5 @@
+title: Observable.Materialize<TSource>()
+---
 # Observable.Materialize\<TSource\> Method
 
 Materializes the implicit notifications of an observable sequence as explicit notification values.

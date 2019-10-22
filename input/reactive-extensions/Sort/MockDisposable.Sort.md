@@ -1,3 +1,5 @@
+title: MockDisposable.Sort()
+---
 # MockDisposable.Sort Method
 
 Include Protected Members  

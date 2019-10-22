@@ -1,3 +1,5 @@
+title: Qbservable.Window<TSource, TWindowClosing>(IQbservable<TSource>, Expression<Func<IObservable<TWindowClosing>>>)
+---
 # Qbservable.Window\<TSource, TWindowClosing\> Method (IQbservable\<TSource\>, Expression\<Func\<IObservable\<TWindowClosing\>\>\>)
 
 Projects each element of a queryable observable sequence into consecutive non-overlapping windows.

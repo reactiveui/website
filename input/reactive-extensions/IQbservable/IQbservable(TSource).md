@@ -1,3 +1,5 @@
+title: IQbservable<TSource>()s
+---
 # IQbservable\<TSource\> Methods
 
 Include Protected Members  

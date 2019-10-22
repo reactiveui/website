@@ -1,3 +1,5 @@
+title: Unit.GetHashCode()
+---
 # Unit.GetHashCode Method
 
 Gets the unit value's hash code.

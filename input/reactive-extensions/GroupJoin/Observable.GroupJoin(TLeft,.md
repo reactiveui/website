@@ -1,3 +1,5 @@
+title: Observable.GroupJoin<TLeft, TRight, TLeftDuration, TRightDuration, TResult>()
+---
 # Observable.GroupJoin\<TLeft, TRight, TLeftDuration, TRightDuration, TResult\> Method
 
 Correlates the elements of two sequences based on overlapping durations, and groups the results.

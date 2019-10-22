@@ -1,3 +1,5 @@
+title: Observable.IgnoreElements<TSource>()
+---
 # Observable.IgnoreElements\<TSource\> Method
 
 Ignores all values in an observable sequence leaving only the termination messages.

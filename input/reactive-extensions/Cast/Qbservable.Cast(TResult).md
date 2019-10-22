@@ -1,3 +1,5 @@
+title: Qbservable.Cast<TResult>()
+---
 # Qbservable.Cast\<TResult\> Method
 
 Converts the elements of an observable sequence to the specified type.

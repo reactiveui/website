@@ -1,3 +1,5 @@
+title: Qbservable.Max<TSource>(IQbservable<TSource>, IComparer<TSource>)
+---
 # Qbservable.Max\<TSource\> Method (IQbservable\<TSource\>, IComparer\<TSource\>)
 
 Returns the maximum value in a queryable observable sequence according to the specified comparer.

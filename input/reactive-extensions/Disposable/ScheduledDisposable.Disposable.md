@@ -1,3 +1,5 @@
+title: ScheduledDisposable.Disposable Property
+---
 # ScheduledDisposable.Disposable Property
 
 Gets a value that indicates the underlying disposable.

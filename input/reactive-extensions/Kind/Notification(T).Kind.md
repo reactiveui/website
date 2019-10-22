@@ -1,3 +1,5 @@
+title: Notification<T>.Kind Property
+---
 # Notification\<T\>.Kind Property
 
 Gets the kind of notification that is represented.

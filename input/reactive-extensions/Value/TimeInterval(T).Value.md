@@ -1,3 +1,5 @@
+title: TimeInterval<T>.Value Property
+---
 # TimeInterval\<T\>.Value Property
 
 Gets the value.

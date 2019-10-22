@@ -1,3 +1,5 @@
+title: IEventSource<T>.OnNext Event
+---
 # IEventSource\<T\>.OnNext Event
 
 Raises the Next event signaling the next element in the data stream.

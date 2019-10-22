@@ -1,3 +1,5 @@
+title: Observable.ToEvent()
+---
 # Observable.ToEvent Method
 
 Include Protected Members  

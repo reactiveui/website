@@ -1,3 +1,5 @@
+title: QueryablePlan<TResult> Properties
+---
 # QueryablePlan\<TResult\> Properties
 
 Include Protected Members  

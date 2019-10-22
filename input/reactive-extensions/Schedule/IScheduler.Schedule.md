@@ -1,3 +1,5 @@
+title: IScheduler.Schedule()
+---
 # IScheduler.Schedule Method
 
 Include Protected Members  

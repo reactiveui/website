@@ -1,3 +1,5 @@
+title: ControlObservable.ObserveOn<TSource>()
+---
 # ControlObservable.ObserveOn\<TSource\> Method
 
 **Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  

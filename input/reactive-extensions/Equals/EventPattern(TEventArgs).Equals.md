@@ -1,3 +1,5 @@
+title: EventPattern<TEventArgs>.Equals(Object)
+---
 # EventPattern\<TEventArgs\>.Equals Method (Object)
 
 Compares this type with the specified object.

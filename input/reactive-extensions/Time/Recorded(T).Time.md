@@ -1,3 +1,5 @@
+title: Recorded<T>.Time Property
+---
 # Recorded\<T\>.Time Property
 
 Gets the virtual time the value was produced on.

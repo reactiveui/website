@@ -1,3 +1,5 @@
+title: Observable.ToDictionary()
+---
 # Observable.ToDictionary Method
 
 Include Protected Members  

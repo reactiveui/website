@@ -1,3 +1,5 @@
+title: Qbservable.TimeInterval<TSource>(IQbservable<TSource>, IScheduler)
+---
 # Qbservable.TimeInterval\<TSource\> Method (IQbservable\<TSource\>, IScheduler)
 
 Records the time interval between consecutive values in a queryable observable sequence with the specified source and scheduler.

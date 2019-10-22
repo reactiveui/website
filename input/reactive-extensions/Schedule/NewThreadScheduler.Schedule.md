@@ -1,3 +1,5 @@
+title: NewThreadScheduler.Schedule()
+---
 # NewThreadScheduler.Schedule Method
 
 Include Protected Members  

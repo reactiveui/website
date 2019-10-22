@@ -1,3 +1,5 @@
+title: Observable.FromAsyncPattern()
+---
 # Observable.FromAsyncPattern Method
 
 Include Protected Members  

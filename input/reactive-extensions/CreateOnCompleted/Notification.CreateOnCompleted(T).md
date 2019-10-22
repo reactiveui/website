@@ -1,3 +1,5 @@
+title: Notification.CreateOnCompleted<T>()
+---
 # Notification.CreateOnCompleted\<T\> Method
 
 Creates an object that represents an OnCompleted notification to an observer.

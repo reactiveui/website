@@ -1,3 +1,5 @@
+title: Qbservable.MaxBy()
+---
 # Qbservable.MaxBy Method
 
 Include Protected Members  

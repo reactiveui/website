@@ -1,3 +1,5 @@
+title: Exploring The Major Interfaces in Rx
+---
 # Exploring The Major Interfaces in Rx
 
 This topic describes the major Reactive Extensions (Rx) interfaces used to represent observable sequences and subscribe to them.

@@ -1,3 +1,5 @@
+title: Observable.And<TLeft, TRight>()
+---
 # Observable.And\<TLeft, TRight\> Method
 
 Matches when both observable sequences have an available value.

@@ -1,3 +1,5 @@
+title: Qbservable.Create<TSource>(IQbservableProvider, Expression<Func<IObserver<TSource>, Action>>)
+---
 # Qbservable.Create\<TSource\> Method (IQbservableProvider, Expression\<Func\<IObserver\<TSource\>, Action\>\>)
 
 Creates a queryable observable sequence from a specified subscribe method implementation with a specified subscribe.

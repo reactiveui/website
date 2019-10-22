@@ -1,3 +1,5 @@
+title: ControlScheduler.Schedule<TState>(TState, DateTimeOffset, Func<IScheduler, TState, IDisposable>)
+---
 # ControlScheduler.Schedule\<TState\> Method (TState, DateTimeOffset, Func\<IScheduler, TState, IDisposable\>)
 
 **Namespace:**  [System.Reactive.Concurrency](System.Reactive.Concurrency\System.Reactive.Concurrency.md)  

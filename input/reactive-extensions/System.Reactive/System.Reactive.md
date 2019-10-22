@@ -1,3 +1,5 @@
+title: System.Reactive Namespace
+---
 # System.Reactive Namespace
 
 ## Classes

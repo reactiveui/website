@@ -1,3 +1,5 @@
+title: Qbservable.Where<TSource>(IQbservable<TSource>, Expression<Func<TSource, Int32, Boolean>>)
+---
 # Qbservable.Where\<TSource\> Method (IQbservable\<TSource\>, Expression\<Func\<TSource, Int32, Boolean\>\>)
 
 Filters the elements of a queryable observable sequence based on a predicate by incorporating the element's index.

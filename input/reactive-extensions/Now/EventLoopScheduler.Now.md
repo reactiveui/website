@@ -1,3 +1,5 @@
+title: EventLoopScheduler.Now Property
+---
 # EventLoopScheduler.Now Property
 
 Gets the scheduler's notion of current time.

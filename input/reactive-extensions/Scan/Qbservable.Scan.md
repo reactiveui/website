@@ -1,3 +1,5 @@
+title: Qbservable.Scan()
+---
 # Qbservable.Scan Method
 
 Include Protected Members  

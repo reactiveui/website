@@ -1,3 +1,5 @@
+title: Observable.Generate()
+---
 # Observable.Generate Method
 
 Include Protected Members  

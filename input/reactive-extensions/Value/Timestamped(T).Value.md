@@ -1,3 +1,5 @@
+title: Timestamped<T>.Value Property
+---
 # Timestamped\<T\>.Value Property
 
 Gets the value.

@@ -1,3 +1,5 @@
+title: Extensions()s
+---
 # Extensions Methods
 
 Include Protected Members  

@@ -1,3 +1,5 @@
+title: Subscription.ToString()
+---
 # Subscription.ToString Method
 
 Returns a friendly string representation of the current instance.

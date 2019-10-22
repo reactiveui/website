@@ -1,3 +1,5 @@
+title: LINQ Operators by Categories
+---
 # LINQ Operators by Categories
 
 This topic lists all major LINQ operators implemented by the [Observable](Observable\Observable.md) type by their categories, specifically: creation, conversion, combine, functional, mathematical, time, exceptions, miscellaneous, selection and primitives.

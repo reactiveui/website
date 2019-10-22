@@ -1,3 +1,5 @@
+title: IScheduledItem<TAbsolute>.DueTime Property
+---
 # IScheduledItem\<TAbsolute\>.DueTime Property
 
 Get the absolute time at which the item executes.

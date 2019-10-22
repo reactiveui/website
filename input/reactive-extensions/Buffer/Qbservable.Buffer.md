@@ -1,3 +1,5 @@
+title: Qbservable.Buffer()
+---
 # Qbservable.Buffer Method
 
 Include Protected Members  

@@ -1,3 +1,5 @@
+title: BooleanDisposable.IsDisposed Property
+---
 # BooleanDisposable.IsDisposed Property
 
 Gets a value that indicates whether the object is disposed.

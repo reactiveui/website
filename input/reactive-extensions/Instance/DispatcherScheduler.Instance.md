@@ -1,3 +1,5 @@
+title: DispatcherScheduler.Instance Property
+---
 # DispatcherScheduler.Instance Property
 
 **Namespace:**  [System.Reactive.Concurrency](System.Reactive.Concurrency\System.Reactive.Concurrency.md)  

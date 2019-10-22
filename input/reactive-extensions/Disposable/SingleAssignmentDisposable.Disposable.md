@@ -1,3 +1,5 @@
+title: SingleAssignmentDisposable.Disposable Property
+---
 # SingleAssignmentDisposable.Disposable Property
 
 Gets or sets the underlying disposable.

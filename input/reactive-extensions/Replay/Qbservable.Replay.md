@@ -1,3 +1,5 @@
+title: Qbservable.Replay()
+---
 # Qbservable.Replay Method
 
 Include Protected Members  

@@ -1,3 +1,5 @@
+title: HistoricalSchedulerTest.Start_Stop()
+---
 # HistoricalSchedulerTest.Start\_Stop Method
 
 **Namespace:**  [ReactiveTests.Tests](ReactiveTests.Tests\ReactiveTests.Tests.md)  

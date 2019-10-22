@@ -1,3 +1,5 @@
+title: Observable.Single()
+---
 # Observable.Single Method
 
 Include Protected Members  

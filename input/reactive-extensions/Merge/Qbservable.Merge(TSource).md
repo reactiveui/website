@@ -1,3 +1,5 @@
+title: Qbservable.Merge<TSource>(IQbservableProvider, IEnumerable<IObservable<TSource>>, IScheduler)
+---
 # Qbservable.Merge\<TSource\> Method (IQbservableProvider, IEnumerable\<IObservable\<TSource\>\>, IScheduler)
 
 Merges an enumerable sequence of queryable observable sequences into a single queryable observable sequence.

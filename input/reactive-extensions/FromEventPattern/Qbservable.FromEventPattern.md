@@ -1,3 +1,5 @@
+title: Qbservable.FromEventPattern()
+---
 # Qbservable.FromEventPattern Method
 
 Include Protected Members  

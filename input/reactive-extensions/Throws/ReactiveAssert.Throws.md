@@ -1,3 +1,5 @@
+title: ReactiveAssert.Throws()
+---
 # ReactiveAssert.Throws Method
 
 Include Protected Members  

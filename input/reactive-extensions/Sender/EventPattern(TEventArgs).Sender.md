@@ -1,3 +1,5 @@
+title: EventPattern<TEventArgs>.Sender Property
+---
 # EventPattern\<TEventArgs\>.Sender Property
 
 Represents event sender information for a .NET event.

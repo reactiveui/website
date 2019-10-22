@@ -1,3 +1,5 @@
+title: Qbservable.Take<TSource>()
+---
 # Qbservable.Take\<TSource\> Method
 
 Returns a specified number of contiguous values from the start of a queryable observable sequence.

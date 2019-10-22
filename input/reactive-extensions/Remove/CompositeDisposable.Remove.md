@@ -1,3 +1,5 @@
+title: CompositeDisposable.Remove()
+---
 # CompositeDisposable.Remove Method
 
 Removes and disposes the first occurrence of a disposable from the CompositeDisposable.

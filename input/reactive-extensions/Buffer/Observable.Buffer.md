@@ -1,3 +1,5 @@
+title: Observable.Buffer()
+---
 # Observable.Buffer Method
 
 Include Protected Members  

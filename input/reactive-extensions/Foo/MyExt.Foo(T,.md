@@ -1,3 +1,5 @@
+title: MyExt.Foo<T, R>(IObservable<T>, Func<T, R>)
+---
 # MyExt.Foo\<T, R\> Method (IObservable\<T\>, Func\<T, R\>)
 
 **Namespace:**  [ReactiveTests.Tests](ReactiveTests.Tests\ReactiveTests.Tests.md)  

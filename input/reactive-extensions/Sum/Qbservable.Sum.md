@@ -1,3 +1,5 @@
+title: Qbservable.Sum(IQbservable<Int32>)
+---
 # Qbservable.Sum Method (IQbservable\<Int32\>)
 
 Computes the sum of a sequence of [Int32](https://msdn.microsoft.com/en-us/library/td2s409d) values.

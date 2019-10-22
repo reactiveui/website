@@ -1,3 +1,5 @@
+title: Subscription.Subscribe Property
+---
 # Subscription.Subscribe Property
 
 Gets the subscription virtual time.

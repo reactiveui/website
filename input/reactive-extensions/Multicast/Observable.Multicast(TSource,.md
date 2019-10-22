@@ -1,3 +1,5 @@
+title: Observable.Multicast<TSource, TIntermediate, TResult>(IObservable<TSource>, Func<ISubject<TSource, TIntermediate>>, Func<IObservable<TIntermediate>, IObservable<TResult>>)
+---
 # Observable.Multicast\<TSource, TIntermediate, TResult\> Method (IObservable\<TSource\>, Func\<ISubject\<TSource, TIntermediate\>\>, Func\<IObservable\<TIntermediate\>, IObservable\<TResult\>\>)
 
 Returns an observable sequence that contains the elements of a sequence produced by multicasting the source sequence within a selector function.

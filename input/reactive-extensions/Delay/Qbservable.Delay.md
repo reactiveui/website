@@ -1,3 +1,5 @@
+title: Qbservable.Delay()
+---
 # Qbservable.Delay Method
 
 Include Protected Members  

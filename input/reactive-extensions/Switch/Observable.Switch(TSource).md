@@ -1,3 +1,5 @@
+title: Observable.Switch<TSource>()
+---
 # Observable.Switch\<TSource\> Method
 
 Transforms an observable sequence of observable sequences into an observable sequence producing values only from the most recent observable sequence.

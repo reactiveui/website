@@ -1,3 +1,5 @@
+title: Qbservable.Sample<TSource, TSample>(IQbservable<TSource>, IObservable<TSample>)
+---
 # Qbservable.Sample\<TSource, TSample\> Method (IQbservable\<TSource\>, IObservable\<TSample\>)
 
 Samples the queryable observable sequence at sampling ticks with the specified source and sampler.
