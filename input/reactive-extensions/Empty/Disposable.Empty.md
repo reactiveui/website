@@ -1,3 +1,5 @@
+title: Disposable.Empty Property
+---
 # Disposable.Empty Property
 
 Gets the disposable that does nothing when disposed.

@@ -1,3 +1,5 @@
+title: SingleAssignmentDisposable.Dispose()
+---
 # SingleAssignmentDisposable.Dispose Method
 
 Disposes the underlying disposable.

@@ -1,3 +1,5 @@
+title: Observable.Sample()
+---
 # Observable.Sample Method
 
 Include Protected Members  

@@ -1,3 +1,5 @@
+title: Pattern<T1, T2, T3, T4, T5>.Then<TResult>()
+---
 # Pattern\<T1, T2, T3, T4, T5\>.Then\<TResult\> Method
 
 Matches when all observable sequences have an available value and projects the values.

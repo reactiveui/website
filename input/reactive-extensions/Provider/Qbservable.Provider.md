@@ -1,3 +1,5 @@
+title: Qbservable.Provider Property
+---
 # Qbservable.Provider Property
 
 Gets the local Qbservable provider.

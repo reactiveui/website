@@ -1,3 +1,5 @@
+title: Observable.Where<TSource>(IObservable<TSource>, Func<TSource, Int32, Boolean>)
+---
 # Observable.Where\<TSource\> Method (IObservable\<TSource\>, Func\<TSource, Int32, Boolean\>)
 
 Filters the elements of an observable sequence based on a predicate by incorporating the element's index.

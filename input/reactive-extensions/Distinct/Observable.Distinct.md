@@ -1,3 +1,5 @@
+title: Observable.Distinct()
+---
 # Observable.Distinct Method
 
 Include Protected Members  

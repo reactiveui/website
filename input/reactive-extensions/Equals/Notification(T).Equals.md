@@ -1,3 +1,5 @@
+title: Notification<T>.Equals(Notification<T>)
+---
 # Notification\<T\>.Equals Method (Notification\<T\>)
 
 Indicates whether this instance and other are equal.

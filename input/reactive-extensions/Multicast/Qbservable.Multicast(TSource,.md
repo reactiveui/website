@@ -1,3 +1,5 @@
+title: Qbservable.Multicast<TSource, TIntermediate, TResult>()
+---
 # Qbservable.Multicast\<TSource, TIntermediate, TResult\> Method
 
 Returns a queryable observable sequence that contains the elements of a sequence produced by multicasting the source sequence within a selector function.

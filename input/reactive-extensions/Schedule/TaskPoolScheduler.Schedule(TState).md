@@ -1,3 +1,5 @@
+title: TaskPoolScheduler.Schedule<TState>(TState, DateTimeOffset, Func<IScheduler, TState, IDisposable>)
+---
 # TaskPoolScheduler.Schedule\<TState\> Method (TState, DateTimeOffset, Func\<IScheduler, TState, IDisposable\>)
 
 Schedules an action to be executed at dueTime, using a System.Threading.Timer object.

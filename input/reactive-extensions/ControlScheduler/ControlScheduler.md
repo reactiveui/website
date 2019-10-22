@@ -1,3 +1,5 @@
+title: ControlScheduler Constructor
+---
 # ControlScheduler Constructor
 
 Constructs a ControlScheduler that schedules units of work on the message loop associated with the specified Windows Forms control.

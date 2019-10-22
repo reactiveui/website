@@ -1,3 +1,5 @@
+title: Observable Class
+---
 # Observable Class
 
 Provides a set of static methods for query operations over observable sequences.

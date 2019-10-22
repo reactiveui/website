@@ -1,3 +1,5 @@
+title: ReactiveTest.Subscribed Field
+---
 # ReactiveTest.Subscribed Field
 
 Default virtual time used to subscribe to an observable sequence in Rx tests.

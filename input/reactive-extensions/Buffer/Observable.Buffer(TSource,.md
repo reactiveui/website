@@ -1,3 +1,5 @@
+title: Observable.Buffer<TSource, TBufferOpening, TBufferClosing>(IObservable<TSource>, IObservable<TBufferOpening>, Func<TBufferOpening, IObservable<TBufferClosing>>)
+---
 # Observable.Buffer\<TSource, TBufferOpening, TBufferClosing\> Method (IObservable\<TSource\>, IObservable\<TBufferOpening\>, Func\<TBufferOpening, IObservable\<TBufferClosing\>\>)
 
 Indicates each element of a queryable observable sequence into consecutive non-overlapping buffers.

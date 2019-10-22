@@ -1,3 +1,5 @@
+title: Observable.First()
+---
 # Observable.First Method
 
 Include Protected Members  

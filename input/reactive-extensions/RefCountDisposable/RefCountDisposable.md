@@ -1,3 +1,5 @@
+title: RefCountDisposable Constructor
+---
 # RefCountDisposable Constructor
 
 Initializes a new instance of the [RefCountDisposable](RefCountDisposable\RefCountDisposable.md) class with the specified disposable.

@@ -1,3 +1,5 @@
+title: Qbservable.SkipWhile<TSource>(IQbservable<TSource>, Expression<Func<TSource, Int32, Boolean>>)
+---
 # Qbservable.SkipWhile\<TSource\> Method (IQbservable\<TSource\>, Expression\<Func\<TSource, Int32, Boolean\>\>)
 
 Bypasses values in a queryable observable sequence as long as a specified condition is true and then returns the remaining values.

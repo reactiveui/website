@@ -1,3 +1,5 @@
+title: MockDisposable.LastIndexOf()
+---
 # MockDisposable.LastIndexOf Method
 
 Include Protected Members  

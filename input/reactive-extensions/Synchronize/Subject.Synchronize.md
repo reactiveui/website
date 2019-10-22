@@ -1,3 +1,5 @@
+title: Subject.Synchronize()
+---
 # Subject.Synchronize Method
 
 Include Protected Members  

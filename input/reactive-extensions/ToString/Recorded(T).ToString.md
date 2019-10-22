@@ -1,3 +1,5 @@
+title: Recorded<T>.ToString()
+---
 # Recorded\<T\>.ToString Method
 
 Gets a friendly string representation of the current instance.

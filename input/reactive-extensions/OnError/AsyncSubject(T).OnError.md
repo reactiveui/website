@@ -1,3 +1,5 @@
+title: AsyncSubject<T>.OnError()
+---
 # AsyncSubject\<T\>.OnError Method
 
 Notifies all subscribed observers with the exception.

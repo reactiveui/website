@@ -1,3 +1,5 @@
+title: Qbservable.Aggregate()
+---
 # Qbservable.Aggregate Method
 
 Include Protected Members  

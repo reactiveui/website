@@ -1,3 +1,5 @@
+title: Qbservable.Publish<TSource, TResult>(IQbservable<TSource>, Expression<Func<IObservable<TSource>, IObservable<TResult>>>)
+---
 # Qbservable.Publish\<TSource, TResult\> Method (IQbservable\<TSource\>, Expression\<Func\<IObservable\<TSource\>, IObservable\<TResult\>\>\>)
 
 Returns a queryable observable sequence that is the result of invoking the selector on a connectable queryable observable sequence that shares a single subscription to the underlying sequence.

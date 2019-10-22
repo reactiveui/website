@@ -1,3 +1,5 @@
+title: Qbservable.When<TResult>(IQbservableProvider, IEnumerable<QueryablePlan<TResult>>)
+---
 # Qbservable.When\<TResult\> Method (IQbservableProvider, IEnumerable\<QueryablePlan\<TResult\>\>)
 
 Joins together the results from several patterns.

@@ -1,3 +1,5 @@
+title: CompositeDisposable.CopyTo()
+---
 # CompositeDisposable.CopyTo Method
 
 Copies the disposables contained in the CompositeDisposable to an array, starting at a particular array index.

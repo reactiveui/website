@@ -1,3 +1,5 @@
+title: Qbservable.TakeWhile<TSource>(IQbservable<TSource>, Expression<Func<TSource, Int32, Boolean>>)
+---
 # Qbservable.TakeWhile\<TSource\> Method (IQbservable\<TSource\>, Expression\<Func\<TSource, Int32, Boolean\>\>)
 
 Returns values from a queryable observable sequence as long as a specified condition is true, and then skips the remaining values.

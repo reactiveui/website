@@ -1,3 +1,5 @@
+title: EventPattern<TEventArgs>.Inequality Operator
+---
 # EventPattern\<TEventArgs\>.Inequality Operator
 
 Compare two objects to see if they are identical.

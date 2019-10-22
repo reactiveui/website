@@ -1,3 +1,5 @@
+title: Qbservable.Count<TSource>()
+---
 # Qbservable.Count\<TSource\> Method
 
 Returns a \[System.Int32\] that represents the total number of elements in a queryable observable sequence.

@@ -1,3 +1,5 @@
+title: Qbservable.Window<TSource>(IQbservable<TSource>, Int32)
+---
 # Qbservable.Window\<TSource\> Method (IQbservable\<TSource\>, Int32)
 
 Projects each element of a queryable observable sequence into consecutive non-overlapping windows which are produced based on element count information.

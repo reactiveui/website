@@ -1,3 +1,5 @@
+title: Qbservable.Repeat()
+---
 # Qbservable.Repeat Method
 
 Include Protected Members  

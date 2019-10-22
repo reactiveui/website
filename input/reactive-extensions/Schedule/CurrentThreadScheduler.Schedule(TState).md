@@ -1,3 +1,5 @@
+title: CurrentThreadScheduler.Schedule<TState>(TState, TimeSpan, Func<IScheduler, TState, IDisposable>)
+---
 # CurrentThreadScheduler.Schedule\<TState\> Method (TState, TimeSpan, Func\<IScheduler, TState, IDisposable\>)
 
 Schedules an action to be executed after dueTime.

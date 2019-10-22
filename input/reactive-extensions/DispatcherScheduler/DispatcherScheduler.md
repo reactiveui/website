@@ -1,3 +1,5 @@
+title: DispatcherScheduler()s
+---
 # DispatcherScheduler Methods
 
 Include Protected Members  

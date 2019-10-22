@@ -1,3 +1,5 @@
+title: IConnectableObservable<T>.Connect()
+---
 # IConnectableObservable\<T\>.Connect Method
 
 Connects the observable.

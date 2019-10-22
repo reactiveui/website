@@ -1,3 +1,5 @@
+title: Observer.Create()
+---
 # Observer.Create Method
 
 Include Protected Members  

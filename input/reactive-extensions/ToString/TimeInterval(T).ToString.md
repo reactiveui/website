@@ -1,3 +1,5 @@
+title: TimeInterval<T>.ToString()
+---
 # TimeInterval\<T\>.ToString Method
 
 Returns a string representation of this instance.

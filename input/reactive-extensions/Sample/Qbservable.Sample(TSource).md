@@ -1,3 +1,5 @@
+title: Qbservable.Sample<TSource>(IQbservable<TSource>, TimeSpan, IScheduler)
+---
 # Qbservable.Sample\<TSource\> Method (IQbservable\<TSource\>, TimeSpan, IScheduler)
 
 Samples the queryable observable sequence at each interval with the specified source, interval and scheduler.

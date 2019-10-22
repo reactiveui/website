@@ -1,3 +1,5 @@
+title: Qbservable.Replay<TSource, TResult>(IQbservable<TSource>, Expression<Func<IObservable<TSource>, IObservable<TResult>>>, Int32, TimeSpan, IScheduler)
+---
 # Qbservable.Replay\<TSource, TResult\> Method (IQbservable\<TSource\>, Expression\<Func\<IObservable\<TSource\>, IObservable\<TResult\>\>\>, Int32, TimeSpan, IScheduler)
 
 Returns a queryable observable sequence that is the result of invoking the selector on a connectable queryable observable sequence that shares a single subscription to the underlying sequence replaying bufferSize notifications within window.

@@ -1,3 +1,5 @@
+title: Qbservable.Select<TSource, TResult>(IQbservable<TSource>, Expression<Func<TSource, Int32, TResult>>)
+---
 # Qbservable.Select\<TSource, TResult\> Method (IQbservable\<TSource\>, Expression\<Func\<TSource, Int32, TResult\>\>)
 
 Projects each element of a queryable observable sequence into a new form by incorporating the element’s index with the specified source and selector.

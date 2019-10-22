@@ -1,3 +1,5 @@
+title: Qbservable.Timestamp()
+---
 # Qbservable.Timestamp Method
 
 Include Protected Members  

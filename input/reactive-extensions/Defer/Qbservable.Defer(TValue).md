@@ -1,3 +1,5 @@
+title: Qbservable.Defer<TValue>()
+---
 # Qbservable.Defer\<TValue\> Method
 
 Returns a queryable observable sequence that invokes the observable factory whenever a new observer subscribes.

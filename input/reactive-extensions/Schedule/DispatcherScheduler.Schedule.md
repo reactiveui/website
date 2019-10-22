@@ -1,3 +1,5 @@
+title: DispatcherScheduler.Schedule()
+---
 # DispatcherScheduler.Schedule Method
 
 Include Protected Members  

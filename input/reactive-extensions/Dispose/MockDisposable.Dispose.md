@@ -1,3 +1,5 @@
+title: MockDisposable.Dispose()
+---
 # MockDisposable.Dispose Method
 
 **Namespace:**  [ReactiveTests](ReactiveTests\ReactiveTests.md)  

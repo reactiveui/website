@@ -1,3 +1,5 @@
+title: Subject<T>.OnCompleted()
+---
 # Subject\<T\>.OnCompleted Method
 
 Notifies all subscribed observers of the end of the sequence.

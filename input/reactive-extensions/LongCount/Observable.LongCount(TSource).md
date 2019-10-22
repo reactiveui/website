@@ -1,3 +1,5 @@
+title: Observable.LongCount<TSource>()
+---
 # Observable.LongCount\<TSource\> Method
 
 Returns a [Int64](https://msdn.microsoft.com/en-us/library/6yy583ek) that represents the total number of elements in an observable sequence.

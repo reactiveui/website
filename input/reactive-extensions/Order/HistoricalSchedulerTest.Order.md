@@ -1,3 +1,5 @@
+title: HistoricalSchedulerTest.Order()
+---
 # HistoricalSchedulerTest.Order Method
 
 **Namespace:**  [ReactiveTests.Tests](ReactiveTests.Tests\ReactiveTests.Tests.md)  

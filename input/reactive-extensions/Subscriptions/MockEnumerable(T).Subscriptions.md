@@ -1,3 +1,5 @@
+title: MockEnumerable<T>.Subscriptions Field
+---
 # MockEnumerable\<T\>.Subscriptions Field
 
 **Namespace:**  [ReactiveTests](ReactiveTests\ReactiveTests.md)  

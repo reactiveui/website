@@ -1,3 +1,5 @@
+title: SerialDisposable Class
+---
 # SerialDisposable Class
 
 Represents a disposable whose underlying disposable can be swapped for another disposable which causes the previous underlying disposable to be disposed.

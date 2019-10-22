@@ -1,3 +1,5 @@
+title: Observable.Timer(DateTimeOffset, TimeSpan)
+---
 # Observable.Timer Method (DateTimeOffset, TimeSpan)
 
 Returns an observable sequence that produces a value at due time and then after each period.

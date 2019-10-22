@@ -1,3 +1,5 @@
+title: Installing Rx
+---
 # Installing Rx
 
 This topic describes where you can download the Reactive Extensions (Rx) SDK.

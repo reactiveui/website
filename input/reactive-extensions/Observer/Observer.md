@@ -1,3 +1,5 @@
+title: Observer Class
+---
 # Observer Class
 
 Provides a set of static methods for creating observers.

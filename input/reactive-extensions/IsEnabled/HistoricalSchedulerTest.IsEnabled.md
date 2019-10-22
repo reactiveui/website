@@ -1,3 +1,5 @@
+title: HistoricalSchedulerTest.IsEnabled()
+---
 # HistoricalSchedulerTest.IsEnabled Method
 
 **Namespace:**  [ReactiveTests.Tests](ReactiveTests.Tests\ReactiveTests.Tests.md)  

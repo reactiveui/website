@@ -1,3 +1,5 @@
+title: Observable.SkipWhile()
+---
 # Observable.SkipWhile Method
 
 Include Protected Members  

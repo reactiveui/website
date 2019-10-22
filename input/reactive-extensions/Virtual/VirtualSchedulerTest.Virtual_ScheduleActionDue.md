@@ -1,3 +1,5 @@
+title: VirtualSchedulerTest.Virtual_ScheduleActionDue()
+---
 # VirtualSchedulerTest.Virtual\_ScheduleActionDue Method
 
 **Namespace:**  [ReactiveTests.Tests](ReactiveTests.Tests\ReactiveTests.Tests.md)  

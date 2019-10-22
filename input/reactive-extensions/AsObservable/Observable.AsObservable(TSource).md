@@ -1,3 +1,5 @@
+title: Observable.AsObservable<TSource>()
+---
 # Observable.AsObservable\<TSource\> Method
 
 Hides the identity of an observable sequence.

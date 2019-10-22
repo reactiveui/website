@@ -1,3 +1,5 @@
+title: Qbservable.Next<TSource>()
+---
 # Qbservable.Next\<TSource\> Method
 
 Samples the next value (blocking without buffering) from in an queryable observable sequence.

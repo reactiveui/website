@@ -1,3 +1,5 @@
+title: Observable.ToLookup<TSource, TKey, TElement>(IObservable<TSource>, Func<TSource, TKey>, Func<TSource, TElement>)
+---
 # Observable.ToLookup\<TSource, TKey, TElement\> Method (IObservable\<TSource\>, Func\<TSource, TKey\>, Func\<TSource, TElement\>)
 
 Creates a lookup from an observable sequence according to a specified key selector function, and an element selector function.

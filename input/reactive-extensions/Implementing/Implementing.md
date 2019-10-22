@@ -1,3 +1,5 @@
+title: Implementing Your Own Operators for IObservable
+---
 # Implementing Your Own Operators for IObservable
 
 You can extend Rx by adding new operators for operations that are not provided by the LINQ library, or by creating your own implementation of standard query operators to improve readability and performance. Writing a customized version of a standard LINQ operator is useful when you want to operate with in-memory objects and when the intended customization does not require a comprehensive view of the query.

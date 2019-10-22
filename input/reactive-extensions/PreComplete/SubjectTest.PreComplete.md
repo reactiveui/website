@@ -1,3 +1,5 @@
+title: SubjectTest.PreComplete()
+---
 # SubjectTest.PreComplete Method
 
 **Namespace:**  [ReactiveTests.Tests](ReactiveTests.Tests\ReactiveTests.Tests.md)  

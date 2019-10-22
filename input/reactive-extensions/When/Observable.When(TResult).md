@@ -1,3 +1,5 @@
+title: Observable.When<TResult>(array<Plan<TResult>[])
+---
 # Observable.When\<TResult\> Method (array\<Plan\<TResult\>\[\])
 
 Joins together the results from several patterns.

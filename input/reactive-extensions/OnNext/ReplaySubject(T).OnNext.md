@@ -1,3 +1,5 @@
+title: ReplaySubject<T>.OnNext()
+---
 # ReplaySubject\<T\>.OnNext Method
 
 Notifies all subscribed observers with the value.

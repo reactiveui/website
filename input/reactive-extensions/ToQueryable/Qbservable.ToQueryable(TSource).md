@@ -1,3 +1,5 @@
+title: Qbservable.ToQueryable<TSource>()
+---
 # Qbservable.ToQueryable\<TSource\> Method
 
 Converts an enumerable sequence to a queryable observable sequence with a specified source.

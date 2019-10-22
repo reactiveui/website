@@ -1,3 +1,5 @@
+title: Scheduler.Normalize()
+---
 # Scheduler.Normalize Method
 
 Ensures that no time spans are negative.

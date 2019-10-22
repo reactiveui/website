@@ -1,3 +1,5 @@
+title: Qbservable.SequenceEqual()
+---
 # Qbservable.SequenceEqual Method
 
 Include Protected Members  

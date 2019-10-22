@@ -1,3 +1,5 @@
+title: Qbservable.Delay<TSource>(IQbservable<TSource>, DateTimeOffset)
+---
 # Qbservable.Delay\<TSource\> Method (IQbservable\<TSource\>, DateTimeOffset)
 
 Indicates the queryable observable sequence by due time with the specified source and dueTime.

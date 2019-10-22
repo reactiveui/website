@@ -1,3 +1,5 @@
+title: Observable.Replay<TSource, TResult>(IObservable<TSource>, Func<IObservable<TSource>, IObservable<TResult>>, TimeSpan, IScheduler)
+---
 # Observable.Replay\<TSource, TResult\> Method (IObservable\<TSource\>, Func\<IObservable\<TSource\>, IObservable\<TResult\>\>, TimeSpan, IScheduler)
 
 Returns an observable sequence that is the result of invoking the selector on a connectable observable sequence that shares a single subscription to the underlying sequence replaying all notifications within window.

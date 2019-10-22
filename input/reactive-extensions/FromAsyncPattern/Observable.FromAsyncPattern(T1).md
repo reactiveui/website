@@ -1,3 +1,5 @@
+title: Observable.FromAsyncPattern<T1>(Func<T1, AsyncCallback, Object, IAsyncResult>, Action<IAsyncResult>)
+---
 # Observable.FromAsyncPattern\<T1\> Method (Func\<T1, AsyncCallback, Object, IAsyncResult\>, Action\<IAsyncResult\>)
 
 Converts a Begin/End invoke function pair into an asynchronous function.

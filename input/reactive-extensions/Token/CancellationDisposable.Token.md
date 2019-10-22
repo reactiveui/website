@@ -1,3 +1,5 @@
+title: CancellationDisposable.Token Property
+---
 # CancellationDisposable.Token Property
 
 Gets the CancellationToken used by this CancellationDisposable.

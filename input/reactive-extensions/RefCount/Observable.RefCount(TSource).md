@@ -1,3 +1,5 @@
+title: Observable.RefCount<TSource>()
+---
 # Observable.RefCount\<TSource\> Method
 
 Returns an observable sequence that stays connected to the source as long as there is at least one subscription to the observable sequence.

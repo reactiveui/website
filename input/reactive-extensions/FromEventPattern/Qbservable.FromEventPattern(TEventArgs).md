@@ -1,3 +1,5 @@
+title: Qbservable.FromEventPattern<TEventArgs>(IQbservableProvider, Expression<Action<EventHandler<TEventArgs>>>, Expression<Action<EventHandler<TEventArgs>>>)
+---
 # Qbservable.FromEventPattern\<TEventArgs\> Method (IQbservableProvider, Expression\<Action\<EventHandler\<TEventArgs\>\>\>, Expression\<Action\<EventHandler\<TEventArgs\>\>\>)
 
 Converts a .NET event, conforming to the standard .NET event pattern, to an queryable observable sequence with the specified add handler and remove handler.

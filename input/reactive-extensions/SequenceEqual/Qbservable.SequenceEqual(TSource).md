@@ -1,3 +1,5 @@
+title: Qbservable.SequenceEqual<TSource>(IQbservable<TSource>, IObservable<TSource>, IEqualityComparer<TSource>)
+---
 # Qbservable.SequenceEqual\<TSource\> Method (IQbservable\<TSource\>, IObservable\<TSource\>, IEqualityComparer\<TSource\>)
 
 Determines whether two sequences are equal by comparing the elements pairwise using a specified equality comparer.

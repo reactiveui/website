@@ -1,3 +1,5 @@
+title: Observable.PublishLast<TSource>(IObservable<TSource>)
+---
 # Observable.PublishLast\<TSource\> Method (IObservable\<TSource\>)
 
 Returns a connectable observable sequence that shares a single subscription to the underlying sequence containing only the last notification.

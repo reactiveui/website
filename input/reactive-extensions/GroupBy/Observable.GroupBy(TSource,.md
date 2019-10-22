@@ -1,3 +1,5 @@
+title: Observable.GroupBy<TSource, TKey, TElement>(IObservable<TSource>, Func<TSource, TKey>, Func<TSource, TElement>, IEqualityComparer<TKey>)
+---
 # Observable.GroupBy\<TSource, TKey, TElement\> Method (IObservable\<TSource\>, Func\<TSource, TKey\>, Func\<TSource, TElement\>, IEqualityComparer\<TKey\>)
 
 Groups the elements of an observable sequence according to a specified key selector function and comparer and selects the resulting elements by using a specified function.

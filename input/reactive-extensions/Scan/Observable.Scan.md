@@ -1,3 +1,5 @@
+title: Observable.Scan()
+---
 # Observable.Scan Method
 
 Include Protected Members  

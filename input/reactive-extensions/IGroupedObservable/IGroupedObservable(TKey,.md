@@ -1,3 +1,5 @@
+title: IGroupedObservable<TKey, TElement> Interface
+---
 # IGroupedObservable\<TKey, TElement\> Interface
 
 Represents an observable sequence of values that have a common key.

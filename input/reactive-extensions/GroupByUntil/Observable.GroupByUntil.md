@@ -1,3 +1,5 @@
+title: Observable.GroupByUntil()
+---
 # Observable.GroupByUntil Method
 
 Include Protected Members  

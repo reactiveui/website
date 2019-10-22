@@ -1,3 +1,5 @@
+title: IEventPatternSource<TEventArgs> Events
+---
 # IEventPatternSource\<TEventArgs\> Events
 
 Include Protected Members  

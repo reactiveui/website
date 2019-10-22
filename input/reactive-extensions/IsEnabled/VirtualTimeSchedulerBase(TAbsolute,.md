@@ -1,3 +1,5 @@
+title: VirtualTimeSchedulerBase<TAbsolute, TRelative>.IsEnabled Property
+---
 # VirtualTimeSchedulerBase\<TAbsolute, TRelative\>.IsEnabled Property
 
 Gets whether the scheduler is enabled to run work.

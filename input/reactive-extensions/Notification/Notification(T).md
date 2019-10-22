@@ -1,3 +1,5 @@
+title: Notification<T> Class
+---
 # Notification\<T\> Class
 
 Represents a notification to an observer.

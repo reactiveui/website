@@ -1,3 +1,5 @@
+title: Timestamped<T> Operators
+---
 # Timestamped\<T\> Operators
 
 Include Protected Members  

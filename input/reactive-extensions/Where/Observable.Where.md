@@ -1,3 +1,5 @@
+title: Observable.Where()
+---
 # Observable.Where Method
 
 Include Protected Members  

@@ -1,3 +1,5 @@
+title: Subject.Synchronize<TSource, TResult>(ISubject<TSource, TResult>)
+---
 # Subject.Synchronize\<TSource, TResult\> Method (ISubject\<TSource, TResult\>)
 
 Synchronizes the messages on the subject.

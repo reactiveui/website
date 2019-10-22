@@ -1,3 +1,5 @@
+title: Observable.Publish<TSource>(IObservable<TSource>)
+---
 # Observable.Publish\<TSource\> Method (IObservable\<TSource\>)
 
 Returns a connectable observable sequence that shares a single subscription to the underlying sequence.

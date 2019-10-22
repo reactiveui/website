@@ -1,3 +1,5 @@
+title: ReplaySubject<T>()s
+---
 # ReplaySubject\<T\> Methods
 
 Include Protected Members  

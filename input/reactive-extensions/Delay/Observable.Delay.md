@@ -1,3 +1,5 @@
+title: Observable.Delay()
+---
 # Observable.Delay Method
 
 Include Protected Members  

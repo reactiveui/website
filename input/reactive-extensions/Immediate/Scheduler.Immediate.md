@@ -1,3 +1,5 @@
+title: Scheduler.Immediate Property
+---
 # Scheduler.Immediate Property
 
 Gets the scheduler that schedules work immediately on the current thread.

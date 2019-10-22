@@ -1,3 +1,5 @@
+title: Notification()s
+---
 # Notification Methods
 
 Include Protected Members  

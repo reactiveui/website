@@ -1,3 +1,5 @@
+title: Qbservable.ObserveOn<TSource>(IQbservable<TSource>, IScheduler)
+---
 # Qbservable.ObserveOn\<TSource\> Method (IQbservable\<TSource\>, IScheduler)
 
 Asynchronously notify observers on the specified synchronization context.

@@ -1,3 +1,5 @@
+title: Observable.Amb()
+---
 # Observable.Amb Method
 
 Include Protected Members  

@@ -1,3 +1,5 @@
+title: EventPattern<TEventArgs>.GetHashCode()
+---
 # EventPattern\<TEventArgs\>.GetHashCode Method
 
 This member overrides [Object.GetHashCode()](https://msdn.microsoft.com/en-us/library/zdee4b3y).

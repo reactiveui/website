@@ -1,3 +1,5 @@
+title: Notification<T>.Inequality Operator
+---
 # Notification\<T\>.Inequality Operator
 
 Indicates whether left and right arguments are not equal.

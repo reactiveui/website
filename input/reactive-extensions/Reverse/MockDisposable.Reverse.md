@@ -1,3 +1,5 @@
+title: MockDisposable.Reverse()
+---
 # MockDisposable.Reverse Method
 
 Include Protected Members  

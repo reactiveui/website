@@ -1,3 +1,5 @@
+title: TimeInterval<T>.Equality Operator
+---
 # TimeInterval\<T\>.Equality Operator
 
 Indicates whether first and second arguments are equal.

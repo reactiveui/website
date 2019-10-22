@@ -1,3 +1,5 @@
+title: Qbservable.GroupByUntil()
+---
 # Qbservable.GroupByUntil Method
 
 Include Protected Members  

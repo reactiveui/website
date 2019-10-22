@@ -1,3 +1,5 @@
+title: ReplaySubject<T>.Dispose()
+---
 # ReplaySubject\<T\>.Dispose Method
 
 Releases all resources used by the current instance of the [ReplaySubject\<T\>](ReplaySubject\ReplaySubject(T).md) class and unsubscribe all observers.

@@ -1,3 +1,5 @@
+title: Pattern Class
+---
 # Pattern Class
 
 Represents a join pattern.

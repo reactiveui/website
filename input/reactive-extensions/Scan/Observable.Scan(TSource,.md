@@ -1,3 +1,5 @@
+title: Observable.Scan<TSource, TAccumulate>(IObservable<TSource>, TAccumulate, Func<TAccumulate, TSource, TAccumulate>)
+---
 # Observable.Scan\<TSource, TAccumulate\> Method (IObservable\<TSource\>, TAccumulate, Func\<TAccumulate, TSource, TAccumulate\>)
 
 Applies an accumulator function over an observable sequence and returns each intermediate result with the specified source, seed and accumulator.

@@ -1,3 +1,5 @@
+title: Qbservable.Zip<TFirst, TSecond, TResult>(IQbservable<TFirst>, IEnumerable<TSecond>, Expression<Func<TFirst, TSecond, TResult>>)
+---
 # Qbservable.Zip\<TFirst, TSecond, TResult\> Method (IQbservable\<TFirst\>, IEnumerable\<TSecond\>, Expression\<Func\<TFirst, TSecond, TResult\>\>)
 
 Merges a queryable observable sequence and an enumerable sequence into one queryable observable sequence by using the selector function.

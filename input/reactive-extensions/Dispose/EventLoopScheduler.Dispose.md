@@ -1,3 +1,5 @@
+title: EventLoopScheduler.Dispose()
+---
 # EventLoopScheduler.Dispose Method
 
 Ends the thread associated with this scheduler.

@@ -1,3 +1,5 @@
+title: ReactiveTest.OnCompleted<T>()
+---
 # ReactiveTest.OnCompleted\<T\> Method
 
 Factory method for a recorded OnCompleted notification at a given time.

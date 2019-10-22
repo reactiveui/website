@@ -1,3 +1,5 @@
+title: ReactiveTest.Subscribe(Int64)
+---
 # ReactiveTest.Subscribe Method (Int64)
 
 Factory method for a recorded subscription.

@@ -1,3 +1,5 @@
+title: Observable.DistinctUntilChanged<TSource>(IObservable<TSource>, IEqualityComparer<TSource>)
+---
 # Observable.DistinctUntilChanged\<TSource\> Method (IObservable\<TSource\>, IEqualityComparer\<TSource\>)
 
 Returns an observable sequence that contains only distinct contiguous elements according to the comparer.

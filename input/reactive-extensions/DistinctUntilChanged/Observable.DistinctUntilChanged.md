@@ -1,3 +1,5 @@
+title: Observable.DistinctUntilChanged()
+---
 # Observable.DistinctUntilChanged Method
 
 Include Protected Members  

@@ -1,3 +1,5 @@
+title: Qbservable.Timeout()
+---
 # Qbservable.Timeout Method
 
 Include Protected Members  

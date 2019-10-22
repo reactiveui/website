@@ -1,3 +1,5 @@
+title: Qbservable.Concat()
+---
 # Qbservable.Concat Method
 
 Include Protected Members  

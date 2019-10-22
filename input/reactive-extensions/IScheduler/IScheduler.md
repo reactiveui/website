@@ -1,3 +1,5 @@
+title: IScheduler Interface
+---
 # IScheduler Interface
 
 Represents an object that schedules units of work.

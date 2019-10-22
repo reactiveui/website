@@ -1,3 +1,5 @@
+title: Qbservable.ToAsync<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, TResult>(IQbservableProvider, Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, TResult>>, IScheduler)
+---
 # Qbservable.ToAsync\<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, TResult\> Method (IQbservableProvider, Expression\<Func\<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, TResult\>\>, IScheduler)
 
 Converts the function into an asynchronous function.

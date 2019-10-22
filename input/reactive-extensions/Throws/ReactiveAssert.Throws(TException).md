@@ -1,3 +1,5 @@
+title: ReactiveAssert.Throws<TException>(TException, Action)
+---
 # ReactiveAssert.Throws\<TException\> Method (TException, Action)
 
 **Namespace:**  [Microsoft.Reactive.Testing](Microsoft.Reactive.Testing\Microsoft.Reactive.Testing.md)  

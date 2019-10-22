@@ -1,3 +1,5 @@
+title: Testing and Debugging Observable Sequences
+---
 # Testing and Debugging Observable Sequences
 
 ## Testing your Rx application

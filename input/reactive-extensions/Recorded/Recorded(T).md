@@ -1,3 +1,5 @@
+title: Recorded<T> Structure
+---
 # Recorded\<T\> Structure
 
 Records a value with the time it was produced on.

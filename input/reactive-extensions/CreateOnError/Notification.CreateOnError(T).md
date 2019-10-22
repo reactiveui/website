@@ -1,3 +1,5 @@
+title: Notification.CreateOnError<T>()
+---
 # Notification.CreateOnError\<T\> Method
 
 Creates an object that represents an OnError notification to an observer.

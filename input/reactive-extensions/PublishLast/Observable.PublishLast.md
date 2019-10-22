@@ -1,3 +1,5 @@
+title: Observable.PublishLast()
+---
 # Observable.PublishLast Method
 
 Include Protected Members  

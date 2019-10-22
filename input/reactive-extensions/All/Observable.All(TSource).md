@@ -1,3 +1,5 @@
+title: Observable.All<TSource>()
+---
 # Observable.All\<TSource\> Method
 
 Determines whether all elements of an observable sequence satisfies a condition.

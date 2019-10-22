@@ -1,3 +1,5 @@
+title: Observable.Concat()
+---
 # Observable.Concat Method
 
 Include Protected Members  

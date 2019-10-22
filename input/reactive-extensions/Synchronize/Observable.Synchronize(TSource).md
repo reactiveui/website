@@ -1,3 +1,5 @@
+title: Observable.Synchronize<TSource>(IObservable<TSource>, Object)
+---
 # Observable.Synchronize\<TSource\> Method (IObservable\<TSource\>, Object)
 
 Synchronizes the observable sequence.

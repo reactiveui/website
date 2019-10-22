@@ -1,3 +1,5 @@
+title: Qbservable()s
+---
 # Qbservable Methods
 
 Include Protected Members  

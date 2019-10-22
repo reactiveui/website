@@ -1,3 +1,5 @@
+title: Qbservable.Empty()
+---
 # Qbservable.Empty Method
 
 Include Protected Members  

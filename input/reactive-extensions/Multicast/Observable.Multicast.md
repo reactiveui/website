@@ -1,3 +1,5 @@
+title: Observable.Multicast()
+---
 # Observable.Multicast Method
 
 Include Protected Members  

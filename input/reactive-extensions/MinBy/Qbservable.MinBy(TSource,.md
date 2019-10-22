@@ -1,3 +1,5 @@
+title: Qbservable.MinBy<TSource, TKey>(IQbservable<TSource>, Expression<Func<TSource, TKey>>, IComparer<TKey>)
+---
 # Qbservable.MinBy\<TSource, TKey\> Method (IQbservable\<TSource\>, Expression\<Func\<TSource, TKey\>\>, IComparer\<TKey\>)
 
 Returns the elements in a queryable observable sequence with the minimum key value according to the specified comparer.

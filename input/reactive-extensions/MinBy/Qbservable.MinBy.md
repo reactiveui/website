@@ -1,3 +1,5 @@
+title: Qbservable.MinBy()
+---
 # Qbservable.MinBy Method
 
 Include Protected Members  

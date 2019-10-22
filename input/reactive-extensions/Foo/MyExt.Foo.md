@@ -1,3 +1,5 @@
+title: MyExt.Foo()
+---
 # MyExt.Foo Method
 
 Include Protected Members  

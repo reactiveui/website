@@ -1,3 +1,5 @@
+title: SubjectTest Constructor
+---
 # SubjectTest Constructor
 
 **Namespace:**  [ReactiveTests.Tests](ReactiveTests.Tests\ReactiveTests.Tests.md)  

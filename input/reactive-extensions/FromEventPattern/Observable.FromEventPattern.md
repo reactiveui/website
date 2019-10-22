@@ -1,3 +1,5 @@
+title: Observable.FromEventPattern(Object, String)
+---
 # Observable.FromEventPattern Method (Object, String)
 
 Converts a .NET event, conforming to the standard .NET event pattern, to an observable sequence, using reflection to find an instance event.

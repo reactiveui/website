@@ -1,3 +1,5 @@
+title: Observable.Using<TSource, TResource>()
+---
 # Observable.Using\<TSource, TResource\> Method
 
 Constructs an observable sequence that depends on a resource object.

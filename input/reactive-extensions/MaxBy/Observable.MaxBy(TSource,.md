@@ -1,3 +1,5 @@
+title: Observable.MaxBy<TSource, TKey>(IObservable<TSource>, Func<TSource, TKey>, IComparer<TKey>)
+---
 # Observable.MaxBy\<TSource, TKey\> Method (IObservable\<TSource\>, Func\<TSource, TKey\>, IComparer\<TKey\>)
 
 Returns the elements in an observable sequence with the maximum key value.

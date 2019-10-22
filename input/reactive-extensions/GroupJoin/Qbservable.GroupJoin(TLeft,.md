@@ -1,3 +1,5 @@
+title: Qbservable.GroupJoin<TLeft, TRight, TLeftDuration, TRightDuration, TResult>()
+---
 # Qbservable.GroupJoin\<TLeft, TRight, TLeftDuration, TRightDuration, TResult\> Method
 
 Correlates the elements of two sequences based on overlapping durations, and groups the results.

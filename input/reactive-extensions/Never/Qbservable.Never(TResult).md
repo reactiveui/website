@@ -1,3 +1,5 @@
+title: Qbservable.Never<TResult>()
+---
 # Qbservable.Never\<TResult\> Method
 
 Returns a non-terminating queryable observable sequence.

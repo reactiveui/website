@@ -1,3 +1,5 @@
+title: Qbservable.Synchronize()
+---
 # Qbservable.Synchronize Method
 
 Include Protected Members  

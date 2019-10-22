@@ -1,3 +1,5 @@
+title: Observable.OfType<TResult>()
+---
 # Observable.OfType\<TResult\> Method
 
 Filters the elements of an observable sequence based on the specified type.

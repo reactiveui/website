@@ -1,3 +1,5 @@
+title: Observable.Empty<TResult>()
+---
 # Observable.Empty\<TResult\> Method
 
 Returns an empty observable sequence.

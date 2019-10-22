@@ -1,3 +1,5 @@
+title: RefCountDisposable.IsDisposed Property
+---
 # RefCountDisposable.IsDisposed Property
 
 Gets a value that indicates whether the object is disposed.

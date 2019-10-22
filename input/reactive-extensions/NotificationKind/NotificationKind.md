@@ -1,3 +1,5 @@
+title: NotificationKind Enumeration
+---
 # NotificationKind Enumeration
 
 Indicates the type of a notification.

@@ -1,3 +1,5 @@
+title: CompositeDisposable.IsReadOnly Property
+---
 # CompositeDisposable.IsReadOnly Property
 
 Always returns false.

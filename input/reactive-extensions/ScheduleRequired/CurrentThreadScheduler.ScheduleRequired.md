@@ -1,3 +1,5 @@
+title: CurrentThreadScheduler.ScheduleRequired Property
+---
 # CurrentThreadScheduler.ScheduleRequired Property
 
 Gets a value indicating whether the caller must call a schedule method.

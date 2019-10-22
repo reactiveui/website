@@ -1,3 +1,5 @@
+title: ImmediateScheduler.Schedule()
+---
 # ImmediateScheduler.Schedule Method
 
 Include Protected Members  

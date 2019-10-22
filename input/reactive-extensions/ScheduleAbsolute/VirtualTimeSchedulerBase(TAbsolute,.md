@@ -1,3 +1,5 @@
+title: VirtualTimeSchedulerBase<TAbsolute, TRelative>.ScheduleAbsolute<TState>()
+---
 # VirtualTimeSchedulerBase\<TAbsolute, TRelative\>.ScheduleAbsolute\<TState\> Method
 
 Schedules an action to be executed at dueTime.

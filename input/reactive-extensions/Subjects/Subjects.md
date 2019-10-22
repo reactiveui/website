@@ -1,3 +1,5 @@
+title: Subjects
+---
 # Subjects
 
 This section describes the Subject\<T\> type implemented by Reactive Extension. It also describes various implementations of Subject\<T\> which serves different purposes.

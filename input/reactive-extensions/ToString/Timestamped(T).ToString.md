@@ -1,3 +1,5 @@
+title: Timestamped<T>.ToString()
+---
 # Timestamped\<T\>.ToString Method
 
 Returns a string representation of this instance.

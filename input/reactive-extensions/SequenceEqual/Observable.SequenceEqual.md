@@ -1,3 +1,5 @@
+title: Observable.SequenceEqual()
+---
 # Observable.SequenceEqual Method
 
 Include Protected Members  

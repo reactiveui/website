@@ -1,3 +1,5 @@
+title: Observable.SubscribeOn<TSource>(IObservable<TSource>, SynchronizationContext)
+---
 # Observable.SubscribeOn\<TSource\> Method (IObservable\<TSource\>, SynchronizationContext)
 
 Asynchronously subscribes and unsubscribes observers on the specified synchronization context.

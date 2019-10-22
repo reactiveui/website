@@ -1,3 +1,5 @@
+title: Qbservable.Window()
+---
 # Qbservable.Window Method
 
 Include Protected Members  

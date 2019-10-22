@@ -1,3 +1,5 @@
+title: Qbservable.Repeat<TSource>(IQbservable<TSource>)
+---
 # Qbservable.Repeat\<TSource\> Method (IQbservable\<TSource\>)
 
 Repeats the queryable observable sequence indefinitely.

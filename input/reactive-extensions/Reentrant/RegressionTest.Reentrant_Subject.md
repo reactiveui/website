@@ -1,3 +1,5 @@
+title: RegressionTest.Reentrant_Subject()
+---
 # RegressionTest.Reentrant\_Subject Method
 
 **Namespace:**  [ReactiveTests.Tests](ReactiveTests.Tests\ReactiveTests.Tests.md)  

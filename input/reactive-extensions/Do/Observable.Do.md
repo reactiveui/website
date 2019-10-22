@@ -1,3 +1,5 @@
+title: Observable.Do()
+---
 # Observable.Do Method
 
 Include Protected Members  

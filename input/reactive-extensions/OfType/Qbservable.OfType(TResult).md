@@ -1,3 +1,5 @@
+title: Qbservable.OfType<TResult>()
+---
 # Qbservable.OfType\<TResult\> Method
 
 Filters the elements of a queryable observable sequence based on the specified type.

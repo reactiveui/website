@@ -1,3 +1,5 @@
+title: Observable.Last()
+---
 # Observable.Last Method
 
 Include Protected Members  

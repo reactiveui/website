@@ -1,3 +1,5 @@
+title: ScheduledDisposable.Scheduler Property
+---
 # ScheduledDisposable.Scheduler Property
 
 Gets a value that indicates the scheduler.

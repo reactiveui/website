@@ -1,3 +1,5 @@
+title: CompositeDisposable.Count Property
+---
 # CompositeDisposable.Count Property
 
 Gets the number of disposables contained in the CompositeDisposable.

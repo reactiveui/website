@@ -1,3 +1,5 @@
+title: Timestamped<T>.Timestamp Property
+---
 # Timestamped\<T\>.Timestamp Property
 
 Gets the timestamp.

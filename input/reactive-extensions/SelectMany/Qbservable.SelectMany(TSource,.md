@@ -1,3 +1,5 @@
+title: Qbservable.SelectMany<TSource, TCollection, TResult>(IQbservable<TSource>, Expression<Func<TSource, IObservable<TCollection>>>, Expression<Func<TSource, TCollection, TResult>>)
+---
 # Qbservable.SelectMany\<TSource, TCollection, TResult\> Method (IQbservable\<TSource\>, Expression\<Func\<TSource, IObservable\<TCollection\>\>\>, Expression\<Func\<TSource, TCollection, TResult\>\>)
 
 Projects each element of a queryable observable sequence to a queryable observable sequence and flattens the resulting queryable observable sequences into one queryable observable sequence.

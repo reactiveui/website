@@ -1,3 +1,5 @@
+title: Qbservable.ToLookup()
+---
 # Qbservable.ToLookup Method
 
 Include Protected Members  

@@ -1,3 +1,5 @@
+title: Observable.ToEventPattern<TEventArgs>()
+---
 # Observable.ToEventPattern\<TEventArgs\> Method
 
 Exposes an observable sequence as an object with a .NET event.

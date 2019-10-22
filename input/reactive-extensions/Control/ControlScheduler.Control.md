@@ -1,3 +1,5 @@
+title: ControlScheduler.Control Property
+---
 # ControlScheduler.Control Property
 
 Gets the control associated with the ControlScheduler.

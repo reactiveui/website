@@ -1,3 +1,5 @@
+title: ContextDisposable.IsDisposed Property
+---
 # ContextDisposable.IsDisposed Property
 
 Gets a value that indicates whether the object is disposed.

@@ -1,3 +1,5 @@
+title: ISubject<T>()s
+---
 # ISubject\<T\> Methods
 
 Include Protected Members  

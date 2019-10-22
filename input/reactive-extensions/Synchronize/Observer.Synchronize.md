@@ -1,3 +1,5 @@
+title: Observer.Synchronize()
+---
 # Observer.Synchronize Method
 
 Include Protected Members  

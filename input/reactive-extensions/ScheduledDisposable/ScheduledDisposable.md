@@ -1,3 +1,5 @@
+title: ScheduledDisposable Properties
+---
 # ScheduledDisposable Properties
 
 Include Protected Members  

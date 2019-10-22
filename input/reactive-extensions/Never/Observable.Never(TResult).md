@@ -1,3 +1,5 @@
+title: Observable.Never<TResult>()
+---
 # Observable.Never\<TResult\> Method
 
 Returns a non-terminating observable sequence.

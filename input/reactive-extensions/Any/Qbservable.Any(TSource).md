@@ -1,3 +1,5 @@
+title: Qbservable.Any<TSource>(IQbservable<TSource>)
+---
 # Qbservable.Any\<TSource\> Method (IQbservable\<TSource\>)
 
 Determines whether a queryable observable sequence contains any elements.

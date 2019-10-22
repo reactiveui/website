@@ -1,3 +1,5 @@
+title: RefCountDisposable.Dispose()
+---
 # RefCountDisposable.Dispose Method
 
 Disposes the underlying disposable only when all dependent disposables have been disposed.

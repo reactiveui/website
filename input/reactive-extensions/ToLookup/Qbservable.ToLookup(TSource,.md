@@ -1,3 +1,5 @@
+title: Qbservable.ToLookup<TSource, TKey>(IQbservable<TSource>, Expression<Func<TSource, TKey>>)
+---
 # Qbservable.ToLookup\<TSource, TKey\> Method (IQbservable\<TSource\>, Expression\<Func\<TSource, TKey\>\>)
 
 Creates a lookup from a queryable observable sequence according to a specified key selector function.

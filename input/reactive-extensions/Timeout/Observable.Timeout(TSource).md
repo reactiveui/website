@@ -1,3 +1,5 @@
+title: Observable.Timeout<TSource>(IObservable<TSource>, DateTimeOffset)
+---
 # Observable.Timeout\<TSource\> Method (IObservable\<TSource\>, DateTimeOffset)
 
 Returns either the observable sequence or a TimeoutException if dueTime elapses.

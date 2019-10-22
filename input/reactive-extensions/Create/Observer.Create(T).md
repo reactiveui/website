@@ -1,3 +1,5 @@
+title: Observer.Create<T>(Action<T>, Action)
+---
 # Observer.Create\<T\> Method (Action\<T\>, Action)
 
 Creates an observer from the specified OnNext and OnCompleted actions.

@@ -1,3 +1,5 @@
+title: Qbservable.Contains<TSource>(IQbservable<TSource>, TSource, IEqualityComparer<TSource>)
+---
 # Qbservable.Contains\<TSource\> Method (IQbservable\<TSource\>, TSource, IEqualityComparer\<TSource\>)
 
 Determines whether an observable sequence contains a specified element by using a specified source type, source, value and comparer.

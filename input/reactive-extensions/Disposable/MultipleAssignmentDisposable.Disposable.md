@@ -1,3 +1,5 @@
+title: MultipleAssignmentDisposable.Disposable Property
+---
 # MultipleAssignmentDisposable.Disposable Property
 
 Gets or sets the underlying disposable.

@@ -1,3 +1,5 @@
+title: TestScheduler.Start<T>(Func<IObservable<T>>)
+---
 # TestScheduler.Start\<T\> Method (Func\<IObservable\<T\>\>)
 
 Starts the test scheduler.

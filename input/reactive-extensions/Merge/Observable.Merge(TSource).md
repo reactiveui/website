@@ -1,3 +1,5 @@
+title: Observable.Merge<TSource>(IEnumerable<IObservable<TSource>>, IScheduler)
+---
 # Observable.Merge\<TSource\> Method (IEnumerable\<IObservable\<TSource\>\>, IScheduler)
 
 Merges an enumerable sequence of observable sequences into a single observable sequence.

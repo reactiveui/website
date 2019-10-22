@@ -1,3 +1,5 @@
+title: SingleAssignmentDisposable.IsDisposed Property
+---
 # SingleAssignmentDisposable.IsDisposed Property
 
 Gets a value indicating whether the object is disposed.

@@ -1,3 +1,5 @@
+title: Qbservable.Catch<TSource>(IQbservable<TSource>, IObservable<TSource>)
+---
 # Qbservable.Catch\<TSource\> Method (IQbservable\<TSource\>, IObservable\<TSource\>)
 
 Continues a queryable observable sequence that is terminated by an exception with the next queryable observable sequence.

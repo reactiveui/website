@@ -1,3 +1,5 @@
+title: Observable.Max<TSource>(IObservable<TSource>)
+---
 # Observable.Max\<TSource\> Method (IObservable\<TSource\>)
 
 Returns the maximum element in an observable sequence.

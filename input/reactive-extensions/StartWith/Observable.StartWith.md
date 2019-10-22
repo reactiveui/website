@@ -1,3 +1,5 @@
+title: Observable.StartWith()
+---
 # Observable.StartWith Method
 
 Include Protected Members  

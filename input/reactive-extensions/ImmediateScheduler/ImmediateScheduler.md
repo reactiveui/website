@@ -1,3 +1,5 @@
+title: ImmediateScheduler Properties
+---
 # ImmediateScheduler Properties
 
 Include Protected Members  

@@ -1,3 +1,5 @@
+title: System.Reactive.Linq Namespace
+---
 # System.Reactive.Linq Namespace
 
 ## Classes

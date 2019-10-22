@@ -1,3 +1,5 @@
+title: Qbservable.DistinctUntilChanged()
+---
 # Qbservable.DistinctUntilChanged Method
 
 Include Protected Members  

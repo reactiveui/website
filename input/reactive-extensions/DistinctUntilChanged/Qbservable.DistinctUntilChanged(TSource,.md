@@ -1,3 +1,5 @@
+title: Qbservable.DistinctUntilChanged<TSource, TKey>(IQbservable<TSource>, Expression<Func<TSource, TKey>>)
+---
 # Qbservable.DistinctUntilChanged\<TSource, TKey\> Method (IQbservable\<TSource\>, Expression\<Func\<TSource, TKey\>\>)
 
 Returns a queryable observable sequence that contains only distinct contiguous elements according to the keySelector.

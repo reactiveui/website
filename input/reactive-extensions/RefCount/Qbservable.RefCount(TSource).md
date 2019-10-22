@@ -1,3 +1,5 @@
+title: Qbservable.RefCount<TSource>()
+---
 # Qbservable.RefCount\<TSource\> Method
 
 Returns a queryable observable sequence that stays connected to the source as long as there is at least one subscription to the queryable observable sequence.

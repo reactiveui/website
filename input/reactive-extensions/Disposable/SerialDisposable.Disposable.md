@@ -1,3 +1,5 @@
+title: SerialDisposable.Disposable Property
+---
 # SerialDisposable.Disposable Property
 
 Gets or sets the underlying disposable.

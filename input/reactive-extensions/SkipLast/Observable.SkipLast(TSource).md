@@ -1,3 +1,5 @@
+title: Observable.SkipLast<TSource>()
+---
 # Observable.SkipLast\<TSource\> Method
 
 Bypasses a specified number of elements at the end of an observable sequence.

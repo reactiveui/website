@@ -1,3 +1,5 @@
+title: TaskPoolScheduler.Now Property
+---
 # TaskPoolScheduler.Now Property
 
 Gets the scheduler's notion of current time.

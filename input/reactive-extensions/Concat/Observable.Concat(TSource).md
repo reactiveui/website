@@ -1,3 +1,5 @@
+title: Observable.Concat<TSource>(IObservable<IObservable<TSource>>)
+---
 # Observable.Concat\<TSource\> Method (IObservable\<IObservable\<TSource\>\>)
 
 Concatenates an observable sequence of observable sequences.

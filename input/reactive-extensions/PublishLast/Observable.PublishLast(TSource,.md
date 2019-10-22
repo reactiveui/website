@@ -1,3 +1,5 @@
+title: Observable.PublishLast<TSource, TResult>(IObservable<TSource>, Func<IObservable<TSource>, IObservable<TResult>>)
+---
 # Observable.PublishLast\<TSource, TResult\> Method (IObservable\<TSource\>, Func\<IObservable\<TSource\>, IObservable\<TResult\>\>)
 
 Returns an observable sequence that is the result of invoking the selector on a connectable observable sequence that shares a single subscription to the underlying sequence containing only the last notification.

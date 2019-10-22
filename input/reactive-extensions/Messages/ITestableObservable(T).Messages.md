@@ -1,3 +1,5 @@
+title: ITestableObservable<T>.Messages Property
+---
 # ITestableObservable\<T\>.Messages Property
 
 Gets the recorded notifications sent by the observable.

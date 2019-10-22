@@ -1,3 +1,5 @@
+title: HistoricalScheduler()s
+---
 # HistoricalScheduler Methods
 
 Include Protected Members  

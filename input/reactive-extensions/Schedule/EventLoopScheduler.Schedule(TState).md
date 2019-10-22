@@ -1,3 +1,5 @@
+title: EventLoopScheduler.Schedule<TState>(TState, Func<IScheduler, TState, IDisposable>)
+---
 # EventLoopScheduler.Schedule\<TState\> Method (TState, Func\<IScheduler, TState, IDisposable\>)
 
 Schedules an action to be executed.

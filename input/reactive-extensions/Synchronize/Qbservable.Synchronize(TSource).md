@@ -1,3 +1,5 @@
+title: Qbservable.Synchronize<TSource>(IQbservable<TSource>, Object)
+---
 # Qbservable.Synchronize\<TSource\> Method (IQbservable\<TSource\>, Object)
 
 Synchronizes the queryable observable sequence.

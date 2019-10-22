@@ -1,3 +1,5 @@
+title: Disposable.Create()
+---
 # Disposable.Create Method
 
 Creates the disposable that invokes the specified action when disposed.

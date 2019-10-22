@@ -1,3 +1,5 @@
+title: BehaviorSubject<T>.OnNext()
+---
 # BehaviorSubject\<T\>.OnNext Method
 
 Notifies all subscribed observers with the value.

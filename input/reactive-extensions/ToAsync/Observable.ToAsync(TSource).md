@@ -1,3 +1,5 @@
+title: Observable.ToAsync<TSource>(Action<TSource>, IScheduler)
+---
 # Observable.ToAsync\<TSource\> Method (Action\<TSource\>, IScheduler)
 
 Converts the function into an asynchronous function.

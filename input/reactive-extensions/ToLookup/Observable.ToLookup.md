@@ -1,3 +1,5 @@
+title: Observable.ToLookup()
+---
 # Observable.ToLookup Method
 
 Include Protected Members  

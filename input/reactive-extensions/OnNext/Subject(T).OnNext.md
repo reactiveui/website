@@ -1,3 +1,5 @@
+title: Subject<T>.OnNext()
+---
 # Subject\<T\>.OnNext Method
 
 Notifies all subscribed observers with the value.

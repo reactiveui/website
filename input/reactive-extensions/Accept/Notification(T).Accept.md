@@ -1,3 +1,6 @@
+title: Notification<T>.Accept(IObserver<T>)
+---
+
 # Notification\<T\>.Accept Method
 
 Include Protected Members  

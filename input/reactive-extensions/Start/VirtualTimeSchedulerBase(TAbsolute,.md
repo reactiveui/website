@@ -1,3 +1,5 @@
+title: VirtualTimeSchedulerBase<TAbsolute, TRelative>.Start()
+---
 # VirtualTimeSchedulerBase\<TAbsolute, TRelative\>.Start Method
 
 Starts the virtual time scheduler.

@@ -1,3 +1,5 @@
+title: Observable.GetEnumerator<TSource>()
+---
 # Observable.GetEnumerator\<TSource\> Method
 
 Returns an enumerator that enumerates all values of the observable sequence.

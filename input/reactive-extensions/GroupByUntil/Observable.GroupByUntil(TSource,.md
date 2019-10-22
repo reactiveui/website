@@ -1,3 +1,5 @@
+title: Observable.GroupByUntil<TSource, TKey, TDuration>(IObservable<TSource>, Func<TSource, TKey>, Func<IGroupedObservable<TKey, TSource>, IObservable<TDuration>>, IEqualityComparer<TKey>)
+---
 # Observable.GroupByUntil\<TSource, TKey, TDuration\> Method (IObservable\<TSource\>, Func\<TSource, TKey\>, Func\<IGroupedObservable\<TKey, TSource\>, IObservable\<TDuration\>\>, IEqualityComparer\<TKey\>)
 
 Groups the elements of an observable sequence according to a specified key selector function and comparer.

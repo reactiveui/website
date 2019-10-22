@@ -1,3 +1,5 @@
+title: Qbservable.MaxBy<TSource, TKey>(IQbservable<TSource>, Expression<Func<TSource, TKey>>)
+---
 # Qbservable.MaxBy\<TSource, TKey\> Method (IQbservable\<TSource\>, Expression\<Func\<TSource, TKey\>\>)
 
 Returns the elements in a queryable observable sequence with the maximum key value.

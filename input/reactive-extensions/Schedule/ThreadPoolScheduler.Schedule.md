@@ -1,3 +1,5 @@
+title: ThreadPoolScheduler.Schedule()
+---
 # ThreadPoolScheduler.Schedule Method
 
 Include Protected Members  

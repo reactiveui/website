@@ -1,3 +1,5 @@
+title: ScheduledDisposable.IsDisposed Property
+---
 # ScheduledDisposable.IsDisposed Property
 
 Gets a value that indicates whether the object is disposed.

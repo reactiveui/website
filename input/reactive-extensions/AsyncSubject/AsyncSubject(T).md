@@ -1,3 +1,5 @@
+title: AsyncSubject<T>()s
+---
 # AsyncSubject\<T\> Methods
 
 Include Protected Members  

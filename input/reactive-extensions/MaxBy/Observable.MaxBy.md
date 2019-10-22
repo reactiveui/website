@@ -1,3 +1,5 @@
+title: Observable.MaxBy()
+---
 # Observable.MaxBy Method
 
 Include Protected Members  

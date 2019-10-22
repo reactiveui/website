@@ -1,3 +1,5 @@
+title: Notification<T>.ToObservable()
+---
 # Notification\<T\>.ToObservable Method
 
 Returns an observable sequence with a single notification, using the immediate scheduler.

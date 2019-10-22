@@ -1,3 +1,5 @@
+title: ObservableExtensions Class
+---
 # ObservableExtensions Class
 
 Provides a set of static methods for subscribing delegates to observables.

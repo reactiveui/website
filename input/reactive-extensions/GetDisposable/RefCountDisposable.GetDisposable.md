@@ -1,3 +1,5 @@
+title: RefCountDisposable.GetDisposable()
+---
 # RefCountDisposable.GetDisposable Method
 
 Returns a dependent disposable that when disposed decreases the refcount on the underlying disposable.

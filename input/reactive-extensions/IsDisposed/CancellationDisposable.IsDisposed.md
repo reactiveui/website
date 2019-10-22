@@ -1,3 +1,5 @@
+title: CancellationDisposable.IsDisposed Property
+---
 # CancellationDisposable.IsDisposed Property
 
 Gets a value that indicates whether the object is disposed.

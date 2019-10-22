@@ -1,3 +1,5 @@
+title: Scheduling and Concurrency
+---
 # Scheduling and Concurrency
 
 This section describes how you can use a scheduler to control when to start a sequence or subscribe to an event.

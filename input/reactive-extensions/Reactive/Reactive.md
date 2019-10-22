@@ -1,3 +1,5 @@
+title: Reactive Extensions Class Library
+---
 # Reactive Extensions Class Library
 
 This section contains the reference documentation for the Reactive Extensions class library.

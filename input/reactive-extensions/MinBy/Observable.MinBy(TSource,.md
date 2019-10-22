@@ -1,3 +1,5 @@
+title: Observable.MinBy<TSource, TKey>(IObservable<TSource>, Func<TSource, TKey>, IComparer<TKey>)
+---
 # Observable.MinBy\<TSource, TKey\> Method (IObservable\<TSource\>, Func\<TSource, TKey\>, IComparer\<TKey\>)
 
 Returns the elements in an observable sequence with the minimum key value according to the specified comparer.

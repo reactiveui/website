@@ -1,3 +1,5 @@
+title: Observable.SelectMany<TSource, TResult>(IObservable<TSource>, Func<TSource, IObservable<TResult>>, Func<Exception, IObservable<TResult>>, Func<IObservable<TResult>>)
+---
 # Observable.SelectMany\<TSource, TResult\> Method (IObservable\<TSource\>, Func\<TSource, IObservable\<TResult\>\>, Func\<Exception, IObservable\<TResult\>\>, Func\<IObservable\<TResult\>\>)
 
 Projects each element of an observable sequence to an observable sequence and flattens the resulting observable sequences into one observable sequence.

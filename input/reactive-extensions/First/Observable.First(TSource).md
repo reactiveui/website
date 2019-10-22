@@ -1,3 +1,5 @@
+title: Observable.First<TSource>(IObservable<TSource>, Func<TSource, Boolean>)
+---
 # Observable.First\<TSource\> Method (IObservable\<TSource\>, Func\<TSource, Boolean\>)
 
 Returns the first element of an observable sequence that matches the predicate.

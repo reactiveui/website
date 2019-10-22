@@ -1,3 +1,5 @@
+title: Getting Started with Rx
+---
 # Getting Started with Rx
 
 This section describes in general what Reactive Extensions (Rx) is, and how it can benefit programmers who are creating asynchronous applications.

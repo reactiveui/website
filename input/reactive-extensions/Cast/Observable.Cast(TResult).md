@@ -1,3 +1,5 @@
+title: Observable.Cast<TResult>()
+---
 # Observable.Cast\<TResult\> Method
 
 Converts the elements of an observable sequence to the specified type.

@@ -1,3 +1,5 @@
+title: EventPattern<TEventArgs>.EventArgs Property
+---
 # EventPattern\<TEventArgs\>.EventArgs Property
 
 Represents event arguments for a .NET event.

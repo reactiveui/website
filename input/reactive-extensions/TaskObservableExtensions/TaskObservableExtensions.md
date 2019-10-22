@@ -1,3 +1,5 @@
+title: TaskObservableExtensions Class
+---
 # TaskObservableExtensions Class
 
 Provides a set of static methods for converting Tasks to IObservables.

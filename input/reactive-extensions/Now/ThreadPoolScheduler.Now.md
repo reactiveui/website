@@ -1,3 +1,5 @@
+title: ThreadPoolScheduler.Now Property
+---
 # ThreadPoolScheduler.Now Property
 
 Gets the scheduler's notion of current time.

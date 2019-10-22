@@ -1,3 +1,5 @@
+title: CancellationDisposable()s
+---
 # CancellationDisposable Methods
 
 Include Protected Members  

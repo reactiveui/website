@@ -1,3 +1,5 @@
+title: Qbservable.LongCount<TSource>()
+---
 # Qbservable.LongCount\<TSource\> Method
 
 Returns a \[System.Int64\] that represents the total number of elements in a queryable observable sequence.

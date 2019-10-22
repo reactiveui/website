@@ -1,3 +1,5 @@
+title: Subject<T>.Subscribe()
+---
 # Subject\<T\>.Subscribe Method
 
 Subscribes an observer to the subject.

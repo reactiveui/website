@@ -1,3 +1,5 @@
+title: Subscription.Equals(Object)
+---
 # Subscription.Equals Method (Object)
 
 Checks whether the given object is equal to the current instance.

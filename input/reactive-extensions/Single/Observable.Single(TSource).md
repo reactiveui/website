@@ -1,3 +1,5 @@
+title: Observable.Single<TSource>(IObservable<TSource>, Func<TSource, Boolean>)
+---
 # Observable.Single\<TSource\> Method (IObservable\<TSource\>, Func\<TSource, Boolean\>)
 
 Returns the only element of an observable sequence that matches the predicate and throws an exception if there is not exactly one element in the observable sequence.

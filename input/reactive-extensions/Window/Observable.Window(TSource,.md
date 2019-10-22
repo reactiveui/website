@@ -1,3 +1,5 @@
+title: Observable.Window<TSource, TWindowClosing>(IObservable<TSource>, Func<IObservable<TWindowClosing>>)
+---
 # Observable.Window\<TSource, TWindowClosing\> Method (IObservable\<TSource\>, Func\<IObservable\<TWindowClosing\>\>)
 
 Projects each element of an observable sequence into consecutive non-overlapping windows.

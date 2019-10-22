@@ -1,3 +1,5 @@
+title: Observable.ToDictionary<TSource, TKey>(IObservable<TSource>, Func<TSource, TKey>)
+---
 # Observable.ToDictionary\<TSource, TKey\> Method (IObservable\<TSource\>, Func\<TSource, TKey\>)
 
 Creates a dictionary from an observable sequence according to a specified key selector function.

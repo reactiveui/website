@@ -1,3 +1,5 @@
+title: DispatcherObservable.ObserveOn<TSource>(IObservable<TSource>, Dispatcher)
+---
 # DispatcherObservable.ObserveOn\<TSource\> Method (IObservable\<TSource\>, Dispatcher)
 
 **Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  

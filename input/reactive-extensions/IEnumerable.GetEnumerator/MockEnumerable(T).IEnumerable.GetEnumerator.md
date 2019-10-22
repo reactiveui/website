@@ -1,3 +1,5 @@
+title: MockEnumerable<T>.IEnumerable.GetEnumerator()
+---
 # MockEnumerable\<T\>.IEnumerable.GetEnumerator Method
 
 **Namespace:**  [ReactiveTests](ReactiveTests\ReactiveTests.md)  

@@ -1,3 +1,5 @@
+title: TestScheduler.CreateObserver<T>()
+---
 # TestScheduler.CreateObserver\<T\> Method
 
 Creates a testable observer.

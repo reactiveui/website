@@ -1,3 +1,5 @@
+title: Observable.ForEach<TSource>()
+---
 # Observable.ForEach\<TSource\> Method
 
 Invokes an action for each element in the observable sequence, and blocks until the sequence is terminated.

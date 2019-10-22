@@ -1,3 +1,5 @@
+title: ReactiveTest.OnNext<T>()
+---
 # ReactiveTest.OnNext\<T\> Method
 
 Factory method for a recorded OnNext notification at a given time with a given value.

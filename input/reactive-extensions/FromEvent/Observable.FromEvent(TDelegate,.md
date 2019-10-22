@@ -1,3 +1,5 @@
+title: Observable.FromEvent<TDelegate, TEventArgs>(Action<TDelegate>, Action<TDelegate>)
+---
 # Observable.FromEvent\<TDelegate, TEventArgs\> Method (Action\<TDelegate\>, Action\<TDelegate\>)
 
 Converts a .NET event to an observable sequence.

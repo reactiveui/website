@@ -1,3 +1,5 @@
+title: Observable.ToAsync(Action)
+---
 # Observable.ToAsync Method (Action)
 
 Converts the function into an asynchronous function.

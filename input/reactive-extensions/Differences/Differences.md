@@ -1,3 +1,5 @@
+title: Differences Between Versions of Rx
+---
 # Differences Between Versions of Rx
 
 The following topic describes the various platforms for which you can develop solutions using Reactive Extensions.

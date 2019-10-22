@@ -1,3 +1,5 @@
+title: Notification<T>.Exception Property
+---
 # Notification\<T\>.Exception Property
 
 Returns the exception of an OnError notification or returns null.

@@ -1,3 +1,5 @@
+title: Observable.TakeLast<TSource>()
+---
 # Observable.TakeLast\<TSource\> Method
 
 Returns a specified number of contiguous elements from the end of an observable sequence.

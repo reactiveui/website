@@ -1,3 +1,5 @@
+title: Observable.LastOrDefault<TSource>(IObservable<TSource>, Func<TSource, Boolean>)
+---
 # Observable.LastOrDefault\<TSource\> Method (IObservable\<TSource\>, Func\<TSource, Boolean\>)
 
 Returns the last element of an observable sequence that matches the predicate, or a default value if no value is found.

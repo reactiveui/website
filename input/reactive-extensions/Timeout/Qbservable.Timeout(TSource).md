@@ -1,3 +1,5 @@
+title: Qbservable.Timeout<TSource>(IQbservable<TSource>, TimeSpan, IObservable<TSource>)
+---
 # Qbservable.Timeout\<TSource\> Method (IQbservable\<TSource\>, TimeSpan, IObservable\<TSource\>)
 
 Returns the source queryable observable sequence or the other queryable observable sequence if dueTime elapses.

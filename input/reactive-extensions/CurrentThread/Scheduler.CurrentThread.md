@@ -1,3 +1,5 @@
+title: Scheduler.CurrentThread Property
+---
 # Scheduler.CurrentThread Property
 
 Gets the scheduler that schedules work as soon as possible on the current thread.

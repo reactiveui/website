@@ -1,3 +1,5 @@
+title: DispatcherScheduler.Schedule<TState>(TState, Func<IScheduler, TState, IDisposable>)
+---
 # DispatcherScheduler.Schedule\<TState\> Method (TState, Func\<IScheduler, TState, IDisposable\>)
 
 Schedules an action to be executed on the dispatcher.

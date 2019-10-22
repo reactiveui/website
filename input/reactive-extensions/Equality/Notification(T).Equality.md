@@ -1,3 +1,5 @@
+title: Notification<T>.Equality Operator
+---
 # Notification\<T\>.Equality Operator
 
 Indicates whether left and right arguments are equal.

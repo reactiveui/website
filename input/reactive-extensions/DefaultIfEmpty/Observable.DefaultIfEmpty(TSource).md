@@ -1,3 +1,5 @@
+title: Observable.DefaultIfEmpty<TSource>(IObservable<TSource>, TSource)
+---
 # Observable.DefaultIfEmpty\<TSource\> Method (IObservable\<TSource\>, TSource)
 
 Returns the elements of the specified sequence or the type parameter's default value in a singleton sequence if the sequence is empty.

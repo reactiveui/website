@@ -1,3 +1,5 @@
+title: Observable.Timeout()
+---
 # Observable.Timeout Method
 
 Include Protected Members  

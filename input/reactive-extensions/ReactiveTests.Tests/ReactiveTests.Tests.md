@@ -1,3 +1,5 @@
+title: ReactiveTests.Tests Namespace
+---
 # ReactiveTests.Tests Namespace
 
 ## Classes

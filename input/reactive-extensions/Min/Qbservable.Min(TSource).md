@@ -1,3 +1,5 @@
+title: Qbservable.Min<TSource>(IQbservable<TSource>, IComparer<TSource>)
+---
 # Qbservable.Min\<TSource\> Method (IQbservable\<TSource\>, IComparer\<TSource\>)
 
 Returns the minimum value in a queryable observable sequence according to the specified comparer.

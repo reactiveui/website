@@ -1,3 +1,5 @@
+title: Plan<TResult> Class
+---
 # Plan\<TResult\> Class
 
 Represents an execution plan for join patterns.

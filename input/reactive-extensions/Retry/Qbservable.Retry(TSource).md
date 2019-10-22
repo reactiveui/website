@@ -1,3 +1,5 @@
+title: Qbservable.Retry<TSource>(IQbservable<TSource>)
+---
 # Qbservable.Retry\<TSource\> Method (IQbservable\<TSource\>)
 
 Repeats the source queryable observable sequence until it successfully terminates.

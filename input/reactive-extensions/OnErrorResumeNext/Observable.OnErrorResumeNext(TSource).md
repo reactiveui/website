@@ -1,3 +1,5 @@
+title: Observable.OnErrorResumeNext<TSource>(IObservable<TSource>, IObservable<TSource>)
+---
 # Observable.OnErrorResumeNext\<TSource\> Method (IObservable\<TSource\>, IObservable\<TSource\>)
 
 Continues an observable sequence that is terminated normally or by an exception with the next observable sequence.

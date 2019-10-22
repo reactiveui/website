@@ -1,3 +1,5 @@
+title: MyExt Class
+---
 # MyExt Class
 
 ## Inheritance Hierarchy

@@ -1,3 +1,5 @@
+title: ISubject<TSource, TResult> Interface
+---
 # ISubject\<TSource, TResult\> Interface
 
 Represents an object that is both an observable sequence as well as an observer.

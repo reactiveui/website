@@ -1,3 +1,5 @@
+title: Observable.Dematerialize<TSource>()
+---
 # Observable.Dematerialize\<TSource\> Method
 
 Dematerializes the explicit notification values of an observable sequence as implicit notifications.

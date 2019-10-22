@@ -1,3 +1,5 @@
+title: Qbservable.FromEvent<TEventArgs>(IQbservableProvider, Expression<Action<Action<TEventArgs>>>, Expression<Action<Action<TEventArgs>>>)
+---
 # Qbservable.FromEvent\<TEventArgs\> Method (IQbservableProvider, Expression\<Action\<Action\<TEventArgs\>\>\>, Expression\<Action\<Action\<TEventArgs\>\>\>)
 
 Converts a .NET event to a queryable observable sequence.

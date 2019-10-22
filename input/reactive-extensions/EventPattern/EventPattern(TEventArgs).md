@@ -1,3 +1,5 @@
+title: EventPattern<TEventArgs>()s
+---
 # EventPattern\<TEventArgs\> Methods
 
 Include Protected Members  

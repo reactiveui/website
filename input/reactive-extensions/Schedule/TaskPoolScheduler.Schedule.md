@@ -1,3 +1,5 @@
+title: TaskPoolScheduler.Schedule()
+---
 # TaskPoolScheduler.Schedule Method
 
 Include Protected Members  

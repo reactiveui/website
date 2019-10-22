@@ -1,3 +1,5 @@
+title: Observable.Select()
+---
 # Observable.Select Method
 
 Include Protected Members  

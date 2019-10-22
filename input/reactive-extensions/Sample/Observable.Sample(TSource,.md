@@ -1,3 +1,5 @@
+title: Observable.Sample<TSource, TSample>(IObservable<TSource>, IObservable<TSample>)
+---
 # Observable.Sample\<TSource, TSample\> Method (IObservable\<TSource\>, IObservable\<TSample\>)
 
 Samples the observable sequence at sampling ticks with the specified source and sampler.

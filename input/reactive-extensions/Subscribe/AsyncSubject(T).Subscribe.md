@@ -1,3 +1,5 @@
+title: AsyncSubject<T>.Subscribe()
+---
 # AsyncSubject\<T\>.Subscribe Method
 
 Subscribes an observer to the subject.

@@ -1,3 +1,5 @@
+title: ThreadPoolScheduler()s
+---
 # ThreadPoolScheduler Methods
 
 Include Protected Members  

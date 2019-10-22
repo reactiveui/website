@@ -1,3 +1,5 @@
+title: IEventSource<T> Interface
+---
 # IEventSource\<T\> Interface
 
 Represents a data stream signaling its elements by means of an event.

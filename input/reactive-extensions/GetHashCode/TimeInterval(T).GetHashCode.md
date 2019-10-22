@@ -1,3 +1,5 @@
+title: TimeInterval<T>.GetHashCode()
+---
 # TimeInterval\<T\>.GetHashCode Method
 
 Returns the hash code for this instance.

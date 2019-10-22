@@ -1,3 +1,5 @@
+title: CompositeDisposable.Clear()
+---
 # CompositeDisposable.Clear Method
 
 Removes and disposes all disposables from the GroupDisposable, but does not dispose the CompositeDisposable.

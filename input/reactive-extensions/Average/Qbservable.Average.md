@@ -1,3 +1,5 @@
+title: Qbservable.Average(IQbservable<Nullable<Single>>)
+---
 # Qbservable.Average Method (IQbservable\<Nullable\<Single\>\>)
 
 Computes the average of a queryable observable sequence of nullable Float values.

@@ -1,3 +1,5 @@
+title: Observable.Subscribe<TSource>(IEnumerable<TSource>, IObserver<TSource>)
+---
 # Observable.Subscribe\<TSource\> Method (IEnumerable\<TSource\>, IObserver\<TSource\>)
 
 Subscribes an observer to an enumerable sequence with the specified source and observer.

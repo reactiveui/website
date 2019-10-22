@@ -1,3 +1,5 @@
+title: Observable.Timestamp()
+---
 # Observable.Timestamp Method
 
 Include Protected Members  

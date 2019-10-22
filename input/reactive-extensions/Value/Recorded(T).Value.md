@@ -1,3 +1,5 @@
+title: Recorded<T>.Value Property
+---
 # Recorded\<T\>.Value Property
 
 Gets the value.

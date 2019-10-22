@@ -1,3 +1,5 @@
+title: SingleAssignmentDisposable()s
+---
 # SingleAssignmentDisposable Methods
 
 Include Protected Members  

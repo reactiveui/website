@@ -1,3 +1,5 @@
+title: Observable.TimeInterval()
+---
 # Observable.TimeInterval Method
 
 Include Protected Members  

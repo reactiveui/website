@@ -1,3 +1,5 @@
+title: Observable.Aggregate()
+---
 # Observable.Aggregate Method
 
 Include Protected Members  

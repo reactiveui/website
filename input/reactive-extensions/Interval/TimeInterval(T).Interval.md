@@ -1,3 +1,5 @@
+title: TimeInterval<T>.Interval Property
+---
 # TimeInterval\<T\>.Interval Property
 
 Gets the interval.

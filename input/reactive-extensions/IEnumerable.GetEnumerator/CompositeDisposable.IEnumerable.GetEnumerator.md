@@ -1,3 +1,5 @@
+title: CompositeDisposable.IEnumerable.GetEnumerator()
+---
 # CompositeDisposable.IEnumerable.GetEnumerator Method
 
 Returns an enumerator that iterates through the CompositeDisposable.

@@ -1,3 +1,5 @@
+title: Microsoft.Reactive.Testing Namespace
+---
 # Microsoft.Reactive.Testing Namespace
 
 ## Classes

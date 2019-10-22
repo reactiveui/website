@@ -1,3 +1,5 @@
+title: Qbservable.Materialize<TSource>()
+---
 # Qbservable.Materialize\<TSource\> Method
 
 Materializes the implicit notifications of a queryable observable sequence as explicit notification values.

@@ -1,3 +1,5 @@
+title: HistoricalScheduler.ScheduleAbsolute<TState>(TState, DateTimeOffset, Func<IScheduler, TState, IDisposable>)
+---
 # HistoricalScheduler.ScheduleAbsolute\<TState\> Method (TState, DateTimeOffset, Func\<IScheduler, TState, IDisposable\>)
 
 Schedules an action to be executed at dueTime.

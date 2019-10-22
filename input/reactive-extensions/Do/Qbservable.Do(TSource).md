@@ -1,3 +1,5 @@
+title: Qbservable.Do<TSource>(IQbservable<TSource>, Expression<Action<TSource>>)
+---
 # Qbservable.Do\<TSource\> Method (IQbservable\<TSource\>, Expression\<Action\<TSource\>\>)
 
 Invokes an action for each element in the queryable observable sequence and invokes an action upon graceful termination of the queryable observable sequence.

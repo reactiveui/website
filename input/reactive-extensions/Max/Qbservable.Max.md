@@ -1,3 +1,5 @@
+title: Qbservable.Max(IQbservable<Int64>)
+---
 # Qbservable.Max Method (IQbservable\<Int64\>)
 
 Returns the maximum value in a queryable observable sequence of [Int64](https://msdn.microsoft.com/en-us/library/6yy583ek) values.

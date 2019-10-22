@@ -1,3 +1,5 @@
+title: Observable.Amb<TSource>(array<IObservable<TSource>[])
+---
 # Observable.Amb\<TSource\> Method (array\<IObservable\<TSource\>\[\])
 
 Propagates the observable sequence that reacts first with a specified sources.

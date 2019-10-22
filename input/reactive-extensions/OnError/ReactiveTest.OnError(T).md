@@ -1,3 +1,5 @@
+title: ReactiveTest.OnError<T>()
+---
 # ReactiveTest.OnError\<T\> Method
 
 Factory method for a recorded OnError notification at a given time with a given error.

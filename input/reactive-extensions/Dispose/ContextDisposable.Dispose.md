@@ -1,3 +1,5 @@
+title: ContextDisposable.Dispose()
+---
 # ContextDisposable.Dispose Method
 
 Disposes the wrapped disposable on the provided SynchronizationContext.

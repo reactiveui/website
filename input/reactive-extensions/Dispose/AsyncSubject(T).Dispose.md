@@ -1,3 +1,5 @@
+title: AsyncSubject<T>.Dispose()
+---
 # AsyncSubject\<T\>.Dispose Method
 
 Unsubscribe all observers and release resources.

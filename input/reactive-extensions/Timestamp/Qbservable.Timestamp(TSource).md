@@ -1,3 +1,5 @@
+title: Qbservable.Timestamp<TSource>(IQbservable<TSource>, IScheduler)
+---
 # Qbservable.Timestamp\<TSource\> Method (IQbservable\<TSource\>, IScheduler)
 
 Records the timestamp for each value in a queryable observable sequence with the specified source and scheduler.

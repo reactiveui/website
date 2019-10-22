@@ -1,3 +1,5 @@
+title: Observer.Synchronize<T>(IObserver<T>, Object)
+---
 # Observer.Synchronize\<T\> Method (IObserver\<T\>, Object)
 
 **Namespace:**  [System.Reactive](System.Reactive\System.Reactive.md)  

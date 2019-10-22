@@ -1,3 +1,5 @@
+title: HistoricalScheduler.ScheduleAbsolute()
+---
 # HistoricalScheduler.ScheduleAbsolute Method
 
 Include Protected Members  

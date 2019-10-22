@@ -1,3 +1,5 @@
+title: Qbservable.OnErrorResumeNext<TSource>(IQbservableProvider, IEnumerable<IObservable<TSource>>)
+---
 # Qbservable.OnErrorResumeNext\<TSource\> Method (IQbservableProvider, IEnumerable\<IObservable\<TSource\>\>)
 
 Continues a queryable observable sequence that is terminated normally or by an exception with the next queryable observable sequence.

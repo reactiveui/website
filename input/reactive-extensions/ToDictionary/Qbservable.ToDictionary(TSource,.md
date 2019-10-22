@@ -1,3 +1,5 @@
+title: Qbservable.ToDictionary<TSource, TKey>(IQbservable<TSource>, Expression<Func<TSource, TKey>>)
+---
 # Qbservable.ToDictionary\<TSource, TKey\> Method (IQbservable\<TSource\>, Expression\<Func\<TSource, TKey\>\>)
 
 Creates a dictionary from a queryable observable sequence according to a specified key selector function.

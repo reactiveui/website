@@ -1,3 +1,5 @@
+title: Observable.SingleOrDefault()
+---
 # Observable.SingleOrDefault Method
 
 Include Protected Members  

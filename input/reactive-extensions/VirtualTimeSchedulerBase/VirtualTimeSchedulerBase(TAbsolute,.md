@@ -1,3 +1,5 @@
+title: VirtualTimeSchedulerBase<TAbsolute, TRelative> Constructor
+---
 # VirtualTimeSchedulerBase\<TAbsolute, TRelative\> Constructor
 
 Creates a new virtual time scheduler with the default value of TAbsolute for the initial clock value.

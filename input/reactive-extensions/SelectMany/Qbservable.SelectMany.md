@@ -1,3 +1,5 @@
+title: Qbservable.SelectMany()
+---
 # Qbservable.SelectMany Method
 
 Include Protected Members  

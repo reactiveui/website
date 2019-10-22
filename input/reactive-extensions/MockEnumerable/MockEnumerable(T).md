@@ -1,3 +1,5 @@
+title: MockEnumerable<T> Class
+---
 # MockEnumerable\<T\> Class
 
 ## Inheritance Hierarchy

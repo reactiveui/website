@@ -1,3 +1,5 @@
+title: Qbservable.ToAsync<TSource>(IQbservableProvider, Expression<Action<TSource>>)
+---
 # Qbservable.ToAsync\<TSource\> Method (IQbservableProvider, Expression\<Action\<TSource\>\>)
 
 Converts the function into an asynchronous function.

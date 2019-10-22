@@ -1,3 +1,5 @@
+title: Observable.Create()
+---
 # Observable.Create Method
 
 Include Protected Members  

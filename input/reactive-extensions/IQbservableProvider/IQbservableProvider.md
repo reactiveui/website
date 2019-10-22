@@ -1,3 +1,5 @@
+title: IQbservableProvider()s
+---
 # IQbservableProvider Methods
 
 Include Protected Members  

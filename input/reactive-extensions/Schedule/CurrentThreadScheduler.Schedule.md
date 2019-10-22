@@ -1,3 +1,5 @@
+title: CurrentThreadScheduler.Schedule()
+---
 # CurrentThreadScheduler.Schedule Method
 
 Include Protected Members  

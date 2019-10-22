@@ -1,3 +1,5 @@
+title: Observable.Repeat<TResult>(TResult, Int32, IScheduler)
+---
 # Observable.Repeat\<TResult\> Method (TResult, Int32, IScheduler)
 
 Generates an observable sequence that repeats the given element of the specified number of times.

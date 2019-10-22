@@ -1,3 +1,5 @@
+title: Observable.Min(IObservable<Nullable<Single>>)
+---
 # Observable.Min Method (IObservable\<Nullable\<Single\>\>)
 
 Returns the minimum value in an observable sequence of nullable Float values.

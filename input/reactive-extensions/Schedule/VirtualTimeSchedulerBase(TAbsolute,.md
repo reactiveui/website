@@ -1,3 +1,5 @@
+title: VirtualTimeSchedulerBase<TAbsolute, TRelative>.Schedule()
+---
 # VirtualTimeSchedulerBase\<TAbsolute, TRelative\>.Schedule Method
 
 Include Protected Members  

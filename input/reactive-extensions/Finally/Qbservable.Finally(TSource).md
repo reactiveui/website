@@ -1,3 +1,5 @@
+title: Qbservable.Finally<TSource>()
+---
 # Qbservable.Finally\<TSource\> Method
 
 Invokes a specified action after source observable sequence terminates normally or by an exception.

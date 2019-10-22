@@ -1,3 +1,5 @@
+title: Qbservable.DistinctUntilChanged<TSource>(IQbservable<TSource>, IEqualityComparer<TSource>)
+---
 # Qbservable.DistinctUntilChanged\<TSource\> Method (IQbservable\<TSource\>, IEqualityComparer\<TSource\>)
 
 Returns a queryable observable sequence that contains only distinct contiguous elements according to the comparer.

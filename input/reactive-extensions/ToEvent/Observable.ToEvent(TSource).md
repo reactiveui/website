@@ -1,3 +1,5 @@
+title: Observable.ToEvent<TSource>(IObservable<TSource>)
+---
 # Observable.ToEvent\<TSource\> Method (IObservable\<TSource\>)
 
 Exposes an observable sequence as an object with a .NET event with a specified source.

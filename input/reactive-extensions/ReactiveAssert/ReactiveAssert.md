@@ -1,3 +1,5 @@
+title: ReactiveAssert Class
+---
 # ReactiveAssert Class
 
 Represents a helper class to write asserts in Rx unit tests.

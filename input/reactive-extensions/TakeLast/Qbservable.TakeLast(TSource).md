@@ -1,3 +1,5 @@
+title: Qbservable.TakeLast<TSource>()
+---
 # Qbservable.TakeLast\<TSource\> Method
 
 Returns a specified number of contiguous elements from the end of a queryable observable sequence.

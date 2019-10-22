@@ -1,3 +1,5 @@
+title: Qbservable.Switch<TSource>()
+---
 # Qbservable.Switch\<TSource\> Method
 
 Transforms a queryable observable sequence of queryable observable sequences into a queryable observable sequence producing values only from the most recent queryable observable sequence.
