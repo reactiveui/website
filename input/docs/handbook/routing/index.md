@@ -25,7 +25,7 @@ The following elements participate in routing:
 
 # A Compelling Example
 
-> **Note:** The example below is adapted for WPF, but RactiveUI's routing supports more platforms.
+> **Note:** The example below is adapted for WPF, but ReactiveUI's routing supports more platforms.
 >
 > Samples:
 > - [Xamarin Forms](https://github.com/reactiveui/ReactiveUI.Samples/tree/master/xamarin-forms/MasterDetail) 
