@@ -4,9 +4,9 @@ Dependency resolution is very useful for moving logic that would normally have t
 
 Dependency resolution is a feature built into the core framework, which allows libraries and ReactiveUI itself to use classes that are in other libraries without taking a direct reference to them. This is quite useful for cross-platform applications, as it allows portable code to use non-portable APIs, as long as they can be described via an Interface.
 
-ReactiveUI's use of dependency resolution can more properly be called the Service Location pattern. If service location doesn't fit your situation then have a look at how to do composition root.
+ReactiveUI's use of dependency resolution can more properly be called the Service Locator pattern. If the locator pattern doesn't fit your situation then have a look at how to do composition root.
 
-Since ReactiveUI 6, [Splat](https://github.com/reactiveui/splat) is used by ReactiveUI for service location and dependency injection. Earlier versions included a RxUI resolver. If you come across samples for RxUI versions earlier than 6, you should replace references to `RxApp.DependencyResolver` with `Locator.Current` and `RxApp.MutableResolver` with `Locator.CurrentMutable`.
+Since ReactiveUI 6, [Splat](https://github.com/reactiveui/splat) is used by ReactiveUI for service locator and dependency injection. Earlier versions included a RxUI resolver. If you come across samples for RxUI versions earlier than 6, you should replace references to `RxApp.DependencyResolver` with `Locator.Current` and `RxApp.MutableResolver` with `Locator.CurrentMutable`.
 
 ## Why Splat?
 
