@@ -1,12 +1,11 @@
-Scheduling is a core part of writing any app that uses the Reactive Extensions, as all operations that are deferred (i.e. run on other threads or on the UI thread). Schedulers allow apps to control what context code runs in, and it is important that libraries that run code on other threads are scheduler-aware. ReactiveUI provides two app-wide schedulers that should be used in-place of other schedulers such as the built-in Rx schedulers:
+Scheduling is a core part of writing any app that uses the Reactive Extensions, as all operations are deferred (i.e. run on other threads or on the UI thread). Schedulers allow apps to control what context code runs in, and it is important that libraries that run code on other threads are scheduler-aware. ReactiveUI provides two app-wide schedulers that should be used in-place of other schedulers such as the built-in Rx schedulers:
 
 * **RxApp.MainThreadScheduler** - This scheduler executes on the UI thread. On XAML-based platforms, this is equivalent to Dispatcher.BeginInvoke.
 
 * **RxApp.TaskpoolScheduler** - This scheduler executes code via the TPL taskpool. This is equivalent to Task.Run.
 
-To use these two inbuilt schedulers use the 'ObserveOn' extension method in your Observable chain.
+To use these two inbuilt schedulers use the `ObserveOn` operator in your Observable chain:
 
-If you want to use it as part of a observable chain use the ObserveOn operator:
 ```cs
 this.WhenAnyValue(x => x.MyImportantProperty).ObserveOn(RxApp.MainThreadScheduler).Subscribe(x => ...);
 ```
@@ -38,7 +37,7 @@ public class MyVm : ReactiveObject
 
 # When should I care about scheduling
 
-You should try to attempt to remove all sources of concurrency other than scheduling via RxApp. This isn't always possible, but threads created via "new Thread()" or "Task.Run" can't be controlled in a unit test. The most straightforward way to fix these is by replacing them with "Observable.Start":
+You should try to attempt to remove all sources of concurrency other than scheduling via RxApp. This isn't always possible, but threads created via `new Thread()` or `Task.Run` can't be controlled in a unit test. The most straightforward way to fix these is by replacing them with `Observable.Start`:
 
 ### Old
 
@@ -66,7 +65,7 @@ If you create a shared component, you should also consider allowing the schedule
 
 # Testing schedulers
 
-In a unit test runner, by default, the MainThreadScheduler runs code immediately instead of on the (non-existent) UI thread. The TaskpoolScheduler is left unchanged by default. The best way to run under an alternate scheduler is via the With method, most often used with TestScheduler. This replaces both schedulers with the specified scheduler:
+In a unit test runner, by default, the `MainThreadScheduler` runs code immediately instead of on the (non-existent) UI thread. The `TaskpoolScheduler` is left unchanged by default. The best way to run under an alternate scheduler is via the `With` method, most often used with `TestScheduler`. This replaces both schedulers with the specified scheduler:
 
 ```csharp
 new TestScheduler().With(sheduler => 
