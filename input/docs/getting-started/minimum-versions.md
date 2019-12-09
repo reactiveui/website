@@ -1,7 +1,7 @@
 
 ## Visual Studio Minimums
 
-Visual Studio 2017 is the base standard. Visual Studio 2019 and beyond is recommended.
+Visual Studio 2019 and beyond.
 
 ## Platform Minimums
 
