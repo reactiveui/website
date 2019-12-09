@@ -12,8 +12,8 @@ ReactiveUI has the following minimum platform requirements:
 | .Net Framework | 4.6.1 |
 | .Net Standard | 2.0 |
 | .Net Core | 2.0 |
-| UWP | 10.0.17763.0 |
-| Xamarin Android | 8.1 (Oreo) |
+| UWP | 10.0.16299.0 |
+| Xamarin Android | 9.0 (Pie) |
 | Xamarin iOS | 1.0 |
 | Xamarin Mac | 2.0 |
 | Xamarin TVOS | 1.0 |
