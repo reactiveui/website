@@ -53,6 +53,7 @@ this.WhenActivated(disposables =>
 {
     RefreshButton
       // observe button click events
+      // namespace: System.Windows.Controls.Primitives
       .Events().Click
       // transform arguments
       .Select(args => Unit.Default)
