@@ -5,8 +5,8 @@ Prefer using async `ReactiveCommand` over the more basic `ReactiveCommand` for a
 ## Do
 
 ```csharp
-// In XAML
-<Button Command="{Binding Delete}" .../>
+// In the view
+this.BindCommand(ViewModel, vm => vm.Delete, v => v.deleteButton);
 
 public class RepositoryViewModel : ReactiveObject
 {
