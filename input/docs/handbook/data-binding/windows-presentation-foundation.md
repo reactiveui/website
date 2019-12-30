@@ -43,13 +43,9 @@ In this example we are implementing the `IViewFor<TViewModel>` interface by hand
 ```csharp
 public partial class TheView : Window, IViewFor<TheViewModel>
 {
-    public static readonly DependencyProperty ViewModelProperty = DependencyProperty
-        .Register(nameof(ViewModel), typeof(TheViewModel), typeof(TheView));
-        
     public TheView()
     {
         InitializeComponent();
-        ViewModel = new TheViewModel();
         
         // Setup the bindings
         // Note: We have to use WhenActivated here, since we need to dispose the
@@ -67,14 +63,14 @@ public partial class TheView : Window, IViewFor<TheViewModel>
 
     public TheViewModel ViewModel
     {
-        get => (TheViewModel)GetValue(ViewModelProperty);
-        set => SetValue(ViewModelProperty, value);
+        get => DataContext as TheViewModel;
+        set => DataContext = value;
     }
 
     object IViewFor.ViewModel
     {
         get => ViewModel;
-        set => ViewModel = (TheViewModel)value;
+        set => ViewModel = value as TheViewModel;
     }
 }
 ```
