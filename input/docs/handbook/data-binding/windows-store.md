@@ -11,7 +11,7 @@ public class TheViewModel : ReactiveObject
     public string TheText
     {
         get => theText;
-        set => RaiseAndSetIfChanged(ref theText, value);
+        set => this.RaiseAndSetIfChanged(ref theText, value);
     }
     
     ReactiveCommand<Unit,Unit> TheTextCommand { get; set; }
