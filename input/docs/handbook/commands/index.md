@@ -75,7 +75,6 @@ LoadUsers = ReactiveCommand.CreateFromTask(LoadUsersAsync);
 // that the value of Users property has changed.
 _users = LoadUsers.ToProperty(
     this, x => x.Users, scheduler: RxApp.MainThreadScheduler);
-);
 
 // Here we subscribe to all exceptions thrown by our 
 // command and log them using ReactiveUI logging system.
