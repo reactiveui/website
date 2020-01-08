@@ -15,9 +15,8 @@ A `ReactiveCommand` is created using static factory methods which allows you to 
 // A synchronous command taking a parameter and returning nothing.
 // The Unit type is often used to denote the successfull completion
 // of a void-returning method (C#) or a sub procedure (VB).
-var command = ReactiveCommand.Create<int, Unit>(
-    integer => Console.WriteLine(integer)
-);
+ReactiveCommand<int,Unit> command = ReactiveCommand.Create<int>(
+    integer => Console.WriteLine(integer));
 
 // This outputs: 42
 command.Execute(42).Subscribe();
@@ -29,8 +28,7 @@ All of the static factory methods that the `ReactiveCommand` class has will para
 // An asynchronous command created from IObservable<int> that 
 // waits 2 seconds and then returns 42 integer.
 var command = ReactiveCommand.CreateFromObservable<Unit, int>(
-    () => Observable.Return(42).Delay(TimeSpan.FromSeconds(2))
-);
+    _ => Observable.Return(42).Delay(TimeSpan.FromSeconds(2)));
 
 // Subscribing to the observable returned by `Execute()` will 
 // tick through the value `42` with a 2-second delay.
@@ -76,8 +74,7 @@ LoadUsers = ReactiveCommand.CreateFromTask(LoadUsersAsync);
 // LoadUsers Observable, update our OAPH and notify the UI 
 // that the value of Users property has changed.
 _users = LoadUsers.ToProperty(
-    this, x => x.Users, RxApp.MainThreadScheduler
-);
+    this, x => x.Users, scheduler: RxApp.MainThreadScheduler);
 
 // Here we subscribe to all exceptions thrown by our 
 // command and log them using ReactiveUI logging system.
