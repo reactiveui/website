@@ -17,7 +17,7 @@ Dynamic Data provides two specialized  `IObservable<ChangeSet>`  producing colle
  1. `SourceCache<TObject, TKey>` for items which have a unique key.
  2. `SourceList<T>` for items which do not have a unique key.
 
-These objects each provide an API for maintaining data which have typical collection methods such as add and remove.  The idea is you maintain data in one of these collections, then use the extensive Linq API to dynamicaly query the data in a similar manner as Linq-to-Objects.
+These objects each provide an API for maintaining data which have typical collection methods such as add and remove.  The idea is you maintain data in one of these collections, then use the extensive Linq API to dynamically query the data in a similar manner as Linq-to-Objects.
 
 To convert these collections into an `IObservable<ChangeSet>` you call `Connect()` at which point notifications can be observed and the provided Linq operators can be applied. The convention in dynamic data is that any consumer which calls `Connect` receive a notification of any items which are already in the collection plus any subsequent changes.
 
