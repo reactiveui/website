@@ -82,7 +82,7 @@ var canCreateUser = this.WhenAnyValue(
         pass.Length >= 8)
     .DistinctUntilChanged();
 
-CreateUserCommand = ReactiveCommand.CreateFromTask(canCreateUser, CreateUser); 
+CreateUserCommand = ReactiveCommand.CreateFromTask(CreateUser, canCreateUser); 
 ```
 
 ### Invoking commands
@@ -94,10 +94,10 @@ CreateUserCommand = ReactiveCommand.CreateFromTask(canCreateUser, CreateUser);
 this.WhenAnyValue(x => x.SearchText)
     .Where(x => !String.IsNullOrWhiteSpace(x))
     .Throttle(TimeSpan.FromSeconds(.25))
-    .InvokeCommand(SearchCommand)
+    .InvokeCommand(SearchCommand);
 
 // In the View.
-this.Bind(ViewModel, x => x.SearchText, x => x.SearchTextField.Text);
+this.Bind(ViewModel, vm => vm.SearchText, v => v.SearchTextField.Text);
 ```
 
 In addition to being able to simply and declaratively handle search throttling, building the search execution logic on top of the property change has made it easy to keep all the logic in the viewmodel - all the view needs to do is bind a control to the property.
@@ -108,7 +108,7 @@ Ideally, controls on your view bind directly to properties on your viewmodel. In
 
 ```cs
 // In the View.
-ViewModel.WhenAny(x => x.ShowToolTip)
+ViewModel.WhenAnyValue(x => x.ShowToolTip)
          .Select(show => show ? 1f : 0f)
          .BindTo(this, x => x.ToolTipLabel.Alpha);
 ```
