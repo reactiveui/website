@@ -145,4 +145,4 @@ public class SampleViewModel : ReactiveValidationObject<SampleViewModel>
 
 # Alternatives
 
-You can also use Xamarin validations as explained in the [David Britch's article](https://blog.xamarin.com/validation-xamarin-forms-enterprise-apps/). Other great tools for user input validation are [FluentValidation](https://github.com/JeremySkinner/FluentValidation) and [Sprache](https://github.com/sprache/Sprache).
+You can also use Xamarin validations as explained in the [David Britch's article](https://devblogs.microsoft.com/xamarin/validation-xamarin-forms-enterprise-apps/). Other great tools for user input validation are [FluentValidation](https://github.com/JeremySkinner/FluentValidation) and [Sprache](https://github.com/sprache/Sprache).
