@@ -66,7 +66,7 @@ public string Name => name.Value;
 One caveat of deferring the subscription is if you aren't careful you'll have a invalid value until a new value is added to the `IObservable<T>`. If using Hot Observables consider using a `ReplaySubject<T>` and limiting the `ReplaySubject<T>` to 1 previous value in the constructor. 
 
 ```cs
-public class StatusViewModel
+public class StatusViewModel : ReactiveObject
 {
     private readonly ObservableAsPropertyHelper<string> status;
     public string Status => status.Value;
