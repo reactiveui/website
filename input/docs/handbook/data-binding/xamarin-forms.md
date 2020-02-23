@@ -12,7 +12,7 @@ public class TheViewModel : ReactiveObject
         set => this.RaiseAndSetIfChanged(ref theText, value);
     }
 
-    ReactiveCommand<Unit, Unit> TheTextCommand { get; }
+    public ReactiveCommand<Unit, Unit> TheTextCommand { get; }
 
     public TheViewModel()
     {
