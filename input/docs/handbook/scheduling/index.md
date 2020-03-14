@@ -13,7 +13,8 @@ this.WhenAnyValue(x => x.MyImportantProperty).ObserveOn(RxApp.MainThreadSchedule
 To control where a `ReactiveControl` runs the `Subscribe` you can pass in a scheduler. By default it will use whatever the current thread's scheduler is, so if you initialize from the UI thread it will use that thread.
 
 ```cs
-myCommand = ReactiveCommand.Create<Unit, string>(() => ...do stuff..., scheduler: RxApp.MainThreadScheduler);
+MyCommand = ReactiveCommand.Create<Unit, string>(_ => ...do stuff..., outputScheduler: RxApp.
+MainThreadScheduler);
 ```
 
 To control where a `ObservableAsPropertyHelper` triggers the `INotifyPropertyChanged` events from pass in a scheduler. By default it will use whatever the current thread's scheduler is, so if you initialize from the UI thread it will use that thread.
@@ -21,12 +22,12 @@ To control where a `ObservableAsPropertyHelper` triggers the `INotifyPropertyCha
 ```cs
 public class MyVm : ReactiveObject
 {
-  private static readonly ObservableAsPropertyHelper<bool> _isRunning;
+  private readonly ObservableAsPropertyHelper<bool> _isRunning;
 
   public MyVm()
   {
-    MyCommand = ReactiveCommand.Create<Unit, string>(() => ...do stuff..., scheduler: RxApp.MainThreadScheduler);
-    _isRunning = running = myCommand.IsExecuting.ToProperty(this, nameof(Running), scheduler: RxApp.MainThreadScheduler);  
+    MyCommand = ReactiveCommand.Create<Unit, string>(_ => ...do stuff..., outputScheduler: RxApp.MainThreadScheduler);
+    _isRunning = MyCommand.IsExecuting.ToProperty(this, nameof(IsRunning), scheduler: RxApp.MainThreadScheduler);  
   }
 
   public ReactiveCommand<Unit, string> MyCommand { get; }
