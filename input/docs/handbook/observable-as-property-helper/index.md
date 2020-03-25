@@ -1,8 +1,15 @@
-The ObservableAsPropertyHelper, which is often abbreviated OAPH, is a class that will simplify the interop between a IObservable and a property on your View Model. It will allow you to have a property which reflects the latest value that has been sent through the IObservable<T> stream. `ObservableAsPropertyHelper<T>` properties are a way to take *Observables* and convert them into *ViewModel Properties*. 
+_**tl:dr**_  `ObservableAsPropertyHelper<T>` properties are a way to take *Observables* and convert them into *ViewModel Properties*. 
 
-`ObservableAsPropertyHelper<T>` is often used with Extension Method(MixIn) for `IObservable<T>` called `ToProperty()`. `ToProperty` allows to construct to a `ObservableAsPropertyHelper<T>` for a particular `IObservable<T>` and `ToProperty()` will provide interaction with the `INotifyPropertyChanged` and `INotifyPropertyChanging` interfaces for the ViewModel. When a new value has been added to the `IObservable<T>`, it will use the overload methods in the IReactiveObject interface to trigger the required events.
+The ObservableAsPropertyHelper (often abbreviated to OAPH) is a class that simplifies the interop between an IObservable and a property on your View Model. It allows you to have a property which reflects the latest value that has been sent through the IObservable<T> stream. 
+  
+`ObservableAsPropertyHelper<T>` is very similar to a Lazy<T> in so far as it provides a Value member which provides the latest value of the Observable<T>. They are often read-only and reflect the IObservable<T> stream. It is common to combine ObservableAsPropertyHelper<T> with the `WhenAny` extensions. 
 
-`ObservableAsPropertyHelper<T>` is very similar to a Lazy<T> in so far as it provides a Value member which provides the latest value of the Observable<T>. They are often read-only and reflecting the IObservable<T> stream. It is common to combine ObservableAsPropertyHelper<T> with the `WhenAny` extensions. 
+### ToProperty()
+`ToProperty` allows you to construct an `ObservableAsPropertyHelper<T>` for a given `IObservable<T>`. It also provides the interaction with the `INotifyPropertyChanged` and `INotifyPropertyChanging` interfaces for a ViewModel. When a new value has been added to the `IObservable<T>`, it will use the overload methods in the IReactiveObject interface to trigger the required events.
+
+`ToProperty()` is exposed as an ExtensionMethod on `IObservable<T>`
+
+
 
 # Example
 First, we need to be able to declare an Output Property, using a class called
