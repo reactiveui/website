@@ -23,8 +23,7 @@ Install-Package ReactiveUI.WPF
 ```
 The complete list containing NuGet packages for all supported platforms <a href="https://reactiveui.net/docs/getting-started/installation/">can be found here</a>. <a href="https://www.nuget.org/packages/reactiveui/">ReactiveUI</a> main package should normally be installed into you .NET Standard class libraries containing platform-agnostic code (repositories, services, DTOs, view-models), and `ReactiveUI.XXX` packages are platform-specific, so we use <a href="https://www.nuget.org/packages/ReactiveUI.WPF/">ReactiveUI.WPF</a> in this tutorial as we are developing a tiny WPF application that doesn't need code sharing.
 ```
-Install-Package NuGet.Client
-Install-Package NuGet.Protocol.Core.v3
+Install-Package NuGet.Protocol
 ```
 We also need a NuGet client library in this tutorial, and we are going to install and use <a href="https://docs.microsoft.com/en-us/nuget/reference/nuget-client-sdk">NuGet Client</a>.
 
