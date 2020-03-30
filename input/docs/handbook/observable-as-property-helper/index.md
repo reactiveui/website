@@ -5,9 +5,7 @@ The ObservableAsPropertyHelper (OAPH) is a class that simplifies the interop bet
 ### ToProperty()
 `ToProperty` allows you to construct an `ObservableAsPropertyHelper<T>` for a given `IObservable<T>`. It also provides the interaction with the `INotifyPropertyChanged` and `INotifyPropertyChanging` interfaces for a ViewModel. When a new value has been added to the `IObservable<T>`, it will use the overload methods in the IReactiveObject interface to trigger the required events.
 
-`ToProperty()` is exposed as an ExtensionMethod on `IObservable<T>`
-
-
+`ToProperty` is an extension method on `IObservable<T>` and semantically acts like a "Subscribe".
 
 # Example
 First, we need to be able to declare an Output Property, using a class called
@@ -37,8 +35,7 @@ firstName = this
 ```
 
 Here, `ToProperty` creates an `ObservableAsPropertyHelper` instance which will
-signal that the "FirstName" property has changed. `ToProperty` is an extension
-method on `IObservable<T>` and semantically acts like a "Subscribe".
+signal that the "FirstName" property has changed.
 
 # Performance considerations
 
