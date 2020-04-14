@@ -19,7 +19,7 @@ ReactiveUI makes it easy to combine the MVVM pattern with Reactive Programming b
 - [WhenAnyValue](https://reactiveui.net/docs/handbook/when-any/)
 - [ReactiveCommand](https://reactiveui.net/docs/handbook/commands/)
 - [ObservableAsPropertyHelper](https://reactiveui.net/docs/handbook/observable-as-property-helper/)
-- [WhenActivate](https://reactiveui.net/docs/handbook/when-activated/)
+- [WhenActivated](https://reactiveui.net/docs/handbook/when-activated/)
 - [Data Binding](https://reactiveui.net/docs/handbook/data-binding/)
 
 <img src="./mvvm.png" width="500">
@@ -28,9 +28,9 @@ ReactiveUI makes it easy to combine the MVVM pattern with Reactive Programming b
 
 ReactiveUI is much more than just a MVVM helper. Take a look at the following projects to get started exploring what is available
 
-- <a href="[https://github.com/reactiveui/Sextant](https://github.com/reactiveui/Sextant)">Sextant</a> - Navigation library for Xamarin.Forms using ReactiveUI
-- <a href="[https://github.com/reactiveui/Pharmacist](https://github.com/reactiveui/Pharmacist)">Pharmacist</a> - Build Observables from Events
-- <a href="[https://github.com/RolandPheasant/DynamicData](https://github.com/RolandPheasant/DynamicData)">DynamicData</a> - Reactive collections based on reactive extensions
-- <a href="[https://reactiveui.net/docs/resources/samples/](https://reactiveui.net/docs/resources/samples/)">Samples</a> - Open Source applications built with ReactiveUI
-- <a href="[https://reactiveui.net/blog/](https://reactiveui.net/blog/)">Blog</a> - Release Notes and Announcements
-- <a href="[https://reactiveui.net/docs/resources/videos](https://reactiveui.net/docs/resources/videos)">Videos and Presentations</a>
+- [Sextant](https://github.com/reactiveui/Sextant)- Navigation library for Xamarin.Forms using ReactiveUI
+- [Pharmacist](https://github.com/reactiveui/Pharmacist) - Build Observables from Events
+- [DynamicData](https://github.com/RolandPheasant/DynamicData) - Reactive collections based on reactive extensions
+- [Samples](https://reactiveui.net/docs/resources/samples/) - Open Source applications built with ReactiveUI
+- [Blog](https://reactiveui.net/blog/) - Release Notes and Announcements
+- [Videos and Presentations](https://reactiveui.net/docs/resources/videos) - Videos and Presentations
