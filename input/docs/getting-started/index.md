@@ -8,7 +8,7 @@ See our <a href="https://reactiveui.net/docs/handbook/">Handbook</a> for the Rea
 
 To get started visit our <a href="https://reactiveui.net/docs/getting-started/installation/">Installation</a> page.
 
-The [Compelling Example](https://reactiveui.net/docs/compelling-example) walks through creating a more complete application, demonstrating the power of ReactiveUI and Reactive Extensions.
+The [Compelling Example](https://reactiveui.net/docs/getting-started/compelling-example) walks through creating a more complete application, demonstrating the power of ReactiveUI and Reactive Extensions.
 
 ### Why MVVM?
 
