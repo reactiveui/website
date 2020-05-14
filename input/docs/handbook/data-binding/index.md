@@ -148,7 +148,7 @@ ViewModel.Name
 While both are similar, `BindTo` does offer a number of benefits:
 
 * Can handle globally registered converters
-* Can handle special schemantics within the RxUI binding engine - e.g. on WinForms there are a number of properties where the set methods are automatically called
+* Can handle special semantics within the ReactiveUI binding engine - e.g. on WinForms there are a number of properties where the set methods are automatically called
 * Provides a consistent style across multiple projects (iOS/Android...)
 
 In general `BindTo` is the recommended approach to binding. However as with a lot of ReactiveUI, you are free to choose the style which suits you best.
