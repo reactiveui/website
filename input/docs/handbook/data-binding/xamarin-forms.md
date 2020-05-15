@@ -56,6 +56,8 @@ Your XAML views should inherit from `ReactiveContentPage`, as shown here:
 
 ### Binding
 
+The example below demonstrates how to use the ReactiveUI binding, but the Xamarin.Forms binding engine and XAML can also be used. Using one doesn't limit the use of the others, so all of them can be used in the same application.
+
 ```csharp
 public partial class TheContentPage : ReactiveContentPage<TheViewModel>
 {
