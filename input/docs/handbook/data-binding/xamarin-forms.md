@@ -113,10 +113,6 @@ public partial class TheContentPage : ReactiveContentPage<TheViewModel>
 }
 ```
 
-### Performance Tips
-
-You'll see in the binding above that we've used `this.WhenActivated`. This is important for performance as it automatically disposes of the bindings when they are no longer needed (such as when the view gets removed from the navigation stack). By disposing of the bindings in this way we reduce the potential for memory leaks. Read more about WhenActivate [here](../when-activated).
-
 ### Routing
 
 Want to know how this affects ViewModel based routing?
