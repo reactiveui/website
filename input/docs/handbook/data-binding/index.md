@@ -125,6 +125,34 @@ this.Bind(ViewModel,
     SomeTextBox.Events().LostKeyboardFocus);
 ```
 
+## Why not use Subscribe?
+
+This is a good question, as both `BindTo` and `Subscribe` provide similar functionality; both can be used to bind your view to viewModel properties. Take the following two examples, both result in the same outcome, just with different styles:
+
+```cs
+//1. Using BindTo
+ViewModel.Name
+         .Select(x => $"Label: {x}")
+         .BindTo(this, x => x.loginButton.Text)
+         .DisposeWith(disp);
+```
+
+```cs
+//2. Using Subscribe
+ViewModel.Name
+         .Select(x => $"Label: {x}")
+         .Subscribe(x => loginButton.Text = x)
+         .DisposeWith(disp);
+```
+
+While both are similar, `BindTo` does offer a number of benefits:
+
+* Can handle globally registered converters
+* Can handle special semantics within the ReactiveUI binding engine - e.g. on WinForms there are a number of properties where the set methods are automatically called
+* Provides a consistent style across multiple projects (iOS/Android...)
+
+In general `BindTo` is the recommended approach to binding. However as with a lot of ReactiveUI, you are free to choose the style which suits you best.
+
 # "Hack" bindings and BindTo
 
 Should you find that direct one and two-way bindings aren't enough to get the job done (or should you want View => ViewModel bindings), a flexible, Rx-based approach is also available, via combining `WhenAnyValue` with the `BindTo` operator, which allows you to one-way-bind an arbitrary `IObservable` to a property on an object.
