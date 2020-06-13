@@ -3,7 +3,7 @@ The ObservableAsPropertyHelper (OAPH) is a class that simplifies the interop bet
 `ObservableAsPropertyHelper<T>` is very similar to a Lazy<T> in so far as it provides a Value member which provides the latest value of the Observable<T>. They are often read-only and reflect the IObservable<T> stream. It is common to combine ObservableAsPropertyHelper<T> with the `WhenAny` extensions. 
 
 ### ToProperty()
-`ToProperty` allows you to construct an `ObservableAsPropertyHelper<T>` for a given `IObservable<T>`. It also provides the interaction with the `INotifyPropertyChanged` and `INotifyPropertyChanging` interfaces for a ViewModel. When a new value has been added to the `IObservable<T>`, it will use the overload methods in the IReactiveObject interface to trigger the required events.
+`ToProperty` allows you to construct an `ObservableAsPropertyHelper<T>` from a given `IObservable<T>`. It also provides the interaction with the `INotifyPropertyChanged` and `INotifyPropertyChanging` interfaces for a ViewModel. When a new value has been added to the `IObservable<T>`, it will use the overload methods in the IReactiveObject interface to trigger the required events.
 
 `ToProperty` is an extension method on `IObservable<T>` and semantically acts like a "Subscribe".
 
