@@ -1,7 +1,7 @@
-#module nuget:?package=Cake.DotNetTool.Module&version=0.3.0
-#tool "dotnet:?package=Wyam.Tool&version=2.2.8"
+#module nuget:?package=Cake.DotNetTool.Module&version=0.4.0
+#tool "dotnet:?package=Wyam.Tool&version=2.2.9"
 #addin "nuget:?package=Cake.Git&version=0.21.0"
-#addin "nuget:?package=Octokit&version=0.32.0"
+#addin "nuget:?package=Octokit&version=0.48.0"
 
 using Octokit;
 
