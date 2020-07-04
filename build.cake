@@ -53,11 +53,11 @@ Task("GetSource")
     .IsDependentOn("Clean")
     .Does(() =>
     {
-        GetSource("Akavache", "master");
-        GetSource("DynamicData", "main");
-        GetSource("ReactiveUI", "main");
-        GetSource("Sextant", "main");
-        GetSource("splat", "master");
+        GetSource("Akavache");
+        GetSource("DynamicData");
+        GetSource("ReactiveUI");
+        GetSource("Sextant");
+        GetSource("splat");
     });
 
 Task("Build")
@@ -127,16 +127,17 @@ if (!StringComparer.OrdinalIgnoreCase.Equals(target, "Deploy"))
     RunTarget(target);
 }
 
-void GetSource(string name, string branch = "main")
+void GetSource(string name)
 {
-        Information($"Downloading {name} from the {branch} branch");
-        FilePath zip = DownloadFile($"https://codeload.github.com/reactiveui/{name}/zip/{branch}");
-        Information($"Downloaded {name}");
-        Unzip(zip, dependenciesDir);
-        
-        // Need to rename the container directory in the zip file to something consistent
-        var containerDir = GetDirectories(dependenciesDir.Path.FullPath + "/*").First(x => x.GetDirectoryName().StartsWith(name));
+    string branch = "main";
+    Information($"Downloading {name} from the {branch} branch");
+    FilePath zip = DownloadFile($"https://codeload.github.com/reactiveui/{name}/zip/{branch}");
+    Information($"Downloaded {name}");
+    Unzip(zip, dependenciesDir);
+    
+    // Need to rename the container directory in the zip file to something consistent
+    var containerDir = GetDirectories(dependenciesDir.Path.FullPath + "/*").First(x => x.GetDirectoryName().StartsWith(name));
 
-        var srcDirectory = dependenciesDir + Directory(name.ToLower());
-        MoveDirectory(containerDir, srcDirectory);
+    var srcDirectory = dependenciesDir + Directory(name.ToLower());
+    MoveDirectory(containerDir, srcDirectory);
 }
