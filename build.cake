@@ -54,9 +54,9 @@ Task("GetSource")
     .Does(() =>
     {
         GetSource("Akavache", "master");
-        GetSource("DynamicData", "master");
+        GetSource("DynamicData", "main");
         GetSource("ReactiveUI", "main");
-        GetSource("Sextant", "master");
+        GetSource("Sextant", "main");
         GetSource("splat", "master");
     });
 
@@ -127,7 +127,7 @@ if (!StringComparer.OrdinalIgnoreCase.Equals(target, "Deploy"))
     RunTarget(target);
 }
 
-void GetSource(string name, string branch)
+void GetSource(string name, string branch = "main")
 {
         Information($"Downloading {name} from the {branch} branch");
         FilePath zip = DownloadFile($"https://codeload.github.com/reactiveui/{name}/zip/{branch}");
