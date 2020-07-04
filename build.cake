@@ -18,8 +18,10 @@ var target = Argument("target", "Default");
 // Define directories.
 var dependenciesDir     = Directory("./dependencies");
 var outputPath          = MakeAbsolute(Directory("./output"));
-var sourceDir           = dependenciesDir + Directory("reactiveui");
-
+var reactiveUiSourceDir = dependenciesDir + Directory("reactiveui");
+var dynamicDataSrcDir   = dependenciesDir + Directory("dynamicdata");
+var sextantSrcDir       = dependenciesDir + Directory("sextant");
+var akavacheSrcDir      = dependenciesDir + Directory("akavache");
 
 //////////////////////////////////////////////////////////////////////
 // SETUP
@@ -51,12 +53,11 @@ Task("GetSource")
     .IsDependentOn("Clean")
     .Does(() =>
     {
-	    FilePath sourceZip = DownloadFile("https://codeload.github.com/reactiveui/ReactiveUI/zip/main");
-        Unzip(sourceZip, dependenciesDir);
-        
-        // Need to rename the container directory in the zip file to something consistent
-        var containerDir = GetDirectories(dependenciesDir.Path.FullPath + "/*").First(x => x.GetDirectoryName().StartsWith("ReactiveUI"));
-        MoveDirectory(containerDir, sourceDir);
+        GetSource("Akavache");
+        GetSource("DynamicData");
+        GetSource("ReactiveUI");
+        GetSource("Sextant");
+        GetSource("splat");
     });
 
 Task("Build")
@@ -124,4 +125,19 @@ Task("GetArtifacts")
 if (!StringComparer.OrdinalIgnoreCase.Equals(target, "Deploy"))
 {
     RunTarget(target);
+}
+
+void GetSource(string name)
+{
+    string branch = "main";
+    Information($"Downloading {name} from the {branch} branch");
+    FilePath zip = DownloadFile($"https://codeload.github.com/reactiveui/{name}/zip/{branch}");
+    Information($"Downloaded {name}");
+    Unzip(zip, dependenciesDir);
+    
+    // Need to rename the container directory in the zip file to something consistent
+    var containerDir = GetDirectories(dependenciesDir.Path.FullPath + "/*").First(x => x.GetDirectoryName().StartsWith(name));
+
+    var srcDirectory = dependenciesDir + Directory(name.ToLower());
+    MoveDirectory(containerDir, srcDirectory);
 }
