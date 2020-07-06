@@ -1,15 +1,15 @@
-# Version wasn't bumped when merging from develop into master
+# Version wasn't bumped when merging from develop into main
 
 You'll need to do a pull-request similar to this [https://github.com/reactiveui/ReactiveUI/pull/1226](https://github.com/reactiveui/ReactiveUI/pull/1226)
 
 ![](/contribute/maintainers/release-failed-because-gitreleasemanager-could-not-find-the-milestone.png)
 
-Change to a clean copy of `master`
+Change to a clean copy of `main`
 
 ```shell
 git clean -fdx
 git reset --hard
-git checkout master
+git checkout main
 git pull
 ```
 
@@ -37,7 +37,7 @@ Push your branch
 git push origin bump-release-version
 ```
 
-Open a pull-request to `master` and once the release has been approved, you'll need to switch your merge mode to `Create a merge commit` aka `Merge pull request` by using the little arrow on the right hand side.
+Open a pull-request to `main` and once the release has been approved, you'll need to switch your merge mode to `Create a merge commit` aka `Merge pull request` by using the little arrow on the right hand side.
 
 ![](/contribute/maintainers/merge-commit-option.png)
 
@@ -45,7 +45,7 @@ Do not customize the merge commit message or more specifically, do not bump the 
 
 # Release failed because of labeling issue
 
-Visit the issue, resolve the problem and then visit AppVeyor and click "Rebuild Commit". It is safe to do this multiple times because building `master` does not automatically release unless the commit has been tagged.
+Visit the issue, resolve the problem and then visit AppVeyor and click "Rebuild Commit". It is safe to do this multiple times because building `main` does not automatically release unless the commit has been tagged.
 
 ![](/contribute/maintainers/release-failed-because-of-labeling-issue.png)
 

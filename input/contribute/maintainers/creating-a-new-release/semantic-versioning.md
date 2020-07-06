@@ -22,7 +22,7 @@ Builds from pull-requests have a suffix of `pullrequest$GitHubIssueNumber` and a
 
 ![Release has no suffix](/contribute/maintainers/semver-master.png)
 
-Builds from the `master` branch do not have a suffix and GitVersion is configured in [ContinuousDelivery mode](https://gitversion.readthedocs.io/en/latest/reference/continuous-delivery). If the current commit is tagged, the version in the tag overrides the automatic versioning strategies.
+Builds from the `main` branch do not have a suffix and GitVersion is configured in [ContinuousDelivery mode](https://gitversion.readthedocs.io/en/latest/reference/continuous-delivery). If the current commit is tagged, the version in the tag overrides the automatic versioning strategies.
 
 ![Building a tagged release](/contribute/maintainers/building-a-tagged-release.png)
 

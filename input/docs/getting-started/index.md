@@ -2,7 +2,7 @@ Order: 10
 ---
 ReactiveUI gives you the power to build reactive, testable, and composable UI code using the MVVM pattern.
 
-See our <a href="https://reactiveui.net/docs/handbook/">Handbook</a> for the ReactiveUI documentation. We also have a complete <a href="https://github.com/reactiveui/ReactiveUI/tree/master/integrationtests">cross-platform demo app</a>.
+See our <a href="https://reactiveui.net/docs/handbook/">Handbook</a> for the ReactiveUI documentation. We also have a complete <a href="https://github.com/reactiveui/ReactiveUI/tree/main/integrationtests">cross-platform demo app</a>.
 
 ### Getting Started
 

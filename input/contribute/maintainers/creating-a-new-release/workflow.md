@@ -7,7 +7,7 @@ Once pull-requests have been merged into `develop` a new release is automaticall
 
 # Production
 
-By design, no single person can release a new version of ReactiveUI without approval from [one of the other contributors](https://github.com/orgs/reactiveui/teams/contributors). The process is kicked off by one of the contributors opening up a pull-request from `develop` to `master`
+By design, no single person can release a new version of ReactiveUI without approval from [one of the other contributors](https://github.com/orgs/reactiveui/teams/contributors). The process is kicked off by one of the contributors opening up a pull-request from `develop` to `main`
 
 ![](/contribute/maintainers/create-a-pull-request-from-develop-to-master.png)
 
@@ -39,7 +39,7 @@ When you merge, be sure to include a message that will cause the semver to be bu
 
 ![](/contribute/maintainers/merge-commit.png)
 
-Merging this pull-request into `master` will kick off a new build on AppVeyor but the build pipeline is configured not to publish packages to NuGet.org unless the release has been tagged.
+Merging this pull-request into `main` will kick off a new build on AppVeyor but the build pipeline is configured not to publish packages to NuGet.org unless the release has been tagged.
 
 ![](/contribute/maintainers/commits-to-master-do-not-automatically-publish-to-nuget.png)
 

@@ -4,7 +4,7 @@ category: Release Notes
 author: Anaïs Betts
 ---
 
-## [What's New](https://github.com/reactiveui/ReactiveUI/compare/master...5.99.0)
+## [What's New](https://github.com/reactiveui/ReactiveUI/compare/main...5.99.0)
 
 This is a prerelease version of ReactiveUI 6.0 - use at your own release, we make no guarantees that this works for you or even at all.
 
