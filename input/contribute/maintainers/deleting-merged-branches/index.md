@@ -13,7 +13,7 @@ for remote in `git branch -r `; do git branch --track $remote; done
 
 ```shell
 script$ ./clean-merged-branches
-warning: refname 'origin/master' is ambiguous.
+warning: refname 'origin/main' is ambiguous.
 These branches will be deleted:
   activation
   add_ireactivecommand
@@ -41,7 +41,7 @@ Run `./clean-merged-branches -f' if you're sure.
 
 ```shell
 script$ ./clean-merged-branches -f
-warning: refname 'origin/master' is ambiguous.
+warning: refname 'origin/main' is ambiguous.
 To git@github.com:reactiveui/ReactiveUI.git
  - [deleted]         activation
  - [deleted]         add_ireactivecommand

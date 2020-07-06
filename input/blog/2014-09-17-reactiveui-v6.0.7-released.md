@@ -14,7 +14,7 @@ This PR also fixes an issue where scheduling from non-UI threads in Xamarin Form
 
 ## Documentation Galore
 
-This release marks the first release whose source code contains our first steps toward comprehensive documentation. This has been a multiple-month effort from several people, such as @rikbosch, @niik, @dchaib, and @npnelson. Documentation will now be stored [in the docs folder](https://github.com/reactiveui/ReactiveUI/tree/master/docs) and will be kept up-to-date as components change.
+This release marks the first release whose source code contains our first steps toward comprehensive documentation. This has been a multiple-month effort from several people, such as @rikbosch, @niik, @dchaib, and @npnelson. Documentation will now be stored [in the docs folder](https://github.com/reactiveui/ReactiveUI/tree/main/docs) and will be kept up-to-date as components change.
 
 Right now while many of the docs are stubs, the "basics" folder is completely written, it's highly recommended to check out the documents in this folder for more information.
 

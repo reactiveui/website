@@ -2,9 +2,9 @@
 # appveyor.yml
 * https://github.com/reactiveui/ReactiveUI/blob/develop/appveyor.yml
 * Schema is at https://www.appveyor.com/docs/appveyor-yml/
-* Different configuration for `master` and `develop` branches - https://www.appveyor.com/docs/branches/
+* Different configuration for `main` and `develop` branches - https://www.appveyor.com/docs/branches/
 * Secrets are encrypted and are not available for pull-request builds - https://www.appveyor.com/docs/build-configuration/#secure-variables
-* When `develop` branch builds are pushed to MyGet, when `master` builds goto NuGet once they have been tagged.
+* When `develop` branch builds are pushed to MyGet, when `main` builds goto NuGet once they have been tagged.
 
 # directory.build.props
 * https://github.com/reactiveui/ReactiveUI/blob/develop/src/Directory.build.props

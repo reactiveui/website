@@ -125,7 +125,7 @@ public class MainActivity : ReactiveAppCompatActivity<SampleViewModel>
 
 ## INotifyDataErrorInfo Support 
 
-For those platforms which support the `INotifyDataErrorInfo` interface (including WPF, Avalonia, Xamarin.Forms), ReactiveUI.Validation provides [a helper base class](https://github.com/reactiveui/ReactiveUI.Validation/blob/master/src/ReactiveUI.Validation/Helpers/ReactiveValidationObject.cs) named `ReactiveValidationObject<TViewModel>`. The helper class implements both the `IValidatableViewModel` interface and the `INotifyDataErrorInfo` interface. It listens to any changes in the `ValidationContext` and invokes `INotifyDataErrorInfo` events. 
+For those platforms which support the `INotifyDataErrorInfo` interface (including WPF, Avalonia, Xamarin.Forms), ReactiveUI.Validation provides [a helper base class](https://github.com/reactiveui/ReactiveUI.Validation/blob/main/src/ReactiveUI.Validation/Helpers/ReactiveValidationObject.cs) named `ReactiveValidationObject<TViewModel>`. The helper class implements both the `IValidatableViewModel` interface and the `INotifyDataErrorInfo` interface. It listens to any changes in the `ValidationContext` and invokes `INotifyDataErrorInfo` events. 
 
 ```cs
 public class SampleViewModel : ReactiveValidationObject<SampleViewModel>

@@ -10,10 +10,10 @@ Make your changes in a new git branch:
 git checkout -b my-fix-branch master
 ```
 
-* Follow our [Coding Style](https://github.com/reactiveui/website/blob/master/input/contribute/software-style-guide/code-style.md).
+* Follow our [Coding Style](https://github.com/reactiveui/website/blob/main/input/contribute/software-style-guide/code-style.md).
 * Create your patch, **including appropriate test cases and documentation**.
 * Run the test suite.
-* Commit your changes using a descriptive commit message that follows our [commit message conventions](https://github.com/reactiveui/website/blob/master/input/contribute/software-style-guide/commit-message-convention.md).
+* Commit your changes using a descriptive commit message that follows our [commit message conventions](https://github.com/reactiveui/website/blob/main/input/contribute/software-style-guide/commit-message-convention.md).
 
 ```shell
 git commit -a
@@ -29,7 +29,7 @@ Note: the optional commit `-a` command line option will automatically "add" and 
 git push origin my-fix-branch
 ```
 
-In GitHub, send a pull request to `reactiveui:master`.
+In GitHub, send a pull request to `reactiveui:main`.
 
 If we suggest changes, then:
 

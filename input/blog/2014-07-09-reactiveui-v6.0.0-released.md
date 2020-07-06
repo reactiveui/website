@@ -27,7 +27,7 @@ In particular, a huge thanks goes to Johan, who has done an enormous amount of g
 
 ## Migrating from existing code
 
-We've written [a migration guide](https://github.com/reactiveui/ReactiveUI/blob/master/docs/migrating-from-rxui5.md) to help existing application authors migrate their 5.x applications to ReactiveUI 6.0. Check out this document before updating your dependencies to get a heads-up as to what you're in for.
+We've written [a migration guide](https://github.com/reactiveui/ReactiveUI/blob/main/docs/migrating-from-rxui5.md) to help existing application authors migrate their 5.x applications to ReactiveUI 6.0. Check out this document before updating your dependencies to get a heads-up as to what you're in for.
 
 ## What's New in ReactiveUI 6.0
 
