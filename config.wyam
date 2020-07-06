@@ -3,7 +3,7 @@ Settings[DocsKeys.Title] = "ReactiveUI";
 Settings[DocsKeys.Logo] = "/assets/img/logo.png";
 Settings[DocsKeys.BlogPageSize] = 12;
 Settings[DocsKeys.SourceFiles] = "../dependencies/**/src/**/{!bin,!obj,!packages,!*.Tests,}/**/*.cs";
-Settings[DocsKeys.BaseEditUrl] = "https://github.com/reactiveui/website/blob/master/input/";
+Settings[DocsKeys.BaseEditUrl] = "https://github.com/reactiveui/website/blob/main/input/";
 Settings["BaseCreateIssueUrl"] = "https://github.com/reactiveui/website/issues/new?title=Issue%20with%20";
 Settings[DocsKeys.IncludeDateInPostPath] = true;
 Settings[DocsKeys.BlogAtomPath] = "blog/feed/atom/index.xml";
