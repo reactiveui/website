@@ -1,4 +1,11 @@
-﻿<img src="https://img.favpng.com/22/20/20/question-mark-information-clip-art-png-favpng-xUsis3eLNHY4KHfJcLDsF87rq.jpg" align="right" style="height: 8em"/>
+---
+title: On Reactive Programming
+category: 
+  - Article
+author: Rich Bryant
+---
+
+<img src="https://img.favpng.com/22/20/20/question-mark-information-clip-art-png-favpng-xUsis3eLNHY4KHfJcLDsF87rq.jpg" align="right" style="height: 8em"/>
 
 # On Reactive Programming
 ## Why are we even here?  
@@ -111,9 +118,7 @@ And suddenly, I had _Functional Pipelines_.  I'd shied away from these before - 
   
 So when the time came to think about rewriting the front-end - trust me, it needed it - I was already thinking in terms of describing how I wanted the interface to react to user input (and massive tons of data streaming in from bloody KepWare).  I won't say there was no learning curve, there's always a learning curve.  
   
-If the data is a wave, not a particle.  It's predictable within certain bounds but you need to react to it, not control it.  Reactive programming turns data into a wave you can surf.
-
-That's why I'm here.  
+The data is a wave, not a particle.  It's predictable within certain bounds but you need to react to it, not control it.  Reactive programming turns data into a wave you can surf. And that's why I'm here.  
   
 Also, events suck.  
   
