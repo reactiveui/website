@@ -4,7 +4,7 @@ title: ITestableObservable<T>.Subscriptions Property
 
 Gets the subscriptions to the observable.
 
-**Namespace:**  [Microsoft.Reactive.Testing](Microsoft.Reactive.Testing\Microsoft.Reactive.Testing.md)  
+**Namespace:**  [Microsoft.Reactive.Testing](Microsoft.Reactive.Testing/Microsoft.Reactive.Testing)  
 **Assembly:**  Microsoft.Reactive.Testing (in Microsoft.Reactive.Testing.dll)
 
 ## Syntax
@@ -43,12 +43,12 @@ function get Subscriptions () : IList<Subscription>
 
 #### Property Value
 
-Type: [System.Collections.Generic.IList](https://msdn.microsoft.com/en-us/library/5y536ey6)\<[Subscription](Subscription\Subscription.md)\>
+Type: [System.Collections.Generic.IList](https://msdn.microsoft.com/en-us/library/5y536ey6)\<[Subscription](Subscription/Subscription)\>
 
 ## See Also
 
 #### Reference
 
-[ITestableObservable\<T\> Interface](ITestableObservable\ITestableObservable(T).md)
+[ITestableObservable\<T\> Interface](ITestableObservable/ITestableObservable(T))
 
-[Microsoft.Reactive.Testing Namespace](Microsoft.Reactive.Testing\Microsoft.Reactive.Testing.md)
+[Microsoft.Reactive.Testing Namespace](Microsoft.Reactive.Testing/Microsoft.Reactive.Testing)

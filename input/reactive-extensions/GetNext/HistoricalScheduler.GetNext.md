@@ -4,7 +4,7 @@ title: HistoricalScheduler.GetNext()
 
 Gets the next scheduled item to be executed.
 
-**Namespace:**  [System.Reactive.Concurrency](System.Reactive.Concurrency\System.Reactive.Concurrency.md)  
+**Namespace:**  [System.Reactive.Concurrency](System.Reactive.Concurrency/System.Reactive.Concurrency)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -41,16 +41,16 @@ protected override function GetNext() : IScheduledItem<DateTimeOffset>
 
 #### Return Value
 
-Type: [System.Reactive.Concurrency.IScheduledItem](IScheduledItem\IScheduledItem(TAbsolute).md)\<[DateTimeOffset](https://msdn.microsoft.com/en-us/library/Bb341783)\>  
+Type: [System.Reactive.Concurrency.IScheduledItem](IScheduledItem/IScheduledItem(TAbsolute))\<[DateTimeOffset](https://msdn.microsoft.com/en-us/library/Bb341783)\>  
 The next scheduled item.
 
 ## See Also
 
 #### Reference
 
-[HistoricalScheduler Class](HistoricalScheduler\HistoricalScheduler.md)
+[HistoricalScheduler Class](HistoricalScheduler/HistoricalScheduler)
 
-[System.Reactive.Concurrency Namespace](System.Reactive.Concurrency\System.Reactive.Concurrency.md)
+[System.Reactive.Concurrency Namespace](System.Reactive.Concurrency/System.Reactive.Concurrency)
 
 
 

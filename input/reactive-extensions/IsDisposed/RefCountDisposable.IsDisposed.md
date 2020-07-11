@@ -4,7 +4,7 @@ title: RefCountDisposable.IsDisposed Property
 
 Gets a value that indicates whether the object is disposed.
 
-**Namespace:**  [System.Reactive.Disposables](System.Reactive.Disposables\System.Reactive.Disposables.md)  
+**Namespace:**  [System.Reactive.Disposables](System.Reactive.Disposables/System.Reactive.Disposables)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -51,9 +51,9 @@ true if the object is disposed; otherwise, false.
 
 #### Reference
 
-[RefCountDisposable Class](RefCountDisposable\RefCountDisposable.md)
+[RefCountDisposable Class](RefCountDisposable/RefCountDisposable)
 
-[System.Reactive.Disposables Namespace](System.Reactive.Disposables\System.Reactive.Disposables.md)
+[System.Reactive.Disposables Namespace](System.Reactive.Disposables/System.Reactive.Disposables)
 
 
 

@@ -4,7 +4,7 @@ title: TestScheduler.ToRelative()
 
 Converts the TimeSpan value to a relative virtual time value.
 
-**Namespace:**  [Microsoft.Reactive.Testing](Microsoft.Reactive.Testing\Microsoft.Reactive.Testing.md)  
+**Namespace:**  [Microsoft.Reactive.Testing](Microsoft.Reactive.Testing/Microsoft.Reactive.Testing)  
 **Assembly:**  Microsoft.Reactive.Testing (in Microsoft.Reactive.Testing.dll)
 
 ## Syntax
@@ -65,6 +65,6 @@ The corresponding relative virtual time value.
 
 #### Reference
 
-[TestScheduler Class](TestScheduler\TestScheduler.md)
+[TestScheduler Class](TestScheduler/TestScheduler)
 
-[Microsoft.Reactive.Testing Namespace](Microsoft.Reactive.Testing\Microsoft.Reactive.Testing.md)
+[Microsoft.Reactive.Testing Namespace](Microsoft.Reactive.Testing/Microsoft.Reactive.Testing)

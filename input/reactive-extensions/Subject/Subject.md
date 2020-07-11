@@ -5,7 +5,7 @@ title: Subject()s
 Include Protected Members  
 Include Inherited Members
 
-The [Subject](Subject\Subject.md) type exposes the following members.
+The [Subject](Subject/Subject) type exposes the following members.
 
 ## Methods
 
@@ -15,9 +15,9 @@ NameDescription![Public method](https://reactiveui.net/assets/img/Hh303103.pubme
 
 #### Reference
 
-[Subject Class](Subject\Subject.md)
+[Subject Class](Subject/Subject)
 
-[System.Reactive.Subjects Namespace](System.Reactive.Subjects\System.Reactive.Subjects.md)
+[System.Reactive.Subjects Namespace](System.Reactive.Subjects/System.Reactive.Subjects)
 
 # Subject Class
 
@@ -28,7 +28,7 @@ Provides a set of static methods for creating observers.
 [System.Object](https://msdn.microsoft.com/en-us/library/e5kfa45b)  
   System.Reactive.Subjects.Subject
 
-**Namespace:**  [System.Reactive.Subjects](System.Reactive.Subjects\System.Reactive.Subjects.md)  
+**Namespace:**  [System.Reactive.Subjects](System.Reactive.Subjects/System.Reactive.Subjects)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -74,4 +74,4 @@ Any public static (Shared in Visual Basic) members of this type are thread safe.
 
 #### Reference
 
-[System.Reactive.Subjects Namespace](System.Reactive.Subjects\System.Reactive.Subjects.md)
+[System.Reactive.Subjects Namespace](System.Reactive.Subjects/System.Reactive.Subjects)

@@ -4,7 +4,7 @@ title: Qbservable.Merge<TSource>(IQbservableProvider, IEnumerable<IObservable<TS
 
 Merges an enumerable sequence of queryable observable sequences into a single queryable observable sequence.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive.Providers (in System.Reactive.Providers.dll)
 
 ## Syntax
@@ -68,7 +68,7 @@ JScript does not support generic types and methods.
 #### Parameters
 
 - provider  
-  Type: [System.Reactive.Linq.IQbservableProvider](IQbservableProvider\IQbservableProvider.md)  
+  Type: [System.Reactive.Linq.IQbservableProvider](IQbservableProvider/IQbservableProvider)  
   The local Qbservable provider.
 
 - sources  
@@ -76,27 +76,27 @@ JScript does not support generic types and methods.
   The enumerable sequence of queryable observable sequences.
 
 - scheduler  
-  Type: [System.Reactive.Concurrency.IScheduler](IScheduler\IScheduler.md)  
+  Type: [System.Reactive.Concurrency.IScheduler](IScheduler/IScheduler)  
   The scheduler to run the enumeration of the sequence of sources on.
 
 #### Return Value
 
-Type: [System.Reactive.Linq.IQbservable](IQbservable\IQbservable(TSource).md)\<TSource\>  
+Type: [System.Reactive.Linq.IQbservable](IQbservable/IQbservable(TSource))\<TSource\>  
 The queryable observable sequence that merges the elements of the queryable observable sequences.
 
 #### Usage Note
 
-In Visual Basic and C\#, you can call this method as an instance method on any object of type [IQbservableProvider](IQbservableProvider\IQbservableProvider.md). When you use instance method syntax to call this method, omit the first parameter. For more information, see [](https://msdn.microsoft.com/en-us/library/Bb384936) or [](https://msdn.microsoft.com/en-us/library/Bb383977).
+In Visual Basic and C\#, you can call this method as an instance method on any object of type [IQbservableProvider](IQbservableProvider/IQbservableProvider). When you use instance method syntax to call this method, omit the first parameter. For more information, see [](https://msdn.microsoft.com/en-us/library/Bb384936) or [](https://msdn.microsoft.com/en-us/library/Bb383977).
 
 ## See Also
 
 #### Reference
 
-[Qbservable Class](Qbservable\Qbservable.md)
+[Qbservable Class](Qbservable/Qbservable)
 
-[Merge Overload](Merge\Qbservable.Merge.md)
+[Merge Overload](Merge/Qbservable.Merge)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 
 
@@ -110,7 +110,7 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 
 Merges all the queryable observable sequences into a single queryable observable sequence.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive.Providers (in System.Reactive.Providers.dll)
 
 ## Syntax
@@ -168,7 +168,7 @@ JScript does not support generic types and methods.
 #### Parameters
 
 - provider  
-  Type: [System.Reactive.Linq.IQbservableProvider](IQbservableProvider\IQbservableProvider.md)  
+  Type: [System.Reactive.Linq.IQbservableProvider](IQbservableProvider/IQbservableProvider)  
   The local Qbservable provider.
 
 - sources  
@@ -177,22 +177,22 @@ JScript does not support generic types and methods.
 
 #### Return Value
 
-Type: [System.Reactive.Linq.IQbservable](IQbservable\IQbservable(TSource).md)\<TSource\>  
+Type: [System.Reactive.Linq.IQbservable](IQbservable/IQbservable(TSource))\<TSource\>  
 The queryable observable sequence that merges the elements of the observable sequences.
 
 #### Usage Note
 
-In Visual Basic and C\#, you can call this method as an instance method on any object of type [IQbservableProvider](IQbservableProvider\IQbservableProvider.md). When you use instance method syntax to call this method, omit the first parameter. For more information, see [](https://msdn.microsoft.com/en-us/library/Bb384936) or [](https://msdn.microsoft.com/en-us/library/Bb383977).
+In Visual Basic and C\#, you can call this method as an instance method on any object of type [IQbservableProvider](IQbservableProvider/IQbservableProvider). When you use instance method syntax to call this method, omit the first parameter. For more information, see [](https://msdn.microsoft.com/en-us/library/Bb384936) or [](https://msdn.microsoft.com/en-us/library/Bb383977).
 
 ## See Also
 
 #### Reference
 
-[Qbservable Class](Qbservable\Qbservable.md)
+[Qbservable Class](Qbservable/Qbservable)
 
-[Merge Overload](Merge\Qbservable.Merge.md)
+[Merge Overload](Merge/Qbservable.Merge)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 
 
@@ -206,7 +206,7 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 
 Merges two queryable observable sequences into a single queryable observable sequence.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive.Providers (in System.Reactive.Providers.dll)
 
 ## Syntax
@@ -270,7 +270,7 @@ JScript does not support generic types and methods.
 #### Parameters
 
 - first  
-  Type: [System.Reactive.Linq.IQbservable](IQbservable\IQbservable(TSource).md)\<TSource\>  
+  Type: [System.Reactive.Linq.IQbservable](IQbservable/IQbservable(TSource))\<TSource\>  
   The first queryable observable sequence.
 
 - second  
@@ -278,27 +278,27 @@ JScript does not support generic types and methods.
   The second queryable observable sequence.
 
 - scheduler  
-  Type: [System.Reactive.Concurrency.IScheduler](IScheduler\IScheduler.md)  
+  Type: [System.Reactive.Concurrency.IScheduler](IScheduler/IScheduler)  
   The scheduler used to introduce concurrency for making subscriptions to the given sequences.
 
 #### Return Value
 
-Type: [System.Reactive.Linq.IQbservable](IQbservable\IQbservable(TSource).md)\<TSource\>  
+Type: [System.Reactive.Linq.IQbservable](IQbservable/IQbservable(TSource))\<TSource\>  
 The queryable observable sequence that merges the elements of the given sequences.
 
 #### Usage Note
 
-In Visual Basic and C\#, you can call this method as an instance method on any object of type [IQbservable](IQbservable\IQbservable(TSource).md)\<TSource\>. When you use instance method syntax to call this method, omit the first parameter. For more information, see [](https://msdn.microsoft.com/en-us/library/Bb384936) or [](https://msdn.microsoft.com/en-us/library/Bb383977).
+In Visual Basic and C\#, you can call this method as an instance method on any object of type [IQbservable](IQbservable/IQbservable(TSource))\<TSource\>. When you use instance method syntax to call this method, omit the first parameter. For more information, see [](https://msdn.microsoft.com/en-us/library/Bb384936) or [](https://msdn.microsoft.com/en-us/library/Bb383977).
 
 ## See Also
 
 #### Reference
 
-[Qbservable Class](Qbservable\Qbservable.md)
+[Qbservable Class](Qbservable/Qbservable)
 
-[Merge Overload](Merge\Qbservable.Merge.md)
+[Merge Overload](Merge/Qbservable.Merge)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 
 
@@ -312,7 +312,7 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 
 Merges an enumerable sequence of queryable observable sequences into an queryable observable sequence, limiting the number of concurrent subscriptions to inner sequences.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive.Providers (in System.Reactive.Providers.dll)
 
 ## Syntax
@@ -376,7 +376,7 @@ JScript does not support generic types and methods.
 #### Parameters
 
 - provider  
-  Type: [System.Reactive.Linq.IQbservableProvider](IQbservableProvider\IQbservableProvider.md)  
+  Type: [System.Reactive.Linq.IQbservableProvider](IQbservableProvider/IQbservableProvider)  
   The local Qbservable provider.
 
 - sources  
@@ -389,22 +389,22 @@ JScript does not support generic types and methods.
 
 #### Return Value
 
-Type: [System.Reactive.Linq.IQbservable](IQbservable\IQbservable(TSource).md)\<TSource\>  
+Type: [System.Reactive.Linq.IQbservable](IQbservable/IQbservable(TSource))\<TSource\>  
 The queryable observable sequence that merges the elements of the observable sequences.
 
 #### Usage Note
 
-In Visual Basic and C\#, you can call this method as an instance method on any object of type [IQbservableProvider](IQbservableProvider\IQbservableProvider.md). When you use instance method syntax to call this method, omit the first parameter. For more information, see [](https://msdn.microsoft.com/en-us/library/Bb384936) or [](https://msdn.microsoft.com/en-us/library/Bb383977).
+In Visual Basic and C\#, you can call this method as an instance method on any object of type [IQbservableProvider](IQbservableProvider/IQbservableProvider). When you use instance method syntax to call this method, omit the first parameter. For more information, see [](https://msdn.microsoft.com/en-us/library/Bb384936) or [](https://msdn.microsoft.com/en-us/library/Bb383977).
 
 ## See Also
 
 #### Reference
 
-[Qbservable Class](Qbservable\Qbservable.md)
+[Qbservable Class](Qbservable/Qbservable)
 
-[Merge Overload](Merge\Qbservable.Merge.md)
+[Merge Overload](Merge/Qbservable.Merge)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 
 
@@ -418,7 +418,7 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 
 Merges all the queryable observable sequences into a single queryable observable sequence.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive.Providers (in System.Reactive.Providers.dll)
 
 ## Syntax
@@ -471,27 +471,27 @@ JScript does not support generic types and methods.
 #### Parameters
 
 - sources  
-  Type: [System.Reactive.Linq.IQbservable](IQbservable\IQbservable(TSource).md)\<[IObservable](https://msdn.microsoft.com/en-us/library/Dd990377)\<TSource\>\>  
+  Type: [System.Reactive.Linq.IQbservable](IQbservable/IQbservable(TSource))\<[IObservable](https://msdn.microsoft.com/en-us/library/Dd990377)\<TSource\>\>  
   The queryable observable sequences.
 
 #### Return Value
 
-Type: [System.Reactive.Linq.IQbservable](IQbservable\IQbservable(TSource).md)\<TSource\>  
+Type: [System.Reactive.Linq.IQbservable](IQbservable/IQbservable(TSource))\<TSource\>  
 The queryable observable sequence that merges the elements of the observable sequences.
 
 #### Usage Note
 
-In Visual Basic and C\#, you can call this method as an instance method on any object of type [IQbservable](IQbservable\IQbservable(TSource).md)\<[IObservable](https://msdn.microsoft.com/en-us/library/Dd990377)\<TSource\>\>. When you use instance method syntax to call this method, omit the first parameter. For more information, see [](https://msdn.microsoft.com/en-us/library/Bb384936) or [](https://msdn.microsoft.com/en-us/library/Bb383977).
+In Visual Basic and C\#, you can call this method as an instance method on any object of type [IQbservable](IQbservable/IQbservable(TSource))\<[IObservable](https://msdn.microsoft.com/en-us/library/Dd990377)\<TSource\>\>. When you use instance method syntax to call this method, omit the first parameter. For more information, see [](https://msdn.microsoft.com/en-us/library/Bb384936) or [](https://msdn.microsoft.com/en-us/library/Bb383977).
 
 ## See Also
 
 #### Reference
 
-[Qbservable Class](Qbservable\Qbservable.md)
+[Qbservable Class](Qbservable/Qbservable)
 
-[Merge Overload](Merge\Qbservable.Merge.md)
+[Merge Overload](Merge/Qbservable.Merge)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 
 
@@ -505,7 +505,7 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 
 Merges an enumerable sequence of queryable observable sequences into a single queryable observable sequence.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive.Providers (in System.Reactive.Providers.dll)
 
 ## Syntax
@@ -563,7 +563,7 @@ JScript does not support generic types and methods.
 #### Parameters
 
 - provider  
-  Type: [System.Reactive.Linq.IQbservableProvider](IQbservableProvider\IQbservableProvider.md)  
+  Type: [System.Reactive.Linq.IQbservableProvider](IQbservableProvider/IQbservableProvider)  
   The local Qbservable provider.
 
 - sources  
@@ -572,22 +572,22 @@ JScript does not support generic types and methods.
 
 #### Return Value
 
-Type: [System.Reactive.Linq.IQbservable](IQbservable\IQbservable(TSource).md)\<TSource\>  
+Type: [System.Reactive.Linq.IQbservable](IQbservable/IQbservable(TSource))\<TSource\>  
 The queryable observable sequence that merges the elements of the observable sequences.
 
 #### Usage Note
 
-In Visual Basic and C\#, you can call this method as an instance method on any object of type [IQbservableProvider](IQbservableProvider\IQbservableProvider.md). When you use instance method syntax to call this method, omit the first parameter. For more information, see [](https://msdn.microsoft.com/en-us/library/Bb384936) or [](https://msdn.microsoft.com/en-us/library/Bb383977).
+In Visual Basic and C\#, you can call this method as an instance method on any object of type [IQbservableProvider](IQbservableProvider/IQbservableProvider). When you use instance method syntax to call this method, omit the first parameter. For more information, see [](https://msdn.microsoft.com/en-us/library/Bb384936) or [](https://msdn.microsoft.com/en-us/library/Bb383977).
 
 ## See Also
 
 #### Reference
 
-[Qbservable Class](Qbservable\Qbservable.md)
+[Qbservable Class](Qbservable/Qbservable)
 
-[Merge Overload](Merge\Qbservable.Merge.md)
+[Merge Overload](Merge/Qbservable.Merge)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 
 
@@ -601,7 +601,7 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 
 Merges an enumerable sequence of queryable observable sequences into a single observable sequence.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive.Providers (in System.Reactive.Providers.dll)
 
 ## Syntax
@@ -659,7 +659,7 @@ JScript does not support generic types and methods.
 #### Parameters
 
 - first  
-  Type: [System.Reactive.Linq.IQbservable](IQbservable\IQbservable(TSource).md)\<TSource\>  
+  Type: [System.Reactive.Linq.IQbservable](IQbservable/IQbservable(TSource))\<TSource\>  
   The first queryable observable sequence.
 
 - second  
@@ -668,22 +668,22 @@ JScript does not support generic types and methods.
 
 #### Return Value
 
-Type: [System.Reactive.Linq.IQbservable](IQbservable\IQbservable(TSource).md)\<TSource\>  
+Type: [System.Reactive.Linq.IQbservable](IQbservable/IQbservable(TSource))\<TSource\>  
 The queryable observable sequence that merges the elements of the given sequences.
 
 #### Usage Note
 
-In Visual Basic and C\#, you can call this method as an instance method on any object of type [IQbservable](IQbservable\IQbservable(TSource).md)\<TSource\>. When you use instance method syntax to call this method, omit the first parameter. For more information, see [](https://msdn.microsoft.com/en-us/library/Bb384936) or [](https://msdn.microsoft.com/en-us/library/Bb383977).
+In Visual Basic and C\#, you can call this method as an instance method on any object of type [IQbservable](IQbservable/IQbservable(TSource))\<TSource\>. When you use instance method syntax to call this method, omit the first parameter. For more information, see [](https://msdn.microsoft.com/en-us/library/Bb384936) or [](https://msdn.microsoft.com/en-us/library/Bb383977).
 
 ## See Also
 
 #### Reference
 
-[Qbservable Class](Qbservable\Qbservable.md)
+[Qbservable Class](Qbservable/Qbservable)
 
-[Merge Overload](Merge\Qbservable.Merge.md)
+[Merge Overload](Merge/Qbservable.Merge)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 
 
@@ -697,7 +697,7 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 
 Merges an enumerable sequence of queryable observable sequences into an queryable observable sequence, limiting the number of concurrent subscriptions to inner sequences.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive.Providers (in System.Reactive.Providers.dll)
 
 ## Syntax
@@ -766,7 +766,7 @@ JScript does not support generic types and methods.
 #### Parameters
 
 - provider  
-  Type: [System.Reactive.Linq.IQbservableProvider](IQbservableProvider\IQbservableProvider.md)  
+  Type: [System.Reactive.Linq.IQbservableProvider](IQbservableProvider/IQbservableProvider)  
   The local Qbservable provider.
 
 - sources  
@@ -778,27 +778,27 @@ JScript does not support generic types and methods.
   The maximum number of queryable observable sequences being subscribed to concurrently.
 
 - scheduler  
-  Type: [System.Reactive.Concurrency.IScheduler](IScheduler\IScheduler.md)  
+  Type: [System.Reactive.Concurrency.IScheduler](IScheduler/IScheduler)  
   The scheduler to run the enumeration of the sequence of sources on.
 
 #### Return Value
 
-Type: [System.Reactive.Linq.IQbservable](IQbservable\IQbservable(TSource).md)\<TSource\>  
+Type: [System.Reactive.Linq.IQbservable](IQbservable/IQbservable(TSource))\<TSource\>  
 The queryable observable sequence that merges the elements of the queryable observable sequences.
 
 #### Usage Note
 
-In Visual Basic and C\#, you can call this method as an instance method on any object of type [IQbservableProvider](IQbservableProvider\IQbservableProvider.md). When you use instance method syntax to call this method, omit the first parameter. For more information, see [](https://msdn.microsoft.com/en-us/library/Bb384936) or [](https://msdn.microsoft.com/en-us/library/Bb383977).
+In Visual Basic and C\#, you can call this method as an instance method on any object of type [IQbservableProvider](IQbservableProvider/IQbservableProvider). When you use instance method syntax to call this method, omit the first parameter. For more information, see [](https://msdn.microsoft.com/en-us/library/Bb384936) or [](https://msdn.microsoft.com/en-us/library/Bb383977).
 
 ## See Also
 
 #### Reference
 
-[Qbservable Class](Qbservable\Qbservable.md)
+[Qbservable Class](Qbservable/Qbservable)
 
-[Merge Overload](Merge\Qbservable.Merge.md)
+[Merge Overload](Merge/Qbservable.Merge)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 
 
@@ -812,7 +812,7 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 
 Merges an enumerable sequence of queryable observable sequences into a queryable observable sequence, limiting the number of concurrent subscriptions to inner sequences.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive.Providers (in System.Reactive.Providers.dll)
 
 ## Syntax
@@ -870,7 +870,7 @@ JScript does not support generic types and methods.
 #### Parameters
 
 - sources  
-  Type: [System.Reactive.Linq.IQbservable](IQbservable\IQbservable(TSource).md)\<[IObservable](https://msdn.microsoft.com/en-us/library/Dd990377)\<TSource\>\>  
+  Type: [System.Reactive.Linq.IQbservable](IQbservable/IQbservable(TSource))\<[IObservable](https://msdn.microsoft.com/en-us/library/Dd990377)\<TSource\>\>  
   The queryable observable sequence of inner queryable observable sequences.
 
 - maxConcurrent  
@@ -879,22 +879,22 @@ JScript does not support generic types and methods.
 
 #### Return Value
 
-Type: [System.Reactive.Linq.IQbservable](IQbservable\IQbservable(TSource).md)\<TSource\>  
+Type: [System.Reactive.Linq.IQbservable](IQbservable/IQbservable(TSource))\<TSource\>  
 The queryable observable sequence that merges the elements of the inner sequences.
 
 #### Usage Note
 
-In Visual Basic and C\#, you can call this method as an instance method on any object of type [IQbservable](IQbservable\IQbservable(TSource).md)\<[IObservable](https://msdn.microsoft.com/en-us/library/Dd990377)\<TSource\>\>. When you use instance method syntax to call this method, omit the first parameter. For more information, see [](https://msdn.microsoft.com/en-us/library/Bb384936) or [](https://msdn.microsoft.com/en-us/library/Bb383977).
+In Visual Basic and C\#, you can call this method as an instance method on any object of type [IQbservable](IQbservable/IQbservable(TSource))\<[IObservable](https://msdn.microsoft.com/en-us/library/Dd990377)\<TSource\>\>. When you use instance method syntax to call this method, omit the first parameter. For more information, see [](https://msdn.microsoft.com/en-us/library/Bb384936) or [](https://msdn.microsoft.com/en-us/library/Bb383977).
 
 ## See Also
 
 #### Reference
 
-[Qbservable Class](Qbservable\Qbservable.md)
+[Qbservable Class](Qbservable/Qbservable)
 
-[Merge Overload](Merge\Qbservable.Merge.md)
+[Merge Overload](Merge/Qbservable.Merge)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 
 
@@ -908,7 +908,7 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 
 Merges all the queryable observable sequences into a single queryable observable sequence.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive.Providers (in System.Reactive.Providers.dll)
 
 ## Syntax
@@ -972,11 +972,11 @@ JScript does not support generic types and methods.
 #### Parameters
 
 - provider  
-  Type: [System.Reactive.Linq.IQbservableProvider](IQbservableProvider\IQbservableProvider.md)  
+  Type: [System.Reactive.Linq.IQbservableProvider](IQbservableProvider/IQbservableProvider)  
   The local Qbservable provider.
 
 - scheduler  
-  Type: [System.Reactive.Concurrency.IScheduler](IScheduler\IScheduler.md)  
+  Type: [System.Reactive.Concurrency.IScheduler](IScheduler/IScheduler)  
   The scheduler to run the enumeration of the sequence of sources on.
 
 - sources  
@@ -985,22 +985,22 @@ JScript does not support generic types and methods.
 
 #### Return Value
 
-Type: [System.Reactive.Linq.IQbservable](IQbservable\IQbservable(TSource).md)\<TSource\>  
+Type: [System.Reactive.Linq.IQbservable](IQbservable/IQbservable(TSource))\<TSource\>  
 The queryable observable sequence that merges the elements of the queryable observable sequences.
 
 #### Usage Note
 
-In Visual Basic and C\#, you can call this method as an instance method on any object of type [IQbservableProvider](IQbservableProvider\IQbservableProvider.md). When you use instance method syntax to call this method, omit the first parameter. For more information, see [](https://msdn.microsoft.com/en-us/library/Bb384936) or [](https://msdn.microsoft.com/en-us/library/Bb383977).
+In Visual Basic and C\#, you can call this method as an instance method on any object of type [IQbservableProvider](IQbservableProvider/IQbservableProvider). When you use instance method syntax to call this method, omit the first parameter. For more information, see [](https://msdn.microsoft.com/en-us/library/Bb384936) or [](https://msdn.microsoft.com/en-us/library/Bb383977).
 
 ## See Also
 
 #### Reference
 
-[Qbservable Class](Qbservable\Qbservable.md)
+[Qbservable Class](Qbservable/Qbservable)
 
-[Merge Overload](Merge\Qbservable.Merge.md)
+[Merge Overload](Merge/Qbservable.Merge)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 
 

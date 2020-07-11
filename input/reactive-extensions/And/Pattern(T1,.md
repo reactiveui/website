@@ -4,7 +4,7 @@ title: Pattern<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>.And<T13>()
 
 Matches when all observable sequences have an available value.
 
-**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins\System.Reactive.Joins.md)  
+**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins/System.Reactive.Joins)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -61,16 +61,16 @@ JScript does not support generic types and methods.
 
 #### Return Value
 
-Type: [System.Reactive.Joins.Pattern](Pattern\Pattern(T1,.md)\<[T1](Pattern\Pattern(T1,.md), [T2](Pattern\Pattern(T1,.md), [T3](Pattern\Pattern(T1,.md), [T4](Pattern\Pattern(T1,.md), [T5](Pattern\Pattern(T1,.md), [T6](Pattern\Pattern(T1,.md), [T7](Pattern\Pattern(T1,.md), [T8](Pattern\Pattern(T1,.md), [T9](Pattern\Pattern(T1,.md), [T10](Pattern\Pattern(T1,.md), [T11](Pattern\Pattern(T1,.md), [T12](Pattern\Pattern(T1,.md), T13\>  
+Type: [System.Reactive.Joins.Pattern](Pattern/Pattern(T1,)\<[T1](Pattern/Pattern(T1,), [T2](Pattern/Pattern(T1,), [T3](Pattern/Pattern(T1,), [T4](Pattern/Pattern(T1,), [T5](Pattern/Pattern(T1,), [T6](Pattern/Pattern(T1,), [T7](Pattern/Pattern(T1,), [T8](Pattern/Pattern(T1,), [T9](Pattern/Pattern(T1,), [T10](Pattern/Pattern(T1,), [T11](Pattern/Pattern(T1,), [T12](Pattern/Pattern(T1,), T13\>  
 The join pattern.
 
 ## See Also
 
 #### Reference
 
-[Pattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12\> Class](Pattern\Pattern(T1,.md)
+[Pattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12\> Class](Pattern/Pattern(T1,)
 
-[System.Reactive.Joins Namespace](System.Reactive.Joins\System.Reactive.Joins.md)
+[System.Reactive.Joins Namespace](System.Reactive.Joins/System.Reactive.Joins)
 
 
 
@@ -83,7 +83,7 @@ The join pattern.
 
 Matches when all observable sequences have an available value.
 
-**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins\System.Reactive.Joins.md)  
+**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins/System.Reactive.Joins)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -140,16 +140,16 @@ JScript does not support generic types and methods.
 
 #### Return Value
 
-Type: [System.Reactive.Joins.Pattern](Pattern\Pattern(T1,.md)\<[T1](Pattern\Pattern(T1,.md), [T2](Pattern\Pattern(T1,.md), [T3](Pattern\Pattern(T1,.md), T4\>  
+Type: [System.Reactive.Joins.Pattern](Pattern/Pattern(T1,)\<[T1](Pattern/Pattern(T1,), [T2](Pattern/Pattern(T1,), [T3](Pattern/Pattern(T1,), T4\>  
 The join pattern.
 
 ## See Also
 
 #### Reference
 
-[Pattern\<T1, T2, T3\> Class](Pattern\Pattern(T1,.md)
+[Pattern\<T1, T2, T3\> Class](Pattern/Pattern(T1,)
 
-[System.Reactive.Joins Namespace](System.Reactive.Joins\System.Reactive.Joins.md)
+[System.Reactive.Joins Namespace](System.Reactive.Joins/System.Reactive.Joins)
 
 
 
@@ -162,7 +162,7 @@ The join pattern.
 
 Matches when all observable sequences have an available value.
 
-**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins\System.Reactive.Joins.md)  
+**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins/System.Reactive.Joins)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -219,16 +219,16 @@ JScript does not support generic types and methods.
 
 #### Return Value
 
-Type: [System.Reactive.Joins.Pattern](Pattern\Pattern(T1,.md)\<[T1](Pattern\Pattern(T1,.md), [T2](Pattern\Pattern(T1,.md), [T3](Pattern\Pattern(T1,.md), [T4](Pattern\Pattern(T1,.md), [T5](Pattern\Pattern(T1,.md), [T6](Pattern\Pattern(T1,.md), [T7](Pattern\Pattern(T1,.md), [T8](Pattern\Pattern(T1,.md), [T9](Pattern\Pattern(T1,.md), [T10](Pattern\Pattern(T1,.md), [T11](Pattern\Pattern(T1,.md), [T12](Pattern\Pattern(T1,.md), [T13](Pattern\Pattern(T1,.md), [T14](Pattern\Pattern(T1,.md), T15\>  
+Type: [System.Reactive.Joins.Pattern](Pattern/Pattern(T1,)\<[T1](Pattern/Pattern(T1,), [T2](Pattern/Pattern(T1,), [T3](Pattern/Pattern(T1,), [T4](Pattern/Pattern(T1,), [T5](Pattern/Pattern(T1,), [T6](Pattern/Pattern(T1,), [T7](Pattern/Pattern(T1,), [T8](Pattern/Pattern(T1,), [T9](Pattern/Pattern(T1,), [T10](Pattern/Pattern(T1,), [T11](Pattern/Pattern(T1,), [T12](Pattern/Pattern(T1,), [T13](Pattern/Pattern(T1,), [T14](Pattern/Pattern(T1,), T15\>  
 The join pattern.
 
 ## See Also
 
 #### Reference
 
-[Pattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14\> Class](Pattern\Pattern(T1,.md)
+[Pattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14\> Class](Pattern/Pattern(T1,)
 
-[System.Reactive.Joins Namespace](System.Reactive.Joins\System.Reactive.Joins.md)
+[System.Reactive.Joins Namespace](System.Reactive.Joins/System.Reactive.Joins)
 
 
 
@@ -241,7 +241,7 @@ The join pattern.
 
 Matches when all observable sequences have an available value.
 
-**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins\System.Reactive.Joins.md)  
+**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins/System.Reactive.Joins)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -298,16 +298,16 @@ JScript does not support generic types and methods.
 
 #### Return Value
 
-Type: [System.Reactive.Joins.Pattern](Pattern\Pattern(T1,.md)\<[T1](Pattern\Pattern(T1,.md), [T2](Pattern\Pattern(T1,.md), [T3](Pattern\Pattern(T1,.md), [T4](Pattern\Pattern(T1,.md), [T5](Pattern\Pattern(T1,.md), [T6](Pattern\Pattern(T1,.md), [T7](Pattern\Pattern(T1,.md), [T8](Pattern\Pattern(T1,.md), T9\>  
+Type: [System.Reactive.Joins.Pattern](Pattern/Pattern(T1,)\<[T1](Pattern/Pattern(T1,), [T2](Pattern/Pattern(T1,), [T3](Pattern/Pattern(T1,), [T4](Pattern/Pattern(T1,), [T5](Pattern/Pattern(T1,), [T6](Pattern/Pattern(T1,), [T7](Pattern/Pattern(T1,), [T8](Pattern/Pattern(T1,), T9\>  
 The join pattern.
 
 ## See Also
 
 #### Reference
 
-[Pattern\<T1, T2, T3, T4, T5, T6, T7, T8\> Class](Pattern\Pattern(T1,.md)
+[Pattern\<T1, T2, T3, T4, T5, T6, T7, T8\> Class](Pattern/Pattern(T1,)
 
-[System.Reactive.Joins Namespace](System.Reactive.Joins\System.Reactive.Joins.md)
+[System.Reactive.Joins Namespace](System.Reactive.Joins/System.Reactive.Joins)
 
 
 
@@ -320,7 +320,7 @@ The join pattern.
 
 Matches when all observable sequences have an available value.
 
-**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins\System.Reactive.Joins.md)  
+**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins/System.Reactive.Joins)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -377,16 +377,16 @@ JScript does not support generic types and methods.
 
 #### Return Value
 
-Type: [System.Reactive.Joins.Pattern](Pattern\Pattern(T1,.md)\<[T1](Pattern\Pattern(T1,.md), [T2](Pattern\Pattern(T1,.md), [T3](Pattern\Pattern(T1,.md), [T4](Pattern\Pattern(T1,.md), [T5](Pattern\Pattern(T1,.md), [T6](Pattern\Pattern(T1,.md), [T7](Pattern\Pattern(T1,.md), [T8](Pattern\Pattern(T1,.md), [T9](Pattern\Pattern(T1,.md), [T10](Pattern\Pattern(T1,.md), [T11](Pattern\Pattern(T1,.md), [T12](Pattern\Pattern(T1,.md), [T13](Pattern\Pattern(T1,.md), T14\>  
+Type: [System.Reactive.Joins.Pattern](Pattern/Pattern(T1,)\<[T1](Pattern/Pattern(T1,), [T2](Pattern/Pattern(T1,), [T3](Pattern/Pattern(T1,), [T4](Pattern/Pattern(T1,), [T5](Pattern/Pattern(T1,), [T6](Pattern/Pattern(T1,), [T7](Pattern/Pattern(T1,), [T8](Pattern/Pattern(T1,), [T9](Pattern/Pattern(T1,), [T10](Pattern/Pattern(T1,), [T11](Pattern/Pattern(T1,), [T12](Pattern/Pattern(T1,), [T13](Pattern/Pattern(T1,), T14\>  
 The join pattern.
 
 ## See Also
 
 #### Reference
 
-[Pattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13\> Class](Pattern\Pattern(T1,.md)
+[Pattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13\> Class](Pattern/Pattern(T1,)
 
-[System.Reactive.Joins Namespace](System.Reactive.Joins\System.Reactive.Joins.md)
+[System.Reactive.Joins Namespace](System.Reactive.Joins/System.Reactive.Joins)
 
 
 
@@ -399,7 +399,7 @@ The join pattern.
 
 Matches when all observable sequences have an available value.
 
-**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins\System.Reactive.Joins.md)  
+**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins/System.Reactive.Joins)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -456,16 +456,16 @@ JScript does not support generic types and methods.
 
 #### Return Value
 
-Type: [System.Reactive.Joins.Pattern](Pattern\Pattern(T1,.md)\<[T1](Pattern\Pattern(T1,.md), [T2](Pattern\Pattern(T1,.md), [T3](Pattern\Pattern(T1,.md), [T4](Pattern\Pattern(T1,.md), T5\>  
+Type: [System.Reactive.Joins.Pattern](Pattern/Pattern(T1,)\<[T1](Pattern/Pattern(T1,), [T2](Pattern/Pattern(T1,), [T3](Pattern/Pattern(T1,), [T4](Pattern/Pattern(T1,), T5\>  
 The join pattern.
 
 ## See Also
 
 #### Reference
 
-[Pattern\<T1, T2, T3, T4\> Class](Pattern\Pattern(T1,.md)
+[Pattern\<T1, T2, T3, T4\> Class](Pattern/Pattern(T1,)
 
-[System.Reactive.Joins Namespace](System.Reactive.Joins\System.Reactive.Joins.md)
+[System.Reactive.Joins Namespace](System.Reactive.Joins/System.Reactive.Joins)
 
 
 
@@ -478,7 +478,7 @@ The join pattern.
 
 Matches when all observable sequences have an available value.
 
-**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins\System.Reactive.Joins.md)  
+**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins/System.Reactive.Joins)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -535,16 +535,16 @@ JScript does not support generic types and methods.
 
 #### Return Value
 
-Type: [System.Reactive.Joins.Pattern](Pattern\Pattern(T1,.md)\<[T1](Pattern\Pattern(T1,.md), [T2](Pattern\Pattern(T1,.md), [T3](Pattern\Pattern(T1,.md), [T4](Pattern\Pattern(T1,.md), [T5](Pattern\Pattern(T1,.md), [T6](Pattern\Pattern(T1,.md), [T7](Pattern\Pattern(T1,.md), [T8](Pattern\Pattern(T1,.md), [T9](Pattern\Pattern(T1,.md), T10\>  
+Type: [System.Reactive.Joins.Pattern](Pattern/Pattern(T1,)\<[T1](Pattern/Pattern(T1,), [T2](Pattern/Pattern(T1,), [T3](Pattern/Pattern(T1,), [T4](Pattern/Pattern(T1,), [T5](Pattern/Pattern(T1,), [T6](Pattern/Pattern(T1,), [T7](Pattern/Pattern(T1,), [T8](Pattern/Pattern(T1,), [T9](Pattern/Pattern(T1,), T10\>  
 The join pattern.
 
 ## See Also
 
 #### Reference
 
-[Pattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9\> Class](Pattern\Pattern(T1,.md)
+[Pattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9\> Class](Pattern/Pattern(T1,)
 
-[System.Reactive.Joins Namespace](System.Reactive.Joins\System.Reactive.Joins.md)
+[System.Reactive.Joins Namespace](System.Reactive.Joins/System.Reactive.Joins)
 
 
 
@@ -557,7 +557,7 @@ The join pattern.
 
 Matches when all observable sequences have an available value.
 
-**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins\System.Reactive.Joins.md)  
+**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins/System.Reactive.Joins)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -614,16 +614,16 @@ JScript does not support generic types and methods.
 
 #### Return Value
 
-Type: [System.Reactive.Joins.Pattern](Pattern\Pattern(T1,.md)\<[T1](Pattern\Pattern(T1,.md), [T2](Pattern\Pattern(T1,.md), [T3](Pattern\Pattern(T1,.md), [T4](Pattern\Pattern(T1,.md), [T5](Pattern\Pattern(T1,.md), [T6](Pattern\Pattern(T1,.md), [T7](Pattern\Pattern(T1,.md), T8\>  
+Type: [System.Reactive.Joins.Pattern](Pattern/Pattern(T1,)\<[T1](Pattern/Pattern(T1,), [T2](Pattern/Pattern(T1,), [T3](Pattern/Pattern(T1,), [T4](Pattern/Pattern(T1,), [T5](Pattern/Pattern(T1,), [T6](Pattern/Pattern(T1,), [T7](Pattern/Pattern(T1,), T8\>  
 The join pattern.
 
 ## See Also
 
 #### Reference
 
-[Pattern\<T1, T2, T3, T4, T5, T6, T7\> Class](Pattern\Pattern(T1,.md)
+[Pattern\<T1, T2, T3, T4, T5, T6, T7\> Class](Pattern/Pattern(T1,)
 
-[System.Reactive.Joins Namespace](System.Reactive.Joins\System.Reactive.Joins.md)
+[System.Reactive.Joins Namespace](System.Reactive.Joins/System.Reactive.Joins)
 
 
 
@@ -636,7 +636,7 @@ The join pattern.
 
 Matches when all observable sequences have an available value.
 
-**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins\System.Reactive.Joins.md)  
+**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins/System.Reactive.Joins)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -693,16 +693,16 @@ JScript does not support generic types and methods.
 
 #### Return Value
 
-Type: [System.Reactive.Joins.Pattern](Pattern\Pattern(T1,.md)\<[T1](Pattern\Pattern(T1,.md), [T2](Pattern\Pattern(T1,.md), T3\>  
+Type: [System.Reactive.Joins.Pattern](Pattern/Pattern(T1,)\<[T1](Pattern/Pattern(T1,), [T2](Pattern/Pattern(T1,), T3\>  
 The join pattern.
 
 ## See Also
 
 #### Reference
 
-[Pattern\<T1, T2\> Class](Pattern\Pattern(T1,.md)
+[Pattern\<T1, T2\> Class](Pattern/Pattern(T1,)
 
-[System.Reactive.Joins Namespace](System.Reactive.Joins\System.Reactive.Joins.md)
+[System.Reactive.Joins Namespace](System.Reactive.Joins/System.Reactive.Joins)
 
 
 
@@ -715,7 +715,7 @@ The join pattern.
 
 Matches when all observable sequences have an available value.
 
-**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins\System.Reactive.Joins.md)  
+**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins/System.Reactive.Joins)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -772,16 +772,16 @@ JScript does not support generic types and methods.
 
 #### Return Value
 
-Type: [System.Reactive.Joins.Pattern](Pattern\Pattern(T1,.md)\<[T1](Pattern\Pattern(T1,.md), [T2](Pattern\Pattern(T1,.md), [T3](Pattern\Pattern(T1,.md), [T4](Pattern\Pattern(T1,.md), [T5](Pattern\Pattern(T1,.md), T6\>  
+Type: [System.Reactive.Joins.Pattern](Pattern/Pattern(T1,)\<[T1](Pattern/Pattern(T1,), [T2](Pattern/Pattern(T1,), [T3](Pattern/Pattern(T1,), [T4](Pattern/Pattern(T1,), [T5](Pattern/Pattern(T1,), T6\>  
 The join pattern.
 
 ## See Also
 
 #### Reference
 
-[Pattern\<T1, T2, T3, T4, T5\> Class](Pattern\Pattern(T1,.md)
+[Pattern\<T1, T2, T3, T4, T5\> Class](Pattern/Pattern(T1,)
 
-[System.Reactive.Joins Namespace](System.Reactive.Joins\System.Reactive.Joins.md)
+[System.Reactive.Joins Namespace](System.Reactive.Joins/System.Reactive.Joins)
 
 
 
@@ -794,7 +794,7 @@ The join pattern.
 
 Matches when all observable sequences have an available value.
 
-**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins\System.Reactive.Joins.md)  
+**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins/System.Reactive.Joins)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -851,16 +851,16 @@ JScript does not support generic types and methods.
 
 #### Return Value
 
-Type: [System.Reactive.Joins.Pattern](Pattern\Pattern(T1,.md)\<[T1](Pattern\Pattern(T1,.md), [T2](Pattern\Pattern(T1,.md), [T3](Pattern\Pattern(T1,.md), [T4](Pattern\Pattern(T1,.md), [T5](Pattern\Pattern(T1,.md), [T6](Pattern\Pattern(T1,.md), [T7](Pattern\Pattern(T1,.md), [T8](Pattern\Pattern(T1,.md), [T9](Pattern\Pattern(T1,.md), [T10](Pattern\Pattern(T1,.md), [T11](Pattern\Pattern(T1,.md), [T12](Pattern\Pattern(T1,.md), [T13](Pattern\Pattern(T1,.md), [T14](Pattern\Pattern(T1,.md), [T15](Pattern\Pattern(T1,.md), T16\>  
+Type: [System.Reactive.Joins.Pattern](Pattern/Pattern(T1,)\<[T1](Pattern/Pattern(T1,), [T2](Pattern/Pattern(T1,), [T3](Pattern/Pattern(T1,), [T4](Pattern/Pattern(T1,), [T5](Pattern/Pattern(T1,), [T6](Pattern/Pattern(T1,), [T7](Pattern/Pattern(T1,), [T8](Pattern/Pattern(T1,), [T9](Pattern/Pattern(T1,), [T10](Pattern/Pattern(T1,), [T11](Pattern/Pattern(T1,), [T12](Pattern/Pattern(T1,), [T13](Pattern/Pattern(T1,), [T14](Pattern/Pattern(T1,), [T15](Pattern/Pattern(T1,), T16\>  
 The join pattern.
 
 ## See Also
 
 #### Reference
 
-[Pattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15\> Class](Pattern\Pattern(T1,.md)
+[Pattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15\> Class](Pattern/Pattern(T1,)
 
-[System.Reactive.Joins Namespace](System.Reactive.Joins\System.Reactive.Joins.md)
+[System.Reactive.Joins Namespace](System.Reactive.Joins/System.Reactive.Joins)
 
 
 
@@ -873,7 +873,7 @@ The join pattern.
 
 Matches when all observable sequences have an available value.
 
-**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins\System.Reactive.Joins.md)  
+**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins/System.Reactive.Joins)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -930,16 +930,16 @@ JScript does not support generic types and methods.
 
 #### Return Value
 
-Type: [System.Reactive.Joins.Pattern](Pattern\Pattern(T1,.md)\<[T1](Pattern\Pattern(T1,.md), [T2](Pattern\Pattern(T1,.md), [T3](Pattern\Pattern(T1,.md), [T4](Pattern\Pattern(T1,.md), [T5](Pattern\Pattern(T1,.md), [T6](Pattern\Pattern(T1,.md), T7\>  
+Type: [System.Reactive.Joins.Pattern](Pattern/Pattern(T1,)\<[T1](Pattern/Pattern(T1,), [T2](Pattern/Pattern(T1,), [T3](Pattern/Pattern(T1,), [T4](Pattern/Pattern(T1,), [T5](Pattern/Pattern(T1,), [T6](Pattern/Pattern(T1,), T7\>  
 The join pattern.
 
 ## See Also
 
 #### Reference
 
-[Pattern\<T1, T2, T3, T4, T5, T6\> Class](Pattern\Pattern(T1,.md)
+[Pattern\<T1, T2, T3, T4, T5, T6\> Class](Pattern/Pattern(T1,)
 
-[System.Reactive.Joins Namespace](System.Reactive.Joins\System.Reactive.Joins.md)
+[System.Reactive.Joins Namespace](System.Reactive.Joins/System.Reactive.Joins)
 
 
 
@@ -952,7 +952,7 @@ The join pattern.
 
 Matches when all observable sequences have an available value.
 
-**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins\System.Reactive.Joins.md)  
+**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins/System.Reactive.Joins)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -1009,16 +1009,16 @@ JScript does not support generic types and methods.
 
 #### Return Value
 
-Type: [System.Reactive.Joins.Pattern](Pattern\Pattern(T1,.md)\<[T1](Pattern\Pattern(T1,.md), [T2](Pattern\Pattern(T1,.md), [T3](Pattern\Pattern(T1,.md), [T4](Pattern\Pattern(T1,.md), [T5](Pattern\Pattern(T1,.md), [T6](Pattern\Pattern(T1,.md), [T7](Pattern\Pattern(T1,.md), [T8](Pattern\Pattern(T1,.md), [T9](Pattern\Pattern(T1,.md), [T10](Pattern\Pattern(T1,.md), T11\>  
+Type: [System.Reactive.Joins.Pattern](Pattern/Pattern(T1,)\<[T1](Pattern/Pattern(T1,), [T2](Pattern/Pattern(T1,), [T3](Pattern/Pattern(T1,), [T4](Pattern/Pattern(T1,), [T5](Pattern/Pattern(T1,), [T6](Pattern/Pattern(T1,), [T7](Pattern/Pattern(T1,), [T8](Pattern/Pattern(T1,), [T9](Pattern/Pattern(T1,), [T10](Pattern/Pattern(T1,), T11\>  
 The join pattern.
 
 ## See Also
 
 #### Reference
 
-[Pattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10\> Class](Pattern\Pattern(T1,.md)
+[Pattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10\> Class](Pattern/Pattern(T1,)
 
-[System.Reactive.Joins Namespace](System.Reactive.Joins\System.Reactive.Joins.md)
+[System.Reactive.Joins Namespace](System.Reactive.Joins/System.Reactive.Joins)
 
 
 
@@ -1031,7 +1031,7 @@ The join pattern.
 
 Matches when all observable sequences have an available value.
 
-**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins\System.Reactive.Joins.md)  
+**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins/System.Reactive.Joins)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -1088,16 +1088,16 @@ JScript does not support generic types and methods.
 
 #### Return Value
 
-Type: [System.Reactive.Joins.Pattern](Pattern\Pattern(T1,.md)\<[T1](Pattern\Pattern(T1,.md), [T2](Pattern\Pattern(T1,.md), [T3](Pattern\Pattern(T1,.md), [T4](Pattern\Pattern(T1,.md), [T5](Pattern\Pattern(T1,.md), [T6](Pattern\Pattern(T1,.md), [T7](Pattern\Pattern(T1,.md), [T8](Pattern\Pattern(T1,.md), [T9](Pattern\Pattern(T1,.md), [T10](Pattern\Pattern(T1,.md), [T11](Pattern\Pattern(T1,.md), T12\>  
+Type: [System.Reactive.Joins.Pattern](Pattern/Pattern(T1,)\<[T1](Pattern/Pattern(T1,), [T2](Pattern/Pattern(T1,), [T3](Pattern/Pattern(T1,), [T4](Pattern/Pattern(T1,), [T5](Pattern/Pattern(T1,), [T6](Pattern/Pattern(T1,), [T7](Pattern/Pattern(T1,), [T8](Pattern/Pattern(T1,), [T9](Pattern/Pattern(T1,), [T10](Pattern/Pattern(T1,), [T11](Pattern/Pattern(T1,), T12\>  
 The join pattern.
 
 ## See Also
 
 #### Reference
 
-[Pattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11\> Class](Pattern\Pattern(T1,.md)
+[Pattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11\> Class](Pattern/Pattern(T1,)
 
-[System.Reactive.Joins Namespace](System.Reactive.Joins\System.Reactive.Joins.md)
+[System.Reactive.Joins Namespace](System.Reactive.Joins/System.Reactive.Joins)
 
 
 

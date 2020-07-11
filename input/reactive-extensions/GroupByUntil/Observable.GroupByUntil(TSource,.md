@@ -4,7 +4,7 @@ title: Observable.GroupByUntil<TSource, TKey, TDuration>(IObservable<TSource>, F
 
 Groups the elements of an observable sequence according to a specified key selector function and comparer.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -87,7 +87,7 @@ JScript does not support generic types and methods.
   A function to extract the key for each element.
 
 - durationSelector  
-  Type: [System.Func](https://msdn.microsoft.com/en-us/library/Bb549151)\<[IGroupedObservable](IGroupedObservable\IGroupedObservable(TKey,.md)\<TKey, TSource\>, [IObservable](https://msdn.microsoft.com/en-us/library/Dd990377)\<TDuration\>\>  
+  Type: [System.Func](https://msdn.microsoft.com/en-us/library/Bb549151)\<[IGroupedObservable](IGroupedObservable/IGroupedObservable(TKey,)\<TKey, TSource\>, [IObservable](https://msdn.microsoft.com/en-us/library/Dd990377)\<TDuration\>\>  
   A function to signal the expiration of a group.
 
 - comparer  
@@ -96,7 +96,7 @@ JScript does not support generic types and methods.
 
 #### Return Value
 
-Type: [System.IObservable](https://msdn.microsoft.com/en-us/library/Dd990377)\<[IGroupedObservable](IGroupedObservable\IGroupedObservable(TKey,.md)\<TKey, TSource\>\>  
+Type: [System.IObservable](https://msdn.microsoft.com/en-us/library/Dd990377)\<[IGroupedObservable](IGroupedObservable/IGroupedObservable(TKey,)\<TKey, TSource\>\>  
 A sequence of observable groups, each of which corresponds to a unique key value, containing all elements that share that same key value.
 
 #### Usage Note
@@ -107,11 +107,11 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[GroupByUntil Overload](GroupByUntil\Observable.GroupByUntil.md)
+[GroupByUntil Overload](GroupByUntil/Observable.GroupByUntil)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 
 
@@ -125,7 +125,7 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 
 Groups the elements of an observable sequence according to a specified key selector function and selects the resulting elements by using a specified function.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -215,12 +215,12 @@ JScript does not support generic types and methods.
   A function to map each source element to an element in an observable group.
 
 - durationSelector  
-  Type: [System.Func](https://msdn.microsoft.com/en-us/library/Bb549151)\<[IGroupedObservable](IGroupedObservable\IGroupedObservable(TKey,.md)\<TKey, TElement\>, [IObservable](https://msdn.microsoft.com/en-us/library/Dd990377)\<TDuration\>\>  
+  Type: [System.Func](https://msdn.microsoft.com/en-us/library/Bb549151)\<[IGroupedObservable](IGroupedObservable/IGroupedObservable(TKey,)\<TKey, TElement\>, [IObservable](https://msdn.microsoft.com/en-us/library/Dd990377)\<TDuration\>\>  
   A function to signal the expiration of a group.
 
 #### Return Value
 
-Type: [System.IObservable](https://msdn.microsoft.com/en-us/library/Dd990377)\<[IGroupedObservable](IGroupedObservable\IGroupedObservable(TKey,.md)\<TKey, TElement\>\>  
+Type: [System.IObservable](https://msdn.microsoft.com/en-us/library/Dd990377)\<[IGroupedObservable](IGroupedObservable/IGroupedObservable(TKey,)\<TKey, TElement\>\>  
 A sequence of observable groups, each of which corresponds to a unique key value, containing all elements that share that same key value.
 
 #### Usage Note
@@ -347,11 +347,11 @@ The following output was generated with the example code.
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[GroupByUntil Overload](GroupByUntil\Observable.GroupByUntil.md)
+[GroupByUntil Overload](GroupByUntil/Observable.GroupByUntil)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 
 
@@ -367,7 +367,7 @@ The following output was generated with the example code.
 
 Groups the elements of an observable sequence according to a specified key selector function and comparer and selects the resulting elements by using a specified function.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -463,7 +463,7 @@ JScript does not support generic types and methods.
   A function to map each source element to an element in an observable group.
 
 - durationSelector  
-  Type: [System.Func](https://msdn.microsoft.com/en-us/library/Bb549151)\<[IGroupedObservable](IGroupedObservable\IGroupedObservable(TKey,.md)\<TKey, TElement\>, [IObservable](https://msdn.microsoft.com/en-us/library/Dd990377)\<TDuration\>\>  
+  Type: [System.Func](https://msdn.microsoft.com/en-us/library/Bb549151)\<[IGroupedObservable](IGroupedObservable/IGroupedObservable(TKey,)\<TKey, TElement\>, [IObservable](https://msdn.microsoft.com/en-us/library/Dd990377)\<TDuration\>\>  
   A function to signal the expiration of a group.
 
 - comparer  
@@ -472,7 +472,7 @@ JScript does not support generic types and methods.
 
 #### Return Value
 
-Type: [System.IObservable](https://msdn.microsoft.com/en-us/library/Dd990377)\<[IGroupedObservable](IGroupedObservable\IGroupedObservable(TKey,.md)\<TKey, TElement\>\>  
+Type: [System.IObservable](https://msdn.microsoft.com/en-us/library/Dd990377)\<[IGroupedObservable](IGroupedObservable/IGroupedObservable(TKey,)\<TKey, TElement\>\>  
 A sequence of observable groups, each of which corresponds to a unique key value, containing all elements that share that same key value.
 
 #### Usage Note
@@ -483,11 +483,11 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[GroupByUntil Overload](GroupByUntil\Observable.GroupByUntil.md)
+[GroupByUntil Overload](GroupByUntil/Observable.GroupByUntil)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 
 
@@ -501,7 +501,7 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 
 Groups the elements of an observable sequence according to a specified key selector function.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -579,12 +579,12 @@ JScript does not support generic types and methods.
   A function to extract the key for each element.
 
 - durationSelector  
-  Type: [System.Func](https://msdn.microsoft.com/en-us/library/Bb549151)\<[IGroupedObservable](IGroupedObservable\IGroupedObservable(TKey,.md)\<TKey, TSource\>, [IObservable](https://msdn.microsoft.com/en-us/library/Dd990377)\<TDuration\>\>  
+  Type: [System.Func](https://msdn.microsoft.com/en-us/library/Bb549151)\<[IGroupedObservable](IGroupedObservable/IGroupedObservable(TKey,)\<TKey, TSource\>, [IObservable](https://msdn.microsoft.com/en-us/library/Dd990377)\<TDuration\>\>  
   A function to signal the expiration of a group.
 
 #### Return Value
 
-Type: [System.IObservable](https://msdn.microsoft.com/en-us/library/Dd990377)\<[IGroupedObservable](IGroupedObservable\IGroupedObservable(TKey,.md)\<TKey, TSource\>\>  
+Type: [System.IObservable](https://msdn.microsoft.com/en-us/library/Dd990377)\<[IGroupedObservable](IGroupedObservable/IGroupedObservable(TKey,)\<TKey, TSource\>\>  
 A sequence of observable groups, each of which corresponds to a unique key value, containing all elements that share that same key value.
 
 #### Usage Note
@@ -595,11 +595,11 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[GroupByUntil Overload](GroupByUntil\Observable.GroupByUntil.md)
+[GroupByUntil Overload](GroupByUntil/Observable.GroupByUntil)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 
 

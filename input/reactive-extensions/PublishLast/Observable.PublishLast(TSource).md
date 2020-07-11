@@ -4,7 +4,7 @@ title: Observable.PublishLast<TSource>(IObservable<TSource>)
 
 Returns a connectable observable sequence that shares a single subscription to the underlying sequence containing only the last notification.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -62,7 +62,7 @@ JScript does not support generic types and methods.
 
 #### Return Value
 
-Type: [System.Reactive.Subjects.IConnectableObservable](IConnectableObservable\IConnectableObservable(T).md)\<TSource\>  
+Type: [System.Reactive.Subjects.IConnectableObservable](IConnectableObservable/IConnectableObservable(T))\<TSource\>  
 A connectable observable sequence that shares a single subscription to the underlying sequence containing only the last notification.
 
 #### Usage Note
@@ -73,8 +73,8 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[PublishLast Overload](PublishLast\Observable.PublishLast.md)
+[PublishLast Overload](PublishLast/Observable.PublishLast)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)

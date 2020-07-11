@@ -2,7 +2,7 @@ title: NullErrorObservable<T>.Subscribe()
 ---
 # NullErrorObservable\<T\>.Subscribe Method
 
-**Namespace:**  [ReactiveTests](ReactiveTests\ReactiveTests.md)  
+**Namespace:**  [ReactiveTests](ReactiveTests/ReactiveTests)  
 **Assembly:**  Tests.System.Reactive (in Tests.System.Reactive.dll)
 
 ## Syntax
@@ -52,7 +52,7 @@ public final function Subscribe(
 #### Parameters
 
 - observer  
-  Type: [System.IObserver](https://msdn.microsoft.com/en-us/library/Dd783449)\<[T](NullErrorObservable\NullErrorObservable(T).md)\>
+  Type: [System.IObserver](https://msdn.microsoft.com/en-us/library/Dd783449)\<[T](NullErrorObservable/NullErrorObservable(T))\>
 
 #### Return Value
 
@@ -66,6 +66,6 @@ Type: [System.IDisposable](https://msdn.microsoft.com/en-us/library/aax125c9)
 
 #### Reference
 
-[NullErrorObservable\<T\> Class](NullErrorObservable\NullErrorObservable(T).md)
+[NullErrorObservable\<T\> Class](NullErrorObservable/NullErrorObservable(T))
 
-[ReactiveTests Namespace](ReactiveTests\ReactiveTests.md)
+[ReactiveTests Namespace](ReactiveTests/ReactiveTests)

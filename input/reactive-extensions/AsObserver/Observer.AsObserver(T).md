@@ -4,7 +4,7 @@ title: Observer.AsObserver<T>()
 
 Hides the identity of an observer.
 
-**Namespace:**  [System.Reactive](System.Reactive\System.Reactive.md)  
+**Namespace:**  [System.Reactive](System.Reactive/System.Reactive)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -72,6 +72,6 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 
 #### Reference
 
-[Observer Class](Observer\Observer.md)
+[Observer Class](Observer/Observer)
 
-[System.Reactive Namespace](System.Reactive\System.Reactive.md)
+[System.Reactive Namespace](System.Reactive/System.Reactive)

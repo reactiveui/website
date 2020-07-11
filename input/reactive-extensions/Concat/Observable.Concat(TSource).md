@@ -4,7 +4,7 @@ title: Observable.Concat<TSource>(IObservable<IObservable<TSource>>)
 
 Concatenates an observable sequence of observable sequences.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -73,11 +73,11 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[Concat Overload](Concat\Observable.Concat.md)
+[Concat Overload](Concat/Observable.Concat)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 
 
@@ -91,7 +91,7 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 
 Concatenates two observable sequences.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -212,11 +212,11 @@ The output from the example code is shown below.
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[Concat Overload](Concat\Observable.Concat.md)
+[Concat Overload](Concat/Observable.Concat)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 
 
@@ -232,7 +232,7 @@ The output from the example code is shown below.
 
 Concatenates an enumerable sequence of observable sequences.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -301,11 +301,11 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[Concat Overload](Concat\Observable.Concat.md)
+[Concat Overload](Concat/Observable.Concat)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 
 
@@ -319,7 +319,7 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 
 Concatenates all the observable sequences.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -382,11 +382,11 @@ An observable sequence that contains the elements of each given sequence, in seq
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[Concat Overload](Concat\Observable.Concat.md)
+[Concat Overload](Concat/Observable.Concat)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 
 

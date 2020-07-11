@@ -4,7 +4,7 @@ title: Observable.FromEventPattern(Object, String)
 
 Converts a .NET event, conforming to the standard .NET event pattern, to an observable sequence, using reflection to find an instance event.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -67,18 +67,18 @@ public static function FromEventPattern(
 
 #### Return Value
 
-Type: [System.IObservable](https://msdn.microsoft.com/en-us/library/Dd990377)\<[EventPattern](EventPattern\EventPattern(TEventArgs).md)\<[EventArgs](https://msdn.microsoft.com/en-us/library/118wxtk3)\>\>  
+Type: [System.IObservable](https://msdn.microsoft.com/en-us/library/Dd990377)\<[EventPattern](EventPattern/EventPattern(TEventArgs))\<[EventArgs](https://msdn.microsoft.com/en-us/library/118wxtk3)\>\>  
 The observable sequence that contains data representations of invocations of the underlying .NET event.
 
 ## See Also
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[FromEventPattern Overload](FromEventPattern\Observable.FromEventPattern.md)
+[FromEventPattern Overload](FromEventPattern/Observable.FromEventPattern)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 
 
@@ -90,7 +90,7 @@ The observable sequence that contains data representations of invocations of the
 
 Converts a .NET event, conforming to the standard .NET event pattern, to an observable sequence, using reflection to find a static event.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -153,18 +153,18 @@ public static function FromEventPattern(
 
 #### Return Value
 
-Type: [System.IObservable](https://msdn.microsoft.com/en-us/library/Dd990377)\<[EventPattern](EventPattern\EventPattern(TEventArgs).md)\<[EventArgs](https://msdn.microsoft.com/en-us/library/118wxtk3)\>\>  
+Type: [System.IObservable](https://msdn.microsoft.com/en-us/library/Dd990377)\<[EventPattern](EventPattern/EventPattern(TEventArgs))\<[EventArgs](https://msdn.microsoft.com/en-us/library/118wxtk3)\>\>  
 The observable sequence that contains data representations of invocations of the underlying .NET event.
 
 ## See Also
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[FromEventPattern Overload](FromEventPattern\Observable.FromEventPattern.md)
+[FromEventPattern Overload](FromEventPattern/Observable.FromEventPattern)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 
 
@@ -189,9 +189,9 @@ NameDescription![Public method](https://reactiveui.net/assets/img/Hh303103.pubme
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 
 
@@ -201,7 +201,7 @@ NameDescription![Public method](https://reactiveui.net/assets/img/Hh303103.pubme
 
 Converts a .NET event, conforming to the standard .NET event pattern, to an observable sequence with a specified add handler and remove handler.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -264,18 +264,18 @@ public static function FromEventPattern(
 
 #### Return Value
 
-Type: [System.IObservable](https://msdn.microsoft.com/en-us/library/Dd990377)\<[EventPattern](EventPattern\EventPattern(TEventArgs).md)\<[EventArgs](https://msdn.microsoft.com/en-us/library/118wxtk3)\>\>  
+Type: [System.IObservable](https://msdn.microsoft.com/en-us/library/Dd990377)\<[EventPattern](EventPattern/EventPattern(TEventArgs))\<[EventArgs](https://msdn.microsoft.com/en-us/library/118wxtk3)\>\>  
 The observable sequence that contains data representations of invocations of the underlying .NET event.
 
 ## See Also
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[FromEventPattern Overload](FromEventPattern\Observable.FromEventPattern.md)
+[FromEventPattern Overload](FromEventPattern/Observable.FromEventPattern)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 
 

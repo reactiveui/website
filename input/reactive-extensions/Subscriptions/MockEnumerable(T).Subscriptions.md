@@ -2,7 +2,7 @@ title: MockEnumerable<T>.Subscriptions Field
 ---
 # MockEnumerable\<T\>.Subscriptions Field
 
-**Namespace:**  [ReactiveTests](ReactiveTests\ReactiveTests.md)  
+**Namespace:**  [ReactiveTests](ReactiveTests/ReactiveTests)  
 **Assembly:**  Tests.System.Reactive (in Tests.System.Reactive.dll)
 
 ## Syntax
@@ -41,6 +41,6 @@ public final var Subscriptions : List<Subscription>
 
 #### Reference
 
-[MockEnumerable\<T\> Class](MockEnumerable\MockEnumerable(T).md)
+[MockEnumerable\<T\> Class](MockEnumerable/MockEnumerable(T))
 
-[ReactiveTests Namespace](ReactiveTests\ReactiveTests.md)
+[ReactiveTests Namespace](ReactiveTests/ReactiveTests)

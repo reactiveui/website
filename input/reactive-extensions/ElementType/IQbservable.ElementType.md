@@ -4,7 +4,7 @@ title: IQbservable.ElementType Property
 
 Gets the type of the element(s) that are returned when the expression tree associated with this instance of IQbservable is executed.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive.Providers (in System.Reactive.Providers.dll)
 
 ## Syntax
@@ -50,9 +50,9 @@ The type of the element(s) that are returned when the expression tree associated
 
 #### Reference
 
-[IQbservable Interface](IQbservable\IQbservable.md)
+[IQbservable Interface](IQbservable/IQbservable)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 
 

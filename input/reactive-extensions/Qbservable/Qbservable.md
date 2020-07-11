@@ -5,7 +5,7 @@ title: Qbservable()s
 Include Protected Members  
 Include Inherited Members
 
-The [Qbservable](Qbservable\Qbservable.md) type exposes the following members.
+The [Qbservable](Qbservable/Qbservable) type exposes the following members.
 
 ## Methods
 
@@ -15,28 +15,28 @@ NameDescription![Public method](https://reactiveui.net/assets/img/Hh303103.pubme
 
 #### Reference
 
-[Qbservable Class](Qbservable\Qbservable.md)
+[Qbservable Class](Qbservable/Qbservable)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 # Qbservable Properties
 
 Include Protected Members  
 Include Inherited Members
 
-The [Qbservable](Qbservable\Qbservable.md) type exposes the following members.
+The [Qbservable](Qbservable/Qbservable) type exposes the following members.
 
 ## Properties
 
-NameDescription![Public property](https://reactiveui.net/assets/img/Hh211972.pubproperty(en-us,VS.103).gif "Public property")![Static member](https://reactiveui.net/assets/img/Hh244319.static(en-us,VS.103).gif "Static member")[Provider](Provider\Qbservable.Provider.md)Gets the local Qbservable provider.Top
+NameDescription![Public property](https://reactiveui.net/assets/img/Hh211972.pubproperty(en-us,VS.103).gif "Public property")![Static member](https://reactiveui.net/assets/img/Hh244319.static(en-us,VS.103).gif "Static member")[Provider](Provider/Qbservable.Provider)Gets the local Qbservable provider.Top
 
 ## See Also
 
 #### Reference
 
-[Qbservable Class](Qbservable\Qbservable.md)
+[Qbservable Class](Qbservable/Qbservable)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 # Qbservable Class
 
@@ -47,7 +47,7 @@ Represents a queryable observable sequence.
 [System.Object](https://msdn.microsoft.com/en-us/library/e5kfa45b)  
   System.Reactive.Linq.Qbservable
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive.Providers (in System.Reactive.Providers.dll)
 
 ## Syntax
@@ -85,7 +85,7 @@ The Qbservable type exposes the following members.
 
 ## Properties
 
-NameDescription![Public property](https://reactiveui.net/assets/img/Hh211972.pubproperty(en-us,VS.103).gif "Public property")![Static member](https://reactiveui.net/assets/img/Hh244319.static(en-us,VS.103).gif "Static member")[Provider](Provider\Qbservable.Provider.md)Gets the local Qbservable provider.Top
+NameDescription![Public property](https://reactiveui.net/assets/img/Hh211972.pubproperty(en-us,VS.103).gif "Public property")![Static member](https://reactiveui.net/assets/img/Hh244319.static(en-us,VS.103).gif "Static member")[Provider](Provider/Qbservable.Provider)Gets the local Qbservable provider.Top
 
 ## Methods
 
@@ -99,4 +99,4 @@ Any public static (Shared in Visual Basic) members of this type are thread safe.
 
 #### Reference
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)

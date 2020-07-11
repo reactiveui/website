@@ -4,7 +4,7 @@ title: VirtualTimeScheduler<TAbsolute, TRelative>.GetNext()
 
 Gets the next scheduled item to be executed.
 
-**Namespace:**  [System.Reactive.Concurrency](System.Reactive.Concurrency\System.Reactive.Concurrency.md)  
+**Namespace:**  [System.Reactive.Concurrency](System.Reactive.Concurrency/System.Reactive.Concurrency)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -41,16 +41,16 @@ protected override function GetNext() : IScheduledItem<TAbsolute>
 
 #### Return Value
 
-Type: [System.Reactive.Concurrency.IScheduledItem](IScheduledItem\IScheduledItem(TAbsolute).md)\<[TAbsolute](VirtualTimeScheduler\VirtualTimeScheduler(TAbsolute,.md)\>  
+Type: [System.Reactive.Concurrency.IScheduledItem](IScheduledItem/IScheduledItem(TAbsolute))\<[TAbsolute](VirtualTimeScheduler/VirtualTimeScheduler(TAbsolute,)\>  
 The next scheduled item.
 
 ## See Also
 
 #### Reference
 
-[VirtualTimeScheduler\<TAbsolute, TRelative\> Class](VirtualTimeScheduler\VirtualTimeScheduler(TAbsolute,.md)
+[VirtualTimeScheduler\<TAbsolute, TRelative\> Class](VirtualTimeScheduler/VirtualTimeScheduler(TAbsolute,)
 
-[System.Reactive.Concurrency Namespace](System.Reactive.Concurrency\System.Reactive.Concurrency.md)
+[System.Reactive.Concurrency Namespace](System.Reactive.Concurrency/System.Reactive.Concurrency)
 
 
 

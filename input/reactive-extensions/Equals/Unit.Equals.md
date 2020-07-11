@@ -17,9 +17,9 @@ NameDescription![Public method](https://reactiveui.net/assets/img/Hh303103.pubme
 
 #### Reference
 
-[Unit Structure](Unit\Unit.md)
+[Unit Structure](Unit/Unit)
 
-[System.Reactive Namespace](System.Reactive\System.Reactive.md)
+[System.Reactive Namespace](System.Reactive/System.Reactive)
 
 
 
@@ -29,7 +29,7 @@ NameDescription![Public method](https://reactiveui.net/assets/img/Hh303103.pubme
 
 Indicates whether the current unit is equal to the specified object.
 
-**Namespace:**  [System.Reactive](System.Reactive\System.Reactive.md)  
+**Namespace:**  [System.Reactive](System.Reactive/System.Reactive)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -91,11 +91,11 @@ true if the current unit is equal to the specified object; otherwise, false.
 
 #### Reference
 
-[Unit Structure](Unit\Unit.md)
+[Unit Structure](Unit/Unit)
 
-[Equals Overload](Equals\Unit.Equals.md)
+[Equals Overload](Equals/Unit.Equals)
 
-[System.Reactive Namespace](System.Reactive\System.Reactive.md)
+[System.Reactive Namespace](System.Reactive/System.Reactive)
 
 
 
@@ -107,7 +107,7 @@ true if the current unit is equal to the specified object; otherwise, false.
 
 Indicates whether the current unit is equal to the specified unit.
 
-**Namespace:**  [System.Reactive](System.Reactive\System.Reactive.md)  
+**Namespace:**  [System.Reactive](System.Reactive/System.Reactive)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -157,7 +157,7 @@ public final function Equals(
 #### Parameters
 
 - other  
-  Type: [System.Reactive.Unit](Unit\Unit.md)  
+  Type: [System.Reactive.Unit](Unit/Unit)  
   The other unit to check equality with the current unit.
 
 #### Return Value
@@ -173,11 +173,11 @@ Always returns true.
 
 #### Reference
 
-[Unit Structure](Unit\Unit.md)
+[Unit Structure](Unit/Unit)
 
-[Equals Overload](Equals\Unit.Equals.md)
+[Equals Overload](Equals/Unit.Equals)
 
-[System.Reactive Namespace](System.Reactive\System.Reactive.md)
+[System.Reactive Namespace](System.Reactive/System.Reactive)
 
 
 

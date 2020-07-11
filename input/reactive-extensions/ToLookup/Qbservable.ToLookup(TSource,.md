@@ -4,7 +4,7 @@ title: Qbservable.ToLookup<TSource, TKey>(IQbservable<TSource>, Expression<Func<
 
 Creates a lookup from a queryable observable sequence according to a specified key selector function.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive.Providers (in System.Reactive.Providers.dll)
 
 ## Syntax
@@ -65,7 +65,7 @@ JScript does not support generic types and methods.
 #### Parameters
 
 - source  
-  Type: [System.Reactive.Linq.IQbservable](IQbservable\IQbservable(TSource).md)\<TSource\>  
+  Type: [System.Reactive.Linq.IQbservable](IQbservable/IQbservable(TSource))\<TSource\>  
   A queryable observable sequence to create a lookup for.
 
 - keySelector  
@@ -74,28 +74,28 @@ JScript does not support generic types and methods.
 
 #### Return Value
 
-Type: [System.Reactive.Linq.IQbservable](IQbservable\IQbservable(TSource).md)\<[ILookup](https://msdn.microsoft.com/en-us/library/Bb534291)\<TKey, TSource\>\>  
+Type: [System.Reactive.Linq.IQbservable](IQbservable/IQbservable(TSource))\<[ILookup](https://msdn.microsoft.com/en-us/library/Bb534291)\<TKey, TSource\>\>  
 A lookup from a queryable observable sequence according to a specified key selector function.
 
 #### Usage Note
 
-In Visual Basic and C\#, you can call this method as an instance method on any object of type [IQbservable](IQbservable\IQbservable(TSource).md)\<TSource\>. When you use instance method syntax to call this method, omit the first parameter. For more information, see [](https://msdn.microsoft.com/en-us/library/Bb384936) or [](https://msdn.microsoft.com/en-us/library/Bb383977).
+In Visual Basic and C\#, you can call this method as an instance method on any object of type [IQbservable](IQbservable/IQbservable(TSource))\<TSource\>. When you use instance method syntax to call this method, omit the first parameter. For more information, see [](https://msdn.microsoft.com/en-us/library/Bb384936) or [](https://msdn.microsoft.com/en-us/library/Bb383977).
 
 ## See Also
 
 #### Reference
 
-[Qbservable Class](Qbservable\Qbservable.md)
+[Qbservable Class](Qbservable/Qbservable)
 
-[ToLookup Overload](ToLookup\Qbservable.ToLookup.md)
+[ToLookup Overload](ToLookup/Qbservable.ToLookup)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 # Qbservable.ToLookup\<TSource, TKey, TElement\> Method (IQbservable\<TSource\>, Expression\<Func\<TSource, TKey\>\>, Expression\<Func\<TSource, TElement\>\>, IEqualityComparer\<TKey\>)
 
 Creates a lookup from a queryable observable sequence according to a specified key selector function, a comparer, and an element selector function.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive.Providers (in System.Reactive.Providers.dll)
 
 ## Syntax
@@ -170,7 +170,7 @@ JScript does not support generic types and methods.
 #### Parameters
 
 - source  
-  Type: [System.Reactive.Linq.IQbservable](IQbservable\IQbservable(TSource).md)\<TSource\>  
+  Type: [System.Reactive.Linq.IQbservable](IQbservable/IQbservable(TSource))\<TSource\>  
   A queryable observable sequence to create a lookup for.
 
 - keySelector  
@@ -187,28 +187,28 @@ JScript does not support generic types and methods.
 
 #### Return Value
 
-Type: [System.Reactive.Linq.IQbservable](IQbservable\IQbservable(TSource).md)\<[ILookup](https://msdn.microsoft.com/en-us/library/Bb534291)\<TKey, TElement\>\>  
+Type: [System.Reactive.Linq.IQbservable](IQbservable/IQbservable(TSource))\<[ILookup](https://msdn.microsoft.com/en-us/library/Bb534291)\<TKey, TElement\>\>  
 A lookup from a queryable observable sequence according to a specified key selector function, a comparer, and an element selector function.
 
 #### Usage Note
 
-In Visual Basic and C\#, you can call this method as an instance method on any object of type [IQbservable](IQbservable\IQbservable(TSource).md)\<TSource\>. When you use instance method syntax to call this method, omit the first parameter. For more information, see [](https://msdn.microsoft.com/en-us/library/Bb384936) or [](https://msdn.microsoft.com/en-us/library/Bb383977).
+In Visual Basic and C\#, you can call this method as an instance method on any object of type [IQbservable](IQbservable/IQbservable(TSource))\<TSource\>. When you use instance method syntax to call this method, omit the first parameter. For more information, see [](https://msdn.microsoft.com/en-us/library/Bb384936) or [](https://msdn.microsoft.com/en-us/library/Bb383977).
 
 ## See Also
 
 #### Reference
 
-[Qbservable Class](Qbservable\Qbservable.md)
+[Qbservable Class](Qbservable/Qbservable)
 
-[ToLookup Overload](ToLookup\Qbservable.ToLookup.md)
+[ToLookup Overload](ToLookup/Qbservable.ToLookup)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 # Qbservable.ToLookup\<TSource, TKey, TElement\> Method (IQbservable\<TSource\>, Expression\<Func\<TSource, TKey\>\>, Expression\<Func\<TSource, TElement\>\>)
 
 Creates a lookup from a queryable observable sequence according to a specified key selector function, and an element selector function.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive.Providers (in System.Reactive.Providers.dll)
 
 ## Syntax
@@ -278,7 +278,7 @@ JScript does not support generic types and methods.
 #### Parameters
 
 - source  
-  Type: [System.Reactive.Linq.IQbservable](IQbservable\IQbservable(TSource).md)\<TSource\>  
+  Type: [System.Reactive.Linq.IQbservable](IQbservable/IQbservable(TSource))\<TSource\>  
   A queryable observable sequence to create a lookup for.
 
 - keySelector  
@@ -291,28 +291,28 @@ JScript does not support generic types and methods.
 
 #### Return Value
 
-Type: [System.Reactive.Linq.IQbservable](IQbservable\IQbservable(TSource).md)\<[ILookup](https://msdn.microsoft.com/en-us/library/Bb534291)\<TKey, TElement\>\>  
+Type: [System.Reactive.Linq.IQbservable](IQbservable/IQbservable(TSource))\<[ILookup](https://msdn.microsoft.com/en-us/library/Bb534291)\<TKey, TElement\>\>  
 A lookup from a queryable observable sequence according to a specified key selector function, and an element selector function.
 
 #### Usage Note
 
-In Visual Basic and C\#, you can call this method as an instance method on any object of type [IQbservable](IQbservable\IQbservable(TSource).md)\<TSource\>. When you use instance method syntax to call this method, omit the first parameter. For more information, see [](https://msdn.microsoft.com/en-us/library/Bb384936) or [](https://msdn.microsoft.com/en-us/library/Bb383977).
+In Visual Basic and C\#, you can call this method as an instance method on any object of type [IQbservable](IQbservable/IQbservable(TSource))\<TSource\>. When you use instance method syntax to call this method, omit the first parameter. For more information, see [](https://msdn.microsoft.com/en-us/library/Bb384936) or [](https://msdn.microsoft.com/en-us/library/Bb383977).
 
 ## See Also
 
 #### Reference
 
-[Qbservable Class](Qbservable\Qbservable.md)
+[Qbservable Class](Qbservable/Qbservable)
 
-[ToLookup Overload](ToLookup\Qbservable.ToLookup.md)
+[ToLookup Overload](ToLookup/Qbservable.ToLookup)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 # Qbservable.ToLookup\<TSource, TKey\> Method (IQbservable\<TSource\>, Expression\<Func\<TSource, TKey\>\>, IEqualityComparer\<TKey\>)
 
 Creates a lookup from a queryable observable sequence according to a specified key selector function, and a comparer.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive.Providers (in System.Reactive.Providers.dll)
 
 ## Syntax
@@ -379,7 +379,7 @@ JScript does not support generic types and methods.
 #### Parameters
 
 - source  
-  Type: [System.Reactive.Linq.IQbservable](IQbservable\IQbservable(TSource).md)\<TSource\>  
+  Type: [System.Reactive.Linq.IQbservable](IQbservable/IQbservable(TSource))\<TSource\>  
   A queryable observable sequence to create a lookup for.
 
 - keySelector  
@@ -392,19 +392,19 @@ JScript does not support generic types and methods.
 
 #### Return Value
 
-Type: [System.Reactive.Linq.IQbservable](IQbservable\IQbservable(TSource).md)\<[ILookup](https://msdn.microsoft.com/en-us/library/Bb534291)\<TKey, TSource\>\>  
+Type: [System.Reactive.Linq.IQbservable](IQbservable/IQbservable(TSource))\<[ILookup](https://msdn.microsoft.com/en-us/library/Bb534291)\<TKey, TSource\>\>  
 A lookup from a queryable observable sequence according to a specified key selector function, and a comparer.
 
 #### Usage Note
 
-In Visual Basic and C\#, you can call this method as an instance method on any object of type [IQbservable](IQbservable\IQbservable(TSource).md)\<TSource\>. When you use instance method syntax to call this method, omit the first parameter. For more information, see [](https://msdn.microsoft.com/en-us/library/Bb384936) or [](https://msdn.microsoft.com/en-us/library/Bb383977).
+In Visual Basic and C\#, you can call this method as an instance method on any object of type [IQbservable](IQbservable/IQbservable(TSource))\<TSource\>. When you use instance method syntax to call this method, omit the first parameter. For more information, see [](https://msdn.microsoft.com/en-us/library/Bb384936) or [](https://msdn.microsoft.com/en-us/library/Bb383977).
 
 ## See Also
 
 #### Reference
 
-[Qbservable Class](Qbservable\Qbservable.md)
+[Qbservable Class](Qbservable/Qbservable)
 
-[ToLookup Overload](ToLookup\Qbservable.ToLookup.md)
+[ToLookup Overload](ToLookup/Qbservable.ToLookup)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)

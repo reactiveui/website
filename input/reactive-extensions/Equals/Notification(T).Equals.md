@@ -4,7 +4,7 @@ title: Notification<T>.Equals(Notification<T>)
 
 Indicates whether this instance and other are equal.
 
-**Namespace:**  [System.Reactive](System.Reactive\System.Reactive.md)  
+**Namespace:**  [System.Reactive](System.Reactive/System.Reactive)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -52,7 +52,7 @@ public abstract function Equals(
 #### Parameters
 
 - other  
-  Type: [System.Reactive.Notification](Notification\Notification(T).md)\<[T](Notification\Notification(T).md)\>  
+  Type: [System.Reactive.Notification](Notification/Notification(T))\<[T](Notification/Notification(T))\>  
   The other notification to check equality with this instance.
 
 #### Return Value
@@ -68,11 +68,11 @@ true if this instance and the other notification are equal; otherwise, false.
 
 #### Reference
 
-[Notification\<T\> Class](Notification\Notification(T).md)
+[Notification\<T\> Class](Notification/Notification(T))
 
-[Equals Overload](Equals\Notification(T).Equals.md)
+[Equals Overload](Equals/Notification(T).Equals)
 
-[System.Reactive Namespace](System.Reactive\System.Reactive.md)
+[System.Reactive Namespace](System.Reactive/System.Reactive)
 
 
 
@@ -98,9 +98,9 @@ NameDescription![Public method](https://reactiveui.net/assets/img/Hh303103.pubme
 
 #### Reference
 
-[Notification\<T\> Class](Notification\Notification(T).md)
+[Notification\<T\> Class](Notification/Notification(T))
 
-[System.Reactive Namespace](System.Reactive\System.Reactive.md)
+[System.Reactive Namespace](System.Reactive/System.Reactive)
 
 
 
@@ -110,7 +110,7 @@ NameDescription![Public method](https://reactiveui.net/assets/img/Hh303103.pubme
 
 Indicates whether this instance and a specified object are equal.
 
-**Namespace:**  [System.Reactive](System.Reactive\System.Reactive.md)  
+**Namespace:**  [System.Reactive](System.Reactive/System.Reactive)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -172,11 +172,11 @@ true if this instance and the specified object are equal; otherwise, false.
 
 #### Reference
 
-[Notification\<T\> Class](Notification\Notification(T).md)
+[Notification\<T\> Class](Notification/Notification(T))
 
-[Equals Overload](Equals\Notification(T).Equals.md)
+[Equals Overload](Equals/Notification(T).Equals)
 
-[System.Reactive Namespace](System.Reactive\System.Reactive.md)
+[System.Reactive Namespace](System.Reactive/System.Reactive)
 
 
 

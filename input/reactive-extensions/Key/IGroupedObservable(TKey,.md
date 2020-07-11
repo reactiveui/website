@@ -4,7 +4,7 @@ title: IGroupedObservable<TKey, TElement>.Key Property
 
 Gets the common key.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -43,16 +43,16 @@ function get Key () : TKey
 
 #### Property Value
 
-Type: [TKey](IGroupedObservable\IGroupedObservable(TKey,.md)  
+Type: [TKey](IGroupedObservable/IGroupedObservable(TKey,)  
 The common key.
 
 ## See Also
 
 #### Reference
 
-[IGroupedObservable\<TKey, TElement\> Interface](IGroupedObservable\IGroupedObservable(TKey,.md)
+[IGroupedObservable\<TKey, TElement\> Interface](IGroupedObservable/IGroupedObservable(TKey,)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 
 

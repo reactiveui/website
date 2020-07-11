@@ -5,26 +5,26 @@ title: ReactiveTest Fields
 Include Protected Members  
 Include Inherited Members
 
-The [ReactiveTest](ReactiveTest\ReactiveTest.md) type exposes the following members.
+The [ReactiveTest](ReactiveTest/ReactiveTest) type exposes the following members.
 
 ## Fields
 
-NameDescription![Public field](https://reactiveui.net/assets/img/Hh314728.pubfield(en-us,VS.103).gif "Public field")![Static member](https://reactiveui.net/assets/img/Hh244319.static(en-us,VS.103).gif "Static member")[Created](Created\ReactiveTest.Created.md)Default virtual time used for creation of observable sequences in Rx tests.![Public field](https://reactiveui.net/assets/img/Hh314728.pubfield(en-us,VS.103).gif "Public field")![Static member](https://reactiveui.net/assets/img/Hh244319.static(en-us,VS.103).gif "Static member")[Disposed](Disposed\ReactiveTest.Disposed.md)Default virtual time used to dispose subscriptions in Rx tests.![Public field](https://reactiveui.net/assets/img/Hh314728.pubfield(en-us,VS.103).gif "Public field")![Static member](https://reactiveui.net/assets/img/Hh244319.static(en-us,VS.103).gif "Static member")[Subscribed](Subscribed\ReactiveTest.Subscribed.md)Default virtual time used to subscribe to an observable sequence in Rx tests.Top
+NameDescription![Public field](https://reactiveui.net/assets/img/Hh314728.pubfield(en-us,VS.103).gif "Public field")![Static member](https://reactiveui.net/assets/img/Hh244319.static(en-us,VS.103).gif "Static member")[Created](Created/ReactiveTest.Created)Default virtual time used for creation of observable sequences in Rx tests.![Public field](https://reactiveui.net/assets/img/Hh314728.pubfield(en-us,VS.103).gif "Public field")![Static member](https://reactiveui.net/assets/img/Hh244319.static(en-us,VS.103).gif "Static member")[Disposed](Disposed/ReactiveTest.Disposed)Default virtual time used to dispose subscriptions in Rx tests.![Public field](https://reactiveui.net/assets/img/Hh314728.pubfield(en-us,VS.103).gif "Public field")![Static member](https://reactiveui.net/assets/img/Hh244319.static(en-us,VS.103).gif "Static member")[Subscribed](Subscribed/ReactiveTest.Subscribed)Default virtual time used to subscribe to an observable sequence in Rx tests.Top
 
 ## See Also
 
 #### Reference
 
-[ReactiveTest Class](ReactiveTest\ReactiveTest.md)
+[ReactiveTest Class](ReactiveTest/ReactiveTest)
 
-[Microsoft.Reactive.Testing Namespace](Microsoft.Reactive.Testing\Microsoft.Reactive.Testing.md)
+[Microsoft.Reactive.Testing Namespace](Microsoft.Reactive.Testing/Microsoft.Reactive.Testing)
 
 # ReactiveTest Methods
 
 Include Protected Members  
 Include Inherited Members
 
-The [ReactiveTest](ReactiveTest\ReactiveTest.md) type exposes the following members.
+The [ReactiveTest](ReactiveTest/ReactiveTest) type exposes the following members.
 
 ## Methods
 
@@ -34,9 +34,9 @@ NameDescription![Public method](https://reactiveui.net/assets/img/Hh303103.pubme
 
 #### Reference
 
-[ReactiveTest Class](ReactiveTest\ReactiveTest.md)
+[ReactiveTest Class](ReactiveTest/ReactiveTest)
 
-[Microsoft.Reactive.Testing Namespace](Microsoft.Reactive.Testing\Microsoft.Reactive.Testing.md)
+[Microsoft.Reactive.Testing Namespace](Microsoft.Reactive.Testing/Microsoft.Reactive.Testing)
 
 # ReactiveTest Class
 
@@ -48,7 +48,7 @@ Base type to write tests for Rx code.
   Microsoft.Reactive.Testing.ReactiveTest  
     More...
 
-**Namespace:**  [Microsoft.Reactive.Testing](Microsoft.Reactive.Testing\Microsoft.Reactive.Testing.md)  
+**Namespace:**  [Microsoft.Reactive.Testing](Microsoft.Reactive.Testing/Microsoft.Reactive.Testing)  
 **Assembly:**  Microsoft.Reactive.Testing (in Microsoft.Reactive.Testing.dll)
 
 ## Syntax
@@ -83,7 +83,7 @@ The ReactiveTest type exposes the following members.
 
 ## Constructors
 
-NameDescription![Public method](https://reactiveui.net/assets/img/Hh303103.pubmethod(en-us,VS.103).gif "Public method")[ReactiveTest](ReactiveTest\ReactiveTest.md)Initializes a new instance of the ReactiveTest class.Top
+NameDescription![Public method](https://reactiveui.net/assets/img/Hh303103.pubmethod(en-us,VS.103).gif "Public method")[ReactiveTest](ReactiveTest/ReactiveTest)Initializes a new instance of the ReactiveTest class.Top
 
 ## Methods
 
@@ -91,7 +91,7 @@ NameDescription![Public method](https://reactiveui.net/assets/img/Hh303103.pubme
 
 ## Fields
 
-NameDescription![Public field](https://reactiveui.net/assets/img/Hh314728.pubfield(en-us,VS.103).gif "Public field")![Static member](https://reactiveui.net/assets/img/Hh244319.static(en-us,VS.103).gif "Static member")[Created](Created\ReactiveTest.Created.md)Default virtual time used for creation of observable sequences in Rx tests.![Public field](https://reactiveui.net/assets/img/Hh314728.pubfield(en-us,VS.103).gif "Public field")![Static member](https://reactiveui.net/assets/img/Hh244319.static(en-us,VS.103).gif "Static member")[Disposed](Disposed\ReactiveTest.Disposed.md)Default virtual time used to dispose subscriptions in Rx tests.![Public field](https://reactiveui.net/assets/img/Hh314728.pubfield(en-us,VS.103).gif "Public field")![Static member](https://reactiveui.net/assets/img/Hh244319.static(en-us,VS.103).gif "Static member")[Subscribed](Subscribed\ReactiveTest.Subscribed.md)Default virtual time used to subscribe to an observable sequence in Rx tests.Top
+NameDescription![Public field](https://reactiveui.net/assets/img/Hh314728.pubfield(en-us,VS.103).gif "Public field")![Static member](https://reactiveui.net/assets/img/Hh244319.static(en-us,VS.103).gif "Static member")[Created](Created/ReactiveTest.Created)Default virtual time used for creation of observable sequences in Rx tests.![Public field](https://reactiveui.net/assets/img/Hh314728.pubfield(en-us,VS.103).gif "Public field")![Static member](https://reactiveui.net/assets/img/Hh244319.static(en-us,VS.103).gif "Static member")[Disposed](Disposed/ReactiveTest.Disposed)Default virtual time used to dispose subscriptions in Rx tests.![Public field](https://reactiveui.net/assets/img/Hh314728.pubfield(en-us,VS.103).gif "Public field")![Static member](https://reactiveui.net/assets/img/Hh244319.static(en-us,VS.103).gif "Static member")[Subscribed](Subscribed/ReactiveTest.Subscribed)Default virtual time used to subscribe to an observable sequence in Rx tests.Top
 
 ## Thread Safety
 
@@ -101,39 +101,39 @@ Any public static (Shared in Visual Basic) members of this type are thread safe.
 
 #### Reference
 
-[Microsoft.Reactive.Testing Namespace](Microsoft.Reactive.Testing\Microsoft.Reactive.Testing.md)
+[Microsoft.Reactive.Testing Namespace](Microsoft.Reactive.Testing/Microsoft.Reactive.Testing)
 
 ## Inheritance Hierarchy
 
 [System.Object](https://msdn.microsoft.com/en-us/library/e5kfa45b)  
   Microsoft.Reactive.Testing.ReactiveTest  
-    [ReactiveTests.Tests.AsyncSubjectTest](AsyncSubjectTest\AsyncSubjectTest.md)  
-    [ReactiveTests.Tests.BehaviorSubjectTest](BehaviorSubjectTest\BehaviorSubjectTest.md)  
-    [ReactiveTests.Tests.NotificationTest](NotificationTest\NotificationTest.md)  
-    [ReactiveTests.Tests.ObservableAggregateTest](ObservableAggregateTest\ObservableAggregateTest.md)  
-    [ReactiveTests.Tests.ObservableAsyncTest](ObservableAsyncTest\ObservableAsyncTest.md)  
-    [ReactiveTests.Tests.ObservableBindingTest](ObservableBindingTest\ObservableBindingTest.md)  
-    [ReactiveTests.Tests.ObservableBlockingTest](ObservableBlockingTest\ObservableBlockingTest.md)  
-    [ReactiveTests.Tests.ObservableConcurrencyReactiveTest](ObservableConcurrencyReactiveTest\ObservableConcurrencyReactiveTest.md)  
-    [ReactiveTests.Tests.ObservableConversionTests](ObservableConversionTests\ObservableConversionTests.md)  
-    [ReactiveTests.Tests.ObservableExtensionsTest](ObservableExtensionsTest\ObservableExtensionsTest.md)  
-    [ReactiveTests.Tests.ObservableMultipleTest](ObservableMultipleTest\ObservableMultipleTest.md)  
-    [ReactiveTests.Tests.ObservableSingleTest](ObservableSingleTest\ObservableSingleTest.md)  
-    [ReactiveTests.Tests.ObservableStandardQueryOperatorTest](ObservableStandardQueryOperatorTest\ObservableStandardQueryOperatorTest.md)  
-    [ReactiveTests.Tests.ObservableTest](ObservableTest\ObservableTest.md)  
-    [ReactiveTests.Tests.ObservableTimeTest](ObservableTimeTest\ObservableTimeTest.md)  
-    [ReactiveTests.Tests.ObservableWhensTest](ObservableWhensTest\ObservableWhensTest.md)  
-    [ReactiveTests.Tests.ObserverTest](ObserverTest\ObserverTest.md)  
-    [ReactiveTests.Tests.PrivateTypesTest](PrivateTypesTest\PrivateTypesTest.md)  
-    [ReactiveTests.Tests.RegressionTest](RegressionTest\RegressionTest.md)  
-    [ReactiveTests.Tests.ReplaySubjectTest](ReplaySubjectTest\ReplaySubjectTest.md)  
-    [ReactiveTests.Tests.SubjectTest](SubjectTest\SubjectTest.md)
+    [ReactiveTests.Tests.AsyncSubjectTest](AsyncSubjectTest/AsyncSubjectTest)  
+    [ReactiveTests.Tests.BehaviorSubjectTest](BehaviorSubjectTest/BehaviorSubjectTest)  
+    [ReactiveTests.Tests.NotificationTest](NotificationTest/NotificationTest)  
+    [ReactiveTests.Tests.ObservableAggregateTest](ObservableAggregateTest/ObservableAggregateTest)  
+    [ReactiveTests.Tests.ObservableAsyncTest](ObservableAsyncTest/ObservableAsyncTest)  
+    [ReactiveTests.Tests.ObservableBindingTest](ObservableBindingTest/ObservableBindingTest)  
+    [ReactiveTests.Tests.ObservableBlockingTest](ObservableBlockingTest/ObservableBlockingTest)  
+    [ReactiveTests.Tests.ObservableConcurrencyReactiveTest](ObservableConcurrencyReactiveTest/ObservableConcurrencyReactiveTest)  
+    [ReactiveTests.Tests.ObservableConversionTests](ObservableConversionTests/ObservableConversionTests)  
+    [ReactiveTests.Tests.ObservableExtensionsTest](ObservableExtensionsTest/ObservableExtensionsTest)  
+    [ReactiveTests.Tests.ObservableMultipleTest](ObservableMultipleTest/ObservableMultipleTest)  
+    [ReactiveTests.Tests.ObservableSingleTest](ObservableSingleTest/ObservableSingleTest)  
+    [ReactiveTests.Tests.ObservableStandardQueryOperatorTest](ObservableStandardQueryOperatorTest/ObservableStandardQueryOperatorTest)  
+    [ReactiveTests.Tests.ObservableTest](ObservableTest/ObservableTest)  
+    [ReactiveTests.Tests.ObservableTimeTest](ObservableTimeTest/ObservableTimeTest)  
+    [ReactiveTests.Tests.ObservableWhensTest](ObservableWhensTest/ObservableWhensTest)  
+    [ReactiveTests.Tests.ObserverTest](ObserverTest/ObserverTest)  
+    [ReactiveTests.Tests.PrivateTypesTest](PrivateTypesTest/PrivateTypesTest)  
+    [ReactiveTests.Tests.RegressionTest](RegressionTest/RegressionTest)  
+    [ReactiveTests.Tests.ReplaySubjectTest](ReplaySubjectTest/ReplaySubjectTest)  
+    [ReactiveTests.Tests.SubjectTest](SubjectTest/SubjectTest)
 
 # ReactiveTest Constructor
 
-Initializes a new instance of the [ReactiveTest](ReactiveTest\ReactiveTest.md) class.
+Initializes a new instance of the [ReactiveTest](ReactiveTest/ReactiveTest) class.
 
-**Namespace:**  [Microsoft.Reactive.Testing](Microsoft.Reactive.Testing\Microsoft.Reactive.Testing.md)  
+**Namespace:**  [Microsoft.Reactive.Testing](Microsoft.Reactive.Testing/Microsoft.Reactive.Testing)  
 **Assembly:**  Microsoft.Reactive.Testing (in Microsoft.Reactive.Testing.dll)
 
 ## Syntax
@@ -170,6 +170,6 @@ public function ReactiveTest()
 
 #### Reference
 
-[ReactiveTest Class](ReactiveTest\ReactiveTest.md)
+[ReactiveTest Class](ReactiveTest/ReactiveTest)
 
-[Microsoft.Reactive.Testing Namespace](Microsoft.Reactive.Testing\Microsoft.Reactive.Testing.md)
+[Microsoft.Reactive.Testing Namespace](Microsoft.Reactive.Testing/Microsoft.Reactive.Testing)

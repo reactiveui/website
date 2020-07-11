@@ -6,15 +6,15 @@ This section describes in general what Reactive Extensions (Rx) is, and how it c
 
 ## In This Section
 
-1. [When Will You Use Rx](When\When.md)
+1. [When Will You Use Rx](When/When)
 
-2. [Installing Rx](Installing\Installing.md)
+2. [Installing Rx](Installing/Installing)
 
-3. [Differences Between Versions of Rx](Differences\Differences.md)
+3. [Differences Between Versions of Rx](Differences/Differences)
 
 ## Related Sections
 
-[Using Rx](Using\Using.md)
+[Using Rx](Using/Using)
 
 ## External Resources
 

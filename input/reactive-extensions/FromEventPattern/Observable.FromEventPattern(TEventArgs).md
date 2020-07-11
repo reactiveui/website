@@ -4,7 +4,7 @@ title: Observable.FromEventPattern<TEventArgs>(Object, String)
 
 Converts a .NET event, conforming to the standard .NET event pattern, to an observable sequence, using reflection to find an instance event.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -72,12 +72,12 @@ JScript does not support generic types and methods.
 
 #### Return Value
 
-Type: [System.IObservable](https://msdn.microsoft.com/en-us/library/Dd990377)\<[EventPattern](EventPattern\EventPattern(TEventArgs).md)\<TEventArgs\>\>  
+Type: [System.IObservable](https://msdn.microsoft.com/en-us/library/Dd990377)\<[EventPattern](EventPattern/EventPattern(TEventArgs))\<TEventArgs\>\>  
 The return value is an observable sequence that contains data representations of invocations of the underlying .NET event.
 
 ## Remarks
 
-The FromEventPattern operator converts a .Net event to a sequence of [EventPattern\<TEventArgs\>](EventPattern\EventPattern(TEventArgs).md). Each EventPattern instance contains the event arguments and the object sending the event. The event arguments are provided in the EventArgs property of each EventPattern delivered in the sequence. The object sending the event is provided in the Sender property of the EventPattern instance. The desired event is specified by passing the object that exposes the event as the **target** parameter and by setting the **eventName** parameter to the name of the event. The **TEventArgs** type specifies the type of event arguments that will be delivered with each event.
+The FromEventPattern operator converts a .Net event to a sequence of [EventPattern\<TEventArgs\>](EventPattern/EventPattern(TEventArgs)). Each EventPattern instance contains the event arguments and the object sending the event. The event arguments are provided in the EventArgs property of each EventPattern delivered in the sequence. The object sending the event is provided in the Sender property of the EventPattern instance. The desired event is specified by passing the object that exposes the event as the **target** parameter and by setting the **eventName** parameter to the name of the event. The **TEventArgs** type specifies the type of event arguments that will be delivered with each event.
 
 ## Examples
 
@@ -146,11 +146,11 @@ The following output demonstrates running the example code to create a new text 
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[FromEventPattern Overload](FromEventPattern\Observable.FromEventPattern.md)
+[FromEventPattern Overload](FromEventPattern/Observable.FromEventPattern)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 
 
@@ -165,7 +165,7 @@ The following output demonstrates running the example code to create a new text 
 
 Converts a .NET event, conforming to the standard .NET event pattern, to an observable sequence with the specified add handler and remove handler.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -233,18 +233,18 @@ JScript does not support generic types and methods.
 
 #### Return Value
 
-Type: [System.IObservable](https://msdn.microsoft.com/en-us/library/Dd990377)\<[EventPattern](EventPattern\EventPattern(TEventArgs).md)\<TEventArgs\>\>  
+Type: [System.IObservable](https://msdn.microsoft.com/en-us/library/Dd990377)\<[EventPattern](EventPattern/EventPattern(TEventArgs))\<TEventArgs\>\>  
 The observable sequence that contains data representations of invocations of the underlying .NET event.
 
 ## See Also
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[FromEventPattern Overload](FromEventPattern\Observable.FromEventPattern.md)
+[FromEventPattern Overload](FromEventPattern/Observable.FromEventPattern)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 
 
@@ -257,7 +257,7 @@ The observable sequence that contains data representations of invocations of the
 
 Converts a .NET event, conforming to the standard .NET event pattern, to an observable sequence, using reflection to find a static event.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -325,18 +325,18 @@ JScript does not support generic types and methods.
 
 #### Return Value
 
-Type: [System.IObservable](https://msdn.microsoft.com/en-us/library/Dd990377)\<[EventPattern](EventPattern\EventPattern(TEventArgs).md)\<TEventArgs\>\>  
+Type: [System.IObservable](https://msdn.microsoft.com/en-us/library/Dd990377)\<[EventPattern](EventPattern/EventPattern(TEventArgs))\<TEventArgs\>\>  
 The observable sequence that contains data representations of invocations of the underlying .NET event.
 
 ## See Also
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[FromEventPattern Overload](FromEventPattern\Observable.FromEventPattern.md)
+[FromEventPattern Overload](FromEventPattern/Observable.FromEventPattern)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 
 

@@ -4,7 +4,7 @@ title: ContextDisposable.Context Property
 
 Gets the provided SynchronizationContext.
 
-**Namespace:**  [System.Reactive.Disposables](System.Reactive.Disposables\System.Reactive.Disposables.md)  
+**Namespace:**  [System.Reactive.Disposables](System.Reactive.Disposables/System.Reactive.Disposables)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -54,9 +54,9 @@ The provided context.
 
 #### Reference
 
-[ContextDisposable Class](ContextDisposable\ContextDisposable.md)
+[ContextDisposable Class](ContextDisposable/ContextDisposable)
 
-[System.Reactive.Disposables Namespace](System.Reactive.Disposables\System.Reactive.Disposables.md)
+[System.Reactive.Disposables Namespace](System.Reactive.Disposables/System.Reactive.Disposables)
 
 
 

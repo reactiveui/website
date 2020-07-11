@@ -4,7 +4,7 @@ title: ScheduledDisposable.Disposable Property
 
 Gets a value that indicates the underlying disposable.
 
-**Namespace:**  [System.Reactive.Disposables](System.Reactive.Disposables\System.Reactive.Disposables.md)  
+**Namespace:**  [System.Reactive.Disposables](System.Reactive.Disposables/System.Reactive.Disposables)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -54,9 +54,9 @@ The underlying disposable.
 
 #### Reference
 
-[ScheduledDisposable Class](ScheduledDisposable\ScheduledDisposable.md)
+[ScheduledDisposable Class](ScheduledDisposable/ScheduledDisposable)
 
-[System.Reactive.Disposables Namespace](System.Reactive.Disposables\System.Reactive.Disposables.md)
+[System.Reactive.Disposables Namespace](System.Reactive.Disposables/System.Reactive.Disposables)
 
 
 

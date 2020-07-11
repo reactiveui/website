@@ -39,7 +39,7 @@ Rx also provides Subscribe extension methods so that you can avoid implementing 
                                 ex => Console.WriteLine("OnError: {0}", ex.Message),
                                 () => Console.WriteLine("OnCompleted"));
 
-You can treat the observable sequence (such as a sequence of mouse-over events) as if it were a normal collection. Thus you can write LINQ queries over the collection to do things like filtering, grouping, composing, etc. To make observable sequences more useful, the Rx assemblies provide many factory LINQ operators so that you do not need to implement any of these on your own. This will be covered in the [Querying Observable Sequences using LINQ Operators](Querying\Querying.md) topic.
+You can treat the observable sequence (such as a sequence of mouse-over events) as if it were a normal collection. Thus you can write LINQ queries over the collection to do things like filtering, grouping, composing, etc. To make observable sequences more useful, the Rx assemblies provide many factory LINQ operators so that you do not need to implement any of these on your own. This will be covered in the [Querying Observable Sequences using LINQ Operators](Querying/Querying) topic.
 
 > [!WARNING]
 > You do not need to implement the IObservable&lt;T&gt;/IObserver&lt;T&gt; interfaces yourself.  Rx provides internal implementations of these interfaces for you and exposes them through various extension methods provided by the <A href="hh244252(v=vs.103).md">Observable</A> and Observer types.  See the <A href="hh242972(v=vs.103).md">Creating and Querying Observable Sequences</A> topic for more information.
@@ -48,11 +48,11 @@ You can treat the observable sequence (such as a sequence of mouse-over events) 
 
 #### Concepts
 
-[Querying Observable Sequences using LINQ Operators](Querying\Querying.md)
+[Querying Observable Sequences using LINQ Operators](Querying/Querying)
 
 #### Other Resources
 
-[Creating and Querying Observable Sequences](Creating\Creating.md)
+[Creating and Querying Observable Sequences](Creating/Creating)
 
 
 

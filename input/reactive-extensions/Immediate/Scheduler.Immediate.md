@@ -4,7 +4,7 @@ title: Scheduler.Immediate Property
 
 Gets the scheduler that schedules work immediately on the current thread.
 
-**Namespace:**  [System.Reactive.Concurrency](System.Reactive.Concurrency\System.Reactive.Concurrency.md)  
+**Namespace:**  [System.Reactive.Concurrency](System.Reactive.Concurrency/System.Reactive.Concurrency)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -43,7 +43,7 @@ static function get Immediate () : ImmediateScheduler
 
 #### Property Value
 
-Type: [System.Reactive.Concurrency.ImmediateScheduler](ImmediateScheduler\ImmediateScheduler.md)  
+Type: [System.Reactive.Concurrency.ImmediateScheduler](ImmediateScheduler/ImmediateScheduler)  
 The immediate scheduler.
 
 ## Remarks
@@ -54,9 +54,9 @@ The Immediate scheduler starts the specified action immediately on the current t
 
 #### Reference
 
-[Scheduler Class](Scheduler\Scheduler.md)
+[Scheduler Class](Scheduler/Scheduler)
 
-[System.Reactive.Concurrency Namespace](System.Reactive.Concurrency\System.Reactive.Concurrency.md)
+[System.Reactive.Concurrency Namespace](System.Reactive.Concurrency/System.Reactive.Concurrency)
 
 
 

@@ -5,19 +5,19 @@ title: QueryablePattern Properties
 Include Protected Members  
 Include Inherited Members
 
-The [QueryablePattern](QueryablePattern\QueryablePattern.md) type exposes the following members.
+The [QueryablePattern](QueryablePattern/QueryablePattern) type exposes the following members.
 
 ## Properties
 
-NameDescription![Public property](https://reactiveui.net/assets/img/Hh211972.pubproperty(en-us,VS.103).gif "Public property")[Expression](Expression\QueryablePattern.Expression.md)Gets the expression tree that is associated with the instance of queryable pattern.Top
+NameDescription![Public property](https://reactiveui.net/assets/img/Hh211972.pubproperty(en-us,VS.103).gif "Public property")[Expression](Expression/QueryablePattern.Expression)Gets the expression tree that is associated with the instance of queryable pattern.Top
 
 ## See Also
 
 #### Reference
 
-[QueryablePattern Class](QueryablePattern\QueryablePattern.md)
+[QueryablePattern Class](QueryablePattern/QueryablePattern)
 
-[System.Reactive.Joins Namespace](System.Reactive.Joins\System.Reactive.Joins.md)
+[System.Reactive.Joins Namespace](System.Reactive.Joins/System.Reactive.Joins)
 
 # QueryablePattern Class
 
@@ -29,7 +29,7 @@ Represents a join queryable pattern.
   System.Reactive.Joins.QueryablePattern  
     More...
 
-**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins\System.Reactive.Joins.md)  
+**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins/System.Reactive.Joins)  
 **Assembly:**  System.Reactive.Providers (in System.Reactive.Providers.dll)
 
 ## Syntax
@@ -69,7 +69,7 @@ NameDescription![Protected method](https://reactiveui.net/assets/img/Hh303103.pr
 
 ## Properties
 
-NameDescription![Public property](https://reactiveui.net/assets/img/Hh211972.pubproperty(en-us,VS.103).gif "Public property")[Expression](Expression\QueryablePattern.Expression.md)Gets the expression tree that is associated with the instance of queryable pattern.Top
+NameDescription![Public property](https://reactiveui.net/assets/img/Hh211972.pubproperty(en-us,VS.103).gif "Public property")[Expression](Expression/QueryablePattern.Expression)Gets the expression tree that is associated with the instance of queryable pattern.Top
 
 ## Methods
 
@@ -83,33 +83,33 @@ Any public static (Shared in Visual Basic) members of this type are thread safe.
 
 #### Reference
 
-[System.Reactive.Joins Namespace](System.Reactive.Joins\System.Reactive.Joins.md)
+[System.Reactive.Joins Namespace](System.Reactive.Joins/System.Reactive.Joins)
 
 ## Inheritance Hierarchy
 
 [System.Object](https://msdn.microsoft.com/en-us/library/e5kfa45b)  
   System.Reactive.Joins.QueryablePattern  
-    [System.Reactive.Joins.QueryablePattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10\>](QueryablePattern\QueryablePattern(T1,.md)  
-    [System.Reactive.Joins.QueryablePattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11\>](QueryablePattern\QueryablePattern(T1,.md)  
-    [System.Reactive.Joins.QueryablePattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12\>](QueryablePattern\QueryablePattern(T1,.md)  
-    [System.Reactive.Joins.QueryablePattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13\>](QueryablePattern\QueryablePattern(T1,.md)  
-    [System.Reactive.Joins.QueryablePattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14\>](QueryablePattern\QueryablePattern(T1,.md)  
-    [System.Reactive.Joins.QueryablePattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15\>](QueryablePattern\QueryablePattern(T1,.md)  
-    [System.Reactive.Joins.QueryablePattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16\>](QueryablePattern\QueryablePattern(T1,.md)  
-    [System.Reactive.Joins.QueryablePattern\<T1, T2\>](QueryablePattern\QueryablePattern(T1,.md)  
-    [System.Reactive.Joins.QueryablePattern\<T1, T2, T3\>](QueryablePattern\QueryablePattern(T1,.md)  
-    [System.Reactive.Joins.QueryablePattern\<T1, T2, T3, T4\>](QueryablePattern\QueryablePattern(T1,.md)  
-    [System.Reactive.Joins.QueryablePattern\<T1, T2, T3, T4, T5\>](QueryablePattern\QueryablePattern(T1,.md)  
-    [System.Reactive.Joins.QueryablePattern\<T1, T2, T3, T4, T5, T6\>](QueryablePattern\QueryablePattern(T1,.md)  
-    [System.Reactive.Joins.QueryablePattern\<T1, T2, T3, T4, T5, T6, T7\>](QueryablePattern\QueryablePattern(T1,.md)  
-    [System.Reactive.Joins.QueryablePattern\<T1, T2, T3, T4, T5, T6, T7, T8\>](QueryablePattern\QueryablePattern(T1,.md)  
-    [System.Reactive.Joins.QueryablePattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9\>](QueryablePattern\QueryablePattern(T1,.md)
+    [System.Reactive.Joins.QueryablePattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10\>](QueryablePattern/QueryablePattern(T1,)  
+    [System.Reactive.Joins.QueryablePattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11\>](QueryablePattern/QueryablePattern(T1,)  
+    [System.Reactive.Joins.QueryablePattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12\>](QueryablePattern/QueryablePattern(T1,)  
+    [System.Reactive.Joins.QueryablePattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13\>](QueryablePattern/QueryablePattern(T1,)  
+    [System.Reactive.Joins.QueryablePattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14\>](QueryablePattern/QueryablePattern(T1,)  
+    [System.Reactive.Joins.QueryablePattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15\>](QueryablePattern/QueryablePattern(T1,)  
+    [System.Reactive.Joins.QueryablePattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16\>](QueryablePattern/QueryablePattern(T1,)  
+    [System.Reactive.Joins.QueryablePattern\<T1, T2\>](QueryablePattern/QueryablePattern(T1,)  
+    [System.Reactive.Joins.QueryablePattern\<T1, T2, T3\>](QueryablePattern/QueryablePattern(T1,)  
+    [System.Reactive.Joins.QueryablePattern\<T1, T2, T3, T4\>](QueryablePattern/QueryablePattern(T1,)  
+    [System.Reactive.Joins.QueryablePattern\<T1, T2, T3, T4, T5\>](QueryablePattern/QueryablePattern(T1,)  
+    [System.Reactive.Joins.QueryablePattern\<T1, T2, T3, T4, T5, T6\>](QueryablePattern/QueryablePattern(T1,)  
+    [System.Reactive.Joins.QueryablePattern\<T1, T2, T3, T4, T5, T6, T7\>](QueryablePattern/QueryablePattern(T1,)  
+    [System.Reactive.Joins.QueryablePattern\<T1, T2, T3, T4, T5, T6, T7, T8\>](QueryablePattern/QueryablePattern(T1,)  
+    [System.Reactive.Joins.QueryablePattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9\>](QueryablePattern/QueryablePattern(T1,)
 
 # QueryablePattern Constructor
 
-Initializes a new instance of the [QueryablePattern](QueryablePattern\QueryablePattern.md) class.
+Initializes a new instance of the [QueryablePattern](QueryablePattern/QueryablePattern) class.
 
-**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins\System.Reactive.Joins.md)  
+**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins/System.Reactive.Joins)  
 **Assembly:**  System.Reactive.Providers (in System.Reactive.Providers.dll)
 
 ## Syntax
@@ -162,16 +162,16 @@ protected function QueryablePattern(
 
 #### Reference
 
-[QueryablePattern Class](QueryablePattern\QueryablePattern.md)
+[QueryablePattern Class](QueryablePattern/QueryablePattern)
 
-[System.Reactive.Joins Namespace](System.Reactive.Joins\System.Reactive.Joins.md)
+[System.Reactive.Joins Namespace](System.Reactive.Joins/System.Reactive.Joins)
 
 # QueryablePattern Methods
 
 Include Protected Members  
 Include Inherited Members
 
-The [QueryablePattern](QueryablePattern\QueryablePattern.md) type exposes the following members.
+The [QueryablePattern](QueryablePattern/QueryablePattern) type exposes the following members.
 
 ## Methods
 
@@ -181,6 +181,6 @@ NameDescription![Public method](https://reactiveui.net/assets/img/Hh303103.pubme
 
 #### Reference
 
-[QueryablePattern Class](QueryablePattern\QueryablePattern.md)
+[QueryablePattern Class](QueryablePattern/QueryablePattern)
 
-[System.Reactive.Joins Namespace](System.Reactive.Joins\System.Reactive.Joins.md)
+[System.Reactive.Joins Namespace](System.Reactive.Joins/System.Reactive.Joins)

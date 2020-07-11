@@ -2,7 +2,7 @@ title: MockDisposable.Dispose()
 ---
 # MockDisposable.Dispose Method
 
-**Namespace:**  [ReactiveTests](ReactiveTests\ReactiveTests.md)  
+**Namespace:**  [ReactiveTests](ReactiveTests/ReactiveTests)  
 **Assembly:**  Tests.System.Reactive (in Tests.System.Reactive.dll)
 
 ## Syntax
@@ -45,9 +45,9 @@ public final function Dispose()
 
 #### Reference
 
-[MockDisposable Class](MockDisposable\MockDisposable.md)
+[MockDisposable Class](MockDisposable/MockDisposable)
 
-[ReactiveTests Namespace](ReactiveTests\ReactiveTests.md)
+[ReactiveTests Namespace](ReactiveTests/ReactiveTests)
 
 
 

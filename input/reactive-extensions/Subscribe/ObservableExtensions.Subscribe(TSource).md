@@ -4,7 +4,7 @@ title: ObservableExtensions.Subscribe<TSource>(IObservable<TSource>, Action<TSou
 
 Subscribes an element handler and a completion handler to an observable sequence.
 
-**Namespace:**  [System](System\System.md)  
+**Namespace:**  [System](System/System)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -91,17 +91,17 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 
 #### Reference
 
-[ObservableExtensions Class](ObservableExtensions\ObservableExtensions.md)
+[ObservableExtensions Class](ObservableExtensions/ObservableExtensions)
 
-[Subscribe Overload](Subscribe\ObservableExtensions.Subscribe.md)
+[Subscribe Overload](Subscribe/ObservableExtensions.Subscribe)
 
-[System Namespace](System\System.md)
+[System Namespace](System/System)
 
 # ObservableExtensions.Subscribe\<TSource\> Method (IObservable\<TSource\>)
 
 Evaluates the observable sequence with a specified source.
 
-**Namespace:**  [System](System\System.md)  
+**Namespace:**  [System](System/System)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -169,17 +169,17 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 
 #### Reference
 
-[ObservableExtensions Class](ObservableExtensions\ObservableExtensions.md)
+[ObservableExtensions Class](ObservableExtensions/ObservableExtensions)
 
-[Subscribe Overload](Subscribe\ObservableExtensions.Subscribe.md)
+[Subscribe Overload](Subscribe/ObservableExtensions.Subscribe)
 
-[System Namespace](System\System.md)
+[System Namespace](System/System)
 
 # ObservableExtensions.Subscribe\<TSource\> Method (IObservable\<TSource\>, Action\<TSource\>, Action\<Exception\>, Action)
 
 Subscribes an element handler, an exception handler, and a completion handler to an observable sequence.
 
-**Namespace:**  [System](System\System.md)  
+**Namespace:**  [System](System/System)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -275,17 +275,17 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 
 #### Reference
 
-[ObservableExtensions Class](ObservableExtensions\ObservableExtensions.md)
+[ObservableExtensions Class](ObservableExtensions/ObservableExtensions)
 
-[Subscribe Overload](Subscribe\ObservableExtensions.Subscribe.md)
+[Subscribe Overload](Subscribe/ObservableExtensions.Subscribe)
 
-[System Namespace](System\System.md)
+[System Namespace](System/System)
 
 # ObservableExtensions.Subscribe\<TSource\> Method (IObservable\<TSource\>, Action\<TSource\>)
 
 Subscribes an element handler to an observable sequence.
 
-**Namespace:**  [System](System\System.md)  
+**Namespace:**  [System](System/System)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -362,17 +362,17 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 
 #### Reference
 
-[ObservableExtensions Class](ObservableExtensions\ObservableExtensions.md)
+[ObservableExtensions Class](ObservableExtensions/ObservableExtensions)
 
-[Subscribe Overload](Subscribe\ObservableExtensions.Subscribe.md)
+[Subscribe Overload](Subscribe/ObservableExtensions.Subscribe)
 
-[System Namespace](System\System.md)
+[System Namespace](System/System)
 
 # ObservableExtensions.Subscribe\<TSource\> Method (IObservable\<TSource\>, Action\<TSource\>, Action\<Exception\>)
 
 Subscribes an element handler and an exception handler to an observable sequence.
 
-**Namespace:**  [System](System\System.md)  
+**Namespace:**  [System](System/System)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -459,8 +459,8 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 
 #### Reference
 
-[ObservableExtensions Class](ObservableExtensions\ObservableExtensions.md)
+[ObservableExtensions Class](ObservableExtensions/ObservableExtensions)
 
-[Subscribe Overload](Subscribe\ObservableExtensions.Subscribe.md)
+[Subscribe Overload](Subscribe/ObservableExtensions.Subscribe)
 
-[System Namespace](System\System.md)
+[System Namespace](System/System)

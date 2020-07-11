@@ -4,7 +4,7 @@ title: IScheduledItem<TAbsolute>.Invoke()
 
 Invokes the work item.
 
-**Namespace:**  [System.Reactive.Concurrency](System.Reactive.Concurrency\System.Reactive.Concurrency.md)  
+**Namespace:**  [System.Reactive.Concurrency](System.Reactive.Concurrency/System.Reactive.Concurrency)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -41,9 +41,9 @@ function Invoke()
 
 #### Reference
 
-[IScheduledItem\<TAbsolute\> Interface](IScheduledItem\IScheduledItem(TAbsolute).md)
+[IScheduledItem\<TAbsolute\> Interface](IScheduledItem/IScheduledItem(TAbsolute))
 
-[System.Reactive.Concurrency Namespace](System.Reactive.Concurrency\System.Reactive.Concurrency.md)
+[System.Reactive.Concurrency Namespace](System.Reactive.Concurrency/System.Reactive.Concurrency)
 
 
 

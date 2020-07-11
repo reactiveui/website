@@ -4,7 +4,7 @@ title: Observable.Start<TSource>(Func<TSource>)
 
 Invokes the function asynchronously.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -67,17 +67,17 @@ The function asynchronously.
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[Start Overload](Start\Observable.Start.md)
+[Start Overload](Start/Observable.Start)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 # Observable.Start\<TSource\> Method (Func\<TSource\>, IScheduler)
 
 Invokes the function asynchronously.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -138,7 +138,7 @@ JScript does not support generic types and methods.
   The function used to synchronization.
 
 - scheduler  
-  Type: [System.Reactive.Concurrency.IScheduler](IScheduler\IScheduler.md)  
+  Type: [System.Reactive.Concurrency.IScheduler](IScheduler/IScheduler)  
   The scheduler used to synchronization.
 
 #### Return Value
@@ -150,8 +150,8 @@ The function asynchronously.
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[Start Overload](Start\Observable.Start.md)
+[Start Overload](Start/Observable.Start)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)

@@ -4,7 +4,7 @@ title: Qbservable.SequenceEqual<TSource>(IQbservable<TSource>, IObservable<TSour
 
 Determines whether two sequences are equal by comparing the elements pairwise using a specified equality comparer.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive.Providers (in System.Reactive.Providers.dll)
 
 ## Syntax
@@ -68,7 +68,7 @@ JScript does not support generic types and methods.
 #### Parameters
 
 - first  
-  Type: [System.Reactive.Linq.IQbservable](IQbservable\IQbservable(TSource).md)\<TSource\>  
+  Type: [System.Reactive.Linq.IQbservable](IQbservable/IQbservable(TSource))\<TSource\>  
   First queryable observable sequence to compare.
 
 - second  
@@ -81,28 +81,28 @@ JScript does not support generic types and methods.
 
 #### Return Value
 
-Type: [System.Reactive.Linq.IQbservable](IQbservable\IQbservable(TSource).md)\<[Boolean](https://msdn.microsoft.com/en-us/library/a28wyd50)\>  
+Type: [System.Reactive.Linq.IQbservable](IQbservable/IQbservable(TSource))\<[Boolean](https://msdn.microsoft.com/en-us/library/a28wyd50)\>  
 True if two sequences are equal by comparing the elements pairwise using a specified equality comparer; otherwise, false.
 
 #### Usage Note
 
-In Visual Basic and C\#, you can call this method as an instance method on any object of type [IQbservable](IQbservable\IQbservable(TSource).md)\<TSource\>. When you use instance method syntax to call this method, omit the first parameter. For more information, see [](https://msdn.microsoft.com/en-us/library/Bb384936) or [](https://msdn.microsoft.com/en-us/library/Bb383977).
+In Visual Basic and C\#, you can call this method as an instance method on any object of type [IQbservable](IQbservable/IQbservable(TSource))\<TSource\>. When you use instance method syntax to call this method, omit the first parameter. For more information, see [](https://msdn.microsoft.com/en-us/library/Bb384936) or [](https://msdn.microsoft.com/en-us/library/Bb383977).
 
 ## See Also
 
 #### Reference
 
-[Qbservable Class](Qbservable\Qbservable.md)
+[Qbservable Class](Qbservable/Qbservable)
 
-[SequenceEqual Overload](SequenceEqual\Qbservable.SequenceEqual.md)
+[SequenceEqual Overload](SequenceEqual/Qbservable.SequenceEqual)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 # Qbservable.SequenceEqual\<TSource\> Method (IQbservable\<TSource\>, IObservable\<TSource\>)
 
 Determines whether two sequences are equal by comparing the elements pairwise.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive.Providers (in System.Reactive.Providers.dll)
 
 ## Syntax
@@ -160,7 +160,7 @@ JScript does not support generic types and methods.
 #### Parameters
 
 - first  
-  Type: [System.Reactive.Linq.IQbservable](IQbservable\IQbservable(TSource).md)\<TSource\>  
+  Type: [System.Reactive.Linq.IQbservable](IQbservable/IQbservable(TSource))\<TSource\>  
   First observable sequence to compare.
 
 - second  
@@ -169,19 +169,19 @@ JScript does not support generic types and methods.
 
 #### Return Value
 
-Type: [System.Reactive.Linq.IQbservable](IQbservable\IQbservable(TSource).md)\<[Boolean](https://msdn.microsoft.com/en-us/library/a28wyd50)\>  
+Type: [System.Reactive.Linq.IQbservable](IQbservable/IQbservable(TSource))\<[Boolean](https://msdn.microsoft.com/en-us/library/a28wyd50)\>  
 True if two sequences are equal by comparing the elements pairwise; otherwise, false.
 
 #### Usage Note
 
-In Visual Basic and C\#, you can call this method as an instance method on any object of type [IQbservable](IQbservable\IQbservable(TSource).md)\<TSource\>. When you use instance method syntax to call this method, omit the first parameter. For more information, see [](https://msdn.microsoft.com/en-us/library/Bb384936) or [](https://msdn.microsoft.com/en-us/library/Bb383977).
+In Visual Basic and C\#, you can call this method as an instance method on any object of type [IQbservable](IQbservable/IQbservable(TSource))\<TSource\>. When you use instance method syntax to call this method, omit the first parameter. For more information, see [](https://msdn.microsoft.com/en-us/library/Bb384936) or [](https://msdn.microsoft.com/en-us/library/Bb383977).
 
 ## See Also
 
 #### Reference
 
-[Qbservable Class](Qbservable\Qbservable.md)
+[Qbservable Class](Qbservable/Qbservable)
 
-[SequenceEqual Overload](SequenceEqual\Qbservable.SequenceEqual.md)
+[SequenceEqual Overload](SequenceEqual/Qbservable.SequenceEqual)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)

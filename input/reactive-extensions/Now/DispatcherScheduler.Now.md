@@ -4,7 +4,7 @@ title: DispatcherScheduler.Now Property
 
 Gets the scheduler's notion of current time.
 
-**Namespace:**  [System.Reactive.Concurrency](System.Reactive.Concurrency\System.Reactive.Concurrency.md)  
+**Namespace:**  [System.Reactive.Concurrency](System.Reactive.Concurrency/System.Reactive.Concurrency)  
 **Assembly:**  System.Reactive.Windows.Threading (in System.Reactive.Windows.Threading.dll)
 
 ## Syntax
@@ -50,15 +50,15 @@ The current time.
 
 #### Implements
 
-[IScheduler.Now](Now\IScheduler.Now.md)
+[IScheduler.Now](Now/IScheduler.Now)
 
 ## See Also
 
 #### Reference
 
-[DispatcherScheduler Class](DispatcherScheduler\DispatcherScheduler.md)
+[DispatcherScheduler Class](DispatcherScheduler/DispatcherScheduler)
 
-[System.Reactive.Concurrency Namespace](System.Reactive.Concurrency\System.Reactive.Concurrency.md)
+[System.Reactive.Concurrency Namespace](System.Reactive.Concurrency/System.Reactive.Concurrency)
 
 
 

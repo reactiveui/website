@@ -5,7 +5,7 @@ title: TestCrashTaskPool()s
 Include Protected Members  
 Include Inherited Members
 
-The [TestCrashTaskPool](TestCrashTaskPool\TestCrashTaskPool.md) type exposes the following members.
+The [TestCrashTaskPool](TestCrashTaskPool/TestCrashTaskPool) type exposes the following members.
 
 ## Methods
 
@@ -15,13 +15,13 @@ NameDescription![Public method](https://reactiveui.net/assets/img/Hh303103.pubme
 
 #### Reference
 
-[TestCrashTaskPool Class](TestCrashTaskPool\TestCrashTaskPool.md)
+[TestCrashTaskPool Class](TestCrashTaskPool/TestCrashTaskPool)
 
-[ReactiveTests.Tests Namespace](ReactiveTests.Tests\ReactiveTests.Tests.md)
+[ReactiveTests.Tests Namespace](ReactiveTests.Tests/ReactiveTests.Tests)
 
 # TestCrashTaskPool Constructor
 
-**Namespace:**  [ReactiveTests.Tests](ReactiveTests.Tests\ReactiveTests.Tests.md)  
+**Namespace:**  [ReactiveTests.Tests](ReactiveTests.Tests/ReactiveTests.Tests)  
 **Assembly:**  Tests.System.Reactive (in Tests.System.Reactive.dll)
 
 ## Syntax
@@ -58,9 +58,9 @@ public function TestCrashTaskPool()
 
 #### Reference
 
-[TestCrashTaskPool Class](TestCrashTaskPool\TestCrashTaskPool.md)
+[TestCrashTaskPool Class](TestCrashTaskPool/TestCrashTaskPool)
 
-[ReactiveTests.Tests Namespace](ReactiveTests.Tests\ReactiveTests.Tests.md)
+[ReactiveTests.Tests Namespace](ReactiveTests.Tests/ReactiveTests.Tests)
 
 # TestCrashTaskPool Class
 
@@ -69,7 +69,7 @@ public function TestCrashTaskPool()
 [System.Object](https://msdn.microsoft.com/en-us/library/e5kfa45b)  
   ReactiveTests.Tests.TestCrashTaskPool
 
-**Namespace:**  [ReactiveTests.Tests](ReactiveTests.Tests\ReactiveTests.Tests.md)  
+**Namespace:**  [ReactiveTests.Tests](ReactiveTests.Tests/ReactiveTests.Tests)  
 **Assembly:**  Tests.System.Reactive (in Tests.System.Reactive.dll)
 
 ## Syntax
@@ -108,7 +108,7 @@ The TestCrashTaskPool type exposes the following members.
 
 ## Constructors
 
-NameDescription![Public method](https://reactiveui.net/assets/img/Hh303103.pubmethod(en-us,VS.103).gif "Public method")[TestCrashTaskPool](TestCrashTaskPool\TestCrashTaskPool.md)Top
+NameDescription![Public method](https://reactiveui.net/assets/img/Hh303103.pubmethod(en-us,VS.103).gif "Public method")[TestCrashTaskPool](TestCrashTaskPool/TestCrashTaskPool)Top
 
 ## Methods
 
@@ -122,4 +122,4 @@ Any public static (Shared in Visual Basic) members of this type are thread safe.
 
 #### Reference
 
-[ReactiveTests.Tests Namespace](ReactiveTests.Tests\ReactiveTests.Tests.md)
+[ReactiveTests.Tests Namespace](ReactiveTests.Tests/ReactiveTests.Tests)

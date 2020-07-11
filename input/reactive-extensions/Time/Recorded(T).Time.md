@@ -4,7 +4,7 @@ title: Recorded<T>.Time Property
 
 Gets the virtual time the value was produced on.
 
-**Namespace:**  [Microsoft.Reactive.Testing](Microsoft.Reactive.Testing\Microsoft.Reactive.Testing.md)  
+**Namespace:**  [Microsoft.Reactive.Testing](Microsoft.Reactive.Testing/Microsoft.Reactive.Testing)  
 **Assembly:**  Microsoft.Reactive.Testing (in Microsoft.Reactive.Testing.dll)
 
 ## Syntax
@@ -51,6 +51,6 @@ The virtual time the value was produced on.
 
 #### Reference
 
-[Recorded\<T\> Structure](Recorded\Recorded(T).md)
+[Recorded\<T\> Structure](Recorded/Recorded(T))
 
-[Microsoft.Reactive.Testing Namespace](Microsoft.Reactive.Testing\Microsoft.Reactive.Testing.md)
+[Microsoft.Reactive.Testing Namespace](Microsoft.Reactive.Testing/Microsoft.Reactive.Testing)

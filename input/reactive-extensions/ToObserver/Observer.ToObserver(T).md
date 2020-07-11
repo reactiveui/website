@@ -4,7 +4,7 @@ title: Observer.ToObserver<T>()
 
 Creates an observer from a notification callback.
 
-**Namespace:**  [System.Reactive](System.Reactive\System.Reactive.md)  
+**Namespace:**  [System.Reactive](System.Reactive/System.Reactive)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -57,7 +57,7 @@ JScript does not support generic types and methods.
 #### Parameters
 
 - handler  
-  Type: [System.Action](https://msdn.microsoft.com/en-us/library/018hxwa8)\<[Notification](Notification\Notification(T).md)\<T\>\>  
+  Type: [System.Action](https://msdn.microsoft.com/en-us/library/018hxwa8)\<[Notification](Notification/Notification(T))\<T\>\>  
   The action that handles a notification.
 
 #### Return Value
@@ -67,12 +67,12 @@ The observer object that invokes the specified handler using a notification corr
 
 #### Usage Note
 
-In Visual Basic and C\#, you can call this method as an instance method on any object of type [Action](https://msdn.microsoft.com/en-us/library/018hxwa8)\<[Notification](Notification\Notification(T).md)\<T\>\>. When you use instance method syntax to call this method, omit the first parameter. For more information, see [](https://msdn.microsoft.com/en-us/library/Bb384936) or [](https://msdn.microsoft.com/en-us/library/Bb383977).
+In Visual Basic and C\#, you can call this method as an instance method on any object of type [Action](https://msdn.microsoft.com/en-us/library/018hxwa8)\<[Notification](Notification/Notification(T))\<T\>\>. When you use instance method syntax to call this method, omit the first parameter. For more information, see [](https://msdn.microsoft.com/en-us/library/Bb384936) or [](https://msdn.microsoft.com/en-us/library/Bb383977).
 
 ## See Also
 
 #### Reference
 
-[Observer Class](Observer\Observer.md)
+[Observer Class](Observer/Observer)
 
-[System.Reactive Namespace](System.Reactive\System.Reactive.md)
+[System.Reactive Namespace](System.Reactive/System.Reactive)

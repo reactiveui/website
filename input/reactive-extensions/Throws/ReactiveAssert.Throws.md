@@ -17,6 +17,6 @@ NameDescription![Public method](https://reactiveui.net/assets/img/Hh303103.pubme
 
 #### Reference
 
-[ReactiveAssert Class](ReactiveAssert\ReactiveAssert.md)
+[ReactiveAssert Class](ReactiveAssert/ReactiveAssert)
 
-[Microsoft.Reactive.Testing Namespace](Microsoft.Reactive.Testing\Microsoft.Reactive.Testing.md)
+[Microsoft.Reactive.Testing Namespace](Microsoft.Reactive.Testing/Microsoft.Reactive.Testing)

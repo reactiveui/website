@@ -5,26 +5,26 @@ title: QueryablePlan<TResult> Properties
 Include Protected Members  
 Include Inherited Members
 
-The [QueryablePlan\<TResult\>](QueryablePlan\QueryablePlan(TResult).md) type exposes the following members.
+The [QueryablePlan\<TResult\>](QueryablePlan/QueryablePlan(TResult)) type exposes the following members.
 
 ## Properties
 
-NameDescription![Public property](https://reactiveui.net/assets/img/Hh211972.pubproperty(en-us,VS.103).gif "Public property")[Expression](Expression\QueryablePlan(TResult).Expression.md)Gets the expression tree that is associated with the instance of queryable.Top
+NameDescription![Public property](https://reactiveui.net/assets/img/Hh211972.pubproperty(en-us,VS.103).gif "Public property")[Expression](Expression/QueryablePlan(TResult).Expression)Gets the expression tree that is associated with the instance of queryable.Top
 
 ## See Also
 
 #### Reference
 
-[QueryablePlan\<TResult\> Class](QueryablePlan\QueryablePlan(TResult).md)
+[QueryablePlan\<TResult\> Class](QueryablePlan/QueryablePlan(TResult))
 
-[System.Reactive.Joins Namespace](System.Reactive.Joins\System.Reactive.Joins.md)
+[System.Reactive.Joins Namespace](System.Reactive.Joins/System.Reactive.Joins)
 
 # QueryablePlan\<TResult\> Methods
 
 Include Protected Members  
 Include Inherited Members
 
-The [QueryablePlan\<TResult\>](QueryablePlan\QueryablePlan(TResult).md) type exposes the following members.
+The [QueryablePlan\<TResult\>](QueryablePlan/QueryablePlan(TResult)) type exposes the following members.
 
 ## Methods
 
@@ -34,9 +34,9 @@ NameDescription![Public method](https://reactiveui.net/assets/img/Hh303103.pubme
 
 #### Reference
 
-[QueryablePlan\<TResult\> Class](QueryablePlan\QueryablePlan(TResult).md)
+[QueryablePlan\<TResult\> Class](QueryablePlan/QueryablePlan(TResult))
 
-[System.Reactive.Joins Namespace](System.Reactive.Joins\System.Reactive.Joins.md)
+[System.Reactive.Joins Namespace](System.Reactive.Joins/System.Reactive.Joins)
 
 # QueryablePlan\<TResult\> Class
 
@@ -47,7 +47,7 @@ Represents an execution plan for join queryable patterns.
 [System.Object](https://msdn.microsoft.com/en-us/library/e5kfa45b)  
   System.Reactive.Joins.QueryablePlan\<TResult\>
 
-**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins\System.Reactive.Joins.md)  
+**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins/System.Reactive.Joins)  
 **Assembly:**  System.Reactive.Providers (in System.Reactive.Providers.dll)
 
 ## Syntax
@@ -88,7 +88,7 @@ The QueryablePlan\<TResult\> type exposes the following members.
 
 ## Properties
 
-NameDescription![Public property](https://reactiveui.net/assets/img/Hh211972.pubproperty(en-us,VS.103).gif "Public property")[Expression](Expression\QueryablePlan(TResult).Expression.md)Gets the expression tree that is associated with the instance of queryable.Top
+NameDescription![Public property](https://reactiveui.net/assets/img/Hh211972.pubproperty(en-us,VS.103).gif "Public property")[Expression](Expression/QueryablePlan(TResult).Expression)Gets the expression tree that is associated with the instance of queryable.Top
 
 ## Methods
 
@@ -102,4 +102,4 @@ Any public static (Shared in Visual Basic) members of this type are thread safe.
 
 #### Reference
 
-[System.Reactive.Joins Namespace](System.Reactive.Joins\System.Reactive.Joins.md)
+[System.Reactive.Joins Namespace](System.Reactive.Joins/System.Reactive.Joins)

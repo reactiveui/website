@@ -4,7 +4,7 @@ title: IEventSource<T>.OnNext Event
 
 Raises the Next event signaling the next element in the data stream.
 
-**Namespace:**  [System.Reactive](System.Reactive\System.Reactive.md)  
+**Namespace:**  [System.Reactive](System.Reactive/System.Reactive)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -46,9 +46,9 @@ JScript supports the use of events, but not the declaration of new ones.
 
 #### Reference
 
-[IEventSource\<T\> Interface](IEventSource\IEventSource(T).md)
+[IEventSource\<T\> Interface](IEventSource/IEventSource(T))
 
-[System.Reactive Namespace](System.Reactive\System.Reactive.md)
+[System.Reactive Namespace](System.Reactive/System.Reactive)
 
 
 

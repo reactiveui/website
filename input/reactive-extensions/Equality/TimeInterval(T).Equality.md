@@ -4,7 +4,7 @@ title: TimeInterval<T>.Equality Operator
 
 Indicates whether first and second arguments are equal.
 
-**Namespace:**  [System.Reactive](System.Reactive\System.Reactive.md)  
+**Namespace:**  [System.Reactive](System.Reactive/System.Reactive)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -54,11 +54,11 @@ JScript supports the use of overloaded operators, but not the declaration of new
 #### Parameters
 
 - first  
-  Type: [System.Reactive.TimeInterval](TimeInterval\TimeInterval(T).md)\<[T](TimeInterval\TimeInterval(T).md)\>  
+  Type: [System.Reactive.TimeInterval](TimeInterval/TimeInterval(T))\<[T](TimeInterval/TimeInterval(T))\>  
   The first argument.
 
 - second  
-  Type: [System.Reactive.TimeInterval](TimeInterval\TimeInterval(T).md)\<[T](TimeInterval\TimeInterval(T).md)\>  
+  Type: [System.Reactive.TimeInterval](TimeInterval/TimeInterval(T))\<[T](TimeInterval/TimeInterval(T))\>  
   The second argument.
 
 #### Return Value
@@ -70,9 +70,9 @@ true if both arguments are equal; otherwise, false.
 
 #### Reference
 
-[TimeInterval\<T\> Structure](TimeInterval\TimeInterval(T).md)
+[TimeInterval\<T\> Structure](TimeInterval/TimeInterval(T))
 
-[System.Reactive Namespace](System.Reactive\System.Reactive.md)
+[System.Reactive Namespace](System.Reactive/System.Reactive)
 
 
 

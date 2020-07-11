@@ -4,7 +4,7 @@ title: Observable.Throttle<TSource>(IObservable<TSource>, TimeSpan, IScheduler)
 
 Ignores the values from an observable sequence which are followed by another value before due time with the specified source, dueTime and scheduler.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -76,7 +76,7 @@ JScript does not support generic types and methods.
   The duration of the throttle period for each value.
 
 - scheduler  
-  Type: [System.Reactive.Concurrency.IScheduler](IScheduler\IScheduler.md)  
+  Type: [System.Reactive.Concurrency.IScheduler](IScheduler/IScheduler)  
   The scheduler to run the throttle timers on.
 
 #### Return Value
@@ -218,17 +218,17 @@ The following output was generated from the example code.
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[Throttle Overload](Throttle\Observable.Throttle.md)
+[Throttle Overload](Throttle/Observable.Throttle)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 # Observable.Throttle\<TSource\> Method (IObservable\<TSource\>, TimeSpan)
 
 Ignores the values from an observable sequence which are followed by another value before due time with the specified source and dueTime.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -306,8 +306,8 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[Throttle Overload](Throttle\Observable.Throttle.md)
+[Throttle Overload](Throttle/Observable.Throttle)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)

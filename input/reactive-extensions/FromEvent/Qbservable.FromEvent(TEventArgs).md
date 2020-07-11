@@ -4,7 +4,7 @@ title: Qbservable.FromEvent<TEventArgs>(IQbservableProvider, Expression<Action<A
 
 Converts a .NET event to a queryable observable sequence.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive.Providers (in System.Reactive.Providers.dll)
 
 ## Syntax
@@ -68,7 +68,7 @@ JScript does not support generic types and methods.
 #### Parameters
 
 - provider  
-  Type: [System.Reactive.Linq.IQbservableProvider](IQbservableProvider\IQbservableProvider.md)  
+  Type: [System.Reactive.Linq.IQbservableProvider](IQbservableProvider/IQbservableProvider)  
   The local Qbservable provider.
 
 - addHandler  
@@ -81,22 +81,22 @@ JScript does not support generic types and methods.
 
 #### Return Value
 
-Type: [System.Reactive.Linq.IQbservable](IQbservable\IQbservable(TSource).md)\<TEventArgs\>  
+Type: [System.Reactive.Linq.IQbservable](IQbservable/IQbservable(TSource))\<TEventArgs\>  
 Observable sequence that contains data representations of invocations of the underlying .NET event.
 
 #### Usage Note
 
-In Visual Basic and C\#, you can call this method as an instance method on any object of type [IQbservableProvider](IQbservableProvider\IQbservableProvider.md). When you use instance method syntax to call this method, omit the first parameter. For more information, see [](https://msdn.microsoft.com/en-us/library/Bb384936) or [](https://msdn.microsoft.com/en-us/library/Bb383977).
+In Visual Basic and C\#, you can call this method as an instance method on any object of type [IQbservableProvider](IQbservableProvider/IQbservableProvider). When you use instance method syntax to call this method, omit the first parameter. For more information, see [](https://msdn.microsoft.com/en-us/library/Bb384936) or [](https://msdn.microsoft.com/en-us/library/Bb383977).
 
 ## See Also
 
 #### Reference
 
-[Qbservable Class](Qbservable\Qbservable.md)
+[Qbservable Class](Qbservable/Qbservable)
 
-[FromEvent Overload](FromEvent\Qbservable.FromEvent.md)
+[FromEvent Overload](FromEvent/Qbservable.FromEvent)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 
 

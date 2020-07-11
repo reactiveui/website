@@ -4,7 +4,7 @@ title: Subject<T>.OnError()
 
 Notifies all subscribed observers with the exception.
 
-**Namespace:**  [System.Reactive.Subjects](System.Reactive.Subjects\System.Reactive.Subjects.md)  
+**Namespace:**  [System.Reactive.Subjects](System.Reactive.Subjects/System.Reactive.Subjects)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -64,6 +64,6 @@ public final function OnError(
 
 #### Reference
 
-[Subject\<T\> Class](Subject\Subject(T).md)
+[Subject\<T\> Class](Subject/Subject(T))
 
-[System.Reactive.Subjects Namespace](System.Reactive.Subjects\System.Reactive.Subjects.md)
+[System.Reactive.Subjects Namespace](System.Reactive.Subjects/System.Reactive.Subjects)

@@ -4,7 +4,7 @@ title: Observable.Contains<TSource>(IObservable<TSource>, TSource, IEqualityComp
 
 Determines whether an observable sequence contains a specified element by using a specified System.Collections.Generic.IEqualityComparer\&lt;T\&gt;.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -92,11 +92,11 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[Contains Overload](Contains\Observable.Contains.md)
+[Contains Overload](Contains/Observable.Contains)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 
 
@@ -110,7 +110,7 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 
 Determines whether an observable sequence contains a specified element by using the default equality comparer.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -188,11 +188,11 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[Contains Overload](Contains\Observable.Contains.md)
+[Contains Overload](Contains/Observable.Contains)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 
 

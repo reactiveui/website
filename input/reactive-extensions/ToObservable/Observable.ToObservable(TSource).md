@@ -4,7 +4,7 @@ title: Observable.ToObservable<TSource>(IEnumerable<TSource>)
 
 Converts an enumerable sequence to an observable sequence with a specified source.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -73,17 +73,17 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[ToObservable Overload](ToObservable\Observable.ToObservable.md)
+[ToObservable Overload](ToObservable/Observable.ToObservable)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 # Observable.ToObservable\<TSource\> Method (IEnumerable\<TSource\>, IScheduler)
 
 Converts an enumerable sequence to an observable sequence with a specified source and scheduler.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -145,7 +145,7 @@ JScript does not support generic types and methods.
   The enumerable sequence to convert to an observable sequence.
 
 - scheduler  
-  Type: [System.Reactive.Concurrency.IScheduler](IScheduler\IScheduler.md)  
+  Type: [System.Reactive.Concurrency.IScheduler](IScheduler/IScheduler)  
   The scheduler to run the enumeration of the input sequence on.
 
 #### Return Value
@@ -163,7 +163,7 @@ The ToObservable operator creates an observable sequence from an object that sup
 
 ## Examples
 
-This example creates an observable sequence of strings (IObservable\<string\>) from the IEnumerable\<string\> exposed by the string array returned from the System.IO. Directory.GetDirectories method. The [ThreadPoolScheduler](ThreadPoolScheduler\ThreadPoolScheduler.md) scheduler is passed for the scheduler parameter to the ToObservable operator. This will cause the enumeration to be run on a thread from the .NET thread pool. So the main thread will not be blocked.
+This example creates an observable sequence of strings (IObservable\<string\>) from the IEnumerable\<string\> exposed by the string array returned from the System.IO. Directory.GetDirectories method. The [ThreadPoolScheduler](ThreadPoolScheduler/ThreadPoolScheduler) scheduler is passed for the scheduler parameter to the ToObservable operator. This will cause the enumeration to be run on a thread from the .NET thread pool. So the main thread will not be blocked.
 
     using System;
     using System.IO;
@@ -249,8 +249,8 @@ The following output was generated using the example code.
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[ToObservable Overload](ToObservable\Observable.ToObservable.md)
+[ToObservable Overload](ToObservable/Observable.ToObservable)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)

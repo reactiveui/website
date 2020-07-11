@@ -4,7 +4,7 @@ title: Observable.FromAsyncPattern<T1, T2, T3, T4, T5, T6, TResult>(Func<T1, T2,
 
 Converts a Begin/End invoke function pair into an asynchronous function.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -95,11 +95,11 @@ A Begin/End invoke function pair.
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[FromAsyncPattern Overload](FromAsyncPattern\Observable.FromAsyncPattern.md)
+[FromAsyncPattern Overload](FromAsyncPattern/Observable.FromAsyncPattern)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 
 
@@ -112,7 +112,7 @@ A Begin/End invoke function pair.
 
 Converts a Begin/End invoke function pair into an asynchronous function.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -218,11 +218,11 @@ A Begin/End invoke function pair.
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[FromAsyncPattern Overload](FromAsyncPattern\Observable.FromAsyncPattern.md)
+[FromAsyncPattern Overload](FromAsyncPattern/Observable.FromAsyncPattern)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 
 
@@ -235,7 +235,7 @@ A Begin/End invoke function pair.
 
 Converts a Begin/End invoke function pair into an asynchronous function.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -334,18 +334,18 @@ JScript does not support generic types and methods.
 
 #### Return Value
 
-Type: [System.Func](https://msdn.microsoft.com/en-us/library/Dd402863)\<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, [IObservable](https://msdn.microsoft.com/en-us/library/Dd990377)\<[Unit](Unit\Unit.md)\>\>  
+Type: [System.Func](https://msdn.microsoft.com/en-us/library/Dd402863)\<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, [IObservable](https://msdn.microsoft.com/en-us/library/Dd990377)\<[Unit](Unit/Unit)\>\>  
 A Begin/End invoke function pair.
 
 ## See Also
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[FromAsyncPattern Overload](FromAsyncPattern\Observable.FromAsyncPattern.md)
+[FromAsyncPattern Overload](FromAsyncPattern/Observable.FromAsyncPattern)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 
 
@@ -358,7 +358,7 @@ A Begin/End invoke function pair.
 
 Converts a Begin/End invoke function pair into an asynchronous function.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -440,11 +440,11 @@ A Begin/End invoke function pair.
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[FromAsyncPattern Overload](FromAsyncPattern\Observable.FromAsyncPattern.md)
+[FromAsyncPattern Overload](FromAsyncPattern/Observable.FromAsyncPattern)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 
 
@@ -457,7 +457,7 @@ A Begin/End invoke function pair.
 
 Converts a Begin/End invoke function pair into an asynchronous function.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -544,18 +544,18 @@ JScript does not support generic types and methods.
 
 #### Return Value
 
-Type: [System.Func](https://msdn.microsoft.com/en-us/library/Dd267613)\<T1, T2, T3, T4, T5, T6, T7, T8, [IObservable](https://msdn.microsoft.com/en-us/library/Dd990377)\<[Unit](Unit\Unit.md)\>\>  
+Type: [System.Func](https://msdn.microsoft.com/en-us/library/Dd267613)\<T1, T2, T3, T4, T5, T6, T7, T8, [IObservable](https://msdn.microsoft.com/en-us/library/Dd990377)\<[Unit](Unit/Unit)\>\>  
 A Begin/End invoke function pair.
 
 ## See Also
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[FromAsyncPattern Overload](FromAsyncPattern\Observable.FromAsyncPattern.md)
+[FromAsyncPattern Overload](FromAsyncPattern/Observable.FromAsyncPattern)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 
 
@@ -568,7 +568,7 @@ A Begin/End invoke function pair.
 
 Converts a Begin/End invoke function pair into an asynchronous function.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -671,11 +671,11 @@ A Begin/End invoke function pair.
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[FromAsyncPattern Overload](FromAsyncPattern\Observable.FromAsyncPattern.md)
+[FromAsyncPattern Overload](FromAsyncPattern/Observable.FromAsyncPattern)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 
 
@@ -688,7 +688,7 @@ A Begin/End invoke function pair.
 
 Converts a Begin/End invoke function pair into an asynchronous function.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -766,18 +766,18 @@ JScript does not support generic types and methods.
 
 #### Return Value
 
-Type: [System.Func](https://msdn.microsoft.com/en-us/library/Dd268303)\<T1, T2, T3, T4, T5, [IObservable](https://msdn.microsoft.com/en-us/library/Dd990377)\<[Unit](Unit\Unit.md)\>\>  
+Type: [System.Func](https://msdn.microsoft.com/en-us/library/Dd268303)\<T1, T2, T3, T4, T5, [IObservable](https://msdn.microsoft.com/en-us/library/Dd990377)\<[Unit](Unit/Unit)\>\>  
 A Begin/End invoke function pair.
 
 ## See Also
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[FromAsyncPattern Overload](FromAsyncPattern\Observable.FromAsyncPattern.md)
+[FromAsyncPattern Overload](FromAsyncPattern/Observable.FromAsyncPattern)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 
 
@@ -790,7 +790,7 @@ A Begin/End invoke function pair.
 
 Converts a Begin/End invoke function pair into an asynchronous function.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -887,11 +887,11 @@ A Begin/End invoke function pair.
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[FromAsyncPattern Overload](FromAsyncPattern\Observable.FromAsyncPattern.md)
+[FromAsyncPattern Overload](FromAsyncPattern/Observable.FromAsyncPattern)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 
 
@@ -904,7 +904,7 @@ A Begin/End invoke function pair.
 
 Converts a Begin/End invoke function pair into an asynchronous function.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -1004,11 +1004,11 @@ A Begin/End invoke function pair.
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[FromAsyncPattern Overload](FromAsyncPattern\Observable.FromAsyncPattern.md)
+[FromAsyncPattern Overload](FromAsyncPattern/Observable.FromAsyncPattern)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 
 
@@ -1021,7 +1021,7 @@ A Begin/End invoke function pair.
 
 Converts a Begin/End invoke function pair into an asynchronous function.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -1102,18 +1102,18 @@ JScript does not support generic types and methods.
 
 #### Return Value
 
-Type: [System.Func](https://msdn.microsoft.com/en-us/library/Dd269654)\<T1, T2, T3, T4, T5, T6, [IObservable](https://msdn.microsoft.com/en-us/library/Dd990377)\<[Unit](Unit\Unit.md)\>\>  
+Type: [System.Func](https://msdn.microsoft.com/en-us/library/Dd269654)\<T1, T2, T3, T4, T5, T6, [IObservable](https://msdn.microsoft.com/en-us/library/Dd990377)\<[Unit](Unit/Unit)\>\>  
 A Begin/End invoke function pair.
 
 ## See Also
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[FromAsyncPattern Overload](FromAsyncPattern\Observable.FromAsyncPattern.md)
+[FromAsyncPattern Overload](FromAsyncPattern/Observable.FromAsyncPattern)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 
 
@@ -1126,7 +1126,7 @@ A Begin/End invoke function pair.
 
 Converts a Begin/End invoke function pair into an asynchronous function.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -1216,18 +1216,18 @@ JScript does not support generic types and methods.
 
 #### Return Value
 
-Type: [System.Func](https://msdn.microsoft.com/en-us/library/Dd386894)\<T1, T2, T3, T4, T5, T6, T7, T8, T9, [IObservable](https://msdn.microsoft.com/en-us/library/Dd990377)\<[Unit](Unit\Unit.md)\>\>  
+Type: [System.Func](https://msdn.microsoft.com/en-us/library/Dd386894)\<T1, T2, T3, T4, T5, T6, T7, T8, T9, [IObservable](https://msdn.microsoft.com/en-us/library/Dd990377)\<[Unit](Unit/Unit)\>\>  
 A Begin/End invoke function pair.
 
 ## See Also
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[FromAsyncPattern Overload](FromAsyncPattern\Observable.FromAsyncPattern.md)
+[FromAsyncPattern Overload](FromAsyncPattern/Observable.FromAsyncPattern)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 
 
@@ -1240,7 +1240,7 @@ A Begin/End invoke function pair.
 
 Converts a Begin/End invoke function pair into an asynchronous function.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -1352,11 +1352,11 @@ A Begin/End invoke function pair.
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[FromAsyncPattern Overload](FromAsyncPattern\Observable.FromAsyncPattern.md)
+[FromAsyncPattern Overload](FromAsyncPattern/Observable.FromAsyncPattern)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 
 
@@ -1369,7 +1369,7 @@ A Begin/End invoke function pair.
 
 Converts a Begin/End invoke function pair into an asynchronous function.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -1478,11 +1478,11 @@ A Begin/End invoke function pair.
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[FromAsyncPattern Overload](FromAsyncPattern\Observable.FromAsyncPattern.md)
+[FromAsyncPattern Overload](FromAsyncPattern/Observable.FromAsyncPattern)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 
 
@@ -1495,7 +1495,7 @@ A Begin/End invoke function pair.
 
 Converts a Begin/End invoke function pair into an asynchronous function.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -1574,11 +1574,11 @@ A Begin/End invoke function pair.
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[FromAsyncPattern Overload](FromAsyncPattern\Observable.FromAsyncPattern.md)
+[FromAsyncPattern Overload](FromAsyncPattern/Observable.FromAsyncPattern)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 
 
@@ -1591,7 +1591,7 @@ A Begin/End invoke function pair.
 
 Converts a Begin/End invoke function pair into an asynchronous function.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -1660,18 +1660,18 @@ JScript does not support generic types and methods.
 
 #### Return Value
 
-Type: [System.Func](https://msdn.microsoft.com/en-us/library/Bb534647)\<T1, T2, [IObservable](https://msdn.microsoft.com/en-us/library/Dd990377)\<[Unit](Unit\Unit.md)\>\>  
+Type: [System.Func](https://msdn.microsoft.com/en-us/library/Bb534647)\<T1, T2, [IObservable](https://msdn.microsoft.com/en-us/library/Dd990377)\<[Unit](Unit/Unit)\>\>  
 A Begin/End invoke function pair.
 
 ## See Also
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[FromAsyncPattern Overload](FromAsyncPattern\Observable.FromAsyncPattern.md)
+[FromAsyncPattern Overload](FromAsyncPattern/Observable.FromAsyncPattern)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 
 
@@ -1684,7 +1684,7 @@ A Begin/End invoke function pair.
 
 Converts a Begin/End invoke function pair into an asynchronous function.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -1772,11 +1772,11 @@ A Begin/End invoke function pair.
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[FromAsyncPattern Overload](FromAsyncPattern\Observable.FromAsyncPattern.md)
+[FromAsyncPattern Overload](FromAsyncPattern/Observable.FromAsyncPattern)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 
 
@@ -1789,7 +1789,7 @@ A Begin/End invoke function pair.
 
 Converts a Begin/End invoke function pair into an asynchronous function.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -1968,11 +1968,11 @@ The following example output is generated by the example code.
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[FromAsyncPattern Overload](FromAsyncPattern\Observable.FromAsyncPattern.md)
+[FromAsyncPattern Overload](FromAsyncPattern/Observable.FromAsyncPattern)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 
 
@@ -1987,7 +1987,7 @@ The following example output is generated by the example code.
 
 Converts a Begin/End invoke function pair into an asynchronous function.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -2089,18 +2089,18 @@ JScript does not support generic types and methods.
 
 #### Return Value
 
-Type: [System.Func](https://msdn.microsoft.com/en-us/library/Dd402867)\<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, [IObservable](https://msdn.microsoft.com/en-us/library/Dd990377)\<[Unit](Unit\Unit.md)\>\>  
+Type: [System.Func](https://msdn.microsoft.com/en-us/library/Dd402867)\<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, [IObservable](https://msdn.microsoft.com/en-us/library/Dd990377)\<[Unit](Unit/Unit)\>\>  
 A Begin/End invoke function pair.
 
 ## See Also
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[FromAsyncPattern Overload](FromAsyncPattern\Observable.FromAsyncPattern.md)
+[FromAsyncPattern Overload](FromAsyncPattern/Observable.FromAsyncPattern)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 
 
@@ -2113,7 +2113,7 @@ A Begin/End invoke function pair.
 
 Converts a Begin/End invoke function pair into an asynchronous function.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -2188,18 +2188,18 @@ JScript does not support generic types and methods.
 
 #### Return Value
 
-Type: [System.Func](https://msdn.microsoft.com/en-us/library/Bb534303)\<T1, T2, T3, T4, [IObservable](https://msdn.microsoft.com/en-us/library/Dd990377)\<[Unit](Unit\Unit.md)\>\>  
+Type: [System.Func](https://msdn.microsoft.com/en-us/library/Bb534303)\<T1, T2, T3, T4, [IObservable](https://msdn.microsoft.com/en-us/library/Dd990377)\<[Unit](Unit/Unit)\>\>  
 A Begin/End invoke function pair.
 
 ## See Also
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[FromAsyncPattern Overload](FromAsyncPattern\Observable.FromAsyncPattern.md)
+[FromAsyncPattern Overload](FromAsyncPattern/Observable.FromAsyncPattern)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 
 
@@ -2212,7 +2212,7 @@ A Begin/End invoke function pair.
 
 Converts a Begin/End invoke function pair into an asynchronous function.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -2284,18 +2284,18 @@ JScript does not support generic types and methods.
 
 #### Return Value
 
-Type: [System.Func](https://msdn.microsoft.com/en-us/library/Bb549430)\<T1, T2, T3, [IObservable](https://msdn.microsoft.com/en-us/library/Dd990377)\<[Unit](Unit\Unit.md)\>\>  
+Type: [System.Func](https://msdn.microsoft.com/en-us/library/Bb549430)\<T1, T2, T3, [IObservable](https://msdn.microsoft.com/en-us/library/Dd990377)\<[Unit](Unit/Unit)\>\>  
 A Begin/End invoke function pair.
 
 ## See Also
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[FromAsyncPattern Overload](FromAsyncPattern\Observable.FromAsyncPattern.md)
+[FromAsyncPattern Overload](FromAsyncPattern/Observable.FromAsyncPattern)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 
 
@@ -2308,7 +2308,7 @@ A Begin/End invoke function pair.
 
 Converts a Begin/End invoke function pair into an asynchronous function.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -2393,11 +2393,11 @@ A Begin/End invoke function pair.
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[FromAsyncPattern Overload](FromAsyncPattern\Observable.FromAsyncPattern.md)
+[FromAsyncPattern Overload](FromAsyncPattern/Observable.FromAsyncPattern)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 
 
@@ -2410,7 +2410,7 @@ A Begin/End invoke function pair.
 
 Converts a Begin/End invoke function pair into an asynchronous function.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -2506,18 +2506,18 @@ JScript does not support generic types and methods.
 
 #### Return Value
 
-Type: [System.Func](https://msdn.microsoft.com/en-us/library/Dd402864)\<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, [IObservable](https://msdn.microsoft.com/en-us/library/Dd990377)\<[Unit](Unit\Unit.md)\>\>  
+Type: [System.Func](https://msdn.microsoft.com/en-us/library/Dd402864)\<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, [IObservable](https://msdn.microsoft.com/en-us/library/Dd990377)\<[Unit](Unit/Unit)\>\>  
 A Begin/End invoke function pair.
 
 ## See Also
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[FromAsyncPattern Overload](FromAsyncPattern\Observable.FromAsyncPattern.md)
+[FromAsyncPattern Overload](FromAsyncPattern/Observable.FromAsyncPattern)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 
 
@@ -2530,7 +2530,7 @@ A Begin/End invoke function pair.
 
 Converts a Begin/End invoke function pair into an asynchronous function.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -2624,11 +2624,11 @@ A Begin/End invoke function pair.
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[FromAsyncPattern Overload](FromAsyncPattern\Observable.FromAsyncPattern.md)
+[FromAsyncPattern Overload](FromAsyncPattern/Observable.FromAsyncPattern)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 
 
@@ -2641,7 +2641,7 @@ A Begin/End invoke function pair.
 
 Converts a Begin/End invoke function pair into an asynchronous function.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -2734,18 +2734,18 @@ JScript does not support generic types and methods.
 
 #### Return Value
 
-Type: [System.Func](https://msdn.microsoft.com/en-us/library/Dd383294)\<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, [IObservable](https://msdn.microsoft.com/en-us/library/Dd990377)\<[Unit](Unit\Unit.md)\>\>  
+Type: [System.Func](https://msdn.microsoft.com/en-us/library/Dd383294)\<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, [IObservable](https://msdn.microsoft.com/en-us/library/Dd990377)\<[Unit](Unit/Unit)\>\>  
 A Begin/End invoke function pair.
 
 ## See Also
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[FromAsyncPattern Overload](FromAsyncPattern\Observable.FromAsyncPattern.md)
+[FromAsyncPattern Overload](FromAsyncPattern/Observable.FromAsyncPattern)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 
 
@@ -2758,7 +2758,7 @@ A Begin/End invoke function pair.
 
 Converts a Begin/End invoke function pair into an asynchronous function.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -2863,18 +2863,18 @@ JScript does not support generic types and methods.
 
 #### Return Value
 
-Type: [System.Func](https://msdn.microsoft.com/en-us/library/Dd402861)\<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, [IObservable](https://msdn.microsoft.com/en-us/library/Dd990377)\<[Unit](Unit\Unit.md)\>\>  
+Type: [System.Func](https://msdn.microsoft.com/en-us/library/Dd402861)\<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, [IObservable](https://msdn.microsoft.com/en-us/library/Dd990377)\<[Unit](Unit/Unit)\>\>  
 A Begin/End invoke function pair.
 
 ## See Also
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[FromAsyncPattern Overload](FromAsyncPattern\Observable.FromAsyncPattern.md)
+[FromAsyncPattern Overload](FromAsyncPattern/Observable.FromAsyncPattern)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 
 
@@ -2887,7 +2887,7 @@ A Begin/End invoke function pair.
 
 Converts a Begin/End invoke function pair into an asynchronous function.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -3002,11 +3002,11 @@ A Begin/End invoke function pair.
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[FromAsyncPattern Overload](FromAsyncPattern\Observable.FromAsyncPattern.md)
+[FromAsyncPattern Overload](FromAsyncPattern/Observable.FromAsyncPattern)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 
 
@@ -3019,7 +3019,7 @@ A Begin/End invoke function pair.
 
 Converts a Begin/End invoke function pair into an asynchronous function.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -3103,18 +3103,18 @@ JScript does not support generic types and methods.
 
 #### Return Value
 
-Type: [System.Func](https://msdn.microsoft.com/en-us/library/Dd289456)\<T1, T2, T3, T4, T5, T6, T7, [IObservable](https://msdn.microsoft.com/en-us/library/Dd990377)\<[Unit](Unit\Unit.md)\>\>  
+Type: [System.Func](https://msdn.microsoft.com/en-us/library/Dd289456)\<T1, T2, T3, T4, T5, T6, T7, [IObservable](https://msdn.microsoft.com/en-us/library/Dd990377)\<[Unit](Unit/Unit)\>\>  
 A Begin/End invoke function pair.
 
 ## See Also
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[FromAsyncPattern Overload](FromAsyncPattern\Observable.FromAsyncPattern.md)
+[FromAsyncPattern Overload](FromAsyncPattern/Observable.FromAsyncPattern)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 
 

@@ -17,9 +17,9 @@ NameDescription![Public method](https://reactiveui.net/assets/img/Hh303103.pubme
 
 #### Reference
 
-[Qbservable Class](Qbservable\Qbservable.md)
+[Qbservable Class](Qbservable/Qbservable)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 
 
@@ -29,7 +29,7 @@ NameDescription![Public method](https://reactiveui.net/assets/img/Hh303103.pubme
 
 Converts a Begin/End invoke function pair into an asynchronous function.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive.Providers (in System.Reactive.Providers.dll)
 
 ## Syntax
@@ -91,7 +91,7 @@ public static function FromAsyncPattern(
 #### Parameters
 
 - provider  
-  Type: [System.Reactive.Linq.IQbservableProvider](IQbservableProvider\IQbservableProvider.md)  
+  Type: [System.Reactive.Linq.IQbservableProvider](IQbservableProvider/IQbservableProvider)  
   The local Qbservable provider.
 
 - begin  
@@ -104,22 +104,22 @@ public static function FromAsyncPattern(
 
 #### Return Value
 
-Type: [System.Func](https://msdn.microsoft.com/en-us/library/Bb534960)\<[IQbservable](IQbservable\IQbservable(TSource).md)\<[Unit](Unit\Unit.md)\>\>  
+Type: [System.Func](https://msdn.microsoft.com/en-us/library/Bb534960)\<[IQbservable](IQbservable/IQbservable(TSource))\<[Unit](Unit/Unit)\>\>  
 A Begin/End invoke function pair.
 
 #### Usage Note
 
-In Visual Basic and C\#, you can call this method as an instance method on any object of type [IQbservableProvider](IQbservableProvider\IQbservableProvider.md). When you use instance method syntax to call this method, omit the first parameter. For more information, see [](https://msdn.microsoft.com/en-us/library/Bb384936) or [](https://msdn.microsoft.com/en-us/library/Bb383977).
+In Visual Basic and C\#, you can call this method as an instance method on any object of type [IQbservableProvider](IQbservableProvider/IQbservableProvider). When you use instance method syntax to call this method, omit the first parameter. For more information, see [](https://msdn.microsoft.com/en-us/library/Bb384936) or [](https://msdn.microsoft.com/en-us/library/Bb383977).
 
 ## See Also
 
 #### Reference
 
-[Qbservable Class](Qbservable\Qbservable.md)
+[Qbservable Class](Qbservable/Qbservable)
 
-[FromAsyncPattern Overload](FromAsyncPattern\Qbservable.FromAsyncPattern.md)
+[FromAsyncPattern Overload](FromAsyncPattern/Qbservable.FromAsyncPattern)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 
 

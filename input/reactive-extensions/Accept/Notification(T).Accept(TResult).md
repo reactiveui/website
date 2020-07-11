@@ -4,7 +4,7 @@ title: Notification<T>.Accept<TResult>(Func<T, TResult>, Func<Exception, TResult
 
 Invokes the delegate corresponding to the notification and returns the produced result.
 
-**Namespace:**  [System.Reactive](System.Reactive\System.Reactive.md)  
+**Namespace:**  [System.Reactive](System.Reactive/System.Reactive)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -67,7 +67,7 @@ JScript does not support generic types and methods.
 #### Parameters
 
 - onNext  
-  Type: [System.Func](https://msdn.microsoft.com/en-us/library/Bb549151)\<[T](Notification\Notification(T).md), TResult\>  
+  Type: [System.Func](https://msdn.microsoft.com/en-us/library/Bb549151)\<[T](Notification/Notification(T)), TResult\>  
   The delegate to invoke for an OnNext notification.
 
 - onError  
@@ -87,8 +87,8 @@ The result produced by the observation..
 
 #### Reference
 
-[Notification\<T\> Class](Notification\Notification(T).md)
+[Notification\<T\> Class](Notification/Notification(T))
 
-[Accept Overload](Accept\Notification(T).Accept.md)
+[Accept Overload](Accept/Notification(T).Accept)
 
-[System.Reactive Namespace](System.Reactive\System.Reactive.md)
+[System.Reactive Namespace](System.Reactive/System.Reactive)

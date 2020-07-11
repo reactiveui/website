@@ -4,7 +4,7 @@ title: Observable.Publish<TSource>(IObservable<TSource>)
 
 Returns a connectable observable sequence that shares a single subscription to the underlying sequence.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -62,7 +62,7 @@ JScript does not support generic types and methods.
 
 #### Return Value
 
-Type: [System.Reactive.Subjects.IConnectableObservable](IConnectableObservable\IConnectableObservable(T).md)\<TSource\>  
+Type: [System.Reactive.Subjects.IConnectableObservable](IConnectableObservable/IConnectableObservable(T))\<TSource\>  
 A connectable observable sequence that shares a single subscription to the underlying sequence.
 
 #### Usage Note
@@ -73,17 +73,17 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[Publish Overload](Publish\Observable.Publish.md)
+[Publish Overload](Publish/Observable.Publish)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 # Observable.Publish\<TSource\> Method (IObservable\<TSource\>, TSource)
 
 Returns a connectable observable sequence that shares a single subscription to the underlying sequence and starts with initialValue.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -150,7 +150,7 @@ JScript does not support generic types and methods.
 
 #### Return Value
 
-Type: [System.Reactive.Subjects.IConnectableObservable](IConnectableObservable\IConnectableObservable(T).md)\<TSource\>  
+Type: [System.Reactive.Subjects.IConnectableObservable](IConnectableObservable/IConnectableObservable(T))\<TSource\>  
 The connectable observable sequence that shares a single subscription to the underlying sequence.
 
 #### Usage Note
@@ -161,8 +161,8 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[Publish Overload](Publish\Observable.Publish.md)
+[Publish Overload](Publish/Observable.Publish)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)

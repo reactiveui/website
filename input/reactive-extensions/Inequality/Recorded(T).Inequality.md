@@ -4,7 +4,7 @@ title: Recorded<T>.Inequality Operator
 
 Checks whether the two given recorded objects are not equal.
 
-**Namespace:**  [Microsoft.Reactive.Testing](Microsoft.Reactive.Testing\Microsoft.Reactive.Testing.md)  
+**Namespace:**  [Microsoft.Reactive.Testing](Microsoft.Reactive.Testing/Microsoft.Reactive.Testing)  
 **Assembly:**  Microsoft.Reactive.Testing (in Microsoft.Reactive.Testing.dll)
 
 ## Syntax
@@ -54,11 +54,11 @@ JScript supports the use of overloaded operators, but not the declaration of new
 #### Parameters
 
 - left  
-  Type: [Microsoft.Reactive.Testing.Recorded](Recorded\Recorded(T).md)\<[T](Recorded\Recorded(T).md)\>  
+  Type: [Microsoft.Reactive.Testing.Recorded](Recorded/Recorded(T))\<[T](Recorded/Recorded(T))\>  
   First object to check for equality.
 
 - right  
-  Type: [Microsoft.Reactive.Testing.Recorded](Recorded\Recorded(T).md)\<[T](Recorded\Recorded(T).md)\>  
+  Type: [Microsoft.Reactive.Testing.Recorded](Recorded/Recorded(T))\<[T](Recorded/Recorded(T))\>  
   Second object to check for equality.
 
 #### Return Value
@@ -70,9 +70,9 @@ True if both objects are inequal; otherwise, false.
 
 #### Reference
 
-[Recorded\<T\> Structure](Recorded\Recorded(T).md)
+[Recorded\<T\> Structure](Recorded/Recorded(T))
 
-[Microsoft.Reactive.Testing Namespace](Microsoft.Reactive.Testing\Microsoft.Reactive.Testing.md)
+[Microsoft.Reactive.Testing Namespace](Microsoft.Reactive.Testing/Microsoft.Reactive.Testing)
 
 
 

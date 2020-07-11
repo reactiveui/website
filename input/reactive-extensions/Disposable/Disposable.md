@@ -9,7 +9,7 @@ Provides a set of static methods for creating Disposables.
 [System.Object](https://msdn.microsoft.com/en-us/library/e5kfa45b)  
   System.Reactive.Disposables.Disposable
 
-**Namespace:**  [System.Reactive.Disposables](System.Reactive.Disposables\System.Reactive.Disposables.md)  
+**Namespace:**  [System.Reactive.Disposables](System.Reactive.Disposables/System.Reactive.Disposables)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -45,7 +45,7 @@ The Disposable type exposes the following members.
 
 ## Properties
 
-NameDescription![Public property](https://reactiveui.net/assets/img/Hh211972.pubproperty(en-us,VS.103).gif "Public property")![Static member](https://reactiveui.net/assets/img/Hh244319.static(en-us,VS.103).gif "Static member")[Empty](Empty\Disposable.Empty.md)Gets the disposable that does nothing when disposed.Top
+NameDescription![Public property](https://reactiveui.net/assets/img/Hh211972.pubproperty(en-us,VS.103).gif "Public property")![Static member](https://reactiveui.net/assets/img/Hh244319.static(en-us,VS.103).gif "Static member")[Empty](Empty/Disposable.Empty)Gets the disposable that does nothing when disposed.Top
 
 ## Methods
 
@@ -59,7 +59,7 @@ Any public static (Shared in Visual Basic) members of this type are thread safe.
 
 #### Reference
 
-[System.Reactive.Disposables Namespace](System.Reactive.Disposables\System.Reactive.Disposables.md)
+[System.Reactive.Disposables Namespace](System.Reactive.Disposables/System.Reactive.Disposables)
 
 
 
@@ -74,19 +74,19 @@ Any public static (Shared in Visual Basic) members of this type are thread safe.
 Include Protected Members  
 Include Inherited Members
 
-The [Disposable](Disposable\Disposable.md) type exposes the following members.
+The [Disposable](Disposable/Disposable) type exposes the following members.
 
 ## Properties
 
-NameDescription![Public property](https://reactiveui.net/assets/img/Hh211972.pubproperty(en-us,VS.103).gif "Public property")![Static member](https://reactiveui.net/assets/img/Hh244319.static(en-us,VS.103).gif "Static member")[Empty](Empty\Disposable.Empty.md)Gets the disposable that does nothing when disposed.Top
+NameDescription![Public property](https://reactiveui.net/assets/img/Hh211972.pubproperty(en-us,VS.103).gif "Public property")![Static member](https://reactiveui.net/assets/img/Hh244319.static(en-us,VS.103).gif "Static member")[Empty](Empty/Disposable.Empty)Gets the disposable that does nothing when disposed.Top
 
 ## See Also
 
 #### Reference
 
-[Disposable Class](Disposable\Disposable.md)
+[Disposable Class](Disposable/Disposable)
 
-[System.Reactive.Disposables Namespace](System.Reactive.Disposables\System.Reactive.Disposables.md)
+[System.Reactive.Disposables Namespace](System.Reactive.Disposables/System.Reactive.Disposables)
 
 
 
@@ -97,7 +97,7 @@ NameDescription![Public property](https://reactiveui.net/assets/img/Hh211972.pub
 Include Protected Members  
 Include Inherited Members
 
-The [Disposable](Disposable\Disposable.md) type exposes the following members.
+The [Disposable](Disposable/Disposable) type exposes the following members.
 
 ## Methods
 
@@ -107,9 +107,9 @@ NameDescription![Public method](https://reactiveui.net/assets/img/Hh303103.pubme
 
 #### Reference
 
-[Disposable Class](Disposable\Disposable.md)
+[Disposable Class](Disposable/Disposable)
 
-[System.Reactive.Disposables Namespace](System.Reactive.Disposables\System.Reactive.Disposables.md)
+[System.Reactive.Disposables Namespace](System.Reactive.Disposables/System.Reactive.Disposables)
 
 
 

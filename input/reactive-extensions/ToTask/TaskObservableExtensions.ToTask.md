@@ -17,6 +17,6 @@ NameDescription![Public method](https://reactiveui.net/assets/img/Hh303103.pubme
 
 #### Reference
 
-[TaskObservableExtensions Class](TaskObservableExtensions\TaskObservableExtensions.md)
+[TaskObservableExtensions Class](TaskObservableExtensions/TaskObservableExtensions)
 
-[System.Reactive.Threading.Tasks Namespace](System.Reactive.Threading.Tasks\System.Reactive.Threading.Tasks.md)
+[System.Reactive.Threading.Tasks Namespace](System.Reactive.Threading.Tasks/System.Reactive.Threading.Tasks)

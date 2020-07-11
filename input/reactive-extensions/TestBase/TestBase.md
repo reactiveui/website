@@ -6,10 +6,10 @@ title: TestBase Class
 
 [System.Object](https://msdn.microsoft.com/en-us/library/e5kfa45b)  
   ReactiveTests.TestBase  
-    [ReactiveTests.Tests.DispatcherSchedulerTest](DispatcherSchedulerTest\DispatcherSchedulerTest.md)  
-    [ReactiveTests.Tests.ObservableConcurrencyTest](ObservableConcurrencyTest\ObservableConcurrencyTest.md)
+    [ReactiveTests.Tests.DispatcherSchedulerTest](DispatcherSchedulerTest/DispatcherSchedulerTest)  
+    [ReactiveTests.Tests.ObservableConcurrencyTest](ObservableConcurrencyTest/ObservableConcurrencyTest)
 
-**Namespace:**  [ReactiveTests](ReactiveTests\ReactiveTests.md)  
+**Namespace:**  [ReactiveTests](ReactiveTests/ReactiveTests)  
 **Assembly:**  Tests.System.Reactive (in Tests.System.Reactive.dll)
 
 ## Syntax
@@ -44,7 +44,7 @@ The TestBase type exposes the following members.
 
 ## Constructors
 
-NameDescription![Public method](https://reactiveui.net/assets/img/Hh303103.pubmethod(en-us,VS.103).gif "Public method")[TestBase](TestBase\TestBase.md)Top
+NameDescription![Public method](https://reactiveui.net/assets/img/Hh303103.pubmethod(en-us,VS.103).gif "Public method")[TestBase](TestBase/TestBase)Top
 
 ## Methods
 
@@ -58,14 +58,14 @@ Any public static (Shared in Visual Basic) members of this type are thread safe.
 
 #### Reference
 
-[ReactiveTests Namespace](ReactiveTests\ReactiveTests.md)
+[ReactiveTests Namespace](ReactiveTests/ReactiveTests)
 
 # TestBase Methods
 
 Include Protected Members  
 Include Inherited Members
 
-The [TestBase](TestBase\TestBase.md) type exposes the following members.
+The [TestBase](TestBase/TestBase) type exposes the following members.
 
 ## Methods
 
@@ -75,13 +75,13 @@ NameDescription![Public method](https://reactiveui.net/assets/img/Hh303103.pubme
 
 #### Reference
 
-[TestBase Class](TestBase\TestBase.md)
+[TestBase Class](TestBase/TestBase)
 
-[ReactiveTests Namespace](ReactiveTests\ReactiveTests.md)
+[ReactiveTests Namespace](ReactiveTests/ReactiveTests)
 
 # TestBase Constructor
 
-**Namespace:**  [ReactiveTests](ReactiveTests\ReactiveTests.md)  
+**Namespace:**  [ReactiveTests](ReactiveTests/ReactiveTests)  
 **Assembly:**  Tests.System.Reactive (in Tests.System.Reactive.dll)
 
 ## Syntax
@@ -118,6 +118,6 @@ public function TestBase()
 
 #### Reference
 
-[TestBase Class](TestBase\TestBase.md)
+[TestBase Class](TestBase/TestBase)
 
-[ReactiveTests Namespace](ReactiveTests\ReactiveTests.md)
+[ReactiveTests Namespace](ReactiveTests/ReactiveTests)

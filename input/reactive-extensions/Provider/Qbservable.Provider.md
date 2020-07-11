@@ -4,7 +4,7 @@ title: Qbservable.Provider Property
 
 Gets the local Qbservable provider.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive.Providers (in System.Reactive.Providers.dll)
 
 ## Syntax
@@ -43,13 +43,13 @@ static function get Provider () : IQbservableProvider
 
 #### Property Value
 
-Type: [System.Reactive.Linq.IQbservableProvider](IQbservableProvider\IQbservableProvider.md)  
+Type: [System.Reactive.Linq.IQbservableProvider](IQbservableProvider/IQbservableProvider)  
 The provider of a queryable observable sequence.
 
 ## See Also
 
 #### Reference
 
-[Qbservable Class](Qbservable\Qbservable.md)
+[Qbservable Class](Qbservable/Qbservable)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)

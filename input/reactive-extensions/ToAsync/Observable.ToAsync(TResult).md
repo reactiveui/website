@@ -4,7 +4,7 @@ title: Observable.ToAsync<TResult>(Func<TResult>)
 
 Converts the function into an asynchronous function.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -73,17 +73,17 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[ToAsync Overload](ToAsync\Observable.ToAsync.md)
+[ToAsync Overload](ToAsync/Observable.ToAsync)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 # Observable.ToAsync\<TResult\> Method (Func\<TResult\>, IScheduler)
 
 Converts the function into an asynchronous function.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -145,7 +145,7 @@ JScript does not support generic types and methods.
   The function used to synchronization.
 
 - scheduler  
-  Type: [System.Reactive.Concurrency.IScheduler](IScheduler\IScheduler.md)  
+  Type: [System.Reactive.Concurrency.IScheduler](IScheduler/IScheduler)  
   The scheduler used to synchronization.
 
 #### Return Value
@@ -161,8 +161,8 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[ToAsync Overload](ToAsync\Observable.ToAsync.md)
+[ToAsync Overload](ToAsync/Observable.ToAsync)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)

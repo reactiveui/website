@@ -4,7 +4,7 @@ title: Observable.ToEventPattern<TEventArgs>()
 
 Exposes an observable sequence as an object with a .NET event.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -59,22 +59,22 @@ JScript does not support generic types and methods.
 #### Parameters
 
 - source  
-  Type: [System.IObservable](https://msdn.microsoft.com/en-us/library/Dd990377)\<[EventPattern](EventPattern\EventPattern(TEventArgs).md)\<TEventArgs\>\>  
+  Type: [System.IObservable](https://msdn.microsoft.com/en-us/library/Dd990377)\<[EventPattern](EventPattern/EventPattern(TEventArgs))\<TEventArgs\>\>  
   The observable source sequence.
 
 #### Return Value
 
-Type: [System.Reactive.IEventPatternSource](IEventPatternSource\IEventPatternSource(TEventArgs).md)\<TEventArgs\>  
+Type: [System.Reactive.IEventPatternSource](IEventPatternSource/IEventPatternSource(TEventArgs))\<TEventArgs\>  
 The event source object.
 
 #### Usage Note
 
-In Visual Basic and C\#, you can call this method as an instance method on any object of type [IObservable](https://msdn.microsoft.com/en-us/library/Dd990377)\<[EventPattern](EventPattern\EventPattern(TEventArgs).md)\<TEventArgs\>\>. When you use instance method syntax to call this method, omit the first parameter. For more information, see [](https://msdn.microsoft.com/en-us/library/Bb384936) or [](https://msdn.microsoft.com/en-us/library/Bb383977).
+In Visual Basic and C\#, you can call this method as an instance method on any object of type [IObservable](https://msdn.microsoft.com/en-us/library/Dd990377)\<[EventPattern](EventPattern/EventPattern(TEventArgs))\<TEventArgs\>\>. When you use instance method syntax to call this method, omit the first parameter. For more information, see [](https://msdn.microsoft.com/en-us/library/Bb384936) or [](https://msdn.microsoft.com/en-us/library/Bb383977).
 
 ## See Also
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)

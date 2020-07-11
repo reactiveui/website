@@ -18,16 +18,16 @@ NameDescription![Public method](https://reactiveui.net/assets/img/Hh303103.pubme
 
 #### Reference
 
-[Notification\<T\> Class](Notification\Notification(T).md)
+[Notification\<T\> Class](Notification/Notification(T))
 
-[System.Reactive Namespace](System.Reactive\System.Reactive.md)
+[System.Reactive Namespace](System.Reactive/System.Reactive)
 
 
 # Notification\<T\>.Accept Method (IObserver\<T\>)
 
 Invokes the observer's method corresponding to the notification.
 
-**Namespace:**  [System.Reactive](System.Reactive\System.Reactive.md)  
+**Namespace:**  [System.Reactive](System.Reactive/System.Reactive)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -74,24 +74,24 @@ public abstract function Accept(
 #### Parameters
 
 - observer  
-  Type: [System.IObserver](https://msdn.microsoft.com/en-us/library/Dd783449)\<[T](Notification\Notification(T).md)\>  
+  Type: [System.IObserver](https://msdn.microsoft.com/en-us/library/Dd783449)\<[T](Notification/Notification(T))\>  
   The observer to invoke the notification on.
 
 ## See Also
 
 #### Reference
 
-[Notification\<T\> Class](Notification\Notification(T).md)
+[Notification\<T\> Class](Notification/Notification(T))
 
-[Accept Overload](Accept\Notification(T).Accept.md)
+[Accept Overload](Accept/Notification(T).Accept)
 
-[System.Reactive Namespace](System.Reactive\System.Reactive.md)
+[System.Reactive Namespace](System.Reactive/System.Reactive)
 
 # Notification\<T\>.Accept Method (Action\<T\>, Action\<Exception\>, Action)
 
 Invokes the delegate corresponding to the notification.
 
-**Namespace:**  [System.Reactive](System.Reactive\System.Reactive.md)  
+**Namespace:**  [System.Reactive](System.Reactive/System.Reactive)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -150,7 +150,7 @@ public abstract function Accept(
 #### Parameters
 
 - onNext  
-  Type: [System.Action](https://msdn.microsoft.com/en-us/library/018hxwa8)\<[T](Notification\Notification(T).md)\>  
+  Type: [System.Action](https://msdn.microsoft.com/en-us/library/018hxwa8)\<[T](Notification/Notification(T))\>  
   The delegate to invoke for an OnNext notification.
 
 - onError  
@@ -165,11 +165,11 @@ public abstract function Accept(
 
 #### Reference
 
-[Notification\<T\> Class](Notification\Notification(T).md)
+[Notification\<T\> Class](Notification/Notification(T))
 
-[Accept Overload](Accept\Notification(T).Accept.md)
+[Accept Overload](Accept/Notification(T).Accept)
 
-[System.Reactive Namespace](System.Reactive\System.Reactive.md)
+[System.Reactive Namespace](System.Reactive/System.Reactive)
 
 
 

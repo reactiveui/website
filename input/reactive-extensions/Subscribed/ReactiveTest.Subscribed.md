@@ -4,7 +4,7 @@ title: ReactiveTest.Subscribed Field
 
 Default virtual time used to subscribe to an observable sequence in Rx tests.
 
-**Namespace:**  [Microsoft.Reactive.Testing](Microsoft.Reactive.Testing\Microsoft.Reactive.Testing.md)  
+**Namespace:**  [Microsoft.Reactive.Testing](Microsoft.Reactive.Testing/Microsoft.Reactive.Testing)  
 **Assembly:**  Microsoft.Reactive.Testing (in Microsoft.Reactive.Testing.dll)
 
 ## Syntax
@@ -42,6 +42,6 @@ public const var Subscribed : long
 
 #### Reference
 
-[ReactiveTest Class](ReactiveTest\ReactiveTest.md)
+[ReactiveTest Class](ReactiveTest/ReactiveTest)
 
-[Microsoft.Reactive.Testing Namespace](Microsoft.Reactive.Testing\Microsoft.Reactive.Testing.md)
+[Microsoft.Reactive.Testing Namespace](Microsoft.Reactive.Testing/Microsoft.Reactive.Testing)

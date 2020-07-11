@@ -7,7 +7,7 @@ title: MyExt Class
 [System.Object](https://msdn.microsoft.com/en-us/library/e5kfa45b)  
   ReactiveTests.Tests.MyExt
 
-**Namespace:**  [ReactiveTests.Tests](ReactiveTests.Tests\ReactiveTests.Tests.md)  
+**Namespace:**  [ReactiveTests.Tests](ReactiveTests.Tests/ReactiveTests.Tests)  
 **Assembly:**  Tests.System.Reactive (in Tests.System.Reactive.dll)
 
 ## Syntax
@@ -55,7 +55,7 @@ Any public static (Shared in Visual Basic) members of this type are thread safe.
 
 #### Reference
 
-[ReactiveTests.Tests Namespace](ReactiveTests.Tests\ReactiveTests.Tests.md)
+[ReactiveTests.Tests Namespace](ReactiveTests.Tests/ReactiveTests.Tests)
 
 
 
@@ -69,7 +69,7 @@ Any public static (Shared in Visual Basic) members of this type are thread safe.
 Include Protected Members  
 Include Inherited Members
 
-The [MyExt](MyExt\MyExt.md) type exposes the following members.
+The [MyExt](MyExt/MyExt) type exposes the following members.
 
 ## Methods
 
@@ -79,9 +79,9 @@ NameDescription![Public method](https://reactiveui.net/assets/img/Hh303103.pubme
 
 #### Reference
 
-[MyExt Class](MyExt\MyExt.md)
+[MyExt Class](MyExt/MyExt)
 
-[ReactiveTests.Tests Namespace](ReactiveTests.Tests\ReactiveTests.Tests.md)
+[ReactiveTests.Tests Namespace](ReactiveTests.Tests/ReactiveTests.Tests)
 
 
 

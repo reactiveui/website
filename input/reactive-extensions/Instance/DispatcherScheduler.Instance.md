@@ -2,7 +2,7 @@ title: DispatcherScheduler.Instance Property
 ---
 # DispatcherScheduler.Instance Property
 
-**Namespace:**  [System.Reactive.Concurrency](System.Reactive.Concurrency\System.Reactive.Concurrency.md)  
+**Namespace:**  [System.Reactive.Concurrency](System.Reactive.Concurrency/System.Reactive.Concurrency)  
 **Assembly:**  System.Reactive.Windows.Threading (in System.Reactive.Windows.Threading.dll)
 
 ## Syntax
@@ -41,15 +41,15 @@ static function get Instance () : DispatcherScheduler
 
 #### Property Value
 
-Type: [System.Reactive.Concurrency.DispatcherScheduler](DispatcherScheduler\DispatcherScheduler.md)
+Type: [System.Reactive.Concurrency.DispatcherScheduler](DispatcherScheduler/DispatcherScheduler)
 
 ## See Also
 
 #### Reference
 
-[DispatcherScheduler Class](DispatcherScheduler\DispatcherScheduler.md)
+[DispatcherScheduler Class](DispatcherScheduler/DispatcherScheduler)
 
-[System.Reactive.Concurrency Namespace](System.Reactive.Concurrency\System.Reactive.Concurrency.md)
+[System.Reactive.Concurrency Namespace](System.Reactive.Concurrency/System.Reactive.Concurrency)
 
 
 

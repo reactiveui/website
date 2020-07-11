@@ -4,7 +4,7 @@ title: EventPattern<TEventArgs>.Sender Property
 
 Represents event sender information for a .NET event.
 
-**Namespace:**  [System.Reactive](System.Reactive\System.Reactive.md)  
+**Namespace:**  [System.Reactive](System.Reactive/System.Reactive)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -54,6 +54,6 @@ Returns [Object](https://msdn.microsoft.com/en-us/library/e5kfa45b).
 
 #### Reference
 
-[EventPattern\<TEventArgs\> Class](EventPattern\EventPattern(TEventArgs).md)
+[EventPattern\<TEventArgs\> Class](EventPattern/EventPattern(TEventArgs))
 
-[System.Reactive Namespace](System.Reactive\System.Reactive.md)
+[System.Reactive Namespace](System.Reactive/System.Reactive)

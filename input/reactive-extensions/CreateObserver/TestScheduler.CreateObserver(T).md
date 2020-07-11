@@ -4,7 +4,7 @@ title: TestScheduler.CreateObserver<T>()
 
 Creates a testable observer.
 
-**Namespace:**  [Microsoft.Reactive.Testing](Microsoft.Reactive.Testing\Microsoft.Reactive.Testing.md)  
+**Namespace:**  [Microsoft.Reactive.Testing](Microsoft.Reactive.Testing/Microsoft.Reactive.Testing)  
 **Assembly:**  Microsoft.Reactive.Testing (in Microsoft.Reactive.Testing.dll)
 
 ## Syntax
@@ -46,16 +46,16 @@ JScript does not support generic types and methods.
 
 #### Return Value
 
-Type: [Microsoft.Reactive.Testing.ITestableObserver](ITestableObserver\ITestableObserver(T).md)\<T\>  
+Type: [Microsoft.Reactive.Testing.ITestableObserver](ITestableObserver/ITestableObserver(T))\<T\>  
 New testable observer object.
 
 ## See Also
 
 #### Reference
 
-[TestScheduler Class](TestScheduler\TestScheduler.md)
+[TestScheduler Class](TestScheduler/TestScheduler)
 
-[Microsoft.Reactive.Testing Namespace](Microsoft.Reactive.Testing\Microsoft.Reactive.Testing.md)
+[Microsoft.Reactive.Testing Namespace](Microsoft.Reactive.Testing/Microsoft.Reactive.Testing)
 
 
 

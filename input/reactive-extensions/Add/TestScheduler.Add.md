@@ -4,7 +4,7 @@ title: TestScheduler.Add()
 
 Adds a relative virtual time to an absolute virtual time value.
 
-**Namespace:**  [Microsoft.Reactive.Testing](Microsoft.Reactive.Testing\Microsoft.Reactive.Testing.md)  
+**Namespace:**  [Microsoft.Reactive.Testing](Microsoft.Reactive.Testing/Microsoft.Reactive.Testing)  
 **Assembly:**  Microsoft.Reactive.Testing (in Microsoft.Reactive.Testing.dll)
 
 ## Syntax
@@ -76,6 +76,6 @@ Resulting absolute virtual time sum value.
 
 #### Reference
 
-[TestScheduler Class](TestScheduler\TestScheduler.md)
+[TestScheduler Class](TestScheduler/TestScheduler)
 
-[Microsoft.Reactive.Testing Namespace](Microsoft.Reactive.Testing\Microsoft.Reactive.Testing.md)
+[Microsoft.Reactive.Testing Namespace](Microsoft.Reactive.Testing/Microsoft.Reactive.Testing)

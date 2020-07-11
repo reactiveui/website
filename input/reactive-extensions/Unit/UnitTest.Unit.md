@@ -2,7 +2,7 @@ title: UnitTest.Unit()
 ---
 # UnitTest.Unit Method
 
-**Namespace:**  [ReactiveTests.Tests](ReactiveTests.Tests\ReactiveTests.Tests.md)  
+**Namespace:**  [ReactiveTests.Tests](ReactiveTests.Tests/ReactiveTests.Tests)  
 **Assembly:**  Tests.System.Reactive (in Tests.System.Reactive.dll)
 
 ## Syntax
@@ -44,6 +44,6 @@ public function Unit()
 
 #### Reference
 
-[UnitTest Class](UnitTest\UnitTest.md)
+[UnitTest Class](UnitTest/UnitTest)
 
-[ReactiveTests.Tests Namespace](ReactiveTests.Tests\ReactiveTests.Tests.md)
+[ReactiveTests.Tests Namespace](ReactiveTests.Tests/ReactiveTests.Tests)

@@ -4,7 +4,7 @@ title: Recorded<T>.Value Property
 
 Gets the value.
 
-**Namespace:**  [Microsoft.Reactive.Testing](Microsoft.Reactive.Testing\Microsoft.Reactive.Testing.md)  
+**Namespace:**  [Microsoft.Reactive.Testing](Microsoft.Reactive.Testing/Microsoft.Reactive.Testing)  
 **Assembly:**  Microsoft.Reactive.Testing (in Microsoft.Reactive.Testing.dll)
 
 ## Syntax
@@ -44,13 +44,13 @@ function get Value () : T
 
 #### Property Value
 
-Type: [T](Recorded\Recorded(T).md)  
+Type: [T](Recorded/Recorded(T))  
 The value.
 
 ## See Also
 
 #### Reference
 
-[Recorded\<T\> Structure](Recorded\Recorded(T).md)
+[Recorded\<T\> Structure](Recorded/Recorded(T))
 
-[Microsoft.Reactive.Testing Namespace](Microsoft.Reactive.Testing\Microsoft.Reactive.Testing.md)
+[Microsoft.Reactive.Testing Namespace](Microsoft.Reactive.Testing/Microsoft.Reactive.Testing)

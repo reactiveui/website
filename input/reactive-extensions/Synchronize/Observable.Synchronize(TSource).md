@@ -4,7 +4,7 @@ title: Observable.Synchronize<TSource>(IObservable<TSource>, Object)
 
 Synchronizes the observable sequence.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -86,17 +86,17 @@ This Synchronize method returns an observable sequence of the type TSource which
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[Synchronize Overload](Synchronize\Observable.Synchronize.md)
+[Synchronize Overload](Synchronize/Observable.Synchronize)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 # Observable.Synchronize\<TSource\> Method (IObservable\<TSource\>)
 
 Synchronizes the observable sequence.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -177,8 +177,8 @@ This overload of the Synchronize method will create a new gate object for each s
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[Synchronize Overload](Synchronize\Observable.Synchronize.md)
+[Synchronize Overload](Synchronize/Observable.Synchronize)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)

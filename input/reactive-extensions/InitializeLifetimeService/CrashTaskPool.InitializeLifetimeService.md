@@ -4,7 +4,7 @@ title: CrashTaskPool.InitializeLifetimeService()
 
 This member overrides [MarshalByRefObject.InitializeLifetimeService()](https://msdn.microsoft.com/en-us/library/zwt5tzck).
 
-**Namespace:**  [ReactiveTests.Tests](ReactiveTests.Tests\ReactiveTests.Tests.md)  
+**Namespace:**  [ReactiveTests.Tests](ReactiveTests.Tests/ReactiveTests.Tests)  
 **Assembly:**  Tests.System.Reactive (in Tests.System.Reactive.dll)
 
 ## Syntax
@@ -48,9 +48,9 @@ Type: [System.Object](https://msdn.microsoft.com/en-us/library/e5kfa45b)
 
 #### Reference
 
-[CrashTaskPool Class](CrashTaskPool\CrashTaskPool.md)
+[CrashTaskPool Class](CrashTaskPool/CrashTaskPool)
 
-[ReactiveTests.Tests Namespace](ReactiveTests.Tests\ReactiveTests.Tests.md)
+[ReactiveTests.Tests Namespace](ReactiveTests.Tests/ReactiveTests.Tests)
 
 
 

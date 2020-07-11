@@ -2,7 +2,7 @@ title: ControlObservable.SubscribeOn<TSource>()
 ---
 # ControlObservable.SubscribeOn\<TSource\> Method
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive.Windows.Forms (in System.Reactive.Windows.Forms.dll)
 
 ## Syntax
@@ -76,6 +76,6 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 
 #### Reference
 
-[ControlObservable Class](ControlObservable\ControlObservable.md)
+[ControlObservable Class](ControlObservable/ControlObservable)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)

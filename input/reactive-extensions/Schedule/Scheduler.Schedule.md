@@ -4,7 +4,7 @@ title: Scheduler.Schedule(IScheduler, Action)
 
 Schedules an action to be executed.
 
-**Namespace:**  [System.Reactive.Concurrency](System.Reactive.Concurrency\System.Reactive.Concurrency.md)  
+**Namespace:**  [System.Reactive.Concurrency](System.Reactive.Concurrency/System.Reactive.Concurrency)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -59,7 +59,7 @@ public static function Schedule(
 #### Parameters
 
 - scheduler  
-  Type: [System.Reactive.Concurrency.IScheduler](IScheduler\IScheduler.md)  
+  Type: [System.Reactive.Concurrency.IScheduler](IScheduler/IScheduler)  
   The scheduler to execute the action on.
 
 - action  
@@ -73,23 +73,23 @@ The disposable object used to cancel the scheduled action (best effort).
 
 #### Usage Note
 
-In Visual Basic and C\#, you can call this method as an instance method on any object of type [IScheduler](IScheduler\IScheduler.md). When you use instance method syntax to call this method, omit the first parameter. For more information, see [](https://msdn.microsoft.com/en-us/library/Bb384936) or [](https://msdn.microsoft.com/en-us/library/Bb383977).
+In Visual Basic and C\#, you can call this method as an instance method on any object of type [IScheduler](IScheduler/IScheduler). When you use instance method syntax to call this method, omit the first parameter. For more information, see [](https://msdn.microsoft.com/en-us/library/Bb384936) or [](https://msdn.microsoft.com/en-us/library/Bb383977).
 
 ## See Also
 
 #### Reference
 
-[Scheduler Class](Scheduler\Scheduler.md)
+[Scheduler Class](Scheduler/Scheduler)
 
-[Schedule Overload](Schedule\Scheduler.Schedule.md)
+[Schedule Overload](Schedule/Scheduler.Schedule)
 
-[System.Reactive.Concurrency Namespace](System.Reactive.Concurrency\System.Reactive.Concurrency.md)
+[System.Reactive.Concurrency Namespace](System.Reactive.Concurrency/System.Reactive.Concurrency)
 
 # Scheduler.Schedule Method (IScheduler, DateTimeOffset, Action\<Action\<DateTimeOffset\>\>)
 
 Schedules an action to be executed after dueTime.
 
-**Namespace:**  [System.Reactive.Concurrency](System.Reactive.Concurrency\System.Reactive.Concurrency.md)  
+**Namespace:**  [System.Reactive.Concurrency](System.Reactive.Concurrency/System.Reactive.Concurrency)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -151,7 +151,7 @@ public static function Schedule(
 #### Parameters
 
 - scheduler  
-  Type: [System.Reactive.Concurrency.IScheduler](IScheduler\IScheduler.md)  
+  Type: [System.Reactive.Concurrency.IScheduler](IScheduler/IScheduler)  
   The scheduler to execute the action on.
 
 - dueTime  
@@ -169,23 +169,23 @@ The disposable object used to cancel the scheduled action (best effort).
 
 #### Usage Note
 
-In Visual Basic and C\#, you can call this method as an instance method on any object of type [IScheduler](IScheduler\IScheduler.md). When you use instance method syntax to call this method, omit the first parameter. For more information, see [](https://msdn.microsoft.com/en-us/library/Bb384936) or [](https://msdn.microsoft.com/en-us/library/Bb383977).
+In Visual Basic and C\#, you can call this method as an instance method on any object of type [IScheduler](IScheduler/IScheduler). When you use instance method syntax to call this method, omit the first parameter. For more information, see [](https://msdn.microsoft.com/en-us/library/Bb384936) or [](https://msdn.microsoft.com/en-us/library/Bb383977).
 
 ## See Also
 
 #### Reference
 
-[Scheduler Class](Scheduler\Scheduler.md)
+[Scheduler Class](Scheduler/Scheduler)
 
-[Schedule Overload](Schedule\Scheduler.Schedule.md)
+[Schedule Overload](Schedule/Scheduler.Schedule)
 
-[System.Reactive.Concurrency Namespace](System.Reactive.Concurrency\System.Reactive.Concurrency.md)
+[System.Reactive.Concurrency Namespace](System.Reactive.Concurrency/System.Reactive.Concurrency)
 
 # Scheduler.Schedule Method (IScheduler, DateTimeOffset, Action)
 
 Schedules an action to be executed at dueTime.
 
-**Namespace:**  [System.Reactive.Concurrency](System.Reactive.Concurrency\System.Reactive.Concurrency.md)  
+**Namespace:**  [System.Reactive.Concurrency](System.Reactive.Concurrency/System.Reactive.Concurrency)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -247,7 +247,7 @@ public static function Schedule(
 #### Parameters
 
 - scheduler  
-  Type: [System.Reactive.Concurrency.IScheduler](IScheduler\IScheduler.md)  
+  Type: [System.Reactive.Concurrency.IScheduler](IScheduler/IScheduler)  
   The scheduler to execute the action on.
 
 - dueTime  
@@ -265,23 +265,23 @@ The disposable object used to cancel the scheduled action (best effort).
 
 #### Usage Note
 
-In Visual Basic and C\#, you can call this method as an instance method on any object of type [IScheduler](IScheduler\IScheduler.md). When you use instance method syntax to call this method, omit the first parameter. For more information, see [](https://msdn.microsoft.com/en-us/library/Bb384936) or [](https://msdn.microsoft.com/en-us/library/Bb383977).
+In Visual Basic and C\#, you can call this method as an instance method on any object of type [IScheduler](IScheduler/IScheduler). When you use instance method syntax to call this method, omit the first parameter. For more information, see [](https://msdn.microsoft.com/en-us/library/Bb384936) or [](https://msdn.microsoft.com/en-us/library/Bb383977).
 
 ## See Also
 
 #### Reference
 
-[Scheduler Class](Scheduler\Scheduler.md)
+[Scheduler Class](Scheduler/Scheduler)
 
-[Schedule Overload](Schedule\Scheduler.Schedule.md)
+[Schedule Overload](Schedule/Scheduler.Schedule)
 
-[System.Reactive.Concurrency Namespace](System.Reactive.Concurrency\System.Reactive.Concurrency.md)
+[System.Reactive.Concurrency Namespace](System.Reactive.Concurrency/System.Reactive.Concurrency)
 
 # Scheduler.Schedule Method (IScheduler, TimeSpan, Action)
 
 Schedules an action to be executed after dueTime.
 
-**Namespace:**  [System.Reactive.Concurrency](System.Reactive.Concurrency\System.Reactive.Concurrency.md)  
+**Namespace:**  [System.Reactive.Concurrency](System.Reactive.Concurrency/System.Reactive.Concurrency)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -343,7 +343,7 @@ public static function Schedule(
 #### Parameters
 
 - scheduler  
-  Type: [System.Reactive.Concurrency.IScheduler](IScheduler\IScheduler.md)  
+  Type: [System.Reactive.Concurrency.IScheduler](IScheduler/IScheduler)  
   The scheduler to execute the action on.
 
 - dueTime  
@@ -361,17 +361,17 @@ The disposable object used to cancel the scheduled action (best effort).
 
 #### Usage Note
 
-In Visual Basic and C\#, you can call this method as an instance method on any object of type [IScheduler](IScheduler\IScheduler.md). When you use instance method syntax to call this method, omit the first parameter. For more information, see [](https://msdn.microsoft.com/en-us/library/Bb384936) or [](https://msdn.microsoft.com/en-us/library/Bb383977).
+In Visual Basic and C\#, you can call this method as an instance method on any object of type [IScheduler](IScheduler/IScheduler). When you use instance method syntax to call this method, omit the first parameter. For more information, see [](https://msdn.microsoft.com/en-us/library/Bb384936) or [](https://msdn.microsoft.com/en-us/library/Bb383977).
 
 ## See Also
 
 #### Reference
 
-[Scheduler Class](Scheduler\Scheduler.md)
+[Scheduler Class](Scheduler/Scheduler)
 
-[Schedule Overload](Schedule\Scheduler.Schedule.md)
+[Schedule Overload](Schedule/Scheduler.Schedule)
 
-[System.Reactive.Concurrency Namespace](System.Reactive.Concurrency\System.Reactive.Concurrency.md)
+[System.Reactive.Concurrency Namespace](System.Reactive.Concurrency/System.Reactive.Concurrency)
 
 # Scheduler.Schedule Method
 
@@ -390,15 +390,15 @@ NameDescription![Public method](https://reactiveui.net/assets/img/Hh303103.pubme
 
 #### Reference
 
-[Scheduler Class](Scheduler\Scheduler.md)
+[Scheduler Class](Scheduler/Scheduler)
 
-[System.Reactive.Concurrency Namespace](System.Reactive.Concurrency\System.Reactive.Concurrency.md)
+[System.Reactive.Concurrency Namespace](System.Reactive.Concurrency/System.Reactive.Concurrency)
 
 # Scheduler.Schedule Method (IScheduler, Action\<Action\>)
 
 Schedules an action to be executed recursively.
 
-**Namespace:**  [System.Reactive.Concurrency](System.Reactive.Concurrency\System.Reactive.Concurrency.md)  
+**Namespace:**  [System.Reactive.Concurrency](System.Reactive.Concurrency/System.Reactive.Concurrency)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -453,7 +453,7 @@ public static function Schedule(
 #### Parameters
 
 - scheduler  
-  Type: [System.Reactive.Concurrency.IScheduler](IScheduler\IScheduler.md)  
+  Type: [System.Reactive.Concurrency.IScheduler](IScheduler/IScheduler)  
   The scheduler to execute the recursive action on.
 
 - action  
@@ -467,23 +467,23 @@ The disposable object used to cancel the scheduled action (best effort).
 
 #### Usage Note
 
-In Visual Basic and C\#, you can call this method as an instance method on any object of type [IScheduler](IScheduler\IScheduler.md). When you use instance method syntax to call this method, omit the first parameter. For more information, see [](https://msdn.microsoft.com/en-us/library/Bb384936) or [](https://msdn.microsoft.com/en-us/library/Bb383977).
+In Visual Basic and C\#, you can call this method as an instance method on any object of type [IScheduler](IScheduler/IScheduler). When you use instance method syntax to call this method, omit the first parameter. For more information, see [](https://msdn.microsoft.com/en-us/library/Bb384936) or [](https://msdn.microsoft.com/en-us/library/Bb383977).
 
 ## See Also
 
 #### Reference
 
-[Scheduler Class](Scheduler\Scheduler.md)
+[Scheduler Class](Scheduler/Scheduler)
 
-[Schedule Overload](Schedule\Scheduler.Schedule.md)
+[Schedule Overload](Schedule/Scheduler.Schedule)
 
-[System.Reactive.Concurrency Namespace](System.Reactive.Concurrency\System.Reactive.Concurrency.md)
+[System.Reactive.Concurrency Namespace](System.Reactive.Concurrency/System.Reactive.Concurrency)
 
 # Scheduler.Schedule Method (IScheduler, TimeSpan, Action\<Action\<TimeSpan\>\>)
 
 Schedules an action to be executed recursively after each dueTime.
 
-**Namespace:**  [System.Reactive.Concurrency](System.Reactive.Concurrency\System.Reactive.Concurrency.md)  
+**Namespace:**  [System.Reactive.Concurrency](System.Reactive.Concurrency/System.Reactive.Concurrency)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -545,7 +545,7 @@ public static function Schedule(
 #### Parameters
 
 - scheduler  
-  Type: [System.Reactive.Concurrency.IScheduler](IScheduler\IScheduler.md)  
+  Type: [System.Reactive.Concurrency.IScheduler](IScheduler/IScheduler)  
   The scheduler to execute the action on.
 
 - dueTime  
@@ -563,14 +563,14 @@ The disposable object used to cancel the scheduled action (best effort).
 
 #### Usage Note
 
-In Visual Basic and C\#, you can call this method as an instance method on any object of type [IScheduler](IScheduler\IScheduler.md). When you use instance method syntax to call this method, omit the first parameter. For more information, see [](https://msdn.microsoft.com/en-us/library/Bb384936) or [](https://msdn.microsoft.com/en-us/library/Bb383977).
+In Visual Basic and C\#, you can call this method as an instance method on any object of type [IScheduler](IScheduler/IScheduler). When you use instance method syntax to call this method, omit the first parameter. For more information, see [](https://msdn.microsoft.com/en-us/library/Bb384936) or [](https://msdn.microsoft.com/en-us/library/Bb383977).
 
 ## See Also
 
 #### Reference
 
-[Scheduler Class](Scheduler\Scheduler.md)
+[Scheduler Class](Scheduler/Scheduler)
 
-[Schedule Overload](Schedule\Scheduler.Schedule.md)
+[Schedule Overload](Schedule/Scheduler.Schedule)
 
-[System.Reactive.Concurrency Namespace](System.Reactive.Concurrency\System.Reactive.Concurrency.md)
+[System.Reactive.Concurrency Namespace](System.Reactive.Concurrency/System.Reactive.Concurrency)

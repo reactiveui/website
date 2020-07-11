@@ -4,7 +4,7 @@ title: CompositeDisposable.IEnumerable.GetEnumerator()
 
 Returns an enumerator that iterates through the CompositeDisposable.
 
-**Namespace:**  [System.Reactive.Disposables](System.Reactive.Disposables\System.Reactive.Disposables.md)  
+**Namespace:**  [System.Reactive.Disposables](System.Reactive.Disposables/System.Reactive.Disposables)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -54,9 +54,9 @@ An enumerator to iterate over the disposables.
 
 #### Reference
 
-[CompositeDisposable Class](CompositeDisposable\CompositeDisposable.md)
+[CompositeDisposable Class](CompositeDisposable/CompositeDisposable)
 
-[System.Reactive.Disposables Namespace](System.Reactive.Disposables\System.Reactive.Disposables.md)
+[System.Reactive.Disposables Namespace](System.Reactive.Disposables/System.Reactive.Disposables)
 
 
 

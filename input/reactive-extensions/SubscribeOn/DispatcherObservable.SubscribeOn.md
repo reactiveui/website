@@ -15,6 +15,6 @@ NameDescription![Public method](https://reactiveui.net/assets/img/Hh303103.pubme
 
 #### Reference
 
-[DispatcherObservable Class](DispatcherObservable\DispatcherObservable.md)
+[DispatcherObservable Class](DispatcherObservable/DispatcherObservable)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)

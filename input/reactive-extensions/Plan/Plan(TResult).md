@@ -9,7 +9,7 @@ Represents an execution plan for join patterns.
 [System.Object](https://msdn.microsoft.com/en-us/library/e5kfa45b)  
   System.Reactive.Joins.Plan\<TResult\>
 
-**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins\System.Reactive.Joins.md)  
+**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins/System.Reactive.Joins)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -61,14 +61,14 @@ Any public static (Shared in Visual Basic) members of this type are thread safe.
 
 #### Reference
 
-[System.Reactive.Joins Namespace](System.Reactive.Joins\System.Reactive.Joins.md)
+[System.Reactive.Joins Namespace](System.Reactive.Joins/System.Reactive.Joins)
 
 # Plan\<TResult\> Methods
 
 Include Protected Members  
 Include Inherited Members
 
-The [Plan\<TResult\>](Plan\Plan(TResult).md) type exposes the following members.
+The [Plan\<TResult\>](Plan/Plan(TResult)) type exposes the following members.
 
 ## Methods
 
@@ -78,6 +78,6 @@ NameDescription![Public method](https://reactiveui.net/assets/img/Hh303103.pubme
 
 #### Reference
 
-[Plan\<TResult\> Class](Plan\Plan(TResult).md)
+[Plan\<TResult\> Class](Plan/Plan(TResult))
 
-[System.Reactive.Joins Namespace](System.Reactive.Joins\System.Reactive.Joins.md)
+[System.Reactive.Joins Namespace](System.Reactive.Joins/System.Reactive.Joins)

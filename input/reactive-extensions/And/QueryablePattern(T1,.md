@@ -4,7 +4,7 @@ title: QueryablePattern<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, 
 
 Matches when all observable sequences have an available value.
 
-**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins\System.Reactive.Joins.md)  
+**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins/System.Reactive.Joins)  
 **Assembly:**  System.Reactive.Providers (in System.Reactive.Providers.dll)
 
 ## Syntax
@@ -61,16 +61,16 @@ JScript does not support generic types and methods.
 
 #### Return Value
 
-Type: [System.Reactive.Joins.QueryablePattern](QueryablePattern\QueryablePattern(T1,.md)\<[T1](QueryablePattern\QueryablePattern(T1,.md), [T2](QueryablePattern\QueryablePattern(T1,.md), [T3](QueryablePattern\QueryablePattern(T1,.md), [T4](QueryablePattern\QueryablePattern(T1,.md), [T5](QueryablePattern\QueryablePattern(T1,.md), [T6](QueryablePattern\QueryablePattern(T1,.md), [T7](QueryablePattern\QueryablePattern(T1,.md), [T8](QueryablePattern\QueryablePattern(T1,.md), [T9](QueryablePattern\QueryablePattern(T1,.md), [T10](QueryablePattern\QueryablePattern(T1,.md), [T11](QueryablePattern\QueryablePattern(T1,.md), [T12](QueryablePattern\QueryablePattern(T1,.md), [T13](QueryablePattern\QueryablePattern(T1,.md), [T14](QueryablePattern\QueryablePattern(T1,.md), T15\>  
+Type: [System.Reactive.Joins.QueryablePattern](QueryablePattern/QueryablePattern(T1,)\<[T1](QueryablePattern/QueryablePattern(T1,), [T2](QueryablePattern/QueryablePattern(T1,), [T3](QueryablePattern/QueryablePattern(T1,), [T4](QueryablePattern/QueryablePattern(T1,), [T5](QueryablePattern/QueryablePattern(T1,), [T6](QueryablePattern/QueryablePattern(T1,), [T7](QueryablePattern/QueryablePattern(T1,), [T8](QueryablePattern/QueryablePattern(T1,), [T9](QueryablePattern/QueryablePattern(T1,), [T10](QueryablePattern/QueryablePattern(T1,), [T11](QueryablePattern/QueryablePattern(T1,), [T12](QueryablePattern/QueryablePattern(T1,), [T13](QueryablePattern/QueryablePattern(T1,), [T14](QueryablePattern/QueryablePattern(T1,), T15\>  
 The join queryable pattern.
 
 ## See Also
 
 #### Reference
 
-[QueryablePattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14\> Class](QueryablePattern\QueryablePattern(T1,.md)
+[QueryablePattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14\> Class](QueryablePattern/QueryablePattern(T1,)
 
-[System.Reactive.Joins Namespace](System.Reactive.Joins\System.Reactive.Joins.md)
+[System.Reactive.Joins Namespace](System.Reactive.Joins/System.Reactive.Joins)
 
 
 
@@ -83,7 +83,7 @@ The join queryable pattern.
 
 Matches when all observable sequences have an available value.
 
-**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins\System.Reactive.Joins.md)  
+**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins/System.Reactive.Joins)  
 **Assembly:**  System.Reactive.Providers (in System.Reactive.Providers.dll)
 
 ## Syntax
@@ -140,16 +140,16 @@ JScript does not support generic types and methods.
 
 #### Return Value
 
-Type: [System.Reactive.Joins.QueryablePattern](QueryablePattern\QueryablePattern(T1,.md)\<[T1](QueryablePattern\QueryablePattern(T1,.md), [T2](QueryablePattern\QueryablePattern(T1,.md), [T3](QueryablePattern\QueryablePattern(T1,.md), [T4](QueryablePattern\QueryablePattern(T1,.md), [T5](QueryablePattern\QueryablePattern(T1,.md), [T6](QueryablePattern\QueryablePattern(T1,.md), [T7](QueryablePattern\QueryablePattern(T1,.md), [T8](QueryablePattern\QueryablePattern(T1,.md), [T9](QueryablePattern\QueryablePattern(T1,.md), T10\>  
+Type: [System.Reactive.Joins.QueryablePattern](QueryablePattern/QueryablePattern(T1,)\<[T1](QueryablePattern/QueryablePattern(T1,), [T2](QueryablePattern/QueryablePattern(T1,), [T3](QueryablePattern/QueryablePattern(T1,), [T4](QueryablePattern/QueryablePattern(T1,), [T5](QueryablePattern/QueryablePattern(T1,), [T6](QueryablePattern/QueryablePattern(T1,), [T7](QueryablePattern/QueryablePattern(T1,), [T8](QueryablePattern/QueryablePattern(T1,), [T9](QueryablePattern/QueryablePattern(T1,), T10\>  
 The join queryable pattern.
 
 ## See Also
 
 #### Reference
 
-[QueryablePattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9\> Class](QueryablePattern\QueryablePattern(T1,.md)
+[QueryablePattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9\> Class](QueryablePattern/QueryablePattern(T1,)
 
-[System.Reactive.Joins Namespace](System.Reactive.Joins\System.Reactive.Joins.md)
+[System.Reactive.Joins Namespace](System.Reactive.Joins/System.Reactive.Joins)
 
 
 
@@ -162,7 +162,7 @@ The join queryable pattern.
 
 Matches when all observable sequences have an available value.
 
-**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins\System.Reactive.Joins.md)  
+**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins/System.Reactive.Joins)  
 **Assembly:**  System.Reactive.Providers (in System.Reactive.Providers.dll)
 
 ## Syntax
@@ -219,16 +219,16 @@ JScript does not support generic types and methods.
 
 #### Return Value
 
-Type: [System.Reactive.Joins.QueryablePattern](QueryablePattern\QueryablePattern(T1,.md)\<[T1](QueryablePattern\QueryablePattern(T1,.md), [T2](QueryablePattern\QueryablePattern(T1,.md), T3\>  
+Type: [System.Reactive.Joins.QueryablePattern](QueryablePattern/QueryablePattern(T1,)\<[T1](QueryablePattern/QueryablePattern(T1,), [T2](QueryablePattern/QueryablePattern(T1,), T3\>  
 The join queryable pattern.
 
 ## See Also
 
 #### Reference
 
-[QueryablePattern\<T1, T2\> Class](QueryablePattern\QueryablePattern(T1,.md)
+[QueryablePattern\<T1, T2\> Class](QueryablePattern/QueryablePattern(T1,)
 
-[System.Reactive.Joins Namespace](System.Reactive.Joins\System.Reactive.Joins.md)
+[System.Reactive.Joins Namespace](System.Reactive.Joins/System.Reactive.Joins)
 
 
 
@@ -241,7 +241,7 @@ The join queryable pattern.
 
 Matches when all observable sequences have an available value.
 
-**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins\System.Reactive.Joins.md)  
+**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins/System.Reactive.Joins)  
 **Assembly:**  System.Reactive.Providers (in System.Reactive.Providers.dll)
 
 ## Syntax
@@ -298,16 +298,16 @@ JScript does not support generic types and methods.
 
 #### Return Value
 
-Type: [System.Reactive.Joins.QueryablePattern](QueryablePattern\QueryablePattern(T1,.md)\<[T1](QueryablePattern\QueryablePattern(T1,.md), [T2](QueryablePattern\QueryablePattern(T1,.md), [T3](QueryablePattern\QueryablePattern(T1,.md), [T4](QueryablePattern\QueryablePattern(T1,.md), [T5](QueryablePattern\QueryablePattern(T1,.md), [T6](QueryablePattern\QueryablePattern(T1,.md), T7\>  
+Type: [System.Reactive.Joins.QueryablePattern](QueryablePattern/QueryablePattern(T1,)\<[T1](QueryablePattern/QueryablePattern(T1,), [T2](QueryablePattern/QueryablePattern(T1,), [T3](QueryablePattern/QueryablePattern(T1,), [T4](QueryablePattern/QueryablePattern(T1,), [T5](QueryablePattern/QueryablePattern(T1,), [T6](QueryablePattern/QueryablePattern(T1,), T7\>  
 The join queryable pattern.
 
 ## See Also
 
 #### Reference
 
-[QueryablePattern\<T1, T2, T3, T4, T5, T6\> Class](QueryablePattern\QueryablePattern(T1,.md)
+[QueryablePattern\<T1, T2, T3, T4, T5, T6\> Class](QueryablePattern/QueryablePattern(T1,)
 
-[System.Reactive.Joins Namespace](System.Reactive.Joins\System.Reactive.Joins.md)
+[System.Reactive.Joins Namespace](System.Reactive.Joins/System.Reactive.Joins)
 
 
 
@@ -320,7 +320,7 @@ The join queryable pattern.
 
 Matches when all observable sequences have an available value.
 
-**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins\System.Reactive.Joins.md)  
+**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins/System.Reactive.Joins)  
 **Assembly:**  System.Reactive.Providers (in System.Reactive.Providers.dll)
 
 ## Syntax
@@ -377,16 +377,16 @@ JScript does not support generic types and methods.
 
 #### Return Value
 
-Type: [System.Reactive.Joins.QueryablePattern](QueryablePattern\QueryablePattern(T1,.md)\<[T1](QueryablePattern\QueryablePattern(T1,.md), [T2](QueryablePattern\QueryablePattern(T1,.md), [T3](QueryablePattern\QueryablePattern(T1,.md), [T4](QueryablePattern\QueryablePattern(T1,.md), [T5](QueryablePattern\QueryablePattern(T1,.md), [T6](QueryablePattern\QueryablePattern(T1,.md), [T7](QueryablePattern\QueryablePattern(T1,.md), [T8](QueryablePattern\QueryablePattern(T1,.md), [T9](QueryablePattern\QueryablePattern(T1,.md), [T10](QueryablePattern\QueryablePattern(T1,.md), [T11](QueryablePattern\QueryablePattern(T1,.md), T12\>  
+Type: [System.Reactive.Joins.QueryablePattern](QueryablePattern/QueryablePattern(T1,)\<[T1](QueryablePattern/QueryablePattern(T1,), [T2](QueryablePattern/QueryablePattern(T1,), [T3](QueryablePattern/QueryablePattern(T1,), [T4](QueryablePattern/QueryablePattern(T1,), [T5](QueryablePattern/QueryablePattern(T1,), [T6](QueryablePattern/QueryablePattern(T1,), [T7](QueryablePattern/QueryablePattern(T1,), [T8](QueryablePattern/QueryablePattern(T1,), [T9](QueryablePattern/QueryablePattern(T1,), [T10](QueryablePattern/QueryablePattern(T1,), [T11](QueryablePattern/QueryablePattern(T1,), T12\>  
 The join queryable pattern.
 
 ## See Also
 
 #### Reference
 
-[QueryablePattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11\> Class](QueryablePattern\QueryablePattern(T1,.md)
+[QueryablePattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11\> Class](QueryablePattern/QueryablePattern(T1,)
 
-[System.Reactive.Joins Namespace](System.Reactive.Joins\System.Reactive.Joins.md)
+[System.Reactive.Joins Namespace](System.Reactive.Joins/System.Reactive.Joins)
 
 
 
@@ -399,7 +399,7 @@ The join queryable pattern.
 
 Matches when all observable sequences have an available value.
 
-**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins\System.Reactive.Joins.md)  
+**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins/System.Reactive.Joins)  
 **Assembly:**  System.Reactive.Providers (in System.Reactive.Providers.dll)
 
 ## Syntax
@@ -456,15 +456,15 @@ JScript does not support generic types and methods.
 
 #### Return Value
 
-Type: [System.Reactive.Joins.QueryablePattern](QueryablePattern\QueryablePattern(T1,.md)\<[T1](QueryablePattern\QueryablePattern(T1,.md), [T2](QueryablePattern\QueryablePattern(T1,.md), [T3](QueryablePattern\QueryablePattern(T1,.md), [T4](QueryablePattern\QueryablePattern(T1,.md), [T5](QueryablePattern\QueryablePattern(T1,.md), [T6](QueryablePattern\QueryablePattern(T1,.md), [T7](QueryablePattern\QueryablePattern(T1,.md), T8\>
+Type: [System.Reactive.Joins.QueryablePattern](QueryablePattern/QueryablePattern(T1,)\<[T1](QueryablePattern/QueryablePattern(T1,), [T2](QueryablePattern/QueryablePattern(T1,), [T3](QueryablePattern/QueryablePattern(T1,), [T4](QueryablePattern/QueryablePattern(T1,), [T5](QueryablePattern/QueryablePattern(T1,), [T6](QueryablePattern/QueryablePattern(T1,), [T7](QueryablePattern/QueryablePattern(T1,), T8\>
 
 ## See Also
 
 #### Reference
 
-[QueryablePattern\<T1, T2, T3, T4, T5, T6, T7\> Class](QueryablePattern\QueryablePattern(T1,.md)
+[QueryablePattern\<T1, T2, T3, T4, T5, T6, T7\> Class](QueryablePattern/QueryablePattern(T1,)
 
-[System.Reactive.Joins Namespace](System.Reactive.Joins\System.Reactive.Joins.md)
+[System.Reactive.Joins Namespace](System.Reactive.Joins/System.Reactive.Joins)
 
 
 
@@ -477,7 +477,7 @@ Type: [System.Reactive.Joins.QueryablePattern](QueryablePattern\QueryablePattern
 
 Matches when all observable sequences have an available value.
 
-**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins\System.Reactive.Joins.md)  
+**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins/System.Reactive.Joins)  
 **Assembly:**  System.Reactive.Providers (in System.Reactive.Providers.dll)
 
 ## Syntax
@@ -534,16 +534,16 @@ JScript does not support generic types and methods.
 
 #### Return Value
 
-Type: [System.Reactive.Joins.QueryablePattern](QueryablePattern\QueryablePattern(T1,.md)\<[T1](QueryablePattern\QueryablePattern(T1,.md), [T2](QueryablePattern\QueryablePattern(T1,.md), [T3](QueryablePattern\QueryablePattern(T1,.md), T4\>  
+Type: [System.Reactive.Joins.QueryablePattern](QueryablePattern/QueryablePattern(T1,)\<[T1](QueryablePattern/QueryablePattern(T1,), [T2](QueryablePattern/QueryablePattern(T1,), [T3](QueryablePattern/QueryablePattern(T1,), T4\>  
 The join queryable pattern.
 
 ## See Also
 
 #### Reference
 
-[QueryablePattern\<T1, T2, T3\> Class](QueryablePattern\QueryablePattern(T1,.md)
+[QueryablePattern\<T1, T2, T3\> Class](QueryablePattern/QueryablePattern(T1,)
 
-[System.Reactive.Joins Namespace](System.Reactive.Joins\System.Reactive.Joins.md)
+[System.Reactive.Joins Namespace](System.Reactive.Joins/System.Reactive.Joins)
 
 
 
@@ -556,7 +556,7 @@ The join queryable pattern.
 
 Matches when all observable sequences have an available value.
 
-**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins\System.Reactive.Joins.md)  
+**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins/System.Reactive.Joins)  
 **Assembly:**  System.Reactive.Providers (in System.Reactive.Providers.dll)
 
 ## Syntax
@@ -613,16 +613,16 @@ JScript does not support generic types and methods.
 
 #### Return Value
 
-Type: [System.Reactive.Joins.QueryablePattern](QueryablePattern\QueryablePattern(T1,.md)\<[T1](QueryablePattern\QueryablePattern(T1,.md), [T2](QueryablePattern\QueryablePattern(T1,.md), [T3](QueryablePattern\QueryablePattern(T1,.md), [T4](QueryablePattern\QueryablePattern(T1,.md), [T5](QueryablePattern\QueryablePattern(T1,.md), T6\>  
+Type: [System.Reactive.Joins.QueryablePattern](QueryablePattern/QueryablePattern(T1,)\<[T1](QueryablePattern/QueryablePattern(T1,), [T2](QueryablePattern/QueryablePattern(T1,), [T3](QueryablePattern/QueryablePattern(T1,), [T4](QueryablePattern/QueryablePattern(T1,), [T5](QueryablePattern/QueryablePattern(T1,), T6\>  
 The join queryable pattern.
 
 ## See Also
 
 #### Reference
 
-[QueryablePattern\<T1, T2, T3, T4, T5\> Class](QueryablePattern\QueryablePattern(T1,.md)
+[QueryablePattern\<T1, T2, T3, T4, T5\> Class](QueryablePattern/QueryablePattern(T1,)
 
-[System.Reactive.Joins Namespace](System.Reactive.Joins\System.Reactive.Joins.md)
+[System.Reactive.Joins Namespace](System.Reactive.Joins/System.Reactive.Joins)
 
 
 
@@ -635,7 +635,7 @@ The join queryable pattern.
 
 Matches when all observable sequences have an available value.
 
-**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins\System.Reactive.Joins.md)  
+**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins/System.Reactive.Joins)  
 **Assembly:**  System.Reactive.Providers (in System.Reactive.Providers.dll)
 
 ## Syntax
@@ -692,16 +692,16 @@ JScript does not support generic types and methods.
 
 #### Return Value
 
-Type: [System.Reactive.Joins.QueryablePattern](QueryablePattern\QueryablePattern(T1,.md)\<[T1](QueryablePattern\QueryablePattern(T1,.md), [T2](QueryablePattern\QueryablePattern(T1,.md), [T3](QueryablePattern\QueryablePattern(T1,.md), [T4](QueryablePattern\QueryablePattern(T1,.md), T5\>  
+Type: [System.Reactive.Joins.QueryablePattern](QueryablePattern/QueryablePattern(T1,)\<[T1](QueryablePattern/QueryablePattern(T1,), [T2](QueryablePattern/QueryablePattern(T1,), [T3](QueryablePattern/QueryablePattern(T1,), [T4](QueryablePattern/QueryablePattern(T1,), T5\>  
 The join queryable pattern.
 
 ## See Also
 
 #### Reference
 
-[QueryablePattern\<T1, T2, T3, T4\> Class](QueryablePattern\QueryablePattern(T1,.md)
+[QueryablePattern\<T1, T2, T3, T4\> Class](QueryablePattern/QueryablePattern(T1,)
 
-[System.Reactive.Joins Namespace](System.Reactive.Joins\System.Reactive.Joins.md)
+[System.Reactive.Joins Namespace](System.Reactive.Joins/System.Reactive.Joins)
 
 
 
@@ -714,7 +714,7 @@ The join queryable pattern.
 
 Matches when all observable sequences have an available value.
 
-**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins\System.Reactive.Joins.md)  
+**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins/System.Reactive.Joins)  
 **Assembly:**  System.Reactive.Providers (in System.Reactive.Providers.dll)
 
 ## Syntax
@@ -771,16 +771,16 @@ JScript does not support generic types and methods.
 
 #### Return Value
 
-Type: [System.Reactive.Joins.QueryablePattern](QueryablePattern\QueryablePattern(T1,.md)\<[T1](QueryablePattern\QueryablePattern(T1,.md), [T2](QueryablePattern\QueryablePattern(T1,.md), [T3](QueryablePattern\QueryablePattern(T1,.md), [T4](QueryablePattern\QueryablePattern(T1,.md), [T5](QueryablePattern\QueryablePattern(T1,.md), [T6](QueryablePattern\QueryablePattern(T1,.md), [T7](QueryablePattern\QueryablePattern(T1,.md), [T8](QueryablePattern\QueryablePattern(T1,.md), [T9](QueryablePattern\QueryablePattern(T1,.md), [T10](QueryablePattern\QueryablePattern(T1,.md), T11\>  
+Type: [System.Reactive.Joins.QueryablePattern](QueryablePattern/QueryablePattern(T1,)\<[T1](QueryablePattern/QueryablePattern(T1,), [T2](QueryablePattern/QueryablePattern(T1,), [T3](QueryablePattern/QueryablePattern(T1,), [T4](QueryablePattern/QueryablePattern(T1,), [T5](QueryablePattern/QueryablePattern(T1,), [T6](QueryablePattern/QueryablePattern(T1,), [T7](QueryablePattern/QueryablePattern(T1,), [T8](QueryablePattern/QueryablePattern(T1,), [T9](QueryablePattern/QueryablePattern(T1,), [T10](QueryablePattern/QueryablePattern(T1,), T11\>  
 The join queryable pattern.
 
 ## See Also
 
 #### Reference
 
-[QueryablePattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10\> Class](QueryablePattern\QueryablePattern(T1,.md)
+[QueryablePattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10\> Class](QueryablePattern/QueryablePattern(T1,)
 
-[System.Reactive.Joins Namespace](System.Reactive.Joins\System.Reactive.Joins.md)
+[System.Reactive.Joins Namespace](System.Reactive.Joins/System.Reactive.Joins)
 
 
 
@@ -793,7 +793,7 @@ The join queryable pattern.
 
 Matches when all observable sequences have an available value.
 
-**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins\System.Reactive.Joins.md)  
+**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins/System.Reactive.Joins)  
 **Assembly:**  System.Reactive.Providers (in System.Reactive.Providers.dll)
 
 ## Syntax
@@ -850,16 +850,16 @@ JScript does not support generic types and methods.
 
 #### Return Value
 
-Type: [System.Reactive.Joins.QueryablePattern](QueryablePattern\QueryablePattern(T1,.md)\<[T1](QueryablePattern\QueryablePattern(T1,.md), [T2](QueryablePattern\QueryablePattern(T1,.md), [T3](QueryablePattern\QueryablePattern(T1,.md), [T4](QueryablePattern\QueryablePattern(T1,.md), [T5](QueryablePattern\QueryablePattern(T1,.md), [T6](QueryablePattern\QueryablePattern(T1,.md), [T7](QueryablePattern\QueryablePattern(T1,.md), [T8](QueryablePattern\QueryablePattern(T1,.md), [T9](QueryablePattern\QueryablePattern(T1,.md), [T10](QueryablePattern\QueryablePattern(T1,.md), [T11](QueryablePattern\QueryablePattern(T1,.md), [T12](QueryablePattern\QueryablePattern(T1,.md), T13\>  
+Type: [System.Reactive.Joins.QueryablePattern](QueryablePattern/QueryablePattern(T1,)\<[T1](QueryablePattern/QueryablePattern(T1,), [T2](QueryablePattern/QueryablePattern(T1,), [T3](QueryablePattern/QueryablePattern(T1,), [T4](QueryablePattern/QueryablePattern(T1,), [T5](QueryablePattern/QueryablePattern(T1,), [T6](QueryablePattern/QueryablePattern(T1,), [T7](QueryablePattern/QueryablePattern(T1,), [T8](QueryablePattern/QueryablePattern(T1,), [T9](QueryablePattern/QueryablePattern(T1,), [T10](QueryablePattern/QueryablePattern(T1,), [T11](QueryablePattern/QueryablePattern(T1,), [T12](QueryablePattern/QueryablePattern(T1,), T13\>  
 The join queryable pattern.
 
 ## See Also
 
 #### Reference
 
-[QueryablePattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12\> Class](QueryablePattern\QueryablePattern(T1,.md)
+[QueryablePattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12\> Class](QueryablePattern/QueryablePattern(T1,)
 
-[System.Reactive.Joins Namespace](System.Reactive.Joins\System.Reactive.Joins.md)
+[System.Reactive.Joins Namespace](System.Reactive.Joins/System.Reactive.Joins)
 
 
 
@@ -872,7 +872,7 @@ The join queryable pattern.
 
 Matches when all observable sequences have an available value.
 
-**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins\System.Reactive.Joins.md)  
+**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins/System.Reactive.Joins)  
 **Assembly:**  System.Reactive.Providers (in System.Reactive.Providers.dll)
 
 ## Syntax
@@ -929,16 +929,16 @@ JScript does not support generic types and methods.
 
 #### Return Value
 
-Type: [System.Reactive.Joins.QueryablePattern](QueryablePattern\QueryablePattern(T1,.md)\<[T1](QueryablePattern\QueryablePattern(T1,.md), [T2](QueryablePattern\QueryablePattern(T1,.md), [T3](QueryablePattern\QueryablePattern(T1,.md), [T4](QueryablePattern\QueryablePattern(T1,.md), [T5](QueryablePattern\QueryablePattern(T1,.md), [T6](QueryablePattern\QueryablePattern(T1,.md), [T7](QueryablePattern\QueryablePattern(T1,.md), [T8](QueryablePattern\QueryablePattern(T1,.md), T9\>  
+Type: [System.Reactive.Joins.QueryablePattern](QueryablePattern/QueryablePattern(T1,)\<[T1](QueryablePattern/QueryablePattern(T1,), [T2](QueryablePattern/QueryablePattern(T1,), [T3](QueryablePattern/QueryablePattern(T1,), [T4](QueryablePattern/QueryablePattern(T1,), [T5](QueryablePattern/QueryablePattern(T1,), [T6](QueryablePattern/QueryablePattern(T1,), [T7](QueryablePattern/QueryablePattern(T1,), [T8](QueryablePattern/QueryablePattern(T1,), T9\>  
 The join queryable pattern.
 
 ## See Also
 
 #### Reference
 
-[QueryablePattern\<T1, T2, T3, T4, T5, T6, T7, T8\> Class](QueryablePattern\QueryablePattern(T1,.md)
+[QueryablePattern\<T1, T2, T3, T4, T5, T6, T7, T8\> Class](QueryablePattern/QueryablePattern(T1,)
 
-[System.Reactive.Joins Namespace](System.Reactive.Joins\System.Reactive.Joins.md)
+[System.Reactive.Joins Namespace](System.Reactive.Joins/System.Reactive.Joins)
 
 
 
@@ -951,7 +951,7 @@ The join queryable pattern.
 
 Matches when all observable sequences have an available value.
 
-**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins\System.Reactive.Joins.md)  
+**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins/System.Reactive.Joins)  
 **Assembly:**  System.Reactive.Providers (in System.Reactive.Providers.dll)
 
 ## Syntax
@@ -1008,16 +1008,16 @@ JScript does not support generic types and methods.
 
 #### Return Value
 
-Type: [System.Reactive.Joins.QueryablePattern](QueryablePattern\QueryablePattern(T1,.md)\<[T1](QueryablePattern\QueryablePattern(T1,.md), [T2](QueryablePattern\QueryablePattern(T1,.md), [T3](QueryablePattern\QueryablePattern(T1,.md), [T4](QueryablePattern\QueryablePattern(T1,.md), [T5](QueryablePattern\QueryablePattern(T1,.md), [T6](QueryablePattern\QueryablePattern(T1,.md), [T7](QueryablePattern\QueryablePattern(T1,.md), [T8](QueryablePattern\QueryablePattern(T1,.md), [T9](QueryablePattern\QueryablePattern(T1,.md), [T10](QueryablePattern\QueryablePattern(T1,.md), [T11](QueryablePattern\QueryablePattern(T1,.md), [T12](QueryablePattern\QueryablePattern(T1,.md), [T13](QueryablePattern\QueryablePattern(T1,.md), T14\>  
+Type: [System.Reactive.Joins.QueryablePattern](QueryablePattern/QueryablePattern(T1,)\<[T1](QueryablePattern/QueryablePattern(T1,), [T2](QueryablePattern/QueryablePattern(T1,), [T3](QueryablePattern/QueryablePattern(T1,), [T4](QueryablePattern/QueryablePattern(T1,), [T5](QueryablePattern/QueryablePattern(T1,), [T6](QueryablePattern/QueryablePattern(T1,), [T7](QueryablePattern/QueryablePattern(T1,), [T8](QueryablePattern/QueryablePattern(T1,), [T9](QueryablePattern/QueryablePattern(T1,), [T10](QueryablePattern/QueryablePattern(T1,), [T11](QueryablePattern/QueryablePattern(T1,), [T12](QueryablePattern/QueryablePattern(T1,), [T13](QueryablePattern/QueryablePattern(T1,), T14\>  
 The join queryable pattern.
 
 ## See Also
 
 #### Reference
 
-[QueryablePattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13\> Class](QueryablePattern\QueryablePattern(T1,.md)
+[QueryablePattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13\> Class](QueryablePattern/QueryablePattern(T1,)
 
-[System.Reactive.Joins Namespace](System.Reactive.Joins\System.Reactive.Joins.md)
+[System.Reactive.Joins Namespace](System.Reactive.Joins/System.Reactive.Joins)
 
 
 
@@ -1030,7 +1030,7 @@ The join queryable pattern.
 
 Matches when all observable sequences have an available value.
 
-**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins\System.Reactive.Joins.md)  
+**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins/System.Reactive.Joins)  
 **Assembly:**  System.Reactive.Providers (in System.Reactive.Providers.dll)
 
 ## Syntax
@@ -1087,16 +1087,16 @@ JScript does not support generic types and methods.
 
 #### Return Value
 
-Type: [System.Reactive.Joins.QueryablePattern](QueryablePattern\QueryablePattern(T1,.md)\<[T1](QueryablePattern\QueryablePattern(T1,.md), [T2](QueryablePattern\QueryablePattern(T1,.md), [T3](QueryablePattern\QueryablePattern(T1,.md), [T4](QueryablePattern\QueryablePattern(T1,.md), [T5](QueryablePattern\QueryablePattern(T1,.md), [T6](QueryablePattern\QueryablePattern(T1,.md), [T7](QueryablePattern\QueryablePattern(T1,.md), [T8](QueryablePattern\QueryablePattern(T1,.md), [T9](QueryablePattern\QueryablePattern(T1,.md), [T10](QueryablePattern\QueryablePattern(T1,.md), [T11](QueryablePattern\QueryablePattern(T1,.md), [T12](QueryablePattern\QueryablePattern(T1,.md), [T13](QueryablePattern\QueryablePattern(T1,.md), [T14](QueryablePattern\QueryablePattern(T1,.md), [T15](QueryablePattern\QueryablePattern(T1,.md), T16\>  
+Type: [System.Reactive.Joins.QueryablePattern](QueryablePattern/QueryablePattern(T1,)\<[T1](QueryablePattern/QueryablePattern(T1,), [T2](QueryablePattern/QueryablePattern(T1,), [T3](QueryablePattern/QueryablePattern(T1,), [T4](QueryablePattern/QueryablePattern(T1,), [T5](QueryablePattern/QueryablePattern(T1,), [T6](QueryablePattern/QueryablePattern(T1,), [T7](QueryablePattern/QueryablePattern(T1,), [T8](QueryablePattern/QueryablePattern(T1,), [T9](QueryablePattern/QueryablePattern(T1,), [T10](QueryablePattern/QueryablePattern(T1,), [T11](QueryablePattern/QueryablePattern(T1,), [T12](QueryablePattern/QueryablePattern(T1,), [T13](QueryablePattern/QueryablePattern(T1,), [T14](QueryablePattern/QueryablePattern(T1,), [T15](QueryablePattern/QueryablePattern(T1,), T16\>  
 The join queryable pattern.
 
 ## See Also
 
 #### Reference
 
-[QueryablePattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15\> Class](QueryablePattern\QueryablePattern(T1,.md)
+[QueryablePattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15\> Class](QueryablePattern/QueryablePattern(T1,)
 
-[System.Reactive.Joins Namespace](System.Reactive.Joins\System.Reactive.Joins.md)
+[System.Reactive.Joins Namespace](System.Reactive.Joins/System.Reactive.Joins)
 
 
 

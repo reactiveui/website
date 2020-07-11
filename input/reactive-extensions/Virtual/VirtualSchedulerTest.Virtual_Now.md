@@ -2,7 +2,7 @@ title: VirtualSchedulerTest.Virtual_Now()
 ---
 # VirtualSchedulerTest.Virtual\_Now Method
 
-**Namespace:**  [ReactiveTests.Tests](ReactiveTests.Tests\ReactiveTests.Tests.md)  
+**Namespace:**  [ReactiveTests.Tests](ReactiveTests.Tests/ReactiveTests.Tests)  
 **Assembly:**  Tests.System.Reactive (in Tests.System.Reactive.dll)
 
 ## Syntax
@@ -44,6 +44,6 @@ public function Virtual_Now()
 
 #### Reference
 
-[VirtualSchedulerTest Class](VirtualSchedulerTest\VirtualSchedulerTest.md)
+[VirtualSchedulerTest Class](VirtualSchedulerTest/VirtualSchedulerTest)
 
-[ReactiveTests.Tests Namespace](ReactiveTests.Tests\ReactiveTests.Tests.md)
+[ReactiveTests.Tests Namespace](ReactiveTests.Tests/ReactiveTests.Tests)

@@ -4,7 +4,7 @@ title: Scheduler.NewThread Property
 
 Gets the scheduler that schedules work on a new thread.
 
-**Namespace:**  [System.Reactive.Concurrency](System.Reactive.Concurrency\System.Reactive.Concurrency.md)  
+**Namespace:**  [System.Reactive.Concurrency](System.Reactive.Concurrency/System.Reactive.Concurrency)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -43,7 +43,7 @@ static function get NewThread () : NewThreadScheduler
 
 #### Property Value
 
-Type: [System.Reactive.Concurrency.NewThreadScheduler](NewThreadScheduler\NewThreadScheduler.md)  
+Type: [System.Reactive.Concurrency.NewThreadScheduler](NewThreadScheduler/NewThreadScheduler)  
 The new thread scheduler.
 
 ## Remarks
@@ -193,9 +193,9 @@ Here is example output from the example code.
 
 #### Reference
 
-[Scheduler Class](Scheduler\Scheduler.md)
+[Scheduler Class](Scheduler/Scheduler)
 
-[System.Reactive.Concurrency Namespace](System.Reactive.Concurrency\System.Reactive.Concurrency.md)
+[System.Reactive.Concurrency Namespace](System.Reactive.Concurrency/System.Reactive.Concurrency)
 
 
 

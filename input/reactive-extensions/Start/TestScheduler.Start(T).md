@@ -4,7 +4,7 @@ title: TestScheduler.Start<T>(Func<IObservable<T>>)
 
 Starts the test scheduler.
 
-**Namespace:**  [Microsoft.Reactive.Testing](Microsoft.Reactive.Testing\Microsoft.Reactive.Testing.md)  
+**Namespace:**  [Microsoft.Reactive.Testing](Microsoft.Reactive.Testing/Microsoft.Reactive.Testing)  
 **Assembly:**  Microsoft.Reactive.Testing (in Microsoft.Reactive.Testing.dll)
 
 ## Syntax
@@ -60,24 +60,24 @@ JScript does not support generic types and methods.
 
 #### Return Value
 
-Type: [Microsoft.Reactive.Testing.ITestableObserver](ITestableObserver\ITestableObserver(T).md)\<T\>  
+Type: [Microsoft.Reactive.Testing.ITestableObserver](ITestableObserver/ITestableObserver(T))\<T\>  
 The testable observer with recordings of notifications that occurred.
 
 ## See Also
 
 #### Reference
 
-[TestScheduler Class](TestScheduler\TestScheduler.md)
+[TestScheduler Class](TestScheduler/TestScheduler)
 
-[Start Overload](Start\TestScheduler.Start.md)
+[Start Overload](Start/TestScheduler.Start)
 
-[Microsoft.Reactive.Testing Namespace](Microsoft.Reactive.Testing\Microsoft.Reactive.Testing.md)
+[Microsoft.Reactive.Testing Namespace](Microsoft.Reactive.Testing/Microsoft.Reactive.Testing)
 
 # TestScheduler.Start\<T\> Method (Func\<IObservable\<T\>\>, Int64)
 
 Starts the test scheduler.
 
-**Namespace:**  [Microsoft.Reactive.Testing](Microsoft.Reactive.Testing\Microsoft.Reactive.Testing.md)  
+**Namespace:**  [Microsoft.Reactive.Testing](Microsoft.Reactive.Testing/Microsoft.Reactive.Testing)  
 **Assembly:**  Microsoft.Reactive.Testing (in Microsoft.Reactive.Testing.dll)
 
 ## Syntax
@@ -142,24 +142,24 @@ JScript does not support generic types and methods.
 
 #### Return Value
 
-Type: [Microsoft.Reactive.Testing.ITestableObserver](ITestableObserver\ITestableObserver(T).md)\<T\>  
+Type: [Microsoft.Reactive.Testing.ITestableObserver](ITestableObserver/ITestableObserver(T))\<T\>  
 The testable observer with recordings of notifications that occurred.
 
 ## See Also
 
 #### Reference
 
-[TestScheduler Class](TestScheduler\TestScheduler.md)
+[TestScheduler Class](TestScheduler/TestScheduler)
 
-[Start Overload](Start\TestScheduler.Start.md)
+[Start Overload](Start/TestScheduler.Start)
 
-[Microsoft.Reactive.Testing Namespace](Microsoft.Reactive.Testing\Microsoft.Reactive.Testing.md)
+[Microsoft.Reactive.Testing Namespace](Microsoft.Reactive.Testing/Microsoft.Reactive.Testing)
 
 # TestScheduler.Start\<T\> Method (Func\<IObservable\<T\>\>, Int64, Int64, Int64)
 
 Starts the test scheduler.
 
-**Namespace:**  [Microsoft.Reactive.Testing](Microsoft.Reactive.Testing\Microsoft.Reactive.Testing.md)  
+**Namespace:**  [Microsoft.Reactive.Testing](Microsoft.Reactive.Testing/Microsoft.Reactive.Testing)  
 **Assembly:**  Microsoft.Reactive.Testing (in Microsoft.Reactive.Testing.dll)
 
 ## Syntax
@@ -243,15 +243,15 @@ JScript does not support generic types and methods.
 
 #### Return Value
 
-Type: [Microsoft.Reactive.Testing.ITestableObserver](ITestableObserver\ITestableObserver(T).md)\<T\>  
+Type: [Microsoft.Reactive.Testing.ITestableObserver](ITestableObserver/ITestableObserver(T))\<T\>  
 The testable observer with recordings of notifications that occurred.
 
 ## See Also
 
 #### Reference
 
-[TestScheduler Class](TestScheduler\TestScheduler.md)
+[TestScheduler Class](TestScheduler/TestScheduler)
 
-[Start Overload](Start\TestScheduler.Start.md)
+[Start Overload](Start/TestScheduler.Start)
 
-[Microsoft.Reactive.Testing Namespace](Microsoft.Reactive.Testing\Microsoft.Reactive.Testing.md)
+[Microsoft.Reactive.Testing Namespace](Microsoft.Reactive.Testing/Microsoft.Reactive.Testing)

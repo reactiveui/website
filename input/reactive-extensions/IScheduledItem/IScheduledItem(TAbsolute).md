@@ -4,7 +4,7 @@ title: IScheduledItem<TAbsolute> Interface
 
 Represents a work item that has been scheduled.
 
-**Namespace:**  [System.Reactive.Concurrency](System.Reactive.Concurrency\System.Reactive.Concurrency.md)  
+**Namespace:**  [System.Reactive.Concurrency](System.Reactive.Concurrency/System.Reactive.Concurrency)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -45,17 +45,17 @@ The IScheduledItem\<TAbsolute\> type exposes the following members.
 
 ## Properties
 
-NameDescription![Public property](https://reactiveui.net/assets/img/Hh211972.pubproperty(en-us,VS.103).gif "Public property")[DueTime](DueTime\IScheduledItem(TAbsolute).DueTime.md)Get the absolute time at which the item executes.Top
+NameDescription![Public property](https://reactiveui.net/assets/img/Hh211972.pubproperty(en-us,VS.103).gif "Public property")[DueTime](DueTime/IScheduledItem(TAbsolute).DueTime)Get the absolute time at which the item executes.Top
 
 ## Methods
 
-NameDescription![Public method](https://reactiveui.net/assets/img/Hh303103.pubmethod(en-us,VS.103).gif "Public method")[Invoke](Invoke\IScheduledItem(TAbsolute).Invoke.md)Invokes the work item.Top
+NameDescription![Public method](https://reactiveui.net/assets/img/Hh303103.pubmethod(en-us,VS.103).gif "Public method")[Invoke](Invoke/IScheduledItem(TAbsolute).Invoke)Invokes the work item.Top
 
 ## See Also
 
 #### Reference
 
-[System.Reactive.Concurrency Namespace](System.Reactive.Concurrency\System.Reactive.Concurrency.md)
+[System.Reactive.Concurrency Namespace](System.Reactive.Concurrency/System.Reactive.Concurrency)
 
 
 
@@ -69,19 +69,19 @@ NameDescription![Public method](https://reactiveui.net/assets/img/Hh303103.pubme
 Include Protected Members  
 Include Inherited Members
 
-The [IScheduledItem\<TAbsolute\>](IScheduledItem\IScheduledItem(TAbsolute).md) type exposes the following members.
+The [IScheduledItem\<TAbsolute\>](IScheduledItem/IScheduledItem(TAbsolute)) type exposes the following members.
 
 ## Methods
 
-NameDescription![Public method](https://reactiveui.net/assets/img/Hh303103.pubmethod(en-us,VS.103).gif "Public method")[Invoke](Invoke\IScheduledItem(TAbsolute).Invoke.md)Invokes the work item.Top
+NameDescription![Public method](https://reactiveui.net/assets/img/Hh303103.pubmethod(en-us,VS.103).gif "Public method")[Invoke](Invoke/IScheduledItem(TAbsolute).Invoke)Invokes the work item.Top
 
 ## See Also
 
 #### Reference
 
-[IScheduledItem\<TAbsolute\> Interface](IScheduledItem\IScheduledItem(TAbsolute).md)
+[IScheduledItem\<TAbsolute\> Interface](IScheduledItem/IScheduledItem(TAbsolute))
 
-[System.Reactive.Concurrency Namespace](System.Reactive.Concurrency\System.Reactive.Concurrency.md)
+[System.Reactive.Concurrency Namespace](System.Reactive.Concurrency/System.Reactive.Concurrency)
 
 
 
@@ -92,19 +92,19 @@ NameDescription![Public method](https://reactiveui.net/assets/img/Hh303103.pubme
 Include Protected Members  
 Include Inherited Members
 
-The [IScheduledItem\<TAbsolute\>](IScheduledItem\IScheduledItem(TAbsolute).md) type exposes the following members.
+The [IScheduledItem\<TAbsolute\>](IScheduledItem/IScheduledItem(TAbsolute)) type exposes the following members.
 
 ## Properties
 
-NameDescription![Public property](https://reactiveui.net/assets/img/Hh211972.pubproperty(en-us,VS.103).gif "Public property")[DueTime](DueTime\IScheduledItem(TAbsolute).DueTime.md)Get the absolute time at which the item executes.Top
+NameDescription![Public property](https://reactiveui.net/assets/img/Hh211972.pubproperty(en-us,VS.103).gif "Public property")[DueTime](DueTime/IScheduledItem(TAbsolute).DueTime)Get the absolute time at which the item executes.Top
 
 ## See Also
 
 #### Reference
 
-[IScheduledItem\<TAbsolute\> Interface](IScheduledItem\IScheduledItem(TAbsolute).md)
+[IScheduledItem\<TAbsolute\> Interface](IScheduledItem/IScheduledItem(TAbsolute))
 
-[System.Reactive.Concurrency Namespace](System.Reactive.Concurrency\System.Reactive.Concurrency.md)
+[System.Reactive.Concurrency Namespace](System.Reactive.Concurrency/System.Reactive.Concurrency)
 
 
 

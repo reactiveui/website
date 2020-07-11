@@ -4,7 +4,7 @@ title: EventPattern<TEventArgs>.Equals(Object)
 
 Compares this type with the specified object.
 
-**Namespace:**  [System.Reactive](System.Reactive\System.Reactive.md)  
+**Namespace:**  [System.Reactive](System.Reactive/System.Reactive)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -66,11 +66,11 @@ Returns [Boolean](https://msdn.microsoft.com/en-us/library/a28wyd50).
 
 #### Reference
 
-[EventPattern\<TEventArgs\> Class](EventPattern\EventPattern(TEventArgs).md)
+[EventPattern\<TEventArgs\> Class](EventPattern/EventPattern(TEventArgs))
 
-[Equals Overload](Equals\EventPattern(TEventArgs).Equals.md)
+[Equals Overload](Equals/EventPattern(TEventArgs).Equals)
 
-[System.Reactive Namespace](System.Reactive\System.Reactive.md)
+[System.Reactive Namespace](System.Reactive/System.Reactive)
 
 
 
@@ -82,7 +82,7 @@ Returns [Boolean](https://msdn.microsoft.com/en-us/library/a28wyd50).
 
 Compares this type with the specified object.
 
-**Namespace:**  [System.Reactive](System.Reactive\System.Reactive.md)  
+**Namespace:**  [System.Reactive](System.Reactive/System.Reactive)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -132,7 +132,7 @@ public final function Equals(
 #### Parameters
 
 - other  
-  Type: [System.Reactive.EventPattern](EventPattern\EventPattern(TEventArgs).md)\<[TEventArgs](EventPattern\EventPattern(TEventArgs).md)\>  
+  Type: [System.Reactive.EventPattern](EventPattern/EventPattern(TEventArgs))\<[TEventArgs](EventPattern/EventPattern(TEventArgs))\>  
   The object to be compared to.
 
 #### Return Value
@@ -148,11 +148,11 @@ Returns [Boolean](https://msdn.microsoft.com/en-us/library/a28wyd50).
 
 #### Reference
 
-[EventPattern\<TEventArgs\> Class](EventPattern\EventPattern(TEventArgs).md)
+[EventPattern\<TEventArgs\> Class](EventPattern/EventPattern(TEventArgs))
 
-[Equals Overload](Equals\EventPattern(TEventArgs).Equals.md)
+[Equals Overload](Equals/EventPattern(TEventArgs).Equals)
 
-[System.Reactive Namespace](System.Reactive\System.Reactive.md)
+[System.Reactive Namespace](System.Reactive/System.Reactive)
 
 
 
@@ -176,9 +176,9 @@ NameDescription![Public method](https://reactiveui.net/assets/img/Hh303103.pubme
 
 #### Reference
 
-[EventPattern\<TEventArgs\> Class](EventPattern\EventPattern(TEventArgs).md)
+[EventPattern\<TEventArgs\> Class](EventPattern/EventPattern(TEventArgs))
 
-[System.Reactive Namespace](System.Reactive\System.Reactive.md)
+[System.Reactive Namespace](System.Reactive/System.Reactive)
 
 
 

@@ -4,7 +4,7 @@ title: IScheduler.Schedule<TState>(TState, Func<IScheduler, TState, IDisposable>
 
 Schedules an action to be executed.
 
-**Namespace:**  [System.Reactive.Concurrency](System.Reactive.Concurrency\System.Reactive.Concurrency.md)  
+**Namespace:**  [System.Reactive.Concurrency](System.Reactive.Concurrency/System.Reactive.Concurrency)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -65,7 +65,7 @@ JScript does not support generic types and methods.
   The state passed to the action to be executed.
 
 - action  
-  Type: [System.Func](https://msdn.microsoft.com/en-us/library/Bb534647)\<[IScheduler](IScheduler\IScheduler.md), TState, [IDisposable](https://msdn.microsoft.com/en-us/library/aax125c9)\>  
+  Type: [System.Func](https://msdn.microsoft.com/en-us/library/Bb534647)\<[IScheduler](IScheduler/IScheduler), TState, [IDisposable](https://msdn.microsoft.com/en-us/library/aax125c9)\>  
   The action to be executed.
 
 #### Return Value
@@ -77,17 +77,17 @@ The disposable object used to cancel the scheduled action (best effort).
 
 #### Reference
 
-[IScheduler Interface](IScheduler\IScheduler.md)
+[IScheduler Interface](IScheduler/IScheduler)
 
-[Schedule Overload](Schedule\IScheduler.Schedule.md)
+[Schedule Overload](Schedule/IScheduler.Schedule)
 
-[System.Reactive.Concurrency Namespace](System.Reactive.Concurrency\System.Reactive.Concurrency.md)
+[System.Reactive.Concurrency Namespace](System.Reactive.Concurrency/System.Reactive.Concurrency)
 
 # IScheduler.Schedule\<TState\> Method (TState, DateTimeOffset, Func\<IScheduler, TState, IDisposable\>)
 
 Schedules an action to be executed at dueTime.
 
-**Namespace:**  [System.Reactive.Concurrency](System.Reactive.Concurrency\System.Reactive.Concurrency.md)  
+**Namespace:**  [System.Reactive.Concurrency](System.Reactive.Concurrency/System.Reactive.Concurrency)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -157,7 +157,7 @@ JScript does not support generic types and methods.
   The absolute time at which to execute the action.
 
 - action  
-  Type: [System.Func](https://msdn.microsoft.com/en-us/library/Bb534647)\<[IScheduler](IScheduler\IScheduler.md), TState, [IDisposable](https://msdn.microsoft.com/en-us/library/aax125c9)\>  
+  Type: [System.Func](https://msdn.microsoft.com/en-us/library/Bb534647)\<[IScheduler](IScheduler/IScheduler), TState, [IDisposable](https://msdn.microsoft.com/en-us/library/aax125c9)\>  
   The action to be executed.
 
 #### Return Value
@@ -169,17 +169,17 @@ The disposable object used to cancel the scheduled action (best effort).
 
 #### Reference
 
-[IScheduler Interface](IScheduler\IScheduler.md)
+[IScheduler Interface](IScheduler/IScheduler)
 
-[Schedule Overload](Schedule\IScheduler.Schedule.md)
+[Schedule Overload](Schedule/IScheduler.Schedule)
 
-[System.Reactive.Concurrency Namespace](System.Reactive.Concurrency\System.Reactive.Concurrency.md)
+[System.Reactive.Concurrency Namespace](System.Reactive.Concurrency/System.Reactive.Concurrency)
 
 # IScheduler.Schedule\<TState\> Method (TState, TimeSpan, Func\<IScheduler, TState, IDisposable\>)
 
 Schedules an action to be executed after dueTime.
 
-**Namespace:**  [System.Reactive.Concurrency](System.Reactive.Concurrency\System.Reactive.Concurrency.md)  
+**Namespace:**  [System.Reactive.Concurrency](System.Reactive.Concurrency/System.Reactive.Concurrency)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -249,7 +249,7 @@ JScript does not support generic types and methods.
   The relative time after which to execute the action.
 
 - action  
-  Type: [System.Func](https://msdn.microsoft.com/en-us/library/Bb534647)\<[IScheduler](IScheduler\IScheduler.md), TState, [IDisposable](https://msdn.microsoft.com/en-us/library/aax125c9)\>  
+  Type: [System.Func](https://msdn.microsoft.com/en-us/library/Bb534647)\<[IScheduler](IScheduler/IScheduler), TState, [IDisposable](https://msdn.microsoft.com/en-us/library/aax125c9)\>  
   The action to be executed.
 
 #### Return Value
@@ -261,8 +261,8 @@ The disposable object used to cancel the scheduled action (best effort).
 
 #### Reference
 
-[IScheduler Interface](IScheduler\IScheduler.md)
+[IScheduler Interface](IScheduler/IScheduler)
 
-[Schedule Overload](Schedule\IScheduler.Schedule.md)
+[Schedule Overload](Schedule/IScheduler.Schedule)
 
-[System.Reactive.Concurrency Namespace](System.Reactive.Concurrency\System.Reactive.Concurrency.md)
+[System.Reactive.Concurrency Namespace](System.Reactive.Concurrency/System.Reactive.Concurrency)

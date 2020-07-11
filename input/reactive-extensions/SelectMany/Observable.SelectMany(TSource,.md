@@ -4,7 +4,7 @@ title: Observable.SelectMany<TSource, TResult>(IObservable<TSource>, Func<TSourc
 
 Projects each element of an observable sequence to an observable sequence and flattens the resulting observable sequences into one observable sequence.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -104,17 +104,17 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[SelectMany Overload](SelectMany\Observable.SelectMany.md)
+[SelectMany Overload](SelectMany/Observable.SelectMany)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 # Observable.SelectMany\<TSource, TOther\> Method (IObservable\<TSource\>, IObservable\<TOther\>)
 
 Projects each element of an observable sequence to an observable sequence and flattens the resulting observable sequences into one observable sequence.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -195,17 +195,17 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[SelectMany Overload](SelectMany\Observable.SelectMany.md)
+[SelectMany Overload](SelectMany/Observable.SelectMany)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 # Observable.SelectMany\<TSource, TCollection, TResult\> Method (IObservable\<TSource\>, Func\<TSource, IEnumerable\<TCollection\>\>, Func\<TSource, TCollection, TResult\>)
 
 Projects each element of an observable sequence to an observable sequence and flattens the resulting observable sequences into one observable sequence.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -299,17 +299,17 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[SelectMany Overload](SelectMany\Observable.SelectMany.md)
+[SelectMany Overload](SelectMany/Observable.SelectMany)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 # Observable.SelectMany\<TSource, TCollection, TResult\> Method (IObservable\<TSource\>, Func\<TSource, IObservable\<TCollection\>\>, Func\<TSource, TCollection, TResult\>)
 
 Projects each element of an observable sequence to an observable sequence and flattens the resulting observable sequences into one observable sequence.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -403,17 +403,17 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[SelectMany Overload](SelectMany\Observable.SelectMany.md)
+[SelectMany Overload](SelectMany/Observable.SelectMany)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 # Observable.SelectMany\<TSource, TResult\> Method (IObservable\<TSource\>, Func\<TSource, IObservable\<TResult\>\>)
 
 Projects each element of an observable sequence to an observable sequence and flattens the resulting observable sequences into one observable sequence.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -494,17 +494,17 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[SelectMany Overload](SelectMany\Observable.SelectMany.md)
+[SelectMany Overload](SelectMany/Observable.SelectMany)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 # Observable.SelectMany\<TSource, TResult\> Method (IObservable\<TSource\>, Func\<TSource, IEnumerable\<TResult\>\>)
 
 Projects each element of an observable sequence to an observable sequence and flattens the resulting observable sequences into one observable sequence.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -585,8 +585,8 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[SelectMany Overload](SelectMany\Observable.SelectMany.md)
+[SelectMany Overload](SelectMany/Observable.SelectMany)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)

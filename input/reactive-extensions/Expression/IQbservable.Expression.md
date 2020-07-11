@@ -4,7 +4,7 @@ title: IQbservable.Expression Property
 
 Gets the expression tree that is associated with the instance of IQbservable.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive.Providers (in System.Reactive.Providers.dll)
 
 ## Syntax
@@ -50,9 +50,9 @@ The expression tree that is associated with the instance of IQbservable.
 
 #### Reference
 
-[IQbservable Interface](IQbservable\IQbservable.md)
+[IQbservable Interface](IQbservable/IQbservable)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 
 

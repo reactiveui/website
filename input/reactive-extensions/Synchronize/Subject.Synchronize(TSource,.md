@@ -4,7 +4,7 @@ title: Subject.Synchronize<TSource, TResult>(ISubject<TSource, TResult>)
 
 Synchronizes the messages on the subject.
 
-**Namespace:**  [System.Reactive.Subjects](System.Reactive.Subjects\System.Reactive.Subjects.md)  
+**Namespace:**  [System.Reactive.Subjects](System.Reactive.Subjects/System.Reactive.Subjects)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -58,29 +58,29 @@ JScript does not support generic types and methods.
 #### Parameters
 
 - subject  
-  Type: [System.Reactive.Subjects.ISubject](ISubject\ISubject(TSource,.md)\<TSource, TResult\>  
+  Type: [System.Reactive.Subjects.ISubject](ISubject/ISubject(TSource,)\<TSource, TResult\>  
   The subject to synchronize.
 
 #### Return Value
 
-Type: [System.Reactive.Subjects.ISubject](ISubject\ISubject(TSource,.md)\<TSource, TResult\>  
+Type: [System.Reactive.Subjects.ISubject](ISubject/ISubject(TSource,)\<TSource, TResult\>  
 Subject whose messages are synchronized.
 
 ## See Also
 
 #### Reference
 
-[Subject Class](Subject\Subject.md)
+[Subject Class](Subject/Subject)
 
-[Synchronize Overload](Synchronize\Subject.Synchronize.md)
+[Synchronize Overload](Synchronize/Subject.Synchronize)
 
-[System.Reactive.Subjects Namespace](System.Reactive.Subjects\System.Reactive.Subjects.md)
+[System.Reactive.Subjects Namespace](System.Reactive.Subjects/System.Reactive.Subjects)
 
 # Subject.Synchronize\<TSource, TResult\> Method (ISubject\<TSource, TResult\>, IScheduler)
 
 Synchronizes the messages on the subject and notifies observers on the specified scheduler.
 
-**Namespace:**  [System.Reactive.Subjects](System.Reactive.Subjects\System.Reactive.Subjects.md)  
+**Namespace:**  [System.Reactive.Subjects](System.Reactive.Subjects/System.Reactive.Subjects)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -140,24 +140,24 @@ JScript does not support generic types and methods.
 #### Parameters
 
 - subject  
-  Type: [System.Reactive.Subjects.ISubject](ISubject\ISubject(TSource,.md)\<TSource, TResult\>  
+  Type: [System.Reactive.Subjects.ISubject](ISubject/ISubject(TSource,)\<TSource, TResult\>  
   The subject to synchronize.
 
 - scheduler  
-  Type: [System.Reactive.Concurrency.IScheduler](IScheduler\IScheduler.md)  
+  Type: [System.Reactive.Concurrency.IScheduler](IScheduler/IScheduler)  
   Scheduler to notify observers on.
 
 #### Return Value
 
-Type: [System.Reactive.Subjects.ISubject](ISubject\ISubject(TSource,.md)\<TSource, TResult\>  
+Type: [System.Reactive.Subjects.ISubject](ISubject/ISubject(TSource,)\<TSource, TResult\>  
 Subject whose messages are synchronized and whose observers are notified on the given scheduler.
 
 ## See Also
 
 #### Reference
 
-[Subject Class](Subject\Subject.md)
+[Subject Class](Subject/Subject)
 
-[Synchronize Overload](Synchronize\Subject.Synchronize.md)
+[Synchronize Overload](Synchronize/Subject.Synchronize)
 
-[System.Reactive.Subjects Namespace](System.Reactive.Subjects\System.Reactive.Subjects.md)
+[System.Reactive.Subjects Namespace](System.Reactive.Subjects/System.Reactive.Subjects)

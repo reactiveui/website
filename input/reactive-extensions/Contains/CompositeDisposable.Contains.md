@@ -4,7 +4,7 @@ title: CompositeDisposable.Contains()
 
 Determines whether the CompositeDisposable contains a specific disposable.
 
-**Namespace:**  [System.Reactive.Disposables](System.Reactive.Disposables\System.Reactive.Disposables.md)  
+**Namespace:**  [System.Reactive.Disposables](System.Reactive.Disposables/System.Reactive.Disposables)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -70,9 +70,9 @@ true if the disposable was found; otherwise, false.
 
 #### Reference
 
-[CompositeDisposable Class](CompositeDisposable\CompositeDisposable.md)
+[CompositeDisposable Class](CompositeDisposable/CompositeDisposable)
 
-[System.Reactive.Disposables Namespace](System.Reactive.Disposables\System.Reactive.Disposables.md)
+[System.Reactive.Disposables Namespace](System.Reactive.Disposables/System.Reactive.Disposables)
 
 
 

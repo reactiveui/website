@@ -4,7 +4,7 @@ title: IConnectableObservable<T>.Connect()
 
 Connects the observable.
 
-**Namespace:**  [System.Reactive.Subjects](System.Reactive.Subjects\System.Reactive.Subjects.md)  
+**Namespace:**  [System.Reactive.Subjects](System.Reactive.Subjects/System.Reactive.Subjects)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -45,7 +45,7 @@ IDisposable object used to disconnect the observable.
 
 ## Examples
 
-In the following example, we convert a cold observable sequence source to a hot one using the Publish operator, which returns an [IConnectableObservable\<T\>](IConnectableObservable\IConnectableObservable(T).md) instance we name hot. The Publish operator provides a mechanism to share subscriptions by broadcasting a single subscription to multiple subscribers. hot acts as a proxy and subscribes to source, then as it receives values from source, pushes them to its own subscribers. To establish a subscription to the backing source and start receiving values, we use the IConnectableObservable.Connect() method. Since IConnectableObservable inherits IObservable, we can use Subscribe to subscribe to this hot sequence even before it starts running. Notice that in the example, the hot sequence has not been started when subscription1 subscribes to it. Therefore, no value is pushed to the subscriber. After calling Connect, values are then pushed to subscription1. After a delay of 3 seconds, subscription2 subscribes to hot and starts receiving the values immediately from the current position (3 in this case) until the end. The output looks like this:
+In the following example, we convert a cold observable sequence source to a hot one using the Publish operator, which returns an [IConnectableObservable\<T\>](IConnectableObservable/IConnectableObservable(T)) instance we name hot. The Publish operator provides a mechanism to share subscriptions by broadcasting a single subscription to multiple subscribers. hot acts as a proxy and subscribes to source, then as it receives values from source, pushes them to its own subscribers. To establish a subscription to the backing source and start receiving values, we use the IConnectableObservable.Connect() method. Since IConnectableObservable inherits IObservable, we can use Subscribe to subscribe to this hot sequence even before it starts running. Notice that in the example, the hot sequence has not been started when subscription1 subscribes to it. Therefore, no value is pushed to the subscriber. After calling Connect, values are then pushed to subscription1. After a delay of 3 seconds, subscription2 subscribes to hot and starts receiving the values immediately from the current position (3 in this case) until the end. The output looks like this:
 
     Current Time: 6/1/2011 3:38:49 PM
     
@@ -97,9 +97,9 @@ Console.ReadKey();
 
 #### Reference
 
-[IConnectableObservable\<T\> Interface](IConnectableObservable\IConnectableObservable(T).md)
+[IConnectableObservable\<T\> Interface](IConnectableObservable/IConnectableObservable(T))
 
-[System.Reactive.Subjects Namespace](System.Reactive.Subjects\System.Reactive.Subjects.md)
+[System.Reactive.Subjects Namespace](System.Reactive.Subjects/System.Reactive.Subjects)
 
 
 

@@ -4,7 +4,7 @@ title: VirtualTimeSchedulerBase<TAbsolute, TRelative>.Add()
 
 Adds a relative time to an absolute time value.
 
-**Namespace:**  [System.Reactive.Concurrency](System.Reactive.Concurrency\System.Reactive.Concurrency.md)  
+**Namespace:**  [System.Reactive.Concurrency](System.Reactive.Concurrency/System.Reactive.Concurrency)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -57,22 +57,22 @@ protected abstract function Add(
 #### Parameters
 
 - absolute  
-  Type: [TAbsolute](VirtualTimeSchedulerBase\VirtualTimeSchedulerBase(TAbsolute,.md)  
+  Type: [TAbsolute](VirtualTimeSchedulerBase/VirtualTimeSchedulerBase(TAbsolute,)  
   The absolute time value.
 
 - relative  
-  Type: [TRelative](VirtualTimeSchedulerBase\VirtualTimeSchedulerBase(TAbsolute,.md)  
+  Type: [TRelative](VirtualTimeSchedulerBase/VirtualTimeSchedulerBase(TAbsolute,)  
   The relative time value to add.
 
 #### Return Value
 
-Type: [TAbsolute](VirtualTimeSchedulerBase\VirtualTimeSchedulerBase(TAbsolute,.md)  
+Type: [TAbsolute](VirtualTimeSchedulerBase/VirtualTimeSchedulerBase(TAbsolute,)  
 The resulting absolute time sum value.
 
 ## See Also
 
 #### Reference
 
-[VirtualTimeSchedulerBase\<TAbsolute, TRelative\> Class](VirtualTimeSchedulerBase\VirtualTimeSchedulerBase(TAbsolute,.md)
+[VirtualTimeSchedulerBase\<TAbsolute, TRelative\> Class](VirtualTimeSchedulerBase/VirtualTimeSchedulerBase(TAbsolute,)
 
-[System.Reactive.Concurrency Namespace](System.Reactive.Concurrency\System.Reactive.Concurrency.md)
+[System.Reactive.Concurrency Namespace](System.Reactive.Concurrency/System.Reactive.Concurrency)

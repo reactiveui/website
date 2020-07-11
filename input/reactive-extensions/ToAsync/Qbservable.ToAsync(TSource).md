@@ -4,7 +4,7 @@ title: Qbservable.ToAsync<TSource>(IQbservableProvider, Expression<Action<TSourc
 
 Converts the function into an asynchronous function.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive.Providers (in System.Reactive.Providers.dll)
 
 ## Syntax
@@ -62,7 +62,7 @@ JScript does not support generic types and methods.
 #### Parameters
 
 - provider  
-  Type: [System.Reactive.Linq.IQbservableProvider](IQbservableProvider\IQbservableProvider.md)  
+  Type: [System.Reactive.Linq.IQbservableProvider](IQbservableProvider/IQbservableProvider)  
   The local Qbservable provider.
 
 - action  
@@ -71,28 +71,28 @@ JScript does not support generic types and methods.
 
 #### Return Value
 
-Type: [System.Func](https://msdn.microsoft.com/en-us/library/Bb549151)\<TSource, [IQbservable](IQbservable\IQbservable(TSource).md)\<[Unit](Unit\Unit.md)\>\>  
+Type: [System.Func](https://msdn.microsoft.com/en-us/library/Bb549151)\<TSource, [IQbservable](IQbservable/IQbservable(TSource))\<[Unit](Unit/Unit)\>\>  
 The function into an asynchronous function.
 
 #### Usage Note
 
-In Visual Basic and C\#, you can call this method as an instance method on any object of type [IQbservableProvider](IQbservableProvider\IQbservableProvider.md). When you use instance method syntax to call this method, omit the first parameter. For more information, see [](https://msdn.microsoft.com/en-us/library/Bb384936) or [](https://msdn.microsoft.com/en-us/library/Bb383977).
+In Visual Basic and C\#, you can call this method as an instance method on any object of type [IQbservableProvider](IQbservableProvider/IQbservableProvider). When you use instance method syntax to call this method, omit the first parameter. For more information, see [](https://msdn.microsoft.com/en-us/library/Bb384936) or [](https://msdn.microsoft.com/en-us/library/Bb383977).
 
 ## See Also
 
 #### Reference
 
-[Qbservable Class](Qbservable\Qbservable.md)
+[Qbservable Class](Qbservable/Qbservable)
 
-[ToAsync Overload](ToAsync\Qbservable.ToAsync.md)
+[ToAsync Overload](ToAsync/Qbservable.ToAsync)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 # Qbservable.ToAsync\<TSource\> Method (IQbservableProvider, Expression\<Action\<TSource\>\>, IScheduler)
 
 Converts the function into an asynchronous function.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive.Providers (in System.Reactive.Providers.dll)
 
 ## Syntax
@@ -156,7 +156,7 @@ JScript does not support generic types and methods.
 #### Parameters
 
 - provider  
-  Type: [System.Reactive.Linq.IQbservableProvider](IQbservableProvider\IQbservableProvider.md)  
+  Type: [System.Reactive.Linq.IQbservableProvider](IQbservableProvider/IQbservableProvider)  
   The local Qbservable provider.
 
 - action  
@@ -164,24 +164,24 @@ JScript does not support generic types and methods.
   The action used to synchronization.
 
 - scheduler  
-  Type: [System.Reactive.Concurrency.IScheduler](IScheduler\IScheduler.md)  
+  Type: [System.Reactive.Concurrency.IScheduler](IScheduler/IScheduler)  
   The scheduler used to synchronization.
 
 #### Return Value
 
-Type: [System.Func](https://msdn.microsoft.com/en-us/library/Bb549151)\<TSource, [IQbservable](IQbservable\IQbservable(TSource).md)\<[Unit](Unit\Unit.md)\>\>  
+Type: [System.Func](https://msdn.microsoft.com/en-us/library/Bb549151)\<TSource, [IQbservable](IQbservable/IQbservable(TSource))\<[Unit](Unit/Unit)\>\>  
 The function into an asynchronous function.
 
 #### Usage Note
 
-In Visual Basic and C\#, you can call this method as an instance method on any object of type [IQbservableProvider](IQbservableProvider\IQbservableProvider.md). When you use instance method syntax to call this method, omit the first parameter. For more information, see [](https://msdn.microsoft.com/en-us/library/Bb384936) or [](https://msdn.microsoft.com/en-us/library/Bb383977).
+In Visual Basic and C\#, you can call this method as an instance method on any object of type [IQbservableProvider](IQbservableProvider/IQbservableProvider). When you use instance method syntax to call this method, omit the first parameter. For more information, see [](https://msdn.microsoft.com/en-us/library/Bb384936) or [](https://msdn.microsoft.com/en-us/library/Bb383977).
 
 ## See Also
 
 #### Reference
 
-[Qbservable Class](Qbservable\Qbservable.md)
+[Qbservable Class](Qbservable/Qbservable)
 
-[ToAsync Overload](ToAsync\Qbservable.ToAsync.md)
+[ToAsync Overload](ToAsync/Qbservable.ToAsync)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)

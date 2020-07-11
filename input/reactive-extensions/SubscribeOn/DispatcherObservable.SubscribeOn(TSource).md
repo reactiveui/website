@@ -2,7 +2,7 @@ title: DispatcherObservable.SubscribeOn<TSource>(IObservable<TSource>, Dispatche
 ---
 # DispatcherObservable.SubscribeOn\<TSource\> Method (IObservable\<TSource\>, Dispatcher)
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive.Windows.Threading (in System.Reactive.Windows.Threading.dll)
 
 ## Syntax
@@ -76,15 +76,15 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 
 #### Reference
 
-[DispatcherObservable Class](DispatcherObservable\DispatcherObservable.md)
+[DispatcherObservable Class](DispatcherObservable/DispatcherObservable)
 
-[SubscribeOn Overload](SubscribeOn\DispatcherObservable.SubscribeOn.md)
+[SubscribeOn Overload](SubscribeOn/DispatcherObservable.SubscribeOn)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 # DispatcherObservable.SubscribeOn\<TSource\> Method (IObservable\<TSource\>, DispatcherScheduler)
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive.Windows.Threading (in System.Reactive.Windows.Threading.dll)
 
 ## Syntax
@@ -144,7 +144,7 @@ JScript does not support generic types and methods.
   Type: [System.IObservable](https://msdn.microsoft.com/en-us/library/Dd990377)\<TSource\>
 
 - scheduler  
-  Type: [System.Reactive.Concurrency.DispatcherScheduler](DispatcherScheduler\DispatcherScheduler.md)
+  Type: [System.Reactive.Concurrency.DispatcherScheduler](DispatcherScheduler/DispatcherScheduler)
 
 #### Return Value
 
@@ -158,8 +158,8 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 
 #### Reference
 
-[DispatcherObservable Class](DispatcherObservable\DispatcherObservable.md)
+[DispatcherObservable Class](DispatcherObservable/DispatcherObservable)
 
-[SubscribeOn Overload](SubscribeOn\DispatcherObservable.SubscribeOn.md)
+[SubscribeOn Overload](SubscribeOn/DispatcherObservable.SubscribeOn)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)

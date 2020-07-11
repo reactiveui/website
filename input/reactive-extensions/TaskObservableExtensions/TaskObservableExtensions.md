@@ -9,7 +9,7 @@ Provides a set of static methods for converting Tasks to IObservables.
 [System.Object](https://msdn.microsoft.com/en-us/library/e5kfa45b)  
   System.Reactive.Threading.Tasks.TaskObservableExtensions
 
-**Namespace:**  [System.Reactive.Threading.Tasks](System.Reactive.Threading.Tasks\System.Reactive.Threading.Tasks.md)  
+**Namespace:**  [System.Reactive.Threading.Tasks](System.Reactive.Threading.Tasks/System.Reactive.Threading.Tasks)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -55,7 +55,7 @@ Any public static (Shared in Visual Basic) members of this type are thread safe.
 
 #### Reference
 
-[System.Reactive.Threading.Tasks Namespace](System.Reactive.Threading.Tasks\System.Reactive.Threading.Tasks.md)
+[System.Reactive.Threading.Tasks Namespace](System.Reactive.Threading.Tasks/System.Reactive.Threading.Tasks)
 
 # TaskObservableExtensions Methods
 
@@ -70,6 +70,6 @@ NameDescription![Public method](https://reactiveui.net/assets/img/Hh303103.pubme
 
 #### Reference
 
-[TaskObservableExtensions Class](TaskObservableExtensions\TaskObservableExtensions.md)
+[TaskObservableExtensions Class](TaskObservableExtensions/TaskObservableExtensions)
 
-[System.Reactive.Threading.Tasks Namespace](System.Reactive.Threading.Tasks\System.Reactive.Threading.Tasks.md)
+[System.Reactive.Threading.Tasks Namespace](System.Reactive.Threading.Tasks/System.Reactive.Threading.Tasks)

@@ -7,10 +7,10 @@ Represents a join pattern.
 ## Inheritance Hierarchy
 
 [System.Object](https://msdn.microsoft.com/en-us/library/e5kfa45b)  
-  [System.Reactive.Joins.Pattern](Pattern\Pattern.md)  
+  [System.Reactive.Joins.Pattern](Pattern/Pattern)  
     System.Reactive.Joins.Pattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11\>
 
-**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins\System.Reactive.Joins.md)  
+**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins/System.Reactive.Joins)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -95,14 +95,14 @@ Any public static (Shared in Visual Basic) members of this type are thread safe.
 
 #### Reference
 
-[System.Reactive.Joins Namespace](System.Reactive.Joins\System.Reactive.Joins.md)
+[System.Reactive.Joins Namespace](System.Reactive.Joins/System.Reactive.Joins)
  
 # Pattern\<T1, T2, T3, T4, T5, T6, T7\> Methods
 
 Include Protected Members  
 Include Inherited Members
 
-The [Pattern\<T1, T2, T3, T4, T5, T6, T7\>](Pattern\Pattern(T1,.md) type exposes the following members.
+The [Pattern\<T1, T2, T3, T4, T5, T6, T7\>](Pattern/Pattern(T1,) type exposes the following members.
 
 ## Methods
 
@@ -112,16 +112,16 @@ NameDescription![Public method](https://reactiveui.net/assets/img/Hh303103.pubme
 
 #### Reference
 
-[Pattern\<T1, T2, T3, T4, T5, T6, T7\> Class](Pattern\Pattern(T1,.md)
+[Pattern\<T1, T2, T3, T4, T5, T6, T7\> Class](Pattern/Pattern(T1,)
 
-[System.Reactive.Joins Namespace](System.Reactive.Joins\System.Reactive.Joins.md)
+[System.Reactive.Joins Namespace](System.Reactive.Joins/System.Reactive.Joins)
 
 # Pattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11\> Methods
 
 Include Protected Members  
 Include Inherited Members
 
-The [Pattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11\>](Pattern\Pattern(T1,.md) type exposes the following members.
+The [Pattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11\>](Pattern/Pattern(T1,) type exposes the following members.
 
 ## Methods
 
@@ -131,16 +131,16 @@ NameDescription![Public method](https://reactiveui.net/assets/img/Hh303103.pubme
 
 #### Reference
 
-[Pattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11\> Class](Pattern\Pattern(T1,.md)
+[Pattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11\> Class](Pattern/Pattern(T1,)
 
-[System.Reactive.Joins Namespace](System.Reactive.Joins\System.Reactive.Joins.md)
+[System.Reactive.Joins Namespace](System.Reactive.Joins/System.Reactive.Joins)
 
 # Pattern\<T1, T2, T3, T4, T5, T6, T7, T8\> Methods
 
 Include Protected Members  
 Include Inherited Members
 
-The [Pattern\<T1, T2, T3, T4, T5, T6, T7, T8\>](Pattern\Pattern(T1,.md) type exposes the following members.
+The [Pattern\<T1, T2, T3, T4, T5, T6, T7, T8\>](Pattern/Pattern(T1,) type exposes the following members.
 
 ## Methods
 
@@ -150,16 +150,16 @@ NameDescription![Public method](https://reactiveui.net/assets/img/Hh303103.pubme
 
 #### Reference
 
-[Pattern\<T1, T2, T3, T4, T5, T6, T7, T8\> Class](Pattern\Pattern(T1,.md)
+[Pattern\<T1, T2, T3, T4, T5, T6, T7, T8\> Class](Pattern/Pattern(T1,)
 
-[System.Reactive.Joins Namespace](System.Reactive.Joins\System.Reactive.Joins.md)
+[System.Reactive.Joins Namespace](System.Reactive.Joins/System.Reactive.Joins)
 
 # Pattern\<T1, T2\> Methods
 
 Include Protected Members  
 Include Inherited Members
 
-The [Pattern\<T1, T2\>](Pattern\Pattern(T1,.md) type exposes the following members.
+The [Pattern\<T1, T2\>](Pattern/Pattern(T1,) type exposes the following members.
 
 ## Methods
 
@@ -169,16 +169,16 @@ NameDescription![Public method](https://reactiveui.net/assets/img/Hh303103.pubme
 
 #### Reference
 
-[Pattern\<T1, T2\> Class](Pattern\Pattern(T1,.md)
+[Pattern\<T1, T2\> Class](Pattern/Pattern(T1,)
 
-[System.Reactive.Joins Namespace](System.Reactive.Joins\System.Reactive.Joins.md)
+[System.Reactive.Joins Namespace](System.Reactive.Joins/System.Reactive.Joins)
 
 # Pattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14\> Methods
 
 Include Protected Members  
 Include Inherited Members
 
-The [Pattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14\>](Pattern\Pattern(T1,.md) type exposes the following members.
+The [Pattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14\>](Pattern/Pattern(T1,) type exposes the following members.
 
 ## Methods
 
@@ -188,9 +188,9 @@ NameDescription![Public method](https://reactiveui.net/assets/img/Hh303103.pubme
 
 #### Reference
 
-[Pattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14\> Class](Pattern\Pattern(T1,.md)
+[Pattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14\> Class](Pattern/Pattern(T1,)
 
-[System.Reactive.Joins Namespace](System.Reactive.Joins\System.Reactive.Joins.md)
+[System.Reactive.Joins Namespace](System.Reactive.Joins/System.Reactive.Joins)
 
 # Pattern\<T1, T2, T3, T4\> Class
 
@@ -199,10 +199,10 @@ Represents a join pattern.
 ## Inheritance Hierarchy
 
 [System.Object](https://msdn.microsoft.com/en-us/library/e5kfa45b)  
-  [System.Reactive.Joins.Pattern](Pattern\Pattern.md)  
+  [System.Reactive.Joins.Pattern](Pattern/Pattern)  
     System.Reactive.Joins.Pattern\<T1, T2, T3, T4\>
 
-**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins\System.Reactive.Joins.md)  
+**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins/System.Reactive.Joins)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -266,7 +266,7 @@ Any public static (Shared in Visual Basic) members of this type are thread safe.
 
 #### Reference
 
-[System.Reactive.Joins Namespace](System.Reactive.Joins\System.Reactive.Joins.md)
+[System.Reactive.Joins Namespace](System.Reactive.Joins/System.Reactive.Joins)
 
 # Pattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14\> Class
 
@@ -275,10 +275,10 @@ Represents a join pattern.
 ## Inheritance Hierarchy
 
 [System.Object](https://msdn.microsoft.com/en-us/library/e5kfa45b)  
-  [System.Reactive.Joins.Pattern](Pattern\Pattern.md)  
+  [System.Reactive.Joins.Pattern](Pattern/Pattern)  
     System.Reactive.Joins.Pattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14\>
 
-**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins\System.Reactive.Joins.md)  
+**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins/System.Reactive.Joins)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -372,7 +372,7 @@ Any public static (Shared in Visual Basic) members of this type are thread safe.
 
 #### Reference
 
-[System.Reactive.Joins Namespace](System.Reactive.Joins\System.Reactive.Joins.md)
+[System.Reactive.Joins Namespace](System.Reactive.Joins/System.Reactive.Joins)
 
 # Pattern\<T1, T2, T3, T4, T5, T6, T7\> Class
 
@@ -381,10 +381,10 @@ Represents a join pattern.
 ## Inheritance Hierarchy
 
 [System.Object](https://msdn.microsoft.com/en-us/library/e5kfa45b)  
-  [System.Reactive.Joins.Pattern](Pattern\Pattern.md)  
+  [System.Reactive.Joins.Pattern](Pattern/Pattern)  
     System.Reactive.Joins.Pattern\<T1, T2, T3, T4, T5, T6, T7\>
 
-**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins\System.Reactive.Joins.md)  
+**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins/System.Reactive.Joins)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -457,7 +457,7 @@ Any public static (Shared in Visual Basic) members of this type are thread safe.
 
 #### Reference
 
-[System.Reactive.Joins Namespace](System.Reactive.Joins\System.Reactive.Joins.md)
+[System.Reactive.Joins Namespace](System.Reactive.Joins/System.Reactive.Joins)
 
 # Pattern\<T1, T2, T3, T4, T5, T6, T7, T8\> Class
 
@@ -466,10 +466,10 @@ Represents a join pattern.
 ## Inheritance Hierarchy
 
 [System.Object](https://msdn.microsoft.com/en-us/library/e5kfa45b)  
-  [System.Reactive.Joins.Pattern](Pattern\Pattern.md)  
+  [System.Reactive.Joins.Pattern](Pattern/Pattern)  
     System.Reactive.Joins.Pattern\<T1, T2, T3, T4, T5, T6, T7, T8\>
 
-**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins\System.Reactive.Joins.md)  
+**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins/System.Reactive.Joins)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -545,14 +545,14 @@ Any public static (Shared in Visual Basic) members of this type are thread safe.
 
 #### Reference
 
-[System.Reactive.Joins Namespace](System.Reactive.Joins\System.Reactive.Joins.md)
+[System.Reactive.Joins Namespace](System.Reactive.Joins/System.Reactive.Joins)
 
 # Pattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13\> Methods
 
 Include Protected Members  
 Include Inherited Members
 
-The [Pattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13\>](Pattern\Pattern(T1,.md) type exposes the following members.
+The [Pattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13\>](Pattern/Pattern(T1,) type exposes the following members.
 
 ## Methods
 
@@ -562,9 +562,9 @@ NameDescription![Public method](https://reactiveui.net/assets/img/Hh303103.pubme
 
 #### Reference
 
-[Pattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13\> Class](Pattern\Pattern(T1,.md)
+[Pattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13\> Class](Pattern/Pattern(T1,)
 
-[System.Reactive.Joins Namespace](System.Reactive.Joins\System.Reactive.Joins.md)
+[System.Reactive.Joins Namespace](System.Reactive.Joins/System.Reactive.Joins)
 
 # Pattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15\> Class
 
@@ -573,10 +573,10 @@ Represents a join pattern.
 ## Inheritance Hierarchy
 
 [System.Object](https://msdn.microsoft.com/en-us/library/e5kfa45b)  
-  [System.Reactive.Joins.Pattern](Pattern\Pattern.md)  
+  [System.Reactive.Joins.Pattern](Pattern/Pattern)  
     System.Reactive.Joins.Pattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15\>
 
-**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins\System.Reactive.Joins.md)  
+**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins/System.Reactive.Joins)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -673,7 +673,7 @@ Any public static (Shared in Visual Basic) members of this type are thread safe.
 
 #### Reference
 
-[System.Reactive.Joins Namespace](System.Reactive.Joins\System.Reactive.Joins.md)
+[System.Reactive.Joins Namespace](System.Reactive.Joins/System.Reactive.Joins)
 
 # Pattern\<T1, T2, T3\> Class
 
@@ -682,10 +682,10 @@ Represents a join pattern.
 ## Inheritance Hierarchy
 
 [System.Object](https://msdn.microsoft.com/en-us/library/e5kfa45b)  
-  [System.Reactive.Joins.Pattern](Pattern\Pattern.md)  
+  [System.Reactive.Joins.Pattern](Pattern/Pattern)  
     System.Reactive.Joins.Pattern\<T1, T2, T3\>
 
-**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins\System.Reactive.Joins.md)  
+**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins/System.Reactive.Joins)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -746,14 +746,14 @@ Any public static (Shared in Visual Basic) members of this type are thread safe.
 
 #### Reference
 
-[System.Reactive.Joins Namespace](System.Reactive.Joins\System.Reactive.Joins.md)
+[System.Reactive.Joins Namespace](System.Reactive.Joins/System.Reactive.Joins)
 
 # Pattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15\> Methods
 
 Include Protected Members  
 Include Inherited Members
 
-The [Pattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15\>](Pattern\Pattern(T1,.md) type exposes the following members.
+The [Pattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15\>](Pattern/Pattern(T1,) type exposes the following members.
 
 ## Methods
 
@@ -763,16 +763,16 @@ NameDescription![Public method](https://reactiveui.net/assets/img/Hh303103.pubme
 
 #### Reference
 
-[Pattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15\> Class](Pattern\Pattern(T1,.md)
+[Pattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15\> Class](Pattern/Pattern(T1,)
 
-[System.Reactive.Joins Namespace](System.Reactive.Joins\System.Reactive.Joins.md)
+[System.Reactive.Joins Namespace](System.Reactive.Joins/System.Reactive.Joins)
 
 # Pattern\<T1, T2, T3, T4, T5\> Methods
 
 Include Protected Members  
 Include Inherited Members
 
-The [Pattern\<T1, T2, T3, T4, T5\>](Pattern\Pattern(T1,.md) type exposes the following members.
+The [Pattern\<T1, T2, T3, T4, T5\>](Pattern/Pattern(T1,) type exposes the following members.
 
 ## Methods
 
@@ -782,9 +782,9 @@ NameDescription![Public method](https://reactiveui.net/assets/img/Hh303103.pubme
 
 #### Reference
 
-[Pattern\<T1, T2, T3, T4, T5\> Class](Pattern\Pattern(T1,.md)
+[Pattern\<T1, T2, T3, T4, T5\> Class](Pattern/Pattern(T1,)
 
-[System.Reactive.Joins Namespace](System.Reactive.Joins\System.Reactive.Joins.md)
+[System.Reactive.Joins Namespace](System.Reactive.Joins/System.Reactive.Joins)
 
 # Pattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9\> Class
 
@@ -793,10 +793,10 @@ Represents a join pattern.
 ## Inheritance Hierarchy
 
 [System.Object](https://msdn.microsoft.com/en-us/library/e5kfa45b)  
-  [System.Reactive.Joins.Pattern](Pattern\Pattern.md)  
+  [System.Reactive.Joins.Pattern](Pattern/Pattern)  
     System.Reactive.Joins.Pattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9\>
 
-**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins\System.Reactive.Joins.md)  
+**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins/System.Reactive.Joins)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -875,7 +875,7 @@ Any public static (Shared in Visual Basic) members of this type are thread safe.
 
 #### Reference
 
-[System.Reactive.Joins Namespace](System.Reactive.Joins\System.Reactive.Joins.md)
+[System.Reactive.Joins Namespace](System.Reactive.Joins/System.Reactive.Joins)
 
 # Pattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13\> Class
 
@@ -884,10 +884,10 @@ Represents a join pattern.
 ## Inheritance Hierarchy
 
 [System.Object](https://msdn.microsoft.com/en-us/library/e5kfa45b)  
-  [System.Reactive.Joins.Pattern](Pattern\Pattern.md)  
+  [System.Reactive.Joins.Pattern](Pattern/Pattern)  
     System.Reactive.Joins.Pattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13\>
 
-**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins\System.Reactive.Joins.md)  
+**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins/System.Reactive.Joins)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -978,7 +978,7 @@ Any public static (Shared in Visual Basic) members of this type are thread safe.
 
 #### Reference
 
-[System.Reactive.Joins Namespace](System.Reactive.Joins\System.Reactive.Joins.md)
+[System.Reactive.Joins Namespace](System.Reactive.Joins/System.Reactive.Joins)
 
 
 # Pattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12\> Methods
@@ -986,7 +986,7 @@ Any public static (Shared in Visual Basic) members of this type are thread safe.
 Include Protected Members  
 Include Inherited Members
 
-The [Pattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12\>](Pattern\Pattern(T1,.md) type exposes the following members.
+The [Pattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12\>](Pattern/Pattern(T1,) type exposes the following members.
 
 ## Methods
 
@@ -996,16 +996,16 @@ NameDescription![Public method](https://reactiveui.net/assets/img/Hh303103.pubme
 
 #### Reference
 
-[Pattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12\> Class](Pattern\Pattern(T1,.md)
+[Pattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12\> Class](Pattern/Pattern(T1,)
 
-[System.Reactive.Joins Namespace](System.Reactive.Joins\System.Reactive.Joins.md)
+[System.Reactive.Joins Namespace](System.Reactive.Joins/System.Reactive.Joins)
 
 # Pattern\<T1, T2, T3, T4, T5, T6\> Methods
 
 Include Protected Members  
 Include Inherited Members
 
-The [Pattern\<T1, T2, T3, T4, T5, T6\>](Pattern\Pattern(T1,.md) type exposes the following members.
+The [Pattern\<T1, T2, T3, T4, T5, T6\>](Pattern/Pattern(T1,) type exposes the following members.
 
 ## Methods
 
@@ -1015,9 +1015,9 @@ NameDescription![Public method](https://reactiveui.net/assets/img/Hh303103.pubme
 
 #### Reference
 
-[Pattern\<T1, T2, T3, T4, T5, T6\> Class](Pattern\Pattern(T1,.md)
+[Pattern\<T1, T2, T3, T4, T5, T6\> Class](Pattern/Pattern(T1,)
 
-[System.Reactive.Joins Namespace](System.Reactive.Joins\System.Reactive.Joins.md)
+[System.Reactive.Joins Namespace](System.Reactive.Joins/System.Reactive.Joins)
 
 # Pattern\<T1, T2, T3, T4, T5, T6\> Class
 
@@ -1026,10 +1026,10 @@ Represents a join pattern.
 ## Inheritance Hierarchy
 
 [System.Object](https://msdn.microsoft.com/en-us/library/e5kfa45b)  
-  [System.Reactive.Joins.Pattern](Pattern\Pattern.md)  
+  [System.Reactive.Joins.Pattern](Pattern/Pattern)  
     System.Reactive.Joins.Pattern\<T1, T2, T3, T4, T5, T6\>
 
-**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins\System.Reactive.Joins.md)  
+**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins/System.Reactive.Joins)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -1099,14 +1099,14 @@ Any public static (Shared in Visual Basic) members of this type are thread safe.
 
 #### Reference
 
-[System.Reactive.Joins Namespace](System.Reactive.Joins\System.Reactive.Joins.md)
+[System.Reactive.Joins Namespace](System.Reactive.Joins/System.Reactive.Joins)
 
 # Pattern\<T1, T2, T3, T4\> Methods
 
 Include Protected Members  
 Include Inherited Members
 
-The [Pattern\<T1, T2, T3, T4\>](Pattern\Pattern(T1,.md) type exposes the following members.
+The [Pattern\<T1, T2, T3, T4\>](Pattern/Pattern(T1,) type exposes the following members.
 
 ## Methods
 
@@ -1116,9 +1116,9 @@ NameDescription![Public method](https://reactiveui.net/assets/img/Hh303103.pubme
 
 #### Reference
 
-[Pattern\<T1, T2, T3, T4\> Class](Pattern\Pattern(T1,.md)
+[Pattern\<T1, T2, T3, T4\> Class](Pattern/Pattern(T1,)
 
-[System.Reactive.Joins Namespace](System.Reactive.Joins\System.Reactive.Joins.md)
+[System.Reactive.Joins Namespace](System.Reactive.Joins/System.Reactive.Joins)
 
 # Pattern\<T1, T2\> Class
 
@@ -1127,10 +1127,10 @@ Represents a join pattern.
 ## Inheritance Hierarchy
 
 [System.Object](https://msdn.microsoft.com/en-us/library/e5kfa45b)  
-  [System.Reactive.Joins.Pattern](Pattern\Pattern.md)  
+  [System.Reactive.Joins.Pattern](Pattern/Pattern)  
     System.Reactive.Joins.Pattern\<T1, T2\>
 
-**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins\System.Reactive.Joins.md)  
+**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins/System.Reactive.Joins)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -1188,14 +1188,14 @@ Any public static (Shared in Visual Basic) members of this type are thread safe.
 
 #### Reference
 
-[System.Reactive.Joins Namespace](System.Reactive.Joins\System.Reactive.Joins.md)
+[System.Reactive.Joins Namespace](System.Reactive.Joins/System.Reactive.Joins)
 
 # Pattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16\> Methods
 
 Include Protected Members  
 Include Inherited Members
 
-The [Pattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16\>](Pattern\Pattern(T1,.md) type exposes the following members.
+The [Pattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16\>](Pattern/Pattern(T1,) type exposes the following members.
 
 ## Methods
 
@@ -1205,9 +1205,9 @@ NameDescription![Public method](https://reactiveui.net/assets/img/Hh303103.pubme
 
 #### Reference
 
-[Pattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16\> Class](Pattern\Pattern(T1,.md)
+[Pattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16\> Class](Pattern/Pattern(T1,)
 
-[System.Reactive.Joins Namespace](System.Reactive.Joins\System.Reactive.Joins.md)
+[System.Reactive.Joins Namespace](System.Reactive.Joins/System.Reactive.Joins)
 
 # Pattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16\> Class
 
@@ -1216,10 +1216,10 @@ Represents a join pattern.
 ## Inheritance Hierarchy
 
 [System.Object](https://msdn.microsoft.com/en-us/library/e5kfa45b)  
-  [System.Reactive.Joins.Pattern](Pattern\Pattern.md)  
+  [System.Reactive.Joins.Pattern](Pattern/Pattern)  
     System.Reactive.Joins.Pattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16\>
 
-**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins\System.Reactive.Joins.md)  
+**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins/System.Reactive.Joins)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -1319,7 +1319,7 @@ Any public static (Shared in Visual Basic) members of this type are thread safe.
 
 #### Reference
 
-[System.Reactive.Joins Namespace](System.Reactive.Joins\System.Reactive.Joins.md)
+[System.Reactive.Joins Namespace](System.Reactive.Joins/System.Reactive.Joins)
 
 # Pattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10\> Class
 
@@ -1328,10 +1328,10 @@ Represents a join pattern.
 ## Inheritance Hierarchy
 
 [System.Object](https://msdn.microsoft.com/en-us/library/e5kfa45b)  
-  [System.Reactive.Joins.Pattern](Pattern\Pattern.md)  
+  [System.Reactive.Joins.Pattern](Pattern/Pattern)  
     System.Reactive.Joins.Pattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10\>
 
-**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins\System.Reactive.Joins.md)  
+**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins/System.Reactive.Joins)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -1413,14 +1413,14 @@ Any public static (Shared in Visual Basic) members of this type are thread safe.
 
 #### Reference
 
-[System.Reactive.Joins Namespace](System.Reactive.Joins\System.Reactive.Joins.md)
+[System.Reactive.Joins Namespace](System.Reactive.Joins/System.Reactive.Joins)
 
 # Pattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9\> Methods
 
 Include Protected Members  
 Include Inherited Members
 
-The [Pattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9\>](Pattern\Pattern(T1,.md) type exposes the following members.
+The [Pattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9\>](Pattern/Pattern(T1,) type exposes the following members.
 
 ## Methods
 
@@ -1430,9 +1430,9 @@ NameDescription![Public method](https://reactiveui.net/assets/img/Hh303103.pubme
 
 #### Reference
 
-[Pattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9\> Class](Pattern\Pattern(T1,.md)
+[Pattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9\> Class](Pattern/Pattern(T1,)
 
-[System.Reactive.Joins Namespace](System.Reactive.Joins\System.Reactive.Joins.md)
+[System.Reactive.Joins Namespace](System.Reactive.Joins/System.Reactive.Joins)
 
 # Pattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12\> Class
 
@@ -1441,10 +1441,10 @@ Represents a join pattern.
 ## Inheritance Hierarchy
 
 [System.Object](https://msdn.microsoft.com/en-us/library/e5kfa45b)  
-  [System.Reactive.Joins.Pattern](Pattern\Pattern.md)  
+  [System.Reactive.Joins.Pattern](Pattern/Pattern)  
     System.Reactive.Joins.Pattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12\>
 
-**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins\System.Reactive.Joins.md)  
+**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins/System.Reactive.Joins)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -1532,7 +1532,7 @@ Any public static (Shared in Visual Basic) members of this type are thread safe.
 
 #### Reference
 
-[System.Reactive.Joins Namespace](System.Reactive.Joins\System.Reactive.Joins.md)
+[System.Reactive.Joins Namespace](System.Reactive.Joins/System.Reactive.Joins)
 
 # Pattern\<T1, T2, T3, T4, T5\> Class
 
@@ -1541,10 +1541,10 @@ Represents a join pattern.
 ## Inheritance Hierarchy
 
 [System.Object](https://msdn.microsoft.com/en-us/library/e5kfa45b)  
-  [System.Reactive.Joins.Pattern](Pattern\Pattern.md)  
+  [System.Reactive.Joins.Pattern](Pattern/Pattern)  
     System.Reactive.Joins.Pattern\<T1, T2, T3, T4, T5\>
 
-**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins\System.Reactive.Joins.md)  
+**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins/System.Reactive.Joins)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -1611,14 +1611,14 @@ Any public static (Shared in Visual Basic) members of this type are thread safe.
 
 #### Reference
 
-[System.Reactive.Joins Namespace](System.Reactive.Joins\System.Reactive.Joins.md)
+[System.Reactive.Joins Namespace](System.Reactive.Joins/System.Reactive.Joins)
 
 # Pattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10\> Methods
 
 Include Protected Members  
 Include Inherited Members
 
-The [Pattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10\>](Pattern\Pattern(T1,.md) type exposes the following members.
+The [Pattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10\>](Pattern/Pattern(T1,) type exposes the following members.
 
 ## Methods
 
@@ -1628,16 +1628,16 @@ NameDescription![Public method](https://reactiveui.net/assets/img/Hh303103.pubme
 
 #### Reference
 
-[Pattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10\> Class](Pattern\Pattern(T1,.md)
+[Pattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10\> Class](Pattern/Pattern(T1,)
 
-[System.Reactive.Joins Namespace](System.Reactive.Joins\System.Reactive.Joins.md)
+[System.Reactive.Joins Namespace](System.Reactive.Joins/System.Reactive.Joins)
 
 # Pattern\<T1, T2, T3\> Methods
 
 Include Protected Members  
 Include Inherited Members
 
-The [Pattern\<T1, T2, T3\>](Pattern\Pattern(T1,.md) type exposes the following members.
+The [Pattern\<T1, T2, T3\>](Pattern/Pattern(T1,) type exposes the following members.
 
 ## Methods
 
@@ -1647,6 +1647,6 @@ NameDescription![Public method](https://reactiveui.net/assets/img/Hh303103.pubme
 
 #### Reference
 
-[Pattern\<T1, T2, T3\> Class](Pattern\Pattern(T1,.md)
+[Pattern\<T1, T2, T3\> Class](Pattern/Pattern(T1,)
 
-[System.Reactive.Joins Namespace](System.Reactive.Joins\System.Reactive.Joins.md)
+[System.Reactive.Joins Namespace](System.Reactive.Joins/System.Reactive.Joins)

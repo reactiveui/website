@@ -4,7 +4,7 @@ title: Observable.Buffer<TSource>(IObservable<TSource>, TimeSpan, TimeSpan, ISch
 
 Indicates each element of an observable sequence into zero or more buffers which are produced based on timing information.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -85,7 +85,7 @@ JScript does not support generic types and methods.
   The interval between creation of consecutive buffers.
 
 - scheduler  
-  Type: [System.Reactive.Concurrency.IScheduler](IScheduler\IScheduler.md)  
+  Type: [System.Reactive.Concurrency.IScheduler](IScheduler/IScheduler)  
   The scheduler to run buffering timers on.
 
 #### Return Value
@@ -244,11 +244,11 @@ Here is example output from the example code.
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[Buffer Overload](Buffer\Observable.Buffer.md)
+[Buffer Overload](Buffer/Observable.Buffer)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 
 
@@ -264,7 +264,7 @@ Here is example output from the example code.
 
 Indicates each element of an observable sequence into a buffer that’s sent out when either it’s full or a given amount of time has elapsed.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -345,7 +345,7 @@ JScript does not support generic types and methods.
   The maximum element count of a buffer.
 
 - scheduler  
-  Type: [System.Reactive.Concurrency.IScheduler](IScheduler\IScheduler.md)  
+  Type: [System.Reactive.Concurrency.IScheduler](IScheduler/IScheduler)  
   The scheduler to run buffering timers on.
 
 #### Return Value
@@ -361,11 +361,11 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[Buffer Overload](Buffer\Observable.Buffer.md)
+[Buffer Overload](Buffer/Observable.Buffer)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 
 
@@ -379,7 +379,7 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 
 Indicates each element of an observable sequence into consecutive non-overlapping buffers which are produced based on timing information.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -457,11 +457,11 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[Buffer Overload](Buffer\Observable.Buffer.md)
+[Buffer Overload](Buffer/Observable.Buffer)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 
 
@@ -475,7 +475,7 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 
 Indicates each element of an observable sequence into a buffer that’s sent out when either it’s full or a given amount of time has elapsed.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -563,11 +563,11 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[Buffer Overload](Buffer\Observable.Buffer.md)
+[Buffer Overload](Buffer/Observable.Buffer)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 
 
@@ -581,7 +581,7 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 
 Indicates each element of an observable sequence into zero or more buffers which are produced based on element count information.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -669,11 +669,11 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[Buffer Overload](Buffer\Observable.Buffer.md)
+[Buffer Overload](Buffer/Observable.Buffer)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 
 
@@ -687,7 +687,7 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 
 Indicates each element of an observable sequence into consecutive non-overlapping buffers which are produced based on element count information.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -765,11 +765,11 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[Buffer Overload](Buffer\Observable.Buffer.md)
+[Buffer Overload](Buffer/Observable.Buffer)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 
 
@@ -783,7 +783,7 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 
 Indicates each element of an observable sequence into consecutive non-overlapping buffers which are produced based on timing information.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -855,7 +855,7 @@ JScript does not support generic types and methods.
   The length of each buffer.
 
 - scheduler  
-  Type: [System.Reactive.Concurrency.IScheduler](IScheduler\IScheduler.md)  
+  Type: [System.Reactive.Concurrency.IScheduler](IScheduler/IScheduler)  
   The scheduler to run buffering timers on.
 
 #### Return Value
@@ -871,11 +871,11 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[Buffer Overload](Buffer\Observable.Buffer.md)
+[Buffer Overload](Buffer/Observable.Buffer)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 
 
@@ -889,7 +889,7 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 
 Indicates each element of an observable sequence into zero or more buffers which are produced based on timing information.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -977,11 +977,11 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[Buffer Overload](Buffer\Observable.Buffer.md)
+[Buffer Overload](Buffer/Observable.Buffer)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 
 

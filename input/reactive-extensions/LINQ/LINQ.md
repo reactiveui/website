@@ -2,7 +2,7 @@ title: LINQ Operators by Categories
 ---
 # LINQ Operators by Categories
 
-This topic lists all major LINQ operators implemented by the [Observable](Observable\Observable.md) type by their categories, specifically: creation, conversion, combine, functional, mathematical, time, exceptions, miscellaneous, selection and primitives.
+This topic lists all major LINQ operators implemented by the [Observable](Observable/Observable) type by their categories, specifically: creation, conversion, combine, functional, mathematical, time, exceptions, miscellaneous, selection and primitives.
 
 ## LINQ Operators by Categories
 
@@ -133,11 +133,11 @@ Primitives
 
 #### Reference
 
-[Observable](Observable\Observable.md)
+[Observable](Observable/Observable)
 
 #### Concepts
 
-[Querying Observable Sequences using LINQ Operators](Querying\Querying.md)
+[Querying Observable Sequences using LINQ Operators](Querying/Querying)
 
 
 

@@ -4,7 +4,7 @@ title: HistoricalScheduler.ScheduleAbsolute<TState>(TState, DateTimeOffset, Func
 
 Schedules an action to be executed at dueTime.
 
-**Namespace:**  [System.Reactive.Concurrency](System.Reactive.Concurrency\System.Reactive.Concurrency.md)  
+**Namespace:**  [System.Reactive.Concurrency](System.Reactive.Concurrency/System.Reactive.Concurrency)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -79,7 +79,7 @@ JScript does not support generic types and methods.
   Absolute time at which to execute the action.
 
 - action  
-  Type: [System.Func](https://msdn.microsoft.com/en-us/library/Bb534647)\<[IScheduler](IScheduler\IScheduler.md), TState, [IDisposable](https://msdn.microsoft.com/en-us/library/aax125c9)\>  
+  Type: [System.Func](https://msdn.microsoft.com/en-us/library/Bb534647)\<[IScheduler](IScheduler/IScheduler), TState, [IDisposable](https://msdn.microsoft.com/en-us/library/aax125c9)\>  
   Action to be executed.
 
 #### Return Value
@@ -91,8 +91,8 @@ Disposable object used to cancel the scheduled action (best effort).
 
 #### Reference
 
-[HistoricalScheduler Class](HistoricalScheduler\HistoricalScheduler.md)
+[HistoricalScheduler Class](HistoricalScheduler/HistoricalScheduler)
 
-[ScheduleAbsolute Overload](ScheduleAbsolute\HistoricalScheduler.ScheduleAbsolute.md)
+[ScheduleAbsolute Overload](ScheduleAbsolute/HistoricalScheduler.ScheduleAbsolute)
 
-[System.Reactive.Concurrency Namespace](System.Reactive.Concurrency\System.Reactive.Concurrency.md)
+[System.Reactive.Concurrency Namespace](System.Reactive.Concurrency/System.Reactive.Concurrency)

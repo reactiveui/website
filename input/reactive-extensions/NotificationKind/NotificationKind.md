@@ -4,7 +4,7 @@ title: NotificationKind Enumeration
 
 Indicates the type of a notification.
 
-**Namespace:**  [System.Reactive](System.Reactive\System.Reactive.md)  
+**Namespace:**  [System.Reactive](System.Reactive/System.Reactive)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -41,7 +41,7 @@ Member nameDescriptionOnNextRepresents an OnNext notification.OnErrorRepresents 
 
 #### Reference
 
-[System.Reactive Namespace](System.Reactive\System.Reactive.md)
+[System.Reactive Namespace](System.Reactive/System.Reactive)
 
 
 

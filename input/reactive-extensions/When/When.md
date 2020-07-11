@@ -22,9 +22,9 @@ MouseMove(this, args);
 MouseMove += (sender, args) => Display(args)
 ```
 
-Using Rx, you can represent multiple asynchronous data streams (that come from diverse sources, e.g., stock quote, tweets, computer events, web service requests, etc.), and subscribe to the event stream using the IObserver\<T\> interface. The IObservable\<T\> interface maintains a list of dependent IObserver\<T\> interfaces and notifies them automatically of any state changes. You can query observable sequences using standard LINQ query operators implemented by the [Observable](Observable\Observable.md) type. Thus you can filter, project, aggregate, compose and perform time-based operations on multiple events easily by using these static LINQ operators. Cancellation and exceptions can also be handled gracefully by using extension methods provided by Rx.
+Using Rx, you can represent multiple asynchronous data streams (that come from diverse sources, e.g., stock quote, tweets, computer events, web service requests, etc.), and subscribe to the event stream using the IObserver\<T\> interface. The IObservable\<T\> interface maintains a list of dependent IObserver\<T\> interfaces and notifies them automatically of any state changes. You can query observable sequences using standard LINQ query operators implemented by the [Observable](Observable/Observable) type. Thus you can filter, project, aggregate, compose and perform time-based operations on multiple events easily by using these static LINQ operators. Cancellation and exceptions can also be handled gracefully by using extension methods provided by Rx.
 
-The following example creates an ISubject instance (which inherits both IObservable and IObserver) representing the event stream. It then uses the same object to publish data and receive subscription. For more information on using Subjects, see [Using Subjects](Using\Using.md).
+The following example creates an ISubject instance (which inherits both IObservable and IObserver) representing the event stream. It then uses the same object to publish data and receive subscription. For more information on using Subjects, see [Using Subjects](Using/Using).
 
 ```
  
@@ -36,7 +36,7 @@ MouseMove.OnNext(args);
 MouseMove.Subscribe(args => Display(args));
 ```
 
-You can also use schedulers to control when the subscription starts, and when notifications are pushed to subscribers. For more information on this, see [Using Schedulers](Using\Using.md).
+You can also use schedulers to control when the subscription starts, and when notifications are pushed to subscribers. For more information on this, see [Using Schedulers](Using/Using).
 
 ### Filtering
 
@@ -44,11 +44,11 @@ One drawback of the .NET event-based model is that your event handler is always 
 
 Take an application that detects mouse-down as an example. In the current event programming model, you have to write an event handler that takes MouseEventArgs as an argument. The application can react to the event raised by displaying a message. In Rx, such mouse-down events are treated as a stream of information about clicks. Whenever you click the mouse, information (e.g., cursor position) about this click appears in a stream, ready to be processed. In this paradigm, events (or event streams) are very similar to lists or other collections. This means that we can use techniques for working with collections to process events. For example, you can filter out those clicks that appear outside a specific area, and only display a message when the user clicks inside an area. Or you can wait a specific period of time, and inform the user the number of “valid” clicks during this period. Similarly, you can capture a stream of stock ticks and only respond to those ticks that have changed for a specific range during a particular time window. All these can be done easily by using static LINQ-query style operators provided by Rx.
 
-In this way, a function can take an event, process it, and then pass out the processed stream to an application. This gives you flexibility that is not available in the current programming model. Moreover, as Rx is performing all the plumbing work at the background for filtering, synchronizing, and transforming the data, your handler can just react to the data it receives and do something with it. This results in cleaner code that is easier to read and maintain. For more information on filtering, see [Querying Observable Sequences using LINQ Operators](Querying\Querying.md).
+In this way, a function can take an event, process it, and then pass out the processed stream to an application. This gives you flexibility that is not available in the current programming model. Moreover, as Rx is performing all the plumbing work at the background for filtering, synchronizing, and transforming the data, your handler can just react to the data it receives and do something with it. This results in cleaner code that is easier to read and maintain. For more information on filtering, see [Querying Observable Sequences using LINQ Operators](Querying/Querying).
 
 ### Composing
 
-In the .NET event-based model, events cannot be composed easily. You cannot subscribe to multiple events and synthesize the results based on output. In the world of Rx, generic LINQ operators such as SelectMany, Merge, etc., are implemented in the assemblies. Such operators enable you to combine multiple event streams to return something meaningful to the subscriber. For example, you can create an observable sequence which listens to both a mouse-down and mouse-move event. You can then subscribe to this observable sequence so that what you get essentially is a composed mouse drag event. For more information on composing, see [Querying Observable Sequences using LINQ Operators](Querying\Querying.md).
+In the .NET event-based model, events cannot be composed easily. You cannot subscribe to multiple events and synthesize the results based on output. In the world of Rx, generic LINQ operators such as SelectMany, Merge, etc., are implemented in the assemblies. Such operators enable you to combine multiple event streams to return something meaningful to the subscriber. For example, you can create an observable sequence which listens to both a mouse-down and mouse-move event. You can then subscribe to this observable sequence so that what you get essentially is a composed mouse drag event. For more information on composing, see [Querying Observable Sequences using LINQ Operators](Querying/Querying).
 
 ### Manipulating Events
 

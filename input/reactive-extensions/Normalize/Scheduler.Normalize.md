@@ -4,7 +4,7 @@ title: Scheduler.Normalize()
 
 Ensures that no time spans are negative.
 
-**Namespace:**  [System.Reactive.Concurrency](System.Reactive.Concurrency\System.Reactive.Concurrency.md)  
+**Namespace:**  [System.Reactive.Concurrency](System.Reactive.Concurrency/System.Reactive.Concurrency)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -63,9 +63,9 @@ The time span if it zero or positive otherwise TimeSpan.Zero.
 
 #### Reference
 
-[Scheduler Class](Scheduler\Scheduler.md)
+[Scheduler Class](Scheduler/Scheduler)
 
-[System.Reactive.Concurrency Namespace](System.Reactive.Concurrency\System.Reactive.Concurrency.md)
+[System.Reactive.Concurrency Namespace](System.Reactive.Concurrency/System.Reactive.Concurrency)
 
 
 

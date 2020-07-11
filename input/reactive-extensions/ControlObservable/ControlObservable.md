@@ -5,7 +5,7 @@ title: ControlObservable()s
 Include Protected Members  
 Include Inherited Members
 
-The [ControlObservable](ControlObservable\ControlObservable.md) type exposes the following members.
+The [ControlObservable](ControlObservable/ControlObservable) type exposes the following members.
 
 ## Methods
 
@@ -15,9 +15,9 @@ NameDescription![Public method](https://reactiveui.net/assets/img/Hh303103.pubme
 
 #### Reference
 
-[ControlObservable Class](ControlObservable\ControlObservable.md)
+[ControlObservable Class](ControlObservable/ControlObservable)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 
 
@@ -32,7 +32,7 @@ Provides a set of static methods for subscribing to IObservables using Windows F
 [System.Object](https://msdn.microsoft.com/en-us/library/e5kfa45b)  
   System.Reactive.Linq.ControlObservable
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive.Windows.Forms (in System.Reactive.Windows.Forms.dll)
 
 ## Syntax
@@ -80,7 +80,7 @@ Any public static (Shared in Visual Basic) members of this type are thread safe.
 
 #### Reference
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 
 

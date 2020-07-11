@@ -4,7 +4,7 @@ title: Observable.Replay<TSource>(IObservable<TSource>, Int32, TimeSpan)
 
 Returns a connectable observable sequence that shares a single subscription to the underlying sequence replaying bufferSize notifications within window.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -81,7 +81,7 @@ JScript does not support generic types and methods.
 
 #### Return Value
 
-Type: [System.Reactive.Subjects.IConnectableObservable](IConnectableObservable\IConnectableObservable(T).md)\<TSource\>  
+Type: [System.Reactive.Subjects.IConnectableObservable](IConnectableObservable/IConnectableObservable(T))\<TSource\>  
 A connectable observable sequence that shares a single subscription to the underlying sequence.
 
 #### Usage Note
@@ -92,17 +92,17 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[Replay Overload](Replay\Observable.Replay.md)
+[Replay Overload](Replay/Observable.Replay)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 # Observable.Replay\<TSource\> Method (IObservable\<TSource\>, Int32, IScheduler)
 
 Returns a connectable observable sequence that shares a single subscription to the underlying sequence replaying bufferSize notifications.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -174,12 +174,12 @@ JScript does not support generic types and methods.
   The maximum element count of the replay buffer.
 
 - scheduler  
-  Type: [System.Reactive.Concurrency.IScheduler](IScheduler\IScheduler.md)  
+  Type: [System.Reactive.Concurrency.IScheduler](IScheduler/IScheduler)  
   The scheduler where connected observers will be invoked on.
 
 #### Return Value
 
-Type: [System.Reactive.Subjects.IConnectableObservable](IConnectableObservable\IConnectableObservable(T).md)\<TSource\>  
+Type: [System.Reactive.Subjects.IConnectableObservable](IConnectableObservable/IConnectableObservable(T))\<TSource\>  
 A connectable observable sequence that shares a single subscription to the underlying sequence.
 
 #### Usage Note
@@ -190,17 +190,17 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[Replay Overload](Replay\Observable.Replay.md)
+[Replay Overload](Replay/Observable.Replay)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 # Observable.Replay\<TSource\> Method (IObservable\<TSource\>)
 
 Returns a connectable observable sequence that shares a single subscription to the underlying sequence replaying all notifications.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -258,7 +258,7 @@ JScript does not support generic types and methods.
 
 #### Return Value
 
-Type: [System.Reactive.Subjects.IConnectableObservable](IConnectableObservable\IConnectableObservable(T).md)\<TSource\>  
+Type: [System.Reactive.Subjects.IConnectableObservable](IConnectableObservable/IConnectableObservable(T))\<TSource\>  
 A connectable observable sequence that shares a single subscription to the underlying sequence.
 
 #### Usage Note
@@ -269,17 +269,17 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[Replay Overload](Replay\Observable.Replay.md)
+[Replay Overload](Replay/Observable.Replay)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 # Observable.Replay\<TSource\> Method (IObservable\<TSource\>, TimeSpan)
 
 Returns a connectable observable sequence that shares a single subscription to the underlying sequence replaying all notifications within window.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -346,7 +346,7 @@ JScript does not support generic types and methods.
 
 #### Return Value
 
-Type: [System.Reactive.Subjects.IConnectableObservable](IConnectableObservable\IConnectableObservable(T).md)\<TSource\>  
+Type: [System.Reactive.Subjects.IConnectableObservable](IConnectableObservable/IConnectableObservable(T))\<TSource\>  
 A connectable observable sequence that shares a single subscription to the underlying sequence.
 
 #### Usage Note
@@ -357,17 +357,17 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[Replay Overload](Replay\Observable.Replay.md)
+[Replay Overload](Replay/Observable.Replay)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 # Observable.Replay\<TSource\> Method (IObservable\<TSource\>, Int32)
 
 Returns a connectable observable sequence that shares a single subscription to the underlying sequence replaying bufferSize notifications.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -434,7 +434,7 @@ JScript does not support generic types and methods.
 
 #### Return Value
 
-Type: [System.Reactive.Subjects.IConnectableObservable](IConnectableObservable\IConnectableObservable(T).md)\<TSource\>  
+Type: [System.Reactive.Subjects.IConnectableObservable](IConnectableObservable/IConnectableObservable(T))\<TSource\>  
 A connectable observable sequence that shares a single subscription to the underlying sequence.
 
 #### Usage Note
@@ -445,17 +445,17 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[Replay Overload](Replay\Observable.Replay.md)
+[Replay Overload](Replay/Observable.Replay)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 # Observable.Replay\<TSource\> Method (IObservable\<TSource\>, TimeSpan, IScheduler)
 
 Returns a connectable observable sequence that shares a single subscription to the underlying sequence replaying all notifications within window.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -527,12 +527,12 @@ JScript does not support generic types and methods.
   The maximum time length of the replay buffer.
 
 - scheduler  
-  Type: [System.Reactive.Concurrency.IScheduler](IScheduler\IScheduler.md)  
+  Type: [System.Reactive.Concurrency.IScheduler](IScheduler/IScheduler)  
   The scheduler where connected observers will be invoked on.
 
 #### Return Value
 
-Type: [System.Reactive.Subjects.IConnectableObservable](IConnectableObservable\IConnectableObservable(T).md)\<TSource\>  
+Type: [System.Reactive.Subjects.IConnectableObservable](IConnectableObservable/IConnectableObservable(T))\<TSource\>  
 A connectable observable sequence that shares a single subscription to the underlying sequence.
 
 #### Usage Note
@@ -543,17 +543,17 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[Replay Overload](Replay\Observable.Replay.md)
+[Replay Overload](Replay/Observable.Replay)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 # Observable.Replay\<TSource\> Method (IObservable\<TSource\>, Int32, TimeSpan, IScheduler)
 
 Returns a connectable observable sequence that shares a single subscription to the underlying sequence replaying bufferSize notifications within window.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -634,12 +634,12 @@ JScript does not support generic types and methods.
   The maximum time length of the replay buffer.
 
 - scheduler  
-  Type: [System.Reactive.Concurrency.IScheduler](IScheduler\IScheduler.md)  
+  Type: [System.Reactive.Concurrency.IScheduler](IScheduler/IScheduler)  
   The scheduler where connected observers will be invoked on.
 
 #### Return Value
 
-Type: [System.Reactive.Subjects.IConnectableObservable](IConnectableObservable\IConnectableObservable(T).md)\<TSource\>  
+Type: [System.Reactive.Subjects.IConnectableObservable](IConnectableObservable/IConnectableObservable(T))\<TSource\>  
 A connectable observable sequence that shares a single subscription to the underlying sequence.
 
 #### Usage Note
@@ -650,17 +650,17 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[Replay Overload](Replay\Observable.Replay.md)
+[Replay Overload](Replay/Observable.Replay)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 # Observable.Replay\<TSource\> Method (IObservable\<TSource\>, IScheduler)
 
 Returns a connectable observable sequence that shares a single subscription to the underlying sequence replaying all notifications.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -722,12 +722,12 @@ JScript does not support generic types and methods.
   The source sequence whose elements will be multicasted through a single shared subscription.
 
 - scheduler  
-  Type: [System.Reactive.Concurrency.IScheduler](IScheduler\IScheduler.md)  
+  Type: [System.Reactive.Concurrency.IScheduler](IScheduler/IScheduler)  
   The scheduler where connected observers will be invoked on.
 
 #### Return Value
 
-Type: [System.Reactive.Subjects.IConnectableObservable](IConnectableObservable\IConnectableObservable(T).md)\<TSource\>  
+Type: [System.Reactive.Subjects.IConnectableObservable](IConnectableObservable/IConnectableObservable(T))\<TSource\>  
 A connectable observable sequence that shares a single subscription to the underlying sequence.
 
 #### Usage Note
@@ -738,8 +738,8 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[Replay Overload](Replay\Observable.Replay.md)
+[Replay Overload](Replay/Observable.Replay)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)

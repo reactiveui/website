@@ -4,7 +4,7 @@ title: Observable.SkipWhile<TSource>(IObservable<TSource>, Func<TSource, Boolean
 
 Bypasses values in an observable sequence as long as a specified condition is true and then returns the remaining values.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -82,17 +82,17 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[SkipWhile Overload](SkipWhile\Observable.SkipWhile.md)
+[SkipWhile Overload](SkipWhile/Observable.SkipWhile)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 # Observable.SkipWhile\<TSource\> Method (IObservable\<TSource\>, Func\<TSource, Int32, Boolean\>)
 
 Bypasses values in an observable sequence as long as a specified condition is true and then returns the remaining values.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -170,8 +170,8 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[SkipWhile Overload](SkipWhile\Observable.SkipWhile.md)
+[SkipWhile Overload](SkipWhile/Observable.SkipWhile)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)

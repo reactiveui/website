@@ -4,7 +4,7 @@ title: ReplaySubject<T>.OnNext()
 
 Notifies all subscribed observers with the value.
 
-**Namespace:**  [System.Reactive.Subjects](System.Reactive.Subjects\System.Reactive.Subjects.md)  
+**Namespace:**  [System.Reactive.Subjects](System.Reactive.Subjects/System.Reactive.Subjects)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -53,7 +53,7 @@ public final function OnNext(
 #### Parameters
 
 - value  
-  Type: [T](ReplaySubject\ReplaySubject(T).md)  
+  Type: [T](ReplaySubject/ReplaySubject(T))  
   The value to send to all subscribed observers.
 
 #### Implements
@@ -64,6 +64,6 @@ public final function OnNext(
 
 #### Reference
 
-[ReplaySubject\<T\> Class](ReplaySubject\ReplaySubject(T).md)
+[ReplaySubject\<T\> Class](ReplaySubject/ReplaySubject(T))
 
-[System.Reactive.Subjects Namespace](System.Reactive.Subjects\System.Reactive.Subjects.md)
+[System.Reactive.Subjects Namespace](System.Reactive.Subjects/System.Reactive.Subjects)

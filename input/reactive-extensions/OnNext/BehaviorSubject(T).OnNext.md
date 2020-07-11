@@ -4,7 +4,7 @@ title: BehaviorSubject<T>.OnNext()
 
 Notifies all subscribed observers with the value.
 
-**Namespace:**  [System.Reactive.Subjects](System.Reactive.Subjects\System.Reactive.Subjects.md)  
+**Namespace:**  [System.Reactive.Subjects](System.Reactive.Subjects/System.Reactive.Subjects)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -53,7 +53,7 @@ public final function OnNext(
 #### Parameters
 
 - value  
-  Type: [T](BehaviorSubject\BehaviorSubject(T).md)  
+  Type: [T](BehaviorSubject/BehaviorSubject(T))  
   The value to send to all subscribed observers.
 
 #### Implements
@@ -64,9 +64,9 @@ public final function OnNext(
 
 #### Reference
 
-[BehaviorSubject\<T\> Class](BehaviorSubject\BehaviorSubject(T).md)
+[BehaviorSubject\<T\> Class](BehaviorSubject/BehaviorSubject(T))
 
-[System.Reactive.Subjects Namespace](System.Reactive.Subjects\System.Reactive.Subjects.md)
+[System.Reactive.Subjects Namespace](System.Reactive.Subjects/System.Reactive.Subjects)
 
 
 

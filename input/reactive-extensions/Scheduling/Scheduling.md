@@ -6,16 +6,16 @@ This section describes how you can use a scheduler to control when to start a se
 
 ## In This Section
 
-1. [Using Schedulers](Using\Using.md)
+1. [Using Schedulers](Using/Using)
 
 ## Reference
 
-[System.Reactive](System.Reactive\System.Reactive.md)
+[System.Reactive](System.Reactive/System.Reactive)
 
-[System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)
 
-[System.Reactive.Subjects](System.Reactive.Subjects\System.Reactive.Subjects.md)
+[System.Reactive.Subjects](System.Reactive.Subjects/System.Reactive.Subjects)
 
-[System.Reactive.Concurrency](System.Reactive.Concurrency\System.Reactive.Concurrency.md)
+[System.Reactive.Concurrency](System.Reactive.Concurrency/System.Reactive.Concurrency)
 
 ## Related Sections

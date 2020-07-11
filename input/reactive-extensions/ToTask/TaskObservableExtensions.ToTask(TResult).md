@@ -4,7 +4,7 @@ title: TaskObservableExtensions.ToTask<TResult>(IObservable<TResult>, Cancellati
 
 Returns a task that contains the last value of the observable sequence.
 
-**Namespace:**  [System.Reactive.Threading.Tasks](System.Reactive.Threading.Tasks\System.Reactive.Threading.Tasks.md)  
+**Namespace:**  [System.Reactive.Threading.Tasks](System.Reactive.Threading.Tasks/System.Reactive.Threading.Tasks)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -82,17 +82,17 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 
 #### Reference
 
-[TaskObservableExtensions Class](TaskObservableExtensions\TaskObservableExtensions.md)
+[TaskObservableExtensions Class](TaskObservableExtensions/TaskObservableExtensions)
 
-[ToTask Overload](ToTask\TaskObservableExtensions.ToTask.md)
+[ToTask Overload](ToTask/TaskObservableExtensions.ToTask)
 
-[System.Reactive.Threading.Tasks Namespace](System.Reactive.Threading.Tasks\System.Reactive.Threading.Tasks.md)
+[System.Reactive.Threading.Tasks Namespace](System.Reactive.Threading.Tasks/System.Reactive.Threading.Tasks)
 
 # TaskObservableExtensions.ToTask\<TResult\> Method (IObservable\<TResult\>)
 
 Returns a task that contains the last value of the observable sequence.
 
-**Namespace:**  [System.Reactive.Threading.Tasks](System.Reactive.Threading.Tasks\System.Reactive.Threading.Tasks.md)  
+**Namespace:**  [System.Reactive.Threading.Tasks](System.Reactive.Threading.Tasks/System.Reactive.Threading.Tasks)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -161,17 +161,17 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 
 #### Reference
 
-[TaskObservableExtensions Class](TaskObservableExtensions\TaskObservableExtensions.md)
+[TaskObservableExtensions Class](TaskObservableExtensions/TaskObservableExtensions)
 
-[ToTask Overload](ToTask\TaskObservableExtensions.ToTask.md)
+[ToTask Overload](ToTask/TaskObservableExtensions.ToTask)
 
-[System.Reactive.Threading.Tasks Namespace](System.Reactive.Threading.Tasks\System.Reactive.Threading.Tasks.md)
+[System.Reactive.Threading.Tasks Namespace](System.Reactive.Threading.Tasks/System.Reactive.Threading.Tasks)
 
 # TaskObservableExtensions.ToTask\<TResult\> Method (IObservable\<TResult\>, CancellationToken, Object)
 
 Returns a task that contains the last value of the observable sequence.
 
-**Namespace:**  [System.Reactive.Threading.Tasks](System.Reactive.Threading.Tasks\System.Reactive.Threading.Tasks.md)  
+**Namespace:**  [System.Reactive.Threading.Tasks](System.Reactive.Threading.Tasks/System.Reactive.Threading.Tasks)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -259,17 +259,17 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 
 #### Reference
 
-[TaskObservableExtensions Class](TaskObservableExtensions\TaskObservableExtensions.md)
+[TaskObservableExtensions Class](TaskObservableExtensions/TaskObservableExtensions)
 
-[ToTask Overload](ToTask\TaskObservableExtensions.ToTask.md)
+[ToTask Overload](ToTask/TaskObservableExtensions.ToTask)
 
-[System.Reactive.Threading.Tasks Namespace](System.Reactive.Threading.Tasks\System.Reactive.Threading.Tasks.md)
+[System.Reactive.Threading.Tasks Namespace](System.Reactive.Threading.Tasks/System.Reactive.Threading.Tasks)
 
 # TaskObservableExtensions.ToTask\<TResult\> Method (IObservable\<TResult\>, Object)
 
 Returns a task that contains the last value of the observable sequence.
 
-**Namespace:**  [System.Reactive.Threading.Tasks](System.Reactive.Threading.Tasks\System.Reactive.Threading.Tasks.md)  
+**Namespace:**  [System.Reactive.Threading.Tasks](System.Reactive.Threading.Tasks/System.Reactive.Threading.Tasks)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -347,8 +347,8 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 
 #### Reference
 
-[TaskObservableExtensions Class](TaskObservableExtensions\TaskObservableExtensions.md)
+[TaskObservableExtensions Class](TaskObservableExtensions/TaskObservableExtensions)
 
-[ToTask Overload](ToTask\TaskObservableExtensions.ToTask.md)
+[ToTask Overload](ToTask/TaskObservableExtensions.ToTask)
 
-[System.Reactive.Threading.Tasks Namespace](System.Reactive.Threading.Tasks\System.Reactive.Threading.Tasks.md)
+[System.Reactive.Threading.Tasks Namespace](System.Reactive.Threading.Tasks/System.Reactive.Threading.Tasks)

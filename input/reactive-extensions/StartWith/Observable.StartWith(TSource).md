@@ -4,7 +4,7 @@ title: Observable.StartWith<TSource>(IObservable<TSource>, IScheduler, array<TSo
 
 Prepends a sequence of values to an observable sequence with the specified source, scheduler and values.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -72,7 +72,7 @@ JScript does not support generic types and methods.
   The source sequence to prepend values to.
 
 - scheduler  
-  Type: [System.Reactive.Concurrency.IScheduler](IScheduler\IScheduler.md)  
+  Type: [System.Reactive.Concurrency.IScheduler](IScheduler/IScheduler)  
   The scheduler to emit the prepended values on.
 
 - values  
@@ -92,17 +92,17 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[StartWith Overload](StartWith\Observable.StartWith.md)
+[StartWith Overload](StartWith/Observable.StartWith)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 # Observable.StartWith\<TSource\> Method (IObservable\<TSource\>, array\<TSource\[\])
 
 Prepends a sequence of values to an observable sequence with the specified source and values.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -180,8 +180,8 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[StartWith Overload](StartWith\Observable.StartWith.md)
+[StartWith Overload](StartWith/Observable.StartWith)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)

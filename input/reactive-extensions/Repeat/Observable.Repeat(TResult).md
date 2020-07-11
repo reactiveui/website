@@ -4,7 +4,7 @@ title: Observable.Repeat<TResult>(TResult, Int32, IScheduler)
 
 Generates an observable sequence that repeats the given element of the specified number of times.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -74,7 +74,7 @@ JScript does not support generic types and methods.
   The number of times to repeat the element.
 
 - scheduler  
-  Type: [System.Reactive.Concurrency.IScheduler](IScheduler\IScheduler.md)  
+  Type: [System.Reactive.Concurrency.IScheduler](IScheduler/IScheduler)  
   The scheduler to run the producer loop on.
 
 #### Return Value
@@ -86,17 +86,17 @@ An observable sequence that repeats the given element of the specified number of
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[Repeat Overload](Repeat\Observable.Repeat.md)
+[Repeat Overload](Repeat/Observable.Repeat)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 # Observable.Repeat\<TResult\> Method (TResult, Int32)
 
 Generates an observable sequence that repeats the given element the specified number of times.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -169,17 +169,17 @@ An observable sequence that repeats the given element the specified number of ti
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[Repeat Overload](Repeat\Observable.Repeat.md)
+[Repeat Overload](Repeat/Observable.Repeat)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 # Observable.Repeat\<TResult\> Method (TResult)
 
 Generates an observable sequence that repeats the given element infinitely.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -242,17 +242,17 @@ An observable sequence that repeats the given element infinitely.
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[Repeat Overload](Repeat\Observable.Repeat.md)
+[Repeat Overload](Repeat/Observable.Repeat)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 # Observable.Repeat\<TResult\> Method (TResult, IScheduler)
 
 Generates an observable sequence that repeats the given element infinitely.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -313,7 +313,7 @@ JScript does not support generic types and methods.
   The element to repeat.
 
 - scheduler  
-  Type: [System.Reactive.Concurrency.IScheduler](IScheduler\IScheduler.md)  
+  Type: [System.Reactive.Concurrency.IScheduler](IScheduler/IScheduler)  
   The scheduler to run the producer loop on.
 
 #### Return Value
@@ -325,8 +325,8 @@ The observable sequence that repeats the given element infinitely.
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[Repeat Overload](Repeat\Observable.Repeat.md)
+[Repeat Overload](Repeat/Observable.Repeat)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)

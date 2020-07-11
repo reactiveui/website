@@ -2,7 +2,7 @@ title: HistoricalSchedulerTest.AdvanceTo()
 ---
 # HistoricalSchedulerTest.AdvanceTo Method
 
-**Namespace:**  [ReactiveTests.Tests](ReactiveTests.Tests\ReactiveTests.Tests.md)  
+**Namespace:**  [ReactiveTests.Tests](ReactiveTests.Tests/ReactiveTests.Tests)  
 **Assembly:**  Tests.System.Reactive (in Tests.System.Reactive.dll)
 
 ## Syntax
@@ -44,9 +44,9 @@ public function AdvanceTo()
 
 #### Reference
 
-[HistoricalSchedulerTest Class](HistoricalSchedulerTest\HistoricalSchedulerTest.md)
+[HistoricalSchedulerTest Class](HistoricalSchedulerTest/HistoricalSchedulerTest)
 
-[ReactiveTests.Tests Namespace](ReactiveTests.Tests\ReactiveTests.Tests.md)
+[ReactiveTests.Tests Namespace](ReactiveTests.Tests/ReactiveTests.Tests)
 
 
 

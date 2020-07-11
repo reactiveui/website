@@ -4,7 +4,7 @@ title: TestScheduler.ScheduleAbsolute<TState>(TState, Int64, Func<IScheduler, TS
 
 Schedules an action to be executed at the specified virtual time.
 
-**Namespace:**  [Microsoft.Reactive.Testing](Microsoft.Reactive.Testing\Microsoft.Reactive.Testing.md)  
+**Namespace:**  [Microsoft.Reactive.Testing](Microsoft.Reactive.Testing/Microsoft.Reactive.Testing)  
 **Assembly:**  Microsoft.Reactive.Testing (in Microsoft.Reactive.Testing.dll)
 
 ## Syntax
@@ -79,7 +79,7 @@ JScript does not support generic types and methods.
   Absolute virtual time at which to execute the action.
 
 - action  
-  Type: [System.Func](https://msdn.microsoft.com/en-us/library/Bb534647)\<[IScheduler](IScheduler\IScheduler.md), TState, [IDisposable](https://msdn.microsoft.com/en-us/library/aax125c9)\>  
+  Type: [System.Func](https://msdn.microsoft.com/en-us/library/Bb534647)\<[IScheduler](IScheduler/IScheduler), TState, [IDisposable](https://msdn.microsoft.com/en-us/library/aax125c9)\>  
   The action to be executed.
 
 #### Return Value
@@ -91,8 +91,8 @@ The disposable object used to cancel the scheduled action.
 
 #### Reference
 
-[TestScheduler Class](TestScheduler\TestScheduler.md)
+[TestScheduler Class](TestScheduler/TestScheduler)
 
-[ScheduleAbsolute Overload](ScheduleAbsolute\TestScheduler.ScheduleAbsolute.md)
+[ScheduleAbsolute Overload](ScheduleAbsolute/TestScheduler.ScheduleAbsolute)
 
-[Microsoft.Reactive.Testing Namespace](Microsoft.Reactive.Testing\Microsoft.Reactive.Testing.md)
+[Microsoft.Reactive.Testing Namespace](Microsoft.Reactive.Testing/Microsoft.Reactive.Testing)

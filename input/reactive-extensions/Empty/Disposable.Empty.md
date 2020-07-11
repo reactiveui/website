@@ -4,7 +4,7 @@ title: Disposable.Empty Property
 
 Gets the disposable that does nothing when disposed.
 
-**Namespace:**  [System.Reactive.Disposables](System.Reactive.Disposables\System.Reactive.Disposables.md)  
+**Namespace:**  [System.Reactive.Disposables](System.Reactive.Disposables/System.Reactive.Disposables)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -50,9 +50,9 @@ The disposable that does nothing when disposed.
 
 #### Reference
 
-[Disposable Class](Disposable\Disposable.md)
+[Disposable Class](Disposable/Disposable)
 
-[System.Reactive.Disposables Namespace](System.Reactive.Disposables\System.Reactive.Disposables.md)
+[System.Reactive.Disposables Namespace](System.Reactive.Disposables/System.Reactive.Disposables)
 
 
 

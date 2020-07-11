@@ -4,7 +4,7 @@ title: CurrentThreadScheduler.ScheduleRequired Property
 
 Gets a value indicating whether the caller must call a schedule method.
 
-**Namespace:**  [System.Reactive.Concurrency](System.Reactive.Concurrency\System.Reactive.Concurrency.md)  
+**Namespace:**  [System.Reactive.Concurrency](System.Reactive.Concurrency/System.Reactive.Concurrency)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -51,6 +51,6 @@ Returns [Boolean](https://msdn.microsoft.com/en-us/library/a28wyd50).
 
 #### Reference
 
-[CurrentThreadScheduler Class](CurrentThreadScheduler\CurrentThreadScheduler.md)
+[CurrentThreadScheduler Class](CurrentThreadScheduler/CurrentThreadScheduler)
 
-[System.Reactive.Concurrency Namespace](System.Reactive.Concurrency\System.Reactive.Concurrency.md)
+[System.Reactive.Concurrency Namespace](System.Reactive.Concurrency/System.Reactive.Concurrency)
