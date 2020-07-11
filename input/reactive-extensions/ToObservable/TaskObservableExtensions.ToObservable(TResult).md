@@ -4,7 +4,7 @@ title: TaskObservableExtensions.ToObservable<TResult>(Task<TResult>)
 
 Returns an observable sequence that propagates the result of the task.
 
-**Namespace:**  [System.Reactive.Threading.Tasks](System.Reactive.Threading.Tasks\System.Reactive.Threading.Tasks.md)  
+**Namespace:**  [System.Reactive.Threading.Tasks](System.Reactive.Threading.Tasks/System.Reactive.Threading.Tasks)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -73,8 +73,8 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 
 #### Reference
 
-[TaskObservableExtensions Class](TaskObservableExtensions\TaskObservableExtensions.md)
+[TaskObservableExtensions Class](TaskObservableExtensions/TaskObservableExtensions)
 
-[ToObservable Overload](ToObservable\TaskObservableExtensions.ToObservable.md)
+[ToObservable Overload](ToObservable/TaskObservableExtensions.ToObservable)
 
-[System.Reactive.Threading.Tasks Namespace](System.Reactive.Threading.Tasks\System.Reactive.Threading.Tasks.md)
+[System.Reactive.Threading.Tasks Namespace](System.Reactive.Threading.Tasks/System.Reactive.Threading.Tasks)

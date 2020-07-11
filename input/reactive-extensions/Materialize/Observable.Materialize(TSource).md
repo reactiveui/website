@@ -4,7 +4,7 @@ title: Observable.Materialize<TSource>()
 
 Materializes the implicit notifications of an observable sequence as explicit notification values.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -62,7 +62,7 @@ JScript does not support generic types and methods.
 
 #### Return Value
 
-Type: [System.IObservable](https://msdn.microsoft.com/en-us/library/Dd990377)\<[Notification](Notification\Notification(T).md)\<TSource\>\>  
+Type: [System.IObservable](https://msdn.microsoft.com/en-us/library/Dd990377)\<[Notification](Notification/Notification(T))\<TSource\>\>  
 An observable sequence containing the materialized notification values from the source sequence.
 
 #### Usage Note
@@ -73,9 +73,9 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 
 

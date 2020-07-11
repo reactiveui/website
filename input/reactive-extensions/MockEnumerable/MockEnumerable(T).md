@@ -7,7 +7,7 @@ title: MockEnumerable<T> Class
 [System.Object](https://msdn.microsoft.com/en-us/library/e5kfa45b)  
   ReactiveTests.MockEnumerable\<T\>
 
-**Namespace:**  [ReactiveTests](ReactiveTests\ReactiveTests.md)  
+**Namespace:**  [ReactiveTests](ReactiveTests/ReactiveTests)  
 **Assembly:**  Tests.System.Reactive (in Tests.System.Reactive.dll)
 
 ## Syntax
@@ -58,19 +58,19 @@ NameDescription![Public method](https://reactiveui.net/assets/img/Hh303103.pubme
 
 ## Methods
 
-NameDescription![Public method](https://reactiveui.net/assets/img/Hh303103.pubmethod(en-us,VS.103).gif "Public method")[Equals](https://msdn.microsoft.com/en-us/library/m:system.object.equals(system.object)(v=VS.103))(Inherited from [Object](https://msdn.microsoft.com/en-us/library/e5kfa45b).)![Protected method](https://reactiveui.net/assets/img/Hh303103.protmethod(en-us,VS.103).gif "Protected method")[Finalize](https://msdn.microsoft.com/en-us/library/4k87zsw7)(Inherited from [Object](https://msdn.microsoft.com/en-us/library/e5kfa45b).)![Public method](https://reactiveui.net/assets/img/Hh303103.pubmethod(en-us,VS.103).gif "Public method")[GetEnumerator](GetEnumerator\MockEnumerable(T).GetEnumerator.md)![Public method](https://reactiveui.net/assets/img/Hh303103.pubmethod(en-us,VS.103).gif "Public method")[GetHashCode](https://msdn.microsoft.com/en-us/library/zdee4b3y)(Inherited from [Object](https://msdn.microsoft.com/en-us/library/e5kfa45b).)![Public method](https://reactiveui.net/assets/img/Hh303103.pubmethod(en-us,VS.103).gif "Public method")[GetType](https://msdn.microsoft.com/en-us/library/dfwy45w9)(Inherited from [Object](https://msdn.microsoft.com/en-us/library/e5kfa45b).)![Protected method](https://reactiveui.net/assets/img/Hh303103.protmethod(en-us,VS.103).gif "Protected method")[MemberwiseClone](https://msdn.microsoft.com/en-us/library/57ctke0a)(Inherited from [Object](https://msdn.microsoft.com/en-us/library/e5kfa45b).)![Public method](https://reactiveui.net/assets/img/Hh303103.pubmethod(en-us,VS.103).gif "Public method")[ToString](https://msdn.microsoft.com/en-us/library/7bxwbwt2)(Inherited from [Object](https://msdn.microsoft.com/en-us/library/e5kfa45b).)Top
+NameDescription![Public method](https://reactiveui.net/assets/img/Hh303103.pubmethod(en-us,VS.103).gif "Public method")[Equals](https://msdn.microsoft.com/en-us/library/m:system.object.equals(system.object)(v=VS.103))(Inherited from [Object](https://msdn.microsoft.com/en-us/library/e5kfa45b).)![Protected method](https://reactiveui.net/assets/img/Hh303103.protmethod(en-us,VS.103).gif "Protected method")[Finalize](https://msdn.microsoft.com/en-us/library/4k87zsw7)(Inherited from [Object](https://msdn.microsoft.com/en-us/library/e5kfa45b).)![Public method](https://reactiveui.net/assets/img/Hh303103.pubmethod(en-us,VS.103).gif "Public method")[GetEnumerator](GetEnumerator/MockEnumerable(T).GetEnumerator)![Public method](https://reactiveui.net/assets/img/Hh303103.pubmethod(en-us,VS.103).gif "Public method")[GetHashCode](https://msdn.microsoft.com/en-us/library/zdee4b3y)(Inherited from [Object](https://msdn.microsoft.com/en-us/library/e5kfa45b).)![Public method](https://reactiveui.net/assets/img/Hh303103.pubmethod(en-us,VS.103).gif "Public method")[GetType](https://msdn.microsoft.com/en-us/library/dfwy45w9)(Inherited from [Object](https://msdn.microsoft.com/en-us/library/e5kfa45b).)![Protected method](https://reactiveui.net/assets/img/Hh303103.protmethod(en-us,VS.103).gif "Protected method")[MemberwiseClone](https://msdn.microsoft.com/en-us/library/57ctke0a)(Inherited from [Object](https://msdn.microsoft.com/en-us/library/e5kfa45b).)![Public method](https://reactiveui.net/assets/img/Hh303103.pubmethod(en-us,VS.103).gif "Public method")[ToString](https://msdn.microsoft.com/en-us/library/7bxwbwt2)(Inherited from [Object](https://msdn.microsoft.com/en-us/library/e5kfa45b).)Top
 
 ## Extension Methods
 
-NameDescription![Public Extension Method](https://reactiveui.net/assets/img/Hh229625.pubextension(en-us,VS.103).gif "Public Extension Method")[AssertEqual<T>(IEnumerable<T>)](https://msdn.microsoft.com/en-us/library/m:reactivetests.extensions.assertequal%60%601(system.collections.generic.ienumerable%7b%60%600%7d%2csystem.collections.generic.ienumerable%7b%60%600%7d)(v=VS.103))Overloaded. (Defined by [Extensions](Extensions\Extensions.md).)![Public Extension Method](https://reactiveui.net/assets/img/Hh229625.pubextension(en-us,VS.103).gif "Public Extension Method")[AssertEqual<T>(array<T[])](https://msdn.microsoft.com/en-us/library/m:reactivetests.extensions.assertequal%60%601(system.collections.generic.ienumerable%7b%60%600%7d%2c%60%600%5b%5d)(v=VS.103))Overloaded. (Defined by [Extensions](Extensions\Extensions.md).)![Public Extension Method](https://reactiveui.net/assets/img/Hh229625.pubextension(en-us,VS.103).gif "Public Extension Method")[Subscribe<T>(IObserver<T>)](https://msdn.microsoft.com/en-us/library/m:system.reactive.linq.observable.subscribe%60%601(system.collections.generic.ienumerable%7b%60%600%7d%2csystem.iobserver%7b%60%600%7d)(v=VS.103))Overloaded. Subscribes an observer to an enumerable sequence with the specified source and observer. (Defined by [Observable](Observable\Observable.md).)![Public Extension Method](https://reactiveui.net/assets/img/Hh229625.pubextension(en-us,VS.103).gif "Public Extension Method")[Subscribe<T>(IObserver<T>, IScheduler)](https://msdn.microsoft.com/en-us/library/m:system.reactive.linq.observable.subscribe%60%601(system.collections.generic.ienumerable%7b%60%600%7d%2csystem.iobserver%7b%60%600%7d%2csystem.reactive.concurrency.ischeduler)(v=VS.103))Overloaded. Subscribes an observer to an enumerable sequence with the specified source and observer. (Defined by [Observable](Observable\Observable.md).)![Public Extension Method](https://reactiveui.net/assets/img/Hh229625.pubextension(en-us,VS.103).gif "Public Extension Method")[ToObservable<T>()](https://msdn.microsoft.com/en-us/library/m:system.reactive.linq.observable.toobservable%60%601(system.collections.generic.ienumerable%7b%60%600%7d)(v=VS.103))Overloaded. Converts an enumerable sequence to an observable sequence with a specified source. (Defined by [Observable](Observable\Observable.md).)![Public Extension Method](https://reactiveui.net/assets/img/Hh229625.pubextension(en-us,VS.103).gif "Public Extension Method")[ToObservable<T>(IScheduler)](https://msdn.microsoft.com/en-us/library/m:system.reactive.linq.observable.toobservable%60%601(system.collections.generic.ienumerable%7b%60%600%7d%2csystem.reactive.concurrency.ischeduler)(v=VS.103))Overloaded. Converts an enumerable sequence to an observable sequence with a specified source and scheduler. (Defined by [Observable](Observable\Observable.md).)Top
+NameDescription![Public Extension Method](https://reactiveui.net/assets/img/Hh229625.pubextension(en-us,VS.103).gif "Public Extension Method")[AssertEqual<T>(IEnumerable<T>)](https://msdn.microsoft.com/en-us/library/m:reactivetests.extensions.assertequal%60%601(system.collections.generic.ienumerable%7b%60%600%7d%2csystem.collections.generic.ienumerable%7b%60%600%7d)(v=VS.103))Overloaded. (Defined by [Extensions](Extensions/Extensions).)![Public Extension Method](https://reactiveui.net/assets/img/Hh229625.pubextension(en-us,VS.103).gif "Public Extension Method")[AssertEqual<T>(array<T[])](https://msdn.microsoft.com/en-us/library/m:reactivetests.extensions.assertequal%60%601(system.collections.generic.ienumerable%7b%60%600%7d%2c%60%600%5b%5d)(v=VS.103))Overloaded. (Defined by [Extensions](Extensions/Extensions).)![Public Extension Method](https://reactiveui.net/assets/img/Hh229625.pubextension(en-us,VS.103).gif "Public Extension Method")[Subscribe<T>(IObserver<T>)](https://msdn.microsoft.com/en-us/library/m:system.reactive.linq.observable.subscribe%60%601(system.collections.generic.ienumerable%7b%60%600%7d%2csystem.iobserver%7b%60%600%7d)(v=VS.103))Overloaded. Subscribes an observer to an enumerable sequence with the specified source and observer. (Defined by [Observable](Observable/Observable).)![Public Extension Method](https://reactiveui.net/assets/img/Hh229625.pubextension(en-us,VS.103).gif "Public Extension Method")[Subscribe<T>(IObserver<T>, IScheduler)](https://msdn.microsoft.com/en-us/library/m:system.reactive.linq.observable.subscribe%60%601(system.collections.generic.ienumerable%7b%60%600%7d%2csystem.iobserver%7b%60%600%7d%2csystem.reactive.concurrency.ischeduler)(v=VS.103))Overloaded. Subscribes an observer to an enumerable sequence with the specified source and observer. (Defined by [Observable](Observable/Observable).)![Public Extension Method](https://reactiveui.net/assets/img/Hh229625.pubextension(en-us,VS.103).gif "Public Extension Method")[ToObservable<T>()](https://msdn.microsoft.com/en-us/library/m:system.reactive.linq.observable.toobservable%60%601(system.collections.generic.ienumerable%7b%60%600%7d)(v=VS.103))Overloaded. Converts an enumerable sequence to an observable sequence with a specified source. (Defined by [Observable](Observable/Observable).)![Public Extension Method](https://reactiveui.net/assets/img/Hh229625.pubextension(en-us,VS.103).gif "Public Extension Method")[ToObservable<T>(IScheduler)](https://msdn.microsoft.com/en-us/library/m:system.reactive.linq.observable.toobservable%60%601(system.collections.generic.ienumerable%7b%60%600%7d%2csystem.reactive.concurrency.ischeduler)(v=VS.103))Overloaded. Converts an enumerable sequence to an observable sequence with a specified source and scheduler. (Defined by [Observable](Observable/Observable).)Top
 
 ## Fields
 
-NameDescription![Public field](https://reactiveui.net/assets/img/Hh314728.pubfield(en-us,VS.103).gif "Public field")[Scheduler](Scheduler\MockEnumerable(T).Scheduler.md)![Public field](https://reactiveui.net/assets/img/Hh314728.pubfield(en-us,VS.103).gif "Public field")[Subscriptions](Subscriptions\MockEnumerable(T).Subscriptions.md)Top
+NameDescription![Public field](https://reactiveui.net/assets/img/Hh314728.pubfield(en-us,VS.103).gif "Public field")[Scheduler](Scheduler/MockEnumerable(T).Scheduler)![Public field](https://reactiveui.net/assets/img/Hh314728.pubfield(en-us,VS.103).gif "Public field")[Subscriptions](Subscriptions/MockEnumerable(T).Subscriptions)Top
 
 ## Explicit Interface Implementations
 
-NameDescription![Explicit interface implemetation](https://reactiveui.net/assets/img/Hh212009.pubinterface(en-us,VS.103).gif "Explicit interface implemetation")![Private method](https://reactiveui.net/assets/img/Hh314705.privmethod(en-us,VS.103).gif "Private method")[IEnumerable.GetEnumerator](IEnumerable.GetEnumerator\MockEnumerable(T).IEnumerable.GetEnumerator.md)Top
+NameDescription![Explicit interface implemetation](https://reactiveui.net/assets/img/Hh212009.pubinterface(en-us,VS.103).gif "Explicit interface implemetation")![Private method](https://reactiveui.net/assets/img/Hh314705.privmethod(en-us,VS.103).gif "Private method")[IEnumerable.GetEnumerator](IEnumerable.GetEnumerator/MockEnumerable(T).IEnumerable.GetEnumerator)Top
 
 ## Thread Safety
 
@@ -80,7 +80,7 @@ Any public static (Shared in Visual Basic) members of this type are thread safe.
 
 #### Reference
 
-[ReactiveTests Namespace](ReactiveTests\ReactiveTests.md)
+[ReactiveTests Namespace](ReactiveTests/ReactiveTests)
 
 
 
@@ -99,27 +99,27 @@ Any public static (Shared in Visual Basic) members of this type are thread safe.
 Include Protected Members  
 Include Inherited Members
 
-The [MockEnumerable\<T\>](MockEnumerable\MockEnumerable(T).md) type exposes the following members.
+The [MockEnumerable\<T\>](MockEnumerable/MockEnumerable(T)) type exposes the following members.
 
 ## Methods
 
-NameDescription![Public method](https://reactiveui.net/assets/img/Hh303103.pubmethod(en-us,VS.103).gif "Public method")[Equals](https://msdn.microsoft.com/en-us/library/m:system.object.equals(system.object)(v=VS.103))(Inherited from [Object](https://msdn.microsoft.com/en-us/library/e5kfa45b).)![Protected method](https://reactiveui.net/assets/img/Hh303103.protmethod(en-us,VS.103).gif "Protected method")[Finalize](https://msdn.microsoft.com/en-us/library/4k87zsw7)(Inherited from [Object](https://msdn.microsoft.com/en-us/library/e5kfa45b).)![Public method](https://reactiveui.net/assets/img/Hh303103.pubmethod(en-us,VS.103).gif "Public method")[GetEnumerator](GetEnumerator\MockEnumerable(T).GetEnumerator.md)![Public method](https://reactiveui.net/assets/img/Hh303103.pubmethod(en-us,VS.103).gif "Public method")[GetHashCode](https://msdn.microsoft.com/en-us/library/zdee4b3y)(Inherited from [Object](https://msdn.microsoft.com/en-us/library/e5kfa45b).)![Public method](https://reactiveui.net/assets/img/Hh303103.pubmethod(en-us,VS.103).gif "Public method")[GetType](https://msdn.microsoft.com/en-us/library/dfwy45w9)(Inherited from [Object](https://msdn.microsoft.com/en-us/library/e5kfa45b).)![Protected method](https://reactiveui.net/assets/img/Hh303103.protmethod(en-us,VS.103).gif "Protected method")[MemberwiseClone](https://msdn.microsoft.com/en-us/library/57ctke0a)(Inherited from [Object](https://msdn.microsoft.com/en-us/library/e5kfa45b).)![Public method](https://reactiveui.net/assets/img/Hh303103.pubmethod(en-us,VS.103).gif "Public method")[ToString](https://msdn.microsoft.com/en-us/library/7bxwbwt2)(Inherited from [Object](https://msdn.microsoft.com/en-us/library/e5kfa45b).)Top
+NameDescription![Public method](https://reactiveui.net/assets/img/Hh303103.pubmethod(en-us,VS.103).gif "Public method")[Equals](https://msdn.microsoft.com/en-us/library/m:system.object.equals(system.object)(v=VS.103))(Inherited from [Object](https://msdn.microsoft.com/en-us/library/e5kfa45b).)![Protected method](https://reactiveui.net/assets/img/Hh303103.protmethod(en-us,VS.103).gif "Protected method")[Finalize](https://msdn.microsoft.com/en-us/library/4k87zsw7)(Inherited from [Object](https://msdn.microsoft.com/en-us/library/e5kfa45b).)![Public method](https://reactiveui.net/assets/img/Hh303103.pubmethod(en-us,VS.103).gif "Public method")[GetEnumerator](GetEnumerator/MockEnumerable(T).GetEnumerator)![Public method](https://reactiveui.net/assets/img/Hh303103.pubmethod(en-us,VS.103).gif "Public method")[GetHashCode](https://msdn.microsoft.com/en-us/library/zdee4b3y)(Inherited from [Object](https://msdn.microsoft.com/en-us/library/e5kfa45b).)![Public method](https://reactiveui.net/assets/img/Hh303103.pubmethod(en-us,VS.103).gif "Public method")[GetType](https://msdn.microsoft.com/en-us/library/dfwy45w9)(Inherited from [Object](https://msdn.microsoft.com/en-us/library/e5kfa45b).)![Protected method](https://reactiveui.net/assets/img/Hh303103.protmethod(en-us,VS.103).gif "Protected method")[MemberwiseClone](https://msdn.microsoft.com/en-us/library/57ctke0a)(Inherited from [Object](https://msdn.microsoft.com/en-us/library/e5kfa45b).)![Public method](https://reactiveui.net/assets/img/Hh303103.pubmethod(en-us,VS.103).gif "Public method")[ToString](https://msdn.microsoft.com/en-us/library/7bxwbwt2)(Inherited from [Object](https://msdn.microsoft.com/en-us/library/e5kfa45b).)Top
 
 ## Extension Methods
 
-NameDescription![Public Extension Method](https://reactiveui.net/assets/img/Hh229625.pubextension(en-us,VS.103).gif "Public Extension Method")[AssertEqual<T>(IEnumerable<T>)](https://msdn.microsoft.com/en-us/library/m:reactivetests.extensions.assertequal%60%601(system.collections.generic.ienumerable%7b%60%600%7d%2csystem.collections.generic.ienumerable%7b%60%600%7d)(v=VS.103))Overloaded. (Defined by [Extensions](Extensions\Extensions.md).)![Public Extension Method](https://reactiveui.net/assets/img/Hh229625.pubextension(en-us,VS.103).gif "Public Extension Method")[AssertEqual<T>(array<T[])](https://msdn.microsoft.com/en-us/library/m:reactivetests.extensions.assertequal%60%601(system.collections.generic.ienumerable%7b%60%600%7d%2c%60%600%5b%5d)(v=VS.103))Overloaded. (Defined by [Extensions](Extensions\Extensions.md).)![Public Extension Method](https://reactiveui.net/assets/img/Hh229625.pubextension(en-us,VS.103).gif "Public Extension Method")[Subscribe<T>(IObserver<T>)](https://msdn.microsoft.com/en-us/library/m:system.reactive.linq.observable.subscribe%60%601(system.collections.generic.ienumerable%7b%60%600%7d%2csystem.iobserver%7b%60%600%7d)(v=VS.103))Overloaded. Subscribes an observer to an enumerable sequence with the specified source and observer. (Defined by [Observable](Observable\Observable.md).)![Public Extension Method](https://reactiveui.net/assets/img/Hh229625.pubextension(en-us,VS.103).gif "Public Extension Method")[Subscribe<T>(IObserver<T>, IScheduler)](https://msdn.microsoft.com/en-us/library/m:system.reactive.linq.observable.subscribe%60%601(system.collections.generic.ienumerable%7b%60%600%7d%2csystem.iobserver%7b%60%600%7d%2csystem.reactive.concurrency.ischeduler)(v=VS.103))Overloaded. Subscribes an observer to an enumerable sequence with the specified source and observer. (Defined by [Observable](Observable\Observable.md).)![Public Extension Method](https://reactiveui.net/assets/img/Hh229625.pubextension(en-us,VS.103).gif "Public Extension Method")[ToObservable<T>()](https://msdn.microsoft.com/en-us/library/m:system.reactive.linq.observable.toobservable%60%601(system.collections.generic.ienumerable%7b%60%600%7d)(v=VS.103))Overloaded. Converts an enumerable sequence to an observable sequence with a specified source. (Defined by [Observable](Observable\Observable.md).)![Public Extension Method](https://reactiveui.net/assets/img/Hh229625.pubextension(en-us,VS.103).gif "Public Extension Method")[ToObservable<T>(IScheduler)](https://msdn.microsoft.com/en-us/library/m:system.reactive.linq.observable.toobservable%60%601(system.collections.generic.ienumerable%7b%60%600%7d%2csystem.reactive.concurrency.ischeduler)(v=VS.103))Overloaded. Converts an enumerable sequence to an observable sequence with a specified source and scheduler. (Defined by [Observable](Observable\Observable.md).)Top
+NameDescription![Public Extension Method](https://reactiveui.net/assets/img/Hh229625.pubextension(en-us,VS.103).gif "Public Extension Method")[AssertEqual<T>(IEnumerable<T>)](https://msdn.microsoft.com/en-us/library/m:reactivetests.extensions.assertequal%60%601(system.collections.generic.ienumerable%7b%60%600%7d%2csystem.collections.generic.ienumerable%7b%60%600%7d)(v=VS.103))Overloaded. (Defined by [Extensions](Extensions/Extensions).)![Public Extension Method](https://reactiveui.net/assets/img/Hh229625.pubextension(en-us,VS.103).gif "Public Extension Method")[AssertEqual<T>(array<T[])](https://msdn.microsoft.com/en-us/library/m:reactivetests.extensions.assertequal%60%601(system.collections.generic.ienumerable%7b%60%600%7d%2c%60%600%5b%5d)(v=VS.103))Overloaded. (Defined by [Extensions](Extensions/Extensions).)![Public Extension Method](https://reactiveui.net/assets/img/Hh229625.pubextension(en-us,VS.103).gif "Public Extension Method")[Subscribe<T>(IObserver<T>)](https://msdn.microsoft.com/en-us/library/m:system.reactive.linq.observable.subscribe%60%601(system.collections.generic.ienumerable%7b%60%600%7d%2csystem.iobserver%7b%60%600%7d)(v=VS.103))Overloaded. Subscribes an observer to an enumerable sequence with the specified source and observer. (Defined by [Observable](Observable/Observable).)![Public Extension Method](https://reactiveui.net/assets/img/Hh229625.pubextension(en-us,VS.103).gif "Public Extension Method")[Subscribe<T>(IObserver<T>, IScheduler)](https://msdn.microsoft.com/en-us/library/m:system.reactive.linq.observable.subscribe%60%601(system.collections.generic.ienumerable%7b%60%600%7d%2csystem.iobserver%7b%60%600%7d%2csystem.reactive.concurrency.ischeduler)(v=VS.103))Overloaded. Subscribes an observer to an enumerable sequence with the specified source and observer. (Defined by [Observable](Observable/Observable).)![Public Extension Method](https://reactiveui.net/assets/img/Hh229625.pubextension(en-us,VS.103).gif "Public Extension Method")[ToObservable<T>()](https://msdn.microsoft.com/en-us/library/m:system.reactive.linq.observable.toobservable%60%601(system.collections.generic.ienumerable%7b%60%600%7d)(v=VS.103))Overloaded. Converts an enumerable sequence to an observable sequence with a specified source. (Defined by [Observable](Observable/Observable).)![Public Extension Method](https://reactiveui.net/assets/img/Hh229625.pubextension(en-us,VS.103).gif "Public Extension Method")[ToObservable<T>(IScheduler)](https://msdn.microsoft.com/en-us/library/m:system.reactive.linq.observable.toobservable%60%601(system.collections.generic.ienumerable%7b%60%600%7d%2csystem.reactive.concurrency.ischeduler)(v=VS.103))Overloaded. Converts an enumerable sequence to an observable sequence with a specified source and scheduler. (Defined by [Observable](Observable/Observable).)Top
 
 ## Explicit Interface Implementations
 
-NameDescription![Explicit interface implemetation](https://reactiveui.net/assets/img/Hh212009.pubinterface(en-us,VS.103).gif "Explicit interface implemetation")![Private method](https://reactiveui.net/assets/img/Hh314705.privmethod(en-us,VS.103).gif "Private method")[IEnumerable.GetEnumerator](IEnumerable.GetEnumerator\MockEnumerable(T).IEnumerable.GetEnumerator.md)Top
+NameDescription![Explicit interface implemetation](https://reactiveui.net/assets/img/Hh212009.pubinterface(en-us,VS.103).gif "Explicit interface implemetation")![Private method](https://reactiveui.net/assets/img/Hh314705.privmethod(en-us,VS.103).gif "Private method")[IEnumerable.GetEnumerator](IEnumerable.GetEnumerator/MockEnumerable(T).IEnumerable.GetEnumerator)Top
 
 ## See Also
 
 #### Reference
 
-[MockEnumerable\<T\> Class](MockEnumerable\MockEnumerable(T).md)
+[MockEnumerable\<T\> Class](MockEnumerable/MockEnumerable(T))
 
-[ReactiveTests Namespace](ReactiveTests\ReactiveTests.md)
+[ReactiveTests Namespace](ReactiveTests/ReactiveTests)
 
 
 
@@ -132,19 +132,19 @@ NameDescription![Explicit interface implemetation](https://reactiveui.net/assets
 Include Protected Members  
 Include Inherited Members
 
-The [MockEnumerable\<T\>](MockEnumerable\MockEnumerable(T).md) type exposes the following members.
+The [MockEnumerable\<T\>](MockEnumerable/MockEnumerable(T)) type exposes the following members.
 
 ## Fields
 
-NameDescription![Public field](https://reactiveui.net/assets/img/Hh314728.pubfield(en-us,VS.103).gif "Public field")[Scheduler](Scheduler\MockEnumerable(T).Scheduler.md)![Public field](https://reactiveui.net/assets/img/Hh314728.pubfield(en-us,VS.103).gif "Public field")[Subscriptions](Subscriptions\MockEnumerable(T).Subscriptions.md)Top
+NameDescription![Public field](https://reactiveui.net/assets/img/Hh314728.pubfield(en-us,VS.103).gif "Public field")[Scheduler](Scheduler/MockEnumerable(T).Scheduler)![Public field](https://reactiveui.net/assets/img/Hh314728.pubfield(en-us,VS.103).gif "Public field")[Subscriptions](Subscriptions/MockEnumerable(T).Subscriptions)Top
 
 ## See Also
 
 #### Reference
 
-[MockEnumerable\<T\> Class](MockEnumerable\MockEnumerable(T).md)
+[MockEnumerable\<T\> Class](MockEnumerable/MockEnumerable(T))
 
-[ReactiveTests Namespace](ReactiveTests\ReactiveTests.md)
+[ReactiveTests Namespace](ReactiveTests/ReactiveTests)
 
 
 
@@ -152,7 +152,7 @@ NameDescription![Public field](https://reactiveui.net/assets/img/Hh314728.pubfie
 
 # MockEnumerable\<T\> Constructor
 
-**Namespace:**  [ReactiveTests](ReactiveTests\ReactiveTests.md)  
+**Namespace:**  [ReactiveTests](ReactiveTests/ReactiveTests)  
 **Assembly:**  Tests.System.Reactive (in Tests.System.Reactive.dll)
 
 ## Syntax
@@ -205,18 +205,18 @@ public function MockEnumerable(
 #### Parameters
 
 - scheduler  
-  Type: [Microsoft.Reactive.Testing.TestScheduler](TestScheduler\TestScheduler.md)
+  Type: [Microsoft.Reactive.Testing.TestScheduler](TestScheduler/TestScheduler)
 
 - underlyingEnumerable  
-  Type: [System.Collections.Generic.IEnumerable](https://msdn.microsoft.com/en-us/library/9eekhta0)\<[T](MockEnumerable\MockEnumerable(T).md)\>
+  Type: [System.Collections.Generic.IEnumerable](https://msdn.microsoft.com/en-us/library/9eekhta0)\<[T](MockEnumerable/MockEnumerable(T))\>
 
 ## See Also
 
 #### Reference
 
-[MockEnumerable\<T\> Class](MockEnumerable\MockEnumerable(T).md)
+[MockEnumerable\<T\> Class](MockEnumerable/MockEnumerable(T))
 
-[ReactiveTests Namespace](ReactiveTests\ReactiveTests.md)
+[ReactiveTests Namespace](ReactiveTests/ReactiveTests)
 
 
 

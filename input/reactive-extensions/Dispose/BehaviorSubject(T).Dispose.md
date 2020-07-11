@@ -4,7 +4,7 @@ title: BehaviorSubject<T>.Dispose()
 
 Unsubscribe all observers and release resources.
 
-**Namespace:**  [System.Reactive.Subjects](System.Reactive.Subjects\System.Reactive.Subjects.md)  
+**Namespace:**  [System.Reactive.Subjects](System.Reactive.Subjects/System.Reactive.Subjects)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -166,9 +166,9 @@ The following output from the example code shows the overlapping subscriptions.
 
 #### Reference
 
-[BehaviorSubject\<T\> Class](BehaviorSubject\BehaviorSubject(T).md)
+[BehaviorSubject\<T\> Class](BehaviorSubject/BehaviorSubject(T))
 
-[System.Reactive.Subjects Namespace](System.Reactive.Subjects\System.Reactive.Subjects.md)
+[System.Reactive.Subjects Namespace](System.Reactive.Subjects/System.Reactive.Subjects)
 
 
 

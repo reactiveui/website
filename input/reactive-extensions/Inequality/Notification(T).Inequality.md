@@ -4,7 +4,7 @@ title: Notification<T>.Inequality Operator
 
 Indicates whether left and right arguments are not equal.
 
-**Namespace:**  [System.Reactive](System.Reactive\System.Reactive.md)  
+**Namespace:**  [System.Reactive](System.Reactive/System.Reactive)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -54,11 +54,11 @@ JScript supports the use of overloaded operators, but not the declaration of new
 #### Parameters
 
 - left  
-  Type: [System.Reactive.Notification](Notification\Notification(T).md)\<[T](Notification\Notification(T).md)\>  
+  Type: [System.Reactive.Notification](Notification/Notification(T))\<[T](Notification/Notification(T))\>  
   The left argument.
 
 - right  
-  Type: [System.Reactive.Notification](Notification\Notification(T).md)\<[T](Notification\Notification(T).md)\>  
+  Type: [System.Reactive.Notification](Notification/Notification(T))\<[T](Notification/Notification(T))\>  
   The right argument.
 
 #### Return Value
@@ -70,9 +70,9 @@ true if both arguments are not equal; otherwise, false.
 
 #### Reference
 
-[Notification\<T\> Class](Notification\Notification(T).md)
+[Notification\<T\> Class](Notification/Notification(T))
 
-[System.Reactive Namespace](System.Reactive\System.Reactive.md)
+[System.Reactive Namespace](System.Reactive/System.Reactive)
 
 
 

@@ -7,7 +7,7 @@ title: DispatcherObservable Class
 [System.Object](https://msdn.microsoft.com/en-us/library/e5kfa45b)  
   System.Reactive.Linq.DispatcherObservable
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive.Windows.Threading (in System.Reactive.Windows.Threading.dll)
 
 ## Syntax
@@ -55,7 +55,7 @@ Any public static (Shared in Visual Basic) members of this type are thread safe.
 
 #### Reference
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 
 
@@ -69,7 +69,7 @@ Any public static (Shared in Visual Basic) members of this type are thread safe.
 Include Protected Members  
 Include Inherited Members
 
-The [DispatcherObservable](DispatcherObservable\DispatcherObservable.md) type exposes the following members.
+The [DispatcherObservable](DispatcherObservable/DispatcherObservable) type exposes the following members.
 
 ## Methods
 
@@ -79,9 +79,9 @@ NameDescription![Public method](https://reactiveui.net/assets/img/Hh303103.pubme
 
 #### Reference
 
-[DispatcherObservable Class](DispatcherObservable\DispatcherObservable.md)
+[DispatcherObservable Class](DispatcherObservable/DispatcherObservable)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 
 

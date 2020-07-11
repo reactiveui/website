@@ -4,7 +4,7 @@ title: Subscription.Infinite Field
 
 Specifies the infinite virtual time value.
 
-**Namespace:**  [Microsoft.Reactive.Testing](Microsoft.Reactive.Testing\Microsoft.Reactive.Testing.md)  
+**Namespace:**  [Microsoft.Reactive.Testing](Microsoft.Reactive.Testing/Microsoft.Reactive.Testing)  
 **Assembly:**  Microsoft.Reactive.Testing (in Microsoft.Reactive.Testing.dll)
 
 ## Syntax
@@ -42,9 +42,9 @@ public const var Infinite : long
 
 #### Reference
 
-[Subscription Structure](Subscription\Subscription.md)
+[Subscription Structure](Subscription/Subscription)
 
-[Microsoft.Reactive.Testing Namespace](Microsoft.Reactive.Testing\Microsoft.Reactive.Testing.md)
+[Microsoft.Reactive.Testing Namespace](Microsoft.Reactive.Testing/Microsoft.Reactive.Testing)
 
 
 

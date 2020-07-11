@@ -17,6 +17,6 @@ NameDescription![Public method](https://reactiveui.net/assets/img/Hh303103.pubme
 
 #### Reference
 
-[SynchronizationContextScheduler Class](SynchronizationContextScheduler\SynchronizationContextScheduler.md)
+[SynchronizationContextScheduler Class](SynchronizationContextScheduler/SynchronizationContextScheduler)
 
-[System.Reactive.Concurrency Namespace](System.Reactive.Concurrency\System.Reactive.Concurrency.md)
+[System.Reactive.Concurrency Namespace](System.Reactive.Concurrency/System.Reactive.Concurrency)

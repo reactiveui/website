@@ -4,7 +4,7 @@ title: Notification<T>.ToObservable()
 
 Returns an observable sequence with a single notification, using the immediate scheduler.
 
-**Namespace:**  [System.Reactive](System.Reactive\System.Reactive.md)  
+**Namespace:**  [System.Reactive](System.Reactive/System.Reactive)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -41,24 +41,24 @@ public function ToObservable() : IObservable<T>
 
 #### Return Value
 
-Type: [System.IObservable](https://msdn.microsoft.com/en-us/library/Dd990377)\<[T](Notification\Notification(T).md)\>  
+Type: [System.IObservable](https://msdn.microsoft.com/en-us/library/Dd990377)\<[T](Notification/Notification(T))\>  
 The observable sequence that surfaces the behavior of the notification upon subscription.
 
 ## See Also
 
 #### Reference
 
-[Notification\<T\> Class](Notification\Notification(T).md)
+[Notification\<T\> Class](Notification/Notification(T))
 
-[ToObservable Overload](ToObservable\Notification(T).ToObservable.md)
+[ToObservable Overload](ToObservable/Notification(T).ToObservable)
 
-[System.Reactive Namespace](System.Reactive\System.Reactive.md)
+[System.Reactive Namespace](System.Reactive/System.Reactive)
 
 # Notification\<T\>.ToObservable Method (IScheduler)
 
 Returns an observable sequence with a single notification.
 
-**Namespace:**  [System.Reactive](System.Reactive\System.Reactive.md)  
+**Namespace:**  [System.Reactive](System.Reactive/System.Reactive)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -106,23 +106,23 @@ public function ToObservable(
 #### Parameters
 
 - scheduler  
-  Type: [System.Reactive.Concurrency.IScheduler](IScheduler\IScheduler.md)  
+  Type: [System.Reactive.Concurrency.IScheduler](IScheduler/IScheduler)  
   The scheduler to send out the notification calls on.
 
 #### Return Value
 
-Type: [System.IObservable](https://msdn.microsoft.com/en-us/library/Dd990377)\<[T](Notification\Notification(T).md)\>  
+Type: [System.IObservable](https://msdn.microsoft.com/en-us/library/Dd990377)\<[T](Notification/Notification(T))\>  
 The observable sequence that surfaces the behavior of the notification upon subscription.
 
 ## See Also
 
 #### Reference
 
-[Notification\<T\> Class](Notification\Notification(T).md)
+[Notification\<T\> Class](Notification/Notification(T))
 
-[ToObservable Overload](ToObservable\Notification(T).ToObservable.md)
+[ToObservable Overload](ToObservable/Notification(T).ToObservable)
 
-[System.Reactive Namespace](System.Reactive\System.Reactive.md)
+[System.Reactive Namespace](System.Reactive/System.Reactive)
 
 # Notification\<T\>.ToObservable Method
 
@@ -135,12 +135,12 @@ This member is overloaded. For complete information about this member, including
 
 ## Overload List
 
-NameDescription![Public method](https://reactiveui.net/assets/img/Hh303103.pubmethod(en-us,VS.103).gif "Public method")[ToObservable()](ToObservable\Notification(T).ToObservable.md)Returns an observable sequence with a single notification, using the immediate scheduler.![Public method](https://reactiveui.net/assets/img/Hh303103.pubmethod(en-us,VS.103).gif "Public method")[ToObservable(IScheduler)](https://msdn.microsoft.com/en-us/library/m:system.reactive.notification%601.toobservable(system.reactive.concurrency.ischeduler)(v=VS.103))Returns an observable sequence with a single notification.Top
+NameDescription![Public method](https://reactiveui.net/assets/img/Hh303103.pubmethod(en-us,VS.103).gif "Public method")[ToObservable()](ToObservable/Notification(T).ToObservable)Returns an observable sequence with a single notification, using the immediate scheduler.![Public method](https://reactiveui.net/assets/img/Hh303103.pubmethod(en-us,VS.103).gif "Public method")[ToObservable(IScheduler)](https://msdn.microsoft.com/en-us/library/m:system.reactive.notification%601.toobservable(system.reactive.concurrency.ischeduler)(v=VS.103))Returns an observable sequence with a single notification.Top
 
 ## See Also
 
 #### Reference
 
-[Notification\<T\> Class](Notification\Notification(T).md)
+[Notification\<T\> Class](Notification/Notification(T))
 
-[System.Reactive Namespace](System.Reactive\System.Reactive.md)
+[System.Reactive Namespace](System.Reactive/System.Reactive)

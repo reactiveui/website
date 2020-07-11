@@ -4,7 +4,7 @@ title: TimeInterval<T>.GetHashCode()
 
 Returns the hash code for this instance.
 
-**Namespace:**  [System.Reactive](System.Reactive\System.Reactive.md)  
+**Namespace:**  [System.Reactive](System.Reactive/System.Reactive)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -49,9 +49,9 @@ The hash code for this instance.
 
 #### Reference
 
-[TimeInterval\<T\> Structure](TimeInterval\TimeInterval(T).md)
+[TimeInterval\<T\> Structure](TimeInterval/TimeInterval(T))
 
-[System.Reactive Namespace](System.Reactive\System.Reactive.md)
+[System.Reactive Namespace](System.Reactive/System.Reactive)
 
 
 

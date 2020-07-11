@@ -4,7 +4,7 @@ title: RefCountDisposable.GetDisposable()
 
 Returns a dependent disposable that when disposed decreases the refcount on the underlying disposable.
 
-**Namespace:**  [System.Reactive.Disposables](System.Reactive.Disposables\System.Reactive.Disposables.md)  
+**Namespace:**  [System.Reactive.Disposables](System.Reactive.Disposables/System.Reactive.Disposables)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -48,9 +48,9 @@ A dependent disposable contributing to the reference count that manages the unde
 
 #### Reference
 
-[RefCountDisposable Class](RefCountDisposable\RefCountDisposable.md)
+[RefCountDisposable Class](RefCountDisposable/RefCountDisposable)
 
-[System.Reactive.Disposables Namespace](System.Reactive.Disposables\System.Reactive.Disposables.md)
+[System.Reactive.Disposables Namespace](System.Reactive.Disposables/System.Reactive.Disposables)
 
 
 

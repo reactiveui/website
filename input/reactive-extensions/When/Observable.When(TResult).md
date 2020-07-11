@@ -4,7 +4,7 @@ title: Observable.When<TResult>(array<Plan<TResult>[])
 
 Joins together the results from several patterns.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -55,7 +55,7 @@ JScript does not support generic types and methods.
 #### Parameters
 
 - plans  
-  Type: array\<[System.Reactive.Joins.Plan](Plan\Plan(TResult).md)\<TResult\>\[\]  
+  Type: array\<[System.Reactive.Joins.Plan](Plan/Plan(TResult))\<TResult\>\[\]  
   The joining patterns.
 
 #### Return Value
@@ -67,17 +67,17 @@ The results from several patterns.
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[When Overload](When\Observable.When.md)
+[When Overload](When/Observable.When)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 # Observable.When\<TResult\> Method (IEnumerable\<Plan\<TResult\>\>)
 
 Joins together the results from several patterns.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -130,7 +130,7 @@ JScript does not support generic types and methods.
 #### Parameters
 
 - plans  
-  Type: [System.Collections.Generic.IEnumerable](https://msdn.microsoft.com/en-us/library/9eekhta0)\<[Plan](Plan\Plan(TResult).md)\<TResult\>\>  
+  Type: [System.Collections.Generic.IEnumerable](https://msdn.microsoft.com/en-us/library/9eekhta0)\<[Plan](Plan/Plan(TResult))\<TResult\>\>  
   The joining patterns.
 
 #### Return Value
@@ -140,14 +140,14 @@ The results from several patterns.
 
 #### Usage Note
 
-In Visual Basic and C\#, you can call this method as an instance method on any object of type [IEnumerable](https://msdn.microsoft.com/en-us/library/9eekhta0)\<[Plan](Plan\Plan(TResult).md)\<TResult\>\>. When you use instance method syntax to call this method, omit the first parameter. For more information, see [](https://msdn.microsoft.com/en-us/library/Bb384936) or [](https://msdn.microsoft.com/en-us/library/Bb383977).
+In Visual Basic and C\#, you can call this method as an instance method on any object of type [IEnumerable](https://msdn.microsoft.com/en-us/library/9eekhta0)\<[Plan](Plan/Plan(TResult))\<TResult\>\>. When you use instance method syntax to call this method, omit the first parameter. For more information, see [](https://msdn.microsoft.com/en-us/library/Bb384936) or [](https://msdn.microsoft.com/en-us/library/Bb383977).
 
 ## See Also
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[When Overload](When\Observable.When.md)
+[When Overload](When/Observable.When)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)

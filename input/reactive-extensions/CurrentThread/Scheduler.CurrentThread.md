@@ -4,7 +4,7 @@ title: Scheduler.CurrentThread Property
 
 Gets the scheduler that schedules work as soon as possible on the current thread.
 
-**Namespace:**  [System.Reactive.Concurrency](System.Reactive.Concurrency\System.Reactive.Concurrency.md)  
+**Namespace:**  [System.Reactive.Concurrency](System.Reactive.Concurrency/System.Reactive.Concurrency)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -43,7 +43,7 @@ static function get CurrentThread () : CurrentThreadScheduler
 
 #### Property Value
 
-Type: [System.Reactive.Concurrency.CurrentThreadScheduler](CurrentThreadScheduler\CurrentThreadScheduler.md)  
+Type: [System.Reactive.Concurrency.CurrentThreadScheduler](CurrentThreadScheduler/CurrentThreadScheduler)  
 The current thread scheduler.
 
 ## Remarks
@@ -54,9 +54,9 @@ The CurrentThread scheduler will schedule actions to be performed on the thread 
 
 #### Reference
 
-[Scheduler Class](Scheduler\Scheduler.md)
+[Scheduler Class](Scheduler/Scheduler)
 
-[System.Reactive.Concurrency Namespace](System.Reactive.Concurrency\System.Reactive.Concurrency.md)
+[System.Reactive.Concurrency Namespace](System.Reactive.Concurrency/System.Reactive.Concurrency)
 
 
 

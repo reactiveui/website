@@ -2,7 +2,7 @@ title: Observer.Synchronize<T>(IObserver<T>, Object)
 ---
 # Observer.Synchronize\<T\> Method (IObserver\<T\>, Object)
 
-**Namespace:**  [System.Reactive](System.Reactive\System.Reactive.md)  
+**Namespace:**  [System.Reactive](System.Reactive/System.Reactive)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -71,15 +71,15 @@ Type: [System.IObserver](https://msdn.microsoft.com/en-us/library/Dd783449)\<T\>
 
 #### Reference
 
-[Observer Class](Observer\Observer.md)
+[Observer Class](Observer/Observer)
 
-[Synchronize Overload](Synchronize\Observer.Synchronize.md)
+[Synchronize Overload](Synchronize/Observer.Synchronize)
 
-[System.Reactive Namespace](System.Reactive\System.Reactive.md)
+[System.Reactive Namespace](System.Reactive/System.Reactive)
 
 # Observer.Synchronize\<T\> Method (IObserver\<T\>)
 
-**Namespace:**  [System.Reactive](System.Reactive\System.Reactive.md)  
+**Namespace:**  [System.Reactive](System.Reactive/System.Reactive)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -139,8 +139,8 @@ Type: [System.IObserver](https://msdn.microsoft.com/en-us/library/Dd783449)\<T\>
 
 #### Reference
 
-[Observer Class](Observer\Observer.md)
+[Observer Class](Observer/Observer)
 
-[Synchronize Overload](Synchronize\Observer.Synchronize.md)
+[Synchronize Overload](Synchronize/Observer.Synchronize)
 
-[System.Reactive Namespace](System.Reactive\System.Reactive.md)
+[System.Reactive Namespace](System.Reactive/System.Reactive)

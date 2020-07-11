@@ -4,7 +4,7 @@ title: IScheduledItem<TAbsolute>.DueTime Property
 
 Get the absolute time at which the item executes.
 
-**Namespace:**  [System.Reactive.Concurrency](System.Reactive.Concurrency\System.Reactive.Concurrency.md)  
+**Namespace:**  [System.Reactive.Concurrency](System.Reactive.Concurrency/System.Reactive.Concurrency)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -43,16 +43,16 @@ function get DueTime () : TAbsolute
 
 #### Property Value
 
-Type: [TAbsolute](IScheduledItem\IScheduledItem(TAbsolute).md)  
+Type: [TAbsolute](IScheduledItem/IScheduledItem(TAbsolute))  
 The absolute time.
 
 ## See Also
 
 #### Reference
 
-[IScheduledItem\<TAbsolute\> Interface](IScheduledItem\IScheduledItem(TAbsolute).md)
+[IScheduledItem\<TAbsolute\> Interface](IScheduledItem/IScheduledItem(TAbsolute))
 
-[System.Reactive.Concurrency Namespace](System.Reactive.Concurrency\System.Reactive.Concurrency.md)
+[System.Reactive.Concurrency Namespace](System.Reactive.Concurrency/System.Reactive.Concurrency)
 
 
 

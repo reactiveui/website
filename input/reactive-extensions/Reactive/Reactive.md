@@ -4,23 +4,23 @@ title: Reactive Extensions Class Library
 
 This section contains the reference documentation for the Reactive Extensions class library.
 
-[Microsoft.Reactive.Testing](../Microsoft.Reactive.Testing/Microsoft.Reactive.Testing.md)
+[Microsoft.Reactive.Testing](../Microsoft.Reactive.Testing/Microsoft.Reactive.Testing)
 
-[System](../System/System.md)
+[System](../System/System)
 
-[System.Reactive](../System.Reactive/System.Reactive.md)
+[System.Reactive](../System.Reactive/System.Reactive)
 
-[System.Reactive.Concurrency](../System.Reactive.Concurrency/System.Reactive.Concurrency.md)
+[System.Reactive.Concurrency](../System.Reactive.Concurrency/System.Reactive.Concurrency)
 
-[System.Reactive.Disposables](../System.Reactive.Disposables/System.Reactive.Disposables.md)
+[System.Reactive.Disposables](../System.Reactive.Disposables/System.Reactive.Disposables)
 
-[System.Reactive.Joins](../System.Reactive.Joins/System.Reactive.Joins.md)
+[System.Reactive.Joins](../System.Reactive.Joins/System.Reactive.Joins)
 
-[System.Reactive.Linq](../System.Reactive.Linq/System.Reactive.Linq.md)
+[System.Reactive.Linq](../System.Reactive.Linq/System.Reactive.Linq)
 
-[System.Reactive.Subjects](../System.Reactive.Subjects/System.Reactive.Subjects.md)
+[System.Reactive.Subjects](../System.Reactive.Subjects/System.Reactive.Subjects)
 
-[System.Reactive.Threading.Tasks](../System.Reactive.Threading.Tasks/System.Reactive.Threading.Tasks.md)
+[System.Reactive.Threading.Tasks](../System.Reactive.Threading.Tasks/System.Reactive.Threading.Tasks)
 
 # Reactive Extensions
 
@@ -28,7 +28,7 @@ Reactive Extensions (Rx) is a library for composing asynchronous and event-based
 
 Data sequences can take many forms, such as a stream of data from a file or web service, web services requests, system notifications, or a series of events such as user input.
 
-Reactive Extensions represents all these data sequences as observable sequences. An application can subscribe to these observable sequences to receive asynchronous notifications as new data arrive. The Rx library is available for desktop application development in .NET. It is also released for Silverlight, Windows Phone 7 and JavaScript. For more information on these different platforms, see [Differences Between Versions of Rx](../Differences/Differences.md) topic.
+Reactive Extensions represents all these data sequences as observable sequences. An application can subscribe to these observable sequences to receive asynchronous notifications as new data arrive. The Rx library is available for desktop application development in .NET. It is also released for Silverlight, Windows Phone 7 and JavaScript. For more information on these different platforms, see [Differences Between Versions of Rx](../Differences/Differences) topic.
 
 ## Pulling vs. Pushing Data
 
@@ -40,4 +40,4 @@ On the other hand, in reactive programming, the application is offered more inf
 
 This is the push pattern employed by Reactive Extensions. It is similar to joining a book club in which you register your interest in a particular genre, and books that match your interest are automatically sent to you as they are published. You do not need to stand in line to acquire something that you want. Employing a push pattern is helpful in many scenarios, especially in a UI-heavy environment in which the UI thread cannot be blocked while the application is waiting for some events. This is also essential in programming environments such as Silverlight which has its own set of asynchronous requirements. In summary, by using Rx, you can make your application more responsive.
 
-The push model implemented by Rx is represented by the observable pattern of IObservable\<T\>/IObserver\<T\>. The IObservable\<T\> interface is a dual of the familiar IEnumerable\<T\> interface. It abstracts a sequence of data, and keeps a list of IObserver\<T\> implementations that are interested in the data sequence. The IObservable will notify all the observers automatically of any state changes. To register an interest through a subscription, you use the Subscribe method of IObservable, which takes on an IObserver and returns an IDisposable. This gives you the ability to track and dispose of the subscription. In addition, Rx’s LINQ implementation over observable sequences allows developers to compose complex event processing queries over push-based sequences such as .NET events, APM-based (“IAsyncResult”) computations, Task\<T\>-based computations,  Windows 7 Sensor and Location APIs, SQL StreamInsight temporal event streams, F\# first-class events, and asynchronous workflows. For more information on the IObservable\<T\>/IObserver\<T\> interfaces, see [Exploring The Major Interfaces in Rx](../Exploring/Exploring.md). For tutorials on using the different features in Rx, see [Using Rx](../Using/Using.md).
+The push model implemented by Rx is represented by the observable pattern of IObservable\<T\>/IObserver\<T\>. The IObservable\<T\> interface is a dual of the familiar IEnumerable\<T\> interface. It abstracts a sequence of data, and keeps a list of IObserver\<T\> implementations that are interested in the data sequence. The IObservable will notify all the observers automatically of any state changes. To register an interest through a subscription, you use the Subscribe method of IObservable, which takes on an IObserver and returns an IDisposable. This gives you the ability to track and dispose of the subscription. In addition, Rx’s LINQ implementation over observable sequences allows developers to compose complex event processing queries over push-based sequences such as .NET events, APM-based (“IAsyncResult”) computations, Task\<T\>-based computations,  Windows 7 Sensor and Location APIs, SQL StreamInsight temporal event streams, F\# first-class events, and asynchronous workflows. For more information on the IObservable\<T\>/IObserver\<T\> interfaces, see [Exploring The Major Interfaces in Rx](../Exploring/Exploring.md). For tutorials on using the different features in Rx, see [Using Rx](../Using/Using).

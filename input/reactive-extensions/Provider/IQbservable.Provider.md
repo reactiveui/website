@@ -4,7 +4,7 @@ title: IQbservable.Provider Property
 
 Gets the query provider that is associated with this data source.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive.Providers (in System.Reactive.Providers.dll)
 
 ## Syntax
@@ -43,13 +43,13 @@ function get Provider () : IQbservableProvider
 
 #### Property Value
 
-Type: [System.Reactive.Linq.IQbservableProvider](IQbservableProvider\IQbservableProvider.md)  
+Type: [System.Reactive.Linq.IQbservableProvider](IQbservableProvider/IQbservableProvider)  
 The query provider that is associated with this data source.
 
 ## See Also
 
 #### Reference
 
-[IQbservable Interface](IQbservable\IQbservable.md)
+[IQbservable Interface](IQbservable/IQbservable)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)

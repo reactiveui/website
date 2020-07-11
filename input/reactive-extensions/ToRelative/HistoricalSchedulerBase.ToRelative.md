@@ -4,7 +4,7 @@ title: HistoricalSchedulerBase.ToRelative()
 
 Converts the TimeSpan value to a relative time value.
 
-**Namespace:**  [System.Reactive.Concurrency](System.Reactive.Concurrency\System.Reactive.Concurrency.md)  
+**Namespace:**  [System.Reactive.Concurrency](System.Reactive.Concurrency/System.Reactive.Concurrency)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -65,6 +65,6 @@ The corresponding relative time value.
 
 #### Reference
 
-[HistoricalSchedulerBase Class](HistoricalSchedulerBase\HistoricalSchedulerBase.md)
+[HistoricalSchedulerBase Class](HistoricalSchedulerBase/HistoricalSchedulerBase)
 
-[System.Reactive.Concurrency Namespace](System.Reactive.Concurrency\System.Reactive.Concurrency.md)
+[System.Reactive.Concurrency Namespace](System.Reactive.Concurrency/System.Reactive.Concurrency)

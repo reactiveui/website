@@ -4,7 +4,7 @@ title: DispatcherScheduler.Dispatcher Property
 
 Gets the dispatcher associated with the DispatcherScheduler.
 
-**Namespace:**  [System.Reactive.Concurrency](System.Reactive.Concurrency\System.Reactive.Concurrency.md)  
+**Namespace:**  [System.Reactive.Concurrency](System.Reactive.Concurrency/System.Reactive.Concurrency)  
 **Assembly:**  System.Reactive.Windows.Threading (in System.Reactive.Windows.Threading.dll)
 
 ## Syntax
@@ -51,9 +51,9 @@ The dispatcher associated with the DispatcherScheduler.
 
 #### Reference
 
-[DispatcherScheduler Class](DispatcherScheduler\DispatcherScheduler.md)
+[DispatcherScheduler Class](DispatcherScheduler/DispatcherScheduler)
 
-[System.Reactive.Concurrency Namespace](System.Reactive.Concurrency\System.Reactive.Concurrency.md)
+[System.Reactive.Concurrency Namespace](System.Reactive.Concurrency/System.Reactive.Concurrency)
 
 
 

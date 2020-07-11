@@ -4,7 +4,7 @@ title: Observable.ToAsync<TSource>(Action<TSource>, IScheduler)
 
 Converts the function into an asynchronous function.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -66,12 +66,12 @@ JScript does not support generic types and methods.
   The action used to synchronization.
 
 - scheduler  
-  Type: [System.Reactive.Concurrency.IScheduler](IScheduler\IScheduler.md)  
+  Type: [System.Reactive.Concurrency.IScheduler](IScheduler/IScheduler)  
   The scheduler used to synchronization.
 
 #### Return Value
 
-Type: [System.Func](https://msdn.microsoft.com/en-us/library/Bb549151)\<TSource, [IObservable](https://msdn.microsoft.com/en-us/library/Dd990377)\<[Unit](Unit\Unit.md)\>\>  
+Type: [System.Func](https://msdn.microsoft.com/en-us/library/Bb549151)\<TSource, [IObservable](https://msdn.microsoft.com/en-us/library/Dd990377)\<[Unit](Unit/Unit)\>\>  
 The function into an asynchronous function.
 
 #### Usage Note
@@ -82,17 +82,17 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[ToAsync Overload](ToAsync\Observable.ToAsync.md)
+[ToAsync Overload](ToAsync/Observable.ToAsync)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 # Observable.ToAsync\<TSource\> Method (Action\<TSource\>)
 
 Converts the function into an asynchronous function.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -150,7 +150,7 @@ JScript does not support generic types and methods.
 
 #### Return Value
 
-Type: [System.Func](https://msdn.microsoft.com/en-us/library/Bb549151)\<TSource, [IObservable](https://msdn.microsoft.com/en-us/library/Dd990377)\<[Unit](Unit\Unit.md)\>\>  
+Type: [System.Func](https://msdn.microsoft.com/en-us/library/Bb549151)\<TSource, [IObservable](https://msdn.microsoft.com/en-us/library/Dd990377)\<[Unit](Unit/Unit)\>\>  
 The function into an asynchronous function.
 
 #### Usage Note
@@ -161,8 +161,8 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[ToAsync Overload](ToAsync\Observable.ToAsync.md)
+[ToAsync Overload](ToAsync/Observable.ToAsync)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)

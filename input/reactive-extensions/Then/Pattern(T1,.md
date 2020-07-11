@@ -4,7 +4,7 @@ title: Pattern<T1, T2, T3, T4, T5>.Then<TResult>()
 
 Matches when all observable sequences have an available value and projects the values.
 
-**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins\System.Reactive.Joins.md)  
+**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins/System.Reactive.Joins)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -56,27 +56,27 @@ JScript does not support generic types and methods.
 #### Parameters
 
 - selector  
-  Type: [System.Func](https://msdn.microsoft.com/en-us/library/Dd268303)\<[T1](Pattern\Pattern(T1,.md), [T2](Pattern\Pattern(T1,.md), [T3](Pattern\Pattern(T1,.md), [T4](Pattern\Pattern(T1,.md), [T5](Pattern\Pattern(T1,.md), TResult\>  
+  Type: [System.Func](https://msdn.microsoft.com/en-us/library/Dd268303)\<[T1](Pattern/Pattern(T1,), [T2](Pattern/Pattern(T1,), [T3](Pattern/Pattern(T1,), [T4](Pattern/Pattern(T1,), [T5](Pattern/Pattern(T1,), TResult\>  
   The function that projects the result to the next observer.
 
 #### Return Value
 
-Type: [System.Reactive.Joins.Plan](Plan\Plan(TResult).md)\<TResult\>  
+Type: [System.Reactive.Joins.Plan](Plan/Plan(TResult))\<TResult\>  
 The execution plan for join patterns.
 
 ## See Also
 
 #### Reference
 
-[Pattern\<T1, T2, T3, T4, T5\> Class](Pattern\Pattern(T1,.md)
+[Pattern\<T1, T2, T3, T4, T5\> Class](Pattern/Pattern(T1,)
 
-[System.Reactive.Joins Namespace](System.Reactive.Joins\System.Reactive.Joins.md)
+[System.Reactive.Joins Namespace](System.Reactive.Joins/System.Reactive.Joins)
 
 # Pattern\<T1, T2, T3, T4, T5, T6, T7, T8\>.Then\<TResult\> Method
 
 Matches when all observable sequences have an available value and projects the values.
 
-**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins\System.Reactive.Joins.md)  
+**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins/System.Reactive.Joins)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -128,27 +128,27 @@ JScript does not support generic types and methods.
 #### Parameters
 
 - selector  
-  Type: [System.Func](https://msdn.microsoft.com/en-us/library/Dd267613)\<[T1](Pattern\Pattern(T1,.md), [T2](Pattern\Pattern(T1,.md), [T3](Pattern\Pattern(T1,.md), [T4](Pattern\Pattern(T1,.md), [T5](Pattern\Pattern(T1,.md), [T6](Pattern\Pattern(T1,.md), [T7](Pattern\Pattern(T1,.md), [T8](Pattern\Pattern(T1,.md), TResult\>  
+  Type: [System.Func](https://msdn.microsoft.com/en-us/library/Dd267613)\<[T1](Pattern/Pattern(T1,), [T2](Pattern/Pattern(T1,), [T3](Pattern/Pattern(T1,), [T4](Pattern/Pattern(T1,), [T5](Pattern/Pattern(T1,), [T6](Pattern/Pattern(T1,), [T7](Pattern/Pattern(T1,), [T8](Pattern/Pattern(T1,), TResult\>  
   The function that projects the result to the next observer.
 
 #### Return Value
 
-Type: [System.Reactive.Joins.Plan](Plan\Plan(TResult).md)\<TResult\>  
+Type: [System.Reactive.Joins.Plan](Plan/Plan(TResult))\<TResult\>  
 The execution plan for join patterns.
 
 ## See Also
 
 #### Reference
 
-[Pattern\<T1, T2, T3, T4, T5, T6, T7, T8\> Class](Pattern\Pattern(T1,.md)
+[Pattern\<T1, T2, T3, T4, T5, T6, T7, T8\> Class](Pattern/Pattern(T1,)
 
-[System.Reactive.Joins Namespace](System.Reactive.Joins\System.Reactive.Joins.md)
+[System.Reactive.Joins Namespace](System.Reactive.Joins/System.Reactive.Joins)
 
 # Pattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16\>.Then\<TResult\> Method
 
 Matches when all observable sequences have an available value and projects the values.
 
-**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins\System.Reactive.Joins.md)  
+**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins/System.Reactive.Joins)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -200,27 +200,27 @@ JScript does not support generic types and methods.
 #### Parameters
 
 - selector  
-  Type: [System.Func](https://msdn.microsoft.com/en-us/library/Dd402862)\<[T1](Pattern\Pattern(T1,.md), [T2](Pattern\Pattern(T1,.md), [T3](Pattern\Pattern(T1,.md), [T4](Pattern\Pattern(T1,.md), [T5](Pattern\Pattern(T1,.md), [T6](Pattern\Pattern(T1,.md), [T7](Pattern\Pattern(T1,.md), [T8](Pattern\Pattern(T1,.md), [T9](Pattern\Pattern(T1,.md), [T10](Pattern\Pattern(T1,.md), [T11](Pattern\Pattern(T1,.md), [T12](Pattern\Pattern(T1,.md), [T13](Pattern\Pattern(T1,.md), [T14](Pattern\Pattern(T1,.md), [T15](Pattern\Pattern(T1,.md), [T16](Pattern\Pattern(T1,.md), TResult\>  
+  Type: [System.Func](https://msdn.microsoft.com/en-us/library/Dd402862)\<[T1](Pattern/Pattern(T1,), [T2](Pattern/Pattern(T1,), [T3](Pattern/Pattern(T1,), [T4](Pattern/Pattern(T1,), [T5](Pattern/Pattern(T1,), [T6](Pattern/Pattern(T1,), [T7](Pattern/Pattern(T1,), [T8](Pattern/Pattern(T1,), [T9](Pattern/Pattern(T1,), [T10](Pattern/Pattern(T1,), [T11](Pattern/Pattern(T1,), [T12](Pattern/Pattern(T1,), [T13](Pattern/Pattern(T1,), [T14](Pattern/Pattern(T1,), [T15](Pattern/Pattern(T1,), [T16](Pattern/Pattern(T1,), TResult\>  
   The function that projects the result to the next observer.
 
 #### Return Value
 
-Type: [System.Reactive.Joins.Plan](Plan\Plan(TResult).md)\<TResult\>  
+Type: [System.Reactive.Joins.Plan](Plan/Plan(TResult))\<TResult\>  
 The execution plan for join patterns.
 
 ## See Also
 
 #### Reference
 
-[Pattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16\> Class](Pattern\Pattern(T1,.md)
+[Pattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16\> Class](Pattern/Pattern(T1,)
 
-[System.Reactive.Joins Namespace](System.Reactive.Joins\System.Reactive.Joins.md)
+[System.Reactive.Joins Namespace](System.Reactive.Joins/System.Reactive.Joins)
 
 # Pattern\<T1, T2\>.Then\<TResult\> Method
 
 Matches when all observable sequences have an available value and projects the values.
 
-**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins\System.Reactive.Joins.md)  
+**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins/System.Reactive.Joins)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -272,27 +272,27 @@ JScript does not support generic types and methods.
 #### Parameters
 
 - selector  
-  Type: [System.Func](https://msdn.microsoft.com/en-us/library/Bb534647)\<[T1](Pattern\Pattern(T1,.md), [T2](Pattern\Pattern(T1,.md), TResult\>  
+  Type: [System.Func](https://msdn.microsoft.com/en-us/library/Bb534647)\<[T1](Pattern/Pattern(T1,), [T2](Pattern/Pattern(T1,), TResult\>  
   The function that projects the result to the next observer.
 
 #### Return Value
 
-Type: [System.Reactive.Joins.Plan](Plan\Plan(TResult).md)\<TResult\>  
+Type: [System.Reactive.Joins.Plan](Plan/Plan(TResult))\<TResult\>  
 The execution plan for join patterns.
 
 ## See Also
 
 #### Reference
 
-[Pattern\<T1, T2\> Class](Pattern\Pattern(T1,.md)
+[Pattern\<T1, T2\> Class](Pattern/Pattern(T1,)
 
-[System.Reactive.Joins Namespace](System.Reactive.Joins\System.Reactive.Joins.md)
+[System.Reactive.Joins Namespace](System.Reactive.Joins/System.Reactive.Joins)
 
 # Pattern\<T1, T2, T3\>.Then\<TResult\> Method
 
 Matches when all observable sequences have an available value and projects the values.
 
-**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins\System.Reactive.Joins.md)  
+**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins/System.Reactive.Joins)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -344,27 +344,27 @@ JScript does not support generic types and methods.
 #### Parameters
 
 - selector  
-  Type: [System.Func](https://msdn.microsoft.com/en-us/library/Bb549430)\<[T1](Pattern\Pattern(T1,.md), [T2](Pattern\Pattern(T1,.md), [T3](Pattern\Pattern(T1,.md), TResult\>  
+  Type: [System.Func](https://msdn.microsoft.com/en-us/library/Bb549430)\<[T1](Pattern/Pattern(T1,), [T2](Pattern/Pattern(T1,), [T3](Pattern/Pattern(T1,), TResult\>  
   The function that projects the result to the next observer.
 
 #### Return Value
 
-Type: [System.Reactive.Joins.Plan](Plan\Plan(TResult).md)\<TResult\>  
+Type: [System.Reactive.Joins.Plan](Plan/Plan(TResult))\<TResult\>  
 The execution plan for join patterns.
 
 ## See Also
 
 #### Reference
 
-[Pattern\<T1, T2, T3\> Class](Pattern\Pattern(T1,.md)
+[Pattern\<T1, T2, T3\> Class](Pattern/Pattern(T1,)
 
-[System.Reactive.Joins Namespace](System.Reactive.Joins\System.Reactive.Joins.md)
+[System.Reactive.Joins Namespace](System.Reactive.Joins/System.Reactive.Joins)
 
 # Pattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13\>.Then\<TResult\> Method
 
 Matches when all observable sequences have an available value and projects the values.
 
-**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins\System.Reactive.Joins.md)  
+**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins/System.Reactive.Joins)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -416,27 +416,27 @@ JScript does not support generic types and methods.
 #### Parameters
 
 - selector  
-  Type: [System.Func](https://msdn.microsoft.com/en-us/library/Dd402867)\<[T1](Pattern\Pattern(T1,.md), [T2](Pattern\Pattern(T1,.md), [T3](Pattern\Pattern(T1,.md), [T4](Pattern\Pattern(T1,.md), [T5](Pattern\Pattern(T1,.md), [T6](Pattern\Pattern(T1,.md), [T7](Pattern\Pattern(T1,.md), [T8](Pattern\Pattern(T1,.md), [T9](Pattern\Pattern(T1,.md), [T10](Pattern\Pattern(T1,.md), [T11](Pattern\Pattern(T1,.md), [T12](Pattern\Pattern(T1,.md), [T13](Pattern\Pattern(T1,.md), TResult\>  
+  Type: [System.Func](https://msdn.microsoft.com/en-us/library/Dd402867)\<[T1](Pattern/Pattern(T1,), [T2](Pattern/Pattern(T1,), [T3](Pattern/Pattern(T1,), [T4](Pattern/Pattern(T1,), [T5](Pattern/Pattern(T1,), [T6](Pattern/Pattern(T1,), [T7](Pattern/Pattern(T1,), [T8](Pattern/Pattern(T1,), [T9](Pattern/Pattern(T1,), [T10](Pattern/Pattern(T1,), [T11](Pattern/Pattern(T1,), [T12](Pattern/Pattern(T1,), [T13](Pattern/Pattern(T1,), TResult\>  
   The function that projects the result to the next observer.
 
 #### Return Value
 
-Type: [System.Reactive.Joins.Plan](Plan\Plan(TResult).md)\<TResult\>  
+Type: [System.Reactive.Joins.Plan](Plan/Plan(TResult))\<TResult\>  
 The execution plan for join patterns.
 
 ## See Also
 
 #### Reference
 
-[Pattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13\> Class](Pattern\Pattern(T1,.md)
+[Pattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13\> Class](Pattern/Pattern(T1,)
 
-[System.Reactive.Joins Namespace](System.Reactive.Joins\System.Reactive.Joins.md)
+[System.Reactive.Joins Namespace](System.Reactive.Joins/System.Reactive.Joins)
 
 # Pattern\<T1, T2, T3, T4, T5, T6\>.Then\<TResult\> Method
 
 Matches when all observable sequences have an available value and projects the values.
 
-**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins\System.Reactive.Joins.md)  
+**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins/System.Reactive.Joins)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -488,27 +488,27 @@ JScript does not support generic types and methods.
 #### Parameters
 
 - selector  
-  Type: [System.Func](https://msdn.microsoft.com/en-us/library/Dd269654)\<[T1](Pattern\Pattern(T1,.md), [T2](Pattern\Pattern(T1,.md), [T3](Pattern\Pattern(T1,.md), [T4](Pattern\Pattern(T1,.md), [T5](Pattern\Pattern(T1,.md), [T6](Pattern\Pattern(T1,.md), TResult\>  
+  Type: [System.Func](https://msdn.microsoft.com/en-us/library/Dd269654)\<[T1](Pattern/Pattern(T1,), [T2](Pattern/Pattern(T1,), [T3](Pattern/Pattern(T1,), [T4](Pattern/Pattern(T1,), [T5](Pattern/Pattern(T1,), [T6](Pattern/Pattern(T1,), TResult\>  
   The function that projects the result to the next observer.
 
 #### Return Value
 
-Type: [System.Reactive.Joins.Plan](Plan\Plan(TResult).md)\<TResult\>  
+Type: [System.Reactive.Joins.Plan](Plan/Plan(TResult))\<TResult\>  
 The execution plan for join patterns.
 
 ## See Also
 
 #### Reference
 
-[Pattern\<T1, T2, T3, T4, T5, T6\> Class](Pattern\Pattern(T1,.md)
+[Pattern\<T1, T2, T3, T4, T5, T6\> Class](Pattern/Pattern(T1,)
 
-[System.Reactive.Joins Namespace](System.Reactive.Joins\System.Reactive.Joins.md)
+[System.Reactive.Joins Namespace](System.Reactive.Joins/System.Reactive.Joins)
 
 # Pattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12\>.Then\<TResult\> Method
 
 Matches when all observable sequences have an available value and projects the values.
 
-**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins\System.Reactive.Joins.md)  
+**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins/System.Reactive.Joins)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -560,27 +560,27 @@ JScript does not support generic types and methods.
 #### Parameters
 
 - selector  
-  Type: [System.Func](https://msdn.microsoft.com/en-us/library/Dd402863)\<[T1](Pattern\Pattern(T1,.md), [T2](Pattern\Pattern(T1,.md), [T3](Pattern\Pattern(T1,.md), [T4](Pattern\Pattern(T1,.md), [T5](Pattern\Pattern(T1,.md), [T6](Pattern\Pattern(T1,.md), [T7](Pattern\Pattern(T1,.md), [T8](Pattern\Pattern(T1,.md), [T9](Pattern\Pattern(T1,.md), [T10](Pattern\Pattern(T1,.md), [T11](Pattern\Pattern(T1,.md), [T12](Pattern\Pattern(T1,.md), TResult\>  
+  Type: [System.Func](https://msdn.microsoft.com/en-us/library/Dd402863)\<[T1](Pattern/Pattern(T1,), [T2](Pattern/Pattern(T1,), [T3](Pattern/Pattern(T1,), [T4](Pattern/Pattern(T1,), [T5](Pattern/Pattern(T1,), [T6](Pattern/Pattern(T1,), [T7](Pattern/Pattern(T1,), [T8](Pattern/Pattern(T1,), [T9](Pattern/Pattern(T1,), [T10](Pattern/Pattern(T1,), [T11](Pattern/Pattern(T1,), [T12](Pattern/Pattern(T1,), TResult\>  
   The function that projects the result to the next observer.
 
 #### Return Value
 
-Type: [System.Reactive.Joins.Plan](Plan\Plan(TResult).md)\<TResult\>  
+Type: [System.Reactive.Joins.Plan](Plan/Plan(TResult))\<TResult\>  
 The execution plan for join patterns.
 
 ## See Also
 
 #### Reference
 
-[Pattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12\> Class](Pattern\Pattern(T1,.md)
+[Pattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12\> Class](Pattern/Pattern(T1,)
 
-[System.Reactive.Joins Namespace](System.Reactive.Joins\System.Reactive.Joins.md)
+[System.Reactive.Joins Namespace](System.Reactive.Joins/System.Reactive.Joins)
 
 # Pattern\<T1, T2, T3, T4, T5, T6, T7\>.Then\<TResult\> Method
 
 Matches when all observable sequences have an available value and projects the values.
 
-**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins\System.Reactive.Joins.md)  
+**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins/System.Reactive.Joins)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -632,27 +632,27 @@ JScript does not support generic types and methods.
 #### Parameters
 
 - selector  
-  Type: [System.Func](https://msdn.microsoft.com/en-us/library/Dd289456)\<[T1](Pattern\Pattern(T1,.md), [T2](Pattern\Pattern(T1,.md), [T3](Pattern\Pattern(T1,.md), [T4](Pattern\Pattern(T1,.md), [T5](Pattern\Pattern(T1,.md), [T6](Pattern\Pattern(T1,.md), [T7](Pattern\Pattern(T1,.md), TResult\>  
+  Type: [System.Func](https://msdn.microsoft.com/en-us/library/Dd289456)\<[T1](Pattern/Pattern(T1,), [T2](Pattern/Pattern(T1,), [T3](Pattern/Pattern(T1,), [T4](Pattern/Pattern(T1,), [T5](Pattern/Pattern(T1,), [T6](Pattern/Pattern(T1,), [T7](Pattern/Pattern(T1,), TResult\>  
   The function that projects the result to the next observer.
 
 #### Return Value
 
-Type: [System.Reactive.Joins.Plan](Plan\Plan(TResult).md)\<TResult\>  
+Type: [System.Reactive.Joins.Plan](Plan/Plan(TResult))\<TResult\>  
 The execution plan for join patterns.
 
 ## See Also
 
 #### Reference
 
-[Pattern\<T1, T2, T3, T4, T5, T6, T7\> Class](Pattern\Pattern(T1,.md)
+[Pattern\<T1, T2, T3, T4, T5, T6, T7\> Class](Pattern/Pattern(T1,)
 
-[System.Reactive.Joins Namespace](System.Reactive.Joins\System.Reactive.Joins.md)
+[System.Reactive.Joins Namespace](System.Reactive.Joins/System.Reactive.Joins)
 
 # Pattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11\>.Then\<TResult\> Method
 
 Matches when all observable sequences have an available value and projects the values.
 
-**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins\System.Reactive.Joins.md)  
+**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins/System.Reactive.Joins)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -704,27 +704,27 @@ JScript does not support generic types and methods.
 #### Parameters
 
 - selector  
-  Type: [System.Func](https://msdn.microsoft.com/en-us/library/Dd402864)\<[T1](Pattern\Pattern(T1,.md), [T2](Pattern\Pattern(T1,.md), [T3](Pattern\Pattern(T1,.md), [T4](Pattern\Pattern(T1,.md), [T5](Pattern\Pattern(T1,.md), [T6](Pattern\Pattern(T1,.md), [T7](Pattern\Pattern(T1,.md), [T8](Pattern\Pattern(T1,.md), [T9](Pattern\Pattern(T1,.md), [T10](Pattern\Pattern(T1,.md), [T11](Pattern\Pattern(T1,.md), TResult\>  
+  Type: [System.Func](https://msdn.microsoft.com/en-us/library/Dd402864)\<[T1](Pattern/Pattern(T1,), [T2](Pattern/Pattern(T1,), [T3](Pattern/Pattern(T1,), [T4](Pattern/Pattern(T1,), [T5](Pattern/Pattern(T1,), [T6](Pattern/Pattern(T1,), [T7](Pattern/Pattern(T1,), [T8](Pattern/Pattern(T1,), [T9](Pattern/Pattern(T1,), [T10](Pattern/Pattern(T1,), [T11](Pattern/Pattern(T1,), TResult\>  
   The function that projects the result to the next observer.
 
 #### Return Value
 
-Type: [System.Reactive.Joins.Plan](Plan\Plan(TResult).md)\<TResult\>  
+Type: [System.Reactive.Joins.Plan](Plan/Plan(TResult))\<TResult\>  
 The execution plan for join patterns.
 
 ## See Also
 
 #### Reference
 
-[Pattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11\> Class](Pattern\Pattern(T1,.md)
+[Pattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11\> Class](Pattern/Pattern(T1,)
 
-[System.Reactive.Joins Namespace](System.Reactive.Joins\System.Reactive.Joins.md)
+[System.Reactive.Joins Namespace](System.Reactive.Joins/System.Reactive.Joins)
 
 # Pattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15\>.Then\<TResult\> Method
 
 Matches when all observable sequences have an available value and projects the values.
 
-**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins\System.Reactive.Joins.md)  
+**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins/System.Reactive.Joins)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -776,27 +776,27 @@ JScript does not support generic types and methods.
 #### Parameters
 
 - selector  
-  Type: [System.Func](https://msdn.microsoft.com/en-us/library/Dd402868)\<[T1](Pattern\Pattern(T1,.md), [T2](Pattern\Pattern(T1,.md), [T3](Pattern\Pattern(T1,.md), [T4](Pattern\Pattern(T1,.md), [T5](Pattern\Pattern(T1,.md), [T6](Pattern\Pattern(T1,.md), [T7](Pattern\Pattern(T1,.md), [T8](Pattern\Pattern(T1,.md), [T9](Pattern\Pattern(T1,.md), [T10](Pattern\Pattern(T1,.md), [T11](Pattern\Pattern(T1,.md), [T12](Pattern\Pattern(T1,.md), [T13](Pattern\Pattern(T1,.md), [T14](Pattern\Pattern(T1,.md), [T15](Pattern\Pattern(T1,.md), TResult\>  
+  Type: [System.Func](https://msdn.microsoft.com/en-us/library/Dd402868)\<[T1](Pattern/Pattern(T1,), [T2](Pattern/Pattern(T1,), [T3](Pattern/Pattern(T1,), [T4](Pattern/Pattern(T1,), [T5](Pattern/Pattern(T1,), [T6](Pattern/Pattern(T1,), [T7](Pattern/Pattern(T1,), [T8](Pattern/Pattern(T1,), [T9](Pattern/Pattern(T1,), [T10](Pattern/Pattern(T1,), [T11](Pattern/Pattern(T1,), [T12](Pattern/Pattern(T1,), [T13](Pattern/Pattern(T1,), [T14](Pattern/Pattern(T1,), [T15](Pattern/Pattern(T1,), TResult\>  
   The function that projects the result to the next observer.
 
 #### Return Value
 
-Type: [System.Reactive.Joins.Plan](Plan\Plan(TResult).md)\<TResult\>  
+Type: [System.Reactive.Joins.Plan](Plan/Plan(TResult))\<TResult\>  
 The execution plan for join patterns.
 
 ## See Also
 
 #### Reference
 
-[Pattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15\> Class](Pattern\Pattern(T1,.md)
+[Pattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15\> Class](Pattern/Pattern(T1,)
 
-[System.Reactive.Joins Namespace](System.Reactive.Joins\System.Reactive.Joins.md)
+[System.Reactive.Joins Namespace](System.Reactive.Joins/System.Reactive.Joins)
 
 # Pattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14\>.Then\<TResult\> Method
 
 Matches when all observable sequences have an available value and projects the values.
 
-**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins\System.Reactive.Joins.md)  
+**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins/System.Reactive.Joins)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -848,27 +848,27 @@ JScript does not support generic types and methods.
 #### Parameters
 
 - selector  
-  Type: [System.Func](https://msdn.microsoft.com/en-us/library/Dd402861)\<[T1](Pattern\Pattern(T1,.md), [T2](Pattern\Pattern(T1,.md), [T3](Pattern\Pattern(T1,.md), [T4](Pattern\Pattern(T1,.md), [T5](Pattern\Pattern(T1,.md), [T6](Pattern\Pattern(T1,.md), [T7](Pattern\Pattern(T1,.md), [T8](Pattern\Pattern(T1,.md), [T9](Pattern\Pattern(T1,.md), [T10](Pattern\Pattern(T1,.md), [T11](Pattern\Pattern(T1,.md), [T12](Pattern\Pattern(T1,.md), [T13](Pattern\Pattern(T1,.md), [T14](Pattern\Pattern(T1,.md), TResult\>  
+  Type: [System.Func](https://msdn.microsoft.com/en-us/library/Dd402861)\<[T1](Pattern/Pattern(T1,), [T2](Pattern/Pattern(T1,), [T3](Pattern/Pattern(T1,), [T4](Pattern/Pattern(T1,), [T5](Pattern/Pattern(T1,), [T6](Pattern/Pattern(T1,), [T7](Pattern/Pattern(T1,), [T8](Pattern/Pattern(T1,), [T9](Pattern/Pattern(T1,), [T10](Pattern/Pattern(T1,), [T11](Pattern/Pattern(T1,), [T12](Pattern/Pattern(T1,), [T13](Pattern/Pattern(T1,), [T14](Pattern/Pattern(T1,), TResult\>  
   The function that projects the result to the next observer.
 
 #### Return Value
 
-Type: [System.Reactive.Joins.Plan](Plan\Plan(TResult).md)\<TResult\>  
+Type: [System.Reactive.Joins.Plan](Plan/Plan(TResult))\<TResult\>  
 The execution plan for join patterns.
 
 ## See Also
 
 #### Reference
 
-[Pattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14\> Class](Pattern\Pattern(T1,.md)
+[Pattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14\> Class](Pattern/Pattern(T1,)
 
-[System.Reactive.Joins Namespace](System.Reactive.Joins\System.Reactive.Joins.md)
+[System.Reactive.Joins Namespace](System.Reactive.Joins/System.Reactive.Joins)
 
 # Pattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10\>.Then\<TResult\> Method
 
 Matches when all observable sequences have an available value and projects the values.
 
-**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins\System.Reactive.Joins.md)  
+**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins/System.Reactive.Joins)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -920,27 +920,27 @@ JScript does not support generic types and methods.
 #### Parameters
 
 - selector  
-  Type: [System.Func](https://msdn.microsoft.com/en-us/library/Dd383294)\<[T1](Pattern\Pattern(T1,.md), [T2](Pattern\Pattern(T1,.md), [T3](Pattern\Pattern(T1,.md), [T4](Pattern\Pattern(T1,.md), [T5](Pattern\Pattern(T1,.md), [T6](Pattern\Pattern(T1,.md), [T7](Pattern\Pattern(T1,.md), [T8](Pattern\Pattern(T1,.md), [T9](Pattern\Pattern(T1,.md), [T10](Pattern\Pattern(T1,.md), TResult\>  
+  Type: [System.Func](https://msdn.microsoft.com/en-us/library/Dd383294)\<[T1](Pattern/Pattern(T1,), [T2](Pattern/Pattern(T1,), [T3](Pattern/Pattern(T1,), [T4](Pattern/Pattern(T1,), [T5](Pattern/Pattern(T1,), [T6](Pattern/Pattern(T1,), [T7](Pattern/Pattern(T1,), [T8](Pattern/Pattern(T1,), [T9](Pattern/Pattern(T1,), [T10](Pattern/Pattern(T1,), TResult\>  
   The function that projects the result to the next observer.
 
 #### Return Value
 
-Type: [System.Reactive.Joins.Plan](Plan\Plan(TResult).md)\<TResult\>  
+Type: [System.Reactive.Joins.Plan](Plan/Plan(TResult))\<TResult\>  
 The execution plan for join patterns.
 
 ## See Also
 
 #### Reference
 
-[Pattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10\> Class](Pattern\Pattern(T1,.md)
+[Pattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10\> Class](Pattern/Pattern(T1,)
 
-[System.Reactive.Joins Namespace](System.Reactive.Joins\System.Reactive.Joins.md)
+[System.Reactive.Joins Namespace](System.Reactive.Joins/System.Reactive.Joins)
 
 # Pattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9\>.Then\<TResult\> Method
 
 Matches when all observable sequences have an available value and projects the values.
 
-**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins\System.Reactive.Joins.md)  
+**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins/System.Reactive.Joins)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -992,27 +992,27 @@ JScript does not support generic types and methods.
 #### Parameters
 
 - selector  
-  Type: [System.Func](https://msdn.microsoft.com/en-us/library/Dd386894)\<[T1](Pattern\Pattern(T1,.md), [T2](Pattern\Pattern(T1,.md), [T3](Pattern\Pattern(T1,.md), [T4](Pattern\Pattern(T1,.md), [T5](Pattern\Pattern(T1,.md), [T6](Pattern\Pattern(T1,.md), [T7](Pattern\Pattern(T1,.md), [T8](Pattern\Pattern(T1,.md), [T9](Pattern\Pattern(T1,.md), TResult\>  
+  Type: [System.Func](https://msdn.microsoft.com/en-us/library/Dd386894)\<[T1](Pattern/Pattern(T1,), [T2](Pattern/Pattern(T1,), [T3](Pattern/Pattern(T1,), [T4](Pattern/Pattern(T1,), [T5](Pattern/Pattern(T1,), [T6](Pattern/Pattern(T1,), [T7](Pattern/Pattern(T1,), [T8](Pattern/Pattern(T1,), [T9](Pattern/Pattern(T1,), TResult\>  
   The function that projects the result to the next observer.
 
 #### Return Value
 
-Type: [System.Reactive.Joins.Plan](Plan\Plan(TResult).md)\<TResult\>  
+Type: [System.Reactive.Joins.Plan](Plan/Plan(TResult))\<TResult\>  
 The execution plan for join patterns.
 
 ## See Also
 
 #### Reference
 
-[Pattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9\> Class](Pattern\Pattern(T1,.md)
+[Pattern\<T1, T2, T3, T4, T5, T6, T7, T8, T9\> Class](Pattern/Pattern(T1,)
 
-[System.Reactive.Joins Namespace](System.Reactive.Joins\System.Reactive.Joins.md)
+[System.Reactive.Joins Namespace](System.Reactive.Joins/System.Reactive.Joins)
 
 # Pattern\<T1, T2, T3, T4\>.Then\<TResult\> Method
 
 Matches when all observable sequences have an available value and projects the values.
 
-**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins\System.Reactive.Joins.md)  
+**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins/System.Reactive.Joins)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -1064,18 +1064,18 @@ JScript does not support generic types and methods.
 #### Parameters
 
 - selector  
-  Type: [System.Func](https://msdn.microsoft.com/en-us/library/Bb534303)\<[T1](Pattern\Pattern(T1,.md), [T2](Pattern\Pattern(T1,.md), [T3](Pattern\Pattern(T1,.md), [T4](Pattern\Pattern(T1,.md), TResult\>  
+  Type: [System.Func](https://msdn.microsoft.com/en-us/library/Bb534303)\<[T1](Pattern/Pattern(T1,), [T2](Pattern/Pattern(T1,), [T3](Pattern/Pattern(T1,), [T4](Pattern/Pattern(T1,), TResult\>  
   The function that projects the result to the next observer.
 
 #### Return Value
 
-Type: [System.Reactive.Joins.Plan](Plan\Plan(TResult).md)\<TResult\>  
+Type: [System.Reactive.Joins.Plan](Plan/Plan(TResult))\<TResult\>  
 The execution plan for join patterns.
 
 ## See Also
 
 #### Reference
 
-[Pattern\<T1, T2, T3, T4\> Class](Pattern\Pattern(T1,.md)
+[Pattern\<T1, T2, T3, T4\> Class](Pattern/Pattern(T1,)
 
-[System.Reactive.Joins Namespace](System.Reactive.Joins\System.Reactive.Joins.md)
+[System.Reactive.Joins Namespace](System.Reactive.Joins/System.Reactive.Joins)

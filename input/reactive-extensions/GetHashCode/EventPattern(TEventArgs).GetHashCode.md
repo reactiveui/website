@@ -4,7 +4,7 @@ title: EventPattern<TEventArgs>.GetHashCode()
 
 This member overrides [Object.GetHashCode()](https://msdn.microsoft.com/en-us/library/zdee4b3y).
 
-**Namespace:**  [System.Reactive](System.Reactive\System.Reactive.md)  
+**Namespace:**  [System.Reactive](System.Reactive/System.Reactive)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -49,9 +49,9 @@ Returns [Int32](https://msdn.microsoft.com/en-us/library/td2s409d).
 
 #### Reference
 
-[EventPattern\<TEventArgs\> Class](EventPattern\EventPattern(TEventArgs).md)
+[EventPattern\<TEventArgs\> Class](EventPattern/EventPattern(TEventArgs))
 
-[System.Reactive Namespace](System.Reactive\System.Reactive.md)
+[System.Reactive Namespace](System.Reactive/System.Reactive)
 
 
 

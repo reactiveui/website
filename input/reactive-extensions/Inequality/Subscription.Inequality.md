@@ -4,7 +4,7 @@ title: Subscription.Inequality Operator
 
 Checks whether the two given subscription objects are not equal.
 
-**Namespace:**  [Microsoft.Reactive.Testing](Microsoft.Reactive.Testing\Microsoft.Reactive.Testing.md)  
+**Namespace:**  [Microsoft.Reactive.Testing](Microsoft.Reactive.Testing/Microsoft.Reactive.Testing)  
 **Assembly:**  Microsoft.Reactive.Testing (in Microsoft.Reactive.Testing.dll)
 
 ## Syntax
@@ -54,11 +54,11 @@ JScript supports the use of overloaded operators, but not the declaration of new
 #### Parameters
 
 - left  
-  Type: [Microsoft.Reactive.Testing.Subscription](Subscription\Subscription.md)  
+  Type: [Microsoft.Reactive.Testing.Subscription](Subscription/Subscription)  
   The first object to check for equality.
 
 - right  
-  Type: [Microsoft.Reactive.Testing.Subscription](Subscription\Subscription.md)  
+  Type: [Microsoft.Reactive.Testing.Subscription](Subscription/Subscription)  
   The second object to check for equality.
 
 #### Return Value
@@ -70,9 +70,9 @@ true if both objects are not equal; otherwise, false.
 
 #### Reference
 
-[Subscription Structure](Subscription\Subscription.md)
+[Subscription Structure](Subscription/Subscription)
 
-[Microsoft.Reactive.Testing Namespace](Microsoft.Reactive.Testing\Microsoft.Reactive.Testing.md)
+[Microsoft.Reactive.Testing Namespace](Microsoft.Reactive.Testing/Microsoft.Reactive.Testing)
 
 
 

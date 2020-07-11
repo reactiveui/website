@@ -4,7 +4,7 @@ title: Observable.Multicast<TSource, TIntermediate, TResult>(IObservable<TSource
 
 Returns an observable sequence that contains the elements of a sequence produced by multicasting the source sequence within a selector function.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -78,7 +78,7 @@ JScript does not support generic types and methods.
   The source sequence which will be multicast in the specified selector function.
 
 - subjectSelector  
-  Type: [System.Func](https://msdn.microsoft.com/en-us/library/Bb534960)\<[ISubject](ISubject\ISubject(TSource,.md)\<TSource, TIntermediate\>\>  
+  Type: [System.Func](https://msdn.microsoft.com/en-us/library/Bb534960)\<[ISubject](ISubject/ISubject(TSource,)\<TSource, TIntermediate\>\>  
   The factory function to create an intermediate subject through which the source sequence’s elements will be multicast to the selector function.
 
 - selector  
@@ -98,11 +98,11 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[Multicast Overload](Multicast\Observable.Multicast.md)
+[Multicast Overload](Multicast/Observable.Multicast)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 
 
@@ -116,7 +116,7 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 
 Returns a connectable observable sequence that upon connection causes the source sequence to push results into the specified subject.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -181,12 +181,12 @@ JScript does not support generic types and methods.
   The source sequence whose elements will be pushed into the specified subject.
 
 - subject  
-  Type: [System.Reactive.Subjects.ISubject](ISubject\ISubject(TSource,.md)\<TSource, TResult\>  
+  Type: [System.Reactive.Subjects.ISubject](ISubject/ISubject(TSource,)\<TSource, TResult\>  
   The subject to push source elements into.
 
 #### Return Value
 
-Type: [System.Reactive.Subjects.IConnectableObservable](IConnectableObservable\IConnectableObservable(T).md)\<TResult\>  
+Type: [System.Reactive.Subjects.IConnectableObservable](IConnectableObservable/IConnectableObservable(T))\<TResult\>  
 A connectable observable sequence that upon connection causes the source sequence to push results into the specified subject.
 
 #### Usage Note
@@ -197,11 +197,11 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[Multicast Overload](Multicast\Observable.Multicast.md)
+[Multicast Overload](Multicast/Observable.Multicast)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 
 

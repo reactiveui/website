@@ -4,7 +4,7 @@ title: Observable.Scan<TSource>(IObservable<TSource>, Func<TSource, TSource, TSo
 
 Applies an accumulator function over an observable sequence and returns each intermediate result with the specified source and accumulator.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -82,8 +82,8 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[Scan Overload](Scan\Observable.Scan.md)
+[Scan Overload](Scan/Observable.Scan)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)

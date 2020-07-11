@@ -2,7 +2,7 @@ title: MultipleAssignmentDisposable.IsDisposed Property
 ---
 # MultipleAssignmentDisposable.IsDisposed Property
 
-**Namespace:**  [System.Reactive.Disposables](System.Reactive.Disposables\System.Reactive.Disposables.md)  
+**Namespace:**  [System.Reactive.Disposables](System.Reactive.Disposables/System.Reactive.Disposables)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -49,9 +49,9 @@ Returns a [Boolean](https://msdn.microsoft.com/en-us/library/a28wyd50). The valu
 
 #### Reference
 
-[MultipleAssignmentDisposable Class](MultipleAssignmentDisposable\MultipleAssignmentDisposable.md)
+[MultipleAssignmentDisposable Class](MultipleAssignmentDisposable/MultipleAssignmentDisposable)
 
-[System.Reactive.Disposables Namespace](System.Reactive.Disposables\System.Reactive.Disposables.md)
+[System.Reactive.Disposables Namespace](System.Reactive.Disposables/System.Reactive.Disposables)
 
 
 

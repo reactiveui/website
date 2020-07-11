@@ -4,7 +4,7 @@ title: Notification.CreateOnNext<T>()
 
 Creates an object that represents an OnNext notification to an observer.
 
-**Namespace:**  [System.Reactive](System.Reactive\System.Reactive.md)  
+**Namespace:**  [System.Reactive](System.Reactive/System.Reactive)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -60,16 +60,16 @@ JScript does not support generic types and methods.
 
 #### Return Value
 
-Type: [System.Reactive.Notification](Notification\Notification(T).md)\<T\>  
+Type: [System.Reactive.Notification](Notification/Notification(T))\<T\>  
 The OnNext notification containing the value.
 
 ## See Also
 
 #### Reference
 
-[Notification Class](Notification\Notification.md)
+[Notification Class](Notification/Notification)
 
-[System.Reactive Namespace](System.Reactive\System.Reactive.md)
+[System.Reactive Namespace](System.Reactive/System.Reactive)
 
 
 

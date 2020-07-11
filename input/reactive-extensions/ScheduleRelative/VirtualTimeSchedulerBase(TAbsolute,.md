@@ -4,7 +4,7 @@ title: VirtualTimeSchedulerBase<TAbsolute, TRelative>.ScheduleRelative<TState>()
 
 Schedules an action to be executed at dueTime.
 
-**Namespace:**  [System.Reactive.Concurrency](System.Reactive.Concurrency\System.Reactive.Concurrency.md)  
+**Namespace:**  [System.Reactive.Concurrency](System.Reactive.Concurrency/System.Reactive.Concurrency)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -71,11 +71,11 @@ JScript does not support generic types and methods.
   State passed to the action to be executed.
 
 - dueTime  
-  Type: [TRelative](VirtualTimeSchedulerBase\VirtualTimeSchedulerBase(TAbsolute,.md)  
+  Type: [TRelative](VirtualTimeSchedulerBase/VirtualTimeSchedulerBase(TAbsolute,)  
   Relative time after which to execute the action.
 
 - action  
-  Type: [System.Func](https://msdn.microsoft.com/en-us/library/Bb534647)\<[IScheduler](IScheduler\IScheduler.md), TState, [IDisposable](https://msdn.microsoft.com/en-us/library/aax125c9)\>  
+  Type: [System.Func](https://msdn.microsoft.com/en-us/library/Bb534647)\<[IScheduler](IScheduler/IScheduler), TState, [IDisposable](https://msdn.microsoft.com/en-us/library/aax125c9)\>  
   Action to be executed.
 
 #### Return Value
@@ -87,6 +87,6 @@ The [IDisposable](https://msdn.microsoft.com/en-us/library/aax125c9) object used
 
 #### Reference
 
-[VirtualTimeSchedulerBase\<TAbsolute, TRelative\> Class](VirtualTimeSchedulerBase\VirtualTimeSchedulerBase(TAbsolute,.md)
+[VirtualTimeSchedulerBase\<TAbsolute, TRelative\> Class](VirtualTimeSchedulerBase/VirtualTimeSchedulerBase(TAbsolute,)
 
-[System.Reactive.Concurrency Namespace](System.Reactive.Concurrency\System.Reactive.Concurrency.md)
+[System.Reactive.Concurrency Namespace](System.Reactive.Concurrency/System.Reactive.Concurrency)

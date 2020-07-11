@@ -4,7 +4,7 @@ title: Observable.Dematerialize<TSource>()
 
 Dematerializes the explicit notification values of an observable sequence as implicit notifications.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -57,7 +57,7 @@ JScript does not support generic types and methods.
 #### Parameters
 
 - source  
-  Type: [System.IObservable](https://msdn.microsoft.com/en-us/library/Dd990377)\<[Notification](Notification\Notification(T).md)\<TSource\>\>  
+  Type: [System.IObservable](https://msdn.microsoft.com/en-us/library/Dd990377)\<[Notification](Notification/Notification(T))\<TSource\>\>  
   An observable sequence containing explicit notification values which have to be turned into implicit notifications.
 
 #### Return Value
@@ -67,15 +67,15 @@ An observable sequence exhibiting the behavior corresponding to the source seque
 
 #### Usage Note
 
-In Visual Basic and C\#, you can call this method as an instance method on any object of type [IObservable](https://msdn.microsoft.com/en-us/library/Dd990377)\<[Notification](Notification\Notification(T).md)\<TSource\>\>. When you use instance method syntax to call this method, omit the first parameter. For more information, see [](https://msdn.microsoft.com/en-us/library/Bb384936) or [](https://msdn.microsoft.com/en-us/library/Bb383977).
+In Visual Basic and C\#, you can call this method as an instance method on any object of type [IObservable](https://msdn.microsoft.com/en-us/library/Dd990377)\<[Notification](Notification/Notification(T))\<TSource\>\>. When you use instance method syntax to call this method, omit the first parameter. For more information, see [](https://msdn.microsoft.com/en-us/library/Bb384936) or [](https://msdn.microsoft.com/en-us/library/Bb383977).
 
 ## See Also
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 
 

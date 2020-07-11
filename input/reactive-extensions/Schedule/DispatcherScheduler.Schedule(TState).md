@@ -4,7 +4,7 @@ title: DispatcherScheduler.Schedule<TState>(TState, Func<IScheduler, TState, IDi
 
 Schedules an action to be executed on the dispatcher.
 
-**Namespace:**  [System.Reactive.Concurrency](System.Reactive.Concurrency\System.Reactive.Concurrency.md)  
+**Namespace:**  [System.Reactive.Concurrency](System.Reactive.Concurrency/System.Reactive.Concurrency)  
 **Assembly:**  System.Reactive.Windows.Threading (in System.Reactive.Windows.Threading.dll)
 
 ## Syntax
@@ -69,7 +69,7 @@ JScript does not support generic types and methods.
   The state passed to the action to be executed.
 
 - action  
-  Type: [System.Func](https://msdn.microsoft.com/en-us/library/Bb534647)\<[IScheduler](IScheduler\IScheduler.md), TState, [IDisposable](https://msdn.microsoft.com/en-us/library/aax125c9)\>  
+  Type: [System.Func](https://msdn.microsoft.com/en-us/library/Bb534647)\<[IScheduler](IScheduler/IScheduler), TState, [IDisposable](https://msdn.microsoft.com/en-us/library/aax125c9)\>  
   The action to be executed.
 
 #### Return Value
@@ -85,15 +85,15 @@ The disposable object used to cancel the scheduled action (best effort).
 
 #### Reference
 
-[DispatcherScheduler Class](DispatcherScheduler\DispatcherScheduler.md)
+[DispatcherScheduler Class](DispatcherScheduler/DispatcherScheduler)
 
-[Schedule Overload](Schedule\DispatcherScheduler.Schedule.md)
+[Schedule Overload](Schedule/DispatcherScheduler.Schedule)
 
-[System.Reactive.Concurrency Namespace](System.Reactive.Concurrency\System.Reactive.Concurrency.md)
+[System.Reactive.Concurrency Namespace](System.Reactive.Concurrency/System.Reactive.Concurrency)
 
 # DispatcherScheduler.Schedule\<TState\> Method (TState, TimeSpan, Func\<IScheduler, TState, IDisposable\>)
 
-**Namespace:**  [System.Reactive.Concurrency](System.Reactive.Concurrency\System.Reactive.Concurrency.md)  
+**Namespace:**  [System.Reactive.Concurrency](System.Reactive.Concurrency/System.Reactive.Concurrency)  
 **Assembly:**  System.Reactive.Windows.Threading (in System.Reactive.Windows.Threading.dll)
 
 ## Syntax
@@ -165,7 +165,7 @@ JScript does not support generic types and methods.
   Type: [System.TimeSpan](https://msdn.microsoft.com/en-us/library/269ew577)
 
 - action  
-  Type: [System.Func](https://msdn.microsoft.com/en-us/library/Bb534647)\<[IScheduler](IScheduler\IScheduler.md), TState, [IDisposable](https://msdn.microsoft.com/en-us/library/aax125c9)\>
+  Type: [System.Func](https://msdn.microsoft.com/en-us/library/Bb534647)\<[IScheduler](IScheduler/IScheduler), TState, [IDisposable](https://msdn.microsoft.com/en-us/library/aax125c9)\>
 
 #### Return Value
 
@@ -179,15 +179,15 @@ Type: [System.IDisposable](https://msdn.microsoft.com/en-us/library/aax125c9)
 
 #### Reference
 
-[DispatcherScheduler Class](DispatcherScheduler\DispatcherScheduler.md)
+[DispatcherScheduler Class](DispatcherScheduler/DispatcherScheduler)
 
-[Schedule Overload](Schedule\DispatcherScheduler.Schedule.md)
+[Schedule Overload](Schedule/DispatcherScheduler.Schedule)
 
-[System.Reactive.Concurrency Namespace](System.Reactive.Concurrency\System.Reactive.Concurrency.md)
+[System.Reactive.Concurrency Namespace](System.Reactive.Concurrency/System.Reactive.Concurrency)
 
 # DispatcherScheduler.Schedule\<TState\> Method (TState, DateTimeOffset, Func\<IScheduler, TState, IDisposable\>)
 
-**Namespace:**  [System.Reactive.Concurrency](System.Reactive.Concurrency\System.Reactive.Concurrency.md)  
+**Namespace:**  [System.Reactive.Concurrency](System.Reactive.Concurrency/System.Reactive.Concurrency)  
 **Assembly:**  System.Reactive.Windows.Threading (in System.Reactive.Windows.Threading.dll)
 
 ## Syntax
@@ -259,7 +259,7 @@ JScript does not support generic types and methods.
   Type: [System.DateTimeOffset](https://msdn.microsoft.com/en-us/library/Bb341783)
 
 - action  
-  Type: [System.Func](https://msdn.microsoft.com/en-us/library/Bb534647)\<[IScheduler](IScheduler\IScheduler.md), TState, [IDisposable](https://msdn.microsoft.com/en-us/library/aax125c9)\>
+  Type: [System.Func](https://msdn.microsoft.com/en-us/library/Bb534647)\<[IScheduler](IScheduler/IScheduler), TState, [IDisposable](https://msdn.microsoft.com/en-us/library/aax125c9)\>
 
 #### Return Value
 
@@ -273,8 +273,8 @@ Type: [System.IDisposable](https://msdn.microsoft.com/en-us/library/aax125c9)
 
 #### Reference
 
-[DispatcherScheduler Class](DispatcherScheduler\DispatcherScheduler.md)
+[DispatcherScheduler Class](DispatcherScheduler/DispatcherScheduler)
 
-[Schedule Overload](Schedule\DispatcherScheduler.Schedule.md)
+[Schedule Overload](Schedule/DispatcherScheduler.Schedule)
 
-[System.Reactive.Concurrency Namespace](System.Reactive.Concurrency\System.Reactive.Concurrency.md)
+[System.Reactive.Concurrency Namespace](System.Reactive.Concurrency/System.Reactive.Concurrency)

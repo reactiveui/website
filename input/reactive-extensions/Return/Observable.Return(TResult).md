@@ -4,7 +4,7 @@ title: Observable.Return<TResult>(TResult, IScheduler)
 
 Returns an observable sequence that contains a single value with a specified value and scheduler.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -65,7 +65,7 @@ JScript does not support generic types and methods.
   The single element in the resulting observable sequence.
 
 - scheduler  
-  Type: [System.Reactive.Concurrency.IScheduler](IScheduler\IScheduler.md)  
+  Type: [System.Reactive.Concurrency.IScheduler](IScheduler/IScheduler)  
   The scheduler to send the single element on.
 
 #### Return Value
@@ -77,17 +77,17 @@ Observable sequence containing the single specified element.
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[Return Overload](Return\Observable.Return.md)
+[Return Overload](Return/Observable.Return)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 # Observable.Return\<TResult\> Method (TResult)
 
 Returns an observable sequence that contains a single element with a specified value.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -150,8 +150,8 @@ Observable sequence containing the single specified element.
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[Return Overload](Return\Observable.Return.md)
+[Return Overload](Return/Observable.Return)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)

@@ -4,7 +4,7 @@ title: Notification<T>.Kind Property
 
 Gets the kind of notification that is represented.
 
-**Namespace:**  [System.Reactive](System.Reactive\System.Reactive.md)  
+**Namespace:**  [System.Reactive](System.Reactive/System.Reactive)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -44,16 +44,16 @@ abstract function get Kind () : NotificationKind
 
 #### Property Value
 
-Type: [System.Reactive.NotificationKind](NotificationKind\NotificationKind.md)  
+Type: [System.Reactive.NotificationKind](NotificationKind/NotificationKind)  
 One of the enumeration values that indicates the type of a notification.
 
 ## See Also
 
 #### Reference
 
-[Notification\<T\> Class](Notification\Notification(T).md)
+[Notification\<T\> Class](Notification/Notification(T))
 
-[System.Reactive Namespace](System.Reactive\System.Reactive.md)
+[System.Reactive Namespace](System.Reactive/System.Reactive)
 
 
 

@@ -4,7 +4,7 @@ title: Testing and Debugging Observable Sequences
 
 ## Testing your Rx application
 
-If you have an observable sequence that publishes values over an extended period of time, testing it in real time can be a stretch. The Reactive Extension library provides the [TestScheduler](TestScheduler\TestScheduler.md) type to assist testing this kind of time-dependent code without actually waiting for time to pass. The TestScheduler inherits VirtualScheduler and allows you to create, publish and subscribe to sequences in emulated time. For example, you can compact a publication which takes 5 days to complete into a 2 minute run, while maintaining the correct scale. You can also take a sequence which actually has happened in the past (e.g., a sequence of stock ticks for a previous year) and compute or subscribe to it as if it is pushing out new values in real time.
+If you have an observable sequence that publishes values over an extended period of time, testing it in real time can be a stretch. The Reactive Extension library provides the [TestScheduler](TestScheduler/TestScheduler) type to assist testing this kind of time-dependent code without actually waiting for time to pass. The TestScheduler inherits VirtualScheduler and allows you to create, publish and subscribe to sequences in emulated time. For example, you can compact a publication which takes 5 days to complete into a 2 minute run, while maintaining the correct scale. You can also take a sequence which actually has happened in the past (e.g., a sequence of stock ticks for a previous year) and compute or subscribe to it as if it is pushing out new values in real time.
 
 The factory method Start executes all scheduled tasks until the queue is empty, or you can specify a time to so that queued-up tasks are only executed to the specified time.
 
@@ -59,7 +59,7 @@ In the same way, you can use ReactiveAssert.AreElementsEqual to confirm that sub
 
 You can use the Do operator to debug your Rx application. The Do operator allows you to specify various actions to be taken for each item of observable sequence (e.g., print or log the item, etc.). This is especially helpful when you are chaining many operators and you want to know what values are produced at each level.
 
-In the following example, we are going to reuse the Buffer example which generates integers every second, while putting them into buffers that can hold 5 items each. In our original example in the [Querying Observable Sequences using LINQ Operators](Querying\Querying.md) topic, we subscribe only to the final Observable(IList\<\>) sequence when the buffer is full (and before it is emptied). In this example, however, we will use the Do operator to print out the values when they are being pushed out by the original sequence (an integer every second). When the buffer is full, we use the Do operator to print the status, before handing over all this as the final sequence for the observer to subscribe.
+In the following example, we are going to reuse the Buffer example which generates integers every second, while putting them into buffers that can hold 5 items each. In our original example in the [Querying Observable Sequences using LINQ Operators](Querying/Querying) topic, we subscribe only to the final Observable(IList\<\>) sequence when the buffer is full (and before it is emptied). In this example, however, we will use the Do operator to print out the values when they are being pushed out by the original sequence (an integer every second). When the buffer is full, we use the Do operator to print the status, before handing over all this as the final sequence for the observer to subscribe.
 
     var seq1 = Observable.Interval(TimeSpan.FromSeconds(1))
                .Do(x => Console.WriteLine(x.ToString()))
@@ -70,7 +70,7 @@ In the following example, we are going to reuse the Buffer example which generat
 
 As you can see from this sample, a subscription is on the recipient end of a series of chained observable sequences. At first, we create an observable sequence of integers separate by a second using the Interval operator. Then, we put 5 items into a buffer using the Buffer operator, and send them out as another sequence only when the buffer is full. Lastly, this is handed over to the Subscribe operator. Data propagate down all these intermediate sequences until they are pushed to the observer. In the same way, subscriptions are propagated in the reverse direction to the source sequence. By inserting the Do operator in the middle of such propagations, you can “spy” on such data flow just like you use Console.WriteLine in .NET or printf() in C to perform debugging.
 
-You can also use the Timestamp operator to verify the time when an item is pushed out by an observable sequence. This can help you troubleshoot time-based operations to ensure accuracy. Recall the following example from the [Creating and Subscribing to Simple Observable Sequences](Creating\Creating.md) topic, in which we chain the Timestamp operator to the query so that each value pushed out by the source sequence will be appended by the time when it is published. By doing so, when we subscribe to this source sequence, we can receive both its value and timestamp.
+You can also use the Timestamp operator to verify the time when an item is pushed out by an observable sequence. This can help you troubleshoot time-based operations to ensure accuracy. Recall the following example from the [Creating and Subscribing to Simple Observable Sequences](Creating/Creating) topic, in which we chain the Timestamp operator to the query so that each value pushed out by the source sequence will be appended by the time when it is published. By doing so, when we subscribe to this source sequence, we can receive both its value and timestamp.
 
     Console.WriteLine(“Current Time: “ + DateTime.Now);
     
@@ -119,6 +119,6 @@ You can remove any Do and Select calls after you finish debugging.
 
 #### Concepts
 
-[Creating and Subscribing to Simple Observable Sequences](Creating\Creating.md)  
-[Querying Observable Sequences using LINQ Operators](Querying\Querying.md)  
-[Using Schedulers](Using\Using.md)
+[Creating and Subscribing to Simple Observable Sequences](Creating/Creating)  
+[Querying Observable Sequences using LINQ Operators](Querying/Querying)  
+[Using Schedulers](Using/Using)

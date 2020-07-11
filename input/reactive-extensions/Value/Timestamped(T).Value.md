@@ -4,7 +4,7 @@ title: Timestamped<T>.Value Property
 
 Gets the value.
 
-**Namespace:**  [System.Reactive](System.Reactive\System.Reactive.md)  
+**Namespace:**  [System.Reactive](System.Reactive/System.Reactive)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -44,13 +44,13 @@ function get Value () : T
 
 #### Property Value
 
-Type: [T](Timestamped\Timestamped(T).md)  
+Type: [T](Timestamped/Timestamped(T))  
 The value.
 
 ## See Also
 
 #### Reference
 
-[Timestamped\<T\> Structure](Timestamped\Timestamped(T).md)
+[Timestamped\<T\> Structure](Timestamped/Timestamped(T))
 
-[System.Reactive Namespace](System.Reactive\System.Reactive.md)
+[System.Reactive Namespace](System.Reactive/System.Reactive)

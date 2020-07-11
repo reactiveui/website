@@ -4,7 +4,7 @@ title: Observable.TimeInterval<TSource>(IObservable<TSource>, IScheduler)
 
 Records the time interval between consecutive values in an observable sequence with the specified source and scheduler.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -66,12 +66,12 @@ JScript does not support generic types and methods.
   The source sequence to record time intervals for.
 
 - scheduler  
-  Type: [System.Reactive.Concurrency.IScheduler](IScheduler\IScheduler.md)  
+  Type: [System.Reactive.Concurrency.IScheduler](IScheduler/IScheduler)  
   The scheduler used to compute time intervals.
 
 #### Return Value
 
-Type: [System.IObservable](https://msdn.microsoft.com/en-us/library/Dd990377)\<[TimeInterval](TimeInterval\TimeInterval(T).md)\<TSource\>\>  
+Type: [System.IObservable](https://msdn.microsoft.com/en-us/library/Dd990377)\<[TimeInterval](TimeInterval/TimeInterval(T))\<TSource\>\>  
 An observable sequence with time interval information on values.
 
 #### Usage Note
@@ -82,17 +82,17 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[TimeInterval Overload](TimeInterval\Observable.TimeInterval.md)
+[TimeInterval Overload](TimeInterval/Observable.TimeInterval)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 # Observable.TimeInterval\<TSource\> Method (IObservable\<TSource\>)
 
 Records the time interval between consecutive values in an observable sequence with the specified source.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -150,7 +150,7 @@ JScript does not support generic types and methods.
 
 #### Return Value
 
-Type: [System.IObservable](https://msdn.microsoft.com/en-us/library/Dd990377)\<[TimeInterval](TimeInterval\TimeInterval(T).md)\<TSource\>\>  
+Type: [System.IObservable](https://msdn.microsoft.com/en-us/library/Dd990377)\<[TimeInterval](TimeInterval/TimeInterval(T))\<TSource\>\>  
 An observable sequence with time interval information on values.
 
 #### Usage Note
@@ -161,8 +161,8 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[TimeInterval Overload](TimeInterval\Observable.TimeInterval.md)
+[TimeInterval Overload](TimeInterval/Observable.TimeInterval)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)

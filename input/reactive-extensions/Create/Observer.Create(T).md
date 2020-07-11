@@ -4,7 +4,7 @@ title: Observer.Create<T>(Action<T>, Action)
 
 Creates an observer from the specified OnNext and OnCompleted actions.
 
-**Namespace:**  [System.Reactive](System.Reactive\System.Reactive.md)  
+**Namespace:**  [System.Reactive](System.Reactive/System.Reactive)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -77,11 +77,11 @@ The observer object implemented using the given actions.
 
 #### Reference
 
-[Observer Class](Observer\Observer.md)
+[Observer Class](Observer/Observer)
 
-[Create Overload](Create\Observer.Create.md)
+[Create Overload](Create/Observer.Create)
 
-[System.Reactive Namespace](System.Reactive\System.Reactive.md)
+[System.Reactive Namespace](System.Reactive/System.Reactive)
 
 
 
@@ -94,7 +94,7 @@ The observer object implemented using the given actions.
 
 Creates an observer from the specified OnNext and OnError actions.
 
-**Namespace:**  [System.Reactive](System.Reactive\System.Reactive.md)  
+**Namespace:**  [System.Reactive](System.Reactive/System.Reactive)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -167,11 +167,11 @@ The observer object implemented using the given actions.
 
 #### Reference
 
-[Observer Class](Observer\Observer.md)
+[Observer Class](Observer/Observer)
 
-[Create Overload](Create\Observer.Create.md)
+[Create Overload](Create/Observer.Create)
 
-[System.Reactive Namespace](System.Reactive\System.Reactive.md)
+[System.Reactive Namespace](System.Reactive/System.Reactive)
 
 
 
@@ -184,7 +184,7 @@ The observer object implemented using the given actions.
 
 Creates an observer from the specified OnNext action.
 
-**Namespace:**  [System.Reactive](System.Reactive\System.Reactive.md)  
+**Namespace:**  [System.Reactive](System.Reactive/System.Reactive)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -247,11 +247,11 @@ The observer object implemented using the given actions.
 
 #### Reference
 
-[Observer Class](Observer\Observer.md)
+[Observer Class](Observer/Observer)
 
-[Create Overload](Create\Observer.Create.md)
+[Create Overload](Create/Observer.Create)
 
-[System.Reactive Namespace](System.Reactive\System.Reactive.md)
+[System.Reactive Namespace](System.Reactive/System.Reactive)
 
 
 
@@ -264,7 +264,7 @@ The observer object implemented using the given actions.
 
 Creates an observer from the specified OnNext, OnError, and OnCompleted actions.
 
-**Namespace:**  [System.Reactive](System.Reactive\System.Reactive.md)  
+**Namespace:**  [System.Reactive](System.Reactive/System.Reactive)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -346,11 +346,11 @@ The observer object implemented using the given actions.
 
 #### Reference
 
-[Observer Class](Observer\Observer.md)
+[Observer Class](Observer/Observer)
 
-[Create Overload](Create\Observer.Create.md)
+[Create Overload](Create/Observer.Create)
 
-[System.Reactive Namespace](System.Reactive\System.Reactive.md)
+[System.Reactive Namespace](System.Reactive/System.Reactive)
 
 
 

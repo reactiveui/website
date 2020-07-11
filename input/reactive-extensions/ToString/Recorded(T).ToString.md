@@ -4,7 +4,7 @@ title: Recorded<T>.ToString()
 
 Gets a friendly string representation of the current instance.
 
-**Namespace:**  [Microsoft.Reactive.Testing](Microsoft.Reactive.Testing\Microsoft.Reactive.Testing.md)  
+**Namespace:**  [Microsoft.Reactive.Testing](Microsoft.Reactive.Testing/Microsoft.Reactive.Testing)  
 **Assembly:**  Microsoft.Reactive.Testing (in Microsoft.Reactive.Testing.dll)
 
 ## Syntax
@@ -49,6 +49,6 @@ A string representation.
 
 #### Reference
 
-[Recorded\<T\> Structure](Recorded\Recorded(T).md)
+[Recorded\<T\> Structure](Recorded/Recorded(T))
 
-[Microsoft.Reactive.Testing Namespace](Microsoft.Reactive.Testing\Microsoft.Reactive.Testing.md)
+[Microsoft.Reactive.Testing Namespace](Microsoft.Reactive.Testing/Microsoft.Reactive.Testing)

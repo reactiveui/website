@@ -4,7 +4,7 @@ title: EventPattern<TEventArgs>.EventArgs Property
 
 Represents event arguments for a .NET event.
 
-**Namespace:**  [System.Reactive](System.Reactive\System.Reactive.md)  
+**Namespace:**  [System.Reactive](System.Reactive/System.Reactive)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -47,16 +47,16 @@ private function set EventArgs (value : TEventArgs)
 
 #### Property Value
 
-Type: [TEventArgs](EventPattern\EventPattern(TEventArgs).md)  
+Type: [TEventArgs](EventPattern/EventPattern(TEventArgs))  
 Returns [Boolean](https://msdn.microsoft.com/en-us/library/a28wyd50).
 
 ## See Also
 
 #### Reference
 
-[EventPattern\<TEventArgs\> Class](EventPattern\EventPattern(TEventArgs).md)
+[EventPattern\<TEventArgs\> Class](EventPattern/EventPattern(TEventArgs))
 
-[System.Reactive Namespace](System.Reactive\System.Reactive.md)
+[System.Reactive Namespace](System.Reactive/System.Reactive)
 
 
 

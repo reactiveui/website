@@ -4,7 +4,7 @@ title: Observer.ToNotifier<T>()
 
 Creates a notification callback from an observer.
 
-**Namespace:**  [System.Reactive](System.Reactive\System.Reactive.md)  
+**Namespace:**  [System.Reactive](System.Reactive/System.Reactive)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -62,7 +62,7 @@ JScript does not support generic types and methods.
 
 #### Return Value
 
-Type: [System.Action](https://msdn.microsoft.com/en-us/library/018hxwa8)\<[Notification](Notification\Notification(T).md)\<T\>\>  
+Type: [System.Action](https://msdn.microsoft.com/en-us/library/018hxwa8)\<[Notification](Notification/Notification(T))\<T\>\>  
 The action that forwards its input notification to the underlying observer.
 
 #### Usage Note
@@ -73,6 +73,6 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 
 #### Reference
 
-[Observer Class](Observer\Observer.md)
+[Observer Class](Observer/Observer)
 
-[System.Reactive Namespace](System.Reactive\System.Reactive.md)
+[System.Reactive Namespace](System.Reactive/System.Reactive)

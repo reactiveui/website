@@ -4,7 +4,7 @@ title: MultipleAssignmentDisposable.Disposable Property
 
 Gets or sets the underlying disposable.
 
-**Namespace:**  [System.Reactive.Disposables](System.Reactive.Disposables\System.Reactive.Disposables.md)  
+**Namespace:**  [System.Reactive.Disposables](System.Reactive.Disposables/System.Reactive.Disposables)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -60,9 +60,9 @@ If the MultipleAssignmentDisposable has already been disposed, assignment to thi
 
 #### Reference
 
-[MultipleAssignmentDisposable Class](MultipleAssignmentDisposable\MultipleAssignmentDisposable.md)
+[MultipleAssignmentDisposable Class](MultipleAssignmentDisposable/MultipleAssignmentDisposable)
 
-[System.Reactive.Disposables Namespace](System.Reactive.Disposables\System.Reactive.Disposables.md)
+[System.Reactive.Disposables Namespace](System.Reactive.Disposables/System.Reactive.Disposables)
 
 
 

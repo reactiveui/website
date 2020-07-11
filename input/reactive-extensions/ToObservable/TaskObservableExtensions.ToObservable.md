@@ -17,15 +17,15 @@ NameDescription![Public method](https://reactiveui.net/assets/img/Hh303103.pubme
 
 #### Reference
 
-[TaskObservableExtensions Class](TaskObservableExtensions\TaskObservableExtensions.md)
+[TaskObservableExtensions Class](TaskObservableExtensions/TaskObservableExtensions)
 
-[System.Reactive.Threading.Tasks Namespace](System.Reactive.Threading.Tasks\System.Reactive.Threading.Tasks.md)
+[System.Reactive.Threading.Tasks Namespace](System.Reactive.Threading.Tasks/System.Reactive.Threading.Tasks)
 
 # TaskObservableExtensions.ToObservable Method (Task)
 
 Returns an observable sequence that signals when the task completes.
 
-**Namespace:**  [System.Reactive.Threading.Tasks](System.Reactive.Threading.Tasks\System.Reactive.Threading.Tasks.md)  
+**Namespace:**  [System.Reactive.Threading.Tasks](System.Reactive.Threading.Tasks/System.Reactive.Threading.Tasks)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -79,7 +79,7 @@ public static function ToObservable(
 
 #### Return Value
 
-Type: [System.IObservable](https://msdn.microsoft.com/en-us/library/Dd990377)\<[Unit](Unit\Unit.md)\>  
+Type: [System.IObservable](https://msdn.microsoft.com/en-us/library/Dd990377)\<[Unit](Unit/Unit)\>  
 An observable sequence that produces a unit value when the task completes, or propagates the exception produced by the task.
 
 #### Usage Note
@@ -90,8 +90,8 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 
 #### Reference
 
-[TaskObservableExtensions Class](TaskObservableExtensions\TaskObservableExtensions.md)
+[TaskObservableExtensions Class](TaskObservableExtensions/TaskObservableExtensions)
 
-[ToObservable Overload](ToObservable\TaskObservableExtensions.ToObservable.md)
+[ToObservable Overload](ToObservable/TaskObservableExtensions.ToObservable)
 
-[System.Reactive.Threading.Tasks Namespace](System.Reactive.Threading.Tasks\System.Reactive.Threading.Tasks.md)
+[System.Reactive.Threading.Tasks Namespace](System.Reactive.Threading.Tasks/System.Reactive.Threading.Tasks)

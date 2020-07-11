@@ -4,7 +4,7 @@ title: QueryablePlan<TResult>.Expression Property
 
 Gets the expression tree that is associated with the instance of queryable.
 
-**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins\System.Reactive.Joins.md)  
+**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins/System.Reactive.Joins)  
 **Assembly:**  System.Reactive.Providers (in System.Reactive.Providers.dll)
 
 ## Syntax
@@ -54,9 +54,9 @@ The expression tree that is associated with the instance of queryable.
 
 #### Reference
 
-[QueryablePlan\<TResult\> Class](QueryablePlan\QueryablePlan(TResult).md)
+[QueryablePlan\<TResult\> Class](QueryablePlan/QueryablePlan(TResult))
 
-[System.Reactive.Joins Namespace](System.Reactive.Joins\System.Reactive.Joins.md)
+[System.Reactive.Joins Namespace](System.Reactive.Joins/System.Reactive.Joins)
 
 
 

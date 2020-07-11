@@ -2,7 +2,7 @@ title: NullErrorObservable<T>.Instance Field
 ---
 # NullErrorObservable\<T\>.Instance Field
 
-**Namespace:**  [ReactiveTests](ReactiveTests\ReactiveTests.md)  
+**Namespace:**  [ReactiveTests](ReactiveTests/ReactiveTests)  
 **Assembly:**  Tests.System.Reactive (in Tests.System.Reactive.dll)
 
 ## Syntax
@@ -42,9 +42,9 @@ public static var Instance : NullErrorObservable<T>
 
 #### Reference
 
-[NullErrorObservable\<T\> Class](NullErrorObservable\NullErrorObservable(T).md)
+[NullErrorObservable\<T\> Class](NullErrorObservable/NullErrorObservable(T))
 
-[ReactiveTests Namespace](ReactiveTests\ReactiveTests.md)
+[ReactiveTests Namespace](ReactiveTests/ReactiveTests)
 
 
 

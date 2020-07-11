@@ -2,7 +2,7 @@ title: Extensions.AssertEqual<T>(IEnumerable<T>, array<T[])
 ---
 # Extensions.AssertEqual\<T\> Method (IEnumerable\<T\>, array\<T\[\])
 
-**Namespace:**  [ReactiveTests](ReactiveTests\ReactiveTests.md)  
+**Namespace:**  [ReactiveTests](ReactiveTests/ReactiveTests)  
 **Assembly:**  Tests.System.Reactive (in Tests.System.Reactive.dll)
 
 ## Syntax
@@ -71,11 +71,11 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 
 #### Reference
 
-[Extensions Class](Extensions\Extensions.md)
+[Extensions Class](Extensions/Extensions)
 
-[AssertEqual Overload](AssertEqual\Extensions.AssertEqual.md)
+[AssertEqual Overload](AssertEqual/Extensions.AssertEqual)
 
-[ReactiveTests Namespace](ReactiveTests\ReactiveTests.md)
+[ReactiveTests Namespace](ReactiveTests/ReactiveTests)
 
 
 
@@ -86,7 +86,7 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 
 # Extensions.AssertEqual\<T\> Method (IEnumerable\<T\>, IEnumerable\<T\>)
 
-**Namespace:**  [ReactiveTests](ReactiveTests\ReactiveTests.md)  
+**Namespace:**  [ReactiveTests](ReactiveTests/ReactiveTests)  
 **Assembly:**  Tests.System.Reactive (in Tests.System.Reactive.dll)
 
 ## Syntax
@@ -155,11 +155,11 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 
 #### Reference
 
-[Extensions Class](Extensions\Extensions.md)
+[Extensions Class](Extensions/Extensions)
 
-[AssertEqual Overload](AssertEqual\Extensions.AssertEqual.md)
+[AssertEqual Overload](AssertEqual/Extensions.AssertEqual)
 
-[ReactiveTests Namespace](ReactiveTests\ReactiveTests.md)
+[ReactiveTests Namespace](ReactiveTests/ReactiveTests)
 
 
 
@@ -170,7 +170,7 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 
 # Extensions.AssertEqual\<T\> Method (IObservable\<T\>, IObservable\<T\>)
 
-**Namespace:**  [ReactiveTests](ReactiveTests\ReactiveTests.md)  
+**Namespace:**  [ReactiveTests](ReactiveTests/ReactiveTests)  
 **Assembly:**  Tests.System.Reactive (in Tests.System.Reactive.dll)
 
 ## Syntax
@@ -239,11 +239,11 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 
 #### Reference
 
-[Extensions Class](Extensions\Extensions.md)
+[Extensions Class](Extensions/Extensions)
 
-[AssertEqual Overload](AssertEqual\Extensions.AssertEqual.md)
+[AssertEqual Overload](AssertEqual/Extensions.AssertEqual)
 
-[ReactiveTests Namespace](ReactiveTests\ReactiveTests.md)
+[ReactiveTests Namespace](ReactiveTests/ReactiveTests)
 
 
 

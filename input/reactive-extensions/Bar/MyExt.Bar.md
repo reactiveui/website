@@ -2,7 +2,7 @@ title: MyExt.Bar(IObservable<Int32>)
 ---
 # MyExt.Bar Method (IObservable\<Int32\>)
 
-**Namespace:**  [ReactiveTests.Tests](ReactiveTests.Tests\ReactiveTests.Tests.md)  
+**Namespace:**  [ReactiveTests.Tests](ReactiveTests.Tests/ReactiveTests.Tests)  
 **Assembly:**  Tests.System.Reactive (in Tests.System.Reactive.dll)
 
 ## Syntax
@@ -65,11 +65,11 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 
 #### Reference
 
-[MyExt Class](MyExt\MyExt.md)
+[MyExt Class](MyExt/MyExt)
 
-[Bar Overload](Bar\MyExt.Bar.md)
+[Bar Overload](Bar/MyExt.Bar)
 
-[ReactiveTests.Tests Namespace](ReactiveTests.Tests\ReactiveTests.Tests.md)
+[ReactiveTests.Tests Namespace](ReactiveTests.Tests/ReactiveTests.Tests)
 
 
 
@@ -93,9 +93,9 @@ NameDescription![Public method](https://reactiveui.net/assets/img/Hh303103.pubme
 
 #### Reference
 
-[MyExt Class](MyExt\MyExt.md)
+[MyExt Class](MyExt/MyExt)
 
-[ReactiveTests.Tests Namespace](ReactiveTests.Tests\ReactiveTests.Tests.md)
+[ReactiveTests.Tests Namespace](ReactiveTests.Tests/ReactiveTests.Tests)
 
 
 
@@ -103,7 +103,7 @@ NameDescription![Public method](https://reactiveui.net/assets/img/Hh303103.pubme
 
 # MyExt.Bar Method (IQbservable\<Int32\>)
 
-**Namespace:**  [ReactiveTests.Tests](ReactiveTests.Tests\ReactiveTests.Tests.md)  
+**Namespace:**  [ReactiveTests.Tests](ReactiveTests.Tests/ReactiveTests.Tests)  
 **Assembly:**  Tests.System.Reactive (in Tests.System.Reactive.dll)
 
 ## Syntax
@@ -152,25 +152,25 @@ public static function Bar(
 #### Parameters
 
 - source  
-  Type: [System.Reactive.Linq.IQbservable](IQbservable\IQbservable(TSource).md)\<[Int32](https://msdn.microsoft.com/en-us/library/td2s409d)\>
+  Type: [System.Reactive.Linq.IQbservable](IQbservable/IQbservable(TSource))\<[Int32](https://msdn.microsoft.com/en-us/library/td2s409d)\>
 
 #### Return Value
 
-Type: [System.Reactive.Linq.IQbservable](IQbservable\IQbservable(TSource).md)\<[String](https://msdn.microsoft.com/en-us/library/s1wwdcbf)\>
+Type: [System.Reactive.Linq.IQbservable](IQbservable/IQbservable(TSource))\<[String](https://msdn.microsoft.com/en-us/library/s1wwdcbf)\>
 
 #### Usage Note
 
-In Visual Basic and C\#, you can call this method as an instance method on any object of type [IQbservable](IQbservable\IQbservable(TSource).md)\<[Int32](https://msdn.microsoft.com/en-us/library/td2s409d)\>. When you use instance method syntax to call this method, omit the first parameter. For more information, see [](https://msdn.microsoft.com/en-us/library/Bb384936) or [](https://msdn.microsoft.com/en-us/library/Bb383977).
+In Visual Basic and C\#, you can call this method as an instance method on any object of type [IQbservable](IQbservable/IQbservable(TSource))\<[Int32](https://msdn.microsoft.com/en-us/library/td2s409d)\>. When you use instance method syntax to call this method, omit the first parameter. For more information, see [](https://msdn.microsoft.com/en-us/library/Bb384936) or [](https://msdn.microsoft.com/en-us/library/Bb383977).
 
 ## See Also
 
 #### Reference
 
-[MyExt Class](MyExt\MyExt.md)
+[MyExt Class](MyExt/MyExt)
 
-[Bar Overload](Bar\MyExt.Bar.md)
+[Bar Overload](Bar/MyExt.Bar)
 
-[ReactiveTests.Tests Namespace](ReactiveTests.Tests\ReactiveTests.Tests.md)
+[ReactiveTests.Tests Namespace](ReactiveTests.Tests/ReactiveTests.Tests)
 
 
 

@@ -4,7 +4,7 @@ title: Scheduler.TaskPool Property
 
 Gets the scheduler that schedules work on the default Task Factory.
 
-**Namespace:**  [System.Reactive.Concurrency](System.Reactive.Concurrency\System.Reactive.Concurrency.md)  
+**Namespace:**  [System.Reactive.Concurrency](System.Reactive.Concurrency/System.Reactive.Concurrency)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -43,7 +43,7 @@ static function get TaskPool () : TaskPoolScheduler
 
 #### Property Value
 
-Type: [System.Reactive.Concurrency.TaskPoolScheduler](TaskPoolScheduler\TaskPoolScheduler.md)  
+Type: [System.Reactive.Concurrency.TaskPoolScheduler](TaskPoolScheduler/TaskPoolScheduler)  
 The task pool scheduler.
 
 ## Remarks
@@ -54,6 +54,6 @@ The TaskPool scheduler schedules actions to execute using the Task Factory from 
 
 #### Reference
 
-[Scheduler Class](Scheduler\Scheduler.md)
+[Scheduler Class](Scheduler/Scheduler)
 
-[System.Reactive.Concurrency Namespace](System.Reactive.Concurrency\System.Reactive.Concurrency.md)
+[System.Reactive.Concurrency Namespace](System.Reactive.Concurrency/System.Reactive.Concurrency)

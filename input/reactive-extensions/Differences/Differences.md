@@ -8,13 +8,13 @@ To get the latest release of Rx, as well as learn about its prerequisites, pleas
 
 ## .NET Framework
 
-The core Rx interfaces, IObservable\<T\> and IObserver\<T\>, ship as part of .NET Framework 4. If you are running on .NET Framework 3.5 SP1, or if you want to take advantage of the LINQ operators implemented in [Observable](Observable\Observable.md) type, as well as many other features such as schedulers, you can download the Rx assemblies in the [Rx MSDN Developer Center](http://msdn.microsoft.com/en-us/data/gg577610).
+The core Rx interfaces, IObservable\<T\> and IObserver\<T\>, ship as part of .NET Framework 4. If you are running on .NET Framework 3.5 SP1, or if you want to take advantage of the LINQ operators implemented in [Observable](Observable/Observable) type, as well as many other features such as schedulers, you can download the Rx assemblies in the [Rx MSDN Developer Center](http://msdn.microsoft.com/en-us/data/gg577610).
 
 ## Silverlight
 
 Silverlight disallows you from making cross-threading calls, thus you cannot use a background thread to update the UI. Instead of writing verbose code using the Dispatcher.BeginInvoke call to explicitly execute code on the main UI thread, you can use the factory Observable.Start method provided by the Rx assemblies to invoke an action asynchronously. Cross-threading is taken care of transparently by Rx under the hood.
 
-You can also use the various Observable operator overloads that take in a Scheduler, and specify the [DispatcherScheduler](DispatcherScheduler\DispatcherScheduler.md) to be used.
+You can also use the various Observable operator overloads that take in a Scheduler, and specify the [DispatcherScheduler](DispatcherScheduler/DispatcherScheduler) to be used.
 
 ## Javascript
 

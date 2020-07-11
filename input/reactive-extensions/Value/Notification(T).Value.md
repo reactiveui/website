@@ -4,7 +4,7 @@ title: Notification<T>.Value Property
 
 Returns the value of an OnNext notification or throws an exception.
 
-**Namespace:**  [System.Reactive](System.Reactive\System.Reactive.md)  
+**Namespace:**  [System.Reactive](System.Reactive/System.Reactive)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -44,13 +44,13 @@ abstract function get Value () : T
 
 #### Property Value
 
-Type: [T](Notification\Notification(T).md)  
+Type: [T](Notification/Notification(T))  
 The value of an OnNext notification.
 
 ## See Also
 
 #### Reference
 
-[Notification\<T\> Class](Notification\Notification(T).md)
+[Notification\<T\> Class](Notification/Notification(T))
 
-[System.Reactive Namespace](System.Reactive\System.Reactive.md)
+[System.Reactive Namespace](System.Reactive/System.Reactive)

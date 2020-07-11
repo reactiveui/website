@@ -4,7 +4,7 @@ title: TimeInterval<T>.Equals()
 
 Indicates whether this instance and a specified object are equal.
 
-**Namespace:**  [System.Reactive](System.Reactive\System.Reactive.md)  
+**Namespace:**  [System.Reactive](System.Reactive/System.Reactive)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -66,9 +66,9 @@ true if this instance and the given object are equal; otherwise, false.
 
 #### Reference
 
-[TimeInterval\<T\> Structure](TimeInterval\TimeInterval(T).md)
+[TimeInterval\<T\> Structure](TimeInterval/TimeInterval(T))
 
-[System.Reactive Namespace](System.Reactive\System.Reactive.md)
+[System.Reactive Namespace](System.Reactive/System.Reactive)
 
 
 

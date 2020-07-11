@@ -4,7 +4,7 @@ title: CompositeDisposable.Count Property
 
 Gets the number of disposables contained in the CompositeDisposable.
 
-**Namespace:**  [System.Reactive.Disposables](System.Reactive.Disposables\System.Reactive.Disposables.md)  
+**Namespace:**  [System.Reactive.Disposables](System.Reactive.Disposables/System.Reactive.Disposables)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -56,9 +56,9 @@ The number of disposables contained in the CompositeDisposable.
 
 #### Reference
 
-[CompositeDisposable Class](CompositeDisposable\CompositeDisposable.md)
+[CompositeDisposable Class](CompositeDisposable/CompositeDisposable)
 
-[System.Reactive.Disposables Namespace](System.Reactive.Disposables\System.Reactive.Disposables.md)
+[System.Reactive.Disposables Namespace](System.Reactive.Disposables/System.Reactive.Disposables)
 
 
 

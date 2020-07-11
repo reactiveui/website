@@ -4,7 +4,7 @@ title: Timestamped<T>.ToString()
 
 Returns a string representation of this instance.
 
-**Namespace:**  [System.Reactive](System.Reactive\System.Reactive.md)  
+**Namespace:**  [System.Reactive](System.Reactive/System.Reactive)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -49,6 +49,6 @@ The string representation of this instance.
 
 #### Reference
 
-[Timestamped\<T\> Structure](Timestamped\Timestamped(T).md)
+[Timestamped\<T\> Structure](Timestamped/Timestamped(T))
 
-[System.Reactive Namespace](System.Reactive\System.Reactive.md)
+[System.Reactive Namespace](System.Reactive/System.Reactive)

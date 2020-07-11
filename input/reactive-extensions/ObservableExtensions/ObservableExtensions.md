@@ -9,7 +9,7 @@ Provides a set of static methods for subscribing delegates to observables.
 [System.Object](https://msdn.microsoft.com/en-us/library/e5kfa45b)  
   System.ObservableExtensions
 
-**Namespace:**  [System](System\System.md)  
+**Namespace:**  [System](System/System)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -55,7 +55,7 @@ Any public static (Shared in Visual Basic) members of this type are thread safe.
 
 #### Reference
 
-[System Namespace](System\System.md)
+[System Namespace](System/System)
 
 
 
@@ -77,9 +77,9 @@ NameDescription![Public method](https://reactiveui.net/assets/img/Hh303103.pubme
 
 #### Reference
 
-[ObservableExtensions Class](ObservableExtensions\ObservableExtensions.md)
+[ObservableExtensions Class](ObservableExtensions/ObservableExtensions)
 
-[System Namespace](System\System.md)
+[System Namespace](System/System)
 
 
 

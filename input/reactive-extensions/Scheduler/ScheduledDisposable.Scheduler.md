@@ -4,7 +4,7 @@ title: ScheduledDisposable.Scheduler Property
 
 Gets a value that indicates the scheduler.
 
-**Namespace:**  [System.Reactive.Disposables](System.Reactive.Disposables\System.Reactive.Disposables.md)  
+**Namespace:**  [System.Reactive.Disposables](System.Reactive.Disposables/System.Reactive.Disposables)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -47,13 +47,13 @@ private function set Scheduler (value : IScheduler)
 
 #### Property Value
 
-Type: [System.Reactive.Concurrency.IScheduler](IScheduler\IScheduler.md)  
+Type: [System.Reactive.Concurrency.IScheduler](IScheduler/IScheduler)  
 The scheduler.
 
 ## See Also
 
 #### Reference
 
-[ScheduledDisposable Class](ScheduledDisposable\ScheduledDisposable.md)
+[ScheduledDisposable Class](ScheduledDisposable/ScheduledDisposable)
 
-[System.Reactive.Disposables Namespace](System.Reactive.Disposables\System.Reactive.Disposables.md)
+[System.Reactive.Disposables Namespace](System.Reactive.Disposables/System.Reactive.Disposables)

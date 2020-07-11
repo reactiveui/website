@@ -4,7 +4,7 @@ title: Observable.SubscribeOn<TSource>(IObservable<TSource>, SynchronizationCont
 
 Asynchronously subscribes and unsubscribes observers on the specified synchronization context.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -82,17 +82,17 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[SubscribeOn Overload](SubscribeOn\Observable.SubscribeOn.md)
+[SubscribeOn Overload](SubscribeOn/Observable.SubscribeOn)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 # Observable.SubscribeOn\<TSource\> Method (IObservable\<TSource\>, IScheduler)
 
 Asynchronously subscribes and unsubscribes observers on the specified scheduler.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -154,7 +154,7 @@ JScript does not support generic types and methods.
   The source sequence.
 
 - scheduler  
-  Type: [System.Reactive.Concurrency.IScheduler](IScheduler\IScheduler.md)  
+  Type: [System.Reactive.Concurrency.IScheduler](IScheduler/IScheduler)  
   The scheduler to perform subscription and unsubscription actions on.
 
 #### Return Value
@@ -170,8 +170,8 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[SubscribeOn Overload](SubscribeOn\Observable.SubscribeOn.md)
+[SubscribeOn Overload](SubscribeOn/Observable.SubscribeOn)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)

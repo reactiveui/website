@@ -4,7 +4,7 @@ title: ReplaySubject<T>.Subscribe()
 
 Subscribes an observer to the subject.
 
-**Namespace:**  [System.Reactive.Subjects](System.Reactive.Subjects\System.Reactive.Subjects.md)  
+**Namespace:**  [System.Reactive.Subjects](System.Reactive.Subjects/System.Reactive.Subjects)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -54,7 +54,7 @@ public final function Subscribe(
 #### Parameters
 
 - observer  
-  Type: [System.IObserver](https://msdn.microsoft.com/en-us/library/Dd783449)\<[T](ReplaySubject\ReplaySubject(T).md)\>  
+  Type: [System.IObserver](https://msdn.microsoft.com/en-us/library/Dd783449)\<[T](ReplaySubject/ReplaySubject(T))\>  
   Observer to subscribe to the subject.
 
 #### Return Value
@@ -272,6 +272,6 @@ Headline     : Weather watch for snow storm issued in your area.
 
 #### Reference
 
-[ReplaySubject\<T\> Class](ReplaySubject\ReplaySubject(T).md)
+[ReplaySubject\<T\> Class](ReplaySubject/ReplaySubject(T))
 
-[System.Reactive.Subjects Namespace](System.Reactive.Subjects\System.Reactive.Subjects.md)
+[System.Reactive.Subjects Namespace](System.Reactive.Subjects/System.Reactive.Subjects)

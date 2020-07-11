@@ -4,7 +4,7 @@ title: RefCountDisposable.Dispose()
 
 Disposes the underlying disposable only when all dependent disposables have been disposed.
 
-**Namespace:**  [System.Reactive.Disposables](System.Reactive.Disposables\System.Reactive.Disposables.md)  
+**Namespace:**  [System.Reactive.Disposables](System.Reactive.Disposables/System.Reactive.Disposables)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -47,9 +47,9 @@ public final function Dispose()
 
 #### Reference
 
-[RefCountDisposable Class](RefCountDisposable\RefCountDisposable.md)
+[RefCountDisposable Class](RefCountDisposable/RefCountDisposable)
 
-[System.Reactive.Disposables Namespace](System.Reactive.Disposables\System.Reactive.Disposables.md)
+[System.Reactive.Disposables Namespace](System.Reactive.Disposables/System.Reactive.Disposables)
 
 
 

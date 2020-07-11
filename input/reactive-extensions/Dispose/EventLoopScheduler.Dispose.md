@@ -4,7 +4,7 @@ title: EventLoopScheduler.Dispose()
 
 Ends the thread associated with this scheduler.
 
-**Namespace:**  [System.Reactive.Concurrency](System.Reactive.Concurrency\System.Reactive.Concurrency.md)  
+**Namespace:**  [System.Reactive.Concurrency](System.Reactive.Concurrency/System.Reactive.Concurrency)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -47,9 +47,9 @@ public final function Dispose()
 
 #### Reference
 
-[EventLoopScheduler Class](EventLoopScheduler\EventLoopScheduler.md)
+[EventLoopScheduler Class](EventLoopScheduler/EventLoopScheduler)
 
-[System.Reactive.Concurrency Namespace](System.Reactive.Concurrency\System.Reactive.Concurrency.md)
+[System.Reactive.Concurrency Namespace](System.Reactive.Concurrency/System.Reactive.Concurrency)
 
 
 

@@ -4,7 +4,7 @@ title: Observable.OnErrorResumeNext<TSource>(IObservable<TSource>, IObservable<T
 
 Continues an observable sequence that is terminated normally or by an exception with the next observable sequence.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -82,11 +82,11 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[OnErrorResumeNext Overload](OnErrorResumeNext\Observable.OnErrorResumeNext.md)
+[OnErrorResumeNext Overload](OnErrorResumeNext/Observable.OnErrorResumeNext)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 
 
@@ -100,7 +100,7 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 
 Continues an observable sequence that is terminated normally or by an exception with the next observable sequence.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -163,11 +163,11 @@ An observable sequence that concatenates the source sequences, even if a sequenc
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[OnErrorResumeNext Overload](OnErrorResumeNext\Observable.OnErrorResumeNext.md)
+[OnErrorResumeNext Overload](OnErrorResumeNext/Observable.OnErrorResumeNext)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 
 
@@ -180,7 +180,7 @@ An observable sequence that concatenates the source sequences, even if a sequenc
 
 Continues an observable sequence that is terminated normally or by an exception with the next observable sequence.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -249,11 +249,11 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[OnErrorResumeNext Overload](OnErrorResumeNext\Observable.OnErrorResumeNext.md)
+[OnErrorResumeNext Overload](OnErrorResumeNext/Observable.OnErrorResumeNext)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 
 

@@ -2,9 +2,9 @@ title: Subject<T>.Dispose()
 ---
 # Subject\<T\>.Dispose Method
 
-Releases all resources used by the current instance of the [Subject\<T\>](Subject\Subject(T).md) class and unsubscribe all observers
+Releases all resources used by the current instance of the [Subject\<T\>](Subject/Subject(T)) class and unsubscribe all observers
 
-**Namespace:**  [System.Reactive.Subjects](System.Reactive.Subjects\System.Reactive.Subjects.md)  
+**Namespace:**  [System.Reactive.Subjects](System.Reactive.Subjects/System.Reactive.Subjects)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -245,9 +245,9 @@ Headline     : An earthquake occurred in your area.
 
 #### Reference
 
-[Subject\<T\> Class](Subject\Subject(T).md)
+[Subject\<T\> Class](Subject/Subject(T))
 
-[System.Reactive.Subjects Namespace](System.Reactive.Subjects\System.Reactive.Subjects.md)
+[System.Reactive.Subjects Namespace](System.Reactive.Subjects/System.Reactive.Subjects)
 
 
 

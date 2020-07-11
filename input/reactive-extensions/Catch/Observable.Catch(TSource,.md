@@ -4,7 +4,7 @@ title: Observable.Catch<TSource, TException>(IObservable<TSource>, Func<TExcepti
 
 Continues an observable sequence that is terminated by an exception of the specified type with the observable sequence produced by the handler.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -249,11 +249,11 @@ The following is example output from the example code.
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[Catch Overload](Catch\Observable.Catch.md)
+[Catch Overload](Catch/Observable.Catch)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 
 

@@ -2,7 +2,7 @@ title: TestCrashTaskPool.Do()
 ---
 # TestCrashTaskPool.Do Method
 
-**Namespace:**  [ReactiveTests.Tests](ReactiveTests.Tests\ReactiveTests.Tests.md)  
+**Namespace:**  [ReactiveTests.Tests](ReactiveTests.Tests/ReactiveTests.Tests)  
 **Assembly:**  Tests.System.Reactive (in Tests.System.Reactive.dll)
 
 ## Syntax
@@ -54,9 +54,9 @@ public static function Do(
 
 #### Reference
 
-[TestCrashTaskPool Class](TestCrashTaskPool\TestCrashTaskPool.md)
+[TestCrashTaskPool Class](TestCrashTaskPool/TestCrashTaskPool)
 
-[ReactiveTests.Tests Namespace](ReactiveTests.Tests\ReactiveTests.Tests.md)
+[ReactiveTests.Tests Namespace](ReactiveTests.Tests/ReactiveTests.Tests)
 
 
 

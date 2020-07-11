@@ -4,7 +4,7 @@ title: Observable.FromEvent<TEventArgs>(Action<Action<TEventArgs>>, Action<Actio
 
 Converts a .NET event to an observable sequence.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -77,11 +77,11 @@ Observable sequence that contains data representations of invocations of the und
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[FromEvent Overload](FromEvent\Observable.FromEvent.md)
+[FromEvent Overload](FromEvent/Observable.FromEvent)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 
 

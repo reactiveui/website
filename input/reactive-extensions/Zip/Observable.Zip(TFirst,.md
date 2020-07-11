@@ -4,7 +4,7 @@ title: Observable.Zip<TFirst, TSecond, TResult>(IObservable<TFirst>, IEnumerable
 
 Merges an observable sequence and an enumerable sequence into one observable sequence by using the selector function.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -97,16 +97,16 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[Zip Overload](Zip\Observable.Zip.md)
+[Zip Overload](Zip/Observable.Zip)
 
 [System.Reactive.
 # Observable.Zip\<TFirst, TSecond, TResult\> Method (IObservable\<TFirst\>, IObservable\<TSecond\>, Func\<TFirst, TSecond, TResult\>)
 
 Merges two observable sequences into one observable sequence by combining their elements in a pairwise fashion.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -199,8 +199,8 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[Zip Overload](Zip\Observable.Zip.md)
+[Zip Overload](Zip/Observable.Zip)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)

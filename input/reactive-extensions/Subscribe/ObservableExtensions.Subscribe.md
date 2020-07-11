@@ -17,6 +17,6 @@ NameDescription![Public method](https://reactiveui.net/assets/img/Hh303103.pubme
 
 #### Reference
 
-[ObservableExtensions Class](ObservableExtensions\ObservableExtensions.md)
+[ObservableExtensions Class](ObservableExtensions/ObservableExtensions)
 
-[System Namespace](System\System.md)
+[System Namespace](System/System)

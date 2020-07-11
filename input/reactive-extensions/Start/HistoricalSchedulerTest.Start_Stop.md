@@ -2,7 +2,7 @@ title: HistoricalSchedulerTest.Start_Stop()
 ---
 # HistoricalSchedulerTest.Start\_Stop Method
 
-**Namespace:**  [ReactiveTests.Tests](ReactiveTests.Tests\ReactiveTests.Tests.md)  
+**Namespace:**  [ReactiveTests.Tests](ReactiveTests.Tests/ReactiveTests.Tests)  
 **Assembly:**  Tests.System.Reactive (in Tests.System.Reactive.dll)
 
 ## Syntax
@@ -44,6 +44,6 @@ public function Start_Stop()
 
 #### Reference
 
-[HistoricalSchedulerTest Class](HistoricalSchedulerTest\HistoricalSchedulerTest.md)
+[HistoricalSchedulerTest Class](HistoricalSchedulerTest/HistoricalSchedulerTest)
 
-[ReactiveTests.Tests Namespace](ReactiveTests.Tests\ReactiveTests.Tests.md)
+[ReactiveTests.Tests Namespace](ReactiveTests.Tests/ReactiveTests.Tests)

@@ -4,7 +4,7 @@ title: QueryablePattern.Expression Property
 
 Gets the expression tree that is associated with the instance of queryable pattern.
 
-**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins\System.Reactive.Joins.md)  
+**Namespace:**  [System.Reactive.Joins](System.Reactive.Joins/System.Reactive.Joins)  
 **Assembly:**  System.Reactive.Providers (in System.Reactive.Providers.dll)
 
 ## Syntax
@@ -54,9 +54,9 @@ The expression tree that is associated with the instance of queryable pattern.
 
 #### Reference
 
-[QueryablePattern Class](QueryablePattern\QueryablePattern.md)
+[QueryablePattern Class](QueryablePattern/QueryablePattern)
 
-[System.Reactive.Joins Namespace](System.Reactive.Joins\System.Reactive.Joins.md)
+[System.Reactive.Joins Namespace](System.Reactive.Joins/System.Reactive.Joins)
 
 
 

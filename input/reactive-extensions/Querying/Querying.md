@@ -2,7 +2,7 @@ title: Querying Observable Sequences using LINQ Operators
 ---
 # Querying Observable Sequences using LINQ Operators
 
-In [Bridging with Existing .NET Events](Bridging\Bridging.md), we have converted existing .NET events into observable sequences to subscribe to them. In this topic, we will look at the first-class nature of observable sequences as IObservable\<T\> objects, in which generic LINQ operators are supplied by the Rx assemblies to manipulate these objects. Most operators take an observable sequence and perform some logic on it and output another observable sequence. In addition, as you can see from our code samples, you can even chain multiple operators on a source sequence to tweak the resulting sequence to your exact requirement.
+In [Bridging with Existing .NET Events](Bridging/Bridging), we have converted existing .NET events into observable sequences to subscribe to them. In this topic, we will look at the first-class nature of observable sequences as IObservable\<T\> objects, in which generic LINQ operators are supplied by the Rx assemblies to manipulate these objects. Most operators take an observable sequence and perform some logic on it and output another observable sequence. In addition, as you can see from our code samples, you can even chain multiple operators on a source sequence to tweak the resulting sequence to your exact requirement.
 
 ## Using Different Operators
 
@@ -62,7 +62,7 @@ In the following example, we project a sequence of integers into strings of leng
     seqString.Subscribe(str => { Console.WriteLine(str); });
     Console.ReadKey();
 
-In the following sample, which is an extension of the .NET event conversion example we saw in the [Bridging with Existing .NET Events](Bridging\Bridging.md) topic, we use the Select operator to project the IEventPattern\<MouseEventArgs\> data type into a [Point](https://msdn.microsoft.com/en-us/library/bk9hwzbw) type. In this way, we are transforming a mouse move event sequence into a data type that can be parsed and manipulated further, as can be seen in the next “Filtering” section.
+In the following sample, which is an extension of the .NET event conversion example we saw in the [Bridging with Existing .NET Events](Bridging/Bridging) topic, we use the Select operator to project the IEventPattern\<MouseEventArgs\> data type into a [Point](https://msdn.microsoft.com/en-us/library/bk9hwzbw) type. In this way, we are transforming a mouse move event sequence into a data type that can be parsed and manipulated further, as can be seen in the next “Filtering” section.
 
     var frm = new Form();
     IObservable<EventPattern<MouseEventArgs>> move = Observable.FromEventPattern<MouseEventArgs>(frm, "MouseMove");
@@ -136,14 +136,14 @@ Note that if you are using Buffer or Window, you have to make sure that the sequ
 
 ### LINQ Operators by Categories
 
-The [LINQ Operators by Categories](LINQ\LINQ.md) topic lists of all major LINQ operators implemented by the [Observable](Observable\Observable.md) type by their categories; specifically: creation, conversion, combine, functional, mathematical, time, exceptions, miscellaneous, selection and primitives.
+The [LINQ Operators by Categories](LINQ/LINQ) topic lists of all major LINQ operators implemented by the [Observable](Observable/Observable) type by their categories; specifically: creation, conversion, combine, functional, mathematical, time, exceptions, miscellaneous, selection and primitives.
 
 ## See Also
 
 #### Reference
 
-[Observable](Observable\Observable.md)
+[Observable](Observable/Observable)
 
 #### Concepts
 
-[LINQ Operators by Categories](LINQ\LINQ.md)
+[LINQ Operators by Categories](LINQ/LINQ)

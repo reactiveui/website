@@ -4,7 +4,7 @@ title: ReactiveTest.Subscribe(Int64)
 
 Factory method for a recorded subscription.
 
-**Namespace:**  [Microsoft.Reactive.Testing](Microsoft.Reactive.Testing\Microsoft.Reactive.Testing.md)  
+**Namespace:**  [Microsoft.Reactive.Testing](Microsoft.Reactive.Testing/Microsoft.Reactive.Testing)  
 **Assembly:**  Microsoft.Reactive.Testing (in Microsoft.Reactive.Testing.dll)
 
 ## Syntax
@@ -56,18 +56,18 @@ public static function Subscribe(
 
 #### Return Value
 
-Type: [Microsoft.Reactive.Testing.Subscription](Subscription\Subscription.md)  
+Type: [Microsoft.Reactive.Testing.Subscription](Subscription/Subscription)  
 The subscription object.
 
 ## See Also
 
 #### Reference
 
-[ReactiveTest Class](ReactiveTest\ReactiveTest.md)
+[ReactiveTest Class](ReactiveTest/ReactiveTest)
 
-[Subscribe Overload](Subscribe\ReactiveTest.Subscribe.md)
+[Subscribe Overload](Subscribe/ReactiveTest.Subscribe)
 
-[Microsoft.Reactive.Testing Namespace](Microsoft.Reactive.Testing\Microsoft.Reactive.Testing.md)
+[Microsoft.Reactive.Testing Namespace](Microsoft.Reactive.Testing/Microsoft.Reactive.Testing)
 
 # ReactiveTest.Subscribe Method
 
@@ -86,15 +86,15 @@ NameDescription![Public method](https://reactiveui.net/assets/img/Hh303103.pubme
 
 #### Reference
 
-[ReactiveTest Class](ReactiveTest\ReactiveTest.md)
+[ReactiveTest Class](ReactiveTest/ReactiveTest)
 
-[Microsoft.Reactive.Testing Namespace](Microsoft.Reactive.Testing\Microsoft.Reactive.Testing.md)
+[Microsoft.Reactive.Testing Namespace](Microsoft.Reactive.Testing/Microsoft.Reactive.Testing)
 
 # ReactiveTest.Subscribe Method (Int64, Int64)
 
 Factory method for a recorded subscription.
 
-**Namespace:**  [Microsoft.Reactive.Testing](Microsoft.Reactive.Testing\Microsoft.Reactive.Testing.md)  
+**Namespace:**  [Microsoft.Reactive.Testing](Microsoft.Reactive.Testing/Microsoft.Reactive.Testing)  
 **Assembly:**  Microsoft.Reactive.Testing (in Microsoft.Reactive.Testing.dll)
 
 ## Syntax
@@ -157,15 +157,15 @@ public static function Subscribe(
 
 #### Return Value
 
-Type: [Microsoft.Reactive.Testing.Subscription](Subscription\Subscription.md)  
+Type: [Microsoft.Reactive.Testing.Subscription](Subscription/Subscription)  
 The subscription object.
 
 ## See Also
 
 #### Reference
 
-[ReactiveTest Class](ReactiveTest\ReactiveTest.md)
+[ReactiveTest Class](ReactiveTest/ReactiveTest)
 
-[Subscribe Overload](Subscribe\ReactiveTest.Subscribe.md)
+[Subscribe Overload](Subscribe/ReactiveTest.Subscribe)
 
-[Microsoft.Reactive.Testing Namespace](Microsoft.Reactive.Testing\Microsoft.Reactive.Testing.md)
+[Microsoft.Reactive.Testing Namespace](Microsoft.Reactive.Testing/Microsoft.Reactive.Testing)

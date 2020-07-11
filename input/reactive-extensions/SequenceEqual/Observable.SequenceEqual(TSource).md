@@ -4,7 +4,7 @@ title: Observable.SequenceEqual<TSource>(IObservable<TSource>, IObservable<TSour
 
 Determines whether two sequences are equal by comparing the elements pairwise.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -82,17 +82,17 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[SequenceEqual Overload](SequenceEqual\Observable.SequenceEqual.md)
+[SequenceEqual Overload](SequenceEqual/Observable.SequenceEqual)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 # Observable.SequenceEqual\<TSource\> Method (IObservable\<TSource\>, IObservable\<TSource\>, IEqualityComparer\<TSource\>)
 
 Determines whether two sequences are equal by comparing the elements pairwise using a specified equality comparer.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -180,8 +180,8 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[SequenceEqual Overload](SequenceEqual\Observable.SequenceEqual.md)
+[SequenceEqual Overload](SequenceEqual/Observable.SequenceEqual)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)

@@ -2,9 +2,9 @@ title: ReplaySubject<T>.Dispose()
 ---
 # ReplaySubject\<T\>.Dispose Method
 
-Releases all resources used by the current instance of the [ReplaySubject\<T\>](ReplaySubject\ReplaySubject(T).md) class and unsubscribe all observers.
+Releases all resources used by the current instance of the [ReplaySubject\<T\>](ReplaySubject/ReplaySubject(T)) class and unsubscribe all observers.
 
-**Namespace:**  [System.Reactive.Subjects](System.Reactive.Subjects\System.Reactive.Subjects.md)  
+**Namespace:**  [System.Reactive.Subjects](System.Reactive.Subjects/System.Reactive.Subjects)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -245,9 +245,9 @@ Headline     : Weather watch for snow storm issued in your area.
 
 #### Reference
 
-[ReplaySubject\<T\> Class](ReplaySubject\ReplaySubject(T).md)
+[ReplaySubject\<T\> Class](ReplaySubject/ReplaySubject(T))
 
-[System.Reactive.Subjects Namespace](System.Reactive.Subjects\System.Reactive.Subjects.md)
+[System.Reactive.Subjects Namespace](System.Reactive.Subjects/System.Reactive.Subjects)
 
 
 

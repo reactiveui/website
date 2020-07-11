@@ -4,7 +4,7 @@ title: Observable.Subscribe<TSource>(IEnumerable<TSource>, IObserver<TSource>)
 
 Subscribes an observer to an enumerable sequence with the specified source and observer.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -82,17 +82,17 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[Subscribe Overload](Subscribe\Observable.Subscribe.md)
+[Subscribe Overload](Subscribe/Observable.Subscribe)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 # Observable.Subscribe\<TSource\> Method (IEnumerable\<TSource\>, IObserver\<TSource\>, IScheduler)
 
 Subscribes an observer to an enumerable sequence with the specified source and observer.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -164,7 +164,7 @@ JScript does not support generic types and methods.
   The observer that will receive notifications from the enumerable sequence.
 
 - scheduler  
-  Type: [System.Reactive.Concurrency.IScheduler](IScheduler\IScheduler.md)  
+  Type: [System.Reactive.Concurrency.IScheduler](IScheduler/IScheduler)  
   The scheduler to perform the enumeration on.
 
 #### Return Value
@@ -180,8 +180,8 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[Subscribe Overload](Subscribe\Observable.Subscribe.md)
+[Subscribe Overload](Subscribe/Observable.Subscribe)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)

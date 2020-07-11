@@ -4,7 +4,7 @@ title: CompositeDisposable.IsReadOnly Property
 
 Always returns false.
 
-**Namespace:**  [System.Reactive.Disposables](System.Reactive.Disposables\System.Reactive.Disposables.md)  
+**Namespace:**  [System.Reactive.Disposables](System.Reactive.Disposables/System.Reactive.Disposables)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -56,9 +56,9 @@ false in all cases.
 
 #### Reference
 
-[CompositeDisposable Class](CompositeDisposable\CompositeDisposable.md)
+[CompositeDisposable Class](CompositeDisposable/CompositeDisposable)
 
-[System.Reactive.Disposables Namespace](System.Reactive.Disposables\System.Reactive.Disposables.md)
+[System.Reactive.Disposables Namespace](System.Reactive.Disposables/System.Reactive.Disposables)
 
 
 

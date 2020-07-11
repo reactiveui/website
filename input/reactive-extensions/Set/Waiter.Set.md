@@ -2,7 +2,7 @@ title: Waiter.Set()
 ---
 # Waiter.Set Method
 
-**Namespace:**  [ReactiveTests](ReactiveTests\ReactiveTests.md)  
+**Namespace:**  [ReactiveTests](ReactiveTests/ReactiveTests)  
 **Assembly:**  Tests.System.Reactive (in Tests.System.Reactive.dll)
 
 ## Syntax
@@ -40,6 +40,6 @@ public function Set()
 
 #### Reference
 
-[Waiter Class](Waiter\Waiter.md)
+[Waiter Class](Waiter/Waiter)
 
-[ReactiveTests Namespace](ReactiveTests\ReactiveTests.md)
+[ReactiveTests Namespace](ReactiveTests/ReactiveTests)

@@ -4,7 +4,7 @@ title: Observable.And<TLeft, TRight>()
 
 Matches when both observable sequences have an available value.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -74,7 +74,7 @@ JScript does not support generic types and methods.
 
 #### Return Value
 
-Type: [System.Reactive.Joins.Pattern](Pattern\Pattern(T1,.md)\<TLeft, TRight\>  
+Type: [System.Reactive.Joins.Pattern](Pattern/Pattern(T1,)\<TLeft, TRight\>  
 The observable sequences have an available value.
 
 #### Usage Note
@@ -85,9 +85,9 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 
 

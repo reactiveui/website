@@ -5,19 +5,19 @@ title: EventPattern<TEventArgs>()s
 Include Protected Members  
 Include Inherited Members
 
-The [EventPattern\<TEventArgs\>](EventPattern\EventPattern(TEventArgs).md) type exposes the following members.
+The [EventPattern\<TEventArgs\>](EventPattern/EventPattern(TEventArgs)) type exposes the following members.
 
 ## Methods
 
-NameDescription![Public method](https://reactiveui.net/assets/img/Hh303103.pubmethod(en-us,VS.103).gif "Public method")[Equals(Object)](https://msdn.microsoft.com/en-us/library/m:system.reactive.eventpattern%601.equals(system.object)(v=VS.103))Compares this type with the specified object. (Overrides [Object.Equals(Object)](https://msdn.microsoft.com/en-us/library/m:system.object.equals(system.object)(v=VS.103)).)![Public method](https://reactiveui.net/assets/img/Hh303103.pubmethod(en-us,VS.103).gif "Public method")[Equals(EventPattern<TEventArgs>)](https://msdn.microsoft.com/en-us/library/m:system.reactive.eventpattern%601.equals(system.reactive.eventpattern%7b%600%7d)(v=VS.103))Compares this type with the specified object.![Protected method](https://reactiveui.net/assets/img/Hh303103.protmethod(en-us,VS.103).gif "Protected method")[Finalize](https://msdn.microsoft.com/en-us/library/4k87zsw7)(Inherited from [Object](https://msdn.microsoft.com/en-us/library/e5kfa45b).)![Public method](https://reactiveui.net/assets/img/Hh303103.pubmethod(en-us,VS.103).gif "Public method")[GetHashCode](GetHashCode\EventPattern(TEventArgs).GetHashCode.md)(Overrides [Object.GetHashCode()](https://msdn.microsoft.com/en-us/library/zdee4b3y).)![Public method](https://reactiveui.net/assets/img/Hh303103.pubmethod(en-us,VS.103).gif "Public method")[GetType](https://msdn.microsoft.com/en-us/library/dfwy45w9)(Inherited from [Object](https://msdn.microsoft.com/en-us/library/e5kfa45b).)![Protected method](https://reactiveui.net/assets/img/Hh303103.protmethod(en-us,VS.103).gif "Protected method")[MemberwiseClone](https://msdn.microsoft.com/en-us/library/57ctke0a)(Inherited from [Object](https://msdn.microsoft.com/en-us/library/e5kfa45b).)![Public method](https://reactiveui.net/assets/img/Hh303103.pubmethod(en-us,VS.103).gif "Public method")[ToString](https://msdn.microsoft.com/en-us/library/7bxwbwt2)(Inherited from [Object](https://msdn.microsoft.com/en-us/library/e5kfa45b).)Top
+NameDescription![Public method](https://reactiveui.net/assets/img/Hh303103.pubmethod(en-us,VS.103).gif "Public method")[Equals(Object)](https://msdn.microsoft.com/en-us/library/m:system.reactive.eventpattern%601.equals(system.object)(v=VS.103))Compares this type with the specified object. (Overrides [Object.Equals(Object)](https://msdn.microsoft.com/en-us/library/m:system.object.equals(system.object)(v=VS.103)).)![Public method](https://reactiveui.net/assets/img/Hh303103.pubmethod(en-us,VS.103).gif "Public method")[Equals(EventPattern<TEventArgs>)](https://msdn.microsoft.com/en-us/library/m:system.reactive.eventpattern%601.equals(system.reactive.eventpattern%7b%600%7d)(v=VS.103))Compares this type with the specified object.![Protected method](https://reactiveui.net/assets/img/Hh303103.protmethod(en-us,VS.103).gif "Protected method")[Finalize](https://msdn.microsoft.com/en-us/library/4k87zsw7)(Inherited from [Object](https://msdn.microsoft.com/en-us/library/e5kfa45b).)![Public method](https://reactiveui.net/assets/img/Hh303103.pubmethod(en-us,VS.103).gif "Public method")[GetHashCode](GetHashCode/EventPattern(TEventArgs).GetHashCode)(Overrides [Object.GetHashCode()](https://msdn.microsoft.com/en-us/library/zdee4b3y).)![Public method](https://reactiveui.net/assets/img/Hh303103.pubmethod(en-us,VS.103).gif "Public method")[GetType](https://msdn.microsoft.com/en-us/library/dfwy45w9)(Inherited from [Object](https://msdn.microsoft.com/en-us/library/e5kfa45b).)![Protected method](https://reactiveui.net/assets/img/Hh303103.protmethod(en-us,VS.103).gif "Protected method")[MemberwiseClone](https://msdn.microsoft.com/en-us/library/57ctke0a)(Inherited from [Object](https://msdn.microsoft.com/en-us/library/e5kfa45b).)![Public method](https://reactiveui.net/assets/img/Hh303103.pubmethod(en-us,VS.103).gif "Public method")[ToString](https://msdn.microsoft.com/en-us/library/7bxwbwt2)(Inherited from [Object](https://msdn.microsoft.com/en-us/library/e5kfa45b).)Top
 
 ## See Also
 
 #### Reference
 
-[EventPattern\<TEventArgs\> Class](EventPattern\EventPattern(TEventArgs).md)
+[EventPattern\<TEventArgs\> Class](EventPattern/EventPattern(TEventArgs))
 
-[System.Reactive Namespace](System.Reactive\System.Reactive.md)
+[System.Reactive Namespace](System.Reactive/System.Reactive)
 
 
 
@@ -28,7 +28,7 @@ NameDescription![Public method](https://reactiveui.net/assets/img/Hh303103.pubme
 Include Protected Members  
 Include Inherited Members
 
-The [EventPattern\<TEventArgs\>](EventPattern\EventPattern(TEventArgs).md) type exposes the following members.
+The [EventPattern\<TEventArgs\>](EventPattern/EventPattern(TEventArgs)) type exposes the following members.
 
 ## Operators
 
@@ -38,9 +38,9 @@ NameDescription![Public operator](https://reactiveui.net/assets/img/Hh229204.pub
 
 #### Reference
 
-[EventPattern\<TEventArgs\> Class](EventPattern\EventPattern(TEventArgs).md)
+[EventPattern\<TEventArgs\> Class](EventPattern/EventPattern(TEventArgs))
 
-[System.Reactive Namespace](System.Reactive\System.Reactive.md)
+[System.Reactive Namespace](System.Reactive/System.Reactive)
 
 
 
@@ -51,19 +51,19 @@ NameDescription![Public operator](https://reactiveui.net/assets/img/Hh229204.pub
 Include Protected Members  
 Include Inherited Members
 
-The [EventPattern\<TEventArgs\>](EventPattern\EventPattern(TEventArgs).md) type exposes the following members.
+The [EventPattern\<TEventArgs\>](EventPattern/EventPattern(TEventArgs)) type exposes the following members.
 
 ## Properties
 
-NameDescription![Public property](https://reactiveui.net/assets/img/Hh211972.pubproperty(en-us,VS.103).gif "Public property")[EventArgs](EventArgs\EventPattern(TEventArgs).EventArgs.md)Represents event arguments for a .NET event.![Public property](https://reactiveui.net/assets/img/Hh211972.pubproperty(en-us,VS.103).gif "Public property")[Sender](Sender\EventPattern(TEventArgs).Sender.md)Represents event sender information for a .NET event.Top
+NameDescription![Public property](https://reactiveui.net/assets/img/Hh211972.pubproperty(en-us,VS.103).gif "Public property")[EventArgs](EventArgs/EventPattern(TEventArgs).EventArgs)Represents event arguments for a .NET event.![Public property](https://reactiveui.net/assets/img/Hh211972.pubproperty(en-us,VS.103).gif "Public property")[Sender](Sender/EventPattern(TEventArgs).Sender)Represents event sender information for a .NET event.Top
 
 ## See Also
 
 #### Reference
 
-[EventPattern\<TEventArgs\> Class](EventPattern\EventPattern(TEventArgs).md)
+[EventPattern\<TEventArgs\> Class](EventPattern/EventPattern(TEventArgs))
 
-[System.Reactive Namespace](System.Reactive\System.Reactive.md)
+[System.Reactive Namespace](System.Reactive/System.Reactive)
 
 
 
@@ -78,7 +78,7 @@ Encapsulates sender and event arguments for a .NET event.
 [System.Object](https://msdn.microsoft.com/en-us/library/e5kfa45b)  
   System.Reactive.EventPattern\<TEventArgs\>
 
-**Namespace:**  [System.Reactive](System.Reactive\System.Reactive.md)  
+**Namespace:**  [System.Reactive](System.Reactive/System.Reactive)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -128,11 +128,11 @@ NameDescription![Public method](https://reactiveui.net/assets/img/Hh303103.pubme
 
 ## Properties
 
-NameDescription![Public property](https://reactiveui.net/assets/img/Hh211972.pubproperty(en-us,VS.103).gif "Public property")[EventArgs](EventArgs\EventPattern(TEventArgs).EventArgs.md)Represents event arguments for a .NET event.![Public property](https://reactiveui.net/assets/img/Hh211972.pubproperty(en-us,VS.103).gif "Public property")[Sender](Sender\EventPattern(TEventArgs).Sender.md)Represents event sender information for a .NET event.Top
+NameDescription![Public property](https://reactiveui.net/assets/img/Hh211972.pubproperty(en-us,VS.103).gif "Public property")[EventArgs](EventArgs/EventPattern(TEventArgs).EventArgs)Represents event arguments for a .NET event.![Public property](https://reactiveui.net/assets/img/Hh211972.pubproperty(en-us,VS.103).gif "Public property")[Sender](Sender/EventPattern(TEventArgs).Sender)Represents event sender information for a .NET event.Top
 
 ## Methods
 
-NameDescription![Public method](https://reactiveui.net/assets/img/Hh303103.pubmethod(en-us,VS.103).gif "Public method")[Equals(Object)](https://msdn.microsoft.com/en-us/library/m:system.reactive.eventpattern%601.equals(system.object)(v=VS.103))Compares this type with the specified object. (Overrides [Object.Equals(Object)](https://msdn.microsoft.com/en-us/library/m:system.object.equals(system.object)(v=VS.103)).)![Public method](https://reactiveui.net/assets/img/Hh303103.pubmethod(en-us,VS.103).gif "Public method")[Equals(EventPattern<TEventArgs>)](https://msdn.microsoft.com/en-us/library/m:system.reactive.eventpattern%601.equals(system.reactive.eventpattern%7b%600%7d)(v=VS.103))Compares this type with the specified object.![Protected method](https://reactiveui.net/assets/img/Hh303103.protmethod(en-us,VS.103).gif "Protected method")[Finalize](https://msdn.microsoft.com/en-us/library/4k87zsw7)(Inherited from [Object](https://msdn.microsoft.com/en-us/library/e5kfa45b).)![Public method](https://reactiveui.net/assets/img/Hh303103.pubmethod(en-us,VS.103).gif "Public method")[GetHashCode](GetHashCode\EventPattern(TEventArgs).GetHashCode.md)(Overrides [Object.GetHashCode()](https://msdn.microsoft.com/en-us/library/zdee4b3y).)![Public method](https://reactiveui.net/assets/img/Hh303103.pubmethod(en-us,VS.103).gif "Public method")[GetType](https://msdn.microsoft.com/en-us/library/dfwy45w9)(Inherited from [Object](https://msdn.microsoft.com/en-us/library/e5kfa45b).)![Protected method](https://reactiveui.net/assets/img/Hh303103.protmethod(en-us,VS.103).gif "Protected method")[MemberwiseClone](https://msdn.microsoft.com/en-us/library/57ctke0a)(Inherited from [Object](https://msdn.microsoft.com/en-us/library/e5kfa45b).)![Public method](https://reactiveui.net/assets/img/Hh303103.pubmethod(en-us,VS.103).gif "Public method")[ToString](https://msdn.microsoft.com/en-us/library/7bxwbwt2)(Inherited from [Object](https://msdn.microsoft.com/en-us/library/e5kfa45b).)Top
+NameDescription![Public method](https://reactiveui.net/assets/img/Hh303103.pubmethod(en-us,VS.103).gif "Public method")[Equals(Object)](https://msdn.microsoft.com/en-us/library/m:system.reactive.eventpattern%601.equals(system.object)(v=VS.103))Compares this type with the specified object. (Overrides [Object.Equals(Object)](https://msdn.microsoft.com/en-us/library/m:system.object.equals(system.object)(v=VS.103)).)![Public method](https://reactiveui.net/assets/img/Hh303103.pubmethod(en-us,VS.103).gif "Public method")[Equals(EventPattern<TEventArgs>)](https://msdn.microsoft.com/en-us/library/m:system.reactive.eventpattern%601.equals(system.reactive.eventpattern%7b%600%7d)(v=VS.103))Compares this type with the specified object.![Protected method](https://reactiveui.net/assets/img/Hh303103.protmethod(en-us,VS.103).gif "Protected method")[Finalize](https://msdn.microsoft.com/en-us/library/4k87zsw7)(Inherited from [Object](https://msdn.microsoft.com/en-us/library/e5kfa45b).)![Public method](https://reactiveui.net/assets/img/Hh303103.pubmethod(en-us,VS.103).gif "Public method")[GetHashCode](GetHashCode/EventPattern(TEventArgs).GetHashCode)(Overrides [Object.GetHashCode()](https://msdn.microsoft.com/en-us/library/zdee4b3y).)![Public method](https://reactiveui.net/assets/img/Hh303103.pubmethod(en-us,VS.103).gif "Public method")[GetType](https://msdn.microsoft.com/en-us/library/dfwy45w9)(Inherited from [Object](https://msdn.microsoft.com/en-us/library/e5kfa45b).)![Protected method](https://reactiveui.net/assets/img/Hh303103.protmethod(en-us,VS.103).gif "Protected method")[MemberwiseClone](https://msdn.microsoft.com/en-us/library/57ctke0a)(Inherited from [Object](https://msdn.microsoft.com/en-us/library/e5kfa45b).)![Public method](https://reactiveui.net/assets/img/Hh303103.pubmethod(en-us,VS.103).gif "Public method")[ToString](https://msdn.microsoft.com/en-us/library/7bxwbwt2)(Inherited from [Object](https://msdn.microsoft.com/en-us/library/e5kfa45b).)Top
 
 ## Operators
 
@@ -150,7 +150,7 @@ Any public static (Shared in Visual Basic) members of this type are thread safe.
 
 #### Reference
 
-[System.Reactive Namespace](System.Reactive\System.Reactive.md)
+[System.Reactive Namespace](System.Reactive/System.Reactive)
 
 
 
@@ -166,9 +166,9 @@ Any public static (Shared in Visual Basic) members of this type are thread safe.
 
 # EventPattern\<TEventArgs\> Constructor
 
-Initialize a new instance of the [EventPattern\<TEventArgs\>](EventPattern\EventPattern(TEventArgs).md) type.
+Initialize a new instance of the [EventPattern\<TEventArgs\>](EventPattern/EventPattern(TEventArgs)) type.
 
-**Namespace:**  [System.Reactive](System.Reactive\System.Reactive.md)  
+**Namespace:**  [System.Reactive](System.Reactive/System.Reactive)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -225,16 +225,16 @@ public function EventPattern(
   The event sender information.
 
 - e  
-  Type: [TEventArgs](EventPattern\EventPattern(TEventArgs).md)  
+  Type: [TEventArgs](EventPattern/EventPattern(TEventArgs))  
   Event arguments.
 
 ## See Also
 
 #### Reference
 
-[EventPattern\<TEventArgs\> Class](EventPattern\EventPattern(TEventArgs).md)
+[EventPattern\<TEventArgs\> Class](EventPattern/EventPattern(TEventArgs))
 
-[System.Reactive Namespace](System.Reactive\System.Reactive.md)
+[System.Reactive Namespace](System.Reactive/System.Reactive)
 
 
 

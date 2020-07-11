@@ -4,7 +4,7 @@ title: Subject.Create<TSource, TResult>()
 
 Creates a subject from the specified observer and observable.
 
-**Namespace:**  [System.Reactive.Subjects](System.Reactive.Subjects\System.Reactive.Subjects.md)  
+**Namespace:**  [System.Reactive.Subjects](System.Reactive.Subjects/System.Reactive.Subjects)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -73,16 +73,16 @@ JScript does not support generic types and methods.
 
 #### Return Value
 
-Type: [System.Reactive.Subjects.ISubject](ISubject\ISubject(TSource,.md)\<TSource, TResult\>  
+Type: [System.Reactive.Subjects.ISubject](ISubject/ISubject(TSource,)\<TSource, TResult\>  
 Subject implemented using the given observer and observable.
 
 ## See Also
 
 #### Reference
 
-[Subject Class](Subject\Subject.md)
+[Subject Class](Subject/Subject)
 
-[System.Reactive.Subjects Namespace](System.Reactive.Subjects\System.Reactive.Subjects.md)
+[System.Reactive.Subjects Namespace](System.Reactive.Subjects/System.Reactive.Subjects)
 
 
 

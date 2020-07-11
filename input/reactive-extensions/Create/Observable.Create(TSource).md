@@ -4,7 +4,7 @@ title: Observable.Create<TSource>(Func<IObserver<TSource>, Action>)
 
 Creates an observable sequence from a specified subscribe method implementation with a specified subscribe.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -67,11 +67,11 @@ The observable sequence with the specified implementation for the subscribe meth
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[Create Overload](Create\Observable.Create.md)
+[Create Overload](Create/Observable.Create)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 
 
@@ -84,7 +84,7 @@ The observable sequence with the specified implementation for the subscribe meth
 
 Creates an observable sequence from a subscribe method implementation.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -296,11 +296,11 @@ The following is example output from the example code. Press enter to cancel the
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[Create Overload](Create\Observable.Create.md)
+[Create Overload](Create/Observable.Create)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 
 

@@ -15,9 +15,9 @@ NameDescription![Protected method](https://reactiveui.net/assets/img/Hh303103.pr
 
 #### Reference
 
-[CrashTaskPool Class](CrashTaskPool\CrashTaskPool.md)
+[CrashTaskPool Class](CrashTaskPool/CrashTaskPool)
 
-[ReactiveTests.Tests Namespace](ReactiveTests.Tests\ReactiveTests.Tests.md)
+[ReactiveTests.Tests Namespace](ReactiveTests.Tests/ReactiveTests.Tests)
 
 
 

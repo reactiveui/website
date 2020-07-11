@@ -4,7 +4,7 @@ title: Disposable.Create()
 
 Creates the disposable that invokes the specified action when disposed.
 
-**Namespace:**  [System.Reactive.Disposables](System.Reactive.Disposables\System.Reactive.Disposables.md)  
+**Namespace:**  [System.Reactive.Disposables](System.Reactive.Disposables/System.Reactive.Disposables)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -63,9 +63,9 @@ The disposable object that runs the given action upon disposal.
 
 #### Reference
 
-[Disposable Class](Disposable\Disposable.md)
+[Disposable Class](Disposable/Disposable)
 
-[System.Reactive.Disposables Namespace](System.Reactive.Disposables\System.Reactive.Disposables.md)
+[System.Reactive.Disposables Namespace](System.Reactive.Disposables/System.Reactive.Disposables)
 
 
 

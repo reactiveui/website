@@ -6,16 +6,16 @@ This section describes the Subject\<T\> type implemented by Reactive Extension. 
 
 ## In This Section
 
-1. [Using Subjects](Using\Using.md)
+1. [Using Subjects](Using/Using)
 
 ## Reference
 
-[System.Reactive](System.Reactive\System.Reactive.md)
+[System.Reactive](System.Reactive/System.Reactive)
 
-[System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)
 
-[System.Reactive.Subjects](System.Reactive.Subjects\System.Reactive.Subjects.md)
+[System.Reactive.Subjects](System.Reactive.Subjects/System.Reactive.Subjects)
 
-[System.Reactive.Concurrency](System.Reactive.Concurrency\System.Reactive.Concurrency.md)
+[System.Reactive.Concurrency](System.Reactive.Concurrency/System.Reactive.Concurrency)
 
 ## Related Sections

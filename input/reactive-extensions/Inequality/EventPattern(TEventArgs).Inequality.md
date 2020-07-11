@@ -4,7 +4,7 @@ title: EventPattern<TEventArgs>.Inequality Operator
 
 Compare two objects to see if they are identical.
 
-**Namespace:**  [System.Reactive](System.Reactive\System.Reactive.md)  
+**Namespace:**  [System.Reactive](System.Reactive/System.Reactive)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -54,11 +54,11 @@ JScript supports the use of overloaded operators, but not the declaration of new
 #### Parameters
 
 - first  
-  Type: [System.Reactive.EventPattern](EventPattern\EventPattern(TEventArgs).md)\<[TEventArgs](EventPattern\EventPattern(TEventArgs).md)\>  
+  Type: [System.Reactive.EventPattern](EventPattern/EventPattern(TEventArgs))\<[TEventArgs](EventPattern/EventPattern(TEventArgs))\>  
   The first object to be compared.
 
 - second  
-  Type: [System.Reactive.EventPattern](EventPattern\EventPattern(TEventArgs).md)\<[TEventArgs](EventPattern\EventPattern(TEventArgs).md)\>  
+  Type: [System.Reactive.EventPattern](EventPattern/EventPattern(TEventArgs))\<[TEventArgs](EventPattern/EventPattern(TEventArgs))\>  
   The second object to be compared.
 
 #### Return Value
@@ -70,9 +70,9 @@ Returns [Boolean](https://msdn.microsoft.com/en-us/library/a28wyd50).
 
 #### Reference
 
-[EventPattern\<TEventArgs\> Class](EventPattern\EventPattern(TEventArgs).md)
+[EventPattern\<TEventArgs\> Class](EventPattern/EventPattern(TEventArgs))
 
-[System.Reactive Namespace](System.Reactive\System.Reactive.md)
+[System.Reactive Namespace](System.Reactive/System.Reactive)
 
 
 

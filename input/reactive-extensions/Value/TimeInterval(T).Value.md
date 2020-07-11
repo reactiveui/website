@@ -4,7 +4,7 @@ title: TimeInterval<T>.Value Property
 
 Gets the value.
 
-**Namespace:**  [System.Reactive](System.Reactive\System.Reactive.md)  
+**Namespace:**  [System.Reactive](System.Reactive/System.Reactive)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -44,13 +44,13 @@ function get Value () : T
 
 #### Property Value
 
-Type: [T](TimeInterval\TimeInterval(T).md)  
+Type: [T](TimeInterval/TimeInterval(T))  
 The value.
 
 ## See Also
 
 #### Reference
 
-[TimeInterval\<T\> Structure](TimeInterval\TimeInterval(T).md)
+[TimeInterval\<T\> Structure](TimeInterval/TimeInterval(T))
 
-[System.Reactive Namespace](System.Reactive\System.Reactive.md)
+[System.Reactive Namespace](System.Reactive/System.Reactive)

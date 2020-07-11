@@ -15,6 +15,6 @@ NameDescription![Public method](https://reactiveui.net/assets/img/Hh303103.pubme
 
 #### Reference
 
-[MockDisposable Class](MockDisposable\MockDisposable.md)
+[MockDisposable Class](MockDisposable/MockDisposable)
 
-[ReactiveTests Namespace](ReactiveTests\ReactiveTests.md)
+[ReactiveTests Namespace](ReactiveTests/ReactiveTests)

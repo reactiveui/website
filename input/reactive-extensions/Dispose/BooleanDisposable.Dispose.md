@@ -4,7 +4,7 @@ title: BooleanDisposable.Dispose()
 
 Sets the status to Disposed.
 
-**Namespace:**  [System.Reactive.Disposables](System.Reactive.Disposables\System.Reactive.Disposables.md)  
+**Namespace:**  [System.Reactive.Disposables](System.Reactive.Disposables/System.Reactive.Disposables)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -47,9 +47,9 @@ public final function Dispose()
 
 #### Reference
 
-[BooleanDisposable Class](BooleanDisposable\BooleanDisposable.md)
+[BooleanDisposable Class](BooleanDisposable/BooleanDisposable)
 
-[System.Reactive.Disposables Namespace](System.Reactive.Disposables\System.Reactive.Disposables.md)
+[System.Reactive.Disposables Namespace](System.Reactive.Disposables/System.Reactive.Disposables)
 
 
 

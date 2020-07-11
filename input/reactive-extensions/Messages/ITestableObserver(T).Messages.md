@@ -4,7 +4,7 @@ title: ITestableObserver<T>.Messages Property
 
 Gets the recorded notifications received by the observer.
 
-**Namespace:**  [Microsoft.Reactive.Testing](Microsoft.Reactive.Testing\Microsoft.Reactive.Testing.md)  
+**Namespace:**  [Microsoft.Reactive.Testing](Microsoft.Reactive.Testing/Microsoft.Reactive.Testing)  
 **Assembly:**  Microsoft.Reactive.Testing (in Microsoft.Reactive.Testing.dll)
 
 ## Syntax
@@ -43,15 +43,15 @@ function get Messages () : IList<Recorded<Notification<T>>>
 
 #### Property Value
 
-Type: [System.Collections.Generic.IList](https://msdn.microsoft.com/en-us/library/5y536ey6)\<[Recorded](Recorded\Recorded(T).md)\<[Notification](Notification\Notification(T).md)\<[T](ITestableObserver\ITestableObserver(T).md)\>\>\>
+Type: [System.Collections.Generic.IList](https://msdn.microsoft.com/en-us/library/5y536ey6)\<[Recorded](Recorded/Recorded(T))\<[Notification](Notification/Notification(T))\<[T](ITestableObserver/ITestableObserver(T))\>\>\>
 
 ## See Also
 
 #### Reference
 
-[ITestableObserver\<T\> Interface](ITestableObserver\ITestableObserver(T).md)
+[ITestableObserver\<T\> Interface](ITestableObserver/ITestableObserver(T))
 
-[Microsoft.Reactive.Testing Namespace](Microsoft.Reactive.Testing\Microsoft.Reactive.Testing.md)
+[Microsoft.Reactive.Testing Namespace](Microsoft.Reactive.Testing/Microsoft.Reactive.Testing)
 
 
 

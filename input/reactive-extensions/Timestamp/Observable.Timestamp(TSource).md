@@ -4,7 +4,7 @@ title: Observable.Timestamp<TSource>(IObservable<TSource>, IScheduler)
 
 Records the timestamp for each value in an observable sequence with the specified source and scheduler.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -66,12 +66,12 @@ JScript does not support generic types and methods.
   The source sequence to timestamp values for.
 
 - scheduler  
-  Type: [System.Reactive.Concurrency.IScheduler](IScheduler\IScheduler.md)  
+  Type: [System.Reactive.Concurrency.IScheduler](IScheduler/IScheduler)  
   The scheduler used to compute timestamps.
 
 #### Return Value
 
-Type: [System.IObservable](https://msdn.microsoft.com/en-us/library/Dd990377)\<[Timestamped](Timestamped\Timestamped(T).md)\<TSource\>\>  
+Type: [System.IObservable](https://msdn.microsoft.com/en-us/library/Dd990377)\<[Timestamped](Timestamped/Timestamped(T))\<TSource\>\>  
 An observable sequence with timestamp information on values.
 
 #### Usage Note
@@ -82,17 +82,17 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[Timestamp Overload](Timestamp\Observable.Timestamp.md)
+[Timestamp Overload](Timestamp/Observable.Timestamp)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 # Observable.Timestamp\<TSource\> Method (IObservable\<TSource\>)
 
 Records the timestamp for each value in an observable sequence with the specified source.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -150,7 +150,7 @@ JScript does not support generic types and methods.
 
 #### Return Value
 
-Type: [System.IObservable](https://msdn.microsoft.com/en-us/library/Dd990377)\<[Timestamped](Timestamped\Timestamped(T).md)\<TSource\>\>  
+Type: [System.IObservable](https://msdn.microsoft.com/en-us/library/Dd990377)\<[Timestamped](Timestamped/Timestamped(T))\<TSource\>\>  
 An observable sequence with timestamp information on values.
 
 #### Usage Note
@@ -161,8 +161,8 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[Timestamp Overload](Timestamp\Observable.Timestamp.md)
+[Timestamp Overload](Timestamp/Observable.Timestamp)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)

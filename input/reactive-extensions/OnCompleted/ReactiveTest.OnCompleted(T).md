@@ -4,7 +4,7 @@ title: ReactiveTest.OnCompleted<T>()
 
 Factory method for a recorded OnCompleted notification at a given time.
 
-**Namespace:**  [Microsoft.Reactive.Testing](Microsoft.Reactive.Testing\Microsoft.Reactive.Testing.md)  
+**Namespace:**  [Microsoft.Reactive.Testing](Microsoft.Reactive.Testing/Microsoft.Reactive.Testing)  
 **Assembly:**  Microsoft.Reactive.Testing (in Microsoft.Reactive.Testing.dll)
 
 ## Syntax
@@ -59,13 +59,13 @@ JScript does not support generic types and methods.
 
 #### Return Value
 
-Type: [Microsoft.Reactive.Testing.Recorded](Recorded\Recorded(T).md)\<[Notification](Notification\Notification(T).md)\<T\>\>  
+Type: [Microsoft.Reactive.Testing.Recorded](Recorded/Recorded(T))\<[Notification](Notification/Notification(T))\<T\>\>  
 Recorded OnCompleted notification.
 
 ## See Also
 
 #### Reference
 
-[ReactiveTest Class](ReactiveTest\ReactiveTest.md)
+[ReactiveTest Class](ReactiveTest/ReactiveTest)
 
-[Microsoft.Reactive.Testing Namespace](Microsoft.Reactive.Testing\Microsoft.Reactive.Testing.md)
+[Microsoft.Reactive.Testing Namespace](Microsoft.Reactive.Testing/Microsoft.Reactive.Testing)

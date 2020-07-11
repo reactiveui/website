@@ -4,7 +4,7 @@ title: Observable.Generate<TState, TResult>(TState, Func<TState, Boolean>, Func<
 
 Generates an observable sequence by iterating a state from an initial state until the condition fails.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -105,7 +105,7 @@ JScript does not support generic types and methods.
   The time selector function to control the speed of values being produced each iteration.
 
 - scheduler  
-  Type: [System.Reactive.Concurrency.IScheduler](IScheduler\IScheduler.md)  
+  Type: [System.Reactive.Concurrency.IScheduler](IScheduler/IScheduler)  
   The scheduler on which to run the generator loop.
 
 #### Return Value
@@ -117,11 +117,11 @@ The generated sequence.
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[Generate Overload](Generate\Observable.Generate.md)
+[Generate Overload](Generate/Observable.Generate)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 
 
@@ -134,7 +134,7 @@ The generated sequence.
 
 Generates an observable sequence by iterating a state from an initial state until the condition fails.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -228,11 +228,11 @@ The generated sequence.
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[Generate Overload](Generate\Observable.Generate.md)
+[Generate Overload](Generate/Observable.Generate)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 
 
@@ -245,7 +245,7 @@ The generated sequence.
 
 Generates an observable sequence by iterating a state from an initial state until the condition fails.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -349,11 +349,11 @@ The generated sequence.
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[Generate Overload](Generate\Observable.Generate.md)
+[Generate Overload](Generate/Observable.Generate)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 
 
@@ -366,7 +366,7 @@ The generated sequence.
 
 Generates an observable sequence by iterating a state from an initial state until the condition fails.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -470,11 +470,11 @@ The generated sequence.
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[Generate Overload](Generate\Observable.Generate.md)
+[Generate Overload](Generate/Observable.Generate)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 
 
@@ -487,7 +487,7 @@ The generated sequence.
 
 Generates an observable sequence by iterating a state from an initial state until the condition fails.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -579,7 +579,7 @@ JScript does not support generic types and methods.
   The selector function for results produced in the sequence.
 
 - scheduler  
-  Type: [System.Reactive.Concurrency.IScheduler](IScheduler\IScheduler.md)  
+  Type: [System.Reactive.Concurrency.IScheduler](IScheduler/IScheduler)  
   The scheduler on which to run the generator loop.
 
 #### Return Value
@@ -664,11 +664,11 @@ The following output demonstrates running the example code.
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[Generate Overload](Generate\Observable.Generate.md)
+[Generate Overload](Generate/Observable.Generate)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 
 
@@ -683,7 +683,7 @@ The following output demonstrates running the example code.
 
 Generates an observable sequence by iterating a state from an initial state until the condition fails.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -784,7 +784,7 @@ JScript does not support generic types and methods.
   The time selector function to control the speed of values being produced each iteration.
 
 - scheduler  
-  Type: [System.Reactive.Concurrency.IScheduler](IScheduler\IScheduler.md)  
+  Type: [System.Reactive.Concurrency.IScheduler](IScheduler/IScheduler)  
   The scheduler on which to run the generator loop.
 
 #### Return Value
@@ -870,11 +870,11 @@ The following output was generated with the code example.
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[Generate Overload](Generate\Observable.Generate.md)
+[Generate Overload](Generate/Observable.Generate)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 
 

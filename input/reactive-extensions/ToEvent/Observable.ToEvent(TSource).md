@@ -4,7 +4,7 @@ title: Observable.ToEvent<TSource>(IObservable<TSource>)
 
 Exposes an observable sequence as an object with a .NET event with a specified source.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -62,7 +62,7 @@ JScript does not support generic types and methods.
 
 #### Return Value
 
-Type: [System.Reactive.IEventSource](IEventSource\IEventSource(T).md)\<TSource\>  
+Type: [System.Reactive.IEventSource](IEventSource/IEventSource(T))\<TSource\>  
 The event source object.
 
 #### Usage Note
@@ -73,8 +73,8 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[ToEvent Overload](ToEvent\Observable.ToEvent.md)
+[ToEvent Overload](ToEvent/Observable.ToEvent)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)

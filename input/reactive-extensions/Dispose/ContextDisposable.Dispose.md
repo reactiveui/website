@@ -4,7 +4,7 @@ title: ContextDisposable.Dispose()
 
 Disposes the wrapped disposable on the provided SynchronizationContext.
 
-**Namespace:**  [System.Reactive.Disposables](System.Reactive.Disposables\System.Reactive.Disposables.md)  
+**Namespace:**  [System.Reactive.Disposables](System.Reactive.Disposables/System.Reactive.Disposables)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -47,9 +47,9 @@ public final function Dispose()
 
 #### Reference
 
-[ContextDisposable Class](ContextDisposable\ContextDisposable.md)
+[ContextDisposable Class](ContextDisposable/ContextDisposable)
 
-[System.Reactive.Disposables Namespace](System.Reactive.Disposables\System.Reactive.Disposables.md)
+[System.Reactive.Disposables Namespace](System.Reactive.Disposables/System.Reactive.Disposables)
 
 
 

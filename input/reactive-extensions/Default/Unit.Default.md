@@ -4,7 +4,7 @@ title: Unit.Default Property
 
 Gets the single unit value.
 
-**Namespace:**  [System.Reactive](System.Reactive\System.Reactive.md)  
+**Namespace:**  [System.Reactive](System.Reactive/System.Reactive)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -43,16 +43,16 @@ static function get Default () : Unit
 
 #### Property Value
 
-Type: [System.Reactive.Unit](Unit\Unit.md)  
+Type: [System.Reactive.Unit](Unit/Unit)  
 The single unit value.
 
 ## See Also
 
 #### Reference
 
-[Unit Structure](Unit\Unit.md)
+[Unit Structure](Unit/Unit)
 
-[System.Reactive Namespace](System.Reactive\System.Reactive.md)
+[System.Reactive Namespace](System.Reactive/System.Reactive)
 
 
 

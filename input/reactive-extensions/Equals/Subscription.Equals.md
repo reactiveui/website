@@ -4,7 +4,7 @@ title: Subscription.Equals(Object)
 
 Checks whether the given object is equal to the current instance.
 
-**Namespace:**  [Microsoft.Reactive.Testing](Microsoft.Reactive.Testing\Microsoft.Reactive.Testing.md)  
+**Namespace:**  [Microsoft.Reactive.Testing](Microsoft.Reactive.Testing/Microsoft.Reactive.Testing)  
 **Assembly:**  Microsoft.Reactive.Testing (in Microsoft.Reactive.Testing.dll)
 
 ## Syntax
@@ -66,11 +66,11 @@ true if both objects are equal; otherwise, false.
 
 #### Reference
 
-[Subscription Structure](Subscription\Subscription.md)
+[Subscription Structure](Subscription/Subscription)
 
-[Equals Overload](Equals\Subscription.Equals.md)
+[Equals Overload](Equals/Subscription.Equals)
 
-[Microsoft.Reactive.Testing Namespace](Microsoft.Reactive.Testing\Microsoft.Reactive.Testing.md)
+[Microsoft.Reactive.Testing Namespace](Microsoft.Reactive.Testing/Microsoft.Reactive.Testing)
 
 
 
@@ -95,9 +95,9 @@ NameDescription![Public method](https://reactiveui.net/assets/img/Hh303103.pubme
 
 #### Reference
 
-[Subscription Structure](Subscription\Subscription.md)
+[Subscription Structure](Subscription/Subscription)
 
-[Microsoft.Reactive.Testing Namespace](Microsoft.Reactive.Testing\Microsoft.Reactive.Testing.md)
+[Microsoft.Reactive.Testing Namespace](Microsoft.Reactive.Testing/Microsoft.Reactive.Testing)
 
 
 
@@ -107,7 +107,7 @@ NameDescription![Public method](https://reactiveui.net/assets/img/Hh303103.pubme
 
 Checks whether the given subscription is equal to the current instance.
 
-**Namespace:**  [Microsoft.Reactive.Testing](Microsoft.Reactive.Testing\Microsoft.Reactive.Testing.md)  
+**Namespace:**  [Microsoft.Reactive.Testing](Microsoft.Reactive.Testing/Microsoft.Reactive.Testing)  
 **Assembly:**  Microsoft.Reactive.Testing (in Microsoft.Reactive.Testing.dll)
 
 ## Syntax
@@ -157,7 +157,7 @@ public final function Equals(
 #### Parameters
 
 - other  
-  Type: [Microsoft.Reactive.Testing.Subscription](Subscription\Subscription.md)  
+  Type: [Microsoft.Reactive.Testing.Subscription](Subscription/Subscription)  
   The subscription object to check for equality.
 
 #### Return Value
@@ -173,11 +173,11 @@ true if both objects are equal; otherwise, false.
 
 #### Reference
 
-[Subscription Structure](Subscription\Subscription.md)
+[Subscription Structure](Subscription/Subscription)
 
-[Equals Overload](Equals\Subscription.Equals.md)
+[Equals Overload](Equals/Subscription.Equals)
 
-[Microsoft.Reactive.Testing Namespace](Microsoft.Reactive.Testing\Microsoft.Reactive.Testing.md)
+[Microsoft.Reactive.Testing Namespace](Microsoft.Reactive.Testing/Microsoft.Reactive.Testing)
 
 
 

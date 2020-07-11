@@ -4,7 +4,7 @@ title: IEventSource<T> Interface
 
 Represents a data stream signaling its elements by means of an event.
 
-**Namespace:**  [System.Reactive](System.Reactive\System.Reactive.md)  
+**Namespace:**  [System.Reactive](System.Reactive/System.Reactive)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -45,13 +45,13 @@ The IEventSource\<T\> type exposes the following members.
 
 ## Events
 
-NameDescription![Public event](https://reactiveui.net/assets/img/Hh315336.pubevent(en-us,VS.103).gif "Public event")[OnNext](OnNext\IEventSource(T).OnNext.md)Raises the Next event signaling the next element in the data stream.Top
+NameDescription![Public event](https://reactiveui.net/assets/img/Hh315336.pubevent(en-us,VS.103).gif "Public event")[OnNext](OnNext/IEventSource(T).OnNext)Raises the Next event signaling the next element in the data stream.Top
 
 ## See Also
 
 #### Reference
 
-[System.Reactive Namespace](System.Reactive\System.Reactive.md)
+[System.Reactive Namespace](System.Reactive/System.Reactive)
 
 
 
@@ -64,19 +64,19 @@ NameDescription![Public event](https://reactiveui.net/assets/img/Hh315336.pubeve
 Include Protected Members  
 Include Inherited Members
 
-The [IEventSource\<T\>](IEventSource\IEventSource(T).md) type exposes the following members.
+The [IEventSource\<T\>](IEventSource/IEventSource(T)) type exposes the following members.
 
 ## Events
 
-NameDescription![Public event](https://reactiveui.net/assets/img/Hh315336.pubevent(en-us,VS.103).gif "Public event")[OnNext](OnNext\IEventSource(T).OnNext.md)Raises the Next event signaling the next element in the data stream.Top
+NameDescription![Public event](https://reactiveui.net/assets/img/Hh315336.pubevent(en-us,VS.103).gif "Public event")[OnNext](OnNext/IEventSource(T).OnNext)Raises the Next event signaling the next element in the data stream.Top
 
 ## See Also
 
 #### Reference
 
-[IEventSource\<T\> Interface](IEventSource\IEventSource(T).md)
+[IEventSource\<T\> Interface](IEventSource/IEventSource(T))
 
-[System.Reactive Namespace](System.Reactive\System.Reactive.md)
+[System.Reactive Namespace](System.Reactive/System.Reactive)
 
 
 

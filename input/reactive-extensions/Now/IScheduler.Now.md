@@ -4,7 +4,7 @@ title: IScheduler.Now Property
 
 Gets the scheduler's notion of current time.
 
-**Namespace:**  [System.Reactive.Concurrency](System.Reactive.Concurrency\System.Reactive.Concurrency.md)  
+**Namespace:**  [System.Reactive.Concurrency](System.Reactive.Concurrency/System.Reactive.Concurrency)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -50,9 +50,9 @@ The current time.
 
 #### Reference
 
-[IScheduler Interface](IScheduler\IScheduler.md)
+[IScheduler Interface](IScheduler/IScheduler)
 
-[System.Reactive.Concurrency Namespace](System.Reactive.Concurrency\System.Reactive.Concurrency.md)
+[System.Reactive.Concurrency Namespace](System.Reactive.Concurrency/System.Reactive.Concurrency)
 
 
 

@@ -4,7 +4,7 @@ title: ControlScheduler.Control Property
 
 Gets the control associated with the ControlScheduler.
 
-**Namespace:**  [System.Reactive.Concurrency](System.Reactive.Concurrency\System.Reactive.Concurrency.md)  
+**Namespace:**  [System.Reactive.Concurrency](System.Reactive.Concurrency/System.Reactive.Concurrency)  
 **Assembly:**  System.Reactive.Windows.Forms (in System.Reactive.Windows.Forms.dll)
 
 ## Syntax
@@ -51,9 +51,9 @@ The control associated with the ControlScheduler.
 
 #### Reference
 
-[ControlScheduler Class](ControlScheduler\ControlScheduler.md)
+[ControlScheduler Class](ControlScheduler/ControlScheduler)
 
-[System.Reactive.Concurrency Namespace](System.Reactive.Concurrency\System.Reactive.Concurrency.md)
+[System.Reactive.Concurrency Namespace](System.Reactive.Concurrency/System.Reactive.Concurrency)
 
 
 

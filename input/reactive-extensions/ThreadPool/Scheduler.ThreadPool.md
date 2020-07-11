@@ -4,7 +4,7 @@ title: Scheduler.ThreadPool Property
 
 Gets the scheduler that schedules work on the ThreadPool.
 
-**Namespace:**  [System.Reactive.Concurrency](System.Reactive.Concurrency\System.Reactive.Concurrency.md)  
+**Namespace:**  [System.Reactive.Concurrency](System.Reactive.Concurrency/System.Reactive.Concurrency)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -43,7 +43,7 @@ static function get ThreadPool () : ThreadPoolScheduler
 
 #### Property Value
 
-Type: [System.Reactive.Concurrency.ThreadPoolScheduler](ThreadPoolScheduler\ThreadPoolScheduler.md)  
+Type: [System.Reactive.Concurrency.ThreadPoolScheduler](ThreadPoolScheduler/ThreadPoolScheduler)  
 The thread pool scheduler.
 
 ## Remarks
@@ -123,6 +123,6 @@ The following output demonstrates running the example code.
 
 #### Reference
 
-[Scheduler Class](Scheduler\Scheduler.md)
+[Scheduler Class](Scheduler/Scheduler)
 
-[System.Reactive.Concurrency Namespace](System.Reactive.Concurrency\System.Reactive.Concurrency.md)
+[System.Reactive.Concurrency Namespace](System.Reactive.Concurrency/System.Reactive.Concurrency)

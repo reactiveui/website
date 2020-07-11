@@ -4,7 +4,7 @@ title: TaskPoolScheduler.Now Property
 
 Gets the scheduler's notion of current time.
 
-**Namespace:**  [System.Reactive.Concurrency](System.Reactive.Concurrency\System.Reactive.Concurrency.md)  
+**Namespace:**  [System.Reactive.Concurrency](System.Reactive.Concurrency/System.Reactive.Concurrency)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -50,15 +50,15 @@ The current time.
 
 #### Implements
 
-[IScheduler.Now](Now\IScheduler.Now.md)
+[IScheduler.Now](Now/IScheduler.Now)
 
 ## See Also
 
 #### Reference
 
-[TaskPoolScheduler Class](TaskPoolScheduler\TaskPoolScheduler.md)
+[TaskPoolScheduler Class](TaskPoolScheduler/TaskPoolScheduler)
 
-[System.Reactive.Concurrency Namespace](System.Reactive.Concurrency\System.Reactive.Concurrency.md)
+[System.Reactive.Concurrency Namespace](System.Reactive.Concurrency/System.Reactive.Concurrency)
 
 
 

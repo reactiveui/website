@@ -4,7 +4,7 @@ title: Subject<T>.OnCompleted()
 
 Notifies all subscribed observers of the end of the sequence.
 
-**Namespace:**  [System.Reactive.Subjects](System.Reactive.Subjects\System.Reactive.Subjects.md)  
+**Namespace:**  [System.Reactive.Subjects](System.Reactive.Subjects/System.Reactive.Subjects)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -47,7 +47,7 @@ public final function OnCompleted()
 
 #### Reference
 
-[Subject\<T\> Class](Subject\Subject(T).md)
+[Subject\<T\> Class](Subject/Subject(T))
 
-[System.Reactive.Subjects Namespace](System.Reactive.Subjects\System.Reactive.Subjects.md)
+[System.Reactive.Subjects Namespace](System.Reactive.Subjects/System.Reactive.Subjects)
 

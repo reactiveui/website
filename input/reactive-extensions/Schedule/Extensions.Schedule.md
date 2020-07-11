@@ -2,7 +2,7 @@ title: Extensions.Schedule()
 ---
 # Extensions.Schedule Method
 
-**Namespace:**  [ReactiveTests](ReactiveTests\ReactiveTests.md)  
+**Namespace:**  [ReactiveTests](ReactiveTests/ReactiveTests)  
 **Assembly:**  Tests.System.Reactive (in Tests.System.Reactive.dll)
 
 ## Syntax
@@ -64,7 +64,7 @@ public static function Schedule(
 #### Parameters
 
 - scheduler  
-  Type: [Microsoft.Reactive.Testing.TestScheduler](TestScheduler\TestScheduler.md)
+  Type: [Microsoft.Reactive.Testing.TestScheduler](TestScheduler/TestScheduler)
 
 - action  
   Type: [System.Action](https://msdn.microsoft.com/en-us/library/Bb534741)
@@ -78,12 +78,12 @@ Type: [System.IDisposable](https://msdn.microsoft.com/en-us/library/aax125c9)
 
 #### Usage Note
 
-In Visual Basic and C\#, you can call this method as an instance method on any object of type [TestScheduler](TestScheduler\TestScheduler.md). When you use instance method syntax to call this method, omit the first parameter. For more information, see [](https://msdn.microsoft.com/en-us/library/Bb384936) or [](https://msdn.microsoft.com/en-us/library/Bb383977).
+In Visual Basic and C\#, you can call this method as an instance method on any object of type [TestScheduler](TestScheduler/TestScheduler). When you use instance method syntax to call this method, omit the first parameter. For more information, see [](https://msdn.microsoft.com/en-us/library/Bb384936) or [](https://msdn.microsoft.com/en-us/library/Bb383977).
 
 ## See Also
 
 #### Reference
 
-[Extensions Class](Extensions\Extensions.md)
+[Extensions Class](Extensions/Extensions)
 
-[ReactiveTests Namespace](ReactiveTests\ReactiveTests.md)
+[ReactiveTests Namespace](ReactiveTests/ReactiveTests)

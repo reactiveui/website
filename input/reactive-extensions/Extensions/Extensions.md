@@ -5,7 +5,7 @@ title: Extensions()s
 Include Protected Members  
 Include Inherited Members
 
-The [Extensions](Extensions\Extensions.md) type exposes the following members.
+The [Extensions](Extensions/Extensions) type exposes the following members.
 
 ## Methods
 
@@ -15,9 +15,9 @@ NameDescription![Public method](https://reactiveui.net/assets/img/Hh303103.pubme
 
 #### Reference
 
-[Extensions Class](Extensions\Extensions.md)
+[Extensions Class](Extensions/Extensions)
 
-[ReactiveTests Namespace](ReactiveTests\ReactiveTests.md)
+[ReactiveTests Namespace](ReactiveTests/ReactiveTests)
 
 
 
@@ -30,7 +30,7 @@ NameDescription![Public method](https://reactiveui.net/assets/img/Hh303103.pubme
 [System.Object](https://msdn.microsoft.com/en-us/library/e5kfa45b)  
   ReactiveTests.Extensions
 
-**Namespace:**  [ReactiveTests](ReactiveTests\ReactiveTests.md)  
+**Namespace:**  [ReactiveTests](ReactiveTests/ReactiveTests)  
 **Assembly:**  Tests.System.Reactive (in Tests.System.Reactive.dll)
 
 ## Syntax
@@ -78,4 +78,4 @@ Any public static (Shared in Visual Basic) members of this type are thread safe.
 
 #### Reference
 
-[ReactiveTests Namespace](ReactiveTests\ReactiveTests.md)
+[ReactiveTests Namespace](ReactiveTests/ReactiveTests)

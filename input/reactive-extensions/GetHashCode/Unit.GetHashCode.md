@@ -4,7 +4,7 @@ title: Unit.GetHashCode()
 
 Gets the unit value's hash code.
 
-**Namespace:**  [System.Reactive](System.Reactive\System.Reactive.md)  
+**Namespace:**  [System.Reactive](System.Reactive/System.Reactive)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -49,9 +49,9 @@ The unit value's hash code.
 
 #### Reference
 
-[Unit Structure](Unit\Unit.md)
+[Unit Structure](Unit/Unit)
 
-[System.Reactive Namespace](System.Reactive\System.Reactive.md)
+[System.Reactive Namespace](System.Reactive/System.Reactive)
 
 
 

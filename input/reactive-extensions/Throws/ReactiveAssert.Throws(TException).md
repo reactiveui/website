@@ -2,7 +2,7 @@ title: ReactiveAssert.Throws<TException>(TException, Action)
 ---
 # ReactiveAssert.Throws\<TException\> Method (TException, Action)
 
-**Namespace:**  [Microsoft.Reactive.Testing](Microsoft.Reactive.Testing\Microsoft.Reactive.Testing.md)  
+**Namespace:**  [Microsoft.Reactive.Testing](Microsoft.Reactive.Testing/Microsoft.Reactive.Testing)  
 **Assembly:**  Microsoft.Reactive.Testing (in Microsoft.Reactive.Testing.dll)
 
 ## Syntax
@@ -67,15 +67,15 @@ JScript does not support generic types and methods.
 
 #### Reference
 
-[ReactiveAssert Class](ReactiveAssert\ReactiveAssert.md)
+[ReactiveAssert Class](ReactiveAssert/ReactiveAssert)
 
-[Throws Overload](Throws\ReactiveAssert.Throws.md)
+[Throws Overload](Throws/ReactiveAssert.Throws)
 
-[Microsoft.Reactive.Testing Namespace](Microsoft.Reactive.Testing\Microsoft.Reactive.Testing.md)
+[Microsoft.Reactive.Testing Namespace](Microsoft.Reactive.Testing/Microsoft.Reactive.Testing)
 
 # ReactiveAssert.Throws\<TException\> Method (TException, Action, String)
 
-**Namespace:**  [Microsoft.Reactive.Testing](Microsoft.Reactive.Testing\Microsoft.Reactive.Testing.md)  
+**Namespace:**  [Microsoft.Reactive.Testing](Microsoft.Reactive.Testing/Microsoft.Reactive.Testing)  
 **Assembly:**  Microsoft.Reactive.Testing (in Microsoft.Reactive.Testing.dll)
 
 ## Syntax
@@ -148,17 +148,17 @@ JScript does not support generic types and methods.
 
 #### Reference
 
-[ReactiveAssert Class](ReactiveAssert\ReactiveAssert.md)
+[ReactiveAssert Class](ReactiveAssert/ReactiveAssert)
 
-[Throws Overload](Throws\ReactiveAssert.Throws.md)
+[Throws Overload](Throws/ReactiveAssert.Throws)
 
-[Microsoft.Reactive.Testing Namespace](Microsoft.Reactive.Testing\Microsoft.Reactive.Testing.md)
+[Microsoft.Reactive.Testing Namespace](Microsoft.Reactive.Testing/Microsoft.Reactive.Testing)
 
 # ReactiveAssert.Throws\<TException\> Method (Action)
 
 Asserts that the given action throws an exception of the type specified in the generic parameter.
 
-**Namespace:**  [Microsoft.Reactive.Testing](Microsoft.Reactive.Testing\Microsoft.Reactive.Testing.md)  
+**Namespace:**  [Microsoft.Reactive.Testing](Microsoft.Reactive.Testing/Microsoft.Reactive.Testing)  
 **Assembly:**  Microsoft.Reactive.Testing (in Microsoft.Reactive.Testing.dll)
 
 ## Syntax
@@ -217,17 +217,17 @@ JScript does not support generic types and methods.
 
 #### Reference
 
-[ReactiveAssert Class](ReactiveAssert\ReactiveAssert.md)
+[ReactiveAssert Class](ReactiveAssert/ReactiveAssert)
 
-[Throws Overload](Throws\ReactiveAssert.Throws.md)
+[Throws Overload](Throws/ReactiveAssert.Throws)
 
-[Microsoft.Reactive.Testing Namespace](Microsoft.Reactive.Testing\Microsoft.Reactive.Testing.md)
+[Microsoft.Reactive.Testing Namespace](Microsoft.Reactive.Testing/Microsoft.Reactive.Testing)
 
 # ReactiveAssert.Throws\<TException\> Method (Action, String)
 
 Asserts that the given action throws an exception of the type specified in the generic parameter.
 
-**Namespace:**  [Microsoft.Reactive.Testing](Microsoft.Reactive.Testing\Microsoft.Reactive.Testing.md)  
+**Namespace:**  [Microsoft.Reactive.Testing](Microsoft.Reactive.Testing/Microsoft.Reactive.Testing)  
 **Assembly:**  Microsoft.Reactive.Testing (in Microsoft.Reactive.Testing.dll)
 
 ## Syntax
@@ -295,8 +295,8 @@ JScript does not support generic types and methods.
 
 #### Reference
 
-[ReactiveAssert Class](ReactiveAssert\ReactiveAssert.md)
+[ReactiveAssert Class](ReactiveAssert/ReactiveAssert)
 
-[Throws Overload](Throws\ReactiveAssert.Throws.md)
+[Throws Overload](Throws/ReactiveAssert.Throws)
 
-[Microsoft.Reactive.Testing Namespace](Microsoft.Reactive.Testing\Microsoft.Reactive.Testing.md)
+[Microsoft.Reactive.Testing Namespace](Microsoft.Reactive.Testing/Microsoft.Reactive.Testing)

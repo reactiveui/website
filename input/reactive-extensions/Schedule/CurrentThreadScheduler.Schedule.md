@@ -17,6 +17,6 @@ NameDescription![Public method](https://reactiveui.net/assets/img/Hh303103.pubme
 
 #### Reference
 
-[CurrentThreadScheduler Class](CurrentThreadScheduler\CurrentThreadScheduler.md)
+[CurrentThreadScheduler Class](CurrentThreadScheduler/CurrentThreadScheduler)
 
-[System.Reactive.Concurrency Namespace](System.Reactive.Concurrency\System.Reactive.Concurrency.md)
+[System.Reactive.Concurrency Namespace](System.Reactive.Concurrency/System.Reactive.Concurrency)

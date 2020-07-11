@@ -4,7 +4,7 @@ title: Observable.SingleOrDefault<TSource>(IObservable<TSource>)
 
 Returns the only element of an observable sequence, or a default value if the observable sequence is empty.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -73,17 +73,17 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[SingleOrDefault Overload](SingleOrDefault\Observable.SingleOrDefault.md)
+[SingleOrDefault Overload](SingleOrDefault/Observable.SingleOrDefault)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 # Observable.SingleOrDefault\<TSource\> Method (IObservable\<TSource\>, Func\<TSource, Boolean\>)
 
 Returns the only element of an observable sequence that matches the predicate, or a default value if no value is found.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -161,8 +161,8 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[SingleOrDefault Overload](SingleOrDefault\Observable.SingleOrDefault.md)
+[SingleOrDefault Overload](SingleOrDefault/Observable.SingleOrDefault)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)

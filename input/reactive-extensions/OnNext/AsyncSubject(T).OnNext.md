@@ -4,7 +4,7 @@ title: AsyncSubject<T>.OnNext()
 
 Sends a value to the subject. The last value received before successful termination will be sent to all subscribed observers.
 
-**Namespace:**  [System.Reactive.Subjects](System.Reactive.Subjects\System.Reactive.Subjects.md)  
+**Namespace:**  [System.Reactive.Subjects](System.Reactive.Subjects/System.Reactive.Subjects)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -53,7 +53,7 @@ public final function OnNext(
 #### Parameters
 
 - value  
-  Type: [T](AsyncSubject\AsyncSubject(T).md)  
+  Type: [T](AsyncSubject/AsyncSubject(T))  
   The value to store in the subject.
 
 #### Implements
@@ -64,9 +64,9 @@ public final function OnNext(
 
 #### Reference
 
-[AsyncSubject\<T\> Class](AsyncSubject\AsyncSubject(T).md)
+[AsyncSubject\<T\> Class](AsyncSubject/AsyncSubject(T))
 
-[System.Reactive.Subjects Namespace](System.Reactive.Subjects\System.Reactive.Subjects.md)
+[System.Reactive.Subjects Namespace](System.Reactive.Subjects/System.Reactive.Subjects)
 
 
 

@@ -4,7 +4,7 @@ title: Subscription.Unsubscribe Property
 
 Gets the unsubscription virtual time.
 
-**Namespace:**  [Microsoft.Reactive.Testing](Microsoft.Reactive.Testing\Microsoft.Reactive.Testing.md)  
+**Namespace:**  [Microsoft.Reactive.Testing](Microsoft.Reactive.Testing/Microsoft.Reactive.Testing)  
 **Assembly:**  Microsoft.Reactive.Testing (in Microsoft.Reactive.Testing.dll)
 
 ## Syntax
@@ -50,6 +50,6 @@ Type: [System.Int64](https://msdn.microsoft.com/en-us/library/6yy583ek)
 
 #### Reference
 
-[Subscription Structure](Subscription\Subscription.md)
+[Subscription Structure](Subscription/Subscription)
 
-[Microsoft.Reactive.Testing Namespace](Microsoft.Reactive.Testing\Microsoft.Reactive.Testing.md)
+[Microsoft.Reactive.Testing Namespace](Microsoft.Reactive.Testing/Microsoft.Reactive.Testing)

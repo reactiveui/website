@@ -4,7 +4,7 @@ title: BehaviorSubject<T>.Subscribe()
 
 Subscribes an observer to the subject.
 
-**Namespace:**  [System.Reactive.Subjects](System.Reactive.Subjects\System.Reactive.Subjects.md)  
+**Namespace:**  [System.Reactive.Subjects](System.Reactive.Subjects/System.Reactive.Subjects)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -54,7 +54,7 @@ public final function Subscribe(
 #### Parameters
 
 - observer  
-  Type: [System.IObserver](https://msdn.microsoft.com/en-us/library/Dd783449)\<[T](BehaviorSubject\BehaviorSubject(T).md)\>  
+  Type: [System.IObserver](https://msdn.microsoft.com/en-us/library/Dd783449)\<[T](BehaviorSubject/BehaviorSubject(T))\>  
   Observer to subscribe to the subject.
 
 #### Return Value
@@ -195,6 +195,6 @@ The following output from the example code shows the overlapping subscriptions.
 
 #### Reference
 
-[BehaviorSubject\<T\> Class](BehaviorSubject\BehaviorSubject(T).md)
+[BehaviorSubject\<T\> Class](BehaviorSubject/BehaviorSubject(T))
 
-[System.Reactive.Subjects Namespace](System.Reactive.Subjects\System.Reactive.Subjects.md)
+[System.Reactive.Subjects Namespace](System.Reactive.Subjects/System.Reactive.Subjects)

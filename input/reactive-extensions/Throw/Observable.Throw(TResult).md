@@ -4,7 +4,7 @@ title: Observable.Throw<TResult>(Exception)
 
 Returns an observable sequence that terminates with an exception.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -67,17 +67,17 @@ Observable sequence that terminates exceptionally with the specified exception o
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[Throw Overload](Throw\Observable.Throw.md)
+[Throw Overload](Throw/Observable.Throw)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 # Observable.Throw\<TResult\> Method (Exception, IScheduler)
 
 Returns an observable sequence that terminates with an exception with the specified scheduler.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -138,7 +138,7 @@ JScript does not support generic types and methods.
   The exception object used for the sequence’s termination.
 
 - scheduler  
-  Type: [System.Reactive.Concurrency.IScheduler](IScheduler\IScheduler.md)  
+  Type: [System.Reactive.Concurrency.IScheduler](IScheduler/IScheduler)  
   The scheduler to send the exceptional termination call on.
 
 #### Return Value
@@ -150,8 +150,8 @@ Observable sequence that terminates exceptionally with the specified exception o
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[Throw Overload](Throw\Observable.Throw.md)
+[Throw Overload](Throw/Observable.Throw)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)

@@ -4,7 +4,7 @@ title: CancellationDisposable.Token Property
 
 Gets the CancellationToken used by this CancellationDisposable.
 
-**Namespace:**  [System.Reactive.Disposables](System.Reactive.Disposables\System.Reactive.Disposables.md)  
+**Namespace:**  [System.Reactive.Disposables](System.Reactive.Disposables/System.Reactive.Disposables)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -51,6 +51,6 @@ The CancellationToken used by this CancellationDisposable.
 
 #### Reference
 
-[CancellationDisposable Class](CancellationDisposable\CancellationDisposable.md)
+[CancellationDisposable Class](CancellationDisposable/CancellationDisposable)
 
-[System.Reactive.Disposables Namespace](System.Reactive.Disposables\System.Reactive.Disposables.md)
+[System.Reactive.Disposables Namespace](System.Reactive.Disposables/System.Reactive.Disposables)

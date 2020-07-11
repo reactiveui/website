@@ -2,7 +2,7 @@ title: MyExt.Foo<T, R>(IObservable<T>, Func<T, R>)
 ---
 # MyExt.Foo\<T, R\> Method (IObservable\<T\>, Func\<T, R\>)
 
-**Namespace:**  [ReactiveTests.Tests](ReactiveTests.Tests\ReactiveTests.Tests.md)  
+**Namespace:**  [ReactiveTests.Tests](ReactiveTests.Tests/ReactiveTests.Tests)  
 **Assembly:**  Tests.System.Reactive (in Tests.System.Reactive.dll)
 
 ## Syntax
@@ -78,11 +78,11 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 
 #### Reference
 
-[MyExt Class](MyExt\MyExt.md)
+[MyExt Class](MyExt/MyExt)
 
-[Foo Overload](Foo\MyExt.Foo.md)
+[Foo Overload](Foo/MyExt.Foo)
 
-[ReactiveTests.Tests Namespace](ReactiveTests.Tests\ReactiveTests.Tests.md)
+[ReactiveTests.Tests Namespace](ReactiveTests.Tests/ReactiveTests.Tests)
 
 
 
@@ -94,7 +94,7 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 
 # MyExt.Foo\<T, R\> Method (IQbservable\<T\>, Expression\<Func\<T, R\>\>)
 
-**Namespace:**  [ReactiveTests.Tests](ReactiveTests.Tests\ReactiveTests.Tests.md)  
+**Namespace:**  [ReactiveTests.Tests](ReactiveTests.Tests/ReactiveTests.Tests)  
 **Assembly:**  Tests.System.Reactive (in Tests.System.Reactive.dll)
 
 ## Syntax
@@ -153,28 +153,28 @@ JScript does not support generic types and methods.
 #### Parameters
 
 - source  
-  Type: [System.Reactive.Linq.IQbservable](IQbservable\IQbservable(TSource).md)\<T\>
+  Type: [System.Reactive.Linq.IQbservable](IQbservable/IQbservable(TSource))\<T\>
 
 - f  
   Type: [System.Linq.Expressions.Expression](https://msdn.microsoft.com/en-us/library/Bb335710)\<[Func](https://msdn.microsoft.com/en-us/library/Bb549151)\<T, R\>\>
 
 #### Return Value
 
-Type: [System.Reactive.Linq.IQbservable](IQbservable\IQbservable(TSource).md)\<R\>
+Type: [System.Reactive.Linq.IQbservable](IQbservable/IQbservable(TSource))\<R\>
 
 #### Usage Note
 
-In Visual Basic and C\#, you can call this method as an instance method on any object of type [IQbservable](IQbservable\IQbservable(TSource).md)\<T\>. When you use instance method syntax to call this method, omit the first parameter. For more information, see [](https://msdn.microsoft.com/en-us/library/Bb384936) or [](https://msdn.microsoft.com/en-us/library/Bb383977).
+In Visual Basic and C\#, you can call this method as an instance method on any object of type [IQbservable](IQbservable/IQbservable(TSource))\<T\>. When you use instance method syntax to call this method, omit the first parameter. For more information, see [](https://msdn.microsoft.com/en-us/library/Bb384936) or [](https://msdn.microsoft.com/en-us/library/Bb383977).
 
 ## See Also
 
 #### Reference
 
-[MyExt Class](MyExt\MyExt.md)
+[MyExt Class](MyExt/MyExt)
 
-[Foo Overload](Foo\MyExt.Foo.md)
+[Foo Overload](Foo/MyExt.Foo)
 
-[ReactiveTests.Tests Namespace](ReactiveTests.Tests\ReactiveTests.Tests.md)
+[ReactiveTests.Tests Namespace](ReactiveTests.Tests/ReactiveTests.Tests)
 
 
 

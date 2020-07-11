@@ -4,7 +4,7 @@ title: MultipleAssignmentDisposable.Dispose()
 
 Disposes the underlying disposable as well as all future replacements.
 
-**Namespace:**  [System.Reactive.Disposables](System.Reactive.Disposables\System.Reactive.Disposables.md)  
+**Namespace:**  [System.Reactive.Disposables](System.Reactive.Disposables/System.Reactive.Disposables)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -47,9 +47,9 @@ public final function Dispose()
 
 #### Reference
 
-[MultipleAssignmentDisposable Class](MultipleAssignmentDisposable\MultipleAssignmentDisposable.md)
+[MultipleAssignmentDisposable Class](MultipleAssignmentDisposable/MultipleAssignmentDisposable)
 
-[System.Reactive.Disposables Namespace](System.Reactive.Disposables\System.Reactive.Disposables.md)
+[System.Reactive.Disposables Namespace](System.Reactive.Disposables/System.Reactive.Disposables)
 
 
 

@@ -4,7 +4,7 @@ title: AsyncSubject<T>.OnCompleted()
 
 Notifies all subscribed observers of the end of the sequence, also causing the last received value to be sent out (if any).
 
-**Namespace:**  [System.Reactive.Subjects](System.Reactive.Subjects\System.Reactive.Subjects.md)  
+**Namespace:**  [System.Reactive.Subjects](System.Reactive.Subjects/System.Reactive.Subjects)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -47,6 +47,6 @@ public final function OnCompleted()
 
 #### Reference
 
-[AsyncSubject\<T\> Class](AsyncSubject\AsyncSubject(T).md)
+[AsyncSubject\<T\> Class](AsyncSubject/AsyncSubject(T))
 
-[System.Reactive.Subjects Namespace](System.Reactive.Subjects\System.Reactive.Subjects.md)
+[System.Reactive.Subjects Namespace](System.Reactive.Subjects/System.Reactive.Subjects)

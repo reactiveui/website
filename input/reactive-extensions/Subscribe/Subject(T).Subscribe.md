@@ -4,7 +4,7 @@ title: Subject<T>.Subscribe()
 
 Subscribes an observer to the subject.
 
-**Namespace:**  [System.Reactive.Subjects](System.Reactive.Subjects\System.Reactive.Subjects.md)  
+**Namespace:**  [System.Reactive.Subjects](System.Reactive.Subjects/System.Reactive.Subjects)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -54,7 +54,7 @@ public final function Subscribe(
 #### Parameters
 
 - observer  
-  Type: [System.IObserver](https://msdn.microsoft.com/en-us/library/Dd783449)\<[T](Subject\Subject(T).md)\>  
+  Type: [System.IObserver](https://msdn.microsoft.com/en-us/library/Dd783449)\<[T](Subject/Subject(T))\>  
   Observer to subscribe to the subject.
 
 #### Return Value
@@ -268,6 +268,6 @@ Headline     : An earthquake occurred in your area.
 
 #### Reference
 
-[Subject\<T\> Class](Subject\Subject(T).md)
+[Subject\<T\> Class](Subject/Subject(T))
 
-[System.Reactive.Subjects Namespace](System.Reactive.Subjects\System.Reactive.Subjects.md)
+[System.Reactive.Subjects Namespace](System.Reactive.Subjects/System.Reactive.Subjects)

@@ -2,7 +2,7 @@ title: DispatcherObservable.SubscribeOnDispatcher<TSource>()
 ---
 # DispatcherObservable.SubscribeOnDispatcher\<TSource\> Method
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive.Windows.Threading (in System.Reactive.Windows.Threading.dll)
 
 ## Syntax
@@ -68,6 +68,6 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 
 #### Reference
 
-[DispatcherObservable Class](DispatcherObservable\DispatcherObservable.md)
+[DispatcherObservable Class](DispatcherObservable/DispatcherObservable)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)

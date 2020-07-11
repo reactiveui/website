@@ -4,7 +4,7 @@ title: SerialDisposable.IsDisposed Property
 
 Gets a value indicating whether the object is disposed.
 
-**Namespace:**  [System.Reactive.Disposables](System.Reactive.Disposables\System.Reactive.Disposables.md)  
+**Namespace:**  [System.Reactive.Disposables](System.Reactive.Disposables/System.Reactive.Disposables)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -51,9 +51,9 @@ Returns a [Boolean](https://msdn.microsoft.com/en-us/library/a28wyd50). The valu
 
 #### Reference
 
-[SerialDisposable Class](SerialDisposable\SerialDisposable.md)
+[SerialDisposable Class](SerialDisposable/SerialDisposable)
 
-[System.Reactive.Disposables Namespace](System.Reactive.Disposables\System.Reactive.Disposables.md)
+[System.Reactive.Disposables Namespace](System.Reactive.Disposables/System.Reactive.Disposables)
 
 
 

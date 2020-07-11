@@ -4,7 +4,7 @@ title: Observable.GroupBy<TSource, TKey, TElement>(IObservable<TSource>, Func<TS
 
 Groups the elements of an observable sequence according to a specified key selector function and comparer and selects the resulting elements by using a specified function.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -96,7 +96,7 @@ JScript does not support generic types and methods.
 
 #### Return Value
 
-Type: [System.IObservable](https://msdn.microsoft.com/en-us/library/Dd990377)\<[IGroupedObservable](IGroupedObservable\IGroupedObservable(TKey,.md)\<TKey, TElement\>\>  
+Type: [System.IObservable](https://msdn.microsoft.com/en-us/library/Dd990377)\<[IGroupedObservable](IGroupedObservable/IGroupedObservable(TKey,)\<TKey, TElement\>\>  
 A sequence of observable groups, each of which corresponds to a unique key value, containing all elements that share that same key value.
 
 #### Usage Note
@@ -107,11 +107,11 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[GroupBy Overload](GroupBy\Observable.GroupBy.md)
+[GroupBy Overload](GroupBy/Observable.GroupBy)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 
 
@@ -125,7 +125,7 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 
 Groups the elements of an observable sequence according to a specified key selector function.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -195,7 +195,7 @@ JScript does not support generic types and methods.
 
 #### Return Value
 
-Type: [System.IObservable](https://msdn.microsoft.com/en-us/library/Dd990377)\<[IGroupedObservable](IGroupedObservable\IGroupedObservable(TKey,.md)\<TKey, TSource\>\>  
+Type: [System.IObservable](https://msdn.microsoft.com/en-us/library/Dd990377)\<[IGroupedObservable](IGroupedObservable/IGroupedObservable(TKey,)\<TKey, TSource\>\>  
 A sequence of observable groups, each of which corresponds to a unique key value, containing all elements that share that same key value.
 
 #### Usage Note
@@ -206,11 +206,11 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[GroupBy Overload](GroupBy\Observable.GroupBy.md)
+[GroupBy Overload](GroupBy/Observable.GroupBy)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 
 
@@ -224,7 +224,7 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 
 Groups the elements of an observable sequence according to a specified key selector function and comparer.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -304,7 +304,7 @@ JScript does not support generic types and methods.
 
 #### Return Value
 
-Type: [System.IObservable](https://msdn.microsoft.com/en-us/library/Dd990377)\<[IGroupedObservable](IGroupedObservable\IGroupedObservable(TKey,.md)\<TKey, TSource\>\>  
+Type: [System.IObservable](https://msdn.microsoft.com/en-us/library/Dd990377)\<[IGroupedObservable](IGroupedObservable/IGroupedObservable(TKey,)\<TKey, TSource\>\>  
 A sequence of observable groups, each of which corresponds to a unique key value, containing all elements that share that same key value.
 
 #### Usage Note
@@ -315,11 +315,11 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[GroupBy Overload](GroupBy\Observable.GroupBy.md)
+[GroupBy Overload](GroupBy/Observable.GroupBy)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 
 
@@ -333,7 +333,7 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 
 Groups the elements of an observable sequence and selects the resulting elements by using a specified function.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -416,7 +416,7 @@ JScript does not support generic types and methods.
 
 #### Return Value
 
-Type: [System.IObservable](https://msdn.microsoft.com/en-us/library/Dd990377)\<[IGroupedObservable](IGroupedObservable\IGroupedObservable(TKey,.md)\<TKey, TElement\>\>  
+Type: [System.IObservable](https://msdn.microsoft.com/en-us/library/Dd990377)\<[IGroupedObservable](IGroupedObservable/IGroupedObservable(TKey,)\<TKey, TElement\>\>  
 A sequence of observable groups, each of which corresponds to a unique key value, containing all elements that share that same key value.
 
 #### Usage Note
@@ -425,7 +425,7 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 
 ## Remarks
 
-The GroupBy operator is used to group a source sequence of items into groups based on a key value. Each key value is the result of the keySelector function and can be derived from each item in the source sequence. The result of the GroupBy operator is a sequence of grouped items represented by a sequence of [IGroupedObservable\<TKey, TElement\>](IGroupedObservable\IGroupedObservable(TKey,.md). IGroupedObservable exposes a key property which identifies the grouped sequence. The actual items in the resulting grouped sequences are controlled by the result of the elementSelector function applied to each source item.
+The GroupBy operator is used to group a source sequence of items into groups based on a key value. Each key value is the result of the keySelector function and can be derived from each item in the source sequence. The result of the GroupBy operator is a sequence of grouped items represented by a sequence of [IGroupedObservable\<TKey, TElement\>](IGroupedObservable/IGroupedObservable(TKey,). IGroupedObservable exposes a key property which identifies the grouped sequence. The actual items in the resulting grouped sequences are controlled by the result of the elementSelector function applied to each source item.
 
 ## Examples
 
@@ -554,11 +554,11 @@ The following output was generated with the example code.
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[GroupBy Overload](GroupBy\Observable.GroupBy.md)
+[GroupBy Overload](GroupBy/Observable.GroupBy)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 
 

@@ -4,7 +4,7 @@ title: Observable.Aggregate<TSource, TAccumulate>(IObservable<TSource>, TAccumul
 
 Applies an accumulator function over an observable sequence with the specified seed value.
 
-**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq\System.Reactive.Linq.md)  
+**Namespace:**  [System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -249,11 +249,11 @@ Here is example output from the example code.
 
 #### Reference
 
-[Observable Class](Observable\Observable.md)
+[Observable Class](Observable/Observable)
 
-[Aggregate Overload](Aggregate\Observable.Aggregate.md)
+[Aggregate Overload](Aggregate/Observable.Aggregate)
 
-[System.Reactive.Linq Namespace](System.Reactive.Linq\System.Reactive.Linq.md)
+[System.Reactive.Linq Namespace](System.Reactive.Linq/System.Reactive.Linq)
 
 
 

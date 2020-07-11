@@ -4,7 +4,7 @@ title: Unit.Equality Operator
 
 Indicates whether first and second arguments are equal.
 
-**Namespace:**  [System.Reactive](System.Reactive\System.Reactive.md)  
+**Namespace:**  [System.Reactive](System.Reactive/System.Reactive)  
 **Assembly:**  System.Reactive (in System.Reactive.dll)
 
 ## Syntax
@@ -54,11 +54,11 @@ JScript supports the use of overloaded operators, but not the declaration of new
 #### Parameters
 
 - first  
-  Type: [System.Reactive.Unit](Unit\Unit.md)  
+  Type: [System.Reactive.Unit](Unit/Unit)  
   The first Unit to compare, or null.
 
 - second  
-  Type: [System.Reactive.Unit](Unit\Unit.md)  
+  Type: [System.Reactive.Unit](Unit/Unit)  
   The second Unit to compare, or null.
 
 #### Return Value
@@ -70,9 +70,9 @@ Always returns true.
 
 #### Reference
 
-[Unit Structure](Unit\Unit.md)
+[Unit Structure](Unit/Unit)
 
-[System.Reactive Namespace](System.Reactive\System.Reactive.md)
+[System.Reactive Namespace](System.Reactive/System.Reactive)
 
 
 

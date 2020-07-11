@@ -4,7 +4,7 @@ title: Recorded<T>.Equals(Object)
 
 Checks whether the given object is equal to the current instance.
 
-**Namespace:**  [Microsoft.Reactive.Testing](Microsoft.Reactive.Testing\Microsoft.Reactive.Testing.md)  
+**Namespace:**  [Microsoft.Reactive.Testing](Microsoft.Reactive.Testing/Microsoft.Reactive.Testing)  
 **Assembly:**  Microsoft.Reactive.Testing (in Microsoft.Reactive.Testing.dll)
 
 ## Syntax
@@ -66,11 +66,11 @@ True if both objects are equal; otherwise, false.
 
 #### Reference
 
-[Recorded\<T\> Structure](Recorded\Recorded(T).md)
+[Recorded\<T\> Structure](Recorded/Recorded(T))
 
-[Equals Overload](Equals\Recorded(T).Equals.md)
+[Equals Overload](Equals/Recorded(T).Equals)
 
-[Microsoft.Reactive.Testing Namespace](Microsoft.Reactive.Testing\Microsoft.Reactive.Testing.md)
+[Microsoft.Reactive.Testing Namespace](Microsoft.Reactive.Testing/Microsoft.Reactive.Testing)
 
 
 
@@ -82,7 +82,7 @@ True if both objects are equal; otherwise, false.
 
 Checks whether the given recorded object is equal to the current instance.
 
-**Namespace:**  [Microsoft.Reactive.Testing](Microsoft.Reactive.Testing\Microsoft.Reactive.Testing.md)  
+**Namespace:**  [Microsoft.Reactive.Testing](Microsoft.Reactive.Testing/Microsoft.Reactive.Testing)  
 **Assembly:**  Microsoft.Reactive.Testing (in Microsoft.Reactive.Testing.dll)
 
 ## Syntax
@@ -132,7 +132,7 @@ public final function Equals(
 #### Parameters
 
 - other  
-  Type: [Microsoft.Reactive.Testing.Recorded](Recorded\Recorded(T).md)\<[T](Recorded\Recorded(T).md)\>  
+  Type: [Microsoft.Reactive.Testing.Recorded](Recorded/Recorded(T))\<[T](Recorded/Recorded(T))\>  
   Recorded object to check for equality.
 
 #### Return Value
@@ -148,11 +148,11 @@ True if both objects are equal; otherwise, false.
 
 #### Reference
 
-[Recorded\<T\> Structure](Recorded\Recorded(T).md)
+[Recorded\<T\> Structure](Recorded/Recorded(T))
 
-[Equals Overload](Equals\Recorded(T).Equals.md)
+[Equals Overload](Equals/Recorded(T).Equals)
 
-[Microsoft.Reactive.Testing Namespace](Microsoft.Reactive.Testing\Microsoft.Reactive.Testing.md)
+[Microsoft.Reactive.Testing Namespace](Microsoft.Reactive.Testing/Microsoft.Reactive.Testing)
 
 
 
@@ -178,9 +178,9 @@ NameDescription![Public method](https://reactiveui.net/assets/img/Hh303103.pubme
 
 #### Reference
 
-[Recorded\<T\> Structure](Recorded\Recorded(T).md)
+[Recorded\<T\> Structure](Recorded/Recorded(T))
 
-[Microsoft.Reactive.Testing Namespace](Microsoft.Reactive.Testing\Microsoft.Reactive.Testing.md)
+[Microsoft.Reactive.Testing Namespace](Microsoft.Reactive.Testing/Microsoft.Reactive.Testing)
 
 
 
