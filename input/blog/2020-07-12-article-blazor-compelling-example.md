@@ -272,7 +272,7 @@ Wow.  Imagine having to unit test that.  Horrible.  Imagine _debugging_ it.  No,
 
 each one atomic, each one easy to test.  And I also my second favourite library ever, [Language-Ext](https://github.com/louthy/language-ext) to get some nice helper methods and structs.  
   
-And here that `GetNugetPackages` method now.  
+And here's that `GetNugetPackages` method now.  
   
     public async Task<IEnumerable<NugetPackageDto>> GetNugetPackages(string term) =>
             await NugetFunctions.NuGetLocalRepository()
