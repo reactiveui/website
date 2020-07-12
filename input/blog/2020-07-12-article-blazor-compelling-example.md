@@ -34,7 +34,7 @@ Here's the project structure :
   
 <img src="https://i.imgur.com/BCf0xvv.png" align="center"/>  
   
-Yes, I could have put the viewmodels in CompellingExample.Blazor.Shared but they contain no Blazor code and apply to the original WPF project too, so I didn't.  You can throw eggs me at later.  Let's move on.  
+Yes, I could have put the viewmodels in CompellingExample.Blazor.Shared but they contain no Blazor code and apply to the original WPF project too, so I didn't.  You can throw eggs at me later.  Let's move on.  
   
 Because I needed an HttpClient calling an MVC WebApi, I put Refit on both the Blazor Client and the CompellingExample - they have to be the same, right?  I won't go into the specifics because this isn't about Refit, I could have done it any number of ways, but I like Refit.  The code's in a [GitHub repo](https://github.com/richbryant/ReactiveUI.CompellingExample) if you want to check it for errors.  
   
