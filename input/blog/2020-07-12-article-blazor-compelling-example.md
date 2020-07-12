@@ -16,7 +16,7 @@ For me, the big seller is that you've already got a WPF or Xamarin or WinForms a
   
 ### The ReactiveUI Compelling Example  
   
-The ReactiiveUI website Getting Started section links a [Compelling Example](https://www.reactiveui.net/docs/getting-started/compelling-example), a simple Nuget browser that you can build with copypasta in about 5 minutes.  
+The ReactiveUI website Getting Started section links a [Compelling Example](https://www.reactiveui.net/docs/getting-started/compelling-example), a simple Nuget browser that you can build very quickly with copypasta.  
 
 <img src="https://i.imgur.com/GoczlPS.png" align="center"/>
 
@@ -28,13 +28,13 @@ Yeah, that makes sense.  Step 1 - build the Compelling Example just like the ins
 
 2. Add a Blazor project.  
 
-I used Blazor AspNetCore Hosted for reasons which I hope will become clear later and I moved the actual "get the data" stuff to a service inside the Server project.  I also created a ViewModels project (a .NET Standard 2.1 clas library) because I don't want to copy my ViewModels, I want them shared.  
+I used Blazor AspNetCore Hosted for reasons which I hope will become clear later and I moved the actual "get the data" stuff to a service inside the Server project.  I also created a ViewModels project (a .NET Standard 2.1 class library) because I don't want to copy my ViewModels, I want them shared.  
   
 Here's the project structure :  
   
 <img src="https://i.imgur.com/BCf0xvv.png" align="center"/>  
   
-Yes, I could have put the viewmodels in CompellingExample.Blazor.Shared but they contain no Blazor code and apply to the original WPF project too, so I didn't.  You can throw eggs me later.  Let's move on.  
+Yes, I could have put the viewmodels in CompellingExample.Blazor.Shared but they contain no Blazor code and apply to the original WPF project too, so I didn't.  You can throw eggs me at later.  Let's move on.  
   
 Because I needed an HttpClient calling an MVC WebApi, I put Refit on both the Blazor Client and the CompellingExample - they have to be the same, right?  I won't go into the specifics because this isn't about Refit, I could have done it any number of ways, but I like Refit.  The code's in a [GitHub repo](https://github.com/richbryant/ReactiveUI.CompellingExample) if you want to check it for errors.  
   
@@ -270,7 +270,7 @@ Wow.  Imagine having to unit test that.  Horrible.  Imagine _debugging_ it.  No,
         public static async Task<IEnumerable<IPackageSearchMetadata>> GetMetadata(PackageSearchResource source, string term)
             => await source.SearchAsync(term, new SearchFilter(false), 0, 10, null, new CancellationToken());
 
-each one atomic, each one easy to test.  And I also my second favourite library ever, [Language-Ext](https://github.com/louthy/language-ext) to get some nice helper methods and structs.  
+each one atomic, each one easy to test.  And I added also my second favourite library ever, [Language-Ext](https://github.com/louthy/language-ext) to get some nice helper methods and structs.  
   
 And here's that `GetNugetPackages` method now.  
   
