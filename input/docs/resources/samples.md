@@ -22,8 +22,6 @@ You can find a number of samples over in our [sample repository](https://github.
 
 * [Camelotia](https://github.com/worldbeater/Camelotia) — file manager for cloud storages, contains `x:Bind` and activation examples.
 
-* [MyFeed](https://github.com/worldbeater/MyFeed) — an RSS reader built with ReactiveUI and <a href="https://github.com/Fody/PropertyChanged">PropertyChanged.Fody</a>. Supports Lumia devices.
-
 # Xamarin Forms
 
 * [WorkoutWotch](https://github.com/kentcb/WorkoutWotch) — a mobile application that allows users to have their exercise programs dictated to them. The vast majority of the application was built as part of a [video series "Building an iOS app with C#"](https://github.com/kentcb/WorkoutWotch#where-are-the-videos).
