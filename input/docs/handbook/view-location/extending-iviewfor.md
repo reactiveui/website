@@ -7,14 +7,16 @@ There will be times where you need to extend the power of ReactiveUI view types 
 
 Below are a few ReactiveUI base implementations that are provided for various platforms, this is not an extensive list.
 
-- [ReactiveUserControl](https://github.com/reactiveui/ReactiveUI/blob/7d1231293274187c39d934593104c2b63fa8c808/src/ReactiveUI.Winforms/ReactiveUserControl.cs#L18)
-- [ReactiveContentPage](https://github.com/reactiveui/ReactiveUI/blob/7d1231293274187c39d934593104c2b63fa8c808/src/ReactiveUI.XamForms/ReactiveContentPage.cs#L18)
+- [ReactiveUserControl](https://github.com/reactiveui/ReactiveUI/blob/main/src/ReactiveUI/Platforms/windows-common/ReactiveUserControl.cs) (Windows Platform)
+- [ReactiveContentPage](https://github.com/reactiveui/ReactiveUI/blob/main/src/ReactiveUI.XamForms/ReactiveContentPage.cs) (Xamarin Forms)
 
 #### **Note: As of writting this C# does not support inheritance from multiple classes.**
 
+## Xamarin Forms Example
+
 For this example we will use [Rg.Plugins.Popup](https://github.com/rotorgames/Rg.Plugins.Popup) a library that displays popup style modal pages for Xamarin.Forms.  This scenario expects that you are extending for a base implementation.  Another option is to explicitly extend each page from `IViewFor<T>`.  Chose the path that is right for you.
 
-## The implementation
+### The implementation
 
 The first thing we need to do is bridge the `PopupPage`, which is a concrete implementation, by extending from `IViewFor`.
 
@@ -62,7 +64,7 @@ The first thing we need to do is bridge the `PopupPage`, which is a concrete imp
     }
 ```
 
-## The usage
+### The usage
 
 From here all we need to inherit from `BasePopupPage`.
 
@@ -76,7 +78,7 @@ From here all we need to inherit from `BasePopupPage`.
     }
 ```
 
-## The XAML
+### The XAML
 
 In our XAML we need to make sure that we inherit from the same page so that the partial class will resolve correctly.  That should look similar to below.
 
