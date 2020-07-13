@@ -26,7 +26,7 @@ In order to use bindings in the View, you must first implement `IViewFor<TViewMo
 
 For a detailed overview of the bindings on each platform, see the following sections:
 
-* [Universal Windows Platform](./windows-store)
+* [Universal Windows Platform](./microsoft-store)
 
 * [Xamarin.Forms](./xamarin-forms)
 
