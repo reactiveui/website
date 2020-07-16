@@ -139,7 +139,7 @@ and that means we have two testable functions, working in a pipeline.  Just like
   
 LanguageExt has absolutely loads of useful features.  I won't go through them all here but I especially recommend you look into `Either<L, R>` which helps guard you against Exceptions and `Try<T>` which takes out all those horrible Try/Catch blocks when you really need Exceptions, like in netowrk code or anything else that might suddenly be unavailable for external reasons. And `Validation<T>`.  Guess what that does. 
   
-It's by [Paul Louth](https://twitter.com/paullouth), it's on [Nuget](https://www.nuget.org/packages/LanguageExt.Core/3.4.15) and you should try it out.  I think you'll appreciate it.  
+It's by [Paul Louth](https://twitter.com/paullouth), it's on [Nuget](https://www.nuget.org/packages/LanguageExt.Core/) and you should try it out.  I think you'll appreciate it.  
   
 There are even extensions for Observables!
 
