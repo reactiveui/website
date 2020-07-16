@@ -64,7 +64,7 @@ Let's knock up a perfectly normal, boring class.
     }
 ```
 
-Let's say we want to get a person with an Id of 127 from the database and because we like Linq, we're using EF Core. Although if you're interested, I actually prefer Linq2Db because DbContext isn't thread-safe, but anyway, demo stuff so EF Core it is.  
+Let's say we want to get a person with an Id of 127 from the database and because we like Linq, we're using EF Core. Although if you're interested, I actually prefer [Linq2Db](https://github.com/linq2db/linq2db) because DbContext isn't thread-safe, but anyway, demo stuff so EF Core it is.  
 
 ```
     var myPerson = _dbContext.People().First(person => person.Id == 127);
