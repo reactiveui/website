@@ -137,7 +137,7 @@ Well, now we have this -
 
 and that means we have two testable functions, working in a pipeline.  Just like you have with an Enumerable or an Observable.  We're null-safe and the style is consistent with System.Reactive and ReactiveUI.  And I find this is much more important that you'd expect.  Consistency may well be the bugbear of little minds - like mine - but damn, it helps when you have to review somebody else's code.  Or even come back to your own.  
   
-LanguageExt has absolutely loads of useful features.  I won't go through them all here but I especially recommend you look into `Either<L, R>` which helps guard you against Exceptions and `Try<T>` which takes out all those horrible Try/Catch blocks when you really need Exceptions, like in netowrk code or anything else that might suddenly be unavailable for external reasons. And `Validation<T>`.  Guess what that does. 
+LanguageExt has absolutely loads of useful features.  I won't go through them all here but I especially recommend you look into `Either<L, R>` which helps guard you against Exceptions and `Try<T>` which takes out all those horrible Try/Catch blocks when you really need Exceptions, like in network code or anything else that might suddenly be unavailable for external reasons. And `Validation<T>`.  Guess what that does. 
   
 It's by [Paul Louth](https://twitter.com/paullouth), it's on [Nuget](https://www.nuget.org/packages/LanguageExt.Core/) and you should try it out.  I think you'll appreciate it.  
   
