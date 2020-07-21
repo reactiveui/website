@@ -51,26 +51,37 @@ this.WhenAnyValue(x => x.Red, x => x.Green, x => x.Blue,
 this.WhenAnyValue(x => x.Foo.Bar.Baz);
 ```
 
-# Idiomatic usage
+# Usage
 
-Naturally, once you have an observable of property changes you can `Subscribe` to it in order to perform actions in response to the changed values. However, in many cases there may be a Better Way to achieve what you want. Below are some typical usages of the observables returned by the `WhenAny` variants:
+Below are some typical usages of the observables returned by the `WhenAny` variants:
+
+### Subscribing
+
+You can `Subscribe` to the observable returned by the `WhenAny` variant and get notifications whenever the value changes.
+
+```cs
+this.WhenAnyValue(x => x.SearchText)
+    .Subscribe(x => Console.WriteLine(x));
+```
+
+This will subscribe to whenever the current object's `SearchText` is changed and print the value to the `Console.WriteLine` method.
 
 ### Exposing 'calculated' properties
 
 In general, using `Subscribe` on a `WhenAny` observable (or any observable, for that matter) just to set a property is likely a code smell. Idiomatically, the `ToProperty` operator is used to create a 'read-only' calculated property that can be exposed to the rest of your application, only settable by the `WhenAny` chain that preceded it:
 
 ```cs
-this.WhenAnyValue(x => x.SearchText, x => x.Length)
+this.WhenAnyValue(x => x.SearchText, x => x.Length, (text, length) => text + " (" + length + ")")
     .ToProperty(this, x => x.SearchTextLength, out _searchTextLength);
 ```
 
-This initialises the `SearchTextLength` property (an [ObservableAsPropertyHelper](../oaph/) property) as a property that will be updated with the current search text length every time it changes. The property cannot be set in any other manner and raises change notifications, so can itself be used in a `WhenAny` expression or a binding. 
+This will set a (an [ObservableAsPropertyHelper](../oaph/) property) field called `_searchTextLength` which you then expose via the `SearchTextLength` property. `ObservableAsPropertyHelper` properties cannot be mutated directly, but are instead calculated via the `WhenAnyValue` selector lambda.
 
 See the [ObservableAsPropertyHelper](../oaph/) section for more information on this pattern.
 
-### Supporting validation as a `CanExecute` criteria
+### `ReactiveCommand.CanExecute` observable
 
-`WhenAny` can make specifying and adhering to validation logic clean and simple. Here, `WhenAnyValue` is used to observe the changing values of the `Username` and `Password` fields, and project whether the current pair of values is valid. This becomes the `canExecute` parameter for `CreateUserCommand`, preventing the user from proceeding until the validation conditions are met.
+`WhenAny` can be used for providing logic if a `ReactiveCommand` can be executed or not.
 
 ```cs
 var canCreateUser = this.WhenAnyValue(
@@ -85,9 +96,11 @@ var canCreateUser = this.WhenAnyValue(
 CreateUserCommand = ReactiveCommand.CreateFromTask(CreateUser, canCreateUser); 
 ```
 
+Here `WhenAnyValue` is used to observe the changing values of the `Username` and `Password` fields, and the selector will determine if the `CreateUserCommand` can be executed, preventing the user from executing the command until the validation conditions are met.
+
 ### Invoking commands
 
-[Commands](./commands) are often bound to buttons or controls in the view that can be triggered by the user. However, it often makes sense to perform work in response to changes in property values. For example, a 'live search' feature may be designed to perform searches as the user types into a textbox, after a small delay is detected. `WhenAny` in conjunction with the `InvokeCommand` operator can be used to achieve this.
+[Commands](./commands) are often bound to buttons or controls in the view that can be triggered by the user. You can also trigger commands when a property value has changed.
 
 ```cs
 // In the ViewModel.
@@ -100,11 +113,13 @@ this.WhenAnyValue(x => x.SearchText)
 this.Bind(ViewModel, vm => vm.SearchText, v => v.SearchTextField.Text);
 ```
 
-In addition to being able to simply and declaratively handle search throttling, building the search execution logic on top of the property change has made it easy to keep all the logic in the viewmodel - all the view needs to do is bind a control to the property.
+Above whenever the `SearchText` property has changed, and a quarter second has passed since the last change, the `InvokeCommand` will cause the `SearchCommand` to be invoked.
+
+The view will Bind to the `SearchText` property which will trigger the command automatically.
 
 ### Performing view-specific transforms as an input to `BindTo`
 
-Ideally, controls on your view bind directly to properties on your viewmodel. In cases where you need to convert a viewmodel value to a view-specific value (e.g. `bool` to `Visibility`), you should register a `BindingConverter`. Still, you may come across a situation in which you want to perform a transformation in the view directly. Here, we observe the `ShowToolTip` property of the viewmodel, transform the `true`/`false` values to `1` and `0` respectively, then bind the result to the `ToolTipLabel`'s alpha property. 
+Ideally, controls on your view bind directly to properties on your view model. In cases where you need to convert a viewmodel value to a view-specific value (e.g. `bool` to `Visibility`), you should register a `BindingConverter`. Still, you may come across a situation in which you want to perform a transformation in the view directly. Here, we observe the `ShowToolTip` property of the view model, transform the `true`/`false` values to `1` and `0` respectively, then bind the result to the `ToolTipLabel`'s alpha property. 
 
 ```cs
 // In the View.
@@ -113,38 +128,69 @@ ViewModel.WhenAnyValue(x => x.ShowToolTip)
          .BindTo(this, x => x.ToolTipLabel.Alpha);
 ```
 
+The preferable option is to use the `OneWayBind` property to perform the binding.
+
+```cs
+this.OneWayBind(this.ViewModel, vm => vm.ShowToolTip, view => view.ToolTipLabel.Alpha, show => show ? 1f : 0f);
+```
+
 # Variants of `WhenAny`
  
 Several variants of `WhenAny` exist, suited for different scenarios.
 
-### WhenAny vs WhenAnyValue
+### WhenAny
 
-`WhenAnyValue` covers the most common usage of `WhenAny`, and is a useful shortcut in many cases. The following two statements are equivalent and return an observable that yields the updated value of `SearchText` on every change:
+`WhenAny` allows you to get the Sender and the Expression passed into the `WhenAny`. This is useful for scenarios where the `Sender` is important such as View's where you need to know the Control which invoked the Property Change.
 
-- `this.WhenAny(x => x.SearchText, x => x.Value)`
-- `this.WhenAnyValue(x => x.SearchText)`
-
-When needing to observe one or many properties for changes, `WhenAnyValue` is quick to type and results in simpler looking code. Working with `WhenAny` directly gives you access to the `ObservedChange<,>` object that ReactiveUI produces on each property change. This is typically useful for framework code or extension methods. `ObservedChange` exposes the following properties:
+`WhenAny` will pass a `ObservedChange` object which exposes the following properties:
 
 * `Value` - the updated value
 * `Sender` - the object whose has property changed 
-* `Expression` - the expression that changed.
+* `Expression` - the expression that changed. Not needed often for external users.
 
-At the risk of extreme repetition - use `WhenAnyValue` unless you know you need `WhenAny`. 
+
+```cs
+this.WhenAny(x => x.ComboBox.SelectedItem).Subscribe(x => Console.WriteLine($"The {x.Sender} changed value to {x.Value}"));
+```
+
+Above, we write out the Sender and the new property value of the `SelectedItem`.
+
+`WhenAnyValue` should be preferred over `WhenAny` where possible and you don't need to know the `Sender` or the `Expression`.
 
 ### WhenAnyObservable
 
-`WhenAnyObservable` acts a lot like the Rx operator `CombineLatest`, in that it watches one or multiple observables and allows you to define a projection based on the latest value from each. `WhenAnyObservable` differs from `CombineLatest` in that its parameters are expressions, rather than direct references to the target observables. The impact of this difference is that the watch set up by `WhenAnyObservable` is not tied to the specific observable instances present at the time of subscription. That is, the observable pointed to by the expression can be replaced later, and the results of the new observable will still be captured. 
+`WhenAnyObservable` observes one or multiple observables and provides the latest observable value, handles automatic subscriptions of the new observable and disposal of previous observables.  `WhenAnyObservable` by default will be a lazy subscription, this means you will not get a value until you subscribe.
 
-An example of where this can come in handy is when a view wants to observe an observable on a viewmodel, but the viewmodel can be replaced during the view's lifetime. Rather than needing to resubscribe to the target observable after every change of viewmodel, you can use `WhenAnyObservable` to specify the 'path' to watch. This allows you to use a single subscription in the view, regardless of the life of the target viewmodel. 
+```csharp
+public class MyViewModel
+{
+    [Reactive]
+    public Document Document { get; set; }
+
+    public MyViewModel()
+    {
+      this.WhenAnyObservable(x => x.Document.IsSaved).Subscribe(x => Console.WriteLine($"Document Saved: {x}"));
+    }
+}
+
+public class Document
+{
+    public IObservable<bool> IsSaved { get; }
+}
+```
+
+Above whenever the document is saved, it will print the value from the `IsSaved` observable.  It will automatically unsubscribed and re-subscribe when the `Document` property is changed.
 
 # Additional Considerations
 
+### Property Changed Notifications needed
 Using `WhenAny` variants is fairly straightforward. However, there are a few aspects of their behaviour that are worth highlighting.
 
-### `INotifyPropertyChanged` is required
+`WhenAny` variants support a wide range of property changed notifications. For example it can support `INotifyPropertyChanged` for your view models, `DependencyProperty` on windows based XAML platforms, `NSObject` property changed notifications on Apple. To get value changed notifications your object must implement one of these known property changed notification mechanisms. 
 
-Watched properties must implement ReactiveUI's `RaiseAndSetIfChanged` or raise the standard `INotifyPropertyChanged` events. If you attempt to use `WhenAny` on a property without either of these in place, `WhenAny` will produce the current value of the property upon subscription, and nothing thereafter. Additionally, a warning will be issued at run time (ensure you have registered a service for `ILogger` to see this).
+If one of these isn't supported you will only get the initial value of the property and won't have any notifications of updates. Additionally, a warning will be issued at run time (ensure you have registered a service for `ILogger` to see this).
+
+Commonly on your view model you will use `INotifyPropertyChanged` which the `ReactiveObject` supports, where you'll commonly use ReactiveUI's `RaiseAndSetIfChanged` or raise the standard `INotifyPropertyChanged` events
 
 ### `WhenAny` has cold observable and behavioural semantics
 
@@ -172,9 +218,9 @@ this.Foo.Bar = new Bar() { Baz = "Something" };
 >>> Hello!
 ```
 
-* In Example 1, even though `Baz` is null, because the expression could be evaluated, you get a notification.
+In Example 1, even though `Baz` is null, because the expression could be evaluated, you get a notification.
 
-* In Example 2 however, evaluating this.Foo.Bar.Baz wouldn't give you null, it would crash. `WhenAny` therefore suppresses any notifications from being generated. Setting `Bar` to a new value generates a new notification.
+In Example 2 however, evaluating this.Foo.Bar.Baz wouldn't give you null, it would crash. `WhenAny` therefore suppresses any notifications from being generated. Setting `Bar` to a new value generates a new notification.
 
 ### `WhenAny` only notifies on change of the output value
 
