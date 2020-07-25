@@ -1,5 +1,12 @@
 Order: 10
 ---
+# 2020
+
+## Going Reactive with Reactive Extensions and ReactiveUI
+
+Mobile developers have some unique constraints that we have to solve for.  We develop in a world where we respond to events, fire asynchronous tasks all on a device that may not have the resources available to complete these tasks.
+
+<?# YouTube VoPtj6n_wz0 /?>
 
 # 2018
 
