@@ -99,3 +99,5 @@ As a result, almost all of the interesting code in a well-written ReactiveUI Vie
    to send""
 
 All of these statements are concise descriptions of parts of how your UI should work, and these statements can all be directly translated into Rx expressions in your ViewModel constructor.
+
+> **Note** With the [ReactiveUI.Fody](./boilerplate-code) package, you can implement the described patterns by annotating properties with either the `[Reactive]` or `[ObservableAsProperty]` attribute. The code responsible for sending property change notifications will be injected into getters or setters automatically at compile time.
