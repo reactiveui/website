@@ -38,13 +38,14 @@ You can find a number of samples over in our [sample repository](https://github.
 
 # AvaloniaUI
 
+* [Keyboard Switch](https://github.com/TolikPylypchuk/KeyboardSwitch) - an application which switches typed text as if it were typed with another keyboard layout.
+`KeyboardSwitch.Settings` contains the views and `KeyboardSwitch.Settings.Core` contains the view models.
+
 * [Radish](https://github.com/rbmkio/radish) — a cross-platform desktop client for Redis.
 
 * [Camelotia](https://github.com/worldbeater/Camelotia) — file manager for cloud storages built with ReactiveUI and Avalonia. 
 
 * [Egram](https://github.com/egramtel/egram.tel) — an unofficial crossplatform Telegram client written in C#, .NET Core and Avalonia.
-
-* [Keyboard Switch](https://github.com/TolikPylypchuk/KeyboardSwitch) - an application which switches typed text as if it were typed with another keyboard layout.
 
 # Xamarin Android
 
