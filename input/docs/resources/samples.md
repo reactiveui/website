@@ -44,6 +44,8 @@ You can find a number of samples over in our [sample repository](https://github.
 
 * [Egram](https://github.com/egramtel/egram.tel) — an unofficial crossplatform Telegram client written in C#, .NET Core and Avalonia.
 
+* [Keyboard Switch](https://github.com/TolikPylypchuk/KeyboardSwitch) - an application which switches typed text as if it were typed with another keyboard layout.
+
 # Xamarin Android
 
 > Send in a pull-request linking to the source code of something you have built.
