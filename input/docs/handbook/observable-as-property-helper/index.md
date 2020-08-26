@@ -7,6 +7,22 @@ The ObservableAsPropertyHelper (OAPH) is a class that simplifies the interop bet
 
 `ToProperty` is an extension method on `IObservable<T>` and semantically acts like a "Subscribe".
 
+ ```cs
+public static ObservableAsPropertyHelper<TRet> ToProperty<TObj, TRet>(
+    this IObservable<TRet> target,
+    TObj source,
+    Expression<Func<TObj, TRet>> property,
+    TRet initialValue = default(TRet),
+    bool deferSubscription = false,
+    IScheduler? scheduler = null)
+```
+
+The parameters of ToProperty allows you to specify the source of the property, often just the current class.
+* An expression or a string to the Property that is exposed.
+* Optionally the initial value being exposed by the Property before any values are emitted by the source observable. If you are deferring the subscription  this value may be the first value since the observable won't be immediately subscribed to.
+* Optionally if you defer subscription that will not subscribe to the observable until the user accesses the Property. By default we will subscribe to the observable immediately so that you have the latest value.
+* Optionally a scheduler, by default this will be CurrentThreadScheduler from where the call is made.
+
 ### Property vs ObservableAsPropertyHelper
 
 You should use a property and `RaiseAndSetIfChanged` if you are intending to mutate the value.
