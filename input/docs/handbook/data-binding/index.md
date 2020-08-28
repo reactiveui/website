@@ -145,9 +145,9 @@ ViewModel.Name
          .DisposeWith(disp);
 ```
 
-While both are similar, `BindTo` does offer a number of benefits:
+Although both are similar, `BindTo` does offer a number of benefits:
 
-* Can handle globally registered converters
+* Can handle globally registered converters - See the [Value Converters](./value-converters) page for details
 * Can handle special semantics within the ReactiveUI binding engine - e.g. on WinForms there are a number of properties where the set methods are automatically called
 * Provides a consistent style across multiple projects (iOS/Android...)
 
