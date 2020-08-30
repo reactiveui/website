@@ -26,6 +26,10 @@ You can also wrap the `WhenAny` in a `Observable.Defer` to avoid the value being
 
 The following examples demonstrate simple uses of `WhenAnyValue`, the `WhenAny` variant you are likely to use most frequently.
 
+## WhenAnyValue
+
+<?# YouTube IH2yx7b9DNY /?>
+
 ### Watching single property
 
 This returns an observable that yields the current value of Foo each time it changes:
@@ -51,11 +55,11 @@ this.WhenAnyValue(x => x.Red, x => x.Green, x => x.Blue,
 this.WhenAnyValue(x => x.Foo.Bar.Baz);
 ```
 
-# Usage
+### Usage
 
 Below are some typical usages of the observables returned by the `WhenAny` variants:
 
-### Subscribing
+#### Subscribing
 
 You can `Subscribe` to the observable returned by the `WhenAny` variant and get notifications whenever the value changes.
 
@@ -66,7 +70,7 @@ this.WhenAnyValue(x => x.SearchText)
 
 This will subscribe to whenever the current object's `SearchText` is changed and print the value to the `Console.WriteLine` method.
 
-### Exposing 'calculated' properties
+#### Exposing 'calculated' properties
 
 In general, using `Subscribe` on a `WhenAny` observable (or any observable, for that matter) just to set a property is likely a code smell. Idiomatically, the `ToProperty` operator is used to create a 'read-only' calculated property that can be exposed to the rest of your application, only settable by the `WhenAny` chain that preceded it:
 
@@ -79,7 +83,7 @@ This will set a (an [ObservableAsPropertyHelper](../oaph/) property) field calle
 
 See the [ObservableAsPropertyHelper](../oaph/) section for more information on this pattern.
 
-### `ReactiveCommand.CanExecute` observable
+#### `ReactiveCommand.CanExecute` observable
 
 `WhenAny` can be used for providing logic if a `ReactiveCommand` can be executed or not.
 
@@ -98,7 +102,7 @@ CreateUserCommand = ReactiveCommand.CreateFromTask(CreateUser, canCreateUser);
 
 Here `WhenAnyValue` is used to observe the changing values of the `Username` and `Password` fields, and the selector will determine if the `CreateUserCommand` can be executed, preventing the user from executing the command until the validation conditions are met.
 
-### Invoking commands
+#### Invoking commands
 
 [Commands](./commands) are often bound to buttons or controls in the view that can be triggered by the user. You can also trigger commands when a property value has changed.
 
@@ -117,7 +121,7 @@ Above whenever the `SearchText` property has changed, and a quarter second has p
 
 The view will Bind to the `SearchText` property which will trigger the command automatically.
 
-### Performing view-specific transforms as an input to `BindTo`
+#### Performing view-specific transforms as an input to `BindTo`
 
 Ideally, controls on your view bind directly to properties on your view model. In cases where you need to convert a viewmodel value to a view-specific value (e.g. `bool` to `Visibility`), you should register a `BindingConverter`. Still, you may come across a situation in which you want to perform a transformation in the view directly. Here, we observe the `ShowToolTip` property of the view model, transform the `true`/`false` values to `1` and `0` respectively, then bind the result to the `ToolTipLabel`'s alpha property. 
 
@@ -134,11 +138,7 @@ The preferable option is to use the `OneWayBind` property to perform the binding
 this.OneWayBind(this.ViewModel, vm => vm.ShowToolTip, view => view.ToolTipLabel.Alpha, show => show ? 1f : 0f);
 ```
 
-# Variants of `WhenAny`
- 
-Several variants of `WhenAny` exist, suited for different scenarios.
-
-### WhenAny
+## WhenAny
 
 `WhenAny` allows you to get the Sender and the Expression passed into the `WhenAny`. This is useful for scenarios where the `Sender` is important such as View's where you need to know the Control which invoked the Property Change.
 
@@ -157,7 +157,7 @@ Above, we write out the Sender and the new property value of the `SelectedItem`.
 
 `WhenAnyValue` should be preferred over `WhenAny` where possible and you don't need to know the `Sender` or the `Expression`.
 
-### WhenAnyObservable
+## WhenAnyObservable
 
 `WhenAnyObservable` observes one or multiple observables and provides the latest observable value, handles automatic subscriptions of the new observable and disposal of previous observables.  `WhenAnyObservable` by default will be a lazy subscription, this means you will not get a value until you subscribe.
 
