@@ -75,8 +75,42 @@ ReactiveUI packages are now signed by the dotnet foundation. Only builds from th
 [ValidationsBadge]: https://img.shields.io/nuget/v/ReactiveUI.Validation.svg
 [ValidationsDocs]: https://reactiveui.net/docs/handbook/user-input-validation/
 
-
 > **Note** ReactiveUI has packages for older .NET versions. Those packages are unlisted from NuGet and not supported, but you can still use them at your own risk to have ReactiveUI running on good old devices, such as Lumias, Surface Hubs, Windows XP, etc. See [Delisting of versions before 8.0.0 from NuGet](https://reactiveui.net/blog/2018/05/delisting-of-versions-before-8-0-0-from-nuget) blog post for more info.
+
+## Example
+
+The following isn't an exhausitve example, as some solutions will follow a different project structure or only use a subset of the platforms, but it should be enough to help with which packages to install on each platform project. **Note** non-platform specific packages (Reactive.Fody etc.) can be installed on any platform; Fody is often included in the core library to automatically generate the INotifyPropertyChanged boilerplate needed in the ViewModels.
+
+<pre>
+    .
+    ├── {NAME}.Tests.Unit
+        ├── ReactiveUI.Testing
+    ├── {NAME}.Core (.NetStandard)
+        ├── ReactiveUI
+        ├── ReactiveUI.Fody
+    ├── {NAME}.Droid
+        ├── ReactiveUI.AndroidSupport
+    ├── {NAME}.AndroidX
+        ├── ReactiveUI.AndroidX
+    ├── {NAME}.iOS
+        ├── ReactiveUI
+    ├── {NAME}.Mac
+        ├── ReactiveUI
+    ├── {NAME}.Forms (Xamarin Forms project)
+        ├── ReactiveUI.XamForms
+    ├── {NAME}.UWP
+        ├── ReactiveUI
+    ├── {NAME}.WPF
+        ├── ReactiveUI.WPF
+    ├── {NAME}.WindowsForms
+        ├── ReactiveUI.WinForms
+    ├── {NAME}.Tizen
+        ├── ReactiveUI
+    ├── {NAME}.Uno
+        ├── ReactiveUI.Uno
+    └── {NAME}.Avalonia
+        └── Avalonia.ReactiveUI
+</pre>
 
 # Release Packages
 
