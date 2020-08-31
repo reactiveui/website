@@ -79,7 +79,7 @@ ReactiveUI packages are now signed by the dotnet foundation. Only builds from th
 
 ## Example
 
-The following isn't an exhausitve example, as some solutions will follow a different project structure or only use a subset of the platforms, but it should be enough to help with which packages to install on each platform project.
+The following isn't an exhausitve example, as some solutions will follow a different project structure or only use a subset of the platforms, but it should be enough to help with which packages to install on each platform project. **Note** non-platform specific packages (Reactive.Fody etc.) can be installed on any platform; Fody is often included in the core library to automatically generate the INotifyPropertyChanged boilerplate needed in the ViewModels.
 
 <pre>
     .
@@ -90,6 +90,8 @@ The following isn't an exhausitve example, as some solutions will follow a diffe
         ├── ReactiveUI.Fody
     ├── {NAME}.Droid
         ├── ReactiveUI.AndroidSupport
+    ├── {NAME}.AndroidX
+        ├── ReactiveUI.AndroidX
     ├── {NAME}.iOS
         ├── ReactiveUI
     ├── {NAME}.Mac
@@ -100,8 +102,6 @@ The following isn't an exhausitve example, as some solutions will follow a diffe
         ├── ReactiveUI
     ├── {NAME}.WPF
         ├── ReactiveUI.WPF
-    ├── {NAME}.WindowsForms
-        ├── ReactiveUI.WinForms
     ├── {NAME}.WindowsForms
         ├── ReactiveUI.WinForms
     ├── {NAME}.Tizen
