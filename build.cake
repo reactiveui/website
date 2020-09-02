@@ -64,7 +64,7 @@ Task("Build")
     .IsDependentOn("GetArtifacts")
     .Does(() =>
     {
-        StartProcess(Context.Tools.Resolve("Wyam*"), new ProcessSettings {
+        StartProcess(Context.Tools.Resolve("wyam*"), new ProcessSettings {
                     Arguments = new ProcessArgumentBuilder()
                         .Append("build")
                         .AppendSwitch("--recipe", "Docs")
@@ -79,7 +79,7 @@ Task("Preview")
     .IsDependentOn("GetArtifacts")
     .Does(() =>
     {
-        StartProcess(Context.Tools.Resolve("Wyam*"), new ProcessSettings {
+        StartProcess(Context.Tools.Resolve("wyam*"), new ProcessSettings {
                     Arguments = new ProcessArgumentBuilder()
                         .Append("build")
                         .AppendSwitch("--recipe", "Docs")
