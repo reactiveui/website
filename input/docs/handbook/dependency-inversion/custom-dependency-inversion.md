@@ -78,9 +78,9 @@ public class AutofacDependencyResolver : IMutableDependencyResolver
 ### Set the Locator.Current to Your Implementation
 
 ```csharp
-var container = new ContainerBuilder();
+var containerBuilder = new ContainerBuilder();
 // Register things to the Autofac container...
-container.UseAutofacDependencyResolver();
+Locator.SetLocator(new AutofacDependencyResolver(containerBuilder.Build()));;
 Locator.CurrentMutable.InitializeSplat();
 Locator.CurrentMutable.InitializeReactiveUI();
 // These InitializeX() methods will add ReactiveUI platform 
