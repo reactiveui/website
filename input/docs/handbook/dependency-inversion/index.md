@@ -23,8 +23,7 @@ Service Location allows us to register types in platform-specific code, but use 
 >
 > Anaïs Betts @ http://stackoverflow.com/a/26924067/496857
 
-
-## Registration
+### Registration
 
 Splat supports on-demand new'ing, constant and lazy registration of dependencies. 
 
@@ -46,20 +45,15 @@ public class AppBootstrapper : IEnableLogger
 {  
     public AppBootstrapper() 
     { 
-        RegisterDependencies(); 
-    }  
-
-    public void RegisterDependencies() 
-    { 
-        Locator.CurrentMutable.RegisterConstant(new FeedService(), typeof(IFeedService)); 
+        Locator.CurrentMutable.RegisterConstant(new FeedService(), typeof(IFeedService));
+        // Other registrations go here...
     }  
 } 
 ```
 
 This code can be extended to have multiple methods to group the dependencies and make it better readable.
 
-
-## Resolution
+### Resolution
 
 Splat provides methods to resolve dependencies to single or multiple instances. 
  
@@ -77,8 +71,8 @@ public FeedsViewModel(IBlobCache cache = null)
 }
 ```
  
+## Advanced Usage
 
-## Advanced
 Splat's dependency resolver, accessible using `Locator.Current` conceptually resembles the below:
 
 ```csharp
@@ -92,9 +86,7 @@ public interface IDependencyResolver
 }
 ```
 
-Given a type T (usually an interface), you can now receive an implementation of T. If the T registered is very common ("string" for example), or you want to distinguish by a method other than type, you can use the "contract"
-parameter which is an arbitrary key that you provide.
-
-The current resolver that ReactiveUI itself will use (as well as what your app
+Given a type T (usually an interface), you can now receive an implementation of T. If the T registered is very common ("string" for example), or you want to distinguish by a method other than type, you can use the "contract" parameter which is an arbitrary key that you provide. The current resolver that ReactiveUI itself will use (as well as what your app
 should use as well), is provided by [Splat.ModernDependencyResolver](https://github.com/reactiveui/splat/blob/b833718d1b7940d1d02403e86864d03d2af5cea7/Splat/ServiceLocation.cs).
 
+> **Note** If you are willing to use your own DI container, see [Override Default Depenedency Inversion Container](https://www.reactiveui.net/docs/handbook/dependency-inversion/custom-dependency-inversion). [Splat](https://github.com/reactiveui/splat#dependency-resolver-packages) includes dependency resolver packages for `Autofac`, `DryIoc`, `Microsoft.Extensions.DependencyInjection`, `Ninject`, and `SimpleInjector`.

@@ -1,10 +1,10 @@
 # Override Default Depenedency Inversion Container
 
-We understand that some developers would prefer to use their favorite dependency inversion container.  ReactiveUI allows for this by implementing `IMutableDependencyResolver`.  Once this class has been implemented you simply need to set it to the `Locator`.
+We understand that some developers would prefer to use their favorite dependency inversion container. ReactiveUI allows for this by implementing `IMutableDependencyResolver`. Once this class has been implemented you simply need to assign it to `Locator` via `Locator.SetLocator()`. [Splat](https://github.com/reactiveui/splat#dependency-resolver-packages) includes ready to use packages containing dependency resolver implementations for `Autofac`, `DryIoc`, `Microsoft.Extensions.DependencyInjection`, `Ninject`, and `SimpleInjector`, see [the documentation](https://github.com/reactiveui/splat#dependency-resolver-packages) for more info.
 
-*Note*: This implementation is against Autofac, but can be used with most DI containers.
+### Implement a custom `IMutableDependencyResolver`
 
-## Implement an `IMutableDependencyResolver`
+<details><summary>IMutableDependencyResolver implementation against Autofac (example)</summary>
 
 ```csharp
 public class AutofacDependencyResolver : IMutableDependencyResolver
@@ -73,48 +73,23 @@ public class AutofacDependencyResolver : IMutableDependencyResolver
     }
 }
 ```
+</details>
 
-## Register services
-
-```csharp
-public class AutofacDependencyRegistrar
-{
-    protected IContainer Container;
-
-    public AutofacDependencyRegistrar(IContainer container)
-    {
-        Container = container;
-        RegisterViews();
-        RegisterViewModels();
-        RegisterServices();
-        RegisterScreen();
-    }
-
-    public void RegisterViews() { }
-
-    public void RegisterViewModels() { }
-
-    public void RegisterServices() { }
-
-    public void RegisterScreen() { }
-}
-```
-
-
-## Set the Locator.Current to your implementation
+### Set the Locator.Current to Your Implementation
 
 ```csharp
+var container = new ContainerBuilder();
+// Register things to the Autofac container...
 container.UseAutofacDependencyResolver();
-var resolver = Locator.CurrentMutable;
-// These Initialize methods will add ReactiveUI platform registrations to your container
-// They MUST be present if you override the default Locator
-resolver.InitializeSplat();
-resolver.InitializeReactiveUI();
-Locator.Current = resolver;
-```
+Locator.CurrentMutable.InitializeSplat();
+Locator.CurrentMutable.InitializeReactiveUI();
+// These InitializeX() methods will add ReactiveUI platform 
+// registrations to your container. They MUST be present if
+// you override the default Locator.
+``` 
 
 From this point on calls `Locator.Current` will go against your custom implementation!
 
-Note: Some DI engines get locked away after they're being built and become immutable. For such services, the `Use<MatchingService>DependencyResolver` extension method (`UseAutofacDependencyResolver` in Autofac) must be called again on the locked container. See AutoFac [docs](https://github.com/reactiveui/splat/tree/main/src/Splat.Autofac).
+> **Note** Some DI engines get locked away after they're being built and become immutable. For such services, the `Use<MatchingService>DependencyResolver` extension method (`UseAutofacDependencyResolver` in Autofac) must be called again on the locked container. See AutoFac [docs](https://github.com/reactiveui/splat/tree/main/src/Splat.Autofac).
 
-In Microsoft DI, the built container is a completely different type. You should recall `UseMicrosoftDependencyResolver` on the `IServiceProvider` once it's ready, in case you are using an external framework to manage DI (i.e. [Generic Host](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/host/generic-host?view=aspnetcore-2.2#configureservices)), see the dedicated MS DI [docs](https://github.com/reactiveui/splat/tree/main/src/Splat.Microsoft.Extensions.DependencyInjection).
+> **Note** In Microsoft DI, the built container is a completely different type. You should recall `UseMicrosoftDependencyResolver` on the `IServiceProvider` once it's ready, in case you are using an external framework to manage DI (i.e. [Generic Host](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/host/generic-host?view=aspnetcore-2.2#configureservices)), see the dedicated MS DI [docs](https://github.com/reactiveui/splat/tree/main/src/Splat.Microsoft.Extensions.DependencyInjection).
