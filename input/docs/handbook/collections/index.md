@@ -34,6 +34,8 @@ If you are already using ```ObservableCollection<T>``` the easiest and quickest 
 For example if you have an existing reactive list ```ObservableCollection<T> myList``` you can do something like this:
 
 ```cs
+// 'myList' is ObservableCollection<T>
+// 'myDerivedList' is IObservableList<T>
 var myDerivedList = myList
     .ToObservableChangeSet()
     .Filter(t => t.Status == "Something")
@@ -43,6 +45,8 @@ var myDerivedList = myList
 And voila you have create a filtered observable list. Or if you specify a key
 
 ```cs
+// 'myList' is ObservableCollection<T>
+// 'myDerivedCache' is IObservableCache<T, TKey>
 var myDerivedCache = myList
     .ToObservableChangeSet(t => t.Id)
     .Filter(t => t.Status == "Something")
@@ -51,11 +55,11 @@ var myDerivedCache = myList
 
 you have a derived observable cache.
 
-A caveat to this approach is if you are using ```myList``` will likely not be thread safe. Assuming ```myList``` is bound to a screen, then the observable change set is created and notified on the UI thread which I avoid for all operations except binding. The other approach is to create a data source first and bind later.
+A caveat to this approach is if you are using ```myList``` will likely not be thread safe. Assuming ```myList``` is bound to a screen, then the observable change set is created and notified on the UI thread which is recommended to avoid for all operations except binding. The other approach is to create a data source first and bind later.
 
 ```cs
 var myList = new SourceList<T>()
-var myConnection = myList
+var disposable = myList
     .Connect() // make the source an observable change set
     .\\some other operation
 ```
@@ -64,7 +68,7 @@ or similarly for the observable cache
 
 ```cs
 var myCache = new SourceCache<T, int>(t => t.Id) 
-var myConnection = myCache
+var disposable = myCache
     .Connect() // make the source an observable change set
     .\\some other operation
 ```
@@ -73,9 +77,12 @@ The advantage of creating your own data sources is that they can be maintained o
 
 ```cs
 ReadOnlyObservableCollection<T> bindingData;
-var myBindingOperation = mySource
+var disposable = mySource
     .Sort(SortExpressonComparer<T>.Ascending(t => t.DateTime))
-    .ObserveOn(RxApp.MainThreadScheduler) // Make sure this is only right before the Bind()
+    .ObserveOn(RxApp.MainThreadScheduler) 
+    // Make sure this line^^ is only right before the Bind()
+    // This may be important to avoid threading issues if
+    // 'mySource' is updated on a different thread.
     .Bind(out bindingData)
     .Subscribe(); 
 ```
@@ -195,14 +202,17 @@ public class SynchronizedCollectionsViewModel : ReactiveObject
 DynamicData supports change tracking for classes that implement the `INotifyPropertyChanged` interface — `ReactiveObject`s. For example, if you'd like to do a `WhenAnyValue` on each element in a collection of changing objects, use the `AutoRefresh()` DynamicData operator:
 
 ```cs
+// 'collectionOfReactiveObjects' is ObservableCollection<T>
+// Here, T inherits from the ReactiveObject class.
+// 'databasesValid' is IObservable<bool>
 var databasesValid = collectionOfReactiveObjects
     .ToObservableChangeSet()
     .AutoRefresh(model => model.IsValid) // Subscribe only to IsValid property changes
     .ToCollection()                      // Get the new collection of items
     .Select(x => x.All(y => y.IsValid)); // Verify all elements satisfy a condition etc.
 
-// Then you can convert that IObservable<bool> to a view model
-// property declared as ObservableAsPropertyHelper<bool>.
+// Then you can convert IObservable<bool> to a view model property.
+// '_databasesValid' is of type ObservableAsPropertyHelper<bool> here.
 _databasesValid = databasesValid.ToProperty(this, x => x.DatabasesValid);
 ```
 
@@ -216,24 +226,31 @@ A lot of users try to do the following even though it's unnecessary for single t
 
 ```cs
 var myList = new SourceList<T>()
-var myConnection = myList
+var disposable = myList
     .Connect() // make the source an observable change set
     .ObserveOn(RxApp.MainThreadScheduler)
     .Bind(out _myOutputList)
     .Subscribe();
 ```
 
-A common mistake a lot of users make is trying to expose DynamicData classes to the world. Use the `Bind()` method instead to expose your data through a `ReadOnlyObservableCollection<T>` field, which you then expose as a property.
+> **Important Note** A common mistake a lot of users make is trying to expose DynamicData classes to the world. Use the `Bind()` method instead to expose your data through a `ReadOnlyObservableCollection<T>` field, which you then expose as a property.
 
 Try to reuse your `IObservableChangeSet<T>` where it makes sense. It's a expensive operation to generate and you can use the Reactive Extension's method `Publish()`.
 
 ```cs
-// use standard rx Publish() / Connect() to share published changesets
-var shared = _source.Connect().Publish();
+// Use standard rx Publish() / Connect() to share published change sets.
+// 'shared' is of type IObservable<IChangeSet<T>>
+var shared = _source
+    .Connect()
+    .Publish();
+
+// 'selectedChanged' if of type IObservable<Unit>
 var selectedChanged = shared
     .WhenPropertyChanged(si => si.IsSelected)
-    .ToUnit()
+    .Select(changes => Unit.Default)
     .StartWith(Unit.Default);
+
+// Apply other operations to the shared connection.
 shared.ToCollection().CombineLatest(selectedChanged, (items, _) => items);
 shared.Maximum(i => i).Subscribe(max => Max = max);
 shared.Connect();
@@ -242,6 +259,7 @@ shared.Connect();
 [Common operations](https://github.com/RolandPheasant/DynamicData#consuming-observable-change-sets) in DynamicData have slightly different names than Reactive Extension operators.
   * `Where()` is `Filter()`
   * `Select()` is `Transform()`
+  * `SelectMany()` is `TransformMany()`
 
 # Explore DynamicData
 
