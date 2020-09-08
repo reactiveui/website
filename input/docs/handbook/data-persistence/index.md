@@ -96,6 +96,8 @@ public class NewtonsoftJsonSuspensionDriver : ISuspensionDriver
 
     public IObservable<object> LoadState()
     {
+        if (!File.Exists(_stateFilePath))
+            return Observable.Throw<object>(new FileNotFoundException(_stateFilePath));
         var lines = File.ReadAllText(_stateFilePath);
         var state = JsonConvert.DeserializeObject<object>(lines, _settings);
         return Observable.Return(state);
@@ -132,36 +134,21 @@ You need to assign a function that creates a new AppState when there is none per
 
 ### Android
 
-For Android you need to implement the `Android.App.Application.IActivityLifecycleCallbacks` interface. Then add the following to the Application class:
+For Android, add the following to your `MainActivity` class:
 
 ```cs
 [Activity(Label = "@string/app_name", Theme = "@style/AppTheme.NoActionBar", MainLauncher = true)]
-public class MainActivity : Activity, Android.App.Application.IActivityLifecycleCallbacks
+public class MainActivity : Activity
 {
-    private readonly AutoSuspendHelper suspendHelper;
-
-    public void OnActivityCreated(Activity activity, Bundle savedInstanceState) { }
-
-    public void OnActivityDestroyed(Activity activity) { }
-
-    public void OnActivityPaused(Activity activity) { }
-
-    public void OnActivityResumed(Activity activity) { }
-
-    public void OnActivitySaveInstanceState(Activity activity, Bundle outState) { }
-
-    public void OnActivityStarted(Activity activity) { }
-
-    public void OnActivityStopped(Activity activity) { }
+    private AutoSuspendHelper autoSuspendHelper;
 
     public override void OnCreate(Bundle bundle)
     {
-        base.OnCreate(bundle);
-        suspendHelper = new AutoSuspendHelper(this);
-
         // Initialize the suspension driver after AutoSuspendHelper. 
+        this.autoSuspendHelper = new AutoSuspendHelper(this.Application);
         RxApp.SuspensionHost.CreateNewAppState = () => new AppState();
         RxApp.SuspensionHost.SetupDefaultSuspendResume(new AkavacheSuspensionDriver<AppState>());
+        base.OnCreate(bundle);
     }
 }
 ```
@@ -210,9 +197,8 @@ sealed partial class App : Application
 
     public App()
     {
-        autoSuspendHelper = new AutoSuspendHelper(this);
-        
         // Initialize the suspension driver after AutoSuspendHelper.
+        autoSuspendHelper = new AutoSuspendHelper(this);
         RxApp.SuspensionHost.CreateNewAppState = () => new AppState();
         RxApp.SuspensionHost.SetupDefaultSuspendResume(new AkavacheSuspensionDriver<AppState>());
         InitializeComponent();
@@ -220,7 +206,9 @@ sealed partial class App : Application
 
     protected override void OnLaunched(LaunchActivatedEventArgs e)
     {
-        autoSuspendHelper.OnLaunched(args);
+        // Notice the line below as well.
+        this.autoSuspendHelper.OnLaunched(e);
+    
         if (!(Window.Current.Content is Frame rootFrame))
         {
             rootFrame = new Frame();
@@ -247,9 +235,8 @@ public partial class App : Application
 
     public App()
     {
-        this.autoSuspendHelper = new AutoSuspendHelper(this);
-
         // Initialize the suspension driver after AutoSuspendHelper.
+        this.autoSuspendHelper = new AutoSuspendHelper(this);
         RxApp.SuspensionHost.CreateNewAppState = () => new AppState();
         RxApp.SuspensionHost.SetupDefaultSuspendResume(new AkavacheSuspensionDriver<AppState>());
     }
