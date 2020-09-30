@@ -43,7 +43,7 @@ public partial class View : ReactiveWindow<ViewModel>
 </Window>
 ```
 
-Unfortunately, Avalonia won't generate strongly typed `x:Name` references to controls, so the only way for now is to use the `FindControl` method that will find a control by the name specified in XAML, or to use `{Binding Path}` syntax.
+The `WhenActivated` block is called when the `AttachedToVisualTree` event is published, and the disposable is disposed of when the `DetachedFromVisualTree` event is published. The behavior is the same for both the views and the view models. Unfortunately, Avalonia won't generate strongly typed `x:Name` references to controls, so the only way for now is to use the `FindControl` method that will find a control by the name specified in XAML, or to use `{Binding Path}` syntax. 
 
 > **Note** The `FindControl` method shouldn't be used inside an expression. Instead, create a custom property which calls the `FindControl` method, or store the control in a variable. See an example of how to use ReactiveUI type-safe bindings with AvaloniaUI.
 
