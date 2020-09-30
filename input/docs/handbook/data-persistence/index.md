@@ -243,6 +243,38 @@ public partial class App : Application
 }
 ```
 
+### Xamarin.Forms
+
+We also ship a `AutoSuspendHelper` implementation for Xamarin.Forms. If you decide to set up `AutoSuspendHelper` inside your Xamarin.Forms project, then you won't need to set up auto suspension in your Android and iOS projects that are platform-specific parts of your Xamarin.Forms app. Add the following to your Xamarin.Forms `App.xaml.cs` file:
+
+```cs
+public partial class App : Application
+{
+   private readonly AutoSuspendHelper _autoSuspendHelper;
+
+   public App()
+   {
+     _autoSuspendHelper = new AutoSuspendHelper();
+     RxApp.SuspensionHost.CreateNewAppState = () => new MainState();
+     RxApp.SuspensionHost.SetupDefaultSuspendResume(new CustomSuspensionDriver());
+     _autoSuspendHelper.OnCreate();
+
+     InitializeComponent();
+     MainPage = new MainView();
+   }
+
+   protected override void OnStart() => _autoSuspendHelper.OnStart();
+
+   protected override void OnResume() => _autoSuspendHelper.OnResume();
+
+   protected override void OnSleep() => _autoSuspendHelper.OnSleep();
+}
+```
+
+### AvaloniaUI
+
+> **Note** See [Avalonia Data Persistence](http://avaloniaui.net/docs/reactiveui/suspension) for more info. Don't forget to add a call to `UseReactiveUI()` to your `AppBuilder`.
+
 ## Retrieving the AppState
 
 The application state will be serialized and persisted using the `ISuspensionDriver` once the application gets closed, suspended or deactivated, depending on the platform. When you want to update data or retrieve data you can get the `AppState` object with the following code:
