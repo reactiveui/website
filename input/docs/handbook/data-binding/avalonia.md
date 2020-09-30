@@ -1,45 +1,49 @@
-For [WhenActivated](../when-activated) to work, you need to use custom base classes from `Avalonia.ReactiveUI` package, such as `ReactiveWindow<TViewModel>` or `ReactiveUserControl<TViewModel>`. Of course, you can also implement the `IViewFor<TViewModel>` interface by hand in your class, but ensure to store the `ViewModel` inside an `AvaloniaProperty`. [Activation and deactivation](../when-activated) feature will work for your view model only in case you put an empty `WhenActivated` block right before a call to  `AvaloniaXamlRenderer.Load(this)`. See an example:
+> **Note** First of all, ensure you install the `Avalonia.ReactiveUI` package and *add a call* to `UseReactiveUI()` to your `AppBuilder` — that's super important. Note, that `Avalonia.ReactiveUI` package is supported by AvaloniaUI team, so if anything goes wrong, head over to [AvaloniaUI Gitter](https://gitter.im/AvaloniaUI/Avalonia). Also see [Avalonia.ReactiveUI Docs](http://avaloniaui.net/docs/reactiveui/).
+
+For [WhenActivated](../when-activated) to work, you need to use custom base classes from `Avalonia.ReactiveUI` package, such as `ReactiveWindow<TViewModel>` or `ReactiveUserControl<TViewModel>`. Of course, you can also implement the `IViewFor<TViewModel>` interface by hand in your class, but ensure to store the `ViewModel` inside an `AvaloniaProperty`. If you wish to add activation support to your view models, then implement the `IActivatableViewModel` interface. A view model implementing `IActivatableViewModel` might look like the one below:
 
 ```cs
 public class ViewModel : ReactiveObject, IActivatableViewModel
 {
-    public ViewModelActivator Activator { get; }
+    public ViewModelActivator Activator { get; } = new ViewModelActivator();
 
     public ViewModel()
     {
-        Activator = new ViewModelActivator();
         this.WhenActivated(disposables =>
         {
-            // Handle ViewModel activation and deactivation.
+            /* Handle activation */
+            Disposable
+                .Create(() => { /* Handle deactivation */ })
+                .DisposeWith(disposables);
         });
     }
 }
 ```
 
-```xml
-<Window xmlns="https://github.com/avaloniaui"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        Background="#f0f0f0" FontFamily="Ubuntu"
-        MinHeight="590" MinWidth="750">
-  <TextBlock Text="Hello, world!" />
-</Window>
-```
-
-Remember to place a call to WhenActivated to code-behind of the view, otherwise your view model's WhenActivated block won't get called.
+Remember to place a call to `WhenActivated` to the code-behind of your view, otherwise your view model's `WhenActivated` block won't get called.
 
 ```cs
+// This represents the View.xaml.cs code-behind file.
 public partial class View : ReactiveWindow<ViewModel>
 {
     public View()
     {
-        // ViewModel's WhenActivated will also get called.
+        // If you put a WhenActivated block here, your activatable view model 
+        // will also support activation, otherwise it won't.
         this.WhenActivated(disposables => { /* Handle interactions etc. */ });
         AvaloniaXamlLoader.Load(this);
     }
 }
 ```
 
-Unfortunately, Avalonia XAML rendering engine won't generate strongly typed `x:Name` references to controls, so the only way for now is to use the `FindControl` method that will find a control by the name specified in XAML, or to use `{Binding Path}` syntax. 
+```xml
+<!-- This represents the View.xaml markup file. -->
+<Window xmlns="https://github.com/avaloniaui">
+  <TextBlock Text="Hello, world!" />
+</Window>
+```
+
+The `WhenActivated` block is called when the `AttachedToVisualTree` event is published, and the disposable is disposed of when the `DetachedFromVisualTree` event is published. The behavior is the same for both the views and the view models. Unfortunately, Avalonia won't generate strongly typed `x:Name` references to controls, so the only way for now is to use the `FindControl` method that will find a control by the name specified in XAML, or to use `{Binding Path}` syntax. 
 
 > **Note** The `FindControl` method shouldn't be used inside an expression. Instead, create a custom property which calls the `FindControl` method, or store the control in a variable. See an example of how to use ReactiveUI type-safe bindings with AvaloniaUI.
 
