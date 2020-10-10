@@ -51,7 +51,7 @@ public class ActivatableViewModel : IActivatableViewModel
 
 ## How to ensure a view model gets activated?
 
-The framework will acknowledge the link from your `ViewModel` to your `View` if the latter implements the [IViewFor interface](https://www.reactiveui.net/docs/handbook/view-location/extending-iviewfor). Remember to make your ViewModel a `DependencyProperty` and to add a call to `WhenActivated` in your `IViewFor<TViewModel>` implementation constructor.
+The framework will acknowledge the link from your `ViewModel` to your `View` if the latter implements the [IViewFor interface](../../handbook/view-location/extending-iviewfor). Remember to make your ViewModel a `DependencyProperty` and to add a call to `WhenActivated` in your `IViewFor<TViewModel>` implementation constructor.
 
 # Views
 
