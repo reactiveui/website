@@ -24,7 +24,8 @@ The following steps are required
 One assumption is that the SourceCache should contain a list of DataModels that have come from a server or some other area and then these are "Transformed" into ItemViewModels.
 
 ```cs
-private readonly SourceCache<BaseDataModel, string> _items = new SourceCache<BaseDataModel, string>(i => i.Id);
+private readonly SourceCache<BaseDataModel, string> _items = 
+    new SourceCache<BaseDataModel, string>(i => i.Id);
 
 public MyMainViewModel()
   {
@@ -45,7 +46,8 @@ public MyMainViewModel()
 The solution is to have the BaseItemViewModel in the SourceCache like so.
 
 ```cs
-private readonly SourceCache<BaseItemViewModel, string> _items = new SourceCache<BaseItemViewModel, string>(i => i.Id);
+private readonly SourceCache<BaseItemViewModel, string> _items = 
+    new SourceCache<BaseItemViewModel, string>(i => i.Id);
 
 public MyMainViewModel()
   {
@@ -96,7 +98,8 @@ An alternative to this is as follows:-
 
       _items.EditDiff(newItemViewModelCollection, (currentItemViewModel, newItemViewModel) => 
       {
-          if (currentItemViewModel is HeaderItemViewModel currentheaderItemViewModel && newItemViewModel is HeaderItemViewModel newHeaderItemViewModel)
+          if (currentItemViewModel is HeaderItemViewModel currentheaderItemViewModel
+              && newItemViewModel is HeaderItemViewModel newHeaderItemViewModel)
           {
             currentHeaderItemViewModel.UpdateViewModel(newHeaderItemViewModel)
           }
