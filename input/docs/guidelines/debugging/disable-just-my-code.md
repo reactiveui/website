@@ -6,5 +6,7 @@ In settings of Visual Studio, disable the [Just My Code](https://msdn.microsoft.
 ## Enable Stop on First Chance Exceptions
 This is like Rx debugging pro-tip #1:
 
-http://blogs.msdn.com/b/davidklinems/archive/2005/07/18/440150.aspx
+> In Visual Studio, when exceptions are thrown or end up unhandled, the debugger can help you debug these by breaking just like it breaks when a breakpoint is hit. In this blog post we will look at the different classifications of exceptions and how to configure when the debugger will break for those exceptions.
+
+https://devblogs.microsoft.com/devops/understanding-exceptions-while-debugging-with-visual-studio
 
