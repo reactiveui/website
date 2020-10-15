@@ -24,6 +24,8 @@ Don't use eventhandlers, use the extension methods shipped in `reactiveui.events
 
 - https://reactiveui.net/docs/handbook/events/
 
+When starting a WPF application from another application (e.g. Console) set `RxApp.MainThreadScheduler` to a `DispatcherScheduler` after creating the WPF application on a separate thread, to avoid threading errors.
+
 Use your normal WPF concepts that you would usually use in WPF development. There's also some extension methods which will make your life easier
 
 - https://reactiveui.net/api/reactiveui/reactiveusercontrol_1/
