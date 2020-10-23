@@ -58,6 +58,10 @@ Task("GetSource")
         GetSource("ReactiveUI");
         GetSource("Sextant");
         GetSource("splat");
+        GetSource("punchclock");
+        GetSource("ReactiveUI.Validation");
+        GetSource("Fusillade");
+        GetSource("Pharmacist");
     });
 
 Task("Build")
