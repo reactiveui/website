@@ -12,136 +12,134 @@ This definitely works for simple scenarios, but for larger forms and more comple
 
 # ReactiveUI.Validation
 
-This is the primary way we make validations. The package contains validation helpers for ReactiveUI-based solutions, functioning in a reactive way. [ReactiveUI.Validation sources](https://github.com/reactiveui/ReactiveUI.Validation) are available on GitHub. The package supports all platforms, including .NET Framework, .NET Standard, MonoAndroid, Tizen, UAP, Xamarin.iOS, Xamarin.Mac, Xamarin.TVOS.
+This is the primary way we make validations. The package contains validation helpers for ReactiveUI-based solutions, functioning in a reactive way. [ReactiveUI.Validation sources](https://github.com/reactiveui/ReactiveUI.Validation) are available on GitHub. The package supports all platforms, including .NET Framework, .NET Standard, MonoAndroid, Tizen, UAP, Xamarin.iOS, Xamarin.Mac, Xamarin.TVOS. Install the following package into you class library and into a platform-specific project.
 
-| Platform          | ReactiveUI Package                  | NuGet                |
-| ----------------- | ----------------------------------- | -------------------- |
-| Any               | [ReactiveUI.Validation][CoreDoc]    | [![CoreBadge]][Core] |
+| Platform           | ReactiveUI Package                               | NuGet                |
+| ------------------ | ------------------------------------------------ | -------------------- |
+| Any Platform       | [ReactiveUI.Validation][CoreDoc]                 | [![CoreBadge]][Core] |
+| AndroidX (Xamarin) | [ReactiveUI.Validation.AndroidX][DroDoc]         | [![DroXBadge]][DroX] |
+| Xamarin.Android    | [ReactiveUI.Validation.AndroidSupport][DroDoc]   | [![DroBadge]][Dro]   |
 
 [Core]: https://www.nuget.org/packages/ReactiveUI.Validation/
 [CoreBadge]: https://img.shields.io/nuget/v/ReactiveUI.Validation.svg
 [CoreDoc]: https://reactiveui.net/docs/handbook/user-input-validation/
 
+[Dro]: https://www.nuget.org/packages/ReactiveUI.Validation.AndroidSupport/
+[DroBadge]: https://img.shields.io/nuget/v/ReactiveUI.Validation.AndroidSupport.svg
+[DroDoc]: https://github.com/reactiveui/reactiveui.validation#example-with-android-extensions
+[DroX]: https://www.nuget.org/packages/ReactiveUI.Validation.AndroidX/
+[DroXBadge]: https://img.shields.io/nuget/v/ReactiveUI.Validation.AndroidX.svg
+
 ## Getting Started
 
-1. Decorate existing ViewModel with `IValidatableViewModel` (`ISupportsValidation` for version 1.3 and lower), which has a single member, `ValidationContext`. The `ValidationContext` contains all of the functionality surrounding the validation of the view model. Most access to the specification of validation rules is performed through extension methods on the `IValidatableViewModel` interface. Then, add validation to the view model.
+1. Decorate existing ViewModel with `IValidatableViewModel`, which has a single member, `ValidationContext`. The ValidationContext contains all of the functionality surrounding the validation of the ViewModel. Most access to the specification of validation rules is performed through extension methods on the `IValidatableViewModel` interface. Then, add validation to the ViewModel.
 
-```cs
+```csharp
 public class SampleViewModel : ReactiveObject, IValidatableViewModel
-{    
-    // Initialize validation context that manages reactive validations.
-    public ValidationContext ValidationContext { get; } = new ValidationContext();
-    
-    // Declare a separate validator for complex rule.
-    public ValidationHelper ComplexRule { get; }
-    
-    // Declare a separate validator for age rule.
-    public ValidationHelper AgeRule { get; }
-    
-    [Reactive] public int Age { get; set; }
-
-    [Reactive] public string Name { get; set; }
-    
-    public ReactiveCommand<Unit, Unit> Save { get; }
-    
+{
     public SampleViewModel()
     {
-        // Name must be at least 3 chars. The selector is the property 
-        // name and the line below is a single property validator.
+        // Creates the validation for the Name property.
         this.ValidationRule(
             viewModel => viewModel.Name,
             name => !string.IsNullOrWhiteSpace(name),
             "You must specify a valid name");
-
-        // Age must be between 13 and 100, message includes the silly 
-        // length being passed in, stored in a property of the ViewModel.
-        AgeRule = this.ValidationRule(
-            viewModel => viewModel.Age,
-            age => age >= 13 && age <= 100,
-            age => $"{age} is a silly age");
-
-        var nameAndAgeValid = this
-            .WhenAnyValue(x => x.Age, x => x.Name, (age, name) => new { Age = age, Name = name })
-            .Select(x => x.Age > 10 && !string.IsNullOrEmpty(x.Name));
-
-        // Create a rule from an IObservable.
-        ComplexRule = this.ValidationRule(
-            _ => nameAndAgeValid,
-            (vm, state) => !state ? "That's a ridiculous name / age combination" : string.Empty);
-            
-        // IsValid extension method returns true when all validations succeed.
-        var canSave = this.IsValid();
-        
-        // Save command is only active when all validators are valid.
-        Save = ReactiveCommand.CreateFromTask(async unit => { }, canSave);
     }
-}
-```
 
-> **Note** We use the `[Reactive]` attribute from [ReactiveUI.Fody](https://www.nuget.org/packages/ReactiveUI.Fody/) package in the example above. ReactiveUI.Fody attributes is a great replacement for `INotifyPropertyChanged` boilerplate code, see [Boilerplate Code](/docs/handbook/view-models/boilerplate-code) section for more info.  
+    public ValidationContext ValidationContext { get; } = new ValidationContext();
 
-2. Add validation presentation to our example Android view. Actually, ReactiveUI.Validation operates the same on all platforms ReactiveUI supports, so the principles described below apply to any platform.
-
-```cs
-public class MainActivity : ReactiveAppCompatActivity<SampleViewModel>
-{
-    public EditText nameEdit { get; set; }
-    public EditText ageEdit { get; set; }
-
-    public TextView nameValidation { get; set; }
-    public TextView ageValidation { get; set; }
-    public TextView validationSummary { get; set; }
-
-    public Button myButton { get; set; }
-    public TextInputLayout til { get; set; }
-    public TextInputEditText tiet { get; set; }
-
-    protected override void OnCreate(Bundle bundle)
+    private string _name;
+    public string Name
     {
-        base.OnCreate(bundle);
-
-        // Set our View from the "main" layout resource.
-        SetContentView(Resource.Layout.Main);
-        WireUpControls();
-
-        this.BindCommand(ViewModel, vm => vm.Save, v => v.myButton);
-        this.Bind(ViewModel, vm => vm.Name, v => v.nameEdit.Text);
-        this.Bind(ViewModel, vm => vm.Age, v => v.ageEdit.Text);
-
-        // Bind any validations which reference the name property to the text of the nameValidation control.
-        this.BindValidation(ViewModel, vm => vm.Name, v => v.nameValidation.Text);
-
-        // Bind the validation specified by the AgeRule to the text of the ageValidation control.
-        this.BindValidation(ViewModel, vm => vm.AgeRule, v => v.ageValidation.Text);
-
-        // bind the summary validation text to the validationSummary control.
-        this.BindValidation(ViewModel, v => v.validationSummary.Text);
-
-        // bind to an Android TextInputLayout control, utilising the Error property.
-        this.BindValidation(ViewModel, vm => vm.ComplexRule, til);
+        get => _name;
+        set => this.RaiseAndSetIfChanged(ref _name, value);
     }
 }
 ```
 
-## INotifyDataErrorInfo Support 
+For more complex validation scenarios there are several more overloads of the `ValidationRule` extension method that accept observables. These allow validation to occur asynchronously, and allows complex chains of observables to be combined to produce validation results. The simplest accepts an `IObservable<bool>` where the observed boolean indicates whether the `ValidationRule` is valid or not. The overload accepts a message which is used when the observable produces a `false` (_invalid_) result.
 
-For those platforms which support the `INotifyDataErrorInfo` interface (including WPF, Avalonia, Xamarin.Forms), ReactiveUI.Validation provides [a helper base class](https://github.com/reactiveui/ReactiveUI.Validation/blob/main/src/ReactiveUI.Validation/Helpers/ReactiveValidationObject.cs) named `ReactiveValidationObject<TViewModel>`. The helper class implements both the `IValidatableViewModel` interface and the `INotifyDataErrorInfo` interface. It listens to any changes in the `ValidationContext` and invokes `INotifyDataErrorInfo` events. 
+```csharp
+IObservable<bool> passwordsObservable =
+    this.WhenAnyValue(
+        x => x.Password,
+        x => x.ConfirmPassword,
+        (password, confirmation) => password == confirmation);
 
-```cs
-public class SampleViewModel : ReactiveValidationObject<SampleViewModel>
+this.ValidationRule(
+    vm => vm.ConfirmPassword,
+    passwordsObservable,
+    "Passwords must match.");
+```
+
+Any existing observables can be used to drive a `ValidationRule` using the extension method overload that accepts an arbitrary `IObservable<TState>` streams of events. The overload accepts a custom validation function that is supplied with the latest `TState`, and a custom error message function, responsible for formatting the latest `TState` object. The syntax for this looks as follows:
+
+```csharp
+// IObservable<{ Password, Confirmation }>
+var passwordsObservable =
+    this.WhenAnyValue(
+        x => x.Password,
+        x => x.ConfirmPassword,
+        (password, confirmation) =>
+            new { Password = password, Confirmation = confirmation });
+
+this.ValidationRule(
+    vm => vm.ConfirmPassword,
+    passwordsObservable,
+    state => state.Password == state.Confirmation,
+    state => $"Passwords must match: {state.Password} != {state.Confirmation}");
+```
+> **Note** The function to extract a message (`messageFunc`) is only invoked if the function to establish validity (`isValidFunc`) returns `false`, otherwise the message is set to `string.Empty`.
+
+Finally, you can directly supply an observable that streams any object (or struct) that implements `IValidationState`; or you can use the `ValidationState` base class which already implements the interface.  As the resulting object is stored directly against the context without further transformation, this can be the most performant approach:
+```csharp
+IObservable<IValidationState> usernameNotEmpty =
+    this.WhenAnyValue(x => x.UserName)
+        .Select(name => string.IsNullOrEmpty(name) 
+            ? new ValidationState(false, "The username must not be empty")
+            : ValidationState.Valid);
+
+this.ValidationRule(vm => vm.UserName, usernameNotEmpty);
+```
+
+> **Note** As a valid `ValidationState` does not really require a message, there is a singleton `ValidationState.Valid` property that you are encouraged to use to indicate a valid state whenever possible, to reduce memory allocations.
+
+2. Add validation presentation to the View.
+
+```csharp
+public class SampleView : ReactiveContentPage<SampleViewModel>
 {
-    [Reactive]
-    public string Name { get; set; } = string.Empty;
-
-    public SampleViewModel()
+    public SampleView()
     {
-        this.ValidationRule(
-            x => x.Name, 
-            name => !string.IsNullOrWhiteSpace(name),
-            "Name shouldn't be empty.");
+        InitializeComponent();
+        this.WhenActivated(disposables =>
+        {
+            this.Bind(ViewModel, vm => vm.Name, view => view.Name.Text)
+                .DisposeWith(disposables);
+
+            // Bind any validations that reference the Name property 
+            // to the text of the NameError UI control.
+            this.BindValidation(ViewModel, vm => vm.Name, view => view.NameError.Text)
+                .DisposeWith(disposables);
+
+            // Bind any validations attached to this particular view model
+            // to the text of the FormErrors UI control.
+            this.BindValidation(ViewModel, view => view.FormErrors.Text)
+                .DisposeWith(disposables);
+        });
     }
 }
 ```
+
+> **Note** `Name` is an `<Entry />`, `NameError` is a `<Label />`, and `FormErrors` is a `<Label />` as well. All these controls are from the [Xamarin.Forms](https://docs.microsoft.com/en-us/xamarin/xamarin-forms/) library.
+
+## Extended ReactiveUI.Validation Usage
+
+[ReactiveUI.Validation](https://github.com/reactiveui/ReactiveUI.Validation/) also supports `INotifyDataErrorInfo` validations used by XAML platforms, including WPF and Avalonia; binding to `TextInputLayout` controls from Xamarin.Android and AndroidX, custom formatters that could be used for localization. Head over to [ReactiveUI.Validation GitHub page](https://github.com/reactiveui/ReactiveUI.Validation/) to learn more about extended usage of this ReactiveUI library:
+
+- [Example with Android Extensions](https://github.com/reactiveui/ReactiveUI.Validation/#example-with-android-extensions)
+- [INotifyDataErrorInfo Support](https://github.com/reactiveui/ReactiveUI.Validation/#inotifydataerrorinfo-support)
+- [Custom Formatters](https://github.com/reactiveui/ReactiveUI.Validation/#custom-formatters)
 
 # Alternatives
 
