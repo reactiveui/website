@@ -84,7 +84,7 @@ We also need a NuGet client library in this tutorial, and we are going to instal
             // everything up until this point has been running on a separate thread due 
             // to the Throttle().
             //
-            // We then use a ObservableAsPropertyHelper and the ToProperty() method to allow
+            // We then use an ObservableAsPropertyHelper, OAPH, and the ToProperty() method to allow
             // us to have the latest results that we can expose through the property to the View.
             _searchResults = this
                 .WhenAnyValue(x => x.SearchTerm)
