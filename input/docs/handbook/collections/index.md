@@ -80,7 +80,7 @@ The advantage of creating your own data sources is that they can be maintained o
 ```cs
 ReadOnlyObservableCollection<T> bindingData;
 var disposable = mySource
-    .Sort(SortExpressonComparer<T>.Ascending(t => t.DateTime))
+    .Sort(SortExpressionComparer<T>.Ascending(t => t.DateTime))
     .ObserveOn(RxApp.MainThreadScheduler) 
     // Make sure this line^^ is only right before the Bind()
     // This may be important to avoid threading issues if
