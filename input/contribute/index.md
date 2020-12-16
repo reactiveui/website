@@ -12,9 +12,6 @@ So here's to you, lovely person who wants to join us — this is how you can sup
         <a href="http://ericsink.com/entries/dont_use_rxui.html" target="_blank">Passing on knowledge and teaching the next generation of developers</a>
     </li>
     <li>
-        <a href="/donate" target="_blank">Donations</a> and <a href="Sponsorship" target="_blank">Corporate Sponsorships</a>
-    </li>
-    <li>
         <a href="/docs" target="_blank">Submitting documentation updates where you see fit or lacking</a>
     </li>
     <li>
