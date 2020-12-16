@@ -33,7 +33,7 @@ We write and build apps with a person-first perspective.
 * When writing about a person, use their preferred pronouns; if you don’t know those, just use their name.
 * In online conversations unless you know their preferences around their name use their username. You can use in Slack for instance can use @username.
 
-Related resource: [The Conscious Style Guide](http://consciousstyleguide.com/).
+Related resource: [The Conscious Style Guide](https://consciousstyleguide.com/).
 
 # Grammar and mechanics
 

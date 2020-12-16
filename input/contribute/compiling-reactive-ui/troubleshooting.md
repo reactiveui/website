@@ -6,7 +6,7 @@ ReactiveUI [uses the binary logger feature](https://github.com/reactiveui/Reacti
 
 ![](msbuild-binlog-cli.png)
 
-You'll find `reactiveui.binlog` and `eventgenerator.binlog` in the project directory after your first compile. Install the [MSBuild Structured Log Viewer](http://msbuildlog.com/) and double-click on the `.binlog` to for a more productive troubleshooting experience. Please attach your `.binlog` when opening GitHub issues related to compilation.
+You'll find `reactiveui.binlog` and `eventgenerator.binlog` in the project directory after your first compile. Install the [MSBuild Structured Log Viewer](https://msbuildlog.com/) and double-click on the `.binlog` to for a more productive troubleshooting experience. Please attach your `.binlog` when opening GitHub issues related to compilation.
 
 ![](structured-log-viewer.png)
 

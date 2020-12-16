@@ -34,7 +34,7 @@ The following elements participate in routing:
 > Other resources: 
 > - [ViewModel Routing with ReactiveUI and Xamarin.Forms](https://jamilgeor.com/viewmodel-routing-with-reactiveui-and-xamarin-forms/), by Jamil Geor
 > - [Sextant](https://github.com/reactiveui/sextant) library for advanced XF routing
-> - [AvaloniaUI routing guide](http://avaloniaui.net/docs/reactiveui/routing)
+> - [AvaloniaUI routing guide](https://avaloniaui.net/docs/reactiveui/routing)
 > - [Universal Windows Platform routing samples](https://github.com/reactiveui/ReactiveUI.Samples/tree/main/uwp).
 
 Using Visual Studio, create a new WPF project and name it 'ReactiveRouting'. Install the `ReactiveUI.WPF` NuGet package into the project. Now create a view model named `FirstViewModel` that implements the `IRoutableViewModel` interface. The `IRoutableViewModel.UrlPathSegment` property is a string token representing the current view model, such as 'login' or 'user'. You are free to choose any string. In this example, we use 'first'. The `HostScreen` property typically contains the instance of the host screen used by an application.
@@ -63,12 +63,12 @@ Now create a new `UserControl` that will act as the view for the `FirstViewModel
 <rxui:ReactiveUserControl
     x:Class="ReactiveRouting.FirstView"
     x:TypeArguments="vm:FirstViewModel"
-    xmlns:rxui="http://reactiveui.net"
+    xmlns:rxui="https://reactiveui.net"
     xmlns:vm="clr-namespace:ReactiveRouting"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns="https://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="https://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="https://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="https://schemas.microsoft.com/expression/blend/2008"
     Background="LightSeaGreen"
     mc:Ignorable="d">
     <TextBlock x:Name="PathTextBlock" Foreground="White" Margin="10" />
@@ -147,12 +147,12 @@ Now we need to place the `RoutedViewHost` XAML control to our view that will con
 
 ```xml
 <rxui:ReactiveWindow
-    xmlns:rxui="http://reactiveui.net" 
+    xmlns:rxui="https://reactiveui.net" 
     x:Class="ReactiveRouting.MainWindow"
     x:TypeArguments="vm:MainViewModel"
     xmlns:vm="clr-namespace:ReactiveRouting"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns="https://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="https://schemas.microsoft.com/winfx/2006/xaml"
     Title="ReactiveUI.Routing" Height="360" Width="620">
     <Grid>
         <Grid.RowDefinitions>

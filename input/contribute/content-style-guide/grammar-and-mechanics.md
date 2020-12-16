@@ -328,7 +328,7 @@ On first mention, write out United States. On subsequent mentions, US is fine. T
 
 Capitalize the names of websites and web publications. Don’t italicize.
 
-Avoid spelling out URLs, but when you need to, leave off the http://www.
+Avoid spelling out URLs, but when you need to, leave off the https://www.
 
 ## Writing about ReactiveUI
 

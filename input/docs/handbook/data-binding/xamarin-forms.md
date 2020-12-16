@@ -44,8 +44,8 @@ Your XAML views should inherit from `ReactiveContentPage`, as shown here:
   x:TypeArguments="vm:TheViewModel"          
   xmlns:vm="clr-namespace:App.ViewModels;assembly=App"
   xmlns:rxui="clr-namespace:ReactiveUI.XamForms;assembly=ReactiveUI.XamForms"
-  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-  xmlns="http://xamarin.com/schemas/2014/forms">
+  xmlns:x="https://schemas.microsoft.com/winfx/2009/xaml"
+  xmlns="https://xamarin.com/schemas/2014/forms">
   <StackLayout>
     <Entry x:Name="TheTextBox" />
     <Label x:Name="TheTextBlock" />

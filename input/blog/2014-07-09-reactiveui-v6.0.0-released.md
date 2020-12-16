@@ -68,6 +68,6 @@ ReactiveUI 5.x used a separate installation of the Reactive Extensions for .NET 
 ## Questions, Comments, Concerns?
 
 There are three great venues for problems / questions related to this release:
-- [The ReactiveUI mailing list](http://groups.google.com/group/reactivexaml)
+- [The ReactiveUI mailing list](https://groups.google.com/group/reactivexaml)
 - [Issues on GitHub](https://github.com/reactiveui/ReactiveUI/issues)
 - The ReactiveUI Slack chat room - if you're interested in joining this chat room, please Email anais@anaisbetts.org from the Email you want to use and I can add you.

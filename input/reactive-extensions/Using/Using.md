@@ -28,7 +28,7 @@ This section includes topics that explain how you use Rx to create and subscribe
 
 # Using Observable Providers
 
-By implementing the [IQbservable](IQbservable/IQbservable) interface and using the factory extension methods provided by the [Qbservable](Qbservable/Qbservable) type, you can write a custom LINQ provider to query any type of external data, so that these data are treated as sequences that can be subscribed to. For example, the [LINQ to WQL sample](http://go.microsoft.com/fwlink/?linkid=208531) in the [Rx MSDN Developer Center](http://msdn.microsoft.com/en-us/data/gg577610) shows how to build a simple provider for querying WMI Events using WQL. You can use the factory LINQ operators provided by the **Qbservable** type to abstract a sequence of WMI events and query, filter and compose them. Subscribing to this sequence will trigger the translation of the LINQ query expression into the target language, in this case WQL. 
+By implementing the [IQbservable](IQbservable/IQbservable) interface and using the factory extension methods provided by the [Qbservable](Qbservable/Qbservable) type, you can write a custom LINQ provider to query any type of external data, so that these data are treated as sequences that can be subscribed to. For example, the [LINQ to WQL sample](https://go.microsoft.com/fwlink/?linkid=208531) in the [Rx MSDN Developer Center](https://msdn.microsoft.com/en-us/data/gg577610) shows how to build a simple provider for querying WMI Events using WQL. You can use the factory LINQ operators provided by the **Qbservable** type to abstract a sequence of WMI events and query, filter and compose them. Subscribing to this sequence will trigger the translation of the LINQ query expression into the target language, in this case WQL. 
 
 ## Using the IQbservable interface to query external data
 
@@ -55,7 +55,7 @@ The set of methods declared in the **Qbservable** class provides an implementati
 
 #### Other Resources
 
-[Rx MSDN Developer Center](http://msdn.microsoft.com/en-us/data/gg577610)
+[Rx MSDN Developer Center](https://msdn.microsoft.com/en-us/data/gg577610)
 
 # Using Subjects
 

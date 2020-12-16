@@ -30,7 +30,7 @@ If you use regular bindings, or type-safe `{x:Bind }` markup extension available
 
 ```xml
 <Page x:Class="MyCoolApp.UWP.Views.AboutView"
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:d="https://schemas.microsoft.com/expression/blend/2008"
       xmlns:designTime="using:MyCoolApp.UWP.DesignTime"
       d:DataContext="{d:DesignInstance designTime:DesignTimeAboutViewModel,
                                                   IsDesignTimeCreatable=True}"

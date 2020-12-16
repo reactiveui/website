@@ -1,6 +1,6 @@
 # Dispose your subscriptions
 
-http://www.introtorx.com/Content/v1.0.10621.0/03_LifetimeManagement.html
+https://www.introtorx.com/Content/v1.0.10621.0/03_LifetimeManagement.html
 
 ```csharp
 this.WhenActivated(

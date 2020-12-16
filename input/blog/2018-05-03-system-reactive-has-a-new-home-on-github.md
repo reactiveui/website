@@ -18,7 +18,7 @@ Today the community, in conjunction with Microsoft shipped the first milestone o
 
 This is big news because `System.Reactive` for .NET is the OG and original implementation of the Reactive Extensions. Sadly it's potential was artificially limited over the years while other ecosystems saw massive growth. It's time to put that narrative to bed though. It's time to move on. Thank you Jon Galloway, Phil Carter, Bart de Smet, Immo Landwerth for your help with advancing the community past [this historical narrative](https://twitter.com/GeoffreyHuntley/status/992486450733178887?s=09).
 
-[![image](https://user-images.githubusercontent.com/127353/39624525-f7ad51fc-4fdc-11e8-9546-4e56eae31033.png)](http://github.com/dotnet/reactive)
+[![image](https://user-images.githubusercontent.com/127353/39624525-f7ad51fc-4fdc-11e8-9546-4e56eae31033.png)](https://github.com/dotnet/reactive)
 
 [Our new home under the .NET organization](https://github.com/dotnet/reactive) on GitHub provides better discoverability and visibility. It provides CI systems that keep up with the rapid evolution that's happening in .NET. The new location is closer to .NET development itself and components from System.Reactive which are logical base class library extensions now have shorter integration paths into corefxlabs. A great demonstration of this is how System.Reactive's (Ix) `IAsyncEnumerable` is graduating into a first-class citizen in C# v8.
 

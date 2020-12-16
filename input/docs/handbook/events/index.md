@@ -114,4 +114,4 @@ Observable.FromEvent<KeyPressEventHandler, KeyPressEventArgs>(
   handler => KeyPress -= handler)
 ```
 
-See [Reactive Extensions documentation](http://reactivex.io/documentation/operators/from.html) for more info.
+See [Reactive Extensions documentation](https://reactivex.io/documentation/operators/from.html) for more info.

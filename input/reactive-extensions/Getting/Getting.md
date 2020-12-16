@@ -18,7 +18,7 @@ This section describes in general what Reactive Extensions (Rx) is, and how it c
 
 ## External Resources
 
-[Reactive Extensions on MSDN Developer Center](http://msdn.microsoft.com/en-us/data/gg577609)
+[Reactive Extensions on MSDN Developer Center](https://msdn.microsoft.com/en-us/data/gg577609)
 
 
 

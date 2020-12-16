@@ -9,7 +9,7 @@ So here's to you, lovely person who wants to join us — this is how you can sup
         <a href="https://stackoverflow.com/questions/tagged/reactiveui" target="_blank">Responding to questions on StackOverflow</a>
     </li>
     <li>
-        <a href="http://ericsink.com/entries/dont_use_rxui.html" target="_blank">Passing on knowledge and teaching the next generation of developers</a>
+        <a href="https://ericsink.com/entries/dont_use_rxui.html" target="_blank">Passing on knowledge and teaching the next generation of developers</a>
     </li>
     <li>
         <a href="/docs" target="_blank">Submitting documentation updates where you see fit or lacking</a>

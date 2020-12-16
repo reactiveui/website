@@ -27,7 +27,7 @@
 * Don't use if you want to run your own pipeline - see https://reactiveui.net/docs/getting-started/compiling/setting-up-ci for manual instructions.
 
 # editor.config
-* http://kent-boogaart.com/blog/editorconfig-reference-for-c-developers
+* https://kent-boogaart.com/blog/editorconfig-reference-for-c-developers
 
 # eventgenerator.binlog
 * https://reactiveui.net/docs/getting-started/compiling/troubleshooting#binary-logging

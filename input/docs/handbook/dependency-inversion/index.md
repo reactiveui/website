@@ -21,7 +21,7 @@ It encapsulates several different common object lifetime models (i.e. 'create ne
 It's Mono Linker friendly (generally)
 Service Location allows us to register types in platform-specific code, but use them in PCL code."
 >
-> Anaïs Betts @ http://stackoverflow.com/a/26924067/496857
+> Anaïs Betts @ https://stackoverflow.com/a/26924067/496857
 
 ### Registration
 

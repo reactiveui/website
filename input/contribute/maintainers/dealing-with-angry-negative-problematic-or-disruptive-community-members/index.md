@@ -1,7 +1,7 @@
 Title: Dealing with Angry, Negative, Problematic or Disruptive community members
 ---
 
-GitHub's [recent research](http://opensourcesurvey.org/2017/) has shown that even witnessing these negative interactions can be costing our project of consumers stepping up to become contributors:
+GitHub's [recent research](https://opensourcesurvey.org/2017/) has shown that even witnessing these negative interactions can be costing our project of consumers stepping up to become contributors:
 
 > 18% of respondents have personally experienced a negative interaction with another user in open source, but 50% have witnessed one between other people.
 > 21% of people who experienced or witnessed a negative behavior said they stopped contributing to a project because of it

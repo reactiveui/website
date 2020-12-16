@@ -14,7 +14,7 @@ Well, some say the Creator took a handful of sand and - wait, no.  Why are we _h
 
 Tough question.  
   
-There are many MVVM frameworks although not as many as there used to be, but one thing that always seems to happen if you ask on [Stack Overflow](http://www.stackoverflow.com/) is you'll get all kinds of advice and one bit in particular which stuck with me.  It was this -   
+There are many MVVM frameworks although not as many as there used to be, but one thing that always seems to happen if you ask on [Stack Overflow](https://www.stackoverflow.com/) is you'll get all kinds of advice and one bit in particular which stuck with me.  It was this -   
   
 > "Prism is great but heavyweight, MVVMLite is great but shallow, Caliburn is pretty cool but has some odd dialect features, ReactiveUI is incredibly powerful but you'll need to learn a whole new way of thinking about everything, so basically use Prism."  
 
@@ -63,7 +63,7 @@ public class GlueMachineMonitor
 ```
 
   
-I went away and I thought about this.  I dreamed about it.  I woke up in the morning still trying to think in 4 dimensions and then I discovered that back in 2010, Erik Meijer and Bart de Smet had already modeled it.  And they called it [Reactive Extensions](http://www.reactivex.io).
+I went away and I thought about this.  I dreamed about it.  I woke up in the morning still trying to think in 4 dimensions and then I discovered that back in 2010, Erik Meijer and Bart de Smet had already modeled it.  And they called it [Reactive Extensions](https://www.reactivex.io).
   
 So I went through the codebase, and I ripped out every last event.  Like this -    
   

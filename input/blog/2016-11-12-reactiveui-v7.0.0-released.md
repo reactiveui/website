@@ -110,7 +110,7 @@ For more details, please see the [extensive documentation](https://docs.reactive
 `UserError` has been generalized and re-imagined. We call it interactions, and we think you'll like it. We did this in part because people were feeling icky using `UserError` for non-error scenarios. Basically, we realized that people need a general mechanism via which a view model can ask a question, and wait for the answer. It doesn't have to be an error - we're not that pessimistic! You could be asking to confirm a file deletion, or maybe how the weather is out there in the analog world.
 
 Migrating from `UserError` to the interactions infrastructure is not really a case of one-for-one substitution. But here are some tips to get you started:
-- read through [the documentation](http://docs.reactiveui.net/en/user-guide/interactions/index.html) first.
+- read through [the documentation](https://docs.reactiveui.net/en/user-guide/interactions/index.html) first.
 - decide whether you need shared interactions and, if so, define them in an appropriate place for your application (often just a static class).
 - for any non-shared interactions, have your view model create an instance of the interaction and expose it via a property.
 - typically you want the corresponding view to handle interactions by calling one of the `RegisterHandler` methods on the interaction exposed by the view model.

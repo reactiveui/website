@@ -6,7 +6,7 @@
  * the public repos of any github organisation.
  *
  * Repo: https://github.com/espy/ubersicht
- * Live: http://espy.github.io/ubersicht
+ * Live: https://espy.github.io/ubersicht
  *
  * Alex Feyerke     (https://github.com/espy, @espylaub)
  * Caolan McMahon   (https://github.com/caolan, @caolan)

@@ -1,7 +1,7 @@
 
                                 Apache License
                           Version 2.0, January 2004
-                       http://www.apache.org/licenses/
+                       https://www.apache.org/licenses/
 
   TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION
 
@@ -193,7 +193,7 @@
   you may not use this file except in compliance with the License.
   You may obtain a copy of the License at
 
-      http://www.apache.org/licenses/LICENSE-2.0
+      https://www.apache.org/licenses/LICENSE-2.0
 
   Unless required by applicable law or agreed to in writing, software
   distributed under the License is distributed on an "AS IS" BASIS,
@@ -218,7 +218,7 @@ For the m4/ac_check_icu.m4 component:
 
 For the share/www/script/jquery.js component:
 
-  Copyright (c) 2009 John Resig, http://jquery.com/
+  Copyright (c) 2009 John Resig, https://jquery.com/
 
   Permission is hereby granted, free of charge, to any person obtaining
   a copy of this software and associated documentation files (the
@@ -242,12 +242,12 @@ For the share/www/script/jquery.js component:
 For the share/www/script/jquery-ui-1.8.11.custom.min.js and
     share/www/style/jquery-ui-1.8.11.custom.css components:
 
-  Copyright (c) 2011 Paul Bakaus, http://jqueryui.com/
+  Copyright (c) 2011 Paul Bakaus, https://jqueryui.com/
 
   This software consists of voluntary contributions made by many
-  individuals (AUTHORS.txt, http://jqueryui.com/about) For exact
+  individuals (AUTHORS.txt, https://jqueryui.com/about) For exact
   contribution history, see the revision history and logs, available
-  at http://jquery-ui.googlecode.com/svn/
+  at https://jquery-ui.googlecode.com/svn/
 
   Permission is hereby granted, free of charge, to any person obtaining
   a copy of this software and associated documentation files (the
@@ -270,7 +270,7 @@ For the share/www/script/jquery-ui-1.8.11.custom.min.js and
 
 For the share/www/script/jquery.form.js component:
 
-  http://malsup.com/jquery/form/
+  https://malsup.com/jquery/form/
 
   Permission is hereby granted, free of charge, to any person obtaining
   a copy of this software and associated documentation files (the
@@ -350,7 +350,7 @@ For the src/ibrowse component:
 
 For the src/erlang-oauth component:
 
-  Copyright (c) 2008-2009 Tim Fletcher <http://tfletcher.com/>
+  Copyright (c) 2008-2009 Tim Fletcher <https://tfletcher.com/>
 
   Permission is hereby granted, free of charge, to any person
   obtaining a copy of this software and associated documentation
@@ -440,7 +440,7 @@ For the src/ejson/erl_nif_compat.h file
   except in compliance with the License.  You may obtain
   a copy of the License at
 
-  http://www.apache.org/licenses/LICENSE-2.0
+  https://www.apache.org/licenses/LICENSE-2.0
 
   Unless required by applicable law or agreed to in writing,
   software distributed under the License is distributed on an

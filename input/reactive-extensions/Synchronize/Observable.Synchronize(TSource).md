@@ -80,7 +80,7 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 
 ## Remarks
 
-This Synchronize method returns an observable sequence of the type TSource which synchronizes outgoing calls to the observer methods (OnNext, OnCompletion, OnError). This is accomplished by acquiring a mutual-exclusion [lock](http://go.microsoft.com/fwlink/?linkid=221631) for the object provided as the **gate** parameter.
+This Synchronize method returns an observable sequence of the type TSource which synchronizes outgoing calls to the observer methods (OnNext, OnCompletion, OnError). This is accomplished by acquiring a mutual-exclusion [lock](https://go.microsoft.com/fwlink/?linkid=221631) for the object provided as the **gate** parameter.
 
 ## See Also
 
@@ -163,7 +163,7 @@ In Visual Basic and C\#, you can call this method as an instance method on any o
 
 ## Remarks
 
-This Synchronize method returns an observable sequence of the type TSource which synchronizes outgoing calls to the observer methods (OnNext, OnCompletion, OnError). This is accomplished by acquiring a mutual-exclusion [lock](http://go.microsoft.com/fwlink/?linkid=221631) for a **gate** object. Another overload of the Synchronize method allows you to provide your own gate object: ([Synchronize\<TSource\>(IObservable\<TSource\>, Object)](https://msdn.microsoft.com/en-us/library/m:system.reactive.linq.observable.synchronize%60%601(system.iobservable%7b%60%600%7d%2csystem.object)(v=VS.103)).
+This Synchronize method returns an observable sequence of the type TSource which synchronizes outgoing calls to the observer methods (OnNext, OnCompletion, OnError). This is accomplished by acquiring a mutual-exclusion [lock](https://go.microsoft.com/fwlink/?linkid=221631) for a **gate** object. Another overload of the Synchronize method allows you to provide your own gate object: ([Synchronize\<TSource\>(IObservable\<TSource\>, Object)](https://msdn.microsoft.com/en-us/library/m:system.reactive.linq.observable.synchronize%60%601(system.iobservable%7b%60%600%7d%2csystem.object)(v=VS.103)).
 
 This overload of the Synchronize method will create a new gate object for each subscription. Similar to the following:
 

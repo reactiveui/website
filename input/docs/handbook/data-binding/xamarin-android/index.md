@@ -17,7 +17,7 @@ public class TheViewModel : ReactiveObject
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="https://schemas.android.com/apk/res/android"
   android:orientation="vertical"
   android:layout_width="fill_parent"
   android:layout_height="fill_parent">
@@ -48,7 +48,7 @@ public class TestActivity : ReactiveActivity, IViewFor<TheViewModel>
 
         // WireUpControls looks through your layout file, finds all controls
         // with an id defined, and binds them to the controls defined in this class
-        // This is basically the same functionality as http://jakewharton.github.io/butterknife/ provides
+        // This is basically the same functionality as https://jakewharton.github.io/butterknife/ provides
         this.WireUpControls();
 
         this.Bind(this.ViewModel, x => x.TheText, x => x.TheEditText.Text);

@@ -85,8 +85,8 @@ In our XAML we need to make sure that we inherit from the same page so that the 
 ``` xml
 <ui:BasePopupPage
     x:TypeArguments="ui:ExtendingPopupViewModel"
-    xmlns="http://xamarin.com/schemas/2014/forms"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns="https://xamarin.com/schemas/2014/forms"
+    xmlns:x="https://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
     xmlns:ui="clr-namespace:MyApplication;assembly=MyApplication"
     x:Class="MyApplication.ExtendingPopupPage">

@@ -13,4 +13,4 @@ https://www.hanselminutes.com/252/reactiveui-extensions-to-the-reactive-framewor
 
 > Anaïs Betts works in Office Labs at Microsoft and is the creator of Reactive UI – an MVVM PBettes framework based on Reactive Extensions.
 
-http://jesseliberty.com/2011/03/07/yet-another-podcast-27paul-betts/
+https://jesseliberty.com/2011/03/07/yet-another-podcast-27paul-betts/
