@@ -191,12 +191,12 @@ Then we declare the XAML for our Main Window.
     <reactiveui:ReactiveWindow 
         x:Class="ReactiveDemo.MainWindow"
         x:TypeArguments="reactivedemo:AppViewModel"
-        xmlns="https://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="https://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="https://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="https://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:reactivedemo="clr-namespace:ReactiveDemo"
-        xmlns:reactiveui="https://reactiveui.net"
+        xmlns:reactiveui="http://reactiveui.net"
         Title="NuGet Browser" Height="450" Width="800"
         mc:Ignorable="d">
         <Grid Margin="12">
@@ -270,9 +270,9 @@ We are now going to create a view for our `NugetDetailsViewModel`. Create a new 
       x:Class="ReactiveDemo.NugetDetailsView"
       xmlns:reactiveDemo="clr-namespace:ReactiveDemo"
       x:TypeArguments="reactiveDemo:NugetDetailsViewModel"
-      xmlns:reactiveui="https://reactiveui.net"
-      xmlns="https://schemas.microsoft.com/winfx/2006/xaml/presentation"
-      xmlns:x="https://schemas.microsoft.com/winfx/2006/xaml">
+      xmlns:reactiveui="http://reactiveui.net"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
       <Grid>
           <Grid.ColumnDefinitions>
               <ColumnDefinition Width="Auto" />
@@ -376,10 +376,10 @@ Now we should initialize the DataContext of our MainWindow by assigning an insta
 Finally, we need to create XAML markup for our app.
 
     <Window x:Class="ReactiveDemo.MainWindow"
-            xmlns="https://schemas.microsoft.com/winfx/2006/xaml/presentation"
-            xmlns:x="https://schemas.microsoft.com/winfx/2006/xaml"
-            xmlns:d="https://schemas.microsoft.com/expression/blend/2008"
-            xmlns:mc="https://schemas.openxmlformats.org/markup-compatibility/2006"
+            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+            xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
             Title="NuGet Browser" mc:Ignorable="d" Height="450" Width="800">
         <Window.Resources>
             <ResourceDictionary>
