@@ -119,10 +119,11 @@ We also need a NuGet client library in this tutorial, and we are going to instal
             providers.AddRange(Repository.Provider.GetCoreV3()); // Add v3 API support
             var packageSource = new PackageSource("https://api.nuget.org/v3/index.json");
             var source = new SourceRepository(packageSource, providers);
-    
+            ILogger logger = NullLogger.Instance;
+
             var filter = new SearchFilter(false);
             var resource = await source.GetResourceAsync<PackageSearchResource>().ConfigureAwait(false);
-            var metadata = await resource.SearchAsync(term, filter, 0, 10, null, token).ConfigureAwait(false);
+            var metadata = await resource.SearchAsync(term, filter, 0, 10, logger, token).ConfigureAwait(false);
             return metadata.Select(x => new NugetDetailsViewModel(x));
         }
     }
