@@ -96,7 +96,7 @@ As a result, almost all of the interesting code in a well-written ReactiveUI Vie
 * "The Login button can be pressed when the username and password aren't blank"
 * "The error message should be cleared 10 seconds after it is displayed"
 * "The DirectMessageToSend object consists of the target user and the message
-   to send""
+   to send"
 
 All of these statements are concise descriptions of parts of how your UI should work, and these statements can all be directly translated into Rx expressions in your ViewModel constructor.
 
