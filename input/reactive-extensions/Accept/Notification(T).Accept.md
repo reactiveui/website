@@ -65,7 +65,7 @@ abstract Accept :
         observer:IObserver<'T> -> unit 
 ```
 
-```jscript
+```javascript
 public abstract function Accept(
     observer : IObserver<T>
 )
@@ -139,7 +139,7 @@ abstract Accept :
         onCompleted:Action -> unit 
 ```
 
-```jscript
+```javascript
 public abstract function Accept(
     onNext : Action<T>, 
     onError : Action<Exception>, 
