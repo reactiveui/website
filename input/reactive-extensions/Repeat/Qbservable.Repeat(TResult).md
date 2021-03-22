@@ -56,7 +56,7 @@ static member Repeat :
         repeatCount:int -> IQbservable<'TResult> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -159,7 +159,7 @@ static member Repeat :
         scheduler:IScheduler -> IQbservable<'TResult> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -255,7 +255,7 @@ static member Repeat :
         value:'TResult -> IQbservable<'TResult> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -349,7 +349,7 @@ static member Repeat :
         scheduler:IScheduler -> IQbservable<'TResult> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

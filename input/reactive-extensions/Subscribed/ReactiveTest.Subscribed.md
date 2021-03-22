@@ -34,7 +34,7 @@ literal long long Subscribed
 static val mutable Subscribed: int64
 ```
 
-```jscript
+```javascript
 public const var Subscribed : long
 ```
 

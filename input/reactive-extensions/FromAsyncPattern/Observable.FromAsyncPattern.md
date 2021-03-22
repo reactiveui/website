@@ -73,7 +73,7 @@ static member FromAsyncPattern :
         end:Action<IAsyncResult> -> Func<IObservable<Unit>> 
 ```
 
-```jscript
+```javascript
 public static function FromAsyncPattern(
     begin : Func<AsyncCallback, Object, IAsyncResult>, 
     end : Action<IAsyncResult>

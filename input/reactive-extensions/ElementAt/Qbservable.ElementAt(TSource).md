@@ -50,7 +50,7 @@ static member ElementAt :
         index:int -> IQbservable<'TSource> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

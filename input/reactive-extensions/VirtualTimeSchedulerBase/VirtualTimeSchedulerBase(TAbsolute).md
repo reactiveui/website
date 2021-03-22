@@ -33,7 +33,7 @@ VirtualTimeSchedulerBase()
 new : unit -> VirtualTimeSchedulerBase
 ```
 
-```jscript
+```javascript
 protected function VirtualTimeSchedulerBase()
 ```
 
@@ -94,7 +94,7 @@ new :
         comparer:IComparer<'TAbsolute> -> VirtualTimeSchedulerBase
 ```
 
-```jscript
+```javascript
 protected function VirtualTimeSchedulerBase(
     initialClock : TAbsolute, 
     comparer : IComparer<TAbsolute>
@@ -165,7 +165,7 @@ type VirtualTimeSchedulerBase<'TAbsolute, 'TRelative> =
     end
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

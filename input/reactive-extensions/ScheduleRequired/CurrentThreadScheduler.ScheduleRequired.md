@@ -38,7 +38,7 @@ property bool ScheduleRequired {
 member ScheduleRequired : bool
 ```
 
-```jscript
+```javascript
 function get ScheduleRequired () : boolean
 ```
 

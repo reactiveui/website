@@ -45,7 +45,7 @@ static member ToList :
         source:IObservable<'TSource> -> IObservable<IList<'TSource>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

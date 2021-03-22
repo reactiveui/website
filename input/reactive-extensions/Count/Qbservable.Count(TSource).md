@@ -45,7 +45,7 @@ static member Count :
         source:IQbservable<'TSource> -> IQbservable<int> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

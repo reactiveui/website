@@ -50,7 +50,7 @@ static member All :
         predicate:Func<'TSource, bool> -> IObservable<bool> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

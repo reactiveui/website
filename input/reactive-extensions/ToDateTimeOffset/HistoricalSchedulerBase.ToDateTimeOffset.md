@@ -44,7 +44,7 @@ override ToDateTimeOffset :
         absolute:DateTimeOffset -> DateTimeOffset 
 ```
 
-```jscript
+```javascript
 protected override function ToDateTimeOffset(
     absolute : DateTimeOffset
 ) : DateTimeOffset

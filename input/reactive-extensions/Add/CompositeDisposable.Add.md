@@ -44,7 +44,7 @@ override Add :
         item:IDisposable -> unit 
 ```
 
-```jscript
+```javascript
 public final function Add(
     item : IDisposable
 )

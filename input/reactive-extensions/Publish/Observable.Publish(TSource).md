@@ -45,7 +45,7 @@ static member Publish :
         source:IObservable<'TSource> -> IConnectableObservable<'TSource> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -129,7 +129,7 @@ static member Publish :
         initialValue:'TSource -> IConnectableObservable<'TSource> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

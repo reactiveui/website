@@ -37,7 +37,7 @@ static property NewThreadScheduler^ NewThread {
 static member NewThread : NewThreadScheduler
 ```
 
-```jscript
+```javascript
 static function get NewThread () : NewThreadScheduler
 ```
 

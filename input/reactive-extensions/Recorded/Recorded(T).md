@@ -41,7 +41,7 @@ type Recorded<'T> =
     end
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -181,7 +181,7 @@ new :
         value:'T -> Recorded
 ```
 
-```jscript
+```javascript
 public function Recorded(
     time : long, 
     value : T

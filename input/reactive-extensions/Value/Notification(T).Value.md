@@ -38,7 +38,7 @@ virtual property T Value {
 abstract Value : 'T
 ```
 
-```jscript
+```javascript
 abstract function get Value () : T
 ```
 

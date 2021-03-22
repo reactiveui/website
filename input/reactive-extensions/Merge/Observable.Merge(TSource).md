@@ -50,7 +50,7 @@ static member Merge :
         scheduler:IScheduler -> IObservable<'TSource> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -152,7 +152,7 @@ static member Merge :
         scheduler:IScheduler -> IObservable<'TSource> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -252,7 +252,7 @@ static member Merge :
         maxConcurrent:int -> IObservable<'TSource> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -343,7 +343,7 @@ static member Merge :
         sources:IObservable<IObservable<'TSource>> -> IObservable<'TSource> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -441,7 +441,7 @@ static member Merge :
         scheduler:IScheduler -> IObservable<'TSource> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -536,7 +536,7 @@ static member Merge :
         sources:IEnumerable<IObservable<'TSource>> -> IObservable<'TSource> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -628,7 +628,7 @@ static member Merge :
         second:IObservable<'TSource> -> IObservable<'TSource> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -717,7 +717,7 @@ static member Merge :
         sources:IObservable<'TSource>[] -> IObservable<'TSource> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -883,7 +883,7 @@ static member Merge :
         sources:IObservable<'TSource>[] -> IObservable<'TSource> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -974,7 +974,7 @@ static member Merge :
         maxConcurrent:int -> IObservable<'TSource> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

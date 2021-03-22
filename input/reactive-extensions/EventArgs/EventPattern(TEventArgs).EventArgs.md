@@ -40,7 +40,7 @@ property TEventArgs EventArgs {
 member EventArgs : 'TEventArgs with get, private set
 ```
 
-```jscript
+```javascript
 function get EventArgs () : TEventArgs
 private function set EventArgs (value : TEventArgs)
 ```

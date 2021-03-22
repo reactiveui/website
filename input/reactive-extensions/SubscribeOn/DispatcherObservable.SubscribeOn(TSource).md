@@ -48,7 +48,7 @@ static member SubscribeOn :
         dispatcher:Dispatcher -> IObservable<'TSource> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -130,7 +130,7 @@ static member SubscribeOn :
         scheduler:DispatcherScheduler -> IObservable<'TSource> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

@@ -45,7 +45,7 @@ static member PublishLast :
         source:IObservable<'TSource> -> IConnectableObservable<'TSource> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

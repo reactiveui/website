@@ -31,7 +31,7 @@ public enum class NotificationKind
 type NotificationKind
 ```
 
-```jscript
+```javascript
 public enum NotificationKind
 ```
 

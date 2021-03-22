@@ -37,7 +37,7 @@ static property TaskPoolScheduler^ TaskPool {
 static member TaskPool : TaskPoolScheduler
 ```
 
-```jscript
+```javascript
 static function get TaskPool () : TaskPoolScheduler
 ```
 

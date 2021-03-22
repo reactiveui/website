@@ -50,7 +50,7 @@ static member Where :
         predicate:Expression<Func<'TSource, int, bool>> -> IQbservable<'TSource> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -138,7 +138,7 @@ static member Where :
         predicate:Expression<Func<'TSource, bool>> -> IQbservable<'TSource> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

@@ -57,7 +57,7 @@ public ref class SchedulerTest
 type SchedulerTest =  class end
 ```
 
-```jscript
+```javascript
 public class SchedulerTest
 ```
 
@@ -112,7 +112,7 @@ SchedulerTest()
 new : unit -> SchedulerTest
 ```
 
-```jscript
+```javascript
 public function SchedulerTest()
 ```
 

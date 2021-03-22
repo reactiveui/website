@@ -37,7 +37,7 @@ static property IQbservableProvider^ Provider {
 static member Provider : IQbservableProvider
 ```
 
-```jscript
+```javascript
 static function get Provider () : IQbservableProvider
 ```
 

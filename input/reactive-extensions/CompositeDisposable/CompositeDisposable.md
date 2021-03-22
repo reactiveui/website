@@ -33,7 +33,7 @@ CompositeDisposable()
 new : unit -> CompositeDisposable
 ```
 
-```jscript
+```javascript
 public function CompositeDisposable()
 ```
 
@@ -92,7 +92,7 @@ new :
         disposables:IEnumerable<IDisposable> -> CompositeDisposable
 ```
 
-```jscript
+```javascript
 public function CompositeDisposable(
     disposables : IEnumerable<IDisposable>
 )
@@ -193,7 +193,7 @@ new :
         capacity:int -> CompositeDisposable
 ```
 
-```jscript
+```javascript
 public function CompositeDisposable(
     capacity : int
 )
@@ -261,7 +261,7 @@ new :
         disposables:IDisposable[] -> CompositeDisposable
 ```
 
-```jscript
+```javascript
 public function CompositeDisposable(
     ... disposables : IDisposable[]
 )
@@ -358,7 +358,7 @@ type CompositeDisposable =
     end
 ```
 
-```jscript
+```javascript
 public final class CompositeDisposable implements ICollection<IDisposable>, IEnumerable<IDisposable>, IEnumerable, IDisposable
 ```
 

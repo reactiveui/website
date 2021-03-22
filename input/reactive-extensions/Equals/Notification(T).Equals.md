@@ -43,7 +43,7 @@ abstract Equals :
         other:Notification<'T> -> bool 
 ```
 
-```jscript
+```javascript
 public abstract function Equals(
     other : Notification<T>
 ) : boolean
@@ -151,7 +151,7 @@ override Equals :
         obj:Object -> bool 
 ```
 
-```jscript
+```javascript
 public override function Equals(
     obj : Object
 ) : boolean

@@ -58,7 +58,7 @@ public ref class Scheduler abstract sealed
 type Scheduler =  class end
 ```
 
-```jscript
+```javascript
 public final class Scheduler
 ```
 

@@ -50,7 +50,7 @@ static member ToAsync :
         action:Expression<Action<'TSource>> -> Func<'TSource, IQbservable<Unit>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -144,7 +144,7 @@ static member ToAsync :
         scheduler:IScheduler -> Func<'TSource, IQbservable<Unit>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

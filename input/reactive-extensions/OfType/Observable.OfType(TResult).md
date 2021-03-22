@@ -45,7 +45,7 @@ static member OfType :
         source:IObservable<Object> -> IObservable<'TResult> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

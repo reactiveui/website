@@ -36,7 +36,7 @@ void Virtual_ScheduleActionError()
 member Virtual_ScheduleActionError : unit -> unit 
 ```
 
-```jscript
+```javascript
 public function Virtual_ScheduleActionError()
 ```
 

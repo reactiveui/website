@@ -55,7 +55,7 @@ static member Scan :
         accumulator:Func<'TAccumulate, 'TSource, 'TAccumulate> -> IObservable<'TAccumulate> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

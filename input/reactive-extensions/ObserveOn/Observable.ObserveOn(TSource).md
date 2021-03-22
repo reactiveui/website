@@ -50,7 +50,7 @@ static member ObserveOn :
         context:SynchronizationContext -> IObservable<'TSource> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -146,7 +146,7 @@ static member ObserveOn :
         scheduler:IScheduler -> IObservable<'TSource> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

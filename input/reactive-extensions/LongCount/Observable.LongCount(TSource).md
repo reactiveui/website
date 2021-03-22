@@ -45,7 +45,7 @@ static member LongCount :
         source:IObservable<'TSource> -> IObservable<int64> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

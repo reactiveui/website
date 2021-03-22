@@ -42,7 +42,7 @@ property TAbsolute Clock {
 member Clock : 'TAbsolute with get, set
 ```
 
-```jscript
+```javascript
 function get Clock () : TAbsolute
 protected function set Clock (value : TAbsolute)
 ```

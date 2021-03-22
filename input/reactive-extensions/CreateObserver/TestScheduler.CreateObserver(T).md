@@ -36,7 +36,7 @@ ITestableObserver<T>^ CreateObserver()
 member CreateObserver : unit -> ITestableObserver<'T> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

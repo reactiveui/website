@@ -63,7 +63,7 @@ static member Start :
         action:Action -> IObservable<Unit> 
 ```
 
-```jscript
+```javascript
 public static function Start(
     action : Action
 ) : IObservable<Unit>
@@ -138,7 +138,7 @@ static member Start :
         scheduler:IScheduler -> IObservable<Unit> 
 ```
 
-```jscript
+```javascript
 public static function Start(
     action : Action, 
     scheduler : IScheduler

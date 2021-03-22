@@ -47,7 +47,7 @@ static member AssertEqual :
         expected:'T[] -> unit 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -131,7 +131,7 @@ static member AssertEqual :
         expected:IEnumerable<'T> -> unit 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -215,7 +215,7 @@ static member AssertEqual :
         expected:IObservable<'T> -> unit 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

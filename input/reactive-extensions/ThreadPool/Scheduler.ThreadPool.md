@@ -37,7 +37,7 @@ static property ThreadPoolScheduler^ ThreadPool {
 static member ThreadPool : ThreadPoolScheduler
 ```
 
-```jscript
+```javascript
 static function get ThreadPool () : ThreadPoolScheduler
 ```
 

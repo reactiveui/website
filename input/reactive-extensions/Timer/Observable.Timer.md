@@ -48,7 +48,7 @@ static member Timer :
         period:TimeSpan -> IObservable<int64> 
 ```
 
-```jscript
+```javascript
 public static function Timer(
     dueTime : DateTimeOffset, 
     period : TimeSpan
@@ -133,7 +133,7 @@ static member Timer :
         scheduler:IScheduler -> IObservable<int64> 
 ```
 
-```jscript
+```javascript
 public static function Timer(
     dueTime : TimeSpan, 
     period : TimeSpan, 
@@ -218,7 +218,7 @@ static member Timer :
         scheduler:IScheduler -> IObservable<int64> 
 ```
 
-```jscript
+```javascript
 public static function Timer(
     dueTime : TimeSpan, 
     scheduler : IScheduler
@@ -298,7 +298,7 @@ static member Timer :
         period:TimeSpan -> IObservable<int64> 
 ```
 
-```jscript
+```javascript
 public static function Timer(
     dueTime : TimeSpan, 
     period : TimeSpan
@@ -378,7 +378,7 @@ static member Timer :
         scheduler:IScheduler -> IObservable<int64> 
 ```
 
-```jscript
+```javascript
 public static function Timer(
     dueTime : DateTimeOffset, 
     scheduler : IScheduler
@@ -463,7 +463,7 @@ static member Timer :
         scheduler:IScheduler -> IObservable<int64> 
 ```
 
-```jscript
+```javascript
 public static function Timer(
     dueTime : DateTimeOffset, 
     period : TimeSpan, 
@@ -542,7 +542,7 @@ static member Timer :
         dueTime:DateTimeOffset -> IObservable<int64> 
 ```
 
-```jscript
+```javascript
 public static function Timer(
     dueTime : DateTimeOffset
 ) : IObservable<long>
@@ -611,7 +611,7 @@ static member Timer :
         dueTime:TimeSpan -> IObservable<int64> 
 ```
 
-```jscript
+```javascript
 public static function Timer(
     dueTime : TimeSpan
 ) : IObservable<long>

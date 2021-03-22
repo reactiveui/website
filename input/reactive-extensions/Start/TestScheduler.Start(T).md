@@ -44,7 +44,7 @@ member Start :
         create:Func<IObservable<'T>> -> ITestableObserver<'T> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -122,7 +122,7 @@ member Start :
         disposed:int64 -> ITestableObserver<'T> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -215,7 +215,7 @@ member Start :
         disposed:int64 -> ITestableObserver<'T> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

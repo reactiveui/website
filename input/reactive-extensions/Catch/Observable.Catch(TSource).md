@@ -45,7 +45,7 @@ static member Catch :
         sources:IEnumerable<IObservable<'TSource>> -> IObservable<'TSource> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -130,7 +130,7 @@ static member Catch :
         sources:IObservable<'TSource>[] -> IObservable<'TSource> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -217,7 +217,7 @@ static member Catch :
         second:IObservable<'TSource> -> IObservable<'TSource> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

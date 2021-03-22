@@ -50,7 +50,7 @@ override Add :
         relative:int64 -> int64 
 ```
 
-```jscript
+```javascript
 protected override function Add(
     absolute : long, 
     relative : long

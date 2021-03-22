@@ -51,7 +51,7 @@ static member Using :
         observableFactory:Func<'TResource, IObservable<'TSource>> -> IObservable<'TSource>  when 'TResource : IDisposable
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

@@ -34,7 +34,7 @@ virtual IScheduledItem<TAbsolute>^ GetNext() abstract
 abstract GetNext : unit -> IScheduledItem<'TAbsolute> 
 ```
 
-```jscript
+```javascript
 protected abstract function GetNext() : IScheduledItem<TAbsolute>
 ```
 

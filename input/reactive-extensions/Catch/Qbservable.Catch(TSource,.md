@@ -50,7 +50,7 @@ static member Catch :
         handler:Expression<Func<'TException, IObservable<'TSource>>> -> IQbservable<'TSource> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

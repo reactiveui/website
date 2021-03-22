@@ -35,7 +35,7 @@ static property DispatcherScheduler^ Instance {
 static member Instance : DispatcherScheduler
 ```
 
-```jscript
+```javascript
 static function get Instance () : DispatcherScheduler
 ```
 

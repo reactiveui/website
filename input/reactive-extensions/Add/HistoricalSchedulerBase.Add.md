@@ -50,7 +50,7 @@ override Add :
         relative:TimeSpan -> DateTimeOffset 
 ```
 
-```jscript
+```javascript
 protected override function Add(
     absolute : DateTimeOffset, 
     relative : TimeSpan

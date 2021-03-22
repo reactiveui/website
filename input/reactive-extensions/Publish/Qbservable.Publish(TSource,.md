@@ -50,7 +50,7 @@ static member Publish :
         selector:Expression<Func<IObservable<'TSource>, IObservable<'TResult>>> -> IQbservable<'TResult> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -147,7 +147,7 @@ static member Publish :
         initialValue:'TSource -> IQbservable<'TResult> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

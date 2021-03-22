@@ -34,7 +34,7 @@ void Stop()
 member Stop : unit -> unit 
 ```
 
-```jscript
+```javascript
 public function Stop()
 ```
 

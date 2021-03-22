@@ -37,7 +37,7 @@ property Expression^ Expression {
 abstract Expression : Expression
 ```
 
-```jscript
+```javascript
 function get Expression () : Expression
 ```
 

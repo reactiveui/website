@@ -39,7 +39,7 @@ abstract Count : int
 override Count : int
 ```
 
-```jscript
+```javascript
 final function get Count () : int
 ```
 

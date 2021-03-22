@@ -36,7 +36,7 @@ public ref class TestBase
 type TestBase =  class end
 ```
 
-```jscript
+```javascript
 public class TestBase
 ```
 
@@ -110,7 +110,7 @@ TestBase()
 new : unit -> TestBase
 ```
 
-```jscript
+```javascript
 public function TestBase()
 ```
 

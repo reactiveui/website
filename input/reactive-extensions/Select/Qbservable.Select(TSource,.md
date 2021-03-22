@@ -50,7 +50,7 @@ static member Select :
         selector:Expression<Func<'TSource, int, 'TResult>> -> IQbservable<'TResult> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -141,7 +141,7 @@ static member Select :
         selector:Expression<Func<'TSource, 'TResult>> -> IQbservable<'TResult> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

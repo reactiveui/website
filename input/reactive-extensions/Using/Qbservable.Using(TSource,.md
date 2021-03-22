@@ -56,7 +56,7 @@ static member Using :
         observableFactory:Expression<Func<'TResource, IObservable<'TSource>>> -> IQbservable<'TSource> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

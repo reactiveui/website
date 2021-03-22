@@ -50,7 +50,7 @@ static member ToLookup :
         keySelector:Expression<Func<'TSource, 'TKey>> -> IQbservable<ILookup<'TKey, 'TSource>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -152,7 +152,7 @@ static member ToLookup :
         comparer:IEqualityComparer<'TKey> -> IQbservable<ILookup<'TKey, 'TElement>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -260,7 +260,7 @@ static member ToLookup :
         elementSelector:Expression<Func<'TSource, 'TElement>> -> IQbservable<ILookup<'TKey, 'TElement>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -364,7 +364,7 @@ static member ToLookup :
         comparer:IEqualityComparer<'TKey> -> IQbservable<ILookup<'TKey, 'TSource>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

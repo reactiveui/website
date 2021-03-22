@@ -42,7 +42,7 @@ member AdvanceBy :
         time:'TRelative -> unit 
 ```
 
-```jscript
+```javascript
 public function AdvanceBy(
     time : TRelative
 )

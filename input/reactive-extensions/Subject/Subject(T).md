@@ -49,7 +49,7 @@ type Subject<'T> =
     end
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -317,7 +317,7 @@ Subject()
 new : unit -> Subject
 ```
 
-```jscript
+```javascript
 public function Subject()
 ```
 

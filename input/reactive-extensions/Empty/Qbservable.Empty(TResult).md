@@ -45,7 +45,7 @@ static member Empty :
         provider:IQbservableProvider -> IQbservable<'TResult> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -137,7 +137,7 @@ static member Empty :
         scheduler:IScheduler -> IQbservable<'TResult> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

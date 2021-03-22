@@ -50,7 +50,7 @@ static member Window :
         windowClosingSelector:Func<IObservable<'TWindowClosing>> -> IObservable<IObservable<'TSource>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -243,7 +243,7 @@ static member Window :
         windowClosingSelector:Func<'TWindowOpening, IObservable<'TWindowClosing>> -> IObservable<IObservable<'TSource>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

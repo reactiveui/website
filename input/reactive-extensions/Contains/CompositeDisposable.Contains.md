@@ -45,7 +45,7 @@ override Contains :
         item:IDisposable -> bool 
 ```
 
-```jscript
+```javascript
 public final function Contains(
     item : IDisposable
 ) : boolean

@@ -50,7 +50,7 @@ static member PublishLast :
         selector:Func<IObservable<'TSource>, IObservable<'TResult>> -> IObservable<'TResult> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

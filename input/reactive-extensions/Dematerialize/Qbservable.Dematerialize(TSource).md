@@ -45,7 +45,7 @@ static member Dematerialize :
         source:IQbservable<Notification<'TSource>> -> IQbservable<'TSource> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

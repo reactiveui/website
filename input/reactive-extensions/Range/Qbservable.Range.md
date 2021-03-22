@@ -55,7 +55,7 @@ static member Range :
         count:int -> IQbservable<int> 
 ```
 
-```jscript
+```javascript
 public static function Range(
     provider : IQbservableProvider, 
     start : int, 
@@ -156,7 +156,7 @@ static member Range :
         scheduler:IScheduler -> IQbservable<int> 
 ```
 
-```jscript
+```javascript
 public static function Range(
     provider : IQbservableProvider, 
     start : int, 

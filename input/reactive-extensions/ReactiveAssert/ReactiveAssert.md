@@ -37,7 +37,7 @@ public ref class ReactiveAssert abstract sealed
 type ReactiveAssert =  class end
 ```
 
-```jscript
+```javascript
 public final class ReactiveAssert
 ```
 

@@ -45,7 +45,7 @@ override Equals :
         obj:Object -> bool 
 ```
 
-```jscript
+```javascript
 public override function Equals(
     obj : Object
 ) : boolean
@@ -123,7 +123,7 @@ override Equals :
         other:EventPattern<'TEventArgs> -> bool 
 ```
 
-```jscript
+```javascript
 public final function Equals(
     other : EventPattern<TEventArgs>
 ) : boolean

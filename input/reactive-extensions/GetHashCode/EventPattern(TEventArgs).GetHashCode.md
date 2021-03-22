@@ -36,7 +36,7 @@ abstract GetHashCode : unit -> int
 override GetHashCode : unit -> int 
 ```
 
-```jscript
+```javascript
 public override function GetHashCode() : int
 ```
 

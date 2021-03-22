@@ -35,7 +35,7 @@ IObservable<T>^ ToObservable()
 member ToObservable : unit -> IObservable<'T> 
 ```
 
-```jscript
+```javascript
 public function ToObservable() : IObservable<T>
 ```
 
@@ -97,7 +97,7 @@ member ToObservable :
         scheduler:IScheduler -> IObservable<'T> 
 ```
 
-```jscript
+```javascript
 public function ToObservable(
     scheduler : IScheduler
 ) : IObservable<T>

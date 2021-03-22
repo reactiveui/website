@@ -56,7 +56,7 @@ static member Throttle :
         scheduler:IScheduler -> IObservable<'TSource> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -274,7 +274,7 @@ static member Throttle :
         dueTime:TimeSpan -> IObservable<'TSource> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

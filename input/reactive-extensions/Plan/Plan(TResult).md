@@ -38,7 +38,7 @@ public ref class Plan abstract
 type Plan<'TResult> =  class end
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

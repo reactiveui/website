@@ -43,7 +43,7 @@ static member Synchronize :
         subject:ISubject<'TSource, 'TResult> -> ISubject<'TSource, 'TResult> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -125,7 +125,7 @@ static member Synchronize :
         scheduler:IScheduler -> ISubject<'TSource, 'TResult> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

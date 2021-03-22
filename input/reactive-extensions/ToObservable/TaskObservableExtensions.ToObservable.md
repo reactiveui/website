@@ -65,7 +65,7 @@ static member ToObservable :
         task:Task -> IObservable<Unit> 
 ```
 
-```jscript
+```javascript
 public static function ToObservable(
     task : Task
 ) : IObservable<Unit>

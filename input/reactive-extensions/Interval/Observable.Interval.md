@@ -42,7 +42,7 @@ static member Interval :
         period:TimeSpan -> IObservable<int64> 
 ```
 
-```jscript
+```javascript
 public static function Interval(
     period : TimeSpan
 ) : IObservable<long>
@@ -123,7 +123,7 @@ static member Interval :
         scheduler:IScheduler -> IObservable<int64> 
 ```
 
-```jscript
+```javascript
 public static function Interval(
     period : TimeSpan, 
     scheduler : IScheduler

@@ -38,7 +38,7 @@ property Dispatcher^ Dispatcher {
 member Dispatcher : Dispatcher
 ```
 
-```jscript
+```javascript
 function get Dispatcher () : Dispatcher
 ```
 

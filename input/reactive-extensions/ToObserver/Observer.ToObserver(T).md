@@ -45,7 +45,7 @@ static member ToObserver :
         handler:Action<Notification<'T>> -> IObserver<'T> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

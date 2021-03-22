@@ -48,7 +48,7 @@ static member Baz :
         f:Expression<Func<'T, 'R>> -> IQbservable<'R> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

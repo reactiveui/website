@@ -44,7 +44,7 @@ static member Average :
         source:IQbservable<Nullable<float32>> -> IQbservable<Nullable<float32>> 
 ```
 
-```jscript
+```javascript
 public static function Average(
     source : IQbservable<Nullable<float>>
 ) : IQbservable<Nullable<float>>
@@ -126,7 +126,7 @@ static member Average :
         source:IQbservable<Nullable<int>> -> IQbservable<Nullable<float>> 
 ```
 
-```jscript
+```javascript
 public static function Average(
     source : IQbservable<Nullable<int>>
 ) : IQbservable<Nullable<double>>
@@ -208,7 +208,7 @@ static member Average :
         source:IQbservable<Nullable<decimal>> -> IQbservable<Nullable<decimal>> 
 ```
 
-```jscript
+```javascript
 public static function Average(
     source : IQbservable<Nullable<decimal>>
 ) : IQbservable<Nullable<decimal>>
@@ -290,7 +290,7 @@ static member Average :
         source:IQbservable<decimal> -> IQbservable<decimal> 
 ```
 
-```jscript
+```javascript
 public static function Average(
     source : IQbservable<decimal>
 ) : IQbservable<decimal>
@@ -397,7 +397,7 @@ static member Average :
         source:IQbservable<Nullable<int64>> -> IQbservable<Nullable<float>> 
 ```
 
-```jscript
+```javascript
 public static function Average(
     source : IQbservable<Nullable<long>>
 ) : IQbservable<Nullable<double>>
@@ -479,7 +479,7 @@ static member Average :
         source:IQbservable<Nullable<float>> -> IQbservable<Nullable<float>> 
 ```
 
-```jscript
+```javascript
 public static function Average(
     source : IQbservable<Nullable<double>>
 ) : IQbservable<Nullable<double>>
@@ -561,7 +561,7 @@ static member Average :
         source:IQbservable<int> -> IQbservable<float> 
 ```
 
-```jscript
+```javascript
 public static function Average(
     source : IQbservable<int>
 ) : IQbservable<double>
@@ -643,7 +643,7 @@ static member Average :
         source:IQbservable<float> -> IQbservable<float> 
 ```
 
-```jscript
+```javascript
 public static function Average(
     source : IQbservable<double>
 ) : IQbservable<double>
@@ -725,7 +725,7 @@ static member Average :
         source:IQbservable<float32> -> IQbservable<float32> 
 ```
 
-```jscript
+```javascript
 public static function Average(
     source : IQbservable<float>
 ) : IQbservable<float>
@@ -807,7 +807,7 @@ static member Average :
         source:IQbservable<int64> -> IQbservable<float> 
 ```
 
-```jscript
+```javascript
 public static function Average(
     source : IQbservable<long>
 ) : IQbservable<double>

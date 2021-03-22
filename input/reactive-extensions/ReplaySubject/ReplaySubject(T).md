@@ -64,7 +64,7 @@ new :
         scheduler:IScheduler -> ReplaySubject
 ```
 
-```jscript
+```javascript
 public function ReplaySubject(
     scheduler : IScheduler
 )
@@ -133,7 +133,7 @@ new :
         window:TimeSpan -> ReplaySubject
 ```
 
-```jscript
+```javascript
 public function ReplaySubject(
     bufferSize : int, 
     window : TimeSpan
@@ -212,7 +212,7 @@ new :
         scheduler:IScheduler -> ReplaySubject
 ```
 
-```jscript
+```javascript
 public function ReplaySubject(
     bufferSize : int, 
     window : TimeSpan, 
@@ -285,7 +285,7 @@ new :
         window:TimeSpan -> ReplaySubject
 ```
 
-```jscript
+```javascript
 public function ReplaySubject(
     window : TimeSpan
 )
@@ -348,7 +348,7 @@ new :
         bufferSize:int -> ReplaySubject
 ```
 
-```jscript
+```javascript
 public function ReplaySubject(
     bufferSize : int
 )
@@ -417,7 +417,7 @@ new :
         scheduler:IScheduler -> ReplaySubject
 ```
 
-```jscript
+```javascript
 public function ReplaySubject(
     bufferSize : int, 
     scheduler : IScheduler
@@ -491,7 +491,7 @@ new :
         scheduler:IScheduler -> ReplaySubject
 ```
 
-```jscript
+```javascript
 public function ReplaySubject(
     window : TimeSpan, 
     scheduler : IScheduler
@@ -588,7 +588,7 @@ type ReplaySubject<'T> =
     end
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -860,7 +860,7 @@ ReplaySubject()
 new : unit -> ReplaySubject
 ```
 
-```jscript
+```javascript
 public function ReplaySubject()
 ```
 

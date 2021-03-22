@@ -41,7 +41,7 @@ static member Qux :
         value:'T -> IObservable<'T> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -116,7 +116,7 @@ static member Qux :
         value:'T -> IQbservable<'T> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

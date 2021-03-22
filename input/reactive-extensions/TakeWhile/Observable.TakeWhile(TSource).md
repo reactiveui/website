@@ -50,7 +50,7 @@ static member TakeWhile :
         predicate:Func<'TSource, bool> -> IObservable<'TSource> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -138,7 +138,7 @@ static member TakeWhile :
         predicate:Func<'TSource, int, bool> -> IObservable<'TSource> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

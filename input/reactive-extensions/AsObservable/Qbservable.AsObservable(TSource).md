@@ -45,7 +45,7 @@ static member AsObservable :
         source:IQbservable<'TSource> -> IObservable<'TSource> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

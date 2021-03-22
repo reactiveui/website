@@ -56,7 +56,7 @@ static member SelectMany :
         resultSelector:Expression<Func<'TSource, 'TCollection, 'TResult>> -> IQbservable<'TResult> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -165,7 +165,7 @@ static member SelectMany :
         onCompleted:Expression<Func<IObservable<'TResult>>> -> IQbservable<'TResult> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -264,7 +264,7 @@ static member SelectMany :
         selector:Expression<Func<'TSource, IEnumerable<'TResult>>> -> IQbservable<'TResult> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -355,7 +355,7 @@ static member SelectMany :
         selector:Expression<Func<'TSource, IObservable<'TResult>>> -> IQbservable<'TResult> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -452,7 +452,7 @@ static member SelectMany :
         resultSelector:Expression<Func<'TSource, 'TCollection, 'TResult>> -> IQbservable<'TResult> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -550,7 +550,7 @@ static member SelectMany :
         other:IObservable<'TOther> -> IQbservable<'TOther> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

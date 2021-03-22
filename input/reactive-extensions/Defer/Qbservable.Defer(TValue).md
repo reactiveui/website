@@ -50,7 +50,7 @@ static member Defer :
         observableFactory:Expression<Func<IObservable<'TValue>>> -> IQbservable<'TValue> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

@@ -50,7 +50,7 @@ static member Sample :
         sampler:IObservable<'TSample> -> IObservable<'TSource> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

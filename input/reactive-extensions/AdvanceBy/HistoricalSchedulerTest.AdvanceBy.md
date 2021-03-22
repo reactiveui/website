@@ -36,7 +36,7 @@ void AdvanceBy()
 member AdvanceBy : unit -> unit 
 ```
 
-```jscript
+```javascript
 public function AdvanceBy()
 ```
 

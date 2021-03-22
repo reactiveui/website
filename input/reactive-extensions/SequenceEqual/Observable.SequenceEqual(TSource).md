@@ -50,7 +50,7 @@ static member SequenceEqual :
         second:IObservable<'TSource> -> IObservable<bool> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -144,7 +144,7 @@ static member SequenceEqual :
         comparer:IEqualityComparer<'TSource> -> IObservable<bool> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

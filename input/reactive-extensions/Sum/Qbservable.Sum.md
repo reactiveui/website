@@ -44,7 +44,7 @@ static member Sum :
         source:IQbservable<int> -> IQbservable<int> 
 ```
 
-```jscript
+```javascript
 public static function Sum(
     source : IQbservable<int>
 ) : IQbservable<int>
@@ -140,7 +140,7 @@ static member Sum :
         source:IQbservable<float32> -> IQbservable<float32> 
 ```
 
-```jscript
+```javascript
 public static function Sum(
     source : IQbservable<float>
 ) : IQbservable<float>
@@ -215,7 +215,7 @@ static member Sum :
         source:IQbservable<Nullable<float>> -> IQbservable<Nullable<float>> 
 ```
 
-```jscript
+```javascript
 public static function Sum(
     source : IQbservable<Nullable<double>>
 ) : IQbservable<Nullable<double>>
@@ -290,7 +290,7 @@ static member Sum :
         source:IQbservable<decimal> -> IQbservable<decimal> 
 ```
 
-```jscript
+```javascript
 public static function Sum(
     source : IQbservable<decimal>
 ) : IQbservable<decimal>
@@ -365,7 +365,7 @@ static member Sum :
         source:IQbservable<Nullable<int64>> -> IQbservable<Nullable<int64>> 
 ```
 
-```jscript
+```javascript
 public static function Sum(
     source : IQbservable<Nullable<long>>
 ) : IQbservable<Nullable<long>>
@@ -440,7 +440,7 @@ static member Sum :
         source:IQbservable<Nullable<decimal>> -> IQbservable<Nullable<decimal>> 
 ```
 
-```jscript
+```javascript
 public static function Sum(
     source : IQbservable<Nullable<decimal>>
 ) : IQbservable<Nullable<decimal>>
@@ -515,7 +515,7 @@ static member Sum :
         source:IQbservable<int64> -> IQbservable<int64> 
 ```
 
-```jscript
+```javascript
 public static function Sum(
     source : IQbservable<long>
 ) : IQbservable<long>
@@ -590,7 +590,7 @@ static member Sum :
         source:IQbservable<Nullable<int>> -> IQbservable<Nullable<int>> 
 ```
 
-```jscript
+```javascript
 public static function Sum(
     source : IQbservable<Nullable<int>>
 ) : IQbservable<Nullable<int>>
@@ -665,7 +665,7 @@ static member Sum :
         source:IQbservable<float> -> IQbservable<float> 
 ```
 
-```jscript
+```javascript
 public static function Sum(
     source : IQbservable<double>
 ) : IQbservable<double>
@@ -740,7 +740,7 @@ static member Sum :
         source:IQbservable<Nullable<float32>> -> IQbservable<Nullable<float32>> 
 ```
 
-```jscript
+```javascript
 public static function Sum(
     source : IQbservable<Nullable<float>>
 ) : IQbservable<Nullable<float>>

@@ -46,7 +46,7 @@ type Notification<'T> =
     end
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

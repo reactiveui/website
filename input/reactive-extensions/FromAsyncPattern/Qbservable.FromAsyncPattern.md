@@ -80,7 +80,7 @@ static member FromAsyncPattern :
         end:Expression<Action<IAsyncResult>> -> Func<IQbservable<Unit>> 
 ```
 
-```jscript
+```javascript
 public static function FromAsyncPattern(
     provider : IQbservableProvider, 
     begin : Expression<Func<AsyncCallback, Object, IAsyncResult>>, 

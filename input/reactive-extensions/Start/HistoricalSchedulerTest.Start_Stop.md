@@ -36,7 +36,7 @@ void Start_Stop()
 member Start_Stop : unit -> unit 
 ```
 
-```jscript
+```javascript
 public function Start_Stop()
 ```
 

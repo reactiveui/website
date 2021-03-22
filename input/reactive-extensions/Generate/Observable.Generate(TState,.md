@@ -70,7 +70,7 @@ static member Generate :
         scheduler:IScheduler -> IObservable<'TResult> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -189,7 +189,7 @@ static member Generate :
         resultSelector:Func<'TState, 'TResult> -> IObservable<'TResult> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -306,7 +306,7 @@ static member Generate :
         timeSelector:Func<'TState, DateTimeOffset> -> IObservable<'TResult> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -427,7 +427,7 @@ static member Generate :
         timeSelector:Func<'TState, TimeSpan> -> IObservable<'TResult> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -548,7 +548,7 @@ static member Generate :
         scheduler:IScheduler -> IObservable<'TResult> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -749,7 +749,7 @@ static member Generate :
         scheduler:IScheduler -> IObservable<'TResult> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

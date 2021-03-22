@@ -55,7 +55,7 @@ abstract Accept :
         onCompleted:Func<'TResult> -> 'TResult 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

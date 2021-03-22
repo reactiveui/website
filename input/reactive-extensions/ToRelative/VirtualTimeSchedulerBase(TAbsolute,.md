@@ -42,7 +42,7 @@ abstract ToRelative :
         timeSpan:TimeSpan -> 'TRelative 
 ```
 
-```jscript
+```javascript
 protected abstract function ToRelative(
     timeSpan : TimeSpan
 ) : TRelative

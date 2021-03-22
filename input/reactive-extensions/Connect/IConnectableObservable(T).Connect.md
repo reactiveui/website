@@ -34,7 +34,7 @@ IDisposable^ Connect()
 abstract Connect : unit -> IDisposable 
 ```
 
-```jscript
+```javascript
 function Connect() : IDisposable
 ```
 

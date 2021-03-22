@@ -49,7 +49,7 @@ static member ForEach :
         onNext:Action<'TSource> -> unit 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

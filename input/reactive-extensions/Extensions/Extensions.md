@@ -60,7 +60,7 @@ public ref class Extensions abstract sealed
 type Extensions =  class end
 ```
 
-```jscript
+```javascript
 public final class Extensions
 ```
 

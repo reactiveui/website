@@ -50,7 +50,7 @@ static member OnErrorResumeNext :
         second:IObservable<'TSource> -> IObservable<'TSource> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -139,7 +139,7 @@ static member OnErrorResumeNext :
         sources:IObservable<'TSource>[] -> IObservable<'TSource> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -221,7 +221,7 @@ static member OnErrorResumeNext :
         sources:IEnumerable<IObservable<'TSource>> -> IObservable<'TSource> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

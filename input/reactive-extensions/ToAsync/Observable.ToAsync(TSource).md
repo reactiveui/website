@@ -50,7 +50,7 @@ static member ToAsync :
         scheduler:IScheduler -> Func<'TSource, IObservable<Unit>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -133,7 +133,7 @@ static member ToAsync :
         action:Action<'TSource> -> Func<'TSource, IObservable<Unit>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

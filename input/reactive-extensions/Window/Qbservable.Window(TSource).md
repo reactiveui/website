@@ -50,7 +50,7 @@ static member Window :
         count:int -> IQbservable<IObservable<'TSource>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -149,7 +149,7 @@ static member Window :
         scheduler:IScheduler -> IQbservable<IObservable<'TSource>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -256,7 +256,7 @@ static member Window :
         scheduler:IScheduler -> IQbservable<IObservable<'TSource>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -358,7 +358,7 @@ static member Window :
         timeShift:TimeSpan -> IQbservable<IObservable<'TSource>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -456,7 +456,7 @@ static member Window :
         scheduler:IScheduler -> IQbservable<IObservable<'TSource>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -548,7 +548,7 @@ static member Window :
         timeSpan:TimeSpan -> IQbservable<IObservable<'TSource>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -642,7 +642,7 @@ static member Window :
         skip:int -> IQbservable<IObservable<'TSource>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -740,7 +740,7 @@ static member Window :
         count:int -> IQbservable<IObservable<'TSource>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

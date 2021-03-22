@@ -37,7 +37,7 @@ property TAbsolute DueTime {
 abstract DueTime : 'TAbsolute
 ```
 
-```jscript
+```javascript
 function get DueTime () : TAbsolute
 ```
 

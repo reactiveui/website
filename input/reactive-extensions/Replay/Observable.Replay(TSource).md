@@ -56,7 +56,7 @@ static member Replay :
         window:TimeSpan -> IConnectableObservable<'TSource> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -154,7 +154,7 @@ static member Replay :
         scheduler:IScheduler -> IConnectableObservable<'TSource> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -241,7 +241,7 @@ static member Replay :
         source:IObservable<'TSource> -> IConnectableObservable<'TSource> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -325,7 +325,7 @@ static member Replay :
         window:TimeSpan -> IConnectableObservable<'TSource> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -413,7 +413,7 @@ static member Replay :
         bufferSize:int -> IConnectableObservable<'TSource> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -507,7 +507,7 @@ static member Replay :
         scheduler:IScheduler -> IConnectableObservable<'TSource> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -610,7 +610,7 @@ static member Replay :
         scheduler:IScheduler -> IConnectableObservable<'TSource> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -706,7 +706,7 @@ static member Replay :
         scheduler:IScheduler -> IConnectableObservable<'TSource> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

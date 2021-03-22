@@ -50,7 +50,7 @@ override CopyTo :
         arrayIndex:int -> unit 
 ```
 
-```jscript
+```javascript
 public final function CopyTo(
     array : IDisposable[], 
     arrayIndex : int

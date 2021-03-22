@@ -45,7 +45,7 @@ static member Count :
         source:IObservable<'TSource> -> IObservable<int> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

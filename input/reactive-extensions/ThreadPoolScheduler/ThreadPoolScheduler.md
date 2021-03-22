@@ -83,7 +83,7 @@ type ThreadPoolScheduler =
     end
 ```
 
-```jscript
+```javascript
 public final class ThreadPoolScheduler implements IScheduler
 ```
 

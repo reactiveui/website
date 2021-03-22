@@ -49,7 +49,7 @@ static member Create :
         observable:IObservable<'TResult> -> ISubject<'TSource, 'TResult> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

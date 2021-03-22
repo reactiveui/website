@@ -64,7 +64,7 @@ new :
         cts:CancellationTokenSource -> CancellationDisposable
 ```
 
-```jscript
+```javascript
 public function CancellationDisposable(
     cts : CancellationTokenSource
 )
@@ -149,7 +149,7 @@ CancellationDisposable()
 new : unit -> CancellationDisposable
 ```
 
-```jscript
+```javascript
 public function CancellationDisposable()
 ```
 
@@ -231,7 +231,7 @@ type CancellationDisposable =
     end
 ```
 
-```jscript
+```javascript
 public final class CancellationDisposable implements IDisposable
 ```
 

@@ -38,7 +38,7 @@ virtual property NotificationKind Kind {
 abstract Kind : NotificationKind
 ```
 
-```jscript
+```javascript
 abstract function get Kind () : NotificationKind
 ```
 

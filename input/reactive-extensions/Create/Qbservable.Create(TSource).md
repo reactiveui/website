@@ -50,7 +50,7 @@ static member Create :
         subscribe:Expression<Func<IObserver<'TSource>, Action>> -> IQbservable<'TSource> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -146,7 +146,7 @@ static member Create :
         subscribe:Expression<Func<IObserver<'TSource>, IDisposable>> -> IQbservable<'TSource> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

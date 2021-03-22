@@ -36,7 +36,7 @@ abstract GetEnumerator : unit -> IEnumerator<IDisposable>
 override GetEnumerator : unit -> IEnumerator<IDisposable> 
 ```
 
-```jscript
+```javascript
 public final function GetEnumerator() : IEnumerator<IDisposable>
 ```
 

@@ -39,7 +39,7 @@ property IComparer<TAbsolute>^ Comparer {
 member Comparer : IComparer<'TAbsolute> with get, private set
 ```
 
-```jscript
+```javascript
 function get Comparer () : IComparer<TAbsolute>
 private function set Comparer (value : IComparer<TAbsolute>)
 ```

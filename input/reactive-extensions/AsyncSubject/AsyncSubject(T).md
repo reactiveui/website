@@ -61,7 +61,7 @@ AsyncSubject()
 new : unit -> AsyncSubject
 ```
 
-```jscript
+```javascript
 public function AsyncSubject()
 ```
 
@@ -194,7 +194,7 @@ type AsyncSubject<'T> =
     end
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

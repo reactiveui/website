@@ -43,7 +43,7 @@ override Subscribe :
         observer:IObserver<'T> -> IDisposable 
 ```
 
-```jscript
+```javascript
 public final function Subscribe(
     observer : IObserver<T>
 ) : IDisposable

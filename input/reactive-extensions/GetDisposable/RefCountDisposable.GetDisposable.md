@@ -35,7 +35,7 @@ IDisposable^ GetDisposable()
 member GetDisposable : unit -> IDisposable 
 ```
 
-```jscript
+```javascript
 public function GetDisposable() : IDisposable
 ```
 

@@ -35,7 +35,7 @@ abstract OnCompleted : unit -> unit
 override OnCompleted : unit -> unit 
 ```
 
-```jscript
+```javascript
 public final function OnCompleted()
 ```
 

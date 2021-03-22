@@ -39,7 +39,7 @@ abstract IsReadOnly : bool
 override IsReadOnly : bool
 ```
 
-```jscript
+```javascript
 final function get IsReadOnly () : boolean
 ```
 

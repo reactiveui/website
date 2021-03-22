@@ -50,7 +50,7 @@ static member Scan :
         accumulator:Func<'TSource, 'TSource, 'TSource> -> IObservable<'TSource> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

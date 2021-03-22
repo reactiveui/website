@@ -65,7 +65,7 @@ static member ToEvent :
         source:IObservable<Unit> -> IEventSource<Unit> 
 ```
 
-```jscript
+```javascript
 public static function ToEvent(
     source : IObservable<Unit>
 ) : IEventSource<Unit>

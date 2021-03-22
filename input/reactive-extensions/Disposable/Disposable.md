@@ -37,7 +37,7 @@ public ref class Disposable abstract sealed
 type Disposable =  class end
 ```
 
-```jscript
+```javascript
 public final class Disposable
 ```
 

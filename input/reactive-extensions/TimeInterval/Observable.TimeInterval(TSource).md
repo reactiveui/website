@@ -50,7 +50,7 @@ static member TimeInterval :
         scheduler:IScheduler -> IObservable<TimeInterval<'TSource>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -133,7 +133,7 @@ static member TimeInterval :
         source:IObservable<'TSource> -> IObservable<TimeInterval<'TSource>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

@@ -56,7 +56,7 @@ static member ToLookup :
         elementSelector:Func<'TSource, 'TElement> -> IObservable<ILookup<'TKey, 'TElement>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -154,7 +154,7 @@ static member ToLookup :
         keySelector:Func<'TSource, 'TKey> -> IObservable<ILookup<'TKey, 'TSource>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -251,7 +251,7 @@ static member ToLookup :
         comparer:IEqualityComparer<'TKey> -> IObservable<ILookup<'TKey, 'TSource>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -357,7 +357,7 @@ static member ToLookup :
         comparer:IEqualityComparer<'TKey> -> IObservable<ILookup<'TKey, 'TElement>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

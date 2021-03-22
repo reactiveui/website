@@ -80,7 +80,7 @@ static member FromEvent :
         removeHandler:Expression<Action<Action>> -> IQbservable<Unit> 
 ```
 
-```jscript
+```javascript
 public static function FromEvent(
     provider : IQbservableProvider, 
     addHandler : Expression<Action<Action>>, 

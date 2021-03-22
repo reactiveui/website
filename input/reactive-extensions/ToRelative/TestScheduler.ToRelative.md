@@ -44,7 +44,7 @@ override ToRelative :
         timeSpan:TimeSpan -> int64 
 ```
 
-```jscript
+```javascript
 protected override function ToRelative(
     timeSpan : TimeSpan
 ) : long

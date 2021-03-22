@@ -42,7 +42,7 @@ static member Bar :
         source:IObservable<int> -> IObservable<string> 
 ```
 
-```jscript
+```javascript
 public static function Bar(
     source : IObservable<int>
 ) : IObservable<String>
@@ -143,7 +143,7 @@ static member Bar :
         source:IQbservable<int> -> IQbservable<string> 
 ```
 
-```jscript
+```javascript
 public static function Bar(
     source : IQbservable<int>
 ) : IQbservable<String>

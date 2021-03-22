@@ -61,7 +61,7 @@ static member Window :
         scheduler:IScheduler -> IObservable<IObservable<'TSource>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -163,7 +163,7 @@ static member Window :
         scheduler:IScheduler -> IObservable<IObservable<'TSource>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -261,7 +261,7 @@ static member Window :
         skip:int -> IObservable<IObservable<'TSource>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -450,7 +450,7 @@ static member Window :
         timeShift:TimeSpan -> IObservable<IObservable<'TSource>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -548,7 +548,7 @@ static member Window :
         count:int -> IObservable<IObservable<'TSource>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -651,7 +651,7 @@ static member Window :
         scheduler:IScheduler -> IObservable<IObservable<'TSource>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -848,7 +848,7 @@ static member Window :
         timeSpan:TimeSpan -> IObservable<IObservable<'TSource>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -936,7 +936,7 @@ static member Window :
         count:int -> IObservable<IObservable<'TSource>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

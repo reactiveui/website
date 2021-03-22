@@ -47,7 +47,7 @@ static member Throws :
         action:Action -> unit  when 'TException : Exception
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -125,7 +125,7 @@ static member Throws :
         message:string -> unit  when 'TException : Exception
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -198,7 +198,7 @@ static member Throws :
         action:Action -> unit  when 'TException : Exception
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -272,7 +272,7 @@ static member Throws :
         message:string -> unit  when 'TException : Exception
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

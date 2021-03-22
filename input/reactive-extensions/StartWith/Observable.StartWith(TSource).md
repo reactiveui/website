@@ -56,7 +56,7 @@ static member StartWith :
         values:'TSource[] -> IObservable<'TSource> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -148,7 +148,7 @@ static member StartWith :
         values:'TSource[] -> IObservable<'TSource> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

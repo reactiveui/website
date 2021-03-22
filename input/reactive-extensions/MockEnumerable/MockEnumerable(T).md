@@ -42,7 +42,7 @@ type MockEnumerable<'T> =
     end
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -195,7 +195,7 @@ new :
         underlyingEnumerable:IEnumerable<'T> -> MockEnumerable
 ```
 
-```jscript
+```javascript
 public function MockEnumerable(
     scheduler : TestScheduler, 
     underlyingEnumerable : IEnumerable<T>

@@ -97,7 +97,7 @@ type Unit =
     end
 ```
 
-```jscript
+```javascript
 JScript suports the use of structures, but not the declaration of new ones.
 ```
 

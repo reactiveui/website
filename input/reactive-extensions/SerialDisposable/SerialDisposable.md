@@ -40,7 +40,7 @@ type SerialDisposable =
     end
 ```
 
-```jscript
+```javascript
 public class SerialDisposable implements IDisposable
 ```
 
@@ -101,7 +101,7 @@ SerialDisposable()
 new : unit -> SerialDisposable
 ```
 
-```jscript
+```javascript
 public function SerialDisposable()
 ```
 

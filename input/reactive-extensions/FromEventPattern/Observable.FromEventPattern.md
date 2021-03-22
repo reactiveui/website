@@ -48,7 +48,7 @@ static member FromEventPattern :
         eventName:string -> IObservable<EventPattern<EventArgs>> 
 ```
 
-```jscript
+```javascript
 public static function FromEventPattern(
     target : Object, 
     eventName : String
@@ -134,7 +134,7 @@ static member FromEventPattern :
         eventName:string -> IObservable<EventPattern<EventArgs>> 
 ```
 
-```jscript
+```javascript
 public static function FromEventPattern(
     type : Type, 
     eventName : String
@@ -245,7 +245,7 @@ static member FromEventPattern :
         removeHandler:Action<EventHandler> -> IObservable<EventPattern<EventArgs>> 
 ```
 
-```jscript
+```javascript
 public static function FromEventPattern(
     addHandler : Action<EventHandler>, 
     removeHandler : Action<EventHandler>

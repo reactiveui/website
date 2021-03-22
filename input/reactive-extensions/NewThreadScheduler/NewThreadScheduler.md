@@ -41,7 +41,7 @@ new :
         threadFactory:Func<ThreadStart, Thread> -> NewThreadScheduler
 ```
 
-```jscript
+```javascript
 public function NewThreadScheduler(
     threadFactory : Func<ThreadStart, Thread>
 )
@@ -109,7 +109,7 @@ type NewThreadScheduler =
     end
 ```
 
-```jscript
+```javascript
 public final class NewThreadScheduler implements IScheduler
 ```
 
@@ -237,7 +237,7 @@ NewThreadScheduler()
 new : unit -> NewThreadScheduler
 ```
 
-```jscript
+```javascript
 public function NewThreadScheduler()
 ```
 

@@ -40,7 +40,7 @@ property SynchronizationContext^ Context {
 member Context : SynchronizationContext with get, private set
 ```
 
-```jscript
+```javascript
 function get Context () : SynchronizationContext
 private function set Context (value : SynchronizationContext)
 ```

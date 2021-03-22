@@ -50,7 +50,7 @@ static member ToDictionary :
         keySelector:Func<'TSource, 'TKey> -> IObservable<IDictionary<'TKey, 'TSource>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -152,7 +152,7 @@ static member ToDictionary :
         comparer:IEqualityComparer<'TKey> -> IObservable<IDictionary<'TKey, 'TElement>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -260,7 +260,7 @@ static member ToDictionary :
         elementSelector:Func<'TSource, 'TElement> -> IObservable<IDictionary<'TKey, 'TElement>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -364,7 +364,7 @@ static member ToDictionary :
         comparer:IEqualityComparer<'TKey> -> IObservable<IDictionary<'TKey, 'TSource>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

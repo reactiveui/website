@@ -120,7 +120,7 @@ type EventLoopScheduler =
     end
 ```
 
-```jscript
+```javascript
 public final class EventLoopScheduler implements IScheduler, IDisposable
 ```
 
@@ -195,7 +195,7 @@ EventLoopScheduler()
 new : unit -> EventLoopScheduler
 ```
 
-```jscript
+```javascript
 public function EventLoopScheduler()
 ```
 
@@ -254,7 +254,7 @@ new :
         threadFactory:Func<ThreadStart, Thread> -> EventLoopScheduler
 ```
 
-```jscript
+```javascript
 public function EventLoopScheduler(
     threadFactory : Func<ThreadStart, Thread>
 )

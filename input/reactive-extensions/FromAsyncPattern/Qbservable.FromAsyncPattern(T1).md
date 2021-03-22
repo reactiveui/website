@@ -56,7 +56,7 @@ static member FromAsyncPattern :
         end:Expression<Action<IAsyncResult>> -> Func<'T1, IQbservable<Unit>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

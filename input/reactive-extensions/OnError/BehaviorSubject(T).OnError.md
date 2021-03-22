@@ -44,7 +44,7 @@ override OnError :
         error:Exception -> unit 
 ```
 
-```jscript
+```javascript
 public final function OnError(
     error : Exception
 )

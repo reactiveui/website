@@ -37,7 +37,7 @@ property IQbservableProvider^ Provider {
 abstract Provider : IQbservableProvider
 ```
 
-```jscript
+```javascript
 function get Provider () : IQbservableProvider
 ```
 

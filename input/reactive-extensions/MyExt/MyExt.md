@@ -37,7 +37,7 @@ public ref class MyExt abstract sealed
 type MyExt =  class end
 ```
 
-```jscript
+```javascript
 public final class MyExt
 ```
 

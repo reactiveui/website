@@ -64,7 +64,7 @@ new :
         context:SynchronizationContext -> SynchronizationContextScheduler
 ```
 
-```jscript
+```javascript
 public function SynchronizationContextScheduler(
     context : SynchronizationContext
 )
@@ -143,7 +143,7 @@ type SynchronizationContextScheduler =
     end
 ```
 
-```jscript
+```javascript
 public class SynchronizationContextScheduler implements IScheduler
 ```
 

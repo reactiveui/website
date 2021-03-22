@@ -50,7 +50,7 @@ static member Finally :
         finallyAction:Action -> IObservable<'TSource> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

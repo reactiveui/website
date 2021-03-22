@@ -37,7 +37,7 @@ static property CurrentThreadScheduler^ CurrentThread {
 static member CurrentThread : CurrentThreadScheduler
 ```
 
-```jscript
+```javascript
 static function get CurrentThread () : CurrentThreadScheduler
 ```
 

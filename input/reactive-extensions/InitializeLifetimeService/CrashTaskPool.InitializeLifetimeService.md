@@ -36,7 +36,7 @@ abstract InitializeLifetimeService : unit -> Object
 override InitializeLifetimeService : unit -> Object 
 ```
 
-```jscript
+```javascript
 public override function InitializeLifetimeService() : Object
 ```
 

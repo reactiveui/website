@@ -35,7 +35,7 @@ abstract GetNext : unit -> IScheduledItem<'TAbsolute>
 override GetNext : unit -> IScheduledItem<'TAbsolute> 
 ```
 
-```jscript
+```javascript
 protected override function GetNext() : IScheduledItem<TAbsolute>
 ```
 

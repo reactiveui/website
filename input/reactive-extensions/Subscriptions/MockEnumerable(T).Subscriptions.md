@@ -33,7 +33,7 @@ initonly List<Subscription>^ Subscriptions
 val Subscriptions: List<Subscription>
 ```
 
-```jscript
+```javascript
 public final var Subscriptions : List<Subscription>
 ```
 

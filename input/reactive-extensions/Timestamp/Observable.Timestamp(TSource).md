@@ -50,7 +50,7 @@ static member Timestamp :
         scheduler:IScheduler -> IObservable<Timestamped<'TSource>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -133,7 +133,7 @@ static member Timestamp :
         source:IObservable<'TSource> -> IObservable<Timestamped<'TSource>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

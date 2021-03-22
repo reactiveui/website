@@ -52,7 +52,7 @@ static member Catch :
         handler:Func<'TException, IObservable<'TSource>> -> IObservable<'TSource>  when 'TException : Exception
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

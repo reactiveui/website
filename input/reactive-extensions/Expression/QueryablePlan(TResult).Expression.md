@@ -40,7 +40,7 @@ property Expression^ Expression {
 member Expression : Expression with get, private set
 ```
 
-```jscript
+```javascript
 function get Expression () : Expression
 private function set Expression (value : Expression)
 ```

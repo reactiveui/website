@@ -45,7 +45,7 @@ static member GetEnumerator :
         source:IObservable<'TSource> -> IEnumerator<'TSource> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

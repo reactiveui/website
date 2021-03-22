@@ -60,7 +60,7 @@ type ScheduledDisposable =
     end
 ```
 
-```jscript
+```javascript
 public final class ScheduledDisposable implements IDisposable
 ```
 
@@ -154,7 +154,7 @@ new :
         disposable:IDisposable -> ScheduledDisposable
 ```
 
-```jscript
+```javascript
 public function ScheduledDisposable(
     scheduler : IScheduler, 
     disposable : IDisposable

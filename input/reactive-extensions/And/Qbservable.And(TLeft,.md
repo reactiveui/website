@@ -50,7 +50,7 @@ static member And :
         right:IObservable<'TRight> -> QueryablePattern<'TLeft, 'TRight> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

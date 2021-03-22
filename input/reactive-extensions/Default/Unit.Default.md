@@ -37,7 +37,7 @@ static property Unit Default {
 static member Default : Unit
 ```
 
-```jscript
+```javascript
 static function get Default () : Unit
 ```
 

@@ -49,7 +49,7 @@ static member FromAsyncPattern :
         end:Func<IAsyncResult, 'TResult> -> Func<'T1, 'T2, 'T3, 'T4, 'T5, 'T6, IObservable<'TResult>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -157,7 +157,7 @@ static member FromAsyncPattern :
         end:Func<IAsyncResult, 'TResult> -> Func<'T1, 'T2, 'T3, 'T4, 'T5, 'T6, 'T7, 'T8, 'T9, 'T10, 'T11, IObservable<'TResult>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -280,7 +280,7 @@ static member FromAsyncPattern :
         end:Action<IAsyncResult> -> Func<'T1, 'T2, 'T3, 'T4, 'T5, 'T6, 'T7, 'T8, 'T9, 'T10, 'T11, 'T12, IObservable<Unit>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -403,7 +403,7 @@ static member FromAsyncPattern :
         end:Func<IAsyncResult, 'TResult> -> Func<'T1, 'T2, 'T3, IObservable<'TResult>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -502,7 +502,7 @@ static member FromAsyncPattern :
         end:Action<IAsyncResult> -> Func<'T1, 'T2, 'T3, 'T4, 'T5, 'T6, 'T7, 'T8, IObservable<Unit>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -613,7 +613,7 @@ static member FromAsyncPattern :
         end:Func<IAsyncResult, 'TResult> -> Func<'T1, 'T2, 'T3, 'T4, 'T5, 'T6, 'T7, 'T8, 'T9, 'T10, IObservable<'TResult>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -733,7 +733,7 @@ static member FromAsyncPattern :
         end:Action<IAsyncResult> -> Func<'T1, 'T2, 'T3, 'T4, 'T5, IObservable<Unit>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -835,7 +835,7 @@ static member FromAsyncPattern :
         end:Func<IAsyncResult, 'TResult> -> Func<'T1, 'T2, 'T3, 'T4, 'T5, 'T6, 'T7, 'T8, IObservable<'TResult>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -949,7 +949,7 @@ static member FromAsyncPattern :
         end:Func<IAsyncResult, 'TResult> -> Func<'T1, 'T2, 'T3, 'T4, 'T5, 'T6, 'T7, 'T8, 'T9, IObservable<'TResult>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -1066,7 +1066,7 @@ static member FromAsyncPattern :
         end:Action<IAsyncResult> -> Func<'T1, 'T2, 'T3, 'T4, 'T5, 'T6, IObservable<Unit>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -1171,7 +1171,7 @@ static member FromAsyncPattern :
         end:Action<IAsyncResult> -> Func<'T1, 'T2, 'T3, 'T4, 'T5, 'T6, 'T7, 'T8, 'T9, IObservable<Unit>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -1285,7 +1285,7 @@ static member FromAsyncPattern :
         end:Func<IAsyncResult, 'TResult> -> Func<'T1, 'T2, 'T3, 'T4, 'T5, 'T6, 'T7, 'T8, 'T9, 'T10, 'T11, 'T12, 'T13, IObservable<'TResult>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -1414,7 +1414,7 @@ static member FromAsyncPattern :
         end:Func<IAsyncResult, 'TResult> -> Func<'T1, 'T2, 'T3, 'T4, 'T5, 'T6, 'T7, 'T8, 'T9, 'T10, 'T11, 'T12, IObservable<'TResult>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -1540,7 +1540,7 @@ static member FromAsyncPattern :
         end:Func<IAsyncResult, 'TResult> -> Func<'T1, 'T2, IObservable<'TResult>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -1636,7 +1636,7 @@ static member FromAsyncPattern :
         end:Action<IAsyncResult> -> Func<'T1, 'T2, IObservable<Unit>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -1729,7 +1729,7 @@ static member FromAsyncPattern :
         end:Func<IAsyncResult, 'TResult> -> Func<'T1, 'T2, 'T3, 'T4, 'T5, IObservable<'TResult>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -1834,7 +1834,7 @@ static member FromAsyncPattern :
         end:Func<IAsyncResult, 'TResult> -> Func<'T1, IObservable<'TResult>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -2032,7 +2032,7 @@ static member FromAsyncPattern :
         end:Action<IAsyncResult> -> Func<'T1, 'T2, 'T3, 'T4, 'T5, 'T6, 'T7, 'T8, 'T9, 'T10, 'T11, 'T12, 'T13, IObservable<Unit>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -2158,7 +2158,7 @@ static member FromAsyncPattern :
         end:Action<IAsyncResult> -> Func<'T1, 'T2, 'T3, 'T4, IObservable<Unit>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -2257,7 +2257,7 @@ static member FromAsyncPattern :
         end:Action<IAsyncResult> -> Func<'T1, 'T2, 'T3, IObservable<Unit>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -2353,7 +2353,7 @@ static member FromAsyncPattern :
         end:Func<IAsyncResult, 'TResult> -> Func<'T1, 'T2, 'T3, 'T4, IObservable<'TResult>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -2455,7 +2455,7 @@ static member FromAsyncPattern :
         end:Action<IAsyncResult> -> Func<'T1, 'T2, 'T3, 'T4, 'T5, 'T6, 'T7, 'T8, 'T9, 'T10, 'T11, IObservable<Unit>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -2575,7 +2575,7 @@ static member FromAsyncPattern :
         end:Func<IAsyncResult, 'TResult> -> Func<'T1, 'T2, 'T3, 'T4, 'T5, 'T6, 'T7, IObservable<'TResult>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -2686,7 +2686,7 @@ static member FromAsyncPattern :
         end:Action<IAsyncResult> -> Func<'T1, 'T2, 'T3, 'T4, 'T5, 'T6, 'T7, 'T8, 'T9, 'T10, IObservable<Unit>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -2803,7 +2803,7 @@ static member FromAsyncPattern :
         end:Action<IAsyncResult> -> Func<'T1, 'T2, 'T3, 'T4, 'T5, 'T6, 'T7, 'T8, 'T9, 'T10, 'T11, 'T12, 'T13, 'T14, IObservable<Unit>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -2932,7 +2932,7 @@ static member FromAsyncPattern :
         end:Func<IAsyncResult, 'TResult> -> Func<'T1, 'T2, 'T3, 'T4, 'T5, 'T6, 'T7, 'T8, 'T9, 'T10, 'T11, 'T12, 'T13, 'T14, IObservable<'TResult>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -3064,7 +3064,7 @@ static member FromAsyncPattern :
         end:Action<IAsyncResult> -> Func<'T1, 'T2, 'T3, 'T4, 'T5, 'T6, 'T7, IObservable<Unit>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

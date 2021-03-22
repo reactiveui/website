@@ -66,7 +66,7 @@ type NotificationTest =
     end
 ```
 
-```jscript
+```javascript
 public class NotificationTest extends ReactiveTest
 ```
 
@@ -129,7 +129,7 @@ NotificationTest()
 new : unit -> NotificationTest
 ```
 
-```jscript
+```javascript
 public function NotificationTest()
 ```
 

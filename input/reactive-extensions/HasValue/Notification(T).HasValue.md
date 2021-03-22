@@ -38,7 +38,7 @@ virtual property bool HasValue {
 abstract HasValue : bool
 ```
 
-```jscript
+```javascript
 abstract function get HasValue () : boolean
 ```
 

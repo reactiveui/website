@@ -56,7 +56,7 @@ static member MaxBy :
         comparer:IComparer<'TKey> -> IObservable<IList<'TSource>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -159,7 +159,7 @@ static member MaxBy :
         keySelector:Func<'TSource, 'TKey> -> IObservable<IList<'TSource>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

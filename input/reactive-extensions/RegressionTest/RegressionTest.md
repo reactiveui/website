@@ -50,7 +50,7 @@ RegressionTest()
 new : unit -> RegressionTest
 ```
 
-```jscript
+```javascript
 public function RegressionTest()
 ```
 
@@ -105,7 +105,7 @@ type RegressionTest =
     end
 ```
 
-```jscript
+```javascript
 public class RegressionTest extends ReactiveTest
 ```
 

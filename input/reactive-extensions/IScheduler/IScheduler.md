@@ -31,7 +31,7 @@ public interface class IScheduler
 type IScheduler =  interface end
 ```
 
-```jscript
+```javascript
 public interface IScheduler
 ```
 

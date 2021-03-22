@@ -38,7 +38,7 @@ public ref class Pattern abstract
 type Pattern =  class end
 ```
 
-```jscript
+```javascript
 public abstract class Pattern
 ```
 

@@ -45,7 +45,7 @@ static member ToEvent :
         source:IObservable<'TSource> -> IEventSource<'TSource> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

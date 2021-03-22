@@ -50,7 +50,7 @@ static member Distinct :
         keySelector:Func<'TSource, 'TKey> -> IObservable<'TSource> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -155,7 +155,7 @@ static member Distinct :
         comparer:IEqualityComparer<'TKey> -> IObservable<'TSource> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

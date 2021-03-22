@@ -60,7 +60,7 @@ static member Timer :
         scheduler:IScheduler -> IQbservable<int64> 
 ```
 
-```jscript
+```javascript
 public static function Timer(
     provider : IQbservableProvider, 
     dueTime : DateTimeOffset, 
@@ -161,7 +161,7 @@ static member Timer :
         period:TimeSpan -> IQbservable<int64> 
 ```
 
-```jscript
+```javascript
 public static function Timer(
     provider : IQbservableProvider, 
     dueTime : DateTimeOffset, 
@@ -257,7 +257,7 @@ static member Timer :
         period:TimeSpan -> IQbservable<int64> 
 ```
 
-```jscript
+```javascript
 public static function Timer(
     provider : IQbservableProvider, 
     dueTime : TimeSpan, 
@@ -353,7 +353,7 @@ static member Timer :
         scheduler:IScheduler -> IQbservable<int64> 
 ```
 
-```jscript
+```javascript
 public static function Timer(
     provider : IQbservableProvider, 
     dueTime : DateTimeOffset, 
@@ -454,7 +454,7 @@ static member Timer :
         scheduler:IScheduler -> IQbservable<int64> 
 ```
 
-```jscript
+```javascript
 public static function Timer(
     provider : IQbservableProvider, 
     dueTime : TimeSpan, 
@@ -555,7 +555,7 @@ static member Timer :
         scheduler:IScheduler -> IQbservable<int64> 
 ```
 
-```jscript
+```javascript
 public static function Timer(
     provider : IQbservableProvider, 
     dueTime : TimeSpan, 
@@ -645,7 +645,7 @@ static member Timer :
         dueTime:TimeSpan -> IQbservable<int64> 
 ```
 
-```jscript
+```javascript
 public static function Timer(
     provider : IQbservableProvider, 
     dueTime : TimeSpan
@@ -730,7 +730,7 @@ static member Timer :
         dueTime:DateTimeOffset -> IQbservable<int64> 
 ```
 
-```jscript
+```javascript
 public static function Timer(
     provider : IQbservableProvider, 
     dueTime : DateTimeOffset

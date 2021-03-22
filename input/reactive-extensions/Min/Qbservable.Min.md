@@ -44,7 +44,7 @@ static member Min :
         source:IQbservable<float> -> IQbservable<float> 
 ```
 
-```jscript
+```javascript
 public static function Min(
     source : IQbservable<double>
 ) : IQbservable<double>
@@ -126,7 +126,7 @@ static member Min :
         source:IQbservable<float32> -> IQbservable<float32> 
 ```
 
-```jscript
+```javascript
 public static function Min(
     source : IQbservable<float>
 ) : IQbservable<float>
@@ -208,7 +208,7 @@ static member Min :
         source:IQbservable<Nullable<float32>> -> IQbservable<Nullable<float32>> 
 ```
 
-```jscript
+```javascript
 public static function Min(
     source : IQbservable<Nullable<float>>
 ) : IQbservable<Nullable<float>>
@@ -290,7 +290,7 @@ static member Min :
         source:IQbservable<decimal> -> IQbservable<decimal> 
 ```
 
-```jscript
+```javascript
 public static function Min(
     source : IQbservable<decimal>
 ) : IQbservable<decimal>
@@ -372,7 +372,7 @@ static member Min :
         source:IQbservable<Nullable<int>> -> IQbservable<Nullable<int>> 
 ```
 
-```jscript
+```javascript
 public static function Min(
     source : IQbservable<Nullable<int>>
 ) : IQbservable<Nullable<int>>
@@ -454,7 +454,7 @@ static member Min :
         source:IQbservable<Nullable<decimal>> -> IQbservable<Nullable<decimal>> 
 ```
 
-```jscript
+```javascript
 public static function Min(
     source : IQbservable<Nullable<decimal>>
 ) : IQbservable<Nullable<decimal>>
@@ -536,7 +536,7 @@ static member Min :
         source:IQbservable<Nullable<float>> -> IQbservable<Nullable<float>> 
 ```
 
-```jscript
+```javascript
 public static function Min(
     source : IQbservable<Nullable<double>>
 ) : IQbservable<Nullable<double>>
@@ -643,7 +643,7 @@ static member Min :
         source:IQbservable<Nullable<int64>> -> IQbservable<Nullable<int64>> 
 ```
 
-```jscript
+```javascript
 public static function Min(
     source : IQbservable<Nullable<long>>
 ) : IQbservable<Nullable<long>>
@@ -725,7 +725,7 @@ static member Min :
         source:IQbservable<int64> -> IQbservable<int64> 
 ```
 
-```jscript
+```javascript
 public static function Min(
     source : IQbservable<long>
 ) : IQbservable<long>
@@ -807,7 +807,7 @@ static member Min :
         source:IQbservable<int> -> IQbservable<int> 
 ```
 
-```jscript
+```javascript
 public static function Min(
     source : IQbservable<int>
 ) : IQbservable<int>

@@ -45,7 +45,7 @@ static member Any :
         source:IObservable<'TSource> -> IObservable<bool> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -129,7 +129,7 @@ static member Any :
         predicate:Func<'TSource, bool> -> IObservable<bool> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

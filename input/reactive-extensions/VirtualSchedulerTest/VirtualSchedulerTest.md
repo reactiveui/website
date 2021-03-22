@@ -50,7 +50,7 @@ VirtualSchedulerTest()
 new : unit -> VirtualSchedulerTest
 ```
 
-```jscript
+```javascript
 public function VirtualSchedulerTest()
 ```
 
@@ -100,7 +100,7 @@ public ref class VirtualSchedulerTest
 type VirtualSchedulerTest =  class end
 ```
 
-```jscript
+```javascript
 public class VirtualSchedulerTest
 ```
 

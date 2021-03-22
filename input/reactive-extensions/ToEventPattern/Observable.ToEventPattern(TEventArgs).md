@@ -47,7 +47,7 @@ static member ToEventPattern :
         source:IObservable<EventPattern<'TEventArgs>> -> IEventPatternSource<'TEventArgs>  when 'TEventArgs : EventArgs
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

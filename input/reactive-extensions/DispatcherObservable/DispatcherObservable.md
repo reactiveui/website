@@ -37,7 +37,7 @@ public ref class DispatcherObservable abstract sealed
 type DispatcherObservable =  class end
 ```
 
-```jscript
+```javascript
 public final class DispatcherObservable
 ```
 

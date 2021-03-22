@@ -32,7 +32,7 @@ void Do()
 member Do : unit -> unit 
 ```
 
-```jscript
+```javascript
 public function Do()
 ```
 

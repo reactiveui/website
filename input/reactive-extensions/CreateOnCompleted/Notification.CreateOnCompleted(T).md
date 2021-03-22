@@ -35,7 +35,7 @@ static Notification<T>^ CreateOnCompleted()
 static member CreateOnCompleted : unit -> Notification<'T> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

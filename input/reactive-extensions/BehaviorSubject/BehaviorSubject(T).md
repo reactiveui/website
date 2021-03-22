@@ -41,7 +41,7 @@ new :
         value:'T -> BehaviorSubject
 ```
 
-```jscript
+```javascript
 public function BehaviorSubject(
     value : T
 )
@@ -270,7 +270,7 @@ type BehaviorSubject<'T> =
     end
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

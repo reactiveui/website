@@ -49,7 +49,7 @@ static member FromEvent :
         removeHandler:Action<'TDelegate> -> IObservable<'TEventArgs> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -147,7 +147,7 @@ static member FromEvent :
         removeHandler:Action<'TDelegate> -> IObservable<'TEventArgs> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

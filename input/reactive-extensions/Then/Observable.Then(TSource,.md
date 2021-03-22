@@ -50,7 +50,7 @@ static member Then :
         selector:Func<'TSource, 'TResult> -> Plan<'TResult> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

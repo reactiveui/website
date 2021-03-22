@@ -45,7 +45,7 @@ static member ToObservable :
         task:Task<'TResult> -> IObservable<'TResult> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

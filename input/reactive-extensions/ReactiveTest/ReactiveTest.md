@@ -75,7 +75,7 @@ public ref class ReactiveTest
 type ReactiveTest =  class end
 ```
 
-```jscript
+```javascript
 public class ReactiveTest
 ```
 
@@ -162,7 +162,7 @@ ReactiveTest()
 new : unit -> ReactiveTest
 ```
 
-```jscript
+```javascript
 public function ReactiveTest()
 ```
 

@@ -77,7 +77,7 @@ public ref class Qbservable abstract sealed
 type Qbservable =  class end
 ```
 
-```jscript
+```javascript
 public final class Qbservable
 ```
 

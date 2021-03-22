@@ -41,7 +41,7 @@ new :
         disposable:IDisposable -> RefCountDisposable
 ```
 
-```jscript
+```javascript
 public function RefCountDisposable(
     disposable : IDisposable
 )
@@ -102,7 +102,7 @@ type RefCountDisposable =
     end
 ```
 
-```jscript
+```javascript
 public final class RefCountDisposable implements IDisposable
 ```
 

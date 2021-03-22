@@ -50,7 +50,7 @@ static member Window :
         windowClosingSelector:Expression<Func<IObservable<'TWindowClosing>>> -> IQbservable<IObservable<'TSource>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -147,7 +147,7 @@ static member Window :
         windowClosingSelector:Expression<Func<'TWindowOpening, IObservable<'TWindowClosing>>> -> IQbservable<IObservable<'TSource>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

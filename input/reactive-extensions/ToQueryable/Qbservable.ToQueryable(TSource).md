@@ -45,7 +45,7 @@ static member ToQueryable :
         source:IQbservable<'TSource> -> IQueryable<'TSource> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
