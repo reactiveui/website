@@ -47,7 +47,7 @@ abstract Add :
         relative:'TRelative -> 'TAbsolute 
 ```
 
-```jscript
+```javascript
 protected abstract function Add(
     absolute : TAbsolute, 
     relative : TRelative

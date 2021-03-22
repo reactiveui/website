@@ -55,7 +55,7 @@ static member Zip :
         resultSelector:Func<'TFirst, 'TSecond, 'TResult> -> IObservable<'TResult> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -157,7 +157,7 @@ static member Zip :
         resultSelector:Func<'TFirst, 'TSecond, 'TResult> -> IObservable<'TResult> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

@@ -50,7 +50,7 @@ static member ToDictionary :
         keySelector:Expression<Func<'TSource, 'TKey>> -> IQbservable<IDictionary<'TKey, 'TSource>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -147,7 +147,7 @@ static member ToDictionary :
         elementSelector:Expression<Func<'TSource, 'TElement>> -> IQbservable<IDictionary<'TKey, 'TElement>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -256,7 +256,7 @@ static member ToDictionary :
         comparer:IEqualityComparer<'TKey> -> IQbservable<IDictionary<'TKey, 'TElement>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -364,7 +364,7 @@ static member ToDictionary :
         comparer:IEqualityComparer<'TKey> -> IQbservable<IDictionary<'TKey, 'TSource>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

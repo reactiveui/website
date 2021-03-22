@@ -70,7 +70,7 @@ new :
         disposable:IDisposable -> ContextDisposable
 ```
 
-```jscript
+```javascript
 public function ContextDisposable(
     context : SynchronizationContext, 
     disposable : IDisposable
@@ -141,7 +141,7 @@ type ContextDisposable =
     end
 ```
 
-```jscript
+```javascript
 public final class ContextDisposable implements IDisposable
 ```
 

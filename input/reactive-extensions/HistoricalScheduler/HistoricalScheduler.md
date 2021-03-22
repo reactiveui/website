@@ -88,7 +88,7 @@ type HistoricalScheduler =
     end
 ```
 
-```jscript
+```javascript
 public class HistoricalScheduler extends HistoricalSchedulerBase
 ```
 
@@ -158,7 +158,7 @@ HistoricalScheduler()
 new : unit -> HistoricalScheduler
 ```
 
-```jscript
+```javascript
 public function HistoricalScheduler()
 ```
 

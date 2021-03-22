@@ -60,7 +60,7 @@ public ref class Notification abstract sealed
 type Notification =  class end
 ```
 
-```jscript
+```javascript
 public final class Notification
 ```
 

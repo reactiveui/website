@@ -62,7 +62,7 @@ public ref class ControlObservable abstract sealed
 type ControlObservable =  class end
 ```
 
-```jscript
+```javascript
 public final class ControlObservable
 ```
 

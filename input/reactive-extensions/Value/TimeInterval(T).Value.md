@@ -38,7 +38,7 @@ property T Value {
 member Value : 'T
 ```
 
-```jscript
+```javascript
 function get Value () : T
 ```
 

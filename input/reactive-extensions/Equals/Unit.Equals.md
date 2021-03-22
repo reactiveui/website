@@ -70,7 +70,7 @@ override Equals :
         obj:Object -> bool 
 ```
 
-```jscript
+```javascript
 public override function Equals(
     obj : Object
 ) : boolean
@@ -148,7 +148,7 @@ override Equals :
         other:Unit -> bool 
 ```
 
-```jscript
+```javascript
 public final function Equals(
     other : Unit
 ) : boolean

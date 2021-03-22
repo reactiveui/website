@@ -45,7 +45,7 @@ static member ToAsync :
         action:Action<'T1, 'T2, 'T3, 'T4, 'T5, 'T6, 'T7, 'T8, 'T9, 'T10, 'T11, 'T12, 'T13, 'T14, 'T15, 'T16> -> Func<'T1, 'T2, 'T3, 'T4, 'T5, 'T6, 'T7, 'T8, 'T9, 'T10, 'T11, 'T12, 'T13, 'T14, 'T15, 'T16, IObservable<Unit>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -169,7 +169,7 @@ static member ToAsync :
         function:Func<'T1, 'T2, 'T3, 'T4, 'T5, 'T6, 'T7, 'T8, 'T9, 'T10, 'TResult> -> Func<'T1, 'T2, 'T3, 'T4, 'T5, 'T6, 'T7, 'T8, 'T9, 'T10, IObservable<'TResult>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -278,7 +278,7 @@ static member ToAsync :
         action:Action<'T1, 'T2, 'T3, 'T4, 'T5, 'T6, 'T7, 'T8, 'T9, 'T10> -> Func<'T1, 'T2, 'T3, 'T4, 'T5, 'T6, 'T7, 'T8, 'T9, 'T10, IObservable<Unit>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -384,7 +384,7 @@ static member ToAsync :
         function:Func<'T1, 'T2, 'T3, 'T4, 'TResult> -> Func<'T1, 'T2, 'T3, 'T4, IObservable<'TResult>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -475,7 +475,7 @@ static member ToAsync :
         function:Func<'T1, 'T2, 'T3, 'T4, 'T5, 'T6, 'T7, 'T8, 'TResult> -> Func<'T1, 'T2, 'T3, 'T4, 'T5, 'T6, 'T7, 'T8, IObservable<'TResult>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -583,7 +583,7 @@ static member ToAsync :
         scheduler:IScheduler -> Func<'T1, 'T2, 'T3, 'T4, 'T5, 'T6, 'T7, 'T8, 'T9, 'T10, 'T11, 'T12, IObservable<Unit>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -699,7 +699,7 @@ static member ToAsync :
         function:Func<'T1, 'T2, 'TResult> -> Func<'T1, 'T2, IObservable<'TResult>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -789,7 +789,7 @@ static member ToAsync :
         scheduler:IScheduler -> Func<'T1, 'T2, 'T3, 'T4, 'T5, 'T6, 'T7, 'T8, 'T9, 'T10, 'T11, 'T12, IObservable<'TResult>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -913,7 +913,7 @@ static member ToAsync :
         scheduler:IScheduler -> Func<'T1, 'T2, 'T3, 'T4, 'T5, 'T6, 'T7, IObservable<Unit>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -1019,7 +1019,7 @@ static member ToAsync :
         scheduler:IScheduler -> Func<'T1, 'T2, 'T3, 'T4, 'T5, 'T6, 'T7, IObservable<'TResult>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -1128,7 +1128,7 @@ static member ToAsync :
         scheduler:IScheduler -> Func<'T1, 'T2, 'T3, 'T4, 'T5, 'T6, 'T7, 'T8, 'T9, 'T10, 'T11, IObservable<'TResult>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -1244,7 +1244,7 @@ static member ToAsync :
         function:Func<'T1, 'T2, 'T3, 'T4, 'T5, 'T6, 'T7, 'TResult> -> Func<'T1, 'T2, 'T3, 'T4, 'T5, 'T6, 'T7, IObservable<'TResult>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -1344,7 +1344,7 @@ static member ToAsync :
         action:Action<'T1, 'T2, 'T3, 'T4> -> Func<'T1, 'T2, 'T3, 'T4, IObservable<Unit>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -1432,7 +1432,7 @@ static member ToAsync :
         function:Func<'T1, 'T2, 'T3, 'T4, 'T5, 'T6, 'T7, 'T8, 'T9, 'T10, 'T11, 'TResult> -> Func<'T1, 'T2, 'T3, 'T4, 'T5, 'T6, 'T7, 'T8, 'T9, 'T10, 'T11, IObservable<'TResult>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -1549,7 +1549,7 @@ static member ToAsync :
         scheduler:IScheduler -> Func<'T1, 'T2, 'T3, 'T4, 'T5, 'T6, 'T7, 'T8, 'T9, 'T10, 'T11, 'T12, 'T13, 'T14, 'T15, 'T16, IObservable<Unit>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -1677,7 +1677,7 @@ static member ToAsync :
         function:Func<'T1, 'T2, 'T3, 'T4, 'T5, 'T6, 'T7, 'T8, 'T9, 'T10, 'T11, 'T12, 'T13, 'T14, 'T15, 'TResult> -> Func<'T1, 'T2, 'T3, 'T4, 'T5, 'T6, 'T7, 'T8, 'T9, 'T10, 'T11, 'T12, 'T13, 'T14, 'T15, IObservable<'TResult>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -1806,7 +1806,7 @@ static member ToAsync :
         scheduler:IScheduler -> Func<'T1, 'T2, IObservable<Unit>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -1892,7 +1892,7 @@ static member ToAsync :
         function:Func<'T1, 'T2, 'T3, 'T4, 'T5, 'T6, 'TResult> -> Func<'T1, 'T2, 'T3, 'T4, 'T5, 'T6, IObservable<'TResult>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -1994,7 +1994,7 @@ static member ToAsync :
         scheduler:IScheduler -> Func<'T1, 'T2, 'T3, 'T4, 'T5, 'T6, 'T7, 'T8, 'T9, IObservable<Unit>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -2106,7 +2106,7 @@ static member ToAsync :
         scheduler:IScheduler -> Func<'T1, 'T2, 'T3, 'T4, 'T5, 'T6, IObservable<'TResult>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -2212,7 +2212,7 @@ static member ToAsync :
         scheduler:IScheduler -> Func<'T1, 'T2, 'T3, 'T4, 'T5, IObservable<'TResult>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -2310,7 +2310,7 @@ static member ToAsync :
         action:Action<'T1, 'T2, 'T3, 'T4, 'T5, 'T6, 'T7, 'T8, 'T9, 'T10, 'T11, 'T12, 'T13> -> Func<'T1, 'T2, 'T3, 'T4, 'T5, 'T6, 'T7, 'T8, 'T9, 'T10, 'T11, 'T12, 'T13, IObservable<Unit>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -2425,7 +2425,7 @@ static member ToAsync :
         action:Action<'T1, 'T2, 'T3, 'T4, 'T5> -> Func<'T1, 'T2, 'T3, 'T4, 'T5, IObservable<Unit>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -2516,7 +2516,7 @@ static member ToAsync :
         function:Func<'T1, 'T2, 'T3, 'T4, 'T5, 'TResult> -> Func<'T1, 'T2, 'T3, 'T4, 'T5, IObservable<'TResult>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -2615,7 +2615,7 @@ static member ToAsync :
         scheduler:IScheduler -> Func<'T1, 'T2, 'T3, 'T4, IObservable<'TResult>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -2710,7 +2710,7 @@ static member ToAsync :
         function:Func<'T1, 'T2, 'T3, 'T4, 'T5, 'T6, 'T7, 'T8, 'T9, 'T10, 'T11, 'T12, 'TResult> -> Func<'T1, 'T2, 'T3, 'T4, 'T5, 'T6, 'T7, 'T8, 'T9, 'T10, 'T11, 'T12, IObservable<'TResult>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -2830,7 +2830,7 @@ static member ToAsync :
         scheduler:IScheduler -> Func<'T1, 'T2, 'T3, 'T4, 'T5, 'T6, 'T7, 'T8, 'T9, 'T10, 'T11, 'T12, 'T13, 'T14, 'T15, 'T16, IObservable<'TResult>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -2961,7 +2961,7 @@ static member ToAsync :
         function:Func<'T1, 'T2, 'T3, 'TResult> -> Func<'T1, 'T2, 'T3, IObservable<'TResult>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -3054,7 +3054,7 @@ static member ToAsync :
         scheduler:IScheduler -> Func<'T1, 'T2, 'T3, 'T4, IObservable<Unit>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -3151,7 +3151,7 @@ static member ToAsync :
         scheduler:IScheduler -> Func<'T1, 'T2, 'T3, 'T4, 'T5, 'T6, 'T7, 'T8, 'T9, 'T10, 'T11, 'T12, 'T13, 'T14, 'T15, IObservable<'TResult>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -3284,7 +3284,7 @@ static member ToAsync :
         scheduler:IScheduler -> Func<'T1, 'T2, 'T3, 'T4, 'T5, 'T6, 'T7, 'T8, IObservable<Unit>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -3388,7 +3388,7 @@ static member ToAsync :
         action:Action<'T1, 'T2, 'T3> -> Func<'T1, 'T2, 'T3, IObservable<Unit>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -3478,7 +3478,7 @@ static member ToAsync :
         scheduler:IScheduler -> Func<'T1, 'T2, IObservable<'TResult>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -3572,7 +3572,7 @@ static member ToAsync :
         scheduler:IScheduler -> Func<'T1, 'T2, 'T3, 'T4, 'T5, 'T6, 'T7, 'T8, 'T9, 'T10, 'T11, 'T12, 'T13, 'T14, IObservable<'TResult>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -3702,7 +3702,7 @@ static member ToAsync :
         scheduler:IScheduler -> Func<'T1, 'T2, 'T3, IObservable<'TResult>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -3794,7 +3794,7 @@ static member ToAsync :
         action:Action<'T1, 'T2, 'T3, 'T4, 'T5, 'T6, 'T7, 'T8, 'T9, 'T10, 'T11> -> Func<'T1, 'T2, 'T3, 'T4, 'T5, 'T6, 'T7, 'T8, 'T9, 'T10, 'T11, IObservable<Unit>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -3903,7 +3903,7 @@ static member ToAsync :
         function:Func<'T1, 'T2, 'T3, 'T4, 'T5, 'T6, 'T7, 'T8, 'T9, 'T10, 'T11, 'T12, 'T13, 'T14, 'T15, 'T16, 'TResult> -> Func<'T1, 'T2, 'T3, 'T4, 'T5, 'T6, 'T7, 'T8, 'T9, 'T10, 'T11, 'T12, 'T13, 'T14, 'T15, 'T16, IObservable<'TResult>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -4035,7 +4035,7 @@ static member ToAsync :
         scheduler:IScheduler -> Func<'T1, 'T2, 'T3, 'T4, 'T5, 'T6, 'T7, 'T8, 'T9, 'T10, 'T11, IObservable<Unit>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -4153,7 +4153,7 @@ static member ToAsync :
         scheduler:IScheduler -> Func<'T1, 'T2, 'T3, 'T4, 'T5, 'T6, 'T7, 'T8, 'T9, 'T10, IObservable<'TResult>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -4271,7 +4271,7 @@ static member ToAsync :
         scheduler:IScheduler -> Func<'T1, 'T2, 'T3, 'T4, 'T5, 'T6, 'T7, 'T8, 'T9, IObservable<'TResult>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -4381,7 +4381,7 @@ static member ToAsync :
         action:Action<'T1, 'T2, 'T3, 'T4, 'T5, 'T6, 'T7, 'T8> -> Func<'T1, 'T2, 'T3, 'T4, 'T5, 'T6, 'T7, 'T8, IObservable<Unit>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -4481,7 +4481,7 @@ static member ToAsync :
         action:Action<'T1, 'T2, 'T3, 'T4, 'T5, 'T6, 'T7, 'T8, 'T9, 'T10, 'T11, 'T12, 'T13, 'T14, 'T15> -> Func<'T1, 'T2, 'T3, 'T4, 'T5, 'T6, 'T7, 'T8, 'T9, 'T10, 'T11, 'T12, 'T13, 'T14, 'T15, IObservable<Unit>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -4607,7 +4607,7 @@ static member ToAsync :
         scheduler:IScheduler -> Func<'T1, 'T2, 'T3, 'T4, 'T5, 'T6, 'T7, 'T8, IObservable<'TResult>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -4719,7 +4719,7 @@ static member ToAsync :
         scheduler:IScheduler -> Func<'T1, 'T2, 'T3, 'T4, 'T5, 'T6, 'T7, 'T8, 'T9, 'T10, 'T11, 'T12, 'T13, 'T14, IObservable<Unit>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -4841,7 +4841,7 @@ static member ToAsync :
         function:Func<'T1, 'T2, 'T3, 'T4, 'T5, 'T6, 'T7, 'T8, 'T9, 'T10, 'T11, 'T12, 'T13, 'TResult> -> Func<'T1, 'T2, 'T3, 'T4, 'T5, 'T6, 'T7, 'T8, 'T9, 'T10, 'T11, 'T12, 'T13, IObservable<'TResult>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -4964,7 +4964,7 @@ static member ToAsync :
         scheduler:IScheduler -> Func<'T1, 'T2, 'T3, 'T4, 'T5, IObservable<Unit>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -5064,7 +5064,7 @@ static member ToAsync :
         scheduler:IScheduler -> Func<'T1, 'T2, 'T3, 'T4, 'T5, 'T6, IObservable<Unit>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -5162,7 +5162,7 @@ static member ToAsync :
         action:Action<'T1, 'T2, 'T3, 'T4, 'T5, 'T6, 'T7, 'T8, 'T9, 'T10, 'T11, 'T12> -> Func<'T1, 'T2, 'T3, 'T4, 'T5, 'T6, 'T7, 'T8, 'T9, 'T10, 'T11, 'T12, IObservable<Unit>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -5274,7 +5274,7 @@ static member ToAsync :
         function:Func<'T1, 'T2, 'T3, 'T4, 'T5, 'T6, 'T7, 'T8, 'T9, 'TResult> -> Func<'T1, 'T2, 'T3, 'T4, 'T5, 'T6, 'T7, 'T8, 'T9, IObservable<'TResult>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -5385,7 +5385,7 @@ static member ToAsync :
         scheduler:IScheduler -> Func<'T1, 'T2, 'T3, 'T4, 'T5, 'T6, 'T7, 'T8, 'T9, 'T10, 'T11, 'T12, 'T13, 'T14, 'T15, IObservable<Unit>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -5515,7 +5515,7 @@ static member ToAsync :
         scheduler:IScheduler -> Func<'T1, 'T2, 'T3, 'T4, 'T5, 'T6, 'T7, 'T8, 'T9, 'T10, IObservable<Unit>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -5630,7 +5630,7 @@ static member ToAsync :
         scheduler:IScheduler -> Func<'T1, 'T2, 'T3, 'T4, 'T5, 'T6, 'T7, 'T8, 'T9, 'T10, 'T11, 'T12, 'T13, IObservable<'TResult>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -5752,7 +5752,7 @@ static member ToAsync :
         action:Action<'T1, 'T2> -> Func<'T1, 'T2, IObservable<Unit>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -5834,7 +5834,7 @@ static member ToAsync :
         action:Action<'T1, 'T2, 'T3, 'T4, 'T5, 'T6, 'T7> -> Func<'T1, 'T2, 'T3, 'T4, 'T5, 'T6, 'T7, IObservable<Unit>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -5936,7 +5936,7 @@ static member ToAsync :
         scheduler:IScheduler -> Func<'T1, 'T2, 'T3, IObservable<Unit>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -6025,7 +6025,7 @@ static member ToAsync :
         action:Action<'T1, 'T2, 'T3, 'T4, 'T5, 'T6> -> Func<'T1, 'T2, 'T3, 'T4, 'T5, 'T6, IObservable<Unit>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -6124,7 +6124,7 @@ static member ToAsync :
         scheduler:IScheduler -> Func<'T1, 'T2, 'T3, 'T4, 'T5, 'T6, 'T7, 'T8, 'T9, 'T10, 'T11, 'T12, 'T13, IObservable<Unit>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -6243,7 +6243,7 @@ static member ToAsync :
         action:Action<'T1, 'T2, 'T3, 'T4, 'T5, 'T6, 'T7, 'T8, 'T9, 'T10, 'T11, 'T12, 'T13, 'T14> -> Func<'T1, 'T2, 'T3, 'T4, 'T5, 'T6, 'T7, 'T8, 'T9, 'T10, 'T11, 'T12, 'T13, 'T14, IObservable<Unit>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -6361,7 +6361,7 @@ static member ToAsync :
         action:Action<'T1, 'T2, 'T3, 'T4, 'T5, 'T6, 'T7, 'T8, 'T9> -> Func<'T1, 'T2, 'T3, 'T4, 'T5, 'T6, 'T7, 'T8, 'T9, IObservable<Unit>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -6464,7 +6464,7 @@ static member ToAsync :
         function:Func<'T1, 'T2, 'T3, 'T4, 'T5, 'T6, 'T7, 'T8, 'T9, 'T10, 'T11, 'T12, 'T13, 'T14, 'TResult> -> Func<'T1, 'T2, 'T3, 'T4, 'T5, 'T6, 'T7, 'T8, 'T9, 'T10, 'T11, 'T12, 'T13, 'T14, IObservable<'TResult>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

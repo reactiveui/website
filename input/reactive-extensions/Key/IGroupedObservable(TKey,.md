@@ -37,7 +37,7 @@ property TKey Key {
 abstract Key : 'TKey
 ```
 
-```jscript
+```javascript
 function get Key () : TKey
 ```
 

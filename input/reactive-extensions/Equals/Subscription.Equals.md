@@ -45,7 +45,7 @@ override Equals :
         obj:Object -> bool 
 ```
 
-```jscript
+```javascript
 public override function Equals(
     obj : Object
 ) : boolean
@@ -148,7 +148,7 @@ override Equals :
         other:Subscription -> bool 
 ```
 
-```jscript
+```javascript
 public final function Equals(
     other : Subscription
 ) : boolean

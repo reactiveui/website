@@ -43,7 +43,7 @@ static member Amb :
         sources:IObservable<'TSource>[] -> IObservable<'TSource> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -118,7 +118,7 @@ static member Amb :
         sources:IEnumerable<IObservable<'TSource>> -> IObservable<'TSource> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -202,7 +202,7 @@ static member Amb :
         second:IObservable<'TSource> -> IObservable<'TSource> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

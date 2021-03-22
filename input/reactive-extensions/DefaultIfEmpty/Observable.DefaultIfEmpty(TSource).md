@@ -50,7 +50,7 @@ static member DefaultIfEmpty :
         defaultValue:'TSource -> IObservable<'TSource> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -141,7 +141,7 @@ static member DefaultIfEmpty :
         source:IObservable<'TSource> -> IObservable<'TSource> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

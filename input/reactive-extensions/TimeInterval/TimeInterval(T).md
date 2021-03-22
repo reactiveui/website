@@ -37,7 +37,7 @@ public value class TimeInterval
 type TimeInterval<'T> =  struct end
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -139,7 +139,7 @@ new :
         interval:TimeSpan -> TimeInterval
 ```
 
-```jscript
+```javascript
 public function TimeInterval(
     value : T, 
     interval : TimeSpan

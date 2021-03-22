@@ -45,7 +45,7 @@ static member Never :
         provider:IQbservableProvider -> IQbservable<'TResult> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

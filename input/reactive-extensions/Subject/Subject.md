@@ -56,7 +56,7 @@ public ref class Subject abstract sealed
 type Subject =  class end
 ```
 
-```jscript
+```javascript
 public final class Subject
 ```
 

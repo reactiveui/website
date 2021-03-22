@@ -38,7 +38,7 @@ property TimeSpan Interval {
 member Interval : TimeSpan
 ```
 
-```jscript
+```javascript
 function get Interval () : TimeSpan
 ```
 

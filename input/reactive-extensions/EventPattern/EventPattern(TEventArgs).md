@@ -112,7 +112,7 @@ type EventPattern<'TEventArgs when 'TEventArgs : EventArgs> =
     end
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -211,7 +211,7 @@ new :
         e:'TEventArgs -> EventPattern
 ```
 
-```jscript
+```javascript
 public function EventPattern(
     sender : Object, 
     e : TEventArgs

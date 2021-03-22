@@ -50,7 +50,7 @@ static member MaxBy :
         keySelector:Expression<Func<'TSource, 'TKey>> -> IQbservable<IList<'TSource>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -155,7 +155,7 @@ static member MaxBy :
         comparer:IComparer<'TKey> -> IQbservable<IList<'TSource>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

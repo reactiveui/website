@@ -50,7 +50,7 @@ static member Subscribe :
         observer:IObserver<'TSource> -> IDisposable 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -144,7 +144,7 @@ static member Subscribe :
         scheduler:IScheduler -> IDisposable 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

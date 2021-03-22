@@ -92,7 +92,7 @@ type ImmediateScheduler =
     end
 ```
 
-```jscript
+```javascript
 public final class ImmediateScheduler implements IScheduler
 ```
 

@@ -38,7 +38,7 @@ property Control^ Control {
 member Control : Control
 ```
 
-```jscript
+```javascript
 function get Control () : Control
 ```
 

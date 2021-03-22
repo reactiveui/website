@@ -50,7 +50,7 @@ static member Single :
         predicate:Func<'TSource, bool> -> 'TSource 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -133,7 +133,7 @@ static member Single :
         source:IObservable<'TSource> -> 'TSource 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

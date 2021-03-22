@@ -56,7 +56,7 @@ HistoricalSchedulerBase()
 new : unit -> HistoricalSchedulerBase
 ```
 
-```jscript
+```javascript
 protected function HistoricalSchedulerBase()
 ```
 
@@ -115,7 +115,7 @@ type HistoricalSchedulerBase =
     end
 ```
 
-```jscript
+```javascript
 public abstract class HistoricalSchedulerBase extends VirtualTimeSchedulerBase<DateTimeOffset, TimeSpan>
 ```
 

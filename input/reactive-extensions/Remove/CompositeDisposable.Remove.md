@@ -45,7 +45,7 @@ override Remove :
         item:IDisposable -> bool 
 ```
 
-```jscript
+```javascript
 public final function Remove(
     item : IDisposable
 ) : boolean

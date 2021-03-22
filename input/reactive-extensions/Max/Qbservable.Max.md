@@ -44,7 +44,7 @@ static member Max :
         source:IQbservable<int64> -> IQbservable<int64> 
 ```
 
-```jscript
+```javascript
 public static function Max(
     source : IQbservable<long>
 ) : IQbservable<long>
@@ -119,7 +119,7 @@ static member Max :
         source:IQbservable<int> -> IQbservable<int> 
 ```
 
-```jscript
+```javascript
 public static function Max(
     source : IQbservable<int>
 ) : IQbservable<int>
@@ -194,7 +194,7 @@ static member Max :
         source:IQbservable<float32> -> IQbservable<float32> 
 ```
 
-```jscript
+```javascript
 public static function Max(
     source : IQbservable<float>
 ) : IQbservable<float>
@@ -269,7 +269,7 @@ static member Max :
         source:IQbservable<Nullable<float>> -> IQbservable<Nullable<float>> 
 ```
 
-```jscript
+```javascript
 public static function Max(
     source : IQbservable<Nullable<double>>
 ) : IQbservable<Nullable<double>>
@@ -344,7 +344,7 @@ static member Max :
         source:IQbservable<Nullable<int64>> -> IQbservable<Nullable<int64>> 
 ```
 
-```jscript
+```javascript
 public static function Max(
     source : IQbservable<Nullable<long>>
 ) : IQbservable<Nullable<long>>
@@ -440,7 +440,7 @@ static member Max :
         source:IQbservable<Nullable<float32>> -> IQbservable<Nullable<float32>> 
 ```
 
-```jscript
+```javascript
 public static function Max(
     source : IQbservable<Nullable<float>>
 ) : IQbservable<Nullable<float>>
@@ -515,7 +515,7 @@ static member Max :
         source:IQbservable<float> -> IQbservable<float> 
 ```
 
-```jscript
+```javascript
 public static function Max(
     source : IQbservable<double>
 ) : IQbservable<double>
@@ -590,7 +590,7 @@ static member Max :
         source:IQbservable<Nullable<int>> -> IQbservable<Nullable<int>> 
 ```
 
-```jscript
+```javascript
 public static function Max(
     source : IQbservable<Nullable<int>>
 ) : IQbservable<Nullable<int>>
@@ -665,7 +665,7 @@ static member Max :
         source:IQbservable<decimal> -> IQbservable<decimal> 
 ```
 
-```jscript
+```javascript
 public static function Max(
     source : IQbservable<decimal>
 ) : IQbservable<decimal>
@@ -740,7 +740,7 @@ static member Max :
         source:IQbservable<Nullable<decimal>> -> IQbservable<Nullable<decimal>> 
 ```
 
-```jscript
+```javascript
 public static function Max(
     source : IQbservable<Nullable<decimal>>
 ) : IQbservable<Nullable<decimal>>

@@ -44,7 +44,7 @@ override OnNext :
         value:'T -> unit 
 ```
 
-```jscript
+```javascript
 public final function OnNext(
     value : T
 )

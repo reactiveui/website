@@ -50,7 +50,7 @@ static member TakeLast :
         count:int -> IQbservable<'TSource> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

@@ -50,7 +50,7 @@ static member ToObservable :
         source:IEnumerable<'TSource> -> IQbservable<'TSource> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -144,7 +144,7 @@ static member ToObservable :
         scheduler:IScheduler -> IQbservable<'TSource> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

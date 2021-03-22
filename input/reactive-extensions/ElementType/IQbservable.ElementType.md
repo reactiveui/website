@@ -37,7 +37,7 @@ property Type^ ElementType {
 abstract ElementType : Type
 ```
 
-```jscript
+```javascript
 function get ElementType () : Type
 ```
 

@@ -34,7 +34,7 @@ void Start()
 member Start : unit -> unit 
 ```
 
-```jscript
+```javascript
 public function Start()
 ```
 

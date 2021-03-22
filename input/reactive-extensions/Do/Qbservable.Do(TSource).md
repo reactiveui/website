@@ -50,7 +50,7 @@ static member Do :
         onNext:Expression<Action<'TSource>> -> IQbservable<'TSource> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -151,7 +151,7 @@ static member Do :
         onError:Expression<Action<Exception>> -> IQbservable<'TSource> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -251,7 +251,7 @@ static member Do :
         observer:IObserver<'TSource> -> IQbservable<'TSource> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -358,7 +358,7 @@ static member Do :
         onCompleted:Expression<Action> -> IQbservable<'TSource> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -467,7 +467,7 @@ static member Do :
         onCompleted:Expression<Action> -> IQbservable<'TSource> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

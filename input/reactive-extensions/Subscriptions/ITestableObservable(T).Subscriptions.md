@@ -37,7 +37,7 @@ property IList<Subscription>^ Subscriptions {
 abstract Subscriptions : IList<Subscription>
 ```
 
-```jscript
+```javascript
 function get Subscriptions () : IList<Subscription>
 ```
 

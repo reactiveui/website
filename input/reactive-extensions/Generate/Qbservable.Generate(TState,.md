@@ -72,7 +72,7 @@ static member Generate :
         scheduler:IScheduler -> IQbservable<'TResult> 
 ```
 
-```jscript
+
 JScript does not support generic types and methods.
 ```
 
@@ -214,7 +214,7 @@ static member Generate :
         scheduler:IScheduler -> IQbservable<'TResult> 
 ```
 
-```jscript
+
 JScript does not support generic types and methods.
 ```
 
@@ -360,7 +360,7 @@ static member Generate :
         scheduler:IScheduler -> IQbservable<'TResult> 
 ```
 
-```jscript
+
 JScript does not support generic types and methods.
 ```
 
@@ -495,7 +495,7 @@ static member Generate :
         resultSelector:Expression<Func<'TState, 'TResult>> -> IQbservable<'TResult> 
 ```
 
-```jscript
+
 JScript does not support generic types and methods.
 ```
 
@@ -628,7 +628,7 @@ static member Generate :
         timeSelector:Expression<Func<'TState, TimeSpan>> -> IQbservable<'TResult> 
 ```
 
-```jscript
+
 JScript does not support generic types and methods.
 ```
 
@@ -765,7 +765,7 @@ static member Generate :
         timeSelector:Expression<Func<'TState, DateTimeOffset>> -> IQbservable<'TResult> 
 ```
 
-```jscript
+
 JScript does not support generic types and methods.
 ```
 

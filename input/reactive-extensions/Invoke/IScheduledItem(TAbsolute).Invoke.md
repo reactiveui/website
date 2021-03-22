@@ -33,7 +33,7 @@ void Invoke()
 abstract Invoke : unit -> unit 
 ```
 
-```jscript
+```javascript
 function Invoke()
 ```
 

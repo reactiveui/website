@@ -68,7 +68,7 @@ type DispatcherScheduler =
     end
 ```
 
-```jscript
+```javascript
 public class DispatcherScheduler implements IScheduler
 ```
 
@@ -174,7 +174,7 @@ new :
         dispatcher:Dispatcher -> DispatcherScheduler
 ```
 
-```jscript
+```javascript
 public function DispatcherScheduler(
     dispatcher : Dispatcher
 )

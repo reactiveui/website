@@ -40,7 +40,7 @@ property Object^ Sender {
 member Sender : Object with get, private set
 ```
 
-```jscript
+```javascript
 function get Sender () : Object
 private function set Sender (value : Object)
 ```

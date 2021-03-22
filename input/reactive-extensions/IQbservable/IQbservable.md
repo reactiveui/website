@@ -31,7 +31,7 @@ public interface class IQbservable
 type IQbservable =  interface end
 ```
 
-```jscript
+```javascript
 public interface IQbservable
 ```
 

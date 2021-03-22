@@ -36,7 +36,7 @@ type IGroupedObservable<'TKey, 'TElement> =
     end
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

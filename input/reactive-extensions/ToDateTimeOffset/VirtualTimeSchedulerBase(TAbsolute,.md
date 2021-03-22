@@ -42,7 +42,7 @@ abstract ToDateTimeOffset :
         absolute:'TAbsolute -> DateTimeOffset 
 ```
 
-```jscript
+```javascript
 protected abstract function ToDateTimeOffset(
     absolute : TAbsolute
 ) : DateTimeOffset

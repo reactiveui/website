@@ -40,7 +40,7 @@ property IScheduler^ Scheduler {
 member Scheduler : IScheduler with get, private set
 ```
 
-```jscript
+```javascript
 function get Scheduler () : IScheduler
 private function set Scheduler (value : IScheduler)
 ```

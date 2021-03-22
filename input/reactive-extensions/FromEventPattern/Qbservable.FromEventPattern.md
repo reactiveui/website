@@ -80,7 +80,7 @@ static member FromEventPattern :
         removeHandler:Expression<Action<EventHandler>> -> IQbservable<EventPattern<EventArgs>> 
 ```
 
-```jscript
+```javascript
 public static function FromEventPattern(
     provider : IQbservableProvider, 
     addHandler : Expression<Action<EventHandler>>, 
@@ -183,7 +183,7 @@ static member FromEventPattern :
         eventName:string -> IQbservable<EventPattern<EventArgs>> 
 ```
 
-```jscript
+```javascript
 public static function FromEventPattern(
     provider : IQbservableProvider, 
     type : Type, 
@@ -286,7 +286,7 @@ static member FromEventPattern :
         eventName:string -> IQbservable<EventPattern<EventArgs>> 
 ```
 
-```jscript
+```javascript
 public static function FromEventPattern(
     provider : IQbservableProvider, 
     target : Object, 

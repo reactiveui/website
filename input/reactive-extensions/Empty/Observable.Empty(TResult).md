@@ -35,7 +35,7 @@ static IObservable<TResult>^ Empty()
 static member Empty : unit -> IObservable<'TResult> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -108,7 +108,7 @@ static member Empty :
         scheduler:IScheduler -> IObservable<'TResult> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

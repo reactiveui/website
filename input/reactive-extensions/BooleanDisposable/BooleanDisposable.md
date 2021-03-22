@@ -64,7 +64,7 @@ type BooleanDisposable =
     end
 ```
 
-```jscript
+```javascript
 public final class BooleanDisposable implements IDisposable
 ```
 
@@ -134,7 +134,7 @@ BooleanDisposable()
 new : unit -> BooleanDisposable
 ```
 
-```jscript
+```javascript
 public function BooleanDisposable()
 ```
 

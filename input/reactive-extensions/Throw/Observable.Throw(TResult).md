@@ -43,7 +43,7 @@ static member Throw :
         exception:Exception -> IObservable<'TResult> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -122,7 +122,7 @@ static member Throw :
         scheduler:IScheduler -> IObservable<'TResult> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

@@ -43,7 +43,7 @@ static member Defer :
         observableFactory:Func<IObservable<'TValue>> -> IObservable<'TValue> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

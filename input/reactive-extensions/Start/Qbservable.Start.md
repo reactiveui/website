@@ -49,7 +49,7 @@ static member Start :
         action:Expression<Action> -> IQbservable<Unit> 
 ```
 
-```jscript
+```javascript
 public static function Start(
     provider : IQbservableProvider, 
     action : Expression<Action>
@@ -161,7 +161,7 @@ static member Start :
         scheduler:IScheduler -> IQbservable<Unit> 
 ```
 
-```jscript
+```javascript
 public static function Start(
     provider : IQbservableProvider, 
     action : Expression<Action>, 

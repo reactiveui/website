@@ -49,7 +49,7 @@ static member OnNext :
         value:'T -> Recorded<Notification<'T>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

@@ -35,7 +35,7 @@ abstract Dispose : unit -> unit
 override Dispose : unit -> unit 
 ```
 
-```jscript
+```javascript
 public final function Dispose()
 ```
 

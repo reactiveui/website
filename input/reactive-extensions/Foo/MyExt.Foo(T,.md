@@ -48,7 +48,7 @@ static member Foo :
         f:Func<'T, 'R> -> IObservable<'R> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -140,7 +140,7 @@ static member Foo :
         f:Expression<Func<'T, 'R>> -> IQbservable<'R> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

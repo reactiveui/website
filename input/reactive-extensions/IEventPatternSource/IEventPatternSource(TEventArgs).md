@@ -57,7 +57,7 @@ public interface class IEventPatternSource
 type IEventPatternSource<'TEventArgs when 'TEventArgs : EventArgs> =  interface end
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

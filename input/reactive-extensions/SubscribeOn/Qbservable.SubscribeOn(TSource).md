@@ -50,7 +50,7 @@ static member SubscribeOn :
         context:SynchronizationContext -> IQbservable<'TSource> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -138,7 +138,7 @@ static member SubscribeOn :
         scheduler:IScheduler -> IQbservable<'TSource> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

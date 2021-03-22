@@ -54,7 +54,7 @@ EventLoopSchedulerTest()
 new : unit -> EventLoopSchedulerTest
 ```
 
-```jscript
+```javascript
 public function EventLoopSchedulerTest()
 ```
 
@@ -108,7 +108,7 @@ public ref class EventLoopSchedulerTest
 type EventLoopSchedulerTest =  class end
 ```
 
-```jscript
+```javascript
 public class EventLoopSchedulerTest
 ```
 

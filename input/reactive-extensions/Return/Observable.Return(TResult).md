@@ -49,7 +49,7 @@ static member Return :
         scheduler:IScheduler -> IObservable<'TResult> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -126,7 +126,7 @@ static member Return :
         value:'TResult -> IObservable<'TResult> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

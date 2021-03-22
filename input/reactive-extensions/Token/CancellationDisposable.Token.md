@@ -38,7 +38,7 @@ property CancellationToken Token {
 member Token : CancellationToken
 ```
 
-```jscript
+```javascript
 function get Token () : CancellationToken
 ```
 

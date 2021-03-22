@@ -49,7 +49,7 @@ abstract Schedule :
         action:Func<IScheduler, 'TState, IDisposable> -> IDisposable 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -137,7 +137,7 @@ abstract Schedule :
         action:Func<IScheduler, 'TState, IDisposable> -> IDisposable 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -229,7 +229,7 @@ abstract Schedule :
         action:Func<IScheduler, 'TState, IDisposable> -> IDisposable 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

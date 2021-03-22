@@ -56,7 +56,7 @@ static member Multicast :
         selector:Expression<Func<IObservable<'TIntermediate>, IObservable<'TResult>>> -> IQbservable<'TResult> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

@@ -49,7 +49,7 @@ static member FromAsyncPattern :
         end:Action<IAsyncResult> -> Func<'T1, IObservable<Unit>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

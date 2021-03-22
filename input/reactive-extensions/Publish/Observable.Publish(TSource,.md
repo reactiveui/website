@@ -56,7 +56,7 @@ static member Publish :
         initialValue:'TSource -> IObservable<'TResult> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -151,7 +151,7 @@ static member Publish :
         selector:Func<IObservable<'TSource>, IObservable<'TResult>> -> IObservable<'TResult> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

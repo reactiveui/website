@@ -32,7 +32,7 @@ void Wait()
 member Wait : unit -> unit 
 ```
 
-```jscript
+```javascript
 public function Wait()
 ```
 

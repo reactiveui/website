@@ -75,7 +75,7 @@ public ref class QueryablePlan
 type QueryablePlan<'TResult> =  class end
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

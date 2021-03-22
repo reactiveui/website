@@ -38,7 +38,7 @@ public ref class TaskPoolSchedulerTest
 type TaskPoolSchedulerTest =  class end
 ```
 
-```jscript
+```javascript
 public class TaskPoolSchedulerTest
 ```
 
@@ -112,7 +112,7 @@ TaskPoolSchedulerTest()
 new : unit -> TaskPoolSchedulerTest
 ```
 
-```jscript
+```javascript
 public function TaskPoolSchedulerTest()
 ```
 

@@ -36,7 +36,7 @@ void PreComplete()
 member PreComplete : unit -> unit 
 ```
 
-```jscript
+```javascript
 public function PreComplete()
 ```
 

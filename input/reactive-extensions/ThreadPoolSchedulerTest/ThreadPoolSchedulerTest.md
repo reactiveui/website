@@ -57,7 +57,7 @@ public ref class ThreadPoolSchedulerTest
 type ThreadPoolSchedulerTest =  class end
 ```
 
-```jscript
+```javascript
 public class ThreadPoolSchedulerTest
 ```
 
@@ -112,7 +112,7 @@ ThreadPoolSchedulerTest()
 new : unit -> ThreadPoolSchedulerTest
 ```
 
-```jscript
+```javascript
 public function ThreadPoolSchedulerTest()
 ```
 

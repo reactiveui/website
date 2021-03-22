@@ -38,7 +38,7 @@ property long long Time {
 member Time : int64
 ```
 
-```jscript
+```javascript
 function get Time () : long
 ```
 

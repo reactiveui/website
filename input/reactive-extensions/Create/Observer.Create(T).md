@@ -49,7 +49,7 @@ static member Create :
         onCompleted:Action -> IObserver<'T> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -139,7 +139,7 @@ static member Create :
         onError:Action<Exception> -> IObserver<'T> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -223,7 +223,7 @@ static member Create :
         onNext:Action<'T> -> IObserver<'T> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -314,7 +314,7 @@ static member Create :
         onCompleted:Action -> IObserver<'T> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

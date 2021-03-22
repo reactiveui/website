@@ -59,7 +59,7 @@ public interface class IQbservableProvider
 type IQbservableProvider =  interface end
 ```
 
-```jscript
+```javascript
 public interface IQbservableProvider
 ```
 

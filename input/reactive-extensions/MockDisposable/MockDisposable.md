@@ -71,7 +71,7 @@ type MockDisposable =
     end
 ```
 
-```jscript
+```javascript
 public class MockDisposable extends List<long> implements IDisposable
 ```
 
@@ -180,7 +180,7 @@ new :
         scheduler:TestScheduler -> MockDisposable
 ```
 
-```jscript
+```javascript
 public function MockDisposable(
     scheduler : TestScheduler
 )

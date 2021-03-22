@@ -49,7 +49,7 @@ static member ToAsync :
         action:Expression<Action> -> Func<IQbservable<Unit>> 
 ```
 
-```jscript
+```javascript
 public static function ToAsync(
     provider : IQbservableProvider, 
     action : Expression<Action>
@@ -161,7 +161,7 @@ static member ToAsync :
         scheduler:IScheduler -> Func<IQbservable<Unit>> 
 ```
 
-```jscript
+```javascript
 public static function ToAsync(
     provider : IQbservableProvider, 
     action : Expression<Action>, 

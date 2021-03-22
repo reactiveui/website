@@ -38,7 +38,7 @@ property DateTimeOffset Timestamp {
 member Timestamp : DateTimeOffset
 ```
 
-```jscript
+```javascript
 function get Timestamp () : DateTimeOffset
 ```
 

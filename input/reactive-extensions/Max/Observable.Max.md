@@ -44,7 +44,7 @@ static member Max :
         source:IObservable<Nullable<int>> -> IObservable<Nullable<int>> 
 ```
 
-```jscript
+```javascript
 public static function Max(
     source : IObservable<Nullable<int>>
 ) : IObservable<Nullable<int>>
@@ -151,7 +151,7 @@ static member Max :
         source:IObservable<Nullable<int64>> -> IObservable<Nullable<int64>> 
 ```
 
-```jscript
+```javascript
 public static function Max(
     source : IObservable<Nullable<long>>
 ) : IObservable<Nullable<long>>
@@ -233,7 +233,7 @@ static member Max :
         source:IObservable<int64> -> IObservable<int64> 
 ```
 
-```jscript
+```javascript
 public static function Max(
     source : IObservable<long>
 ) : IObservable<long>
@@ -315,7 +315,7 @@ static member Max :
         source:IObservable<Nullable<decimal>> -> IObservable<Nullable<decimal>> 
 ```
 
-```jscript
+```javascript
 public static function Max(
     source : IObservable<Nullable<decimal>>
 ) : IObservable<Nullable<decimal>>
@@ -397,7 +397,7 @@ static member Max :
         source:IObservable<Nullable<float32>> -> IObservable<Nullable<float32>> 
 ```
 
-```jscript
+```javascript
 public static function Max(
     source : IObservable<Nullable<float>>
 ) : IObservable<Nullable<float>>
@@ -479,7 +479,7 @@ static member Max :
         source:IObservable<float> -> IObservable<float> 
 ```
 
-```jscript
+```javascript
 public static function Max(
     source : IObservable<double>
 ) : IObservable<double>
@@ -561,7 +561,7 @@ static member Max :
         source:IObservable<float32> -> IObservable<float32> 
 ```
 
-```jscript
+```javascript
 public static function Max(
     source : IObservable<float>
 ) : IObservable<float>
@@ -643,7 +643,7 @@ static member Max :
         source:IObservable<int> -> IObservable<int> 
 ```
 
-```jscript
+```javascript
 public static function Max(
     source : IObservable<int>
 ) : IObservable<int>
@@ -725,7 +725,7 @@ static member Max :
         source:IObservable<Nullable<float>> -> IObservable<Nullable<float>> 
 ```
 
-```jscript
+```javascript
 public static function Max(
     source : IObservable<Nullable<double>>
 ) : IObservable<Nullable<double>>
@@ -807,7 +807,7 @@ static member Max :
         source:IObservable<decimal> -> IObservable<decimal> 
 ```
 
-```jscript
+```javascript
 public static function Max(
     source : IObservable<decimal>
 ) : IObservable<decimal>

@@ -36,7 +36,7 @@ void Unit()
 member Unit : unit -> unit 
 ```
 
-```jscript
+```javascript
 public function Unit()
 ```
 

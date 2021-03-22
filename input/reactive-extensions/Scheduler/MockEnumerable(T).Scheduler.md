@@ -33,7 +33,7 @@ initonly TestScheduler^ Scheduler
 val Scheduler: TestScheduler
 ```
 
-```jscript
+```javascript
 public final var Scheduler : TestScheduler
 ```
 

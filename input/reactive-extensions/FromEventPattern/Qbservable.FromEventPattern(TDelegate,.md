@@ -63,7 +63,7 @@ static member FromEventPattern :
         removeHandler:Expression<Action<'TDelegate>> -> IQbservable<EventPattern<'TEventArgs>>  when 'TEventArgs : EventArgs
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -178,7 +178,7 @@ static member FromEventPattern :
         removeHandler:Expression<Action<'TDelegate>> -> IQbservable<EventPattern<'TEventArgs>>  when 'TEventArgs : EventArgs
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

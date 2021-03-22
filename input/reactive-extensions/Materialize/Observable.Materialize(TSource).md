@@ -45,7 +45,7 @@ static member Materialize :
         source:IObservable<'TSource> -> IObservable<Notification<'TSource>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

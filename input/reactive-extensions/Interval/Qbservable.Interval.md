@@ -49,7 +49,7 @@ static member Interval :
         period:TimeSpan -> IQbservable<int64> 
 ```
 
-```jscript
+```javascript
 public static function Interval(
     provider : IQbservableProvider, 
     period : TimeSpan
@@ -147,7 +147,7 @@ static member Interval :
         scheduler:IScheduler -> IQbservable<int64> 
 ```
 
-```jscript
+```javascript
 public static function Interval(
     provider : IQbservableProvider, 
     period : TimeSpan, 

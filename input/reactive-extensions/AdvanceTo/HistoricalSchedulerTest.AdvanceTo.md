@@ -36,7 +36,7 @@ void AdvanceTo()
 member AdvanceTo : unit -> unit 
 ```
 
-```jscript
+```javascript
 public function AdvanceTo()
 ```
 

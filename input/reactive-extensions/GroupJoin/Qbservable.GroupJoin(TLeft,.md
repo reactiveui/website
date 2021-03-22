@@ -67,7 +67,7 @@ static member GroupJoin :
         resultSelector:Expression<Func<'TLeft, IObservable<'TRight>, 'TResult>> -> IQbservable<'TResult> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

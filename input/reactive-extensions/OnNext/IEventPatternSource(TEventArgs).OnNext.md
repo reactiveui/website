@@ -38,7 +38,7 @@ abstract OnNext : IEvent<EventHandler<'TEventArgs>,
     'TEventArgs>
 ```
 
-```jscript
+```javascript
 JScript supports the use of events, but not the declaration of new ones.
 ```
 

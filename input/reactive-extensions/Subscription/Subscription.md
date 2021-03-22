@@ -59,7 +59,7 @@ type Subscription =
     end
 ```
 
-```jscript
+```javascript
 JScript suports the use of structures, but not the declaration of new ones.
 ```
 
@@ -161,7 +161,7 @@ new :
         unsubscribe:int64 -> Subscription
 ```
 
-```jscript
+```javascript
 public function Subscription(
     subscribe : long, 
     unsubscribe : long
@@ -288,7 +288,7 @@ new :
         subscribe:int64 -> Subscription
 ```
 
-```jscript
+```javascript
 public function Subscription(
     subscribe : long
 )

@@ -45,7 +45,7 @@ static member RefCount :
         source:IConnectableObservable<'TSource> -> IObservable<'TSource> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

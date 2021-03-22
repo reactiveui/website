@@ -39,7 +39,7 @@ public ref class Observer abstract sealed
 type Observer =  class end
 ```
 
-```jscript
+```javascript
 public final class Observer
 ```
 

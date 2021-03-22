@@ -57,7 +57,7 @@ public ref class QueryablePattern abstract
 type QueryablePattern =  class end
 ```
 
-```jscript
+```javascript
 public abstract class QueryablePattern
 ```
 
@@ -146,7 +146,7 @@ new :
         expression:Expression -> QueryablePattern
 ```
 
-```jscript
+```javascript
 protected function QueryablePattern(
     expression : Expression
 )

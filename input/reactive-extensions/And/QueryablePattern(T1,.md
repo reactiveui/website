@@ -44,7 +44,7 @@ member And :
         other:IObservable<'T15> -> QueryablePattern<'T1, 'T2, 'T3, 'T4, 'T5, 'T6, 'T7, 'T8, 'T9, 'T10, 'T11, 'T12, 'T13, 'T14, 'T15> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -123,7 +123,7 @@ member And :
         other:IObservable<'T10> -> QueryablePattern<'T1, 'T2, 'T3, 'T4, 'T5, 'T6, 'T7, 'T8, 'T9, 'T10> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -202,7 +202,7 @@ member And :
         other:IObservable<'T3> -> QueryablePattern<'T1, 'T2, 'T3> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -281,7 +281,7 @@ member And :
         other:IObservable<'T7> -> QueryablePattern<'T1, 'T2, 'T3, 'T4, 'T5, 'T6, 'T7> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -360,7 +360,7 @@ member And :
         other:IObservable<'T12> -> QueryablePattern<'T1, 'T2, 'T3, 'T4, 'T5, 'T6, 'T7, 'T8, 'T9, 'T10, 'T11, 'T12> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -439,7 +439,7 @@ member And :
         other:IObservable<'T8> -> QueryablePattern<'T1, 'T2, 'T3, 'T4, 'T5, 'T6, 'T7, 'T8> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -517,7 +517,7 @@ member And :
         other:IObservable<'T4> -> QueryablePattern<'T1, 'T2, 'T3, 'T4> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -596,7 +596,7 @@ member And :
         other:IObservable<'T6> -> QueryablePattern<'T1, 'T2, 'T3, 'T4, 'T5, 'T6> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -675,7 +675,7 @@ member And :
         other:IObservable<'T5> -> QueryablePattern<'T1, 'T2, 'T3, 'T4, 'T5> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -754,7 +754,7 @@ member And :
         other:IObservable<'T11> -> QueryablePattern<'T1, 'T2, 'T3, 'T4, 'T5, 'T6, 'T7, 'T8, 'T9, 'T10, 'T11> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -833,7 +833,7 @@ member And :
         other:IObservable<'T13> -> QueryablePattern<'T1, 'T2, 'T3, 'T4, 'T5, 'T6, 'T7, 'T8, 'T9, 'T10, 'T11, 'T12, 'T13> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -912,7 +912,7 @@ member And :
         other:IObservable<'T9> -> QueryablePattern<'T1, 'T2, 'T3, 'T4, 'T5, 'T6, 'T7, 'T8, 'T9> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -991,7 +991,7 @@ member And :
         other:IObservable<'T14> -> QueryablePattern<'T1, 'T2, 'T3, 'T4, 'T5, 'T6, 'T7, 'T8, 'T9, 'T10, 'T11, 'T12, 'T13, 'T14> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -1070,7 +1070,7 @@ member And :
         other:IObservable<'T16> -> QueryablePattern<'T1, 'T2, 'T3, 'T4, 'T5, 'T6, 'T7, 'T8, 'T9, 'T10, 'T11, 'T12, 'T13, 'T14, 'T15, 'T16> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

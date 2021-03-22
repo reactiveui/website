@@ -36,7 +36,7 @@ void Virtual_ScheduleAction()
 member Virtual_ScheduleAction : unit -> unit 
 ```
 
-```jscript
+```javascript
 public function Virtual_ScheduleAction()
 ```
 

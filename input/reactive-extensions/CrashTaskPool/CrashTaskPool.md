@@ -39,7 +39,7 @@ type CrashTaskPool =
     end
 ```
 
-```jscript
+```javascript
 public class CrashTaskPool extends MarshalByRefObject
 ```
 
@@ -102,7 +102,7 @@ CrashTaskPool()
 new : unit -> CrashTaskPool
 ```
 
-```jscript
+```javascript
 public function CrashTaskPool()
 ```
 

@@ -56,7 +56,7 @@ static member Schedule :
         action:Action<'TState, Action<'TState>> -> IDisposable 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -159,7 +159,7 @@ static member Schedule :
         action:Action<'TState, Action<'TState, TimeSpan>> -> IDisposable 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -266,7 +266,7 @@ static member Schedule :
         action:Action<'TState, Action<'TState, DateTimeOffset>> -> IDisposable 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

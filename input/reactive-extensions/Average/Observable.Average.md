@@ -44,7 +44,7 @@ static member Average :
         source:IObservable<Nullable<int64>> -> IObservable<Nullable<float>> 
 ```
 
-```jscript
+```javascript
 public static function Average(
     source : IObservable<Nullable<long>>
 ) : IObservable<Nullable<double>>
@@ -126,7 +126,7 @@ static member Average :
         source:IObservable<float> -> IObservable<float> 
 ```
 
-```jscript
+```javascript
 public static function Average(
     source : IObservable<double>
 ) : IObservable<double>
@@ -208,7 +208,7 @@ static member Average :
         source:IObservable<Nullable<float32>> -> IObservable<Nullable<float32>> 
 ```
 
-```jscript
+```javascript
 public static function Average(
     source : IObservable<Nullable<float>>
 ) : IObservable<Nullable<float>>
@@ -290,7 +290,7 @@ static member Average :
         source:IObservable<float32> -> IObservable<float32> 
 ```
 
-```jscript
+```javascript
 public static function Average(
     source : IObservable<float>
 ) : IObservable<float>
@@ -397,7 +397,7 @@ static member Average :
         source:IObservable<Nullable<int>> -> IObservable<Nullable<float>> 
 ```
 
-```jscript
+```javascript
 public static function Average(
     source : IObservable<Nullable<int>>
 ) : IObservable<Nullable<double>>
@@ -479,7 +479,7 @@ static member Average :
         source:IObservable<decimal> -> IObservable<decimal> 
 ```
 
-```jscript
+```javascript
 public static function Average(
     source : IObservable<decimal>
 ) : IObservable<decimal>
@@ -561,7 +561,7 @@ static member Average :
         source:IObservable<int64> -> IObservable<float> 
 ```
 
-```jscript
+```javascript
 public static function Average(
     source : IObservable<long>
 ) : IObservable<double>
@@ -643,7 +643,7 @@ static member Average :
         source:IObservable<Nullable<float>> -> IObservable<Nullable<float>> 
 ```
 
-```jscript
+```javascript
 public static function Average(
     source : IObservable<Nullable<double>>
 ) : IObservable<Nullable<double>>
@@ -725,7 +725,7 @@ static member Average :
         source:IObservable<Nullable<decimal>> -> IObservable<Nullable<decimal>> 
 ```
 
-```jscript
+```javascript
 public static function Average(
     source : IObservable<Nullable<decimal>>
 ) : IObservable<Nullable<decimal>>
@@ -807,7 +807,7 @@ static member Average :
         source:IObservable<int> -> IObservable<float> 
 ```
 
-```jscript
+```javascript
 public static function Average(
     source : IObservable<int>
 ) : IObservable<double>

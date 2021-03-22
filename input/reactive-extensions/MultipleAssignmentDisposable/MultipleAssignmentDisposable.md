@@ -33,7 +33,7 @@ MultipleAssignmentDisposable()
 new : unit -> MultipleAssignmentDisposable
 ```
 
-```jscript
+```javascript
 public function MultipleAssignmentDisposable()
 ```
 
@@ -141,7 +141,7 @@ type MultipleAssignmentDisposable =
     end
 ```
 
-```jscript
+```javascript
 public final class MultipleAssignmentDisposable implements IDisposable
 ```
 

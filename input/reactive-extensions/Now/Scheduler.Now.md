@@ -37,7 +37,7 @@ static property DateTimeOffset Now {
 static member Now : DateTimeOffset
 ```
 
-```jscript
+```javascript
 static function get Now () : DateTimeOffset
 ```
 

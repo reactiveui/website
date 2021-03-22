@@ -56,7 +56,7 @@ static member Subscribe :
         onCompleted:Action -> IDisposable 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -142,7 +142,7 @@ static member Subscribe :
         source:IObservable<'TSource> -> IDisposable 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -236,7 +236,7 @@ static member Subscribe :
         onCompleted:Action -> IDisposable 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -331,7 +331,7 @@ static member Subscribe :
         onNext:Action<'TSource> -> IDisposable 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -424,7 +424,7 @@ static member Subscribe :
         onError:Action<Exception> -> IDisposable 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

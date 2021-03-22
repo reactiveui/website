@@ -43,7 +43,7 @@ static member CreateOnError :
         error:Exception -> Notification<'T> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

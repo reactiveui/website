@@ -37,7 +37,7 @@ private abstract GetEnumerator : unit -> IEnumerator
 private override GetEnumerator : unit -> IEnumerator 
 ```
 
-```jscript
+```javascript
 JScript supports the use of explicit interface implementations, but not the declarations of new ones.
 ```
 

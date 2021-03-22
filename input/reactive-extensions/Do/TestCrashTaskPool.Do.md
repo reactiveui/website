@@ -39,7 +39,7 @@ static member Do :
         ex:Exception byref -> unit 
 ```
 
-```jscript
+```javascript
 public static function Do(
     ex : Exception
 )

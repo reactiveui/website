@@ -50,7 +50,7 @@ static member Concat :
         sources:IObservable<'TSource>[] -> IQbservable<'TSource> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -141,7 +141,7 @@ static member Concat :
         sources:IQbservable<IObservable<'TSource>> -> IQbservable<'TSource> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -233,7 +233,7 @@ static member Concat :
         sources:IEnumerable<IObservable<'TSource>> -> IQbservable<'TSource> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -329,7 +329,7 @@ static member Concat :
         second:IObservable<'TSource> -> IQbservable<'TSource> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

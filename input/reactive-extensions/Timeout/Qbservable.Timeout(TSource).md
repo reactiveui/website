@@ -56,7 +56,7 @@ static member Timeout :
         other:IObservable<'TSource> -> IQbservable<'TSource> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -159,7 +159,7 @@ static member Timeout :
         scheduler:IScheduler -> IQbservable<'TSource> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -261,7 +261,7 @@ static member Timeout :
         scheduler:IScheduler -> IQbservable<'TSource> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -364,7 +364,7 @@ static member Timeout :
         scheduler:IScheduler -> IQbservable<'TSource> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -466,7 +466,7 @@ static member Timeout :
         scheduler:IScheduler -> IQbservable<'TSource> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -564,7 +564,7 @@ static member Timeout :
         other:IObservable<'TSource> -> IQbservable<'TSource> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -656,7 +656,7 @@ static member Timeout :
         dueTime:TimeSpan -> IQbservable<'TSource> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -744,7 +744,7 @@ static member Timeout :
         dueTime:DateTimeOffset -> IQbservable<'TSource> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

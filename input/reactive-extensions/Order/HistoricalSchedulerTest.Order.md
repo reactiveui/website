@@ -36,7 +36,7 @@ void Order()
 member Order : unit -> unit 
 ```
 
-```jscript
+```javascript
 public function Order()
 ```
 

@@ -53,7 +53,7 @@ static member Schedule :
         time:int64 -> IDisposable 
 ```
 
-```jscript
+```javascript
 public static function Schedule(
     scheduler : TestScheduler, 
     action : Action, 

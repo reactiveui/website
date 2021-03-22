@@ -41,7 +41,7 @@ type CurrentThreadScheduler =
     end
 ```
 
-```jscript
+```javascript
 public final class CurrentThreadScheduler implements IScheduler
 ```
 

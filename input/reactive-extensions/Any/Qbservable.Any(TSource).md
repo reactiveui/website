@@ -45,7 +45,7 @@ static member Any :
         source:IQbservable<'TSource> -> IQbservable<bool> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -129,7 +129,7 @@ static member Any :
         predicate:Expression<Func<'TSource, bool>> -> IQbservable<bool> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

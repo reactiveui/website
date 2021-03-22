@@ -47,7 +47,7 @@ static member Range :
         count:int -> IObservable<int> 
 ```
 
-```jscript
+```javascript
 public static function Range(
     start : int, 
     count : int
@@ -153,7 +153,7 @@ static member Range :
         scheduler:IScheduler -> IObservable<int> 
 ```
 
-```jscript
+```javascript
 public static function Range(
     start : int, 
     count : int, 

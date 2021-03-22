@@ -37,7 +37,7 @@ static property ImmediateScheduler^ Immediate {
 static member Immediate : ImmediateScheduler
 ```
 
-```jscript
+```javascript
 static function get Immediate () : ImmediateScheduler
 ```
 

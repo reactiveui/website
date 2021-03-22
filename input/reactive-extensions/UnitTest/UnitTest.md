@@ -31,7 +31,7 @@ UnitTest()
 new : unit -> UnitTest
 ```
 
-```jscript
+```javascript
 public function UnitTest()
 ```
 
@@ -81,7 +81,7 @@ public ref class UnitTest
 type UnitTest =  class end
 ```
 
-```jscript
+```javascript
 public class UnitTest
 ```
 

@@ -50,7 +50,7 @@ static member Return :
         value:'TResult -> IQbservable<'TResult> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -144,7 +144,7 @@ static member Return :
         scheduler:IScheduler -> IQbservable<'TResult> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

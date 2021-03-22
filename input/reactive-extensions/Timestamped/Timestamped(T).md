@@ -65,7 +65,7 @@ new :
         timestamp:DateTimeOffset -> Timestamped
 ```
 
-```jscript
+```javascript
 public function Timestamped(
     value : T, 
     timestamp : DateTimeOffset
@@ -127,7 +127,7 @@ public value class Timestamped
 type Timestamped<'T> =  struct end
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

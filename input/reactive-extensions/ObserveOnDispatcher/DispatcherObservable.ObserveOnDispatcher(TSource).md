@@ -43,7 +43,7 @@ static member ObserveOnDispatcher :
         source:IObservable<'TSource> -> IObservable<'TSource> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

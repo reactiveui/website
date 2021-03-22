@@ -36,7 +36,7 @@ abstract ToString : unit -> string
 override ToString : unit -> string 
 ```
 
-```jscript
+```javascript
 public override function ToString() : String
 ```
 

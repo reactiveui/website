@@ -31,7 +31,7 @@ Waiter()
 new : unit -> Waiter
 ```
 
-```jscript
+```javascript
 public function Waiter()
 ```
 
@@ -96,7 +96,7 @@ public ref class Waiter
 type Waiter =  class end
 ```
 
-```jscript
+```javascript
 public class Waiter
 ```
 

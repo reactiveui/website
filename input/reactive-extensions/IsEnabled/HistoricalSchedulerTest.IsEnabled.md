@@ -36,7 +36,7 @@ void IsEnabled()
 member IsEnabled : unit -> unit 
 ```
 
-```jscript
+```javascript
 public function IsEnabled()
 ```
 

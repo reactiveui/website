@@ -32,7 +32,7 @@ void Set()
 member Set : unit -> unit 
 ```
 
-```jscript
+```javascript
 public function Set()
 ```
 

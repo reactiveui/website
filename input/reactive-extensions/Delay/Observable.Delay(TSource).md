@@ -50,7 +50,7 @@ static member Delay :
         dueTime:TimeSpan -> IObservable<'TSource> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -146,7 +146,7 @@ static member Delay :
         dueTime:DateTimeOffset -> IObservable<'TSource> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -248,7 +248,7 @@ static member Delay :
         scheduler:IScheduler -> IObservable<'TSource> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -354,7 +354,7 @@ static member Delay :
         scheduler:IScheduler -> IObservable<'TSource> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

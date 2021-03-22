@@ -42,7 +42,7 @@ static member Normalize :
         timeSpan:TimeSpan -> TimeSpan 
 ```
 
-```jscript
+```javascript
 public static function Normalize(
     timeSpan : TimeSpan
 ) : TimeSpan

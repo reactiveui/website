@@ -39,7 +39,7 @@ abstract Now : DateTimeOffset
 override Now : DateTimeOffset
 ```
 
-```jscript
+```javascript
 final function get Now () : DateTimeOffset
 ```
 

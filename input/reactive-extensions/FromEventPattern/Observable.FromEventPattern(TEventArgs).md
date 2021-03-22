@@ -51,7 +51,7 @@ static member FromEventPattern :
         eventName:string -> IObservable<EventPattern<'TEventArgs>>  when 'TEventArgs : EventArgs
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -212,7 +212,7 @@ static member FromEventPattern :
         removeHandler:Action<EventHandler<'TEventArgs>> -> IObservable<EventPattern<'TEventArgs>>  when 'TEventArgs : EventArgs
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -304,7 +304,7 @@ static member FromEventPattern :
         eventName:string -> IObservable<EventPattern<'TEventArgs>>  when 'TEventArgs : EventArgs
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

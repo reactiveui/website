@@ -41,7 +41,7 @@ new :
         control:Control -> ControlScheduler
 ```
 
-```jscript
+```javascript
 public function ControlScheduler(
     control : Control
 )
@@ -157,7 +157,7 @@ type ControlScheduler =
     end
 ```
 
-```jscript
+```javascript
 public class ControlScheduler implements IScheduler
 ```
 

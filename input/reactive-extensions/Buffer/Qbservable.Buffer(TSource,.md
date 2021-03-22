@@ -50,7 +50,7 @@ static member Buffer :
         bufferClosingSelector:Expression<Func<IObservable<'TBufferClosing>>> -> IQbservable<IList<'TSource>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -155,7 +155,7 @@ static member Buffer :
         bufferClosingSelector:Expression<Func<'TBufferOpening, IObservable<'TBufferClosing>>> -> IQbservable<IList<'TSource>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

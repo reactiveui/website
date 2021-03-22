@@ -39,7 +39,7 @@ public ref class Observable abstract sealed
 type Observable =  class end
 ```
 
-```jscript
+```javascript
 public final class Observable
 ```
 

@@ -45,7 +45,7 @@ static member Cast :
         source:IQbservable<Object> -> IQbservable<'TResult> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

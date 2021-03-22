@@ -42,7 +42,7 @@ member AdvanceTo :
         time:'TAbsolute -> unit 
 ```
 
-```jscript
+```javascript
 public function AdvanceTo(
     time : TAbsolute
 )

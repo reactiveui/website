@@ -56,7 +56,7 @@ static member FromEvent :
         removeHandler:Expression<Action<Action<'TEventArgs>>> -> IQbservable<'TEventArgs> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

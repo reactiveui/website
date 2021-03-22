@@ -43,7 +43,7 @@ static member When :
         plans:Plan<'TResult>[] -> IObservable<'TResult> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -118,7 +118,7 @@ static member When :
         plans:IEnumerable<Plan<'TResult>> -> IObservable<'TResult> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

@@ -37,7 +37,7 @@ property DateTimeOffset Now {
 abstract Now : DateTimeOffset
 ```
 
-```jscript
+```javascript
 function get Now () : DateTimeOffset
 ```
 

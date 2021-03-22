@@ -38,7 +38,7 @@ property bool IsDisposed {
 member IsDisposed : bool
 ```
 
-```jscript
+```javascript
 function get IsDisposed () : boolean
 ```
 

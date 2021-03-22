@@ -59,7 +59,7 @@ override ScheduleAbsolute :
         action:Func<IScheduler, 'TState, IDisposable> -> IDisposable 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

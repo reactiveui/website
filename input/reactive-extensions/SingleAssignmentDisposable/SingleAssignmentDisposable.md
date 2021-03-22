@@ -59,7 +59,7 @@ type SingleAssignmentDisposable =
     end
 ```
 
-```jscript
+```javascript
 public class SingleAssignmentDisposable implements IDisposable
 ```
 
@@ -121,7 +121,7 @@ SingleAssignmentDisposable()
 new : unit -> SingleAssignmentDisposable
 ```
 
-```jscript
+```javascript
 public function SingleAssignmentDisposable()
 ```
 

@@ -48,7 +48,7 @@ static member ObserveOn :
         control:Control -> IObservable<'TSource> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

@@ -44,7 +44,7 @@ static member ToAsync :
         action:Action -> Func<IObservable<Unit>> 
 ```
 
-```jscript
+```javascript
 public static function ToAsync(
     action : Action
 ) : Func<IObservable<Unit>>
@@ -124,7 +124,7 @@ static member ToAsync :
         scheduler:IScheduler -> Func<IObservable<Unit>> 
 ```
 
-```jscript
+```javascript
 public static function ToAsync(
     action : Action, 
     scheduler : IScheduler

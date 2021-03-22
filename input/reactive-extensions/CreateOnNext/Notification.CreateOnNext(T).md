@@ -43,7 +43,7 @@ static member CreateOnNext :
         value:'T -> Notification<'T> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

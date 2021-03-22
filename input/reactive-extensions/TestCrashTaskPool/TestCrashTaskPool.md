@@ -50,7 +50,7 @@ TestCrashTaskPool()
 new : unit -> TestCrashTaskPool
 ```
 
-```jscript
+```javascript
 public function TestCrashTaskPool()
 ```
 
@@ -100,7 +100,7 @@ public ref class TestCrashTaskPool
 type TestCrashTaskPool =  class end
 ```
 
-```jscript
+```javascript
 public class TestCrashTaskPool
 ```
 

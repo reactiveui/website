@@ -50,7 +50,7 @@ static member DistinctUntilChanged :
         keySelector:Expression<Func<'TSource, 'TKey>> -> IQbservable<'TSource> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -155,7 +155,7 @@ static member DistinctUntilChanged :
         comparer:IEqualityComparer<'TKey> -> IQbservable<'TSource> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

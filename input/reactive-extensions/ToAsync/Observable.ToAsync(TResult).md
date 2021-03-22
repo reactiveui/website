@@ -45,7 +45,7 @@ static member ToAsync :
         function:Func<'TResult> -> Func<IObservable<'TResult>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -129,7 +129,7 @@ static member ToAsync :
         scheduler:IScheduler -> Func<IObservable<'TResult>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

@@ -45,7 +45,7 @@ static member LongCount :
         source:IQbservable<'TSource> -> IQbservable<int64> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

@@ -50,7 +50,7 @@ static member Max :
         comparer:IComparer<'TSource> -> IQbservable<'TSource> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -133,7 +133,7 @@ static member Max :
         source:IQbservable<'TSource> -> IQbservable<'TSource> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

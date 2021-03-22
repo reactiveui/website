@@ -48,7 +48,7 @@ static member FromEvent :
         removeHandler:Action<Action> -> IObservable<Unit> 
 ```
 
-```jscript
+```javascript
 public static function FromEvent(
     addHandler : Action<Action>, 
     removeHandler : Action<Action>

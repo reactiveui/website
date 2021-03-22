@@ -66,7 +66,7 @@ type AsynchronousAttribute =
     end
 ```
 
-```jscript
+```javascript
 public class AsynchronousAttribute extends Attribute
 ```
 
@@ -148,7 +148,7 @@ AsynchronousAttribute()
 new : unit -> AsynchronousAttribute
 ```
 
-```jscript
+```javascript
 public function AsynchronousAttribute()
 ```
 

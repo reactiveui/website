@@ -61,7 +61,7 @@ static member GroupByUntil :
         comparer:IEqualityComparer<'TKey> -> IQbservable<IGroupedObservable<'TKey, 'TSource>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -177,7 +177,7 @@ static member GroupByUntil :
         durationSelector:Expression<Func<IGroupedObservable<'TKey, 'TSource>, IObservable<'TDuration>>> -> IQbservable<IGroupedObservable<'TKey, 'TSource>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -294,7 +294,7 @@ static member GroupByUntil :
         durationSelector:Expression<Func<IGroupedObservable<'TKey, 'TElement>, IObservable<'TDuration>>> -> IQbservable<IGroupedObservable<'TKey, 'TElement>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -424,7 +424,7 @@ static member GroupByUntil :
         comparer:IEqualityComparer<'TKey> -> IQbservable<IGroupedObservable<'TKey, 'TElement>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

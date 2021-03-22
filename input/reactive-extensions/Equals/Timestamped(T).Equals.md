@@ -45,7 +45,7 @@ override Equals :
         obj:Object -> bool 
 ```
 
-```jscript
+```javascript
 public override function Equals(
     obj : Object
 ) : boolean

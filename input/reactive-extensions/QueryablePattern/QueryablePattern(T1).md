@@ -61,7 +61,7 @@ type QueryablePattern<'T1, 'T2, 'T3, 'T4, 'T5, 'T6, 'T7, 'T8, 'T9, 'T10, 'T11, '
     end
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -222,7 +222,7 @@ type QueryablePattern<'T1, 'T2, 'T3, 'T4, 'T5, 'T6, 'T7, 'T8> =
     end
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -314,7 +314,7 @@ type QueryablePattern<'T1, 'T2, 'T3, 'T4, 'T5, 'T6, 'T7, 'T8, 'T9, 'T10, 'T11> =
     end
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -415,7 +415,7 @@ type QueryablePattern<'T1, 'T2, 'T3> =
     end
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -511,7 +511,7 @@ type QueryablePattern<'T1, 'T2, 'T3, 'T4, 'T5, 'T6, 'T7, 'T8, 'T9, 'T10, 'T11, '
     end
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -695,7 +695,7 @@ type QueryablePattern<'T1, 'T2> =
     end
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -769,7 +769,7 @@ type QueryablePattern<'T1, 'T2, 'T3, 'T4, 'T5, 'T6, 'T7> =
     end
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -858,7 +858,7 @@ type QueryablePattern<'T1, 'T2, 'T3, 'T4, 'T5, 'T6> =
     end
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -1001,7 +1001,7 @@ type QueryablePattern<'T1, 'T2, 'T3, 'T4> =
     end
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -1100,7 +1100,7 @@ type QueryablePattern<'T1, 'T2, 'T3, 'T4, 'T5, 'T6, 'T7, 'T8, 'T9, 'T10, 'T11, '
     end
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -1254,7 +1254,7 @@ type QueryablePattern<'T1, 'T2, 'T3, 'T4, 'T5, 'T6, 'T7, 'T8, 'T9> =
     end
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -1349,7 +1349,7 @@ type QueryablePattern<'T1, 'T2, 'T3, 'T4, 'T5, 'T6, 'T7, 'T8, 'T9, 'T10, 'T11, '
     end
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -1557,7 +1557,7 @@ type QueryablePattern<'T1, 'T2, 'T3, 'T4, 'T5> =
     end
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -1811,7 +1811,7 @@ type QueryablePattern<'T1, 'T2, 'T3, 'T4, 'T5, 'T6, 'T7, 'T8, 'T9, 'T10, 'T11, '
     end
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -1921,7 +1921,7 @@ type QueryablePattern<'T1, 'T2, 'T3, 'T4, 'T5, 'T6, 'T7, 'T8, 'T9, 'T10> =
     end
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

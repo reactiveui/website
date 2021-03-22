@@ -38,7 +38,7 @@ property long long Unsubscribe {
 member Unsubscribe : int64
 ```
 
-```jscript
+```javascript
 function get Unsubscribe () : long
 ```
 

@@ -40,7 +40,7 @@ property bool IsEnabled {
 member IsEnabled : bool with get, private set
 ```
 
-```jscript
+```javascript
 function get IsEnabled () : boolean
 private function set IsEnabled (value : boolean)
 ```

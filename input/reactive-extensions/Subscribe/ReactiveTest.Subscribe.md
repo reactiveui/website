@@ -42,7 +42,7 @@ static member Subscribe :
         start:int64 -> Subscription 
 ```
 
-```jscript
+```javascript
 public static function Subscribe(
     start : long
 ) : Subscription
@@ -138,7 +138,7 @@ static member Subscribe :
         end:int64 -> Subscription 
 ```
 
-```jscript
+```javascript
 public static function Subscribe(
     start : long, 
     end : long

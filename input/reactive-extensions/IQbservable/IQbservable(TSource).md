@@ -67,7 +67,7 @@ type IQbservable<'TSource> =
     end
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

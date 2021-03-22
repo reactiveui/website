@@ -37,7 +37,7 @@ static property IDisposable^ Empty {
 static member Empty : IDisposable
 ```
 
-```jscript
+```javascript
 static function get Empty () : IDisposable
 ```
 

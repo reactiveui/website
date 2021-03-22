@@ -38,7 +38,7 @@ virtual property Exception^ Exception {
 abstract Exception : Exception
 ```
 
-```jscript
+```javascript
 abstract function get Exception () : Exception
 ```
 

@@ -42,7 +42,7 @@ property IDisposable^ Disposable {
 member Disposable : IDisposable with get, set
 ```
 
-```jscript
+```javascript
 function get Disposable () : IDisposable
 function set Disposable (value : IDisposable)
 ```

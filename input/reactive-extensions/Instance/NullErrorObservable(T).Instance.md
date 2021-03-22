@@ -34,7 +34,7 @@ static NullErrorObservable<T>^ Instance
 static val mutable Instance: NullErrorObservable<'T>
 ```
 
-```jscript
+```javascript
 public static var Instance : NullErrorObservable<T>
 ```
 

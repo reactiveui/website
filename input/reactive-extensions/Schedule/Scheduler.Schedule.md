@@ -49,7 +49,7 @@ static member Schedule :
         action:Action -> IDisposable 
 ```
 
-```jscript
+```javascript
 public static function Schedule(
     scheduler : IScheduler, 
     action : Action
@@ -140,7 +140,7 @@ static member Schedule :
         action:Action<Action<DateTimeOffset>> -> IDisposable 
 ```
 
-```jscript
+```javascript
 public static function Schedule(
     scheduler : IScheduler, 
     dueTime : DateTimeOffset, 
@@ -236,7 +236,7 @@ static member Schedule :
         action:Action -> IDisposable 
 ```
 
-```jscript
+```javascript
 public static function Schedule(
     scheduler : IScheduler, 
     dueTime : DateTimeOffset, 
@@ -332,7 +332,7 @@ static member Schedule :
         action:Action -> IDisposable 
 ```
 
-```jscript
+```javascript
 public static function Schedule(
     scheduler : IScheduler, 
     dueTime : TimeSpan, 
@@ -443,7 +443,7 @@ static member Schedule :
         action:Action<Action> -> IDisposable 
 ```
 
-```jscript
+```javascript
 public static function Schedule(
     scheduler : IScheduler, 
     action : Action<Action>
@@ -534,7 +534,7 @@ static member Schedule :
         action:Action<Action<TimeSpan>> -> IDisposable 
 ```
 
-```jscript
+```javascript
 public static function Schedule(
     scheduler : IScheduler, 
     dueTime : TimeSpan, 

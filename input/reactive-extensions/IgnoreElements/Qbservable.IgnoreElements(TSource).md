@@ -45,7 +45,7 @@ static member IgnoreElements :
         source:IQbservable<'TSource> -> IQbservable<'TSource> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

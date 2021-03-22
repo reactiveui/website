@@ -50,7 +50,7 @@ static member Aggregate :
         accumulator:Expression<Func<'TSource, 'TSource, 'TSource>> -> IQbservable<'TSource> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

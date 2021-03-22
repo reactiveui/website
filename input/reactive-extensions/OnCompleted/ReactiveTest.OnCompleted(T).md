@@ -43,7 +43,7 @@ static member OnCompleted :
         ticks:int64 -> Recorded<Notification<'T>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

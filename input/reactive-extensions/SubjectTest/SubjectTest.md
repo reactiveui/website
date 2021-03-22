@@ -31,7 +31,7 @@ SubjectTest()
 new : unit -> SubjectTest
 ```
 
-```jscript
+```javascript
 public function SubjectTest()
 ```
 
@@ -105,7 +105,7 @@ type SubjectTest =
     end
 ```
 
-```jscript
+```javascript
 public class SubjectTest extends ReactiveTest
 ```
 

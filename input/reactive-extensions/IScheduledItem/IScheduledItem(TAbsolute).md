@@ -32,7 +32,7 @@ public interface class IScheduledItem
 type IScheduledItem<'TAbsolute> =  interface end
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

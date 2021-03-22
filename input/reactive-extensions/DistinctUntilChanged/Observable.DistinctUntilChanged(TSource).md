@@ -50,7 +50,7 @@ static member DistinctUntilChanged :
         comparer:IEqualityComparer<'TSource> -> IObservable<'TSource> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -141,7 +141,7 @@ static member DistinctUntilChanged :
         source:IObservable<'TSource> -> IObservable<'TSource> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

@@ -33,7 +33,7 @@ TestScheduler()
 new : unit -> TestScheduler
 ```
 
-```jscript
+```javascript
 public function TestScheduler()
 ```
 
@@ -110,7 +110,7 @@ type TestScheduler =
     end
 ```
 
-```jscript
+```javascript
 public class TestScheduler extends VirtualTimeScheduler<long, long>
 ```
 

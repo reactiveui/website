@@ -38,7 +38,7 @@ property long long Subscribe {
 member Subscribe : int64
 ```
 
-```jscript
+```javascript
 function get Subscribe () : long
 ```
 

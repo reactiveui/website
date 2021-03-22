@@ -56,7 +56,7 @@ static member MinBy :
         comparer:IComparer<'TKey> -> IQbservable<IList<'TSource>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -159,7 +159,7 @@ static member MinBy :
         keySelector:Expression<Func<'TSource, 'TKey>> -> IQbservable<IList<'TSource>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

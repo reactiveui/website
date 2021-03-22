@@ -40,7 +40,7 @@ property IDisposable^ Disposable {
 member Disposable : IDisposable with get, private set
 ```
 
-```jscript
+```javascript
 function get Disposable () : IDisposable
 private function set Disposable (value : IDisposable)
 ```

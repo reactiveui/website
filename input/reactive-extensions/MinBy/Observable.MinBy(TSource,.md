@@ -56,7 +56,7 @@ static member MinBy :
         comparer:IComparer<'TKey> -> IObservable<IList<'TSource>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -159,7 +159,7 @@ static member MinBy :
         keySelector:Func<'TSource, 'TKey> -> IObservable<IList<'TSource>> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

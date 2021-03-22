@@ -40,7 +40,7 @@ void Virtual_ScheduleActionDue()
 member Virtual_ScheduleActionDue : unit -> unit 
 ```
 
-```jscript
+```javascript
 public function Virtual_ScheduleActionDue()
 ```
 

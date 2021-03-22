@@ -50,7 +50,7 @@ static member ToTask :
         cancellationToken:CancellationToken -> Task<'TResult> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -133,7 +133,7 @@ static member ToTask :
         observable:IObservable<'TResult> -> Task<'TResult> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -223,7 +223,7 @@ static member ToTask :
         state:Object -> Task<'TResult> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -315,7 +315,7 @@ static member ToTask :
         state:Object -> Task<'TResult> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

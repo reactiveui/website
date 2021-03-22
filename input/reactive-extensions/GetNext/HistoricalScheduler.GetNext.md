@@ -35,7 +35,7 @@ abstract GetNext : unit -> IScheduledItem<DateTimeOffset>
 override GetNext : unit -> IScheduledItem<DateTimeOffset> 
 ```
 
-```jscript
+```javascript
 protected override function GetNext() : IScheduledItem<DateTimeOffset>
 ```
 

@@ -61,7 +61,7 @@ static member SelectMany :
         onCompleted:Func<IObservable<'TResult>> -> IObservable<'TResult> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -160,7 +160,7 @@ static member SelectMany :
         other:IObservable<'TOther> -> IObservable<'TOther> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -257,7 +257,7 @@ static member SelectMany :
         resultSelector:Func<'TSource, 'TCollection, 'TResult> -> IObservable<'TResult> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -361,7 +361,7 @@ static member SelectMany :
         resultSelector:Func<'TSource, 'TCollection, 'TResult> -> IObservable<'TResult> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -459,7 +459,7 @@ static member SelectMany :
         selector:Func<'TSource, IObservable<'TResult>> -> IObservable<'TResult> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -550,7 +550,7 @@ static member SelectMany :
         selector:Func<'TSource, IEnumerable<'TResult>> -> IObservable<'TResult> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

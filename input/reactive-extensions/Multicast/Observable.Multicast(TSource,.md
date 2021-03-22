@@ -56,7 +56,7 @@ static member Multicast :
         selector:Func<IObservable<'TIntermediate>, IObservable<'TResult>> -> IObservable<'TResult> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -162,7 +162,7 @@ static member Multicast :
         subject:ISubject<'TSource, 'TResult> -> IConnectableObservable<'TResult> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

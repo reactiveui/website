@@ -56,7 +56,7 @@ static member Contains :
         comparer:IEqualityComparer<'TSource> -> IQbservable<bool> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -156,7 +156,7 @@ static member Contains :
         value:'TSource -> IQbservable<bool> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

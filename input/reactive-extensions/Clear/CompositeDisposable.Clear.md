@@ -35,7 +35,7 @@ abstract Clear : unit -> unit
 override Clear : unit -> unit 
 ```
 
-```jscript
+```javascript
 public final function Clear()
 ```
 

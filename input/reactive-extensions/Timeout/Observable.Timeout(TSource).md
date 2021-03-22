@@ -50,7 +50,7 @@ static member Timeout :
         dueTime:DateTimeOffset -> IObservable<'TSource> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -149,7 +149,7 @@ static member Timeout :
         scheduler:IScheduler -> IObservable<'TSource> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -251,7 +251,7 @@ static member Timeout :
         scheduler:IScheduler -> IObservable<'TSource> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -343,7 +343,7 @@ static member Timeout :
         dueTime:TimeSpan -> IObservable<'TSource> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -437,7 +437,7 @@ static member Timeout :
         other:IObservable<'TSource> -> IObservable<'TSource> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -535,7 +535,7 @@ static member Timeout :
         other:IObservable<'TSource> -> IObservable<'TSource> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -633,7 +633,7 @@ static member Timeout :
         scheduler:IScheduler -> IObservable<'TSource> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -736,7 +736,7 @@ static member Timeout :
         scheduler:IScheduler -> IObservable<'TSource> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

@@ -47,7 +47,7 @@ static let inline (=)
         second:TimeInterval<'T>  : bool
 ```
 
-```jscript
+```javascript
 JScript supports the use of overloaded operators, but not the declaration of new ones.
 ```
 

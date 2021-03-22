@@ -41,7 +41,7 @@ type TaskPoolScheduler =
     end
 ```
 
-```jscript
+```javascript
 public final class TaskPoolScheduler implements IScheduler
 ```
 
@@ -114,7 +114,7 @@ new :
         taskFactory:TaskFactory -> TaskPoolScheduler
 ```
 
-```jscript
+```javascript
 public function TaskPoolScheduler(
     taskFactory : TaskFactory
 )

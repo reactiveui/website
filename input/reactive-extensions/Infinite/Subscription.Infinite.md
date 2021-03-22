@@ -34,7 +34,7 @@ literal long long Infinite
 static val mutable Infinite: int64
 ```
 
-```jscript
+```javascript
 public const var Infinite : long
 ```
 

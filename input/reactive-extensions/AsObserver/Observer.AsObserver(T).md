@@ -45,7 +45,7 @@ static member AsObserver :
         observer:IObserver<'T> -> IObserver<'T> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

@@ -37,7 +37,7 @@ property IList<Recorded<Notification<T>^>>^ Messages {
 abstract Messages : IList<Recorded<Notification<'T>>>
 ```
 
-```jscript
+```javascript
 function get Messages () : IList<Recorded<Notification<T>>>
 ```
 

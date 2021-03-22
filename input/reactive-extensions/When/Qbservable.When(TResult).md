@@ -50,7 +50,7 @@ static member When :
         plans:IEnumerable<QueryablePlan<'TResult>> -> IQbservable<'TResult> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -138,7 +138,7 @@ static member When :
         plans:QueryablePlan<'TResult>[] -> IQbservable<'TResult> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

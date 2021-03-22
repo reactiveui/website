@@ -42,7 +42,7 @@ static member Create :
         dispose:Action -> IDisposable 
 ```
 
-```jscript
+```javascript
 public static function Create(
     dispose : Action
 ) : IDisposable

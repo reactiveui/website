@@ -45,7 +45,7 @@ static member Switch :
         sources:IObservable<IObservable<'TSource>> -> IObservable<'TSource> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

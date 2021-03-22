@@ -47,7 +47,7 @@ static member Synchronize :
         gate:Object -> IObserver<'T> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -118,7 +118,7 @@ static member Synchronize :
         observer:IObserver<'T> -> IObserver<'T> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

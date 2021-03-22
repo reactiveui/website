@@ -36,7 +36,7 @@ void Reentrant_Subject()
 member Reentrant_Subject : unit -> unit 
 ```
 
-```jscript
+```javascript
 public function Reentrant_Subject()
 ```
 

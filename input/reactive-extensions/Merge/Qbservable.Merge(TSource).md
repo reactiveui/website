@@ -56,7 +56,7 @@ static member Merge :
         scheduler:IScheduler -> IQbservable<'TSource> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -156,7 +156,7 @@ static member Merge :
         sources:IObservable<'TSource>[] -> IQbservable<'TSource> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -258,7 +258,7 @@ static member Merge :
         scheduler:IScheduler -> IQbservable<'TSource> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -364,7 +364,7 @@ static member Merge :
         maxConcurrent:int -> IQbservable<'TSource> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -459,7 +459,7 @@ static member Merge :
         sources:IQbservable<IObservable<'TSource>> -> IQbservable<'TSource> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -551,7 +551,7 @@ static member Merge :
         sources:IEnumerable<IObservable<'TSource>> -> IQbservable<'TSource> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -647,7 +647,7 @@ static member Merge :
         second:IObservable<'TSource> -> IQbservable<'TSource> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -754,7 +754,7 @@ static member Merge :
         scheduler:IScheduler -> IQbservable<'TSource> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -858,7 +858,7 @@ static member Merge :
         maxConcurrent:int -> IQbservable<'TSource> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
@@ -960,7 +960,7 @@ static member Merge :
         sources:IObservable<'TSource>[] -> IQbservable<'TSource> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 

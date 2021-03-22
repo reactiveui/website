@@ -36,7 +36,7 @@ void Virtual_Now()
 member Virtual_Now : unit -> unit 
 ```
 
-```jscript
+```javascript
 public function Virtual_Now()
 ```
 

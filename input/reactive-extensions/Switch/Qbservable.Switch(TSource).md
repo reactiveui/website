@@ -45,7 +45,7 @@ static member Switch :
         sources:IQbservable<IObservable<'TSource>> -> IQbservable<'TSource> 
 ```
 
-```jscript
+```javascript
 JScript does not support generic types and methods.
 ```
 
