@@ -28,7 +28,11 @@ The following examples demonstrate simple uses of `WhenAnyValue`, the `WhenAny` 
 
 ## WhenAnyValue
 
-<?# YouTube IH2yx7b9DNY /?>
+<div class="video-iframe-wrapper">
+    <div class="video-iframe-item">
+        <?# YouTube IH2yx7b9DNY /?>
+    </div>
+</div>
 
 ### Watching single property
 

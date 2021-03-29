@@ -7,7 +7,11 @@
 ## There is a better way
 There is a better way - Geoffrey Huntley at NDC Sydney
 
-<?# YouTube 4inY7TFEVT0 /?>
+<div class="video-iframe-wrapper">
+    <div class="video-iframe-item">
+        <?# YouTube 4inY7TFEVT0 /?>
+    </div>
+</div>
 
 ## The Xamarin Show: Episode 17
 ReactiveUI with Michael Stonis
@@ -20,20 +24,32 @@ ReactiveUI with Michael Stonis
 
 Michael Stonis & Geoffrey Huntley at Xamarin University
 
-<?# YouTube vydDJ9CaIug /?>
+<div class="video-iframe-wrapper">
+    <div class="video-iframe-item">
+        <?# YouTube vydDJ9CaIug /?>
+    </div>
+</div>
 
 ## Why You Should Be Building Better Mobile Apps with Reactive Programming 
 
 Michael Stonis at Xamarin Evolve 2016
 
-<?# YouTube DYEbUF4xs1Q /?>
+<div class="video-iframe-wrapper">
+    <div class="video-iframe-item">
+        <?# YouTube DYEbUF4xs1Q /?>
+    </div>
+</div>
 
 # 2015
 
 ## Reactive UI - It's pretty neat
 By Brendan Forster
 
-<?# YouTube HPyKHxy7X0w /?>
+<div class="video-iframe-wrapper">
+    <div class="video-iframe-item">
+        <?# YouTube HPyKHxy7X0w /?>
+    </div>
+</div>
 
 # 2014
 
@@ -41,13 +57,21 @@ By Brendan Forster
 
 Anaïs Betts at Xamarin Evolve 2014
 
-<?# YouTube 5DZ8nC0ENdg /?>
+<div class="video-iframe-wrapper">
+    <div class="video-iframe-item">
+        <?# YouTube 5DZ8nC0ENdg /?>
+    </div>
+</div>
 
 ## FRP In Practice: Taking a look at Reactive[UI/Cocoa]
 
 Anaïs Betts at Strange Loop
 
-<?# YouTube 1XNATGjqM6U /?>
+<div class="video-iframe-wrapper">
+    <div class="video-iframe-item">
+        <?# YouTube 1XNATGjqM6U /?>
+    </div>
+</div>
 
 # 2012
 

@@ -39,7 +39,11 @@ this.Events().KeyUp
     .Subscribe(y => { });
 ```
 
-<?# YouTube tNn-7fen3DA /?>
+<div class="video-iframe-wrapper">
+    <div class="video-iframe-item">
+        <?# YouTube tNn-7fen3DA /?>
+    </div>
+</div>
 
 [Source-code for this meetup talk](https://github.com/reactiveui/meetups/blob/main/002%20-%20reactiveui-events%20-%20the%20super%20cool%20package.zip)
 

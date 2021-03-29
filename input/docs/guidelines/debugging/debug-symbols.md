@@ -4,7 +4,11 @@ The only requirement is to ensure the check the `Enable source link support` und
 
 ![Configure Visual Studio as follows](sourcelink-howto.png)
 
-<iframe width="100%" height="315" src="https://www.youtube.com/embed/gyRGhCQPkB4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<div class="video-iframe-wrapper">
+    <div class="video-iframe-item">
+        <iframe width="100%" height="315" src="https://www.youtube.com/embed/gyRGhCQPkB4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+</div>
 
 ## Troubleshooting
 It is worth noting that at the moment SourceLink support is not active in the Xamarin debugger (platforms such as iOS, Android are not supported).
