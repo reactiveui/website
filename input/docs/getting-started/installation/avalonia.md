@@ -2,7 +2,11 @@ Title: Avalonia
 Order: 90
 ---
 
-<?# YouTube q6uWPtKw3UQ /?>
+<div class="video-iframe-wrapper">
+    <div class="video-iframe-item">
+        <?# YouTube q6uWPtKw3UQ /?>
+    </div>
+</div>
 
 # Package Installation
 
