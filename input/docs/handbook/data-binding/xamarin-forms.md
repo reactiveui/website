@@ -107,7 +107,7 @@ public partial class TheContentPage : ReactiveContentPage<TheViewModel>
                 //Don't pass the EventArgs to the command
                 .Select(_ => Unit.Default)
                 .InvokeCommand(ViewModel, x => x.TheTextCommand)
-                .DisposeWith(disposable)p
+                .DisposeWith(disposable);
         });
     }
 }
