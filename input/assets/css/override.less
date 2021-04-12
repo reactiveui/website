@@ -474,3 +474,35 @@ pre:hover .btn-copy {
     margin: 0;
   }
 }
+
+.content,
+.content-header {
+  padding-left: 40px;
+  padding-right: 40px;
+  @media (min-width: 1200px) {
+    padding-left: 60px;
+    padding-right: 60px;
+  }
+}
+
+.anchorjs-link {
+  padding-right: 5px !important;
+  margin-left: -34px !important;
+  @media (min-width: 1200px) {
+    margin-left: -1em !important;
+    padding-right: 0.5em !important;
+  }
+}
+
+@media only screen and (max-width: 1670px) and (min-width: 1250px) {
+  .wrapper.with-container {
+    max-width: 1080px;
+  }
+
+  .infobar {
+    left: 1080px;
+    &.affix {
+      margin-left: 1080px;
+    }
+  }
+}
