@@ -473,6 +473,26 @@ pre:hover .btn-copy {
   @media (max-width: 767px) {
     margin: 0;
   }
+
+  @media (min-width: 768px) and (max-width: 1200px) {
+    width: 100%;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+}
+
+.layout-top-nav {
+  .navbar {
+    @media (min-width: 768px) and (max-width: 1200px) {
+      margin-left: 0 !important;
+    }
+  }
+
+  .navbar-nav {
+    @media (min-width: 768px) and (max-width: 1200px) {
+      text-align: center;
+    }
+  }
 }
 
 .content,
