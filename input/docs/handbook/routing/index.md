@@ -17,7 +17,7 @@ Routing also works on iOS and Android without Xamarin.Forms, but it isn't always
 The following elements participate in routing:
 
 - One `IScreen`,
-- one `RoutingState` (contained in the `ISCreen` instance),
+- one `RoutingState` (contained in the `IScreen` instance),
 - two or more  `IRoutableViewModel`s, and
 - a platform-specific `RoutedViewHost` XAML control.
 
