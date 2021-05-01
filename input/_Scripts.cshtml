@@ -2,7 +2,7 @@
 <script type="text/javascript" src="/assets/js/clipboard.min.js"></script>
 <script type="text/javascript">
     anchors.options.placement = 'left';
-    anchors.add();
+    anchors.add('.content h1:not(.no-anchor), .content h2:not(.no-anchor), .content h3:not(.no-anchor), .content h4:not(.no-anchor), .content-header h1:not(.no-anchor)');
 
     var snippets = document.querySelectorAll("pre > code");
     [].forEach.call(snippets, function(snippet) {
