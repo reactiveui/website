@@ -46,7 +46,7 @@ public string Name
 }
 ```
 
-Note, that unlike in other frameworks, they are **always written this way**, using the exact same boilerplate code. If you are attempting to put *anything* in the setter, you are almost certainly Doing It Wrong, and instead should be using [WhenAnyValue](../when-any) and [ToProperty](../oaph) instead. 
+Note, that unlike in other frameworks, they are **always written this way**, using the exact same boilerplate code. If you are attempting to put *anything* in the setter, you are almost certainly Doing It Wrong, and should be using [WhenAnyValue](../when-any) and [ToProperty](../oaph) instead. 
 
 # Read-Only Properties
 
