@@ -49,8 +49,9 @@
         <div class="top-banner">The recording of the first ever ReactiveUI virtual conference is available on our <a href="https://www.youtube.com/c/ReactiveUI/featured">YouTube Channel</a>.</div>
         @{
             string withContainer = Model.Bool(DocsKeys.NoContainer, false) ? null : "with-container";
+            string centerContainer = Model.Bool(DocsKeys.NoSidebar, false) ? "center-container" : string.Empty;
         }
-        <div class="wrapper @withContainer">
+        <div class="wrapper @withContainer @centerContainer">
             <!-- Header -->
             <header class="main-header">   
 
