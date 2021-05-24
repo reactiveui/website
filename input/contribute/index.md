@@ -6,6 +6,9 @@ ReactiveUI is developed under an OSI-approved <a href="/license">open source lic
 So here's to you, lovely person who wants to join us — this is how you can support us:
 <ul>
     <li>
+        <a href="https://github.com/reactiveui/ReactiveUI/discussions" target="_blank">Github discussions</a>
+    </li>
+    <li>
         <a href="https://stackoverflow.com/questions/tagged/reactiveui" target="_blank">Responding to questions on StackOverflow</a>
     </li>
     <li>
