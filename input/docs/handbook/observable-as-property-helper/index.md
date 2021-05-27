@@ -79,7 +79,7 @@ firstName = this
 ```
 
 ## Defer Subscription
-If you are creating a large number of OAPH, consider deferring your subscription. `ToProperty` also allows you to deferSubscription to the underlying `IObservable<T>`. Deferring the subscription not have the OAPH Subscribe to the base `IObserable<T>` until the Value property has been accessed. This is especially useful if you have more complex `IObservable<T>` because this approach is very close to the approach that `Lazy<T>` takes. 
+If you are creating a large number of OAPH, consider deferring your subscription. `ToProperty` also allows you to deferSubscription to the underlying `IObservable<T>`. Deferring the subscription not have the OAPH Subscribe to the base `IObservable<T>` until the Value property has been accessed. This is especially useful if you have more complex `IObservable<T>` because this approach is very close to the approach that `Lazy<T>` takes. 
 
 ```cs
 // nameStatusObservable is IObservable<string>
