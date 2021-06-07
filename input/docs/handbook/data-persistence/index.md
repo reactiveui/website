@@ -273,7 +273,7 @@ public partial class App : Application
 
 ### AvaloniaUI
 
-> **Note** See [Avalonia Data Persistence](https://avaloniaui.net/docs/reactiveui/suspension) for more info. Don't forget to add a call to `UseReactiveUI()` to your `AppBuilder`.
+> **Note** See [Avalonia Data Persistence](https://docs.avaloniaui.net/guides/deep-dives/reactiveui/data-persistence) for more info. Don't forget to add a call to `UseReactiveUI()` to your `AppBuilder`.
 
 ## Retrieving the AppState
 
