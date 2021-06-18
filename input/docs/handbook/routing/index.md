@@ -63,7 +63,7 @@ Now create a new `UserControl` that will act as the view for the `FirstViewModel
 <rxui:ReactiveUserControl
     x:Class="ReactiveRouting.FirstView"
     x:TypeArguments="vm:FirstViewModel"
-    xmlns:rxui="https://reactiveui.net"
+    xmlns:rxui="http://reactiveui.net"
     xmlns:vm="clr-namespace:ReactiveRouting"
     xmlns="https://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="https://schemas.microsoft.com/winfx/2006/xaml"
