@@ -2,7 +2,7 @@ ReactiveUI includes a few tools to help testing, built on what Reactive Extensio
 
 # Custom Scheduler
 
-> Scheduling, and therefore threading, is generally avoided in test scenarios as it can introduce race conditions which may lead to non-deterministic tests — [Intro to Rx @ Testing Rx](https://introtorx.com/Content/v1.0.10621.0/16_TestingRx.html)
+> Scheduling, and therefore threading, is generally avoided in test scenarios as it can introduce race conditions which may lead to non-deterministic tests — [Intro to Rx @ Testing Rx](http://introtorx.com/Content/v1.0.10621.0/16_TestingRx.html )
 
 By default, `ReactiveCommand` uses `RxApp.MainThreadScheduler` and `ObservableAsPropertyHelper` uses `CurrentThreadScheduler.Instance`, but this behavior can be easily overriden:
 
