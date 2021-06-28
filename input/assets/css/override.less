@@ -571,7 +571,9 @@ pre:hover .btn-copy {
 }
 
 .table {
-  display: block;
-  table-layout: fixed;
-  overflow: auto;
+  @media (max-width: 767px) {
+    display: block;
+    table-layout: fixed;
+    overflow: auto;
+  }
 }
