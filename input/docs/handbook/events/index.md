@@ -45,8 +45,6 @@ this.Events().KeyUp
     </div>
 </div>
 
-[Source-code for this meetup talk](https://github.com/reactiveui/meetups/blob/main/002%20-%20reactiveui-events%20-%20the%20super%20cool%20package.zip)
-
 ## Using events with WhenActivated
 
 If you are reacting to events emitted by the view and referencing the view model in your observable sequence, remember to dispose your subscriptions. If your view model outlives your view or vice versa, there is a potential for a memory leak, and `WhenActivated` helps you to avoid that. See [WhenActivated documentation](/docs/handbook/when-activated) for more info.
