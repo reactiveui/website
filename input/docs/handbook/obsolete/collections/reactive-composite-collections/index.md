@@ -3,7 +3,7 @@ Title: ReactiveCompositeCollections
 
 One of the options available in the reactive ecosystem is the `ReactiveCompositeCollections` project  by Brad Phelan which introduces a new ``ICompositeCollection<T>`` that works just like you would expect with LINQ. You can use ``Select``, ``SelectMany``, ``Where`` just like with ``IEnumerable<T>`` or ``IObservable<T>`` and the result of all these operators is another ``ICompositeCollection<T>``
 
-The library lives at https://github.com/Weingartner/ReactiveCompositeCollections and is available from NuGet at https://www.nuget.org/packages/ReactiveCompositeCollections/
+The library lives at [Reactive Composite Collections (github)](https://github.com/Weingartner/ReactiveCompositeCollections) and is available from NuGet at [Reactive Composite Collections (nuget)](https://www.nuget.org/packages/ReactiveCompositeCollections/)
 
 # Example
 
@@ -60,4 +60,4 @@ public void DynamicFilterWithRxUIShouldWork()
 }
 ```
 
-For more details head on over to https://github.com/Weingartner/ReactiveCompositeCollections
+For more details head on over to [Reactive Composite Collections (github)](https://github.com/Weingartner/ReactiveCompositeCollections)
