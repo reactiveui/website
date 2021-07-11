@@ -7,7 +7,7 @@ your applications as well as ReactiveUI itself. You may ask yourself,
 "Seriously, another logging interface \ framework?". The reason RxUI does this itself is
 for portability - none of the common popular logging frameworks support all of
 the platforms that ReactiveUI supports, and many are server-oriented
-frameworks and ill-suited for simple mobile app logging.
+frameworks ill-suited for simple mobile app logging.
 
 Splat has taken the approach of allowing the developer to decide the target logging framework, whilst the interface aims to keep ReactiveUI and any other users of Splat as agnostic as possible. Logging frameworks have evolved since 2014 but there is still the challenge of performance and flexibility. There has also been a move within Splat to offer better integration into other frameworks so you don't have to make accomodations for Splat or vice versa.
 
@@ -120,12 +120,12 @@ Locator.CurrentMutable.UseSerilogFullLogger()
 
 Splat has tried to cater for offering sufficient scope for logging frameworks. If you need another framework or platform consider the whether your desired target platform is available as an output to one of the other logging frameworks already covered? Using an existing output for an existing framework will make your life easier. For example OpenTelemetry is supported across all the supported frameworks.
 
-If we are missing a target (as times change) then feel free to engage the team at the [SplatIssuesPageOnGithub][Splat Issues Page on Github].
+If we are missing a target (as times change) then feel free to engage the team at the [Splat Issues Page on Github][SplatIssuesPageOnGithub].
 
-If you want to write your own logging integration the [NLogSplatSourceCodeOnGithub][source code of an existing projects such as the NLog adapter is a good reference]. There are a few interfaces you can use depending on the level of control you need for your implementation.
+If you want to write your own logging integration the [source code of an existing projects such as the NLog adapter is a good reference][NLogSplatSourceCodeOnGithub]. There are a few interfaces you can use depending on the level of control you need for your implementation.
 
 [SplatIssuesPageOnGithub]: https://github.com/reactiveui/splat/issues
-[NLogSplatSourceCodeOnGithub] : https://github.com/reactiveui/splat/tree/main/src/Splat.NLog
+[NLogSplatSourceCodeOnGithub]: https://github.com/reactiveui/splat/tree/main/src/Splat.NLog
 
 There are 2 logging interfaces to consider: ILogger and IFullLogger. The full logger is the full detailed interface for logging, ILogger is the minimal interface where you can use the default implementation for sending in the logging requests, and need a minimal implementation to get the detail out into the target platform. In most scenarios you should be able to use WrappingFullLogger and implement a smaller subset of ILogger which you can pass in. Your decision will be based on the flexibility and performance of the logging framework you're trying to use. For example if your logging framework supports a simple Write method that takes a log level you may want to use ILogger with the WrappingFullLogger. However if the target framework has specific methods per log level, or has both offerings but is more performant with the direct calls you may wish to implement IFullLogger.
 
