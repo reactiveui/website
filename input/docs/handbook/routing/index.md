@@ -200,7 +200,7 @@ public partial class MainWindow : ReactiveWindow<MainViewModel>
 }
 ```
 
-<img src="./routing.gif" width="60%" />
+<img src="./routing.gif" width="60%" alt="routing"/>
 
 Now ReactiveUI's view model-first routing should work as expected. `IScreen`s and `RoutedViewHost`s can be nested any number of levels without impacting routing. However, this only works for XAML pages; for modal and pop-up dialogs [Interactions](../interactions) are a better choice. 
 

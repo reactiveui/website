@@ -335,7 +335,7 @@ This view will automatically get displayed in the ListBox in the MainWindow. Whe
 
 Now you can search repositories on NuGet using your own app!
 
-<img src="./demo-app.jpg" width="600"/>
+<img src="./demo-app.jpg" width="600" alt="demo app"/>
 <br />
 
 </details>
@@ -460,7 +460,7 @@ Finally, we need to create XAML markup for our app.
 
 Now you can search repositories on NuGet using your own app!
 
-<img src="./demo-app.jpg" width="600"/>
+<img src="./demo-app.jpg" width="600" alt="demo app"/>
 <br />
 
 </details>

@@ -1,7 +1,7 @@
 Order: 12
 ---
 
-> <img src="https://reactivex.io/assets/Rx_Icon.png" width="25" height="25"> &nbsp; [Reactive programming](https://reactivex.io) is programming with asynchronous data streams.
+> <img src="https://reactivex.io/assets/Rx_Icon.png" width="25" height="25" alt="Rx Icon"> &nbsp; [Reactive programming](https://reactivex.io) is programming with asynchronous data streams.
 
 Event buses or your typical click events are really an asynchronous event stream, on which you can observe and do some side effects. [Reactive programming](https://reactivex.io) is that idea on steroids. You are able to create data streams of anything, not just from click and hover events. Streams are cheap and ubiquitous and anything can be a stream: variables, user inputs, properties, caches, data structures, etc. For example, imagine your Twitter feed would be a data stream in the same fashion that click events are. You can listen to that stream and react accordingly.
 
