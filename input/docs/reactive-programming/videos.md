@@ -11,7 +11,7 @@ Matthew Podwysocki at AngularConf
 
 # Duality
 
-<img src="./general-theory.jpg" width="50%">
+<img src="./general-theory.jpg" width="50%" alt="general theory">
 
 https://csl.stanford.edu/~christos/pldi2010.fit/meijer.duality.pdf
 

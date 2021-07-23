@@ -5,7 +5,7 @@ category:
 author: Rich Bryant
 ---
 
-<img src="https://img.favpng.com/22/20/20/question-mark-information-clip-art-png-favpng-xUsis3eLNHY4KHfJcLDsF87rq.jpg" align="right" style="height: 8em"/>
+<img src="https://img.favpng.com/22/20/20/question-mark-information-clip-art-png-favpng-xUsis3eLNHY4KHfJcLDsF87rq.jpg" align="right" style="height: 8em" alt="img"/>
 
 # On Reactive Programming
 ## Why are we even here?  

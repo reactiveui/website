@@ -22,7 +22,7 @@ ReactiveUI makes it easy to combine the MVVM pattern with Reactive Programming b
 - [WhenActivated](https://reactiveui.net/docs/handbook/when-activated/)
 - [Data Binding](https://reactiveui.net/docs/handbook/data-binding/)
 
-<img src="./mvvm.png" width="500">
+<img src="./mvvm.png" width="500" alt="mvvm">
 
 ### Explore ReactiveUI
 

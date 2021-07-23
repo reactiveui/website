@@ -5,7 +5,7 @@ category:
 author: Rich Bryant
 ---
 
-<img src="https://avatars0.githubusercontent.com/u/2327577?s=200&v=4" align="right" style="height:8em"/>
+<img src="https://avatars0.githubusercontent.com/u/2327577?s=200&v=4" align="right" style="height:8em" alt="img"/>
 
 # ReactiveUI On The Web With Blazor!  
 ## It really works, honest.  
@@ -18,7 +18,7 @@ For me, the big seller is that you've already got a WPF or Xamarin or WinForms a
   
 The ReactiveUI website Getting Started section links a [Compelling Example](https://www.reactiveui.net/docs/getting-started/compelling-example), a simple Nuget browser that you can build very quickly with copypasta.  
 
-<img src="https://i.imgur.com/GoczlPS.png" align="center"/>
+<img src="https://i.imgur.com/GoczlPS.png" align="center" alt="img"/>
 
 As you can see, it has text input, it does pipelines, it has data, it has views and viewmodels.... Why not, I thought? What are the steps?  
   
@@ -32,7 +32,7 @@ I used Blazor AspNetCore Hosted for reasons which I hope will become clear later
   
 Here's the project structure :  
   
-<img src="https://i.imgur.com/BCf0xvv.png" align="center"/>  
+<img src="https://i.imgur.com/BCf0xvv.png" align="center" alt="img"/>  
   
 Yes, I could have put the viewmodels in CompellingExample.Blazor.Shared but they contain no Blazor code and apply to the original WPF project too, so I didn't.  You can throw eggs at me later.  Let's move on.  
   

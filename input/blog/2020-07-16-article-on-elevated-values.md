@@ -5,7 +5,7 @@ category:
 author: Rich Bryant
 ---
 
-<img src="https://i.imgur.com/i9ngTbc.png" align="right" style="height: 8em"/>
+<img src="https://i.imgur.com/i9ngTbc.png" align="right" style="height: 8em" alt="img"/>
 
 # In Praise of Elevated Values
 ## Always Wear Protection
@@ -14,7 +14,7 @@ You know what you don't get when you work with Enumerables and Observables?
   
 This.  
   
-<img src ="https://i.stack.imgur.com/zD45E.png" align="center"/>  
+<img src ="https://i.stack.imgur.com/zD45E.png" align="center" alt="img"/>  
   
 
 I hate NullReferenceExceptions.  There's a very simple reason why you don't get them, of course, and that's because both IEnumerable and IObservable are a sort of a collection, and a collection is special in LINQ and Functional Programming terms because of how you _apply_ functions to it.  Let's take a simple `predicate` lambda, for example.  
