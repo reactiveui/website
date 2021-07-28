@@ -12,7 +12,7 @@
                 <form action="@baseSiteSearchUrl" method="get">
                     <label for="sitesearch">SEARCH THE DOCS</label>
                     <input id="sitesearch" type="hidden" name="sitesearch" value="@(Context.String(Keys.Host) + "/docs/")" />
-                    <input type="text" name="q" />
+                    <input type="text" name="q" title="Site search" />
                 </form>
                 <hr />
             }
