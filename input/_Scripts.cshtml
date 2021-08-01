@@ -20,4 +20,7 @@
     clipboardSnippets.on('error', function(e) {
         showTooltip(e.trigger, fallbackMessage(e.action));
     });
+
+    var iframeItem = $('iframe');
+    iframeItem.attr('title', 'video');
 </script>
