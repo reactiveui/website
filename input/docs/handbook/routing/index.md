@@ -28,14 +28,14 @@ The following elements participate in routing:
 > **Note:** The example below is adapted for WPF, but ReactiveUI's routing supports more platforms.
 >
 > Samples:
-> - [Xamarin Forms](https://github.com/reactiveui/ReactiveUI.Samples/tree/main/xamarin-forms/MasterDetail) 
+> - [Xamarin Forms](https://github.com/reactiveui/ReactiveUI.Samples/tree/main/xamarin-forms) 
 > - [Windows Forms](https://github.com/Asesjix/ReactiveUI.Winforms.Samples).
 >
 > Other resources: 
 > - [ViewModel Routing with ReactiveUI and Xamarin.Forms](https://jamilgeor.com/viewmodel-routing-with-reactiveui-and-xamarin-forms/), by Jamil Geor
 > - [Sextant](https://github.com/reactiveui/sextant) library for advanced XF routing
 > - [AvaloniaUI routing guide](https://docs.avaloniaui.net/guides/deep-dives/reactiveui/routing)
-> - [Universal Windows Platform routing samples](https://github.com/reactiveui/ReactiveUI.Samples/tree/main/uwp).
+> - [Universal Windows Platform routing samples](https://github.com/reactiveui/ReactiveUI.Samples/tree/main/ReactiveUI.UwpRouting).
 
 Using Visual Studio, create a new WPF project and name it 'ReactiveRouting'. Install the `ReactiveUI.WPF` NuGet package into the project. Now create a view model named `FirstViewModel` that implements the `IRoutableViewModel` interface. The `IRoutableViewModel.UrlPathSegment` property is a string token representing the current view model, such as 'login' or 'user'. You are free to choose any string. In this example, we use 'first'. The `HostScreen` property typically contains the instance of the host screen used by an application.
 
