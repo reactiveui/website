@@ -46,7 +46,7 @@ public string Name
 }
 ```
 
-Note, that unlike in other frameworks, they are **always written this way**, using the exact same boilerplate code. If you are attempting to put *anything* in the setter, you are almost certainly Doing It Wrong, and should be using [WhenAnyValue](../when-any) and [ToProperty](../oaph) instead. 
+Note, that unlike in other frameworks, they are **always written this way**, using the exact same boilerplate code. If you are attempting to put *anything* in the setter, you are almost certainly Doing It Wrong, and should be using [WhenAnyValue](../when-any) and [ToProperty](../observable-as-property-helper) instead. 
 
 # Read-Only Properties
 
@@ -76,7 +76,7 @@ private readonly ObservableAsPropertyHelper<string> firstName;
 public string FirstName => firstName.Value;
 ```
 
-Similar to read-write properties, this code should always be 100% boilerplate. Next, we'll use a helper method [ToProperty](../oaph) to initialize `firstName` in the constructor:
+Similar to read-write properties, this code should always be 100% boilerplate. Next, we'll use a helper method [ToProperty](../observable-as-property-helper) to initialize `firstName` in the constructor:
 
 ```cs
 this.WhenAnyValue(x => x.Name)
@@ -89,7 +89,7 @@ Here, `ToProperty` creates an `ObservableAsPropertyHelper` instance which will s
 
 # Best Practices
 
-One of the core concepts of Functional Reactive Programming, is that instead of writing *imperative code* (i.e. "Do A right now, then do B, then do C"), we want to write *Functional, Declarative code* - instead of writing event handlers and methods to change properties, we want **to Describe how properties are related to each other**, using [WhenAnyValue](../when-any) and [ToProperty](../oaph).
+One of the core concepts of Functional Reactive Programming, is that instead of writing *imperative code* (i.e. "Do A right now, then do B, then do C"), we want to write *Functional, Declarative code* - instead of writing event handlers and methods to change properties, we want **to Describe how properties are related to each other**, using [WhenAnyValue](../when-any) and [ToProperty](../observable-as-property-helper).
 
 As a result, almost all of the interesting code in a well-written ReactiveUI ViewModel will be in the *constructor*; this code will describe how the properties in the ViewModel are related to each other. Your goal when writing the code for a ViewModel, is to take statements that describe how the view *should* work in terms of its commands and properties, and to translate them into things to put into the constructor. For example:
 
