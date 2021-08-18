@@ -108,7 +108,7 @@ Here `WhenAnyValue` is used to observe the changing values of the `Username` and
 
 #### Invoking commands
 
-[Commands](./commands) are often bound to buttons or controls in the view that can be triggered by the user. You can also trigger commands when a property value has changed.
+Commands are often bound to buttons or controls in the view that can be triggered by the user. You can also trigger commands when a property value has changed.
 
 ```cs
 // In the ViewModel.
