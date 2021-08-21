@@ -135,8 +135,16 @@ public class MainViewModel : ReactiveObject, IScreen
         //
         GoNext = ReactiveCommand.CreateFromObservable(() => Router.Navigate.Execute(new FirstViewModel()));
 
-        // You can also ask the router to go back.
-        GoBack = Router.NavigateBack;
+        // You can also ask the router to go back. One option is to 
+        // execute the default Router.NavigateBack command. Another
+        // option is to define your own command with custom
+        // canExecute condition as such:
+        var canGoBack = this
+            .WhenAnyValue(x => x.Router.NavigationStack.Count)
+            .Select(count => count > 0);
+        GoBack = ReactiveCommand.CreateFromObservable(
+            () => Router.NavigateBack.Execute(Unit.Default),
+            canGoBack);
     }
 }
 ```
