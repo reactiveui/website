@@ -14,5 +14,6 @@ Assuming the following project structure:
 
 * Install `ReactiveUI` into your netstandard libraries, application and tests.
 * Install `ReactiveUI.WPF` into your application and tests.
-* Install `ReactiveUI.Events.WPF` into your application.
+* Install `ReactiveMarbles.ObservableEvents.SourceGenerator` into your application.
 * Install `ReactiveUI.Testing` into your tests.
+
