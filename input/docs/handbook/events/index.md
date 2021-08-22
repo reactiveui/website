@@ -1,6 +1,6 @@
-Install the appropriate `ReactiveUI.Events.*` package into your application. See <a href="https://reactiveui.net/docs/getting-started/installation/">installation guide</a> for more info. You can use the events package standlone, without any reference to ReactiveUI. `ReactiveUI.Events.*` will always be a seperate package that has no dependancy on the `ReactiveUI` package.
+Install the `ReactiveMarbles.ObservableEvents.SourceGenerator` package into your application. See <a href="https://reactiveui.net/docs/getting-started/installation/">installation guide</a> for more info. You can use this events package standalone, without any reference to ReactiveUI. `ReactiveMarbles.ObservableEvents.SourceGenerator` will always be a separate package that has no dependancy on the `ReactiveUI` package.
 
-This package uses [Pharmacist](https://github.com/reactiveui/pharmacist) to generate the observables for events within the platform. At some stage in the future Pharmacist will replace these packages. Don't use `EventHandlers` ever, use the generated `Observable.FromEventPattern` versions. Combine multiple `Observable.FromEventPattern`together to get amazing composition. Remember to [dispose of your subscriptions](https://reactiveui.net/docs/reactive-programming/#lifecycle) using the features provided by the Reactive Extensions.
+This package uses SourceGenerator to generate the observables for events within the platform.  `ReactiveMarbles.ObservableEvents.SourceGenerator` has now replaced the `ReactiveUI.Events.*` packages. Don't use `EventHandlers` ever, use the generated `Observable.FromEventPattern` versions. Combine multiple `Observable.FromEventPattern`together to get amazing composition. Remember to [dispose of your subscriptions](https://reactiveui.net/docs/reactive-programming/#lifecycle) using the features provided by the Reactive Extensions.
 
 ```csharp
 var codes = new[]
@@ -67,7 +67,7 @@ this.WhenActivated(disposables =>
 });
 ```
 
-## Prefer ReactiveUI.Events over XAML behaviors
+## Prefer ObservableEvents over XAML behaviors
 
 Although XAML behaviors is a nice technique which allows you to bind to any event exposed by a control, it has several drawbacks. First, its syntax is quite verbose. Second, you lose intellisense when typing the event name. Third, if you'd like to modify the way how your view model reacts to an event, you need to write a new action and/or behavior. Consider the following example which uses UWP XAML behaviors:
 
