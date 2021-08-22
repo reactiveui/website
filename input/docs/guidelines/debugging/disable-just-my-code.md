@@ -8,5 +8,5 @@ This is like Rx debugging pro-tip #1:
 
 > In Visual Studio, when exceptions are thrown or end up unhandled, the debugger can help you debug these by breaking just like it breaks when a breakpoint is hit. In this blog post we will look at the different classifications of exceptions and how to configure when the debugger will break for those exceptions.
 
-https://devblogs.microsoft.com/devops/understanding-exceptions-while-debugging-with-visual-studio
+[Understanding exceptions while debugging with visual studio](https://devblogs.microsoft.com/devops/understanding-exceptions-while-debugging-with-visual-studio)
 
