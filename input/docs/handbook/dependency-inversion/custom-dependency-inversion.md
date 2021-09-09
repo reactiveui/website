@@ -15,23 +15,39 @@ dotnet add package Splat.Autofac
 Next, we build a new `Autofac` container and register all the required dependencies into it. Next, we add a call to `UseAutofacDependencyResolver` which is an extension method inside the `Splat.Autofac` namespace. This method becomes available once we install the `Splat.Autofac` package into our project. We write the following code:
 
 ```cs
-// Build a new Autofac container.
-var container = new ContainerBuilder();
-container.RegisterType<MainPage>().As<IViewFor<MainViewModel>>();
+// Create a new Autofac container builder.
+var builder = new ContainerBuilder();
+builder.RegisterType<MainPage>().As<IViewFor<MainViewModel>>();
+builder.RegisterType<MainViewModel>();
+// etc.
 
-// Use Autofac for ReactiveUI dependency resolution.
-// After we call the method below, Locator.Current and
-// Locator.CurrentMutable start using Autofac locator.
-container.UseAutofacDependencyResolver();
+// Register the Adapter to Splat.
+// Creates and sets the Autofac resolver as the Locator.
+var autofacResolver = builder.UseAutofacDependencyResolver();
 
-// These .InitializeX() methods will add ReactiveUI platform 
-// registrations to your container. They MUST be present if
-// you *override* the default Locator.
-Locator.CurrentMutable.InitializeSplat();
-Locator.CurrentMutable.InitializeReactiveUI();
+// Register the resolver in Autofac so it can be later resolved.
+builder.RegisterInstance(autofacResolver);
+
+// Initialize ReactiveUI components.
+autofacResolver.InitializeReactiveUI();
+
+// If you need to override any service (such as the ViewLocator), register it after InitializeReactiveUI.
+// https://autofaccn.readthedocs.io/en/latest/register/registration.html#default-registrations
+// builder.RegisterType<MyCustomViewLocator>().As<IViewLocator>().SingleInstance();
 ```
 
-> **Note** Call `Locator.CurrentMutable.InitializeSplat()` and `Locator.CurrentMutable.InitializeReactiveUI()` *only if you are going to override* the default Splat locator. Otherwise *you don't need to explicitly call these two methods*, as ReactiveUI calls these methods implicitly for you.
+> **Note** Call `Locator.CurrentMutable.InitializeReactiveUI()` *only if you are going to override* the default Splat locator. Otherwise *you don't need to explicitly call the method*, as ReactiveUI calls the method implicitly for you.
+
+Set Autofac Locator's lifetime after the ContainerBuilder has been built:
+
+```cs
+var autofacResolver = container.Resolve<AutofacDependencyResolver>();
+
+// Set a lifetime scope (either the root or any of the child ones) to Autofac resolver.
+// This is needed because Autofac became immutable since version 5+.
+// https://github.com/autofac/Autofac/issues/811
+autofacResolver.SetLifetimeScope(container);`
+```
 
 ## Implement a Custom `IMutableDependencyResolver`
 
