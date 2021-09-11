@@ -9,7 +9,7 @@ Your viewmodels should inherit from `ReactiveObject`
 Use `IActivatableViewModel` and `WhenActivated` for lifecycle
 
 - [IActivatableViewModel](https://reactiveui.net/api/reactiveui/IActivatableViewModel/)
-- https://reactiveui.net/docs/handbook/when-activated/
+- [When Activated](https://reactiveui.net/docs/handbook/when-activated/)
 
 Keep references to your subscriptions
 
