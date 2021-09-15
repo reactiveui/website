@@ -14,7 +14,7 @@ ReactiveUI has the following minimum platform requirements:
 | .Net Core | 3.1 |
 | .Net | 5.0 |
 | UWP | 10.0.16299.0 |
-| Xamarin Android | 10.0 |
+| Xamarin Android | 11.0 |
 | Xamarin iOS | 1.0 |
 | Xamarin Mac | 2.0 |
 | Xamarin TVOS | 1.0 |
@@ -22,9 +22,9 @@ ReactiveUI has the following minimum platform requirements:
 
 ## Android Minimums
 
-Android 10.0 is the minimum, with SDK 29.
+Android 11.0 is the minimum, with SDK 30.
 
-Make sure your `AndroidManifest.xml` has SDK 29 as the target SDK.
+Make sure your `AndroidManifest.xml` has SDK 30 as the target SDK.
 
 ```diff
 <?xml version="1.0" encoding="utf-8"?>
