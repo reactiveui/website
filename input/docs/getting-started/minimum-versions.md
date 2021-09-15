@@ -29,9 +29,9 @@ Make sure your `AndroidManifest.xml` has SDK 30 as the target SDK.
 ```diff
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="1" android:versionName="1.0" package="com.giusepe.SextantSample" android:installLocation="auto">
-+	<uses-sdk android:minSdkVersion="19" android:targetSdkVersion="29" />
++	<uses-sdk android:minSdkVersion="19" android:targetSdkVersion="30" />
  	<application android:label="SextantSample.Android"></application>
 </manifest> 
 ```
 
-Also that your `CSPROJ` references Android 10.0.
+Also that your `CSPROJ` references Android 11.0.
