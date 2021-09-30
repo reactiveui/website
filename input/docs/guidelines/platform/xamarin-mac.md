@@ -15,7 +15,7 @@ _ReactiveUI-Events_ and _ReactiveUI_ use Xamarin.Mac Mobile but can be consumed 
 
 Your viewmodels should inherit from `ReactiveObject`
 
-- https://reactiveui.net/api/reactiveui/reactiveobject/
+- [ReactiveObject](https://reactiveui.net/api/reactiveui/reactiveobject/)
 
 Use `IActivatableViewModel` and `WhenActivated` for lifecycle
 
