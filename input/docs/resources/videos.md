@@ -113,4 +113,4 @@ Anaïs Betts at Strange Loop
 
 ## Reactive Extensions and ReactiveUI: Anaïs Betts at QCon
 
-https://www.infoq.com/presentations/Reactive-Extensions-and-ReactiveUI
+[Reactive Extensions and ReactiveUI](https://www.infoq.com/presentations/Reactive-Extensions-and-ReactiveUI)
