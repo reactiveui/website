@@ -116,7 +116,7 @@ The following isn't an exhausitve example, as some solutions will follow a diffe
 
 # Release Packages
 
-ReactiveUI is published to [NuGet.org](https://www.nuget.org/packages?q=ReactiveUI) when a release of the software is done. Get email notifications when new release is pushed over at https://libraries.io/nuget/reactiveui
+ReactiveUI is published to [NuGet.org](https://www.nuget.org/packages?q=ReactiveUI) when a release of the software is done. Get email notifications when new release is pushed over at [reactiveui libraries](https://libraries.io/nuget/reactiveui)
 
 - ReactiveUI
     - [ReactiveUI](https://www.nuget.org/packages/ReactiveUI/) is the base package that has the base platform implementations.
@@ -138,5 +138,5 @@ ReactiveUI is published to [NuGet.org](https://www.nuget.org/packages?q=Reactive
 
 Pre-release nuget packages are uploaded to the Reactive UI [GitHub Packages](https://github.com/orgs/reactiveui/packages). You can use this feed to access hotfixes before they are released and to help the maintainers verify resolution to issues.
 
-1. Visit https://www.visualstudio.com/en-us/docs/package/nuget/consume
+1. Visit [visualstudio consume](https://www.visualstudio.com/en-us/docs/package/nuget/consume)
 2. Configure in the following address `https://nuget.pkg.github.com/reactiveui/index.json`
