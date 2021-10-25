@@ -13,7 +13,7 @@ Matthew Podwysocki at AngularConf
 
 <img src="./general-theory.jpg" width="50%" alt="general theory">
 
-https://csl.stanford.edu/~christos/pldi2010.fit/meijer.duality.pdf
+[Meijer.duality.pdf](https://csl.stanford.edu/~christos/pldi2010.fit/meijer.duality.pdf)
 
 <div class="video-iframe-wrapper">
     <div class="video-iframe-item">
