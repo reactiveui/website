@@ -30,36 +30,36 @@ Here's a dummy event.
   
 ```csharp
 public class GlueMachineMonitor
-    {
-        public event EventHandler<StickyEventArgs> BungedUp;
+{
+    public event EventHandler<StickyEventArgs> BungedUp;
 
-        public void Run()
-        {
-            var eventHandling = BungedUp;
-            eventHandling?.Invoke(this, new StickyEventArgs());
-        }
+    public void Run()
+    {
+        var eventHandling = BungedUp;
+        eventHandling?.Invoke(this, new StickyEventArgs());
+    }
+}
+
+public class GlueMachineIssueTracker : IDisposable
+{
+    private readonly GlueMachineMonitor _monitor;
+
+    public GlueMachineIssueTracker(GlueMachineMonitor monitor)
+    {
+        _monitor = monitor;
+        _monitor.BungedUp += ItGotGummedUp;
     }
 
-    public class GlueMachineIssueTracker : IDisposable
+    private void ItGotGummedUp(object sender, StickyEventArgs e)
     {
-        private readonly GlueMachineMonitor _monitor;
-
-        public GlueMachineIssueTracker(GlueMachineMonitor monitor)
-        {
-            _monitor = monitor;
-            _monitor.BungedUp += ItGotGummedUp;
-        }
-
-        private void ItGotGummedUp(object sender, StickyEventArgs e)
-        {
-            Console.WriteLine("get the bloody solvent out, lads");
-        }
-
-        public void Dispose()
-        {
-            _monitor.BungedUp -= ItGotGummedUp;
-        }
+        Console.WriteLine("get the bloody solvent out, lads");
     }
+
+    public void Dispose()
+    {
+        _monitor.BungedUp -= ItGotGummedUp;
+    }
+}
 ```
 
   
@@ -69,29 +69,29 @@ So I went through the codebase, and I ripped out every last event.  Like this -
   
 ```csharp
 public class BetterGlueMachineMonitor
-    {
-        private readonly Subject<StickyEventArgs> _blockageStatus = new Subject<StickyEventArgs>();
+{
+    private readonly Subject<StickyEventArgs> _blockageStatus = new Subject<StickyEventArgs>();
 
-        public IObservable<StickyEventArgs> BlockageStatus 
-            => _blockageStatus.AsObservable();
+    public IObservable<StickyEventArgs> BlockageStatus 
+        => _blockageStatus.AsObservable();
 
-        public void Run() 
-            => _blockageStatus.OnNext(new StickyEventArgs());
-    }
+    public void Run() 
+        => _blockageStatus.OnNext(new StickyEventArgs());
+}
 
-    public class BetterGlueMachineTracker : IDisposable
-    {
-        private readonly IDisposable _blockageStatusWatcher;
+public class BetterGlueMachineTracker : IDisposable
+{
+    private readonly IDisposable _blockageStatusWatcher;
 
-        public BetterGlueMachineTracker(BetterGlueMachineMonitor monitor) 
-            => _blockageStatusWatcher = monitor.BlockageStatus.Subscribe(ItChangesOverTime);
+    public BetterGlueMachineTracker(BetterGlueMachineMonitor monitor) 
+        => _blockageStatusWatcher = monitor.BlockageStatus.Subscribe(ItChangesOverTime);
 
-        private static void ItChangesOverTime(StickyEventArgs e) 
-            => Console.WriteLine("get the bloody solvent out, lads");
+    private static void ItChangesOverTime(StickyEventArgs e) 
+        => Console.WriteLine("get the bloody solvent out, lads");
 
-        public void Dispose() 
-            => _blockageStatusWatcher.Dispose();
-    }
+    public void Dispose() 
+        => _blockageStatusWatcher.Dispose();
+}
 ```
 
 and then I stress-tested the absolute mother of all monstrous hell out of it because trust me, you have never seen so much incoming data in your life as you will from an automated production line.
@@ -123,5 +123,3 @@ The data is a wave, not a particle.  It's predictable within certain bounds but 
 Also, events suck.  
   
 Tune in next week and we'll talk about how nulls suck and Exceptions suck and how you can surf those, too.  
-
-
