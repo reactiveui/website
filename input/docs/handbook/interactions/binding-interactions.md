@@ -14,7 +14,7 @@ IDisposable BindInteraction<TViewModel, TView, TInput, TOutput, TDontCare>(
     Func<InteractionContext<TInput, TOutput>, IObservable<TDontCare>> handler);
 ```
 
-Registering handlers manually is fine for simple scenarios. But if, for example, you expect you're `Interaction` or one of its ancestors to change, the complexity starts increasing because of the need to dispose of the old and subscribe to the latest:
+Registering handlers manually is fine for simple scenarios. But if, for example, you expect your `Interaction` or one of its ancestors to change, the complexity starts increasing because of the need to dispose of the old and subscribe to the latest:
 
 ```cs
 var interactionDisposable = new SerialDisposable();
