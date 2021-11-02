@@ -1,4 +1,4 @@
-> One thing that motivates me to write my own instead of using the legion of others, is that most loggers give zero thought to perf concerns on mobile devices - they're all written for servers, so none of them think about CPU perf or allocations. The best imho is Serilog, but it allocates way too much stuff imho to be usable on mobile — Anaïs Betts (2014) https://github.com/reactiveui/splat/issues/46#issuecomment-56550457
+> One thing that motivates me to write my own instead of using the legion of others, is that most loggers give zero thought to perf concerns on mobile devices - they're all written for servers, so none of them think about CPU perf or allocations. The best imho is Serilog, but it allocates way too much stuff imho to be usable on mobile — Anaïs Betts (2014) [issue 46#issuecomment-56550457](https://github.com/reactiveui/splat/issues/46#issuecomment-56550457)
 
 # Logging
 
@@ -66,7 +66,7 @@ Locator.CurrentMutable.RegisterConstant(logger, typeof(ILogger));
 
 #### Log4Net
 
-First configure Log4Net. For guidance see https://logging.apache.org/log4net/release/manual/configuration.html
+First configure Log4Net. For guidance see [configuration](https://logging.apache.org/log4net/release/manual/configuration.html)
 
 ```cs
 using Splat.Log4Net;
@@ -77,7 +77,7 @@ Locator.CurrentMutable.UseLog4NetWithWrappingFullLogger();
 
 #### Microsoft.Extensions.Logging
 
-First configure Microsoft.Extensions.Logging. For guidance see https://docs.microsoft.com/en-us/aspnet/core/fundamentals/logging/
+First configure Microsoft.Extensions.Logging. For guidance see [logging](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/logging/)
 
 ```cs
 using Splat.Microsoft.Extensions.Logging;
@@ -96,7 +96,7 @@ Locator.CurrentMutable.UseMicrosoftExtensionsLoggingWithWrappingFullLogger(logge
 
 #### NLog
 
-First configure NLog. For guidance see https://github.com/nlog/nlog/wiki/Tutorial and https://github.com/nlog/nlog/wiki/Configuration-file
+First configure NLog. For guidance see [tutorial](https://github.com/nlog/nlog/wiki/Tutorial) and [configuration file](https://github.com/nlog/nlog/wiki/Configuration-file)
 
 ```cs
 using Splat.NLog;
@@ -107,7 +107,7 @@ Locator.CurrentMutable.UseNLogWithWrappingFullLogger();
 
 #### Serilog
 
-First configure Serilog. For guidance see https://github.com/serilog/serilog/wiki/Configuration-Basics
+First configure Serilog. For guidance see [configuration basics](https://github.com/serilog/serilog/wiki/Configuration-Basics)
 
 ```cs
 using Splat.Serilog;
