@@ -21,7 +21,7 @@ This release also includes very basic Xamarin.Android support, including a sched
 
 ## What do I need to run this??
 
-You need to run [Xamarin Studio](http://xamarin.com/) and make sure to have the latest updates installed from the **Alpha Channel**. 
+You need to run [Xamarin Studio](https://xamarin.com/) and make sure to have the latest updates installed from the **Alpha Channel**. 
 
 ## What else is New?
 - Bug fixes in UserError Handling
