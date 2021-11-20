@@ -1,6 +1,6 @@
 /*!
 ICanHaz.js version 0.10.2 -- by @HenrikJoreteg
-More info at: http://icanhazjs.com
+More info at: https://icanhazjs.com
 */
 (function () {
 /*!

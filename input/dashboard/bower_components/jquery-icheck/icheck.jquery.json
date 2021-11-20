@@ -5,12 +5,12 @@
   "author": {
     "name": "Damir Sultanov",
     "email": "info@fronteed.com",
-    "homepage": "http://fronteed.com/"
+    "homepage": "https://fronteed.com/"
   },
   "licenses": [
     {
       "type": "MIT",
-      "url": "http://en.wikipedia.org/wiki/MIT_License"
+      "url": "https://en.wikipedia.org/wiki/MIT_License"
     }
   ],
   "dependencies": {
@@ -40,9 +40,9 @@
     "jquery",
     "zepto"
   ],
-  "homepage": "http://fronteed.com/iCheck/",
+  "homepage": "https://fronteed.com/iCheck/",
   "docs": "https://github.com/fronteed/iCheck",
-  "demo": "http://fronteed.com/iCheck/",
-  "download": "http://fronteed.com/iCheck/",
+  "demo": "https://fronteed.com/iCheck/",
+  "download": "https://fronteed.com/iCheck/",
   "bugs": "https://github.com/fronteed/iCheck/issues/"
 }
