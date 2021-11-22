@@ -1,7 +1,7 @@
 /**
 * Select2 Hebrew translation.
 *
-* Author: Yakir Sitbon <http://www.yakirs.net/>
+* Author: Yakir Sitbon <https://www.yakirs.net/>
 */
 (function ($) {
     "use strict";

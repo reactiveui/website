@@ -19,16 +19,16 @@
     "licenses": [
         {
             "type": "Apache",
-            "url": "http://www.apache.org/licenses/LICENSE-2.0"
+            "url": "https://www.apache.org/licenses/LICENSE-2.0"
         },
         {
             "type": "GPL v2",
-            "url": "http://www.gnu.org/licenses/gpl-2.0.html"
+            "url": "https://www.gnu.org/licenses/gpl-2.0.html"
         }
     ],
     "bugs": "https://github.com/ivaynberg/select2/issues",
-    "homepage": "http://ivaynberg.github.com/select2",
-    "docs": "http://ivaynberg.github.com/select2/",
+    "homepage": "https://ivaynberg.github.com/select2",
+    "docs": "https://ivaynberg.github.com/select2/",
     "download": "https://github.com/ivaynberg/select2/tags",
     "dependencies": {
         "jquery": ">=1.7.1"

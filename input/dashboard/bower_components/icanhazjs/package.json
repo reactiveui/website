@@ -1,14 +1,14 @@
 {
   "name": "icanhaz",
   "version": "0.10.3",
-  "homepage": "http://icanhazjs.com",
+  "homepage": "https://icanhazjs.com",
   "repository": {
     "type": "git",
     "url": "git://github.com/andyet/ICanHaz.js.git"
   },
   "author": {
     "name": "Henrik Joreteg",
-    "url": "http://andyet.net/team/henrik",
+    "url": "https://andyet.net/team/henrik",
     "email": "hjoreteg@gmail.com"
   },
   "description": "Simple & powerful js templating tool",

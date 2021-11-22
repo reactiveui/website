@@ -5,12 +5,12 @@
   "author": {
     "name": "Ryan McGeary",
     "email": "ryan@mcgeary.org",
-    "url": "http://ryan.mcgeary.org/"
+    "url": "https://ryan.mcgeary.org/"
   },
   "licenses": [
     {
       "type": "MIT",
-      "url": "http://opensource.org/licenses/mit-license.php"
+      "url": "https://opensource.org/licenses/mit-license.php"
     }
   ],
   "dependencies": {
@@ -21,10 +21,10 @@
     "time",
     "microformat"
   ],
-  "homepage": "http://timeago.yarp.com/",
+  "homepage": "https://timeago.yarp.com/",
   "docs": "https://github.com/rmm5t/jquery-timeago",
-  "demo": "http://timeago.yarp.com/",
-  "download": "http://timeago.yarp.com/jquery.timeago.js",
+  "demo": "https://timeago.yarp.com/",
+  "download": "https://timeago.yarp.com/jquery.timeago.js",
   "bugs": "https://github.com/rmm5t/jquery-timeago/issues",
   "maintainers": []
 }

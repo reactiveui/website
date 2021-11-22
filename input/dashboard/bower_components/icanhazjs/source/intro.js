@@ -1,4 +1,4 @@
 /*!
 ICanHaz.js version @VERSION@ -- by @HenrikJoreteg
-More info at: http://icanhazjs.com
+More info at: https://icanhazjs.com
 */
