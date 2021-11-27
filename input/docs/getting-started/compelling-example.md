@@ -120,7 +120,7 @@ We also need a NuGet client library in this tutorial, and we are going to instal
             var packageSource = new PackageSource("https://api.nuget.org/v3/index.json");
             var source = new SourceRepository(packageSource, providers);
             ILogger logger = NullLogger.Instance;
-
+    
             var filter = new SearchFilter(false);
             var resource = await source.GetResourceAsync<PackageSearchResource>().ConfigureAwait(false);
             var metadata = await resource.SearchAsync(term, filter, 0, 10, logger, token).ConfigureAwait(false);
@@ -176,7 +176,7 @@ ReactiveUI allows you to create views using two different approaches. The recomm
 
 First, we need to register our views in the `App.xaml.cs` file.
 
-    public partial class App : Application
+    public partial class App
     {
         public App()
         {
@@ -227,7 +227,7 @@ We are going to use [ReactiveUI Binding](https://reactiveui.net/docs/handbook/da
     // MainWindow class derives off ReactiveWindow which implements the IViewFor<TViewModel>
     // interface using a WPF DependencyProperty. We need this to use WhenActivated extension
     // method that helps us handling View and ViewModel activation and deactivation.
-    public partial class MainWindow : ReactiveWindow<AppViewModel>
+    public partial class MainWindow
     {
         public MainWindow()
         {
@@ -298,7 +298,7 @@ Then edit code-behind of the `NugetDetailsView`.
     // In our MainWindow when we register the ListBox with the collection of 
     // NugetDetailsViewModels if no ItemTemplate has been declared it will search for 
     // a class derived off IViewFor<NugetDetailsViewModel> and show that for the item.
-    public partial class NugetDetailsView : ReactiveUserControl<NugetDetailsViewModel>
+    public partial class NugetDetailsView
     {
         public NugetDetailsView()
         {
@@ -365,7 +365,7 @@ The first thing you need to do is creating a converter, while we have a boolean 
 
 Now we should initialize the DataContext of our MainWindow by assigning an instance of the AppViewModel to it. Go to `MainWindow.xaml.cs` and do this:
 
-    public partial class MainWindow : Window
+    public partial class MainWindow
     {
         public MainWindow()
         {
