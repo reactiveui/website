@@ -405,7 +405,7 @@
       TinyURL (for chart): \
       <iframe id="tiny_url" frameBorder="0" scrolling="no" src=""></iframe> \
       </div> \
-      <a id="jslitmus_credit" title="JSLitmus home page" href="http://code.google.com/p/jslitmus" target="_blank">Powered by JSLitmus</a> \
+      <a id="jslitmus_credit" title="JSLitmus home page" href="https://code.google.com/p/jslitmus" target="_blank">Powered by JSLitmus</a> \
     </div>';
 
   /**
