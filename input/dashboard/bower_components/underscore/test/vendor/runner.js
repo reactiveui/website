@@ -1,7 +1,7 @@
 /*
  * QtWebKit-powered headless test runner using PhantomJS
  *
- * PhantomJS binaries: http://phantomjs.org/download.html
+ * PhantomJS binaries: https://phantomjs.org/download.html
  * Requires PhantomJS 1.6+ (1.7+ recommended)
  *
  * Run with:
