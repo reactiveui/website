@@ -504,8 +504,13 @@ pre:hover .btn-copy {
 
 .content,
 .content-header {
-  padding-left: 40px;
-  padding-right: 40px;
+  padding-left: 15px;
+  padding-right: 15px;
+  @media (min-width: 768px) {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+
   @media (min-width: 1200px) {
     padding-left: 60px;
     padding-right: 60px;
@@ -518,6 +523,10 @@ pre:hover .btn-copy {
   @media (min-width: 1200px) {
     margin-left: -1em !important;
     padding-right: 0.5em !important;
+  }
+
+  @media (max-width: 767px) {
+    display: none;
   }
 
   &:hover {
