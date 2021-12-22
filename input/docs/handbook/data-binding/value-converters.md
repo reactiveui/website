@@ -1,4 +1,4 @@
-A value converter should implement the `IBindingTypeConverter` interface. See an example of a globally registered converter type that converts between Boolean and XAML Visibility: [BooleanToVisibilityTypeConverter.cs](https://github.com/reactiveui/ReactiveUI/blob/main/src/ReactiveUI/Platforms/windows-common/BooleanToVisibilityTypeConverter.cs)
+A value converter should implement the `IBindingTypeConverter` interface. See an example of a globally registered converter type that converts between Boolean and XAML Visibility: [BooleanToVisibilityTypeConverter.cs](https://referencesource.microsoft.com/#PresentationFramework/src/Framework/System/windows/Controls/BooleanToVisibilityConverter.cs)
 
 ## How GetAffinityForObjects works
 
