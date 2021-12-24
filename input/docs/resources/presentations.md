@@ -18,9 +18,7 @@ ReactiveUI with Michael Stonis
 
 
 <div class="video-iframe-wrapper">
-    <div class="video-iframe-item">
-        <iframe src="https://channel9.msdn.com/Shows/XamarinShow/The-Xamarin-Show-17-ReactiveUI-with-Michael-Stonis/player" width="960" height="540" allowFullScreen frameBorder="0"></iframe>
-    </div>
+    <?# YouTube GSKFk-A4omo /?>
 </div>
 
 # 2016
