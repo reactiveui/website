@@ -18,7 +18,9 @@ ReactiveUI with Michael Stonis
 
 
 <div class="video-iframe-wrapper">
-    <?# YouTube GSKFk-A4omo /?>
+  <div class="video-iframe-item">
+      <?# YouTube GSKFk-A4omo /?>
+  </div>
 </div>
 
 # 2016
