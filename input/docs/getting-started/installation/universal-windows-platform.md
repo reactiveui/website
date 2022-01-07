@@ -14,5 +14,6 @@ Assuming the following project structure:
 ```
 
 * Install `ReactiveUI` into your netstandard library, platform library, application and tests.
+* Install `ReactiveUI.UWP` into your application.
 * Install `ReactiveUI.Events` into your netstandard library and application.
 * Install `ReactiveUI.Testing` into your tests.
