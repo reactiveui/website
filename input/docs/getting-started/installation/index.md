@@ -5,45 +5,58 @@ Order: 10
 ReactiveUI packages are now signed by the dotnet foundation. Only builds from their infrastructure carry this seal.  ReactiveUI uses Azure Dev Ops for our CI pipeline. Each platform has packages that extend the base ReactiveUI offerings for it's concerns.  Installing the correct packages for the correct platform can be somewhat of a pain.
 
 
-| Platform          | ReactiveUI Package                  | NuGet                | [Events][EventsDocs] Package            |
-| ----------------- | ----------------------------------- | -------------------- | --------------------------------------- |
-| .NET Standard     | [ReactiveUI][CoreDoc]               | [![CoreBadge]][Core] | None                                    |
-|                   | [ReactiveUI.Fody][FodyDoc]          | [![FodyBadge]][Fody] | None                                    |
-| .NET 5            | [ReactiveUI][CoreDoc]               | [![CoreBadge]][Core] | None                                    |
-|                   | [ReactiveUI.Fody][FodyDoc]          | [![FodyBadge]][Fody] | None                                    |
-| Unit Testing      | [ReactiveUI.Testing][TestDoc]       | [![TestBadge]][Test] | None                                    |
-| Universal Windows | [ReactiveUI][UniDoc]                | [![CoreBadge]][Core] | [ReactiveUI.Events][CoreEvents]         |
-| WPF               | [ReactiveUI.WPF][WpfDoc]            | [![WpfBadge]][Wpf]   | [ReactiveUI.Events.WPF][WpfEvents]      |
-| Windows Forms     | [ReactiveUI.WinForms][WinDoc]       | [![WinBadge]][Win]   | [ReactiveUI.Events.WinForms][WinEvents] |
-| Xamarin.Forms     | [ReactiveUI.XamForms][XamDoc]       | [![XamBadge]][Xam]   | [ReactiveUI.Events.XamForms][XamEvents] |
-| Xamarin.Essentials| [ReactiveUI][XamDoc]                | [![CoreBadge]][Core] | [ReactiveUI.Events.XamEssentials][XamE] |
-| Xamarin.Android   | [ReactiveUI.AndroidSupport][DroDoc] | [![DroBadge]][Dro]   | [ReactiveUI.Events][CoreEvents]         |
-| Xamarin.iOS       | [ReactiveUI][IosDoc]                | [![CoreBadge]][Core] | [ReactiveUI.Events][CoreEvents]         |
-| Xamarin.Mac       | [ReactiveUI][MacDoc]                | [![CoreBadge]][Core] | [ReactiveUI.Events][CoreEvents]         |
-| Tizen             | [ReactiveUI][CoreDoc]               | [![CoreBadge]][Core] | [ReactiveUI.Events][CoreEvents]         |
-| Platform Uno      | [ReactiveUI.Uno][UnoDoc]            | [![UnoBadge]][Uno]   | None                                    |
-| Avalonia          | [Avalonia.ReactiveUI][AvaDoc]       | [![AvaBadge]][Ava]   | None                                    |
-| Any               | [ReactiveUI.Validation][ValidationsDocs]    | [![ValidationsBadge]][ValidationsCore] | None
+| Platform          | ReactiveUI Package                  | NuGet                  |
+| ----------------- | ----------------------------------- | ---------------------- |
+| .NET Standard     | [ReactiveUI][CoreDoc]               | [![CoreBadge]][Core]   |
+|                   | [ReactiveUI.Fody][FodyDoc]          | [![FodyBadge]][Fody]   |
+| .NET 6            | [ReactiveUI][CoreDoc]               | [![CoreBadge]][Core]   |
+|                   | [ReactiveUI.Fody][FodyDoc]          | [![FodyBadge]][Fody]   |
+| Unit Testing      | [ReactiveUI.Testing][TestDoc]       | [![TestBadge]][Test]   |
+| WPF               | [ReactiveUI.WPF][WpfDoc]            | [![WpfBadge]][Wpf]     |
+| UWP               | [ReactiveUI.Uwp][UwpDoc]            | [![UwpBadge]][Uwp]     |
+| WinUI             | [ReactiveUI.WinUI][WinUiDoc]        | [![WinUiBadge]][WinUi] |
+| MAUI              | [ReactiveUI.Maui][MauiDoc]          | [![MauiBadge]][Maui]   |
+| Windows Forms     | [ReactiveUI.WinForms][WinDoc]       | [![WinBadge]][Win]     |
+| Xamarin.Forms     | [ReactiveUI.XamForms][XamDoc]       | [![XamBadge]][Xam]     |
+| Xamarin.Essentials| [ReactiveUI][XamDoc]                | [![CoreBadge]][Core]   |
+| AndroidX (Xamarin)| [ReactiveUI.AndroidX][DroDoc]       | [![DroXBadge]][DroX]   |
+| Xamarin.Android   | [ReactiveUI.AndroidSupport][DroDoc] | [![DroBadge]][Dro]     |
+| Xamarin.iOS       | [ReactiveUI][IosDoc]                | [![CoreBadge]][Core]   |
+| Xamarin.Mac       | [ReactiveUI][MacDoc]                | [![CoreBadge]][Core]   |
+| Tizen             | [ReactiveUI][CoreDoc]               | [![CoreBadge]][Core]   |
+| Blazor            | [ReactiveUI.Blazor][BlazDoc]        | [![BlazBadge]][Blaz]   |
+| Platform Uno      | [ReactiveUI.Uno][UnoDoc]            | [![UnoBadge]][Uno]     |
+| Platform Uno      | [ReactiveUI.Uno.WinUI][UnoWinUiDoc] | [![UnoWinUiBadge]][UnoWinUi] |
+| Avalonia          | [Avalonia.ReactiveUI][AvaDoc]       | [![AvaBadge]][Ava]     |
+| Any               | [ReactiveUI.Validation][ValDocs]    | [![ValBadge]][ValCore] |
 
 [Core]: https://www.nuget.org/packages/ReactiveUI/
-[CoreEvents]: https://www.nuget.org/packages/ReactiveUI.Events/
 [CoreBadge]: https://img.shields.io/nuget/v/ReactiveUI.svg
 [CoreDoc]: https://reactiveui.net/docs/getting-started/installation/
 
 [Fody]: https://www.nuget.org/packages/ReactiveUI.Fody/
-[FodyDoc]: https://reactiveui.net/docs/handbook/view-models/#managing-boilerplate-code
+[FodyDoc]: https://reactiveui.net/docs/handbook/view-models/boilerplate-code
 [FodyBadge]: https://img.shields.io/nuget/v/ReactiveUI.Fody.svg
 
 [Test]: https://www.nuget.org/packages/ReactiveUI.Testing/
 [TestBadge]: https://img.shields.io/nuget/v/ReactiveUI.Testing.svg
 [TestDoc]: https://reactiveui.net/docs/handbook/testing/
 
-[UniDoc]: https://reactiveui.net/docs/getting-started/installation/universal-windows-platform
-
 [Wpf]: https://www.nuget.org/packages/ReactiveUI.WPF/
-[WpfEvents]: https://www.nuget.org/packages/ReactiveUI.Events.WPF/
 [WpfBadge]: https://img.shields.io/nuget/v/ReactiveUI.WPF.svg
 [WpfDoc]: https://reactiveui.net/docs/getting-started/installation/windows-presentation-foundation
+
+[Uwp]: https://www.nuget.org/packages/ReactiveUI.Uwp/
+[UwpBadge]: https://img.shields.io/nuget/v/ReactiveUI.Uwp.svg
+[UwpDoc]: https://reactiveui.net/docs/getting-started/installation/universal-windows-platform
+
+[WinUi]: https://www.nuget.org/packages/ReactiveUI.WinUI/
+[WinUiBadge]: https://img.shields.io/nuget/v/ReactiveUI.WinUI.svg
+[WinUiDoc]: https://reactiveui.net/docs/getting-started/installation/universal-windows-platform
+
+[Maui]: https://www.nuget.org/packages/ReactiveUI.Maui/
+[MauiBadge]: https://img.shields.io/nuget/v/ReactiveUI.Maui.svg
+[MauiDoc]: https://blog.jetbrains.com/dotnet/2020/09/18/xamarin-maui-and-the-reactive-mvvm-between-them-webinar-recording/
 
 [Win]: https://www.nuget.org/packages/ReactiveUI.WinForms/
 [WinEvents]: https://www.nuget.org/packages/ReactiveUI.Events.WinForms/
@@ -54,11 +67,12 @@ ReactiveUI packages are now signed by the dotnet foundation. Only builds from th
 [XamEvents]: https://www.nuget.org/packages/ReactiveUI.Events.XamForms/
 [XamBadge]: https://img.shields.io/nuget/v/ReactiveUI.XamForms.svg
 [XamDoc]: https://reactiveui.net/docs/getting-started/installation/xamarin-forms
-[XamE]: https://www.nuget.org/packages/ReactiveUI.Events.XamEssentials/
-
 [Dro]: https://www.nuget.org/packages/ReactiveUI.AndroidSupport/
 [DroBadge]: https://img.shields.io/nuget/v/ReactiveUI.AndroidSupport.svg
 [DroDoc]: https://reactiveui.net/docs/getting-started/installation/xamarin-android
+
+[DroX]: https://www.nuget.org/packages/ReactiveUI.AndroidX/
+[DroXBadge]: https://img.shields.io/nuget/v/ReactiveUI.AndroidX.svg
 
 [MacDoc]: https://reactiveui.net/docs/getting-started/installation/xamarin-mac
 [IosDoc]: https://reactiveui.net/docs/getting-started/installation/xamarin-ios
@@ -66,16 +80,22 @@ ReactiveUI packages are now signed by the dotnet foundation. Only builds from th
 [Uno]: https://www.nuget.org/packages/ReactiveUI.Uno/
 [UnoBadge]: https://img.shields.io/nuget/v/ReactiveUI.Uno.svg
 [UnoDoc]: https://reactiveui.net/docs/getting-started/installation/uno-platform
+[UnoWinUi]: https://www.nuget.org/packages/ReactiveUI.Uno.WinUI/
+[UnoWinUiBadge]: https://img.shields.io/nuget/v/ReactiveUI.Uno.WinUI.svg
+[UnoWinUiDoc]: https://reactiveui.net/docs/getting-started/installation/uno-platform
 
+[Blaz]: https://www.nuget.org/packages/ReactiveUI.Blazor/
+[BlazBadge]: https://img.shields.io/nuget/v/ReactiveUI.Blazor.svg
+[BlazDoc]: https://www.reactiveui.net/blog/2020/07/article-blazor-compelling-example
 
 [Ava]: https://www.nuget.org/packages/Avalonia.ReactiveUI/
 [AvaBadge]: https://img.shields.io/nuget/v/Avalonia.ReactiveUI.svg
 [AvaDoc]: https://reactiveui.net/docs/getting-started/installation/avalonia
 [EventsDocs]: https://reactiveui.net/docs/handbook/events/
 
-[ValidationsCore]: https://www.nuget.org/packages/ReactiveUI.Validation/
-[ValidationsBadge]: https://img.shields.io/nuget/v/ReactiveUI.Validation.svg
-[ValidationsDocs]: https://reactiveui.net/docs/handbook/user-input-validation/
+[ValCore]: https://www.nuget.org/packages/ReactiveUI.Validation/
+[ValBadge]: https://img.shields.io/nuget/v/ReactiveUI.Validation.svg
+[ValDocs]: https://reactiveui.net/docs/handbook/user-input-validation/
 
 > **Note** ReactiveUI has packages for older .NET versions. Those packages are unlisted from NuGet and not supported, but you can still use them at your own risk to have ReactiveUI running on good old devices, such as Lumias, Surface Hubs, Windows XP, etc. See [Delisting of versions before 8.0.0 from NuGet](https://reactiveui.net/blog/2018/05/delisting-of-versions-before-8-0-0-from-nuget) blog post for more info.
 
