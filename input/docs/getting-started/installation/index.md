@@ -25,8 +25,8 @@ ReactiveUI packages are now signed by the dotnet foundation. Only builds from th
 | Xamarin.Mac       | [ReactiveUI][MacDoc]                | [![CoreBadge]][Core]   |
 | Tizen             | [ReactiveUI][CoreDoc]               | [![CoreBadge]][Core]   |
 | Blazor            | [ReactiveUI.Blazor][BlazDoc]        | [![BlazBadge]][Blaz]   |
-| Platform Uno      | [ReactiveUI.Uno][UnoDoc]            | [![UnoBadge]][Uno]     |
-|                   | [ReactiveUI.Uno.WinUI][UnoWinUiDoc] | [![UnoWinUiBadge]][UnoWinUi] |
+| Uno               | [ReactiveUI.Uno][UnoDoc]            | [![UnoBadge]][Uno]     |
+| Uno WinUI         | [ReactiveUI.Uno.WinUI][UnoWinUiDoc] | [![UnoWinUiBadge]][UnoWinUi] |
 | Avalonia          | [Avalonia.ReactiveUI][AvaDoc]       | [![AvaBadge]][Ava]     |
 | Any               | [ReactiveUI.Validation][ValDocs]    | [![ValBadge]][ValCore] |
 
@@ -79,10 +79,10 @@ ReactiveUI packages are now signed by the dotnet foundation. Only builds from th
 
 [Uno]: https://www.nuget.org/packages/ReactiveUI.Uno/
 [UnoBadge]: https://img.shields.io/nuget/v/ReactiveUI.Uno.svg
-[UnoDoc]: https://reactiveui.net/docs/getting-started/installation/uno-platform
+[UnoDoc]: https://platform.uno/blog/getting-started-with-uno-platform-and-reactiveui/
 [UnoWinUi]: https://www.nuget.org/packages/ReactiveUI.Uno.WinUI/
 [UnoWinUiBadge]: https://img.shields.io/nuget/v/ReactiveUI.Uno.WinUI.svg
-[UnoWinUiDoc]: https://reactiveui.net/docs/getting-started/installation/uno-platform
+[UnoWinUiDoc]: https://platform.uno/docs/articles/uwp-vs-winui3.html
 
 [Blaz]: https://www.nuget.org/packages/ReactiveUI.Blazor/
 [BlazBadge]: https://img.shields.io/nuget/v/ReactiveUI.Blazor.svg
