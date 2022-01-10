@@ -26,7 +26,7 @@ ReactiveUI packages are now signed by the dotnet foundation. Only builds from th
 | Tizen             | [ReactiveUI][CoreDoc]               | [![CoreBadge]][Core]   |
 | Blazor            | [ReactiveUI.Blazor][BlazDoc]        | [![BlazBadge]][Blaz]   |
 | Platform Uno      | [ReactiveUI.Uno][UnoDoc]            | [![UnoBadge]][Uno]     |
-| Platform Uno      | [ReactiveUI.Uno.WinUI][UnoWinUiDoc] | [![UnoWinUiBadge]][UnoWinUi] |
+|                   | [ReactiveUI.Uno.WinUI][UnoWinUiDoc] | [![UnoWinUiBadge]][UnoWinUi] |
 | Avalonia          | [Avalonia.ReactiveUI][AvaDoc]       | [![AvaBadge]][Ava]     |
 | Any               | [ReactiveUI.Validation][ValDocs]    | [![ValBadge]][ValCore] |
 
