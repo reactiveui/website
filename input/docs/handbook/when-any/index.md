@@ -36,7 +36,9 @@ The following examples demonstrate simple uses of `WhenAnyValue`; the `WhenAny` 
 
 ### Watching single property
 
-This returns an observable that yields the current value of `Foo` each time it changes:
+`WhenAnyValue` will return the initial value of the property, and any subsequent changes to the property.
+
+For example, this returns an observable that yields the current value of `Foo`, and any subsequent changes:
 
 ```cs
 this.WhenAnyValue(x => x.Foo)
@@ -44,12 +46,16 @@ this.WhenAnyValue(x => x.Foo)
 
 ### Watching a number of properties
 
-This returns an observable that yields a new `Color` with the latest RGB values each time any of the properties change. The final parameter is a selector describing how to combine the three observed properties:
+This returns an observable that yields a new `Color` with the values of Red, Green and Blue properties, and then will emit a new value in the observable when any of the property values change.
+
+The final parameter is a selector describing how to combine the three observed properties:
 
 ```cs
 this.WhenAnyValue(x => x.Red, x => x.Green, x => x.Blue, 
                   (r, g, b) => new Color(r, g, b));
 ```
+
+Note, if any of the properties are null then a value will not be emitted.
 
 ### Watching a nested property
 
@@ -58,6 +64,8 @@ this.WhenAnyValue(x => x.Red, x => x.Green, x => x.Blue,
 ```cs
 this.WhenAnyValue(x => x.Foo.Bar.Baz);
 ```
+
+Presuming the properties between `Foo.Bar.Baz` are not null it'll emit the current value and then any subsequent values.
 
 ### Usage
 
