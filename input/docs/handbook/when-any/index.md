@@ -65,7 +65,7 @@ Note, if any of the properties are null then a value will not be emitted.
 this.WhenAnyValue(x => x.Foo.Bar.Baz);
 ```
 
-Presuming the properties between `Foo.Bar.Baz` are not null it'll emit the current value and then any subsequent values.
+Presuming the properties between `Foo.Bar.Baz` are not null it will emit the current value and then any subsequent values.
 
 ### Usage
 
