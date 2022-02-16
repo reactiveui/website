@@ -55,8 +55,6 @@ this.WhenAnyValue(x => x.Red, x => x.Green, x => x.Blue,
                   (r, g, b) => new Color(r, g, b));
 ```
 
-Note, if any of the properties are null then a value will not be emitted.
-
 ### Watching a nested property
 
 `WhenAny` variants can observe nested properties for changes, too:
@@ -66,6 +64,8 @@ this.WhenAnyValue(x => x.Foo.Bar.Baz);
 ```
 
 Presuming the properties between `Foo.Bar.Baz` are not null it will emit the current value and then any subsequent values.
+
+If either `Foo` or `Bar` are null then the value of `Baz` won't be emitted.
 
 ### Usage
 
