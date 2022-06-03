@@ -78,7 +78,7 @@ _users = LoadUsers.ToProperty(
 
 // Here we subscribe to all exceptions thrown by our 
 // command and log them using ReactiveUI logging system.
-// If we forget to do this, our application will crush
+// If we forget to do this, our application will crash
 // if anything goes wrong in LoadUsers command.
 LoadUsers.ThrownExceptions.Subscribe(exception => 
 {
