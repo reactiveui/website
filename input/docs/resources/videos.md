@@ -1,5 +1,17 @@
 Order: 10
 ---
+# 2021
+
+## On .NET Live - Building Reactive UIs with Blazor
+
+In this live session, Rodney Littles II shows us how to build Blazor applications with the ReactiveUI framework
+
+<div class="video-iframe-wrapper">
+    <div class="video-iframe-item">
+        <?# YouTube EUOimtP78jQ /?>
+    </div>
+</div>
+
 # 2020
 
 ## Going Reactive with Reactive Extensions and ReactiveUI
