@@ -12,7 +12,101 @@ In this live session, Rodney Littles II shows us how to build Blazor application
     </div>
 </div>
 
+## WhenAnyObservable
+
+<div class="video-iframe-wrapper">
+    <div class="video-iframe-item">
+        <?# YouTube fwgttXQzU60 /?>
+    </div>
+</div>
+
 # 2020
+
+## Getting started with Avalonia and ReactiveUI
+
+- WhenAny, commands, validation.
+- Suspension and routing.
+- Testing and code sharing.
+- IObservable wrappers generator for old C# events.
+- Strongly typed `x:Name` reference generator.
+
+<div class="video-iframe-wrapper">
+    <div class="video-iframe-item">
+        <?# YouTube q6uWPtKw3UQ /?>
+    </div>
+</div>
+
+## Internals of ReactiveUI
+
+<div class="video-iframe-wrapper">
+    <div class="video-iframe-item">
+        <?# YouTube luLwZjMlUns /?>
+    </div>
+</div>
+
+## Bridge the gap with Dynamic Data
+
+<div class="video-iframe-wrapper">
+    <div class="video-iframe-item">
+        <?# YouTube 1C3XNjbYizs /?>
+    </div>
+</div>
+
+## RxUI + Uno Platform: Getting Started
+
+<div class="video-iframe-wrapper">
+    <div class="video-iframe-item">
+        <?# YouTube 7wedHibcNZU /?>
+    </div>
+</div>
+
+## Dualscreen, .NET MAUI and ReactiveUI
+
+<div class="video-iframe-wrapper">
+    <div class="video-iframe-item">
+        <?# YouTube Rkz6Dkk1uWU /?>
+    </div>
+</div>
+
+## Build an application with ReactiveUI
+
+<div class="video-iframe-wrapper">
+    <div class="video-iframe-item">
+        <?# YouTube LuY1Y1-gh2Y /?>
+    </div>
+</div>
+
+## RxUI Conf
+
+- Q&A with the ReactiveUI Team — by Ani Betts
+- RxUI + Uno Platform: Getting Started — by Andres Pineda
+- DualScreen, .NET MAUI, and ReactiveUI — by Shane Neuville
+- Advanced Rx And Dragons — by Michael Stonis
+- Internals of ReactiveUI — by Glenn Watson
+- Build an Application with ReactiveUI — by Rodney Littles, II
+- Bridge the gap with DynamicData — by David Driscoll
+
+<div class="video-iframe-wrapper">
+    <div class="video-iframe-item">
+        <?# YouTube FjqZbkZYOzw /?>
+    </div>
+</div>
+
+## ReactiveUI intro to WhenAnyValue
+
+<div class="video-iframe-wrapper">
+    <div class="video-iframe-item">
+        <?# YouTube IH2yx7b9DNY /?>
+    </div>
+</div>
+
+## ReactiveUI Source Generators
+
+<div class="video-iframe-wrapper">
+    <div class="video-iframe-item">
+        <?# YouTube englks0yKKI /?>
+    </div>
+</div>
 
 ## Going Reactive with Reactive Extensions and ReactiveUI
 
