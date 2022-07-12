@@ -28,11 +28,7 @@ The following examples demonstrate simple uses of `WhenAnyValue`; the `WhenAny` 
 
 ## WhenAnyValue
 
-<div class="video-iframe-wrapper">
-    <div class="video-iframe-item">
-        <?# YouTube IH2yx7b9DNY /?>
-    </div>
-</div>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/IH2yx7b9DNY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ### Watching single property
 

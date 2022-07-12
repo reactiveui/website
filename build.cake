@@ -1,6 +1,6 @@
-#tool "dotnet:?package=Wyam.Tool&version=2.2.9"
+#tool "dotnet:?package=Wyam2&version=3.0.0"
 #addin "nuget:?package=Cake.Git&version=2.0.0"
-#addin "nuget:?package=Octokit&version=0.50.0"
+#addin "nuget:?package=Octokit&version=0.52.0"
 
 using Octokit;
 
@@ -67,7 +67,7 @@ Task("Build")
     .IsDependentOn("GetArtifacts")
     .Does(() =>
     {
-        StartProcess(Context.Tools.Resolve("wyam*"), new ProcessSettings {
+        StartProcess(Context.Tools.Resolve("wyam2*"), new ProcessSettings {
                     Arguments = new ProcessArgumentBuilder()
                         .Append("build")
                         .AppendSwitch("--recipe", "Docs")

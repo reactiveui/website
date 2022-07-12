@@ -39,11 +39,7 @@ this.Events().KeyUp
     .Subscribe(y => { });
 ```
 
-<div class="video-iframe-wrapper">
-    <div class="video-iframe-item">
-        <?# YouTube tNn-7fen3DA /?>
-    </div>
-</div>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/tNn-7fen3DA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Using events with WhenActivated
 
