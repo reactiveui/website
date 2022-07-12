@@ -11,7 +11,7 @@ All the ReactiveUI snippet shortcuts start with the letters **rui** making them 
 You have 2 options.
 
 1. Copy the snippets in the following directory:  
-`c:\Users\<your-username>\Documents\Visual Studio 2022\Code Snippets\Visual C#\My Code Snippets\`
+`C:\Users\<your-username>\Documents\Visual Studio 2022\Code Snippets\Visual C#\My Code Snippets\`
 
 Or:
 
