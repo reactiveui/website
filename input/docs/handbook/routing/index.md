@@ -155,7 +155,7 @@ Now we need to place the `RoutedViewHost` XAML control to our view that will con
 
 ```xml
 <rxui:ReactiveWindow
-    xmlns:rxui="https://reactiveui.net" 
+    xmlns:rxui="http://reactiveui.net" 
     x:Class="ReactiveRouting.MainWindow"
     x:TypeArguments="vm:MainViewModel"
     xmlns:vm="clr-namespace:ReactiveRouting"
