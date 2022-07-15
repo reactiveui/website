@@ -127,7 +127,7 @@ public class AutofacDependencyResolver : IMutableDependencyResolver
 ```csharp
 // Build a new Autofac container.
 var containerBuilder = new ContainerBuilder();
-container.RegisterType<MainPage>().As<IViewFor<MainViewModel>>();
+containerBuilder.RegisterType<MainPage>().As<IViewFor<MainViewModel>>();
 
 // Use your own IMutableDependencyResolver implementation.
 Locator.SetLocator(new AutofacDependencyResolver(containerBuilder.Build()));
