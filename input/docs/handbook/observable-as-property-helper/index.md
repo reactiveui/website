@@ -89,7 +89,7 @@ var nameStatusObservable = this
 
 // name is ObservableAsPropertyHelper<string>
 name = nameStatusObservable
-    .ToProperty(this, nameof(FirstName), deferSubscription: true);
+    .ToProperty(this, nameof(Name), deferSubscription: true);
 
 // nameStatusObservable won't be subscribed until the 
 // Name property is accessed.
