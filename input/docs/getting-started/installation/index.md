@@ -140,7 +140,7 @@ ReactiveUI is published to [NuGet.org](https://www.nuget.org/packages?q=Reactive
 
 - ReactiveUI
     - [ReactiveUI](https://www.nuget.org/packages/ReactiveUI/) is the base package that has the base platform implementations.
- ReactiveUI.Blazor
+ - ReactiveUI.Blazor
     - [ReactiveUI.Blazor](https://www.nuget.org/packages/ReactiveUI.Blazor/) this package has ReactiveUI platform specific extensions for Blazor
 - ReactiveUI.Events
     - [ReactiveUI.Events](https://www.nuget.org/packages/ReactiveUI.Events/) is the base package for ReactiveUI Events as Observables API.
