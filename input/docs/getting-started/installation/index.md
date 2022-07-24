@@ -86,7 +86,7 @@ ReactiveUI packages are now signed by the dotnet foundation. Only builds from th
 
 [Blaz]: https://www.nuget.org/packages/ReactiveUI.Blazor/
 [BlazBadge]: https://img.shields.io/nuget/v/ReactiveUI.Blazor.svg
-[BlazDoc]: https://www.reactiveui.net/blog/2020/07/article-blazor-compelling-example
+[BlazDoc]: https://reactiveui.net/docs/getting-started/installation/blazor
 
 [Ava]: https://www.nuget.org/packages/Avalonia.ReactiveUI/
 [AvaBadge]: https://img.shields.io/nuget/v/Avalonia.ReactiveUI.svg
@@ -140,6 +140,8 @@ ReactiveUI is published to [NuGet.org](https://www.nuget.org/packages?q=Reactive
 
 - ReactiveUI
     - [ReactiveUI](https://www.nuget.org/packages/ReactiveUI/) is the base package that has the base platform implementations.
+ - ReactiveUI.Blazor
+    - [ReactiveUI.Blazor](https://www.nuget.org/packages/ReactiveUI.Blazor/) this package has ReactiveUI platform specific extensions for Blazor
 - ReactiveUI.Events
     - [ReactiveUI.Events](https://www.nuget.org/packages/ReactiveUI.Events/) is the base package for ReactiveUI Events as Observables API.
 - ReactiveUI.WinForms
