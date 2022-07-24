@@ -2,7 +2,7 @@
 
 ## Splat
 
-It's recommended to override the `ModeDetector` in your application to improve startup performance. In order to do that the first thing has to be to register the built-in `Mode.Run` mode.
+It's recommended to override the `ModeDetector` in your application to improve startup performance. In order to do that the first thing has to be when the application starts, is to register the built-in `Mode.Run` mode.
 
 ```csharp
 public App()
