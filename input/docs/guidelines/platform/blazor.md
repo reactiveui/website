@@ -7,9 +7,10 @@ Ensure that you install `ReactiveUI.Blazor` into your application.
 
 ### ViewModel
 
-Your ViewModel should inherit from `ReactiveObject`
+Your ViewModel should inherit from `ReactiveObject` or 'ReactiveValidationObject' if you wish to use [ReactiveUI.Validation](https://www.reactiveui.net/docs/handbook/user-input-validation/)
 
 - [ReactiveObject](https://reactiveui.net/api/reactiveui/reactiveobject/)
+- [ReactiveValidationObject](https://reactiveui.net/api/reactiveui.validation.helpers/reactivevalidationobject/)
 
 Use `IActivatableViewModel` and `WhenActivated` for lifecycle
 
