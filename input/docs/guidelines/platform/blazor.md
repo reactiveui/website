@@ -7,9 +7,10 @@ Ensure that you install `ReactiveUI.Blazor` into your application.
 
 ### ViewModel
 
-Your ViewModel should inherit from `ReactiveObject`
+Your ViewModel should inherit from `ReactiveObject` or 'ReactiveValidationObject' if you wish to use [ReactiveUI.Validation](https://www.reactiveui.net/docs/handbook/user-input-validation/)
 
 - [ReactiveObject](https://reactiveui.net/api/reactiveui/reactiveobject/)
+- [ReactiveValidationObject](https://reactiveui.net/api/reactiveui.validation.helpers/reactivevalidationobject/)
 
 Use `IActivatableViewModel` and `WhenActivated` for lifecycle
 
@@ -28,9 +29,9 @@ Use disposables to manage lifetime, scope and resources:
 
 Your Page (View) should inherit from
 
-- [ReactiveComponentBase<T>](https://www.reactiveui.net/api/reactiveui.blazor/reactivecomponentbase_1/): If you want to instantiate your ViewModel corresponding to the View, then set the ViewModel property in the Page's code behind.  
+- [ReactiveComponentBase<T>](https://www.reactiveui.net/api/reactiveui.blazor/reactivecomponentbase_1/): If you want to pass your ViewModel to the page as a parameter or you want to instantiate it to the View, then set the ViewModel property in the Page's code behind.
 - [ReactiveInjectableComponentBase<T>](https://www.reactiveui.net/api/reactiveui.blazor/reactiveinjectablecomponentbase_1/): If you want that your corresponding ViewModel should be injected by the dependency injection container.
-- [ReactiveLayoutComponentBase](https://www.reactiveui.net/api/reactiveui.blazor/reactivelayoutcomponentbase_1/):
+- [ReactiveLayoutComponentBase](https://www.reactiveui.net/api/reactiveui.blazor/reactivelayoutcomponentbase_1/): If you only want to instantiate your ViewModel corresponding to the View, then just set the ViewModel property in the Page's code behind.
 
 
 Use your normal Blazor concepts that you would usually use in Blazor development. There's also some extension methods which will make your life easier
