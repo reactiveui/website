@@ -2,7 +2,7 @@ title: Creating and Subscribing to Simple Observable Sequences
 ---
 # Creating and Subscribing to Simple Observable Sequences
 
-You do not need to implement the IObservable\<T\> interface manually to create an observable sequences. Similarly, you do not need to implement IObserver\<T\> either to subscribe to a sequence. By installing the Reactive Extension assemblies, you can take advantage of the [Observable](Observable/Observable) type which provides many static LINQ operators for you to create a simple sequence with zero, one or more elements. In addition, Rx provides Subscribe extension methods that take various combinations of OnNext, OnError and OnCompleted handlers in terms of delegates.
+You do not need to implement the IObservable\<T\> interface manually to create an observable sequences. Similarly, you do not need to implement IObserver\<T\> either to subscribe to a sequence. By installing the Reactive Extension assemblies, you can take advantage of the [Observable](../Observable/Observable) type which provides many static LINQ operators for you to create a simple sequence with zero, one or more elements. In addition, Rx provides Subscribe extension methods that take various combinations of OnNext, OnError and OnCompleted handlers in terms of delegates.
 
 ## Creating and subscribing to a simple sequence
 
@@ -38,7 +38,7 @@ As soon as the subscription happens, the values are sent to the observer. The On
         }
     }
 
-When an observer subscribes to an observable sequence, the thread calling the Subscribe method can be different from the thread in which the sequence runs till completion. Therefore, the Subscribe call is asynchronous in that the caller is not blocked until the observation of the sequence completes. This will be covered in more details in the [Using Schedulers](Using/Using) topic.
+When an observer subscribes to an observable sequence, the thread calling the Subscribe method can be different from the thread in which the sequence runs till completion. Therefore, the Subscribe call is asynchronous in that the caller is not blocked until the observation of the sequence completes. This will be covered in more details in the [Using Schedulers](../Using/Using) topic.
 
 Notice that the Subscribe method returns an IDisposable, so that you can unsubscribe to a sequence and dispose of it easily. When you invoke the Dispose method on the observable sequence, the observer will stop listening to the observable for data.  Normally, you do not need to explicitly call Dispose unless you need to unsubscribe early, or when the source observable sequence has a longer life span than the observer. Subscriptions in Rx are designed for fire-and-forget scenarios without the usage of a finalizer. When the IDisposable instance is collected by the garbage collector, Rx does not automatically dispose of the subscription. However, note that the default behavior of the Observable operators is to dispose of the subscription as soon as possible (i.e, when an OnCompleted or OnError messages is published). For example, the code `var x = Observable.Zip(a,b).Subscribe();` will subscribe x to both sequences a and b. If a throws an error, x will immediately be unsubscribed from b.
 
@@ -73,7 +73,7 @@ You can also tweak the code sample to use the Create operator of the **Observabl
 
 In addition to creating an observable sequence from scratch, you can convert existing enumerators, .NET events and asynchronous patterns into observable sequences. The other topics in this section will show you how to do this.
 
-Notice that this topic only shows you a few operators that can create an observable sequence from scratch. To learn more about other LINQ operators, see [Querying Observable Sequences using LINQ Operators](Querying/Querying).
+Notice that this topic only shows you a few operators that can create an observable sequence from scratch. To learn more about other LINQ operators, see [Querying Observable Sequences using LINQ Operators](../Querying/Querying).
 
 ## Using a timer
 
@@ -203,21 +203,21 @@ This section describes how you can create and subscribe to an observable sequenc
 
 ## In This Section
 
-1. [Creating and Subscribing to Simple Observable Sequences](Creating/Creating)
+1. [Creating and Subscribing to Simple Observable Sequences](../Creating/Creating)
 
-2. [Bridging with Existing .NET Events](Bridging/Bridging)
+2. [Bridging with Existing .NET Events](../Bridging/Bridging)
 
-3. [Bridging with Existing Asynchronous Sources](Bridging/Bridging)
+3. [Bridging with Existing Asynchronous Sources](../Bridging/Bridging)
 
-4. [Querying Observable Sequences using LINQ Operators](Querying/Querying)
+4. [Querying Observable Sequences using LINQ Operators](../Querying/Querying)
 
-5. [LINQ Operators by Categories](LINQ/LINQ)
+5. [LINQ Operators by Categories](../LINQ/LINQ)
 
 ## Reference
 
-[System.Reactive](System.Reactive/System.Reactive)
+[System.Reactive](../System.Reactive/System.Reactive)
 
-[System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)
+[System.Reactive.Linq](../System.Reactive.Linq/System.Reactive.Linq)
 
 [System.Reactive.Subjects](System.Reactive.Subjects/System.Reactive.Subjects)
 
