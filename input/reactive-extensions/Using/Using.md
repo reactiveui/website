@@ -6,33 +6,39 @@ This section includes topics that explain how you use Rx to create and subscribe
 
 ## In This Section
 
-1. [Exploring The Major Interfaces in Rx](Exploring/Exploring)
+1. [Exploring The Major Interfaces in Rx](../Exploring/Exploring)
 
-2. [Creating and Querying Observable Sequences](Creating/Creating)
+2. [Creating and Querying Observable Sequences](../Creating/Creating)
 
-3. [Subjects](Subjects/Subjects)
+3. [Subjects](../Subjects/Subjects)
 
-4. [Scheduling and Concurrency](Scheduling/Scheduling)
+4. [Scheduling and Concurrency](../Scheduling/Scheduling)
 
-5. [Testing and Debugging Observable Sequences](Testing/Testing)
+5. [Testing and Debugging Observable Sequences](../Testing/Testing)
 
-6. [Implementing Your Own Operators for IObservable](Implementing/Implementing)
+6. [Implementing Your Own Operators for IObservable](../Implementing/Implementing)
 
-7. [Using Observable Providers](Using/Using)
+7. [Using Observable Providers](../Using/Using#using-observable-providers)
 
 ## Reference
 
-[System.Reactive](System.Reactive/System.Reactive)[System.Reactive.Linq](System.Reactive.Linq/System.Reactive.Linq)[System.Reactive.Concurrency](System.Reactive.Concurrency/System.Reactive.Concurrency)[System.Reactive.Subjects](System.Reactive.Subjects/System.Reactive.Subjects)
+[System.Reactive](../System.Reactive/System.Reactive)
+
+[System.Reactive.Linq](../System.Reactive.Linq/System.Reactive.Linq)
+
+[System.Reactive.Concurrency](../System.Reactive.Concurrency/System.Reactive.Concurrency)
+
+[System.Reactive.Subjects](../System.Reactive.Subjects/System.Reactive.Subjects)
 
 ## Related Sections
 
 # Using Observable Providers
 
-By implementing the [IQbservable](IQbservable/IQbservable) interface and using the factory extension methods provided by the [Qbservable](Qbservable/Qbservable) type, you can write a custom LINQ provider to query any type of external data, so that these data are treated as sequences that can be subscribed to. For example, the [LINQ to WQL sample](https://go.microsoft.com/fwlink/?linkid=208531) in the [Rx MSDN Developer Center](https://msdn.microsoft.com/en-us/data/gg577610) shows how to build a simple provider for querying WMI Events using WQL. You can use the factory LINQ operators provided by the **Qbservable** type to abstract a sequence of WMI events and query, filter and compose them. Subscribing to this sequence will trigger the translation of the LINQ query expression into the target language, in this case WQL. 
+By implementing the [IQbservable](../IQbservable/IQbservable) interface and using the factory extension methods provided by the [Qbservable](../Qbservable/Qbservable) type, you can write a custom LINQ provider to query any type of external data, so that these data are treated as sequences that can be subscribed to. For example, the [LINQ to WQL sample](https://go.microsoft.com/fwlink/?linkid=208531) in the [Rx MSDN Developer Center](https://msdn.microsoft.com/en-us/data/gg577610) shows how to build a simple provider for querying WMI Events using WQL. You can use the factory LINQ operators provided by the **Qbservable** type to abstract a sequence of WMI events and query, filter and compose them. Subscribing to this sequence will trigger the translation of the LINQ query expression into the target language, in this case WQL. 
 
 ## Using the IQbservable interface to query external data
 
-When we mention that we want to query for data, we are first concerned about what we want to query. This can be a pulled-based IEnumerable collection, or a push-based asynchronous [Observable](Observable/Observable) sequence. We also want to know where (under which context) do we want to execute the query. For **Observable** sequences, that is handled by the [IScheduler](IScheduler/IScheduler) interface and its various Scheduler implementation types. Finally, we want to know how we do the query. We can represent a query (a lambda expression) in verbatim (compiled into .NET intermediate language (IL) code), in which each operator in the query will be evaluated in a linear fashion. This is the case for the factory operator methods of the **Observable** type. Or you can represent your query using expression trees, which can be traversed to get the represented algorithm (e.g., predicting whether an item is greater than a value, etc.), then translate the algorithm into some domain-specific code, such as a T-SQL query statement for querying a SQL database, specific HTTP requests for a particular Web service URI, PowerShell commands, DSQLs for cloud notification services, etc. This is the case for the factory operator methods of the **Qbservable** type. The translated domain-specific code can be executed in a remote target system, or you can use the expression tree representation to do local query optimization.
+When we mention that we want to query for data, we are first concerned about what we want to query. This can be a pulled-based IEnumerable collection, or a push-based asynchronous [Observable](../Observable/Observable) sequence. We also want to know where (under which context) do we want to execute the query. For **Observable** sequences, that is handled by the [IScheduler](../IScheduler/IScheduler) interface and its various Scheduler implementation types. Finally, we want to know how we do the query. We can represent a query (a lambda expression) in verbatim (compiled into .NET intermediate language (IL) code), in which each operator in the query will be evaluated in a linear fashion. This is the case for the factory operator methods of the **Observable** type. Or you can represent your query using expression trees, which can be traversed to get the represented algorithm (e.g., predicting whether an item is greater than a value, etc.), then translate the algorithm into some domain-specific code, such as a T-SQL query statement for querying a SQL database, specific HTTP requests for a particular Web service URI, PowerShell commands, DSQLs for cloud notification services, etc. This is the case for the factory operator methods of the **Qbservable** type. The translated domain-specific code can be executed in a remote target system, or you can use the expression tree representation to do local query optimization.
 
 Just like IObservable/IObserver is a dual of IEnumerable/IEnumerator, **IQbservable** is the dual of [IQueryable](https://msdn.microsoft.com/en-us/library/Bb495796) and provides an expression tree representation of an IObservable query. You can change between **IQbservable** and **IObservable** types by using the AsQbservable and AsObservable methods. Calling **AsQbservable** produces an expression tree made up of a single node that calls the original **IObservable** instance. This relationship is important for understanding why a complete **IQbservable** query has to be defined starting from an **IQbservable** sequence and cannot be obtained simply by calling **AsQbservable** on an existing **IQbservable** query. In the following example, the call to **AsQbservable** produces a complete query tree only when you build the query by applying IQbservable AsQbservable to the data source.
 
@@ -50,8 +56,8 @@ The set of methods declared in the **Qbservable** class provides an implementati
 
 #### Reference
 
-[IQbservable](IQbservable/IQbservable)  
-[Qbservable](Qbservable/Qbservable)
+[IQbservable](../IQbservable/IQbservable)  
+[Qbservable](../Qbservable/Qbservable)
 
 #### Other Resources
 
@@ -101,7 +107,7 @@ The following example illustrates the proxy and broadcast nature of a Subject. W
 
 ## Different types of Subjects
 
-The Subject\<T\> type in the Rx library is a basic implementation of the ISubject\<T\> interface (you can also implement the ISubject\<T\> interface to create your own subject types). There are other implementations of ISubject\<T\> that offer different functionalities. All of these types store some (or all of) values pushed to them via OnNext, and broadcast it back to its observers. In this way, they convert a Hot Observable into a Cold one. This means that if you Subscribe to any of these more than once (i.e. Subscribe -\> Unsubscribe -\> Subscribe again), you will see at least one of the same value again. For more information on hot and cold observables, see the last section of the [Creating and Subscribing to Simple Observable Sequences](Creating/Creating) topic.
+The Subject\<T\> type in the Rx library is a basic implementation of the ISubject\<T\> interface (you can also implement the ISubject\<T\> interface to create your own subject types). There are other implementations of ISubject\<T\> that offer different functionalities. All of these types store some (or all of) values pushed to them via OnNext, and broadcast it back to its observers. In this way, they convert a Hot Observable into a Cold one. This means that if you Subscribe to any of these more than once (i.e. Subscribe -\> Unsubscribe -\> Subscribe again), you will see at least one of the same value again. For more information on hot and cold observables, see the last section of the [Creating and Subscribing to Simple Observable Sequences](../Creating/Creating) topic.
 
 ReplaySubject stores all the values that it has published. Therefore, when you subscribe to it, you automatically receive an entire history of values that it has published, even though your subscription might have come in after certain values have been pushed out. BehaviourSubject is similar to **ReplaySubject**, except that it only stored the last value it published. **BehaviourSubject** also requires a default value of type T upon initialization. This value is sent to observers when no other value has been received by the subject yet. This means that all subscribers will receive a value instantly on Subscribe, unless the Subject has already completed. AsyncSubject is similar to the Replay and Behavior subjects, however it will only store the last value, and only publish it when the sequence is completed. You can use the **AsyncSubject** type for situations when the source observable is hot and might complete before any observer can subscribe to it. In this case, **AsyncSubject** can still provide the last value and publish it to any future subscribers.
 
@@ -109,11 +115,11 @@ ReplaySubject stores all the values that it has published. Therefore, when you s
 
 A scheduler controls when a subscription starts and when notifications are published. It consists of three components. It is first a data structure. When you schedule for tasks to be completed, they are put into the scheduler for queueing based on priority or other criteria. It also offers an execution context which denotes where the task is executed (e.g., in the thread pool, current thread, or in another app domain). Lastly, it has a clock which provides a notion of time for itself (by accessing the `Now` property of a scheduler). Tasks being scheduled on a particular scheduler will adhere to the time denoted by that clock only.
 
-Schedulers also introduce the notion of virtual time (denoted by the VirtualScheduler type), which does not correlate with real time that is used in our daily life. For example, a sequence that is specified to take 100 years to complete can be scheduled to complete in virtual time in a mere 5 minutes. This will be covered in the [Testing and Debugging Observable Sequences](Testing/Testing) topic.
+Schedulers also introduce the notion of virtual time (denoted by the VirtualScheduler type), which does not correlate with real time that is used in our daily life. For example, a sequence that is specified to take 100 years to complete can be scheduled to complete in virtual time in a mere 5 minutes. This will be covered in the [Testing and Debugging Observable Sequences](../Testing/Testing) topic.
 
 ## Scheduler Types
 
-The various Scheduler types provided by Rx all implement the [IScheduler](https://msdn.microsoft.com/en-us/library/Ff431798) interface. Each of these can be created and returned by using static properties of the Scheduler type. The [ImmediateScheduler](ImmediateScheduler/ImmediateScheduler) (by accessing the static [Immediate](Immediate/Scheduler.Immediate) property) will start the specified action immediately. The [CurrentThreadScheduler](CurrentThreadScheduler/CurrentThreadScheduler) (by accessing the static [CurrentThread](CurrentThread/Scheduler.CurrentThread) property) will schedule actions to be performed on the thread that makes the original call. The action is not executed immediately, but is placed in a queue and only executed after the current action is complete. The [DispatcherScheduler](DispatcherScheduler/DispatcherScheduler) (by accessing the static Dispatcher property) wills schedule actions on the current Dispatcher, which is beneficial to Silverlight developers who use Rx. Specified actions are then delegated to the Dispatcher.BeginInvoke() method in Silverlight. [NewThreadScheduler](NewThreadScheduler/NewThreadScheduler) (by accessing the static [NewThread](NewThread/Scheduler.NewThread) property) schedules actions on a new thread, and is optimal for scheduling long running or blocking actions. [TaskPoolScheduler](TaskPoolScheduler/TaskPoolScheduler) (by accessing the static [TaskPool](TaskPool/Scheduler.TaskPool) property) schedules actions on a specific Task Factory. [ThreadPoolScheduler](ThreadPoolScheduler/ThreadPoolScheduler) (by accessing the static [ThreadPool](ThreadPool/Scheduler.ThreadPool) property) schedules actions on the thread pool. Both pool schedulers are optimized for short-running actions.
+The various Scheduler types provided by Rx all implement the [IScheduler](https://msdn.microsoft.com/en-us/library/Ff431798) interface. Each of these can be created and returned by using static properties of the Scheduler type. The [ImmediateScheduler](../ImmediateScheduler/ImmediateScheduler) (by accessing the static [Immediate](../Immediate/Scheduler.Immediate) property) will start the specified action immediately. The [CurrentThreadScheduler](../CurrentThreadScheduler/CurrentThreadScheduler) (by accessing the static [CurrentThread](../CurrentThread/Scheduler.CurrentThread) property) will schedule actions to be performed on the thread that makes the original call. The action is not executed immediately, but is placed in a queue and only executed after the current action is complete. The [DispatcherScheduler](../DispatcherScheduler/DispatcherScheduler) (by accessing the static Dispatcher property) wills schedule actions on the current Dispatcher, which is beneficial to Silverlight developers who use Rx. Specified actions are then delegated to the Dispatcher.BeginInvoke() method in Silverlight. [NewThreadScheduler](../NewThreadScheduler/NewThreadScheduler) (by accessing the static [NewThread](../NewThread/Scheduler.NewThread) property) schedules actions on a new thread, and is optimal for scheduling long running or blocking actions. [TaskPoolScheduler](../TaskPoolScheduler/TaskPoolScheduler) (by accessing the static [TaskPool](../TaskPool/Scheduler.TaskPool) property) schedules actions on a specific Task Factory. [ThreadPoolScheduler](../ThreadPoolScheduler/ThreadPoolScheduler) (by accessing the static [ThreadPool](../ThreadPool/Scheduler.ThreadPool) property) schedules actions on the thread pool. Both pool schedulers are optimized for short-running actions.
 
 ## Using Schedulers
 
