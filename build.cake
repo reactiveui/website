@@ -107,7 +107,7 @@ Task("Debug")
         Information($"Building project {wyamProject}");
         DotNetBuild(wyamProject);        
         Information($"Running WYAM at {wyamExecutable}");
-        DotNetCoreExecute(wyamExecutable,
+        DotNetExecute(wyamExecutable,
             $"-a \"{wyamIntegrationBinFolder}/**/*.dll\" -r \"docs -i\" -t \"{wyamFolder}/themes/Docs/Samson\" -p");
     });
 
