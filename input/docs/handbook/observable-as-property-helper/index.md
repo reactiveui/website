@@ -65,7 +65,7 @@ You should use a property and `RaiseAndSetIfChanged` if you are intending to mut
 
 `ObservableAsPropertyHelper` properties are useful for when you have "calculated" values, for example, if their value is solely the result of other properties. You will also use the `ObservableAsPropertyHelper` when you want to expose the latest value from a `IObservable<T>`.
 
-`ObservableAsPropertyHelper` properties are helpful to remove spaghetti code where different methods and components may be mutating multiple locations. They also clearly define what values are used in the calculation of the value and help describe the dependent properties for the `ObservabeAsPropertyHelper`, unlike settable properties where you have to search the code base further for location where the value is mutating.
+`ObservableAsPropertyHelper` properties are helpful to remove spaghetti code where different methods and components may be mutating multiple locations. They also clearly define what values are used in the calculation of the value and help describe the dependent properties for the `ObservableAsPropertyHelper`, unlike settable properties where you have to search the code base further for location where the value is mutating.
 
 # Performance considerations
 
