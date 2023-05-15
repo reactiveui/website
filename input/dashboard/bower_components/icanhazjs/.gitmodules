@@ -1,3 +1,0 @@
-[submodule "vendor/mustache"]
-	path = vendor/mustache
-	url = git://github.com/janl/mustache.js.git
