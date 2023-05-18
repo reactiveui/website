@@ -1,0 +1,611 @@
+@import "bootstrap/variables.scss";
+
+ul.share-buttons {
+    list-style: none;
+    padding: 0;
+}
+
+ul.share-buttons li {
+    display: inline;
+    margin-right: 10px;
+}
+
+ul.share-buttons .sr-only {
+    position: absolute;
+    clip: rect(1px 1px 1px 1px);
+    clip: rect(1px, 1px, 1px, 1px);
+    padding: 0;
+    border: 0;
+    height: 1px;
+    width: 1px;
+    overflow: hidden;
+}
+
+ul.share-buttons img {
+    width: 32px;
+}
+
+.jumbotron {
+    background: -webkit-gradient(linear, left bottom, right top, color-stop(0, #020031), color-stop(100%, #6d3353));
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+p, .content li {
+    line-height: 1.7
+}
+
+// documentation sidebar
+.sidebar-menu {
+    li a:active {
+        color: #319af3;
+    }
+
+    li a:hover {
+        color: #319af3;
+        text-decoration: underline;
+    }
+}
+
+.main-sidebar {
+    padding-top: 60px;
+}
+
+// navigation logo
+.main-header .logo {
+    height: 60px;
+    padding: 0;
+}
+
+// navigation logo narrow
+@media (max-width: 767px) {
+    .main-header .logo {
+        width: 200px;
+        left: 45%;
+    }
+}
+
+// navigation logo text
+.logo-lg {
+    position: relative;
+
+    .logo-caption {
+        font-family: "Dosis", "Source Sans Pro", Helvetica, Arial, sans-serif;
+        position: absolute;
+        font-weight: 700;
+        font-size: 24px;
+        color: #61b2f6;
+        left: 80px;
+        top: 5px;
+    }
+
+    .logo-image {
+        position: absolute;
+        left: 10px;
+    }
+}
+
+
+// navigation background
+.top-banner,
+.main-header,
+.main-header .navbar,
+.main-header > .logo {
+    background-color: white !important;
+}
+
+// navigation items
+.main-header .navbar .nav > li > a {
+    color: #319af3;
+}
+
+.main-header .navbar .nav > li > a:hover,
+.main-header .navbar .nav > li > a:active,
+.main-header .navbar .nav > li > a:focus,
+.main-header .navbar .nav .open > a,
+.main-header .navbar .nav .open > a:hover,
+.main-header .navbar .nav .open > a:focus,
+.main-header .navbar .nav > .active > a {
+    color: #319af3;
+    background: none;
+}
+
+.main-header .navbar .nav > li {
+    display: inline-block;
+    float: none;
+    vertical-align: middle;
+}
+
+.main-header .navbar .nav > li.active a,
+.main-header .navbar .nav > li > a:hover {
+    border-bottom: 1px solid #319af3;
+}
+
+.main-header .navbar .nav > li a.github {
+    border-bottom: none;
+
+    .fa {
+        color: #000000;
+        font-size: 36px
+    }
+}
+
+// navigation button (mobile)
+.navbar-toggle {
+    color: #2979bb;
+}
+
+.main-header .navbar .sidebar-toggle {
+    color: #2979bb;
+
+    &:hover {
+        background-color: white;
+        text-decoration: none;
+        color: #2979bb;
+    }
+}
+
+.main-header .navbar .navbar-collapse {
+    box-shadow: 0 5px 10px lightgray;
+}
+
+.infobar {
+    top: 60px;
+}
+
+// for desktop and tablets
+@media (min-width: $screen-xs-min) {
+    .main-header .navbar .navbar-collapse {
+        box-shadow: 0 0 0;
+    }
+}
+
+// code samples
+.hljs {
+    background: rgba(0, 0, 0, 0.024);
+    padding: 8px !important;
+    white-space: pre;
+}
+
+.code-sample pre {
+    padding: 14px !important;
+    background: rgba(0, 0, 0, 0.024);
+    border: none;
+}
+
+// content header
+.content-header h1 {
+    background: transparent;
+    font-weight: 300;
+    font-size: 51px;
+    color: #319af3;
+    border: none;
+    padding: 0;
+}
+
+@media (max-width: 767px) {
+    .content-header h1 {
+        font-size: 41px;
+    }
+}
+
+// thx Anaïs Betts - https://reactivex.slack.com/archives/C02AJB872/p1502676096944250
+section.content {
+    position: relative;
+}
+
+section.content img {
+    max-width: 100%;
+}
+
+iframe.embedded-video {
+    width: 100%;
+    height: 500px;
+}
+
+summary {
+    background: #319af3;
+    color: white;
+    font-weight: bold;
+    padding: 10px;
+    border-radius: 5px;
+    margin: 10px 0;
+    cursor: pointer;
+}
+
+pre {
+    border: none;
+}
+
+.hljs {
+    display: block;
+    overflow-x: auto;
+    padding: 0.5em;
+    color: #383a42;
+    background: #fafafa;
+}
+
+.hljs-comment,
+.hljs-quote {
+    color: #a0a1a7;
+}
+
+.hljs-doctag,
+.hljs-keyword,
+.hljs-formula,
+.hljs-section,
+.hljs-name,
+.hljs-selector-tag,
+.hljs-deletion,
+.hljs-subst {
+    color: #3f729d;
+}
+
+.hljs-literal {
+    color: #a94442;
+}
+
+.hljs-string,
+.hljs-regexp,
+.hljs-addition,
+.hljs-attribute,
+.hljs-meta-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-link,
+.hljs-meta,
+.hljs-selector-id,
+.hljs-title {
+    color: #a94442;
+}
+
+.hljs-built_in,
+.hljs-class .hljs-title {
+    color: #a94442;
+}
+
+.hljs-attr,
+.hljs-variable,
+.hljs-template-variable,
+.hljs-type,
+.hljs-selector-class,
+.hljs-selector-attr,
+.hljs-selector-pseudo,
+.hljs-number {
+    color: #686a72;
+}
+
+.hljs-emphasis {
+    font-style: italic;
+}
+
+.hljs-strong {
+    font-weight: bold;
+}
+
+.hljs-link {
+    text-decoration: underline;
+}
+
+// Issue 163
+.affix {
+    position: static;
+}
+
+.content h1 {
+    font-style: normal;
+    font-weight: 400;
+}
+
+.sidebar-menu li.selected {
+    background-color: #f5f5f5;
+}
+
+.blockquote {
+    background-color: #f5f5f5;
+    border-left: 5px solid #319af3;
+    font-size: inherit;
+}
+
+p a {
+    border-bottom: 1px dashed #319af3;
+    text-decoration: none;
+
+    @media (max-width: 767px) {
+        word-break: break-word;
+    }
+}
+
+p a:hover {
+    border-bottom: 1px solid #319af3;
+    text-decoration: none;
+}
+
+#infobar-headings {
+    margin-top: 20px;
+}
+
+// fixes #175 issue
+.sidebar-menu li.active > a.expand {
+    left: -14px;
+}
+
+// rounded menu buttons
+.main-header .navbar .nav > li > a {
+    transition: all 0.3s ease;
+}
+
+.main-header .navbar .nav > li.active a,
+.main-header .navbar .nav > li > a:hover {
+    transition: all 0.3s ease;
+    background: #f5f5f5;
+    border-radius: 70px;
+    border: none;
+}
+
+#infobar-headings > h6 {
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+// landing page styles.
+.branding-title {
+    color: #319af3;
+    font-size: 51px;
+    font-weight: 300;
+    margin-top: 10px;
+}
+
+.branding-caption {
+    margin-top: 0;
+    margin-bottom: 10px;
+    line-height: 1.45em;
+    font-weight: 300;
+    font-size: 21px;
+}
+
+.branding-button {
+    border-radius: 30px;
+    border: 1px solid #319af3;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+    margin-bottom: 10px;
+    padding: 7px 15px;
+}
+
+.secondary-button {
+    border-color: #f5f5f5;
+    background-color: #f5f5f5;
+    transition: all 0.3s ease;
+    margin-bottom: 10px;
+    color: #777777;
+}
+
+.branding-button:hover {
+    transition: all 0.3s ease;
+    border-color: #319af3;
+    background-color: #319af3;
+    text-decoration: none;
+    color: #ffffff;
+}
+
+.branding-subheader {
+    font-size: 25px;
+    color: #319af3;
+}
+
+.branding-sub-caption {
+    color: #2a4249;
+}
+
+.branding-code {
+    font-size: 14px;
+    line-height: 1.8em;
+    margin-top: 20px;
+    overflow: hidden;
+}
+
+@media (max-width: 767px) {
+    .branding-image {
+        max-width: 40%;
+    }
+}
+
+.branding {
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+/* Control the look and feel of the copy box applied to code sections */
+.btn-copy[disabled] .clippy {
+    ////opacity: @include 3;
+}
+
+pre .btn-copy {
+    -webkit-transition: opacity 0.3s ease-in-out;
+    -o-transition: opacity 0.3s ease-in-out;
+    transition: opacity 0.3s ease-in-out;
+    opacity: 0;
+    padding: 2px 6px;
+    margin: 1px;
+    float: right;
+}
+
+pre:hover .btn-copy {
+    opacity: 1;
+}
+
+// Fix too long nav bar splitting into two lines
+.nav > li > a {
+    padding: 10px !important;
+}
+
+/* Styles for the top banner */
+.top-banner {
+    background: -webkit-gradient(linear, 0% 100%, 100% 0%, from(rgb(48, 147, 240)), to(rgb(44, 72, 213)));
+    text-align: center;
+    padding: 15px;
+    color: white;
+    position: static !important;
+    height: auto !important;
+}
+
+.top-banner > a {
+    color: white;
+    opacity: 0.7;
+}
+
+// Fix scroll-to-top button interactivity.
+#return-to-top {
+    z-index: 999;
+}
+
+.clippy {
+    color: #319af3;
+}
+
+@media (max-width: 767px) {
+    .main-header .sidebar-toggle,
+    .navbar-toggle {
+        padding: 20px 15px;
+    }
+
+    .navbar-collapse .navbar-nav {
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+
+    .branding {
+        margin-top: 15px;
+    }
+}
+
+.navbar-nav {
+    margin: 10px 0 0 0;
+
+    @media (max-width: 767px) {
+        margin: 0;
+    }
+
+    @media (min-width: 768px) and (max-width: 1200px) {
+        width: 100%;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+}
+
+.layout-top-nav {
+    .navbar {
+        @media (min-width: 768px) and (max-width: 1200px) {
+            margin-left: 0 !important;
+        }
+    }
+
+    .navbar-nav {
+        @media (min-width: 768px) and (max-width: 1200px) {
+            text-align: center;
+        }
+    }
+}
+
+.content,
+.content-header {
+    padding-left: 15px;
+    padding-right: 15px;
+
+    @media (min-width: 768px) {
+        padding-left: 40px;
+        padding-right: 40px;
+    }
+
+    @media (min-width: 1200px) {
+        padding-left: 60px;
+        padding-right: 60px;
+    }
+}
+
+.anchorjs-link {
+    padding-right: 5px !important;
+    margin-left: -34px !important;
+
+    @media (min-width: 1200px) {
+        margin-left: -1em !important;
+        padding-right: 0.5em !important;
+    }
+
+    @media (max-width: 767px) {
+        display: none;
+    }
+
+    &:hover {
+        text-decoration: none;
+    }
+}
+
+@media only screen and (max-width: 1670px) and (min-width: 1250px) {
+    .wrapper.with-container {
+        max-width: 1080px;
+    }
+
+    .infobar {
+        left: 1080px;
+
+        &.affix {
+            margin-left: 1080px;
+        }
+    }
+}
+
+.dl-horizontal {
+    dt {
+        color: #333;
+    }
+
+    .fa {
+        color: #319af3;
+        width: 16px;
+        text-align: center;
+        margin-right: 5px;
+    }
+}
+
+.sidebar-menu li.header {
+    color: #333;
+
+    .fa {
+        color: #319af3;
+        margin-right: 5px;
+    }
+}
+
+.wrapper.center-container {
+    left: 0;
+
+    .navbar {
+        @media (min-width: 768px) and (max-width: 1200px) {
+            margin-left: 230px !important;
+        }
+    }
+}
+
+.sidebar-menu li > a.expand {
+    &:hover {
+        text-decoration: none;
+    }
+}
+
+.table {
+    @media (max-width: 767px) {
+        display: block;
+        table-layout: fixed;
+        overflow: auto;
+    }
+}
+
+iframe {
+    max-width: 560px;
+    width: 100% !important;
+}
