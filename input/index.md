@@ -13,14 +13,14 @@ ShowInNavbar: false
             <div class="span6 col-md-6">
                 <div class="row">
                     <div class="col-md-4">
-                        <img class="img-responsive branding-image" alt="logotype" src="@Context.GetLink("/assets/img/logo.png")" />
+                        <img class="img-responsive branding-image" alt="logotype" src="/assets/img/logo.png" />
                     </div>
                     <div class="col-md-8">
                     	<h1 class="branding-title">ReactiveUI</h1>
                         <h3 class="branding-caption">
                         	An advanced, composable, functional reactive model-view-viewmodel framework for all .NET platforms!
                     	</h3>
-                        <a class="branding-button" href="@Context.GetLink("/docs/getting-started")">
+                        <a class="branding-button" href="/docs/getting-started/">
                             🛠️ Get Started
                         </a> &nbsp;
                         <a class="branding-button secondary-button" href="https://github.com/reactiveui/reactiveui">
@@ -71,7 +71,7 @@ ShowInNavbar: false
         </div>
         <div class="span6 col-md-6">
             <h3 class="branding-subheader">Open-source</h3>
-            <p class="branding-sub-caption">ReactiveUI is developed under an <a href="license" target="_blank">OSI-approved open source license</a>, making it freely usable and distributable, even for commercial use. We ❤ the people who are involved in this project, and we’d love <a href="Contribute">to have you on board</a>, especially if you are just getting started or have never contributed to open-source before.</p>
+            <p class="branding-sub-caption">ReactiveUI is developed under an <a href="https://github.com/reactiveui/ReactiveUI/blob/main/LICENSE" target="_blank">OSI-approved open source license</a>, making it freely usable and distributable, even for commercial use. We ❤ the people who are involved in this project, and we’d love <a href="Contribute">to have you on board</a>, especially if you are just getting started or have never contributed to open-source before.</p>
             <p class="branding-sub-caption">ReactiveUI is a <a href="https://dotnetfoundation.org/" target="_blank">.NET Foundation</a> project. Other projects that are associated with the foundation include the .NET Compiler Platform ("Roslyn") as well as the ASP.NET family of projects, .NET Core &amp; Xamarin Forms.</p>
         </div>
     </div>

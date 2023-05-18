@@ -86,7 +86,7 @@ LoadUsers.ThrownExceptions.Subscribe(exception =>
 });
 ```
 
-> **Note** For performance based solutions you can also use the nameof() operator override of ToProperty() which won't use the Expression. Read more on ObservableAsPropertyHelper [here](../oaph).
+> **Note** For performance based solutions you can also use the nameof() operator override of ToProperty() which won't use the Expression. Read more on ObservableAsPropertyHelper [here](../observable-as-property-helper).
 
 `ReactiveCommand` guarantees the result of events are delivered to the provided `outputScheduler`. The executing logic thread safety is the user's responsibility but any result from the logic is guaranteed to arrive on the specified `outputScheduler`. Read more on scheduling [here](#controlling-scheduling).
 

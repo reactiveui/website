@@ -1,18 +1,19 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-    <PropertyGroup>
-        <OutputType>Exe</OutputType>
-        <TargetFramework>net7.0</TargetFramework>
-        <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>enable</Nullable>
-    </PropertyGroup>
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
 
-    <ItemGroup>
-        <PackageReference Include="Statiq.Docs" Version="1.0.0-beta.10" />
-    </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Statiq.Docs" Version="1.0.0-beta.10" />
+  </ItemGroup>
 
-    <ItemGroup>
-        <Using Include="Statiq.App" />
-        <Using Include="Statiq.Docs" />
-    </ItemGroup>
+  <ItemGroup>
+    <Using Include="Statiq.App" />
+    <Using Include="Statiq.Docs" />
+    <Using Include="Statiq.Razor" />
+  </ItemGroup>
 </Project>

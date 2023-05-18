@@ -87,9 +87,9 @@ this.WhenAnyValue(x => x.SearchText, x => x.Length, (text, length) => text + " (
     .ToProperty(this, x => x.SearchTextLength, out _searchTextLength);
 ```
 
-This will set an ([ObservableAsPropertyHelper](../oaph/) property) field called `_searchTextLength` which you then expose via the `SearchTextLength` property. `ObservableAsPropertyHelper` properties cannot be mutated directly, but are instead calculated via the `WhenAnyValue` selector lambda.
+This will set an ([ObservableAsPropertyHelper](../observable-as-property-helper/) property) field called `_searchTextLength` which you then expose via the `SearchTextLength` property. `ObservableAsPropertyHelper` properties cannot be mutated directly, but are instead calculated via the `WhenAnyValue` selector lambda.
 
-See the [ObservableAsPropertyHelper](../oaph/) section for more information on this pattern.
+See the [ObservableAsPropertyHelper](../observable-as-property-helper/) section for more information on this pattern.
 
 #### `ReactiveCommand.CanExecute` observable
 
