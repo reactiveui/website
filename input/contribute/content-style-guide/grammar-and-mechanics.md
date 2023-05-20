@@ -11,7 +11,7 @@ Adhering to certain rules of grammar and mechanics helps us keep our writing cle
 
 * **Be concise.** Use short words and sentences. Avoid unnecessary modifiers.
 
-* **Be specific.** Avoid vague language. Cut the fluff.
+* **Be specific.** Avoid vague language. Do not extrapolate unnecessarily.
 
 * **Be consistent.** Stick to the copy patterns and style points outlined in this guide.
 

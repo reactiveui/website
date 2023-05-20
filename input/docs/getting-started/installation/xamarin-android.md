@@ -15,5 +15,5 @@ Assuming the following project structure:
 
 * Install `ReactiveUI` into your netstandard library, platform library, application and tests.
 * Install `ReactiveUI.AndroidSupport` into your application.
-* Install `ReactiveUI.Events` into your application.
+* Install `ReactiveMarbles.ObservableEvents.SourceGenerator` into your application.
 * Install `ReactiveUI.Testing` into your tests.

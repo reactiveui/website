@@ -58,6 +58,12 @@ One of the most important features of `ReactiveCommand` is its built-in faciliti
 
 It is important to know, that ReactiveCommand itself as an `IObservable` will never complete or OnError - errors that happen in the async method will instead show up on the `ThrownExceptions` property. If it is possible that your async method can throw an exception, you should subscribe to `ThrownExceptions` or the exception will be rethrown on the UI thread.
 
+Three methods are provided for creating asynchronous commands:
+
+* `CreateFromObservable()` - Execute the logic using an `IObservable`.
+* `CreateFromTask()` - Execute a C# [Task Parallel Library (TPL)](https://docs.microsoft.com/en-us/dotnet/standard/parallel-programming/task-based-asynchronous-programming) Task. This allows use also of the C# [async/await](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/async) operators. Read more on canceling commands [here](./canceling).
+* `CreateRunInBackground()` - Execute a method on a background thread allowing UI status to update.
+
 ```cs
 // Here we declare a ReactiveCommand, an OAPH and a property.
 private readonly ObservableAsPropertyHelper<List<User>> _users;

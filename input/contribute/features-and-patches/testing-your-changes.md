@@ -1,7 +1,7 @@
 
 # Approval Tests
 Approval tests are run to make sure that changes to the public API surface are known about.
-Currently, this covers the Blend, Forms, Testing and .Net 45 API surfaces.
+Currently, this covers the Blend, Forms, Testing and .Net 462 / Net Core API surfaces.
 
 These are included in `ReactiveUI.Tests\API\APIApprovals.cs`.
 

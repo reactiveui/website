@@ -13,7 +13,6 @@ ReactiveUI packages are now signed by the dotnet foundation. Only builds from th
 |                   | [ReactiveUI.Fody][FodyDoc]          | [![FodyBadge]][Fody]   |
 | Unit Testing      | [ReactiveUI.Testing][TestDoc]       | [![TestBadge]][Test]   |
 | WPF               | [ReactiveUI.WPF][WpfDoc]            | [![WpfBadge]][Wpf]     |
-| UWP               | [ReactiveUI.Uwp][UwpDoc]            | [![UwpBadge]][Uwp]     |
 | WinUI             | [ReactiveUI.WinUI][WinUiDoc]        | [![WinUiBadge]][WinUi] |
 | MAUI              | [ReactiveUI.Maui][MauiDoc]          | [![MauiBadge]][Maui]   |
 | Windows Forms     | [ReactiveUI.WinForms][WinDoc]       | [![WinBadge]][Win]     |
@@ -45,10 +44,6 @@ ReactiveUI packages are now signed by the dotnet foundation. Only builds from th
 [Wpf]: https://www.nuget.org/packages/ReactiveUI.WPF/
 [WpfBadge]: https://img.shields.io/nuget/v/ReactiveUI.WPF.svg
 [WpfDoc]: https://reactiveui.net/docs/getting-started/installation/windows-presentation-foundation
-
-[Uwp]: https://www.nuget.org/packages/ReactiveUI.Uwp/
-[UwpBadge]: https://img.shields.io/nuget/v/ReactiveUI.Uwp.svg
-[UwpDoc]: https://reactiveui.net/docs/getting-started/installation/universal-windows-platform
 
 [WinUi]: https://www.nuget.org/packages/ReactiveUI.WinUI/
 [WinUiBadge]: https://img.shields.io/nuget/v/ReactiveUI.WinUI.svg
@@ -120,8 +115,6 @@ The following isn't an exhausitve example, as some solutions will follow a diffe
         ├── ReactiveUI
     ├── {NAME}.Forms (Xamarin Forms project)
         ├── ReactiveUI.XamForms
-    ├── {NAME}.UWP
-        ├── ReactiveUI
     ├── {NAME}.WPF
         ├── ReactiveUI.WPF
     ├── {NAME}.WindowsForms

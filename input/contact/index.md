@@ -1,4 +1,5 @@
 Title: Contact Us
+ShowInNavigation: false
 ---
 
 For support please use the [Slack](/slack) or [GitHub Discussions](https://github.com/reactiveui/ReactiveUI/discussions).

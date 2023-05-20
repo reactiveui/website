@@ -20,5 +20,5 @@ Assuming the following project structure:
 
 * Install `ReactiveUI` into your netstandard libraries, platform library, applications and tests.
 * Install `ReactiveUI.XamForms` into your netstandard UI library, platform library, applications and tests.
-* Install `ReactiveUI.Events.XamForms` into your netstandard library and applications.
+* Install `ReactiveMarbles.ObservableEvents.SourceGenerator` into your netstandard library and applications.
 * Install `ReactiveUI.Testing` into your tests.

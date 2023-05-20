@@ -30,9 +30,6 @@ The [ReactiveUI.Maui](https://www.reactiveui.net/api/reactiveui.maui/) package c
 # ReactiveUI.Testing
 The [ReactiveUI.Testing](https://www.reactiveui.net/api/reactiveui.testing/) package provides extensions for testing ReactiveUI based applications.
 
-# ReactiveUI.Uwp
-The [ReactiveUI.Uwp](https://www.reactiveui.net/api/reactiveui.uwp/) package provides ReactiveUI extensions for the [UWP Library](https://visualstudio.microsoft.com/vs/features/universal-windows-platform/).
-
 # ReactiveUI.Winforms
 The [ReactiveUI.Winforms](https://www.reactiveui.net/api/reactiveui.winforms/) package contains the ReactiveUI platform specific extensions for [Windows Forms](https://visualstudio.microsoft.com/vs/features/universal-windows-platform/).
 

@@ -1,1 +1,1 @@
-Each project has a .licenseheader file within the directory and if https://marketplace.visualstudio.com/items?itemName=StefanWenig.LicenseHeaderManager is installed all new files will automatically have the license added to the top.
+ReactiveUI projects use Stylecop and is installed from Nuget, all new files must have the license added to the top, the lack of the Header will result in a build failure. Please use the Stylecop Analyser suggestions to ensure the correct header is inserted.
