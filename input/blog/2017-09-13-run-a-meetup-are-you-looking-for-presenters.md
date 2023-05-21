@@ -1,3 +1,4 @@
+ShowInSidebar: false
 ---
 title: Run a meetup? Are you looking for presenters?
 category: Announcement

@@ -1,3 +1,4 @@
+ShowInSidebar: false
 ---
 title: Automatic closure of stale GitHub issues
 category: Announcement

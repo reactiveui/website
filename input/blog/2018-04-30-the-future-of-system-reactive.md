@@ -1,3 +1,4 @@
+ShowInSidebar: false
 ---
 title: The future of System.Reactive
 category:

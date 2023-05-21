@@ -1,3 +1,4 @@
+ShowInSidebar: false
 ---
 title: ReactiveUI v4.6.4 released
 category: Release Notes

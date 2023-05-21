@@ -1,3 +1,4 @@
+ShowInSidebar: false
 ---
 title: Release notes now on GitHub
 category: 

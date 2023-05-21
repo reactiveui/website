@@ -1,3 +1,4 @@
+ShowInSidebar: false
 ---
 title: ReactiveUI v8.0.0 released
 category: Release Notes

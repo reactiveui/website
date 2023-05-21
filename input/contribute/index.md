@@ -1,4 +1,5 @@
 Title: Contribute
+Order: 2
 ---
 
 ReactiveUI is developed under an OSI-approved <a href="https://github.com/reactiveui/ReactiveUI/blob/main/LICENSE">open source license</a>, making it freely usable and distributable, even for commercial use. Because of our <a href="https://github.com/sponsors/reactivemarbles">ReactiveUI model for funding and transparency</a>, we are able to funnel support and funds through to our contributors and community. We ❤ the people who are involved in this project, and we’d love to have you on board, especially if you are just getting started or have never contributed to open-source before.

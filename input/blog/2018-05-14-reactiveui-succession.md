@@ -1,3 +1,4 @@
+ShowInSidebar: false
 ---
 title: ReactiveUI Succession
 category: 

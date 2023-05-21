@@ -1,4 +1,5 @@
-﻿---
+﻿ShowInSidebar: false
+---
 title: In Praise of Elevated Values 
 category: 
   - Article

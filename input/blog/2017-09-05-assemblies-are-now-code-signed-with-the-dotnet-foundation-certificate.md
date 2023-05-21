@@ -1,3 +1,4 @@
+ShowInSidebar: false
 ---
 title: Assemblies are now code signed with the .NET Foundation  certificate
 category: Announcement

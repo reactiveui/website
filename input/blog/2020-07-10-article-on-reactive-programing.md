@@ -1,3 +1,4 @@
+ShowInSidebar: false
 ---
 title: On Reactive Programming
 category: 

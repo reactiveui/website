@@ -1,3 +1,4 @@
+ShowInSidebar: false
 ---
 title: ReactiveUI v9.3.1 released
 category: 

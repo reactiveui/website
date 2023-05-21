@@ -1,3 +1,4 @@
+ShowInSidebar: false
 ---
 title: .NET Core 3 and ReactiveUI
 category: 

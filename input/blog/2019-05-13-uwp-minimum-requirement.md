@@ -1,3 +1,4 @@
+ShowInSidebar: false
 ---
 title: UWP minimum version is now 10.0.17763.0
 category: 

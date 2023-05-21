@@ -1,3 +1,4 @@
+ShowInSidebar: false
 ---
 title: Delisting of versions before 8.0.0 from NuGet
 category: Announcement

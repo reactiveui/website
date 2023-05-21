@@ -1,3 +1,4 @@
+ShowInSidebar: false
 ---
 title: The public API surface of ReactiveUI is now protected by API approval tests
 category: Announcement

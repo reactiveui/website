@@ -1,4 +1,4 @@
-Order: 8
+Order: 2
 ---
 <meta http-equiv="refresh" content="1;url=https://join.slack.com/t/reactivex/shared_invite/zt-lt48skpz-G5WDYOAuzA80_MByZrLT0g" />
 

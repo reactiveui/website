@@ -1,4 +1,5 @@
-﻿---
+﻿ShowInSidebar: false
+---
 title: ReactiveUI On The Web with Blazor
 category: 
   - Article

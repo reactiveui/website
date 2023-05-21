@@ -1,3 +1,4 @@
+ShowInSidebar: false
 ---
 title: ReactiveUI v7.1.0 released
 category: Release Notes

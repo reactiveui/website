@@ -1,3 +1,4 @@
+ShowInSidebar: false
 ---
 title: Moving towards VSTS and continuous deployment
 category: Announcement

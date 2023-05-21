@@ -1,3 +1,4 @@
+ShowInSidebar: false
 ---
 title: You, I, and ReactiveUI
 category: Announcement

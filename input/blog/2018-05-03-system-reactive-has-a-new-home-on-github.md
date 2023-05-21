@@ -1,3 +1,4 @@
+ShowInSidebar: false
 ---
 title: System.Reactive has a new home on GitHub
 category: 
