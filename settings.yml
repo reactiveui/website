@@ -3,7 +3,6 @@ Logo: /assets/img/logo.png
 Host: reactiveui.net
 LinksUseHttps: true
 NetlifyRedirects: true
-EditRoot: https://github.com/reactiveui/website/edit/main/input
 FontLink: "https://fonts.googleapis.com/css2?family=Dosis:wght@700&family=Source+Sans+Pro:wght@300;400&display=swap"
 sass-blue: "#48bdfe"
 sass-indigo: "#bf4bff"
