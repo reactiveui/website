@@ -1,4 +1,5 @@
-
+NoTitle: true
+---
 ## Visual Studio Minimums
 
 Visual Studio 2019 and beyond.

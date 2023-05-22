@@ -1,3 +1,5 @@
+NoTitle: true
+---
 # ViewModels
 
 WhenActivated is a way to track disposables. Besides that, it can be used to defer the setup of a ViewModel until it's truly required. WhenActivated also gives us an ability to start or stop reacting to hot observables, like a background task that periodically pings a network endpoint or an observable updating users current location. Moreover, one can use WhenActivated to trigger startup logic when the ViewModel comes on stage. See an example:

@@ -1,3 +1,4 @@
+NoTitle: true
 Title: Blazor
 Order: 90
 ---

@@ -1,3 +1,5 @@
+NoTitle: true
+---
 # CreateDerivedCollection and derived lists
 
 `ReactiveList.CreateDerivedCollection` is an extremely powerful method in MVVM

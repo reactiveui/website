@@ -1,3 +1,5 @@
+NoTitle: true
+---
 # ReactiveUI Bindings
 
 ReactiveUI offers a better design-time data system for solutions that use [ReactiveUI type-safe bindings](../data-binding). `this.Bind` methods family overwrite whatever has been put into XAML. If your XAML markup looks like this:

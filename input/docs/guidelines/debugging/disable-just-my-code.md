@@ -1,3 +1,5 @@
+NoTitle: true
+---
 # Visual Studio Settings
 
 ## Disable Just My Code

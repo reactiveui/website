@@ -1,3 +1,4 @@
+NoTitle: true
 Order: 40
 Title: Blog Posts
 ---

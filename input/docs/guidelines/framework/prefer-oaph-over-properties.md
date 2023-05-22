@@ -1,3 +1,5 @@
+NoTitle: true
+---
 # Prefer ObservableAsPropertyHelpers over setting properties explicitly
 
 When a property's value depends on another property, a set of properties, or an 

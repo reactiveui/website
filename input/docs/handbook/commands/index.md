@@ -1,3 +1,5 @@
+NoTitle: true
+---
 `ReactiveCommand` is a Reactive Extensions and asynchronous aware implementation of the [`ICommand`](https://msdn.microsoft.com/en-us/library/system.windows.input.icommand.aspx) interface. `ICommand` is often used in the [MVVM design pattern](https://docs.microsoft.com/en-us/dotnet/framework/wpf/advanced/commanding-overview) to allow the View to trigger business logic defined in the ViewModel. This allows for easier maintenance, unit testing, and the ability to reuse ViewModels across different UI frameworks. Examples of where a View might invoke a command include clicking a *Save* menu item, tapping a phone icon, or stretching an image. In these cases, the ViewModel will then invoke the business logic of saving outstanding changes, performing a phone call, or zooming into an image.
 
 # Creating commands

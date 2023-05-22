@@ -1,3 +1,5 @@
+NoTitle: true
+---
 The ObservableAsPropertyHelper (OAPH) is a class that simplifies the interop between an IObservable and a property on your ViewModel. It allows you to have a property which reflects the latest value that has been sent through the IObservable<T> stream. 
 
 It is important to note that OAPH will not set the property value immediately, but will rather schedule it on the provided or default scheduler. The `[Reactive]` property with `.BindTo()` should be used for business-critical code.

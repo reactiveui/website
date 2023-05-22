@@ -1,3 +1,5 @@
+NoTitle: true
+---
 # Windows Forms
 
 Ensure that you install `ReactiveUI.WinForms` into your application.

@@ -1,3 +1,5 @@
+NoTitle: true
+---
 ReactiveUI includes a few tools to help testing, built on what Reactive Extensions for .NET already include. The utilities are included in the `ReactiveUI.Testing` NuGet package. Make sure to install it into your unit tests project.
 
 # Custom Scheduler

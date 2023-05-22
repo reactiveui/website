@@ -1,3 +1,5 @@
+NoTitle: true
+---
 # Performance optimization
 
 ## Splat

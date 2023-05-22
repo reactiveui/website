@@ -1,3 +1,5 @@
+NoTitle: true
+---
 Routing enables an application to coordinate navigation through multiple views and their corresponding view models, and to keep track of the user's navigation state.
 
 ReactiveUI supports routing for the following platforms:

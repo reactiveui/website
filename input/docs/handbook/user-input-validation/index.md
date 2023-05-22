@@ -1,3 +1,5 @@
+NoTitle: true
+---
 ReactiveUI itself offers a few powerful features allowing you to validate user input on fly. With [WhenAnyValue](/docs/handbook/when-any/), you can listen to view model property changes and control [ReactiveCommand](/docs/handbook/commands/) executability. When reactive command's `CanExecute` observable returns false, the control to which you bind that command stays disabled. The simplest validator looks as follows:
 
 ```cs

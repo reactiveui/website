@@ -1,3 +1,5 @@
+NoTitle: true
+---
 For Xamarin.Forms applications you need to install the ReactiveUI.XamForms [Nuget package](https://www.nuget.org/packages/ReactiveUI.XamForms/).
 
 ### ViewModels

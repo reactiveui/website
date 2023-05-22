@@ -1,3 +1,5 @@
+NoTitle: true
+---
 # Command Names
 
 Don't suffix `ReactiveCommand` properties' names with `Command`; instead, name the property using a verb that describes the command's action. For example:

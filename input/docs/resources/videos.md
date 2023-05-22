@@ -1,3 +1,4 @@
+NoTitle: true
 Order: 10
 ---
 # 2021
@@ -6,11 +7,11 @@ Order: 10
 
 In this live session, Rodney Littles II shows us how to build Blazor applications with the ReactiveUI framework
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/EUOimtP78jQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<div class="youtube-video-container"><iframe src="https://www.youtube.com/embed/EUOimtP78jQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
 
 ## WhenAnyObservable
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/fwgttXQzU60" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<div class="youtube-video-container"><iframe src="https://www.youtube.com/embed/fwgttXQzU60" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
 
 # 2020
 
@@ -22,27 +23,27 @@ In this live session, Rodney Littles II shows us how to build Blazor application
 - IObservable wrappers generator for old C# events.
 - Strongly typed `x:Name` reference generator.
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/q6uWPtKw3UQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<div class="youtube-video-container"><iframe src="https://www.youtube.com/embed/q6uWPtKw3UQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
 
 ## Internals of ReactiveUI
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/luLwZjMlUns" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<div class="youtube-video-container"><iframe src="https://www.youtube.com/embed/luLwZjMlUns" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
 
 ## Bridge the gap with Dynamic Data
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/1C3XNjbYizs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<div class="youtube-video-container"><iframe src="https://www.youtube.com/embed/1C3XNjbYizs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
 
 ## RxUI + Uno Platform: Getting Started
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/7wedHibcNZU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<div class="youtube-video-container"><iframe src="https://www.youtube.com/embed/7wedHibcNZU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
 
 ## Dualscreen, .NET MAUI and ReactiveUI
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/Rkz6Dkk1uWU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<div class="youtube-video-container"><iframe src="https://www.youtube.com/embed/Rkz6Dkk1uWU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
 
 ## Build an application with ReactiveUI
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/LuY1Y1-gh2Y" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<div class="youtube-video-container"><iframe src="https://www.youtube.com/embed/LuY1Y1-gh2Y" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
 
 ## RxUI Conf
 
@@ -54,28 +55,28 @@ In this live session, Rodney Littles II shows us how to build Blazor application
 - Build an Application with ReactiveUI — by Rodney Littles, II
 - Bridge the gap with DynamicData — by David Driscoll
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/FjqZbkZYOzw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<div class="youtube-video-container"><iframe src="https://www.youtube.com/embed/FjqZbkZYOzw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
 
 ## ReactiveUI intro to WhenAnyValue
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/IH2yx7b9DNY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<div class="youtube-video-container"><iframe src="https://www.youtube.com/embed/IH2yx7b9DNY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
 
 ## ReactiveUI Source Generators
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/englks0yKKI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<div class="youtube-video-container"><iframe src="https://www.youtube.com/embed/englks0yKKI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
 
 ## Going Reactive with Reactive Extensions and ReactiveUI
 
 Mobile developers have some unique constraints that we have to solve for.  We develop in a world where we respond to events, fire asynchronous tasks all on a device that may not have the resources available to complete these tasks.
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/VoPtj6n_wz0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<div class="youtube-video-container"><iframe src="https://www.youtube.com/embed/VoPtj6n_wz0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
 
 # 2018
 
 ## Lifting App State with Geoffrey Huntley | The Xamarin Show
 This week, James is joined by friend of the show and Microsoft MVP Geoffrey Huntley to discuss lifting app state with Reactive Extensions (RX). Geoffrey gives a full overview of RX and Reactive UI and how it can help developers compose their application logic easier. He walks through full concepts and how to convert some MVVM code over.
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/3HwEytvngXk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<div class="youtube-video-container"><iframe src="https://www.youtube.com/embed/3HwEytvngXk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
 
 
 # 2017
@@ -83,12 +84,12 @@ This week, James is joined by friend of the show and Microsoft MVP Geoffrey Hunt
 ## There is a better way
 There is a better way - Geoffrey Huntley at NDC Sydney
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/4inY7TFEVT0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<div class="youtube-video-container"><iframe src="https://www.youtube.com/embed/4inY7TFEVT0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
 
 ## The Xamarin Show: Episode 17
 ReactiveUI with Michael Stonis
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/GSKFk-A4omo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<div class="youtube-video-container"><iframe src="https://www.youtube.com/embed/GSKFk-A4omo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
 
 # 2016
 
@@ -96,26 +97,26 @@ ReactiveUI with Michael Stonis
 
 Michael Stonis & Geoffrey Huntley at Xamarin University
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/vydDJ9CaIug" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<div class="youtube-video-container"><iframe src="https://www.youtube.com/embed/vydDJ9CaIug" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
 
 ## Why You Should Be Building Better Mobile Apps with Reactive Programming 
 
 Michael Stonis at Xamarin Evolve 2016
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/DYEbUF4xs1Q" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<div class="youtube-video-container"><iframe src="https://www.youtube.com/embed/DYEbUF4xs1Q" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
 
 ## Reactive Programming, changing the world at Netflix, Microsoft, Slack and beyond!
 
 Matthew Podwysocki at AngularConf
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/yEeDbHvg1vQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<div class="youtube-video-container"><iframe src="https://www.youtube.com/embed/yEeDbHvg1vQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
 
 # 2015
 
 ## Reactive UI - It's pretty neat
 By Brendan Forster
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/HPyKHxy7X0w" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<div class="youtube-video-container"><iframe src="https://www.youtube.com/embed/HPyKHxy7X0w" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
 
 # 2014
 
@@ -123,13 +124,13 @@ By Brendan Forster
 
 Anaïs Betts at Xamarin Evolve 2014
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/5DZ8nC0ENdg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<div class="youtube-video-container"><iframe src="https://www.youtube.com/embed/5DZ8nC0ENdg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
 
 ## FRP In Practice: Taking a look at Reactive[UI/Cocoa]
 
 Anaïs Betts at Strange Loop
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/1XNATGjqM6U" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<div class="youtube-video-container"><iframe src="https://www.youtube.com/embed/1XNATGjqM6U" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
 
 # 2012
 

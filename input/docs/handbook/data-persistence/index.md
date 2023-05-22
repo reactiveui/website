@@ -1,3 +1,5 @@
+NoTitle: true
+---
 Taking our classic ViewModel, we are going to decide what is important to save upon application death/resume. We specifically do not save the state of commands because they are recreated by the constructor. It's debatable if you were to keep the Search Results, maybe that's a concern of your Akavache implementation. But DEFINITELY you want to save the SearchQuery, as when that is rehydrated it should restore the viewmodel to the exact state it was in.
 
 ```cs

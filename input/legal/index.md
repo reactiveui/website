@@ -1,3 +1,4 @@
+NoTitle: true
 ShowInNavigation: false
 ---
 Thanks for taking the time to learn about ReactiveUI's legal policies. It's important stuff. This is where you'll find information about how we protect your privacy, what you can and can't do with ReactiveUI. If you still have questions after reading them, <a href="mailto:hello@reactiveui.net">drop us a line</a>.

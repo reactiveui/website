@@ -1,3 +1,5 @@
+NoTitle: true
+---
 If you are tired of writing boilerplate code for property change notifications, you can try either <a href="https://github.com/Fody/PropertyChanged">PropertyChanged.Fody</a> or <a href="https://www.nuget.org/packages/ReactiveUI.Fody/">ReactiveUI.Fody</a>. These libraries are both based on <a href="https://github.com/Fody/">Fody</a> - an extensible tool for weaving .NET assemblies, and they'll inject `INotifyPropertyChanged` code into properties at compile time for you. We recommend using <a href="https://www.nuget.org/packages/ReactiveUI.Fody/">ReactiveUI.Fody</a> package that also handles `ObservableAsProperyHelper` properties.
 
 # Read-write properties

@@ -1,3 +1,5 @@
+NoTitle: true
+---
 # Use descriptive variables in your `WhenAny`
 In situations where you are detecting changes in multiple expressions, ensure you name the variables in the `selector` 
 

@@ -1,3 +1,5 @@
+NoTitle: true
+---
 ReactiveUI recommends the use of [DynamicData](https://github.com/reactiveui/DynamicData) for collection based operations.
 
 > DynamicData has replaced internally the use of [ReactiveList](../obsolete/collections/reactive-list)
