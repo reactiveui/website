@@ -1,3 +1,4 @@
+NoTitle: true
 Title: An advanced, composable, reactive model-view-viewmodel framework
 NoSidebar: true
 NoContainer: true

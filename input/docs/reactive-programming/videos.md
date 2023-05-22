@@ -3,7 +3,7 @@
 
 Matthew Podwysocki at AngularConf
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/yEeDbHvg1vQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="100%" class="vh-100" src="https://www.youtube.com/embed/yEeDbHvg1vQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 # Duality
 
@@ -11,4 +11,4 @@ Matthew Podwysocki at AngularConf
 
 [Meijer.duality.pdf](https://csl.stanford.edu/~christos/pldi2010.fit/meijer.duality.pdf)
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/looJcaeboBY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="100%" class="vh-100" src="https://www.youtube.com/embed/looJcaeboBY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
