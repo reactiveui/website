@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Statiq.Docs" Version="1.0.0-beta.10" />
+    <PackageReference Include="Statiq.Docs" Version="1.0.0-beta.11" />
   </ItemGroup>
 
   <ItemGroup>
