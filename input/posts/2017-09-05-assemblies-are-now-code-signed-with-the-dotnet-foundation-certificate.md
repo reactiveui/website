@@ -1,5 +1,4 @@
 IsBlog: true
-IsPost: true
 Title: Assemblies are now code signed with the .NET Foundation  certificate
 Tags: Announcement
 Lead: Geoffrey Huntley

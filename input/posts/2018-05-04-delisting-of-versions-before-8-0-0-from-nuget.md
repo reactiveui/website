@@ -1,5 +1,4 @@
 IsBlog: true
-IsPost: true
 Title: Delisting of versions before 8.0.0 from NuGet
 Tags: Announcement
 Lead: Geoffrey Huntley

@@ -1,5 +1,4 @@
 IsBlog: true
-IsPost: true
 Title: Release notes now on GitHub
 Tags: 
   - Release Notes

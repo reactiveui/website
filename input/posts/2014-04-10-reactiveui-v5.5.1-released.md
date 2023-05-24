@@ -1,5 +1,4 @@
 IsBlog: true
-IsPost: true
 Title: ReactiveUI v5.5.1 released
 Tags: Release Notes
 Lead: Anaïs Betts

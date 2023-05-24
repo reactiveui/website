@@ -1,5 +1,4 @@
 IsBlog: true
-IsPost: true
 Title: Automatic closure of stale GitHub issues
 Tags: Announcement
 Lead: Geoffrey Huntley

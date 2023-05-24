@@ -1,5 +1,4 @@
 IsBlog: true
-IsPost: true
 Title: Removing ReactiveCommand abstract base class
 Tags: 
   - Announcement

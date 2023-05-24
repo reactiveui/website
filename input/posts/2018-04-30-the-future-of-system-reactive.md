@@ -1,7 +1,6 @@
 IsBlog: true
-IsPost: true
 Title: The future of System.Reactive
-category:
+Tags:
   - Announcement
   - System.Reactive
 Lead: Geoffrey Huntley

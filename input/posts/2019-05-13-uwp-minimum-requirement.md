@@ -1,5 +1,4 @@
 IsBlog: true
-IsPost: true
 Title: UWP minimum version is now 10.0.17763.0
 Tags: 
   - Release Notes

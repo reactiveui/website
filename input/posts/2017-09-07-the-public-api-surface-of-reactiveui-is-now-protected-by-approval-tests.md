@@ -1,5 +1,4 @@
 IsBlog: true
-IsPost: true
 Title: The public API surface of ReactiveUI is now protected by API approval tests
 Tags: Announcement
 Lead: Geoffrey Huntley

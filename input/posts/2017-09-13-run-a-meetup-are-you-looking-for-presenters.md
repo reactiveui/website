@@ -1,5 +1,4 @@
 IsBlog: true
-IsPost: true
 Title: Run a meetup? Are you looking for presenters?
 Tags: Announcement
 Lead: Geoffrey Huntley

@@ -1,5 +1,4 @@
 IsBlog: true
-IsPost: true
 Title: ReactiveUI v6.0.6 released
 Tags: Release Notes
 Lead: Anaïs Betts

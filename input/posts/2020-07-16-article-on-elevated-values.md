@@ -1,5 +1,4 @@
 ﻿IsBlog: true
-IsPost: true
 Title: In Praise of Elevated Values 
 Tags: 
   - Article

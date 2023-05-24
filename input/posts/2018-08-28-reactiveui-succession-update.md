@@ -1,5 +1,4 @@
 IsBlog: true
-IsPost: true
 Title: ReactiveUI Succession Update
 Tags: 
   - Announcement

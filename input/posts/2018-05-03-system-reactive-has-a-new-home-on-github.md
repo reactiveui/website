@@ -1,5 +1,4 @@
 IsBlog: true
-IsPost: true
 Title: System.Reactive has a new home on GitHub
 Tags: 
   - Announcement

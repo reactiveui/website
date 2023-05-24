@@ -1,5 +1,4 @@
 IsBlog: true
-IsPost: true
 Title: ReactiveUI v7.1.0 released
 Tags: Release Notes
 Lead: Geoffrey Huntley

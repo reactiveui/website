@@ -1,5 +1,4 @@
 IsBlog: true
-IsPost: true
 Title: ReactiveUI v8.4.1 released
 Tags: 
   - Release Notes

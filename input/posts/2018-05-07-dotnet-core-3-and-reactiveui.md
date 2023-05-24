@@ -1,5 +1,4 @@
 IsBlog: true
-IsPost: true
 Title: .NET Core 3 and ReactiveUI
 Tags: 
   - Announcement

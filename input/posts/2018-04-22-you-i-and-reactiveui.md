@@ -1,5 +1,4 @@
 IsBlog: true
-IsPost: true
 Title: You, I, and ReactiveUI
 Tags: Announcement
 Lead: Kent Boogaart

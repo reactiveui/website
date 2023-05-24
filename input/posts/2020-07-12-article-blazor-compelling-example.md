@@ -1,5 +1,4 @@
 ﻿IsBlog: true
-IsPost: true
 Title: ReactiveUI On The Web with Blazor
 Tags: 
   - Article

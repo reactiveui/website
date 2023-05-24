@@ -1,5 +1,4 @@
 IsBlog: true
-IsPost: true
 Title: On Reactive Programming
 Tags: 
   - Article
