@@ -2,7 +2,7 @@ NoTitle: true
 ---
 If you are tired of writing boilerplate code for property change notifications, you can try either <a href="https://github.com/Fody/PropertyChanged">PropertyChanged.Fody</a> or <a href="https://www.nuget.org/packages/ReactiveUI.Fody/">ReactiveUI.Fody</a>. These libraries are both based on <a href="https://github.com/Fody/">Fody</a> - an extensible tool for weaving .NET assemblies, and they'll inject `INotifyPropertyChanged` code into properties at compile time for you. We recommend using <a href="https://www.nuget.org/packages/ReactiveUI.Fody/">ReactiveUI.Fody</a> package that also handles `ObservableAsProperyHelper` properties.
 
-# Read-write properties
+## Read-write properties
 Typically properties are declared like this:
 
 ```cs
@@ -23,7 +23,7 @@ public string Name { get; set; }
 
 > **Note** `ReactiveUI.Fody` currently doesn't support inline auto property initializers in generic types. It works fine with non-generic types. But if you are working on a generic type, don't attempt to write code like `public string Name { get; set; } = "Name";`, this won't work as you might expect and will likely throw a very weird exception. To workaround this limitation, move your property initialization code to the constructor of your view model class. We know about this limitation and [have a tracking issue for this](https://github.com/reactiveui/ReactiveUI/issues/2416).
 
-# ObservableAsPropertyHelper properties
+## ObservableAsPropertyHelper properties
 
 Similarly, to declare output properties, the code looks like this:
 

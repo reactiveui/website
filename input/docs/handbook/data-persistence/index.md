@@ -42,7 +42,7 @@ Surely, it's possible to use Newtonsoft.Json suspension driver and its attribute
 
 Make sure you `[IgnoreDataMember]` or `[JsonIgnore]` the HostScreen if your serializer uses opt-out approach, or you will get a circular reference. You should apply the pattern described above to every ViewModel which state is going to be serialized and restored. ViewModel serialization is Tricky Business, you have to decide what to serialize and what to recreate. Some stuff you should recalculate/reload when the app wakes up instead of trying to save it out.
 
-# Suspension
+## Suspension
 
 The `AutoSuspendHelper` class can help you in persisting your `AppState`. In the example below we create an `AppState` that generates a random new Guid and persists it. So every App installation has unique key persisted. There are several steps in creating an `AppState`. You need to have an object for the AppState itself (there are cases when it can be your root view model). You need a `SuspensionDriver` to persist the data. Then you need to wire it all together in the app composition root.
 

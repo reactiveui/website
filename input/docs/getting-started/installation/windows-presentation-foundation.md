@@ -3,7 +3,7 @@ Title: Windows Presentation Foundation
 Order: 20
 ---
 
-# Package Installation
+## Package Installation
 
 Assuming the following project structure:
 

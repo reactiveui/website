@@ -19,7 +19,7 @@ ShowInNavbar: false
                     </div>
                     <div class="col-md-8">
                     	<h1 class="branding-title">ReactiveUI</h1>
-                        <h3 class="branding-caption">
+                        <h3>
                         	An advanced, composable, functional reactive model-view-viewmodel framework for all .NET platforms!
                     	</h3>
                         <a class="branding-button" href="/docs/getting-started/">
@@ -51,15 +51,15 @@ ShowInNavbar: false
     <div class="row text-center">
         <div class="span6 col-md-4">
             <h3 class="branding-subheader">Declarative</h3>
-            <p class="branding-sub-caption">Describe what you want, not how to do it &amp; rejoice in the increased readability of your code. Code is communication between people, that also happens to run on a computer. If you optimise for reading by humans, then over a long time your project will end up better. </p>
+            <p>Describe what you want, not how to do it &amp; rejoice in the increased readability of your code. Code is communication between people, that also happens to run on a computer. If you optimise for reading by humans, then over a long time your project will end up better. </p>
         </div>
         <div class="span6 col-md-4">
             <h3 class="branding-subheader">Composable</h3>
-            <p class="branding-sub-caption">Create re-usable chunks of functionality that can be seamlessly integrated into your reactive pipelines. These chunks might be widely applicable, or specific to your application. Regardless, you have the power to write and <a href="/docs/handbook/testing">test code</a> once, and leverage it many times over.</p>
+            <p>Create re-usable chunks of functionality that can be seamlessly integrated into your reactive pipelines. These chunks might be widely applicable, or specific to your application. Regardless, you have the power to write and <a href="/docs/handbook/testing">test code</a> once, and leverage it many times over.</p>
         </div>
         <div class="span6 col-md-4">
             <h3 class="branding-subheader">Cross-platform</h3>
-            <p class="branding-sub-caption">Any device, any platform. Share business logic between your mobile and desktop applications. ReactiveUI has <a href="/docs/getting-started/installation/">first class support</a> for Xamarin Forms, Xamarin.iOS, Xamarin.Android, Xamarin.Mac, Tizen, Windows Forms, Windows Presentation Foundation (WPF), &amp; Universal Windows Platform (UWP).</p>
+            <p>Any device, any platform. Share business logic between your mobile and desktop applications. ReactiveUI has <a href="/docs/getting-started/installation/">first class support</a> for Xamarin Forms, Xamarin.iOS, Xamarin.Android, Xamarin.Mac, Tizen, Windows Forms, Windows Presentation Foundation (WPF), &amp; Universal Windows Platform (UWP).</p>
         </div>
     </div>
 </div>
@@ -67,14 +67,14 @@ ShowInNavbar: false
     <div class="row" style="margin-top: 30px;">
         <div class="span6 col-md-6">
             <h3 class="branding-subheader">Scalable & Testable</h3>
-            <p class="branding-sub-caption">ReactiveUI <a href="https://ericsink.com/entries/dont_use_rxui.html">copes gracefully as your application gets more complicated</a> because of the  <a href="https://gist.github.com/staltz/868e7e9bc2a7b8c1f754" target="_blank">reactive foundation</a> on which ReactiveUI is built upon. These building blocks are particularly adept at expressing the relationship between a group of things that are changing. ReactiveUI is essentially a collection of extension methods that make expressing intention more convenient when implementing user interfaces.
+            <p>ReactiveUI <a href="https://ericsink.com/entries/dont_use_rxui.html">copes gracefully as your application gets more complicated</a> because of the  <a href="https://gist.github.com/staltz/868e7e9bc2a7b8c1f754" target="_blank">reactive foundation</a> on which ReactiveUI is built upon. These building blocks are particularly adept at expressing the relationship between a group of things that are changing. ReactiveUI is essentially a collection of extension methods that make expressing intention more convenient when implementing user interfaces.
             </p>
-            <p class="branding-sub-caption">Waiting 3 seconds after receiving user input before instigating a request? Don't write a test that waits for 3 seconds - control time! Fast-forward 2.9 seconds, assert the request hasn't been sent, fast-forward another 0.1 seconds, and assert that it has. The functional idioms inherent in reactive programming lead to many other benefits including greater ease in testing your code &amp; you will be able to assert the correctness of features and aspects of your application that you thought were impossible to test.</p>
+            <p>Waiting 3 seconds after receiving user input before instigating a request? Don't write a test that waits for 3 seconds - control time! Fast-forward 2.9 seconds, assert the request hasn't been sent, fast-forward another 0.1 seconds, and assert that it has. The functional idioms inherent in reactive programming lead to many other benefits including greater ease in testing your code &amp; you will be able to assert the correctness of features and aspects of your application that you thought were impossible to test.</p>
         </div>
         <div class="span6 col-md-6">
             <h3 class="branding-subheader">Open-source</h3>
-            <p class="branding-sub-caption">ReactiveUI is developed under an <a href="https://github.com/reactiveui/ReactiveUI/blob/main/LICENSE" target="_blank">OSI-approved open source license</a>, making it freely usable and distributable, even for commercial use. We ❤ the people who are involved in this project, and we’d love <a href="Contribute">to have you on board</a>, especially if you are just getting started or have never contributed to open-source before.</p>
-            <p class="branding-sub-caption">ReactiveUI is a <a href="https://dotnetfoundation.org/" target="_blank">.NET Foundation</a> project. Other projects that are associated with the foundation include the .NET Compiler Platform ("Roslyn") as well as the ASP.NET family of projects, .NET Core &amp; Xamarin Forms.</p>
+            <p>ReactiveUI is developed under an <a href="https://github.com/reactiveui/ReactiveUI/blob/main/LICENSE" target="_blank">OSI-approved open source license</a>, making it freely usable and distributable, even for commercial use. We ❤ the people who are involved in this project, and we’d love <a href="Contribute">to have you on board</a>, especially if you are just getting started or have never contributed to open-source before.</p>
+            <p>ReactiveUI is a <a href="https://dotnetfoundation.org/" target="_blank">.NET Foundation</a> project. Other projects that are associated with the foundation include the .NET Compiler Platform ("Roslyn") as well as the ASP.NET family of projects, .NET Core &amp; Xamarin Forms.</p>
         </div>
     </div>
 </div>

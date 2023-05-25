@@ -10,7 +10,7 @@ The motivation is intuitive enough when you think about it. It's not hard to ima
 
 ReactiveUI provides several variants of `WhenAny` to help you work with properties as an observable stream.
 
-# What is WhenAny
+## What is WhenAny
 
 `WhenAny` is a set of extension methods, each starting with the prefix `WhenAny`, that allow you to get notifications when properties on objects change.
 
@@ -24,7 +24,7 @@ It will check the property for support for each of those property types, and whe
 
 You can also wrap the `WhenAny` in a `Observable.Defer` to avoid the value being calculated until a `Subscribe` has happened. This is useful for `ObservableAsPropertyHelper` when you're using the defer feature.
 
-# Basic syntax
+## Basic syntax
 
 The following examples demonstrate simple uses of `WhenAnyValue`; the `WhenAny` variant you are likely to use most frequently.
 
@@ -191,7 +191,7 @@ public class Document
 
 Above whenever the document is saved, it will print the value from the `IsSaved` observable.  It will automatically unsubscribe and re-subscribe when the `Document` property is changed.
 
-# Additional Considerations
+## Additional Considerations
 
 ### Property Changed Notifications needed
 Using `WhenAny` variants is fairly straightforward. However, there are a few aspects of their behaviour that are worth highlighting.
@@ -267,7 +267,7 @@ this.WhenAnyValue(x => x.Foo, x => x.Foo.Bar, x => x.Foo.Bar.Baz, (foo, bar, baz
     .Subscribe(x => Console.WriteLine(x));
 ```
 
-# How WhenAny knows about different type of properties
+## How WhenAny knows about different type of properties
 
 `WhenAny` operators will look for services registered with Splat with the `ICreatesObservableForProperty` interface.
 

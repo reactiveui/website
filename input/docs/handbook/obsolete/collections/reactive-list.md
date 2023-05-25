@@ -7,7 +7,7 @@ of .NET's `ObservableCollection` (which is ironically, *not* an Observable).
 `ReactiveList` should be used in any place that you would normally use a List
 or ObservableCollection, as it has additional useful Rx features.
 
-# Subscribing to Changes
+## Subscribing to Changes
 
 `ReactiveList` provides several useful Observables that can be subscribed to
 in order to inform you about changes in the list, as well as providing you
@@ -23,7 +23,7 @@ with notifications that happen before a list is about to change:
 * **ShouldReset** - signals that the observer should reread the entire
   collection, as it has changed significantly
 
-# Semantics of Reset
+## Semantics of Reset
 
 One thing that is particularly important to understand is the meaning of the
 ShouldReset Observable. The meaning of this event is, "This collection has
@@ -55,7 +55,7 @@ Should you want to execute code on every object in a collection as they are
 added or removed, the `ActOnEveryObject` method documented in this guide will
 handle many edge cases around this task automatically.
 
-# Using Change Tracking
+## Using Change Tracking
 
 Not only can ReactiveList watch changes to the list, it can optionally tell
 you about changes to any item *in* the list. One practical example of this
@@ -84,7 +84,7 @@ ReactiveList only tracks changes to its immediate objects, it won't track an
 entire object hierarchy (i.e. `listOfItems[0].Foo.Bar = true` won't trigger a
 change notification, but `listOfItems[0].Foo = Bar` will).
 
-# Suppressing Notifications
+## Suppressing Notifications
 
 Since ReactiveLists are often bound to UI elements like ListBoxes, making many
 small changes to a list all at once can have a significant impact in
@@ -116,7 +116,7 @@ above a certain level (i.e. if you're changing 90% of the list, it makes sense
 to signal a Reset, but if you're changing 5% of the list, it's better to
 signal Adds/Deletes)
 
-# CreateCollection
+## CreateCollection
 
 One method that is often useful for testing, is to create a list whose
 contents automatically get populated by an Observable. While in this case,

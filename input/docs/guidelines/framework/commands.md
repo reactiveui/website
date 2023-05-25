@@ -1,6 +1,6 @@
 NoTitle: true
 ---
-# Commands
+## Commands
 
 Prefer binding user interactions to commands rather than methods.
 

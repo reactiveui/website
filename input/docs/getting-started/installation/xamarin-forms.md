@@ -3,7 +3,7 @@ Title: Xamarin Forms
 Order: 40
 ---
 
-# Package Installation
+## Package Installation
 
 Assuming the following project structure:
 

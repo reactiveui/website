@@ -1,6 +1,6 @@
 NoTitle: true
 ---
-# CreateDerivedCollection and derived lists
+## CreateDerivedCollection and derived lists
 
 `ReactiveList.CreateDerivedCollection` is an extremely powerful method in MVVM
 programming, which allows you to create a projection of a ReactiveList as
@@ -18,7 +18,7 @@ method of `x => x.IsEnabled`, changing `IsEnabled` on any of the menu items
 will hide or show the items in the list.  Note that the derived list is
 read-only - you cannot manually modify the derived list.
 
-### A canonical example - creating ViewModels from Models
+## A canonical example - creating ViewModels from Models
 
 ```cs
 public class TweetsListViewModel : ReactiveObject
@@ -38,7 +38,7 @@ public class TweetsListViewModel : ReactiveObject
 }
 ```
 
-### A more motivating example - filtering and ordering
+## A more motivating example - filtering and ordering
 
 `CreateDerivedCollection` can do some more interesting things, but to
 illustrate it, we need a more interesting set of classes.
@@ -94,7 +94,7 @@ public class TweetsListViewModel : ReactiveObject
 }
 ```
 
-### Wrap it all up
+## Wrap it all up
 
 CreateDerivedCollection allows us to declare how a list should be transformed
 and keep up with the original list.

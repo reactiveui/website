@@ -3,7 +3,7 @@ Title: Windows Forms
 Order: 10
 ---
 
-# Package Installation
+## Package Installation
 
 Assuming the following project structure:
 

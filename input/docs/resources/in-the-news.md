@@ -2,7 +2,7 @@ NoTitle: true
 Order: 50
 ---
 
-# 2017
+## 2017
 
 ## Visual Studio Magazine
 * [Create Responsive Xamarin Apps with ReactiveUI](https://visualstudiomagazine.com/articles/2017/10/01/create-responsive.aspx)

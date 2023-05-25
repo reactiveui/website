@@ -155,7 +155,7 @@ Although both are similar, `BindTo` does offer a number of benefits:
 
 In general `BindTo` is the recommended approach to binding. However as with a lot of ReactiveUI, you are free to choose the style which suits you best.
 
-# "Hack" bindings and BindTo
+## "Hack" bindings and BindTo
 
 Should you find that direct one and two-way bindings aren't enough to get the job done (or should you want View => ViewModel bindings), a flexible, Rx-based approach is also available, via combining `WhenAnyValue` with the `BindTo` operator, which allows you to one-way-bind an arbitrary `IObservable` to a property on an object.
 
@@ -181,7 +181,7 @@ public MainView()
 
 While you could certainly build complex bindings (even ones between two view models!), keep in mind that binding logic that you put in the View is untestable, so keeping the meaningful logic out of bindings is usually a Good Idea.
 
-# "Hack" Command Bindings
+## "Hack" Command Bindings
 
 Similarly to property bindings, you can also add custom Hack bindings for commands as well. Two methods that are useful for this are `InvokeCommand` and `WhenAnyObservable`. The former allows you to invoke a command whenever an Observable signals, and the latter allows you to safely get an Observable from a ViewModel in a safe way. Here's how they apply to commands:
 

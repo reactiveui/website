@@ -1,6 +1,6 @@
 NoTitle: true
 ---
-# Enable Framework Logging
+## Enable Framework Logging
 
 Debug information is written by the framework to Splat. By default, [splat ships with a null logger as "Debug.WriteLine" is stripped by the compiler when Splat is packaged](https://github.com/reactiveui/splat/issues/46). Wire in an implementation of `ILogger` such as the one below to see these messages:
 

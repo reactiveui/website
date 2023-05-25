@@ -5,13 +5,13 @@ ReactiveUI gives you the power to build reactive, testable, and composable UI co
 
 See our <a href="https://reactiveui.net/docs/handbook/">Handbook</a> for the ReactiveUI documentation. We also have a complete <a href="https://github.com/reactiveui/ReactiveUI/tree/main/integrationtests">cross-platform demo app</a>.
 
-### Getting Started
+## Getting Started
 
 To get started visit our <a href="https://reactiveui.net/docs/getting-started/installation/">Installation</a> page.
 
 The [Compelling Example](https://reactiveui.net/docs/getting-started/compelling-example) walks through creating a more complete application, demonstrating the power of ReactiveUI and Reactive Extensions.
 
-### Why MVVM?
+## Why MVVM?
 
 The Model-View-ViewModel (MVVM) pattern helps create more portable and maintainable codebases for cross-platform .Net applications. It increases the amount of code that can be shared between different platforms (iOS, Android, etc.) and makes testing easier.
 
@@ -25,7 +25,7 @@ ReactiveUI makes it easy to combine the MVVM pattern with Reactive Programming b
 
 <img src="./mvvm.png" width="500" alt="mvvm">
 
-### Explore ReactiveUI
+## Explore ReactiveUI
 
 ReactiveUI is much more than just a MVVM helper. Take a look at the following projects to get started exploring what is available
 

@@ -12,7 +12,7 @@ var saveName = ReactiveCommand.CreateFromTask(_ => Save(this.Name), canExecute: 
 
 This definitely works for simple scenarios, but for larger forms and more complex validations you definitely need to give [ReactiveUI.Validation](https://github.com/reactiveui/reactiveUI.validation/) package a try.
 
-# ReactiveUI.Validation
+## ReactiveUI.Validation
 
 This is the primary way we make validations. The package contains validation helpers for ReactiveUI-based solutions, functioning in a reactive way. [ReactiveUI.Validation sources](https://github.com/reactiveui/ReactiveUI.Validation) are available on GitHub. The package supports all platforms, including .NET Framework, .NET Standard, MonoAndroid, Tizen, UAP, Xamarin.iOS, Xamarin.Mac, Xamarin.TVOS. Install the following package into you class library and into a platform-specific project.
 
@@ -143,6 +143,6 @@ public class SampleView : ReactiveContentPage<SampleViewModel>
 - [INotifyDataErrorInfo Support](https://github.com/reactiveui/ReactiveUI.Validation/#inotifydataerrorinfo-support)
 - [Custom Formatters](https://github.com/reactiveui/ReactiveUI.Validation/#custom-formatters)
 
-# Alternatives
+## Alternatives
 
 You can also use Xamarin validations as explained in the [David Britch's article](https://devblogs.microsoft.com/xamarin/validation-xamarin-forms-enterprise-apps/). Other great tools for user input validation are [FluentValidation](https://github.com/JeremySkinner/FluentValidation) and [Sprache](https://github.com/sprache/Sprache).

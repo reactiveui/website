@@ -1,7 +1,7 @@
 NoTitle: true
 Order: 10
 ---
-# 2021
+## 2021
 
 ## On .NET Live - Building Reactive UIs with Blazor
 
@@ -13,7 +13,7 @@ In this live session, Rodney Littles II shows us how to build Blazor application
 
 <div class="youtube-video-container"><iframe src="https://www.youtube.com/embed/fwgttXQzU60" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
 
-# 2020
+## 2020
 
 ## Getting started with Avalonia and ReactiveUI
 
@@ -71,7 +71,7 @@ Mobile developers have some unique constraints that we have to solve for.  We de
 
 <div class="youtube-video-container"><iframe src="https://www.youtube.com/embed/VoPtj6n_wz0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
 
-# 2018
+## 2018
 
 ## Lifting App State with Geoffrey Huntley | The Xamarin Show
 This week, James is joined by friend of the show and Microsoft MVP Geoffrey Huntley to discuss lifting app state with Reactive Extensions (RX). Geoffrey gives a full overview of RX and Reactive UI and how it can help developers compose their application logic easier. He walks through full concepts and how to convert some MVVM code over.
@@ -79,7 +79,7 @@ This week, James is joined by friend of the show and Microsoft MVP Geoffrey Hunt
 <div class="youtube-video-container"><iframe src="https://www.youtube.com/embed/3HwEytvngXk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
 
 
-# 2017
+## 2017
 
 ## There is a better way
 There is a better way - Geoffrey Huntley at NDC Sydney
@@ -91,7 +91,7 @@ ReactiveUI with Michael Stonis
 
 <div class="youtube-video-container"><iframe src="https://www.youtube.com/embed/GSKFk-A4omo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
 
-# 2016
+## 2016
 
 ## ReactiveUI with Xamarin - Xamarin University Guest Lecture
 
@@ -111,14 +111,14 @@ Matthew Podwysocki at AngularConf
 
 <div class="youtube-video-container"><iframe src="https://www.youtube.com/embed/yEeDbHvg1vQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
 
-# 2015
+## 2015
 
 ## Reactive UI - It's pretty neat
 By Brendan Forster
 
 <div class="youtube-video-container"><iframe src="https://www.youtube.com/embed/HPyKHxy7X0w" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
 
-# 2014
+## 2014
 
 ## Awaiting for Rx: A Play in Four Acts
 
@@ -132,7 +132,7 @@ Anaïs Betts at Strange Loop
 
 <div class="youtube-video-container"><iframe src="https://www.youtube.com/embed/1XNATGjqM6U" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
 
-# 2012
+## 2012
 
 ## Reactive Extensions and ReactiveUI: Anaïs Betts at QCon
 

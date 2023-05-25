@@ -3,7 +3,7 @@ Title: Xamarin iOS
 Order: 50
 ---
 
-# Package Installation
+## Package Installation
 
 Assuming the following project structure:
 

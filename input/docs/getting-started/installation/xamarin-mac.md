@@ -3,7 +3,7 @@ Title: Xamarin Mac
 Order: 70
 ---
 
-# Package Installation
+## Package Installation
 
 Assuming the following project structure:
 

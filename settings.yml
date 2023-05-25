@@ -22,8 +22,8 @@ sass-info: "#319af3"
 sass-warning: "#f0ad4e"
 sass-danger: "#d9534f"
 sass-font-family-sans-serif: "\"Dosis\", \"Source Sans Pro\", Helvetica, Arial, sans-serif;"
-sass-font-family-serif: "\"Source Sans Pro\", Helvetica, Arial, sans-serif;"
-sass-font-family-monospace: "\"Roboto Mono\", Menlo, Monaco, Consolas, \"Courier New\", monospace;"
-sass-font-family-base: "\"Source Sans Pro\", Helvetica, Arial, sans-serif;"
+sass-font-family-serif: "\"Dosis\", \"Source Sans Pro\", Helvetica, Arial, sans-serif;"
+sass-font-family-monospace: "\"Dosis\", \"Source Sans Pro\", Helvetica, Arial, sans-serif;"
+sass-font-family-base: "\"Dosis\", \"Source Sans Pro\", Helvetica, Arial, sans-serif;"
 PostTitle: Blog
 PostOrder: 1

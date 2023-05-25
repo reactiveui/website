@@ -128,7 +128,7 @@ The following isn't an exhausitve example, as some solutions will follow a diffe
         └── Avalonia.ReactiveUI
 </pre>
 
-# Release Packages
+## Release Packages
 
 ReactiveUI is published to [NuGet.org](https://www.nuget.org/packages?q=ReactiveUI) when a release of the software is done. Get email notifications when new release is pushed over at [reactiveui libraries](https://libraries.io/nuget/reactiveui)
 
@@ -150,7 +150,7 @@ ReactiveUI is published to [NuGet.org](https://www.nuget.org/packages?q=Reactive
 - ReactiveUI.Fody
     - [ReactiveUI.Fody](https://www.nuget.org/packages/ReactiveUI.Fody/) this package is a Fody extension that will generate RaisePropertyChange notifications for properties and ObservableAsPropertyHelper properties.
 
-# Development Packages
+## Development Packages
 
 Pre-release nuget packages are uploaded to the Reactive UI [GitHub Packages](https://github.com/orgs/reactiveui/packages). You can use this feed to access hotfixes before they are released and to help the maintainers verify resolution to issues.
 

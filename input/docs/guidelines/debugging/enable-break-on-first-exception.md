@@ -1,6 +1,6 @@
 NoTitle: true
 ---
-# Visual Studio for Mac
+## Visual Studio for Mac
 
 This is like Rx debugging pro-tip #1:
 

@@ -1,12 +1,12 @@
 NoTitle: true
 ---
-# Reactive Programming: changing the world at Netflix, Microsoft, Slack and beyond!
+## Reactive Programming: changing the world at Netflix, Microsoft, Slack and beyond!
 
 Matthew Podwysocki at AngularConf
 
 <div class="youtube-video-container"><iframe src="https://www.youtube.com/embed/yEeDbHvg1vQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
 
-# Duality
+## Duality
 
 <img src="./general-theory.jpg" width="50%" alt="general theory">
 

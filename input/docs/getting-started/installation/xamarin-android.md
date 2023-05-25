@@ -3,7 +3,7 @@ Title: Xamarin Android
 Order: 60
 ---
 
-# Package Installation
+## Package Installation
 
 Assuming the following project structure:
 
