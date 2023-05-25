@@ -1,7 +1,8 @@
+NoTitle: true
 IsBlog: true
 Title: ReactiveUI v4.5.0 released
 Tags: Release Notes
-Lead: Anaïs Betts
+Author: Anaïs Betts
 ---
 
 # [What's New](https://github.com/reactiveui/reactiveui/compare/4.4.3...4.5.0)

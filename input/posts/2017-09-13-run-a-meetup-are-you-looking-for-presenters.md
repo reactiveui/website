@@ -1,7 +1,8 @@
+NoTitle: true
 IsBlog: true
 Title: Run a meetup? Are you looking for presenters?
 Tags: Announcement
-Lead: Geoffrey Huntley
+Author: Geoffrey Huntley
 ---
 
 Announcing something pretty special today; I'm not sure if anyone has done this before so here we go.

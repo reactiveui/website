@@ -1,7 +1,8 @@
+NoTitle: true
 IsBlog: true
 Title: ReactiveUI v6.1.0 released
 Tags: Release Notes
-Lead: Anaïs Betts
+Author: Anaïs Betts
 ---
 
 ## [What's New](https://github.com/reactiveui/ReactiveUI/compare/6.0.7...6.1.0)

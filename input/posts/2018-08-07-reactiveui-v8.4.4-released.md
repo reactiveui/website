@@ -1,8 +1,9 @@
+NoTitle: true
 IsBlog: true
 Title: ReactiveUI v8.4.4 released
 Tags: 
   - Release Notes
-Lead: Geoffrey Huntley
+Author: Geoffrey Huntley
 ---
 
 Release 8.4.4 of ReactiveUI is available!

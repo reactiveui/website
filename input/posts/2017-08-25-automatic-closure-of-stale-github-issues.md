@@ -1,7 +1,8 @@
+NoTitle: true
 IsBlog: true
 Title: Automatic closure of stale GitHub issues
 Tags: Announcement
-Lead: Geoffrey Huntley
+Author: Geoffrey Huntley
 ---
 
 One of the perks of being a maintainer of an open-source project is you get to be part of the fantastic initiative by GitHub - [maintainers.github.com](https://maintainers.github.com) where some of the brightest minds in open-source leadership from across disciplines/ecosystems share their insights on how to run projects, productively at scale towards successful outcomes. 

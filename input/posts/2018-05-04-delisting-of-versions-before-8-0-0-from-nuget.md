@@ -1,7 +1,8 @@
+NoTitle: true
 IsBlog: true
 Title: Delisting of versions before 8.0.0 from NuGet
 Tags: Announcement
-Lead: Geoffrey Huntley
+Author: Geoffrey Huntley
 ---
 
 As part of the v8.0.0 release, ReactiveUI changed the field separator used in our package names from dashes to periods which is the standard convention used in dotnet. It was a breaking change, and our documentation was updated as part of the release to provide you [with instructions of which package is needed](https://reactiveui.net/docs/getting-started/installation/nuget-packages/) for every platform.

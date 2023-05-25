@@ -1,8 +1,9 @@
+NoTitle: true
 IsBlog: true
 Title: ReactiveUI v8.0.1 released
 Tags: 
   - Release Notes
-Lead: Geoffrey Huntley
+Author: Geoffrey Huntley
 ---
 
 Elijah Reva noticed a `net461` regression that affected Windows Presentation Foundation and Windows Forms. During the netstandard refactor we missed renaming a compilation symbol which resulted in `PropertyChangedEventManager.DeliverEvent` being used when setting reactive properties. WeakEventManager [should not be used](https://github.com/reactiveui/ReactiveUI/issues/661) on these platforms and this hotfix disables it.

@@ -1,9 +1,10 @@
+NoTitle: true
 IsBlog: true
 Title: The future of System.Reactive
 Tags:
   - Announcement
   - System.Reactive
-Lead: Geoffrey Huntley
+Author: Geoffrey Huntley
 ---
 
 The last official release of System.Reactive by Microsoft was back in 2014. On the 16th of June 2016 Oren Novotny (with the help of Bart De Smet)  [moved Rx/Ix into the .NET Foundation](https://www.dotnetfoundation.org/blog/2016/06/16/rx-net-welcome).

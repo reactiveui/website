@@ -1,8 +1,9 @@
+NoTitle: true
 IsBlog: true
 Title: ReactiveUI v8.7.1 released
 Tags: 
   - Release Notes
-Lead: Rodney Littles, II
+Author: Rodney Littles, II
 ---
 
 Release 8.7.1 of ReactiveUI is available!

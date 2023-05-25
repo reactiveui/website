@@ -1,8 +1,9 @@
+NoTitle: true
 IsBlog: true
 Title: .NET Core 3 and ReactiveUI
 Tags: 
   - Announcement
-Lead: Geoffrey Huntley
+Author: Geoffrey Huntley
 ---
 
 At Microsoft Build Live today, Microsoft [shared a first look at their plans](

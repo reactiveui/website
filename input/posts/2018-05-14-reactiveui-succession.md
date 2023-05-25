@@ -1,10 +1,11 @@
+NoTitle: true
 IsBlog: true
 Title: ReactiveUI Succession
 Tags: 
   - Announcement
   - Governance
   - Succession
-Lead: Rodney Littles, II
+Author: Rodney Littles, II
 ---
 
 OSS project maintainers have a serious load on their shoulders.  They are responsbile for authoring and maintaining tools that enable developers to deliver business value faster and easier.  Gone are the days where a developer has to start every project by defining their own IO, data structures and sub routines.  Modern developers rely on frameworks, third party libraries and other niceties that use to take hundreds of developer man hours before writing any business logic.  Being a maintainer, and focusing that level of effort is a labor of love, but a labor not the less.

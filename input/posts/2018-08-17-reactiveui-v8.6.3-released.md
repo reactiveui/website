@@ -1,8 +1,9 @@
+NoTitle: true
 IsBlog: true
 Title: ReactiveUI v8.6.3 released
 Tags: 
   - Release Notes
-Lead: Glenn Watson
+Author: Glenn Watson
 ---
 
 Release 8.6.3 of ReactiveUI is available!

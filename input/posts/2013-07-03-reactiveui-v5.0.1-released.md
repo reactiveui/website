@@ -1,7 +1,8 @@
+NoTitle: true
 IsBlog: true
 Title: ReactiveUI v5.0.1 released
 Tags: Release Notes
-Lead: Anaïs Betts
+Author: Anaïs Betts
 ---
 
 After 3 months, 427 commits by 12 different contributors, and 689 total files changed, the stable release of ReactiveUI 5.0 is now live! A huge thanks to the contributors for this release:

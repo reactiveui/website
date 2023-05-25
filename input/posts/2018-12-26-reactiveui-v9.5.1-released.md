@@ -1,8 +1,9 @@
+NoTitle: true
 IsBlog: true
 Title: ReactiveUI v9.5.1 released
 Tags: 
   - Release Notes
-Lead: Glenn Watson
+Author: Glenn Watson
 ---
 
 Release 9.5.1 of ReactiveUI is available!

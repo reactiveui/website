@@ -1,8 +1,9 @@
-﻿IsBlog: true
+﻿NoTitle: true
+IsBlog: true
 Title: In Praise of Elevated Values 
 Tags: 
   - Article
-Lead: Rich Bryant
+Author: Rich Bryant
 ---
 
 <img src="https://i.imgur.com/i9ngTbc.png" align="right" style="height: 8em" alt="img"/>
