@@ -1,10 +1,9 @@
 NoTitle: true
 IsBlog: true
 Title: System.Reactive has a new home on GitHub
-Tags: 
-  - Announcement
-  - System.Reactive
+Tags: Announcement
 Author: Geoffrey Huntley
+Published: 2018-05-03
 ---
 
 At MVP Summit, [the community met with Microsoft](https://github.com/Reactive-Extensions/Rx.NET/issues/466#issuecomment-370496523) and with their support and encouragement the community forked control of System.Reactive. Over the last couple weeks some of the smartest brains from multiple ecosystems have united in [our Slack instance](https://reactiveui.net/slack) to plan for the future.

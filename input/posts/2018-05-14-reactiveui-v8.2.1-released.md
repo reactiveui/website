@@ -1,9 +1,9 @@
 NoTitle: true
 IsBlog: true
 Title: ReactiveUI v8.2.1 released
-Tags: 
-  - Release Notes
+Tags: Release Notes
 Author: Geoffrey Huntley
+Published: 2018-05-14
 ---
 
 __macOS__

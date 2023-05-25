@@ -1,9 +1,9 @@
 NoTitle: true
 IsBlog: true
 Title: Release notes now on GitHub
-Tags: 
-  - Release Notes
+Tags: Release Notes
 Author: Glenn Watson
+Published: 2018-12-30
 ---
 
 Rather than creating a blog entry for every Release we are now going to store the release note exclusively on the [GitHub Releases](https://github.com/reactiveui/ReactiveUI/releases).

@@ -3,6 +3,7 @@ IsBlog: true
 Title: ReactiveUI v6.5.0 released
 Tags: Release Notes
 Author: Anaïs Betts
+Published: 2015-05-11
 ---
 
 <!--excerpt-->

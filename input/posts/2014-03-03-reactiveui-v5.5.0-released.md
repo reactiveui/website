@@ -3,6 +3,7 @@ IsBlog: true
 Title: ReactiveUI v5.5.0 released
 Tags: Release Notes
 Author: Anaïs Betts
+Published: 2014-03-03
 ---
 
 ## [What's New](https://github.com/reactiveui/ReactiveUI/compare/5.4.0...5.5.0)

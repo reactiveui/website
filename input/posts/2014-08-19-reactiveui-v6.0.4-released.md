@@ -3,6 +3,7 @@ IsBlog: true
 Title: ReactiveUI v6.0.4 released
 Tags: Release Notes
 Author: Anaïs Betts
+Published: 2014-08-19
 ---
 
 ## [What's New](https://github.com/reactiveui/ReactiveUI/compare/6.0.3...6.0.4)

@@ -1,9 +1,9 @@
 NoTitle: true
 IsBlog: true
 Title: Memory Leak Detection
-Tags: 
-  - Announcement
+Tags: Announcement
 Author: Geoffrey Huntley
+Published: 2018-05-15
 ---
 
 Moments ago we merged [a contribution](https://github.com/reactiveui/ReactiveUI/pull/1527) by [Grzegorz Kotfis](https://twitter.com/gkotfis) that adds another layer of protection before the project moves towards [automated continuous delivery](https://reactiveui.net/blog/2018/05/moving-towards-vsts-and-continuous-deployment). The pull-request added a new project called `ReactiveUI.LeakTests` which allows the maintainers to specify tests that can determine memory leaks by checking memory usage for objects of a particular type, or tests that track memory traffic and fail in case the traffic exceeds some threshold. 

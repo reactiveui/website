@@ -1,9 +1,9 @@
 NoTitle: true
 IsBlog: true
 Title: ReactiveUI v9.3.1 released
-Tags: 
-  - Release Notes
+Tags: Release Notes
 Author: Glenn Watson
+Published: 2018-11-20
 ---
 
 Release 9.3.1 of ReactiveUI is available!

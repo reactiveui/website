@@ -1,11 +1,9 @@
 NoTitle: true
 IsBlog: true
 Title: ReactiveUI Succession Update
-Tags: 
-  - Announcement
-  - Governance
-  - Succession
+Tags: Announcement
 Author: Rodney Littles, II
+Published: 2018-08-28
 ---
 
 ReactiveUI has released several minor versions since 8.0.  Some of the most recent versions have been released without Geoff having to push code, or prep issues.  This is thanks to members of the core team, and community members who have stepped up to move the project forward.  Glenn Watson has started to play a large role in the maintenance of ReactiveUI.  There have been other's getting involved in enhancing some of the platform logic, and documentation.  Community members have been identifying and resolving issues that help make our framework better.  What does this mean for ReactiveUI succession? It's happening.  What does that mean for you?  It means we are working on ways to improve ReactiveUI and make it easier to consume.  We have several initiatives on the team and there are a few RFC's planned for the 9.0 release that might be of interest.

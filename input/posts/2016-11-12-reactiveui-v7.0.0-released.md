@@ -3,6 +3,7 @@ IsBlog: true
 Title: ReactiveUI v7.0.0 released
 Tags: Release Notes
 Author: Geoffrey Huntley
+Published: 2016-11-12
 ---
 
 _Oh, hai!_

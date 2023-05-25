@@ -3,6 +3,7 @@ IsBlog: true
 Title: ReactiveUI v8.0.0 released
 Tags: Release Notes
 Author: Geoffrey Huntley
+Published: 2018-05-01
 ---
 
 Hello ;-)

@@ -3,6 +3,7 @@ IsBlog: true
 Title: The public API surface of ReactiveUI is now protected by API approval tests
 Tags: Announcement
 Author: Geoffrey Huntley
+Published: 2017-09-07
 ---
 
 When reviewing pull requests the maintainers used to manually eyeball the changes proposed in a pull-request to determine if there was a change to the public API surface. We now have new tests, one per platform that trip when the public API surface changes for that platform.

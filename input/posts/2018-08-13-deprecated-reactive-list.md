@@ -1,9 +1,9 @@
 NoTitle: true
 IsBlog: true
 Title: Deprecating ReactiveList
-Tags: 
-  - Announcement
+Tags: Announcement
 Author: Rodney Littles, II
+Published: 2018-08-13
 ---
 
 ## ReactiveUI is deprecating `ReactiveList`

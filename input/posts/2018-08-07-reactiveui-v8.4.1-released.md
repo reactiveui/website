@@ -1,9 +1,9 @@
 NoTitle: true
 IsBlog: true
 Title: ReactiveUI v8.4.1 released
-Tags: 
-  - Release Notes
+Tags: Release Notes
 Author: Rodney Littles, II
+Published: 2018-08-07
 ---
 
 Release 8.4.1 of ReactiveUI is available!

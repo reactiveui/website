@@ -3,6 +3,7 @@ IsBlog: true
 Title: Moving towards VSTS and continuous deployment
 Tags: Announcement
 Author: Geoffrey Huntley
+Published: 2018-05-02
 ---
 
 Howdy folks,

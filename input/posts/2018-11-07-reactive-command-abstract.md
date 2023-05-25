@@ -1,9 +1,9 @@
 NoTitle: true
 IsBlog: true
 Title: Removing ReactiveCommand abstract base class
-Tags: 
-  - Announcement
+Tags: Announcement
 Author: Rodney Littles, II
+Published: 2018-11-07
 ---
 
 The ReactiveUI team has been urging consumers for some time now to move away from the `ReactiveCommand` abstract class for properties.  There are some slight nuiances with type constraints that can sometimes cause run time bugs.  Because your property can resolve to an abstract base implementation doesn't mean you should define it that way.  We are very adamante about creating a type safe environment where consumers don't have to worry about hidden runtime issues with the framework. [RFC: Remove ReactiveCommand abstract base class](https://github.com/reactiveui/rfcs/issues/19) was raised to address this exact issue.

@@ -3,6 +3,7 @@ IsBlog: true
 Title: Run a meetup? Are you looking for presenters?
 Tags: Announcement
 Author: Geoffrey Huntley
+Published: 2017-09-13
 ---
 
 Announcing something pretty special today; I'm not sure if anyone has done this before so here we go.

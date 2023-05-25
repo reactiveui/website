@@ -1,11 +1,9 @@
 NoTitle: true
 IsBlog: true
 Title: ReactiveUI Association, Inc.
-Tags: 
-  - Announcement
-  - Governance
-  - Sustainability
+Tags: Announcement
 Author: Rodney Littles, II
+Published: 2021-01-04
 ShowFullBlog: true
 ---
 

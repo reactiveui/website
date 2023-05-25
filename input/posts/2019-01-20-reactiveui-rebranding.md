@@ -1,9 +1,9 @@
 NoTitle: true
 IsBlog: true
 Title: ReactiveUI Rebranding
-Tags: 
-  - Announcement
+Tags: Announcement
 Author: Artyom Gorchakov
+Published: 2019-01-20
 ---
 
 ReactiveUI was created by Anaïs Betts whilst working in Office Labs at Microsoft, and released in early 2011. Since that time, ReactiveUI has become a mature framework [trusted by Slack, GitHub, Amazon, Elastic and Microsoft](https://github.com/reactiveui/ReactiveUI/issues/979#issuecomment-196735701), has become a member of the [Dot Net Foundation](https://www.dotnetfoundation.org/), and actively maintained by the open-source community on GitHub. The work we do is sponsored by [our wonderful Backers on OpenCollective](https://opencollective.com/reactiveui).
