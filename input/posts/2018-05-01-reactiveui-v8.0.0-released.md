@@ -57,7 +57,7 @@ Thank-you to every single person who shipped a pull-request into this release.
 
 If you can't (or won't) help out financially, then please donate your time. Join the conversation over at https://reactiveui.net/slack and ask how you can help. Thanks for any support you can offer if you decide to - Geoffrey Huntley
 
-# New Features
+### New Features
 
 We kept getting reports from folks who want to contribute to the project but their employer has a restrictive list of pre-approved licenses and MSPL isn't on that list.  So what if we enabled those to help us? It would be much easier than making them go through internal corporate bs. So that's what we have done - ReactiveUI is now available under the MIT licence. This means we are now fully compatible with the GPL and are in alignment with .NET Core, CoreCLR, CoreFX, Roslyn and Xamarin Forms.
 
@@ -69,7 +69,7 @@ We have added netcoreapp20 as a supported platform. You can use ReactiveUI on th
 
 We also fixed that niggling problem that prevented folks from writing unit tests for ReactiveUI applications using Visual Studio for Mac.
 
-# Upgrading
+## Upgrading
 This is a big release so it's up to you to decide when it is best for you to upgrade. We don't recommend holding off on upgrading because of changes in the .NET toolchain. It is now impossible to compile previous releases below this release. Know that the maintainers and community of ReactiveUI have been running 183 editions of alpha releases in production over the last eight months. Yesterday we went through and manually tested every platform and are only weeks away from adding full end-to-end regression tests. To us, it's risker to hold off upgrading - we recommend that if you haven't started your netstandard upgrade spike that you do it so now. The longer you hold off on the upgrade the more pain you will experience consuming opensource in the post netstandard world.
 
 When you install ReactiveUI we will bring in the correct version of System.Reactive (currently 3.11) as part of installation as a transitive reference. You'll need to manually remove/upgrade all references to the Reactive Extensions that are below 3.11 that aren't netstandard. Do not attempt to do binding redirects from 2.x to 3.x series. It won't work. It's not worth it. You'll end up with nothing but being unhappy and have a wasted afternoon.
@@ -90,7 +90,7 @@ The minimum version of UWP is now 10.0.16299 aka Fall Creators Update. The maint
 
 The minimum version of Xamarin forms is now 2.5.1.444934. We picked this because it was the latest version available on NuGet when we were publishing the release. If you need to target an older version then you will need to compile from source.
 
-# Detailed release notes
+## Detailed release notes
 
 
 As part of this release we had [138 commits](https://github.com/reactiveui/reactiveui/compare/7.4.0...8.0.0) which resulted in [113 issues](https://github.com/reactiveui/ReactiveUI/issues?milestone=4&state=closed) being closed.
@@ -241,6 +241,6 @@ __Documentation__
 - [__#1412__](https://github.com/reactiveui/ReactiveUI/pull/1412) chore: tweaking comments in TestUtils
 - [__#1204__](https://github.com/reactiveui/ReactiveUI/pull/1204) docs: email Geoff Huntley, not Anaïs Betts for slack invitation
 
-# Where to get it
+## Where to get it
 
 You can download this release from [nuget.org](https://www.nuget.org/packages/reactiveui/8.0.0)

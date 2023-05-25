@@ -8,7 +8,7 @@ Author: Rich Bryant
 
 <img src="https://avatars0.githubusercontent.com/u/2327577?s=200&v=4" align="right" style="height:8em" alt="img"/>
 
-# ReactiveUI On The Web With Blazor!  
+## ReactiveUI On The Web With Blazor!  
 ## It really works, honest.  
   
 I hope by now people are starting to learn about the existence of the [ReactiveUI.Blazor](https://www.nuget.org/packages/ReactiveUI.Blazor/) package.  Blazor means "writing Single Page Apps like Angular or Vue in C#" and it has all the potential in the world.  And ReactiveUI supports it.  The official [samples are here](https://github.com/reactiveui/ReactiveUI.Samples/tree/main/blazor) but I don't feel that they really sell the reason _why_ you'd want to do web work with ReactiveUI, and I should know, I wrote them.

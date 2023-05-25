@@ -8,7 +8,7 @@ Author: Rich Bryant
 
 <img src="https://i.imgur.com/i9ngTbc.png" align="right" style="height: 8em" alt="img"/>
 
-# In Praise of Elevated Values
+## In Praise of Elevated Values
 ## Always Wear Protection
   
 You know what you don't get when you work with Enumerables and Observables?  

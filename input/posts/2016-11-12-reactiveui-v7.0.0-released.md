@@ -57,7 +57,7 @@ No, it's not. Learning Rx is one of the best things you can do to improve yourse
 
 <!--excerpt-->
 
-# Highlights
+## Highlights
 
 ## ReactiveCommand is Better
 
@@ -132,7 +132,7 @@ A mountain of effort has gone into automating ReactiveUI's build and deployment 
 
 The end goal here is to get you, the community, new versions of ReactiveUI more rapidly and seamlessly.
 
-# Details
+## Details
 
 As part of this release we had [113 issues](https://github.com/reactiveui/ReactiveUI/issues?milestone=2&state=closed) closed.
 

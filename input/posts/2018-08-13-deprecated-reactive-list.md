@@ -6,7 +6,7 @@ Tags:
 Author: Rodney Littles, II
 ---
 
-# ReactiveUI is deprecating `ReactiveList`
+## ReactiveUI is deprecating `ReactiveList`
 
 With the coming 8.6.1 release, `ReactiveList` will be marked as deprecated.  ReactiveList is being replaced by Roland Pheasants [Dynamic Data](https://github.com/RolandPheasant/DynamicData
 )

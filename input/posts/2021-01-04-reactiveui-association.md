@@ -10,10 +10,10 @@ ShowFullBlog: true
 ---
 
 
-# OSS Sustainability
+## OSS Sustainability
 Open Source Sustainability has become a big topic in the .NET community.  With several Open Source projects having issues with long term sustainability, the ReactiveUI team has been identifying ways to address the long term sustainability of our open-source software.  Our main goal is to make sure that as .NET grows and evolves that Reactive Programming and ReactiveUI evolve and grow with it.  We have started to talk about strategies to ensure that ReactiveUI has maintenance and growth for the future.
 
-# ReactiveUI Association, Inc.
+## ReactiveUI Association, Inc.
 Introducing.  ReactiveUI Association Inc.  A non for profit organization geared towards several goals
 
 - Open Source Sustainability for ReactiveUI
@@ -28,7 +28,7 @@ We have been making a conscious effort to make the framework more approachable. 
 ### Securing sponsorships
 The reality is things code money.  So we are trying to find ways to engage with more consumers as a way to cover the costs of the goals of the ReactiveUI Association.  Now that we have our legal entity, the appeal of Open Collective is dwindling.  With new services like GitHub Sponsorships, we will move towards a platform that allows consumers, sponsors, and friends to contribute monetarily to the ReactiveUI Association and its mission.  The original purpose of the Open Collective was to allocate money towards a resource to maintain the library.  We no longer feel that is the immediate goal, so we plan on closing the open collective.  This will allow the governance of the fund to exist within the ReactiveUI Associate towards its mission and goals.  If you are currently sponsoring the Open Collective, we ask that you consider changing to [become a GitHub Sponsor](https://github.com/sponsors/reactivemarbles) until we can sort out the current Open Collective.
 
-# Whats next
+## Whats next
 
 ### Setting up ReactiveUI Association GitHub Sponsorship
 In the coming months, we will be moving over to the GitHub Sponsorship platform.  This will allow a consistent mechanism for any Open Source project you want to sponsor via GitHub.  This will be a change for anyone currently using the Open Collective.  We are working to set up a self-sufficient association that can manage the funds without the need for Open Collective.  Now that we are our Non-Profit organization, we can manage the funds directly.  This will allow us to put more of the funds we have to use towards the betterment of the ReactiveUI project.

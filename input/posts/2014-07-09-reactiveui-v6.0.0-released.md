@@ -5,7 +5,7 @@ Tags: Release Notes
 Author: Anaïs Betts
 ---
 
-# Welcome to ReactiveUI 6.0
+## Welcome to ReactiveUI 6.0
 
 After 8 months of work, 878 commits, and 1032 files changed, ReactiveUI 6.0 is finally released, the biggest RxUI release ever! A huge thanks to our contributers for this release:
 - Johan Laanstra

@@ -5,7 +5,7 @@ Tags: Release Notes
 Author: Anaïs Betts
 ---
 
-# [What's New](https://github.com/reactiveui/reactiveui/compare/4.5.0...4.6.4)
+## [What's New](https://github.com/reactiveui/reactiveui/compare/4.5.0...4.6.4)
 
 ## Notable Changes Since 4.5.0
 - Improved support for ReactiveUI on iOS and Android, including Suspension Manager support
