@@ -7,5 +7,5 @@ The two deciding factors maintainers should use as a rule of thumb are as follow
 1) What is the min version of a platform shipped by Visual Studio for Windows? (ie Help -> Xamarin -> Release Notes)
 2) When a new project is created by the File -> New project wizard what version is in the csproj?
 
-# References
+## References
 * https://github.com/reactiveui/splat/pull/177#issuecomment-384114890

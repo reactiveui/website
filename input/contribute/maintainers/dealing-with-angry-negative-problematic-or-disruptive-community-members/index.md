@@ -15,7 +15,7 @@ If ReactiveUI has no maintainers it will quickly become useless to all users and
 If you’re being harassed, noticed someone else being harassed, or have any other concerns, please [contact us immediately](mailto:hello@reactiveui.net). Your reports will be taken seriously and will not be dismissed or argued with. All members, committers and volunteers in this community are required to act according to the [Code of Conduct](https://reactiveui.net/code-of-conduct). These guidelines help steer our interactions and strive to keep ReactiveUI a positive, growing project, community and help us provide and ensure a safe environment for everyone. When referring to a group of people, we aim to use gender-neutral terms like "team", "folks", "everyone". (For details, we recommend [this post](https://modelviewculture.com/pieces/gendered-language-feature-or-bug-in-software-documentation)).
 
 
-# Commerical abuse
+## Commerical abuse
 
 Open-source is a huge generational gift, and people should now be concerned about how to sustain the free software movement. Companies can contribute by open source by supporting developers and projects without seeking influence by hiring or acquiring them. But then many don't even bother doing that.
 
@@ -26,7 +26,7 @@ Open-source is a huge generational gift, and people should now be concerned abou
 
 A billion dollar company not upgrading software and expecting an unpaid open-source community to support it unreasonable. The developers at such company need to be highlighting to their organisation that the longer you leave things not updated the more friction that will cause in development for people trying to use newer tools.
 
-# Handling abuse
+## Handling abuse
 
 In the case of commerical abuse, steer the conversation towards the encouraging the company [to financially support open-source and the the project](https://reactiveui.net/donate) if the request is not unreasonable. We need to tactful in these situations as in most cases companies do not know that they were abusive. In these situations, we need to be the educators. Take the discussion off-line from GitHub ASAP and speak with the other maintainers to progress.
 
@@ -40,7 +40,7 @@ Otherwise:
 
 In the case of serious code-of-conduct violations, please start a thread in the `private` repository.
 
-# What is abusive?
+## What is abusive?
 
 Now, with all of the above said, how do you determine what crosses the line? Well, there's the obvious ones like:
 
@@ -50,7 +50,7 @@ But there are also the more subtle ones:
 
 ![](subtle-abuse.png)
 
-# The the rule of thumb
+## The the rule of thumb
 
 > Are they talking about people? Or ideas?
 

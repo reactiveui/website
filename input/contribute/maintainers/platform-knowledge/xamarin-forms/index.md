@@ -1,8 +1,8 @@
-# When to bump?
+## When to bump?
 
 https://github.com/reactiveui/rfcs/issues/7
 
-# Bumping Version
+## Bumping Version
 
 Adjust these three things:
 

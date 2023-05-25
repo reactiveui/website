@@ -1,4 +1,4 @@
-# Team Management
+## Team Management
 
 When a pull-request is created GitHub evaulates which files have been changed [as per these rules](https://github.com/reactiveui/ReactiveUI/blob/main/.github/CODEOWNERS
 ). For more information about the `CODEOWNERS` convention [refer to this page on GitHub](https://help.github.com/articles/about-codeowners/) or refer to the sample below

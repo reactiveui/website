@@ -3,7 +3,7 @@ Title: Grammar and Mechanics
 
 Adhering to certain rules of grammar and mechanics helps us keep our writing clear and consistent. This section will lay out our house style, which applies to all of our content unless otherwise noted in this guide. (We cover a lot of ground in this section—the search feature will help if you're looking for something in particular.)
 
-# Basics
+## Basics
 
 * **Write for all readers.** Some people will read every word you write. Others will just skim. Help everyone read better by grouping related ideas together and using descriptive headers and subheaders.
 
@@ -15,7 +15,7 @@ Adhering to certain rules of grammar and mechanics helps us keep our writing cle
 
 * **Be consistent.** Stick to the copy patterns and style points outlined in this guide.
 
-# Guidelines
+## Guidelines
 
 ## English Dialect
 

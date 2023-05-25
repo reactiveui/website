@@ -1,9 +1,9 @@
 
-# Development
+## Development
 
 Once pull-requests have been merged into `main` a new release is automatically generated and published to Nuget. There is nothing you need to do as the package identifier and library version is [automatically incremented](semantic-versioning) based upon our [GitVersion configuration](https://github.com/reactiveui/ReactiveUI/blob/develop/GitVersion.yml).
 
-# Production
+## Production
 
 By design, no single person can release a new version of ReactiveUI without approval from [one of the other contributors](https://github.com/orgs/reactiveui/teams/contributors). The process is kicked off by one of the contributors opening up a pull-request from `develop` to `main`
 

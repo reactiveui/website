@@ -4,7 +4,7 @@ For maintainer sanity, we version ReactiveUI and package as a pinned group - all
 
 We have three different workflows which control how ReactiveUI is versioned.
 
-# Development Builds
+## Development Builds
 
 ![Development suffix](/contribute/maintainers/semver-develop.png)
 
@@ -12,13 +12,13 @@ Builds from the `develop` branch have a suffix of `alpha` so that they are sorte
 
 GitVersion is configured in [Continuous Deployment mode](https://gitversion.readthedocs.io/en/latest/reference/continuous-deployment/) which automatically increments the version for you.
 
-# Pull Request Builds
+## Pull Request Builds
 
 ![Pull-request suffix](/contribute/maintainers/semver-pull-request-into-develop.png)
 
 Builds from pull-requests have a suffix of `pullrequest$GitHubIssueNumber` and are not automatically published to NuGet or MyGet but the packages are available for download from AppVeyor which allows the team to test the unit of change without merging into `develop`.
 
-# Release Builds
+## Release Builds
 
 ![Release has no suffix](/contribute/maintainers/semver-master.png)
 
@@ -26,7 +26,7 @@ Builds from the `main` branch do not have a suffix and GitVersion is configured 
 
 ![Building a tagged release](/contribute/maintainers/building-a-tagged-release.png)
 
-# Versioning
+## Versioning
 
 ```BREAKING.MINOR.PATCH\[-ALPHA-BUILDNUMBER\]```
 
