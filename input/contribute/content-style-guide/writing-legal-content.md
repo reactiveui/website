@@ -1,3 +1,5 @@
+NoTitle: true
+---
 ReactiveUI publishes many kinds of legal content to protect ourselves and our users around the world. Most of our legal content is written by the .NET Foundation and their lawyers. This section gives a general overview of the types of legal content we publish and how those documents are written.
 
 ## Basics

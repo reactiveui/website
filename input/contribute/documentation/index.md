@@ -1,3 +1,5 @@
+NoTitle: true
+---
 ## Documentation Sprints
 
 https://docs.google.com/document/d/1No-yCMW99oqFMmBBCKvTdkgHzjfzk4OsP4tzulLM9eo/edit#

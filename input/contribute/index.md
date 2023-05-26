@@ -1,3 +1,5 @@
+NoTitle: true
+ShowInSidebar: false
 Title: Contribute
 Order: 2
 ---

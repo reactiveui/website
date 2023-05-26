@@ -1,3 +1,5 @@
+NoTitle: true
+---
 ## Team Management
 
 When a pull-request is created GitHub evaulates which files have been changed [as per these rules](https://github.com/reactiveui/ReactiveUI/blob/main/.github/CODEOWNERS

@@ -1,3 +1,5 @@
+NoTitle: true
+---
 ## Version wasn't bumped when merging from develop into main
 
 You'll need to do a pull-request similar to this [https://github.com/reactiveui/ReactiveUI/pull/1226](https://github.com/reactiveui/ReactiveUI/pull/1226)

@@ -1,4 +1,5 @@
-
+NoTitle: true
+---
 ## directory.build.props
 * https://github.com/reactiveui/ReactiveUI/blob/develop/src/Directory.build.props
 * Used to define common properties (Copyright, PackageLicenseUrl, PackageTags) used in packaging projects.

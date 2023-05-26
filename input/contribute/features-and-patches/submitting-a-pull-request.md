@@ -1,4 +1,5 @@
-
+NoTitle: true
+---
 Before you submit your pull request, please:
 
 * If you are considering submitting a pull-request that is more than a simple fix, open a discussion on GitHub first with your proposal.

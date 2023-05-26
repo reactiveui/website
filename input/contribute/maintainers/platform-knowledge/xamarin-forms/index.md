@@ -1,3 +1,5 @@
+NoTitle: true
+---
 ## When to bump?
 
 https://github.com/reactiveui/rfcs/issues/7

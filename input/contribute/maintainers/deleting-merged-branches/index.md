@@ -1,3 +1,4 @@
+NoTitle: true
 Title: Deleting Merged Braches
 ----
 

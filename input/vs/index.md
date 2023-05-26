@@ -1,4 +1,5 @@
 NoTitle: true
+ShowInSidebar: false
 Title: ReactiveUI vs.
 Order: 2
 ---
