@@ -14,4 +14,4 @@ Another way of improving ReactiveUI is making the framework more attractive and 
 
 <img src="before-after.png" alt="before after"/>
 
-When developing it, we tried to make things as simple as possible, but still recognizable by developers who use ReactiveUI. The new logo is easier for printing, SVG and PSD files are available in our [styleguide repository](https://github.com/reactiveui/styleguide/). Hope you love it, and more updates are yet to come, including design improvements of our website. Join our [Slack workspace](https://reactiveui.net/slack), if not already.
+When developing it, we tried to make things as simple as possible, but still recognizable by developers who use ReactiveUI. The new logo is easier for printing, SVG and PSD files are available in our [styleguide repository](https://github.com/reactiveui/styleguide/). Hope you love it, and more updates are yet to come, including design improvements of our website. Join our [ReactiveUI Slack](https://join.slack.com/t/reactivex/shared_invite/zt-lt48skpz-G5WDYOAuzA80_MByZrLT0g), if not already.

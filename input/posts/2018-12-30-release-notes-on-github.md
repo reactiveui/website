@@ -11,4 +11,4 @@ Rather than creating a blog entry for every Release we are now going to store th
 The reason for this change is we were finding most of the time we were just copying pasting between the GitHub release and the blog. Our other main motivator
 is to make sure our blog posts alert you to more major changes in our product or processes, and we wanted to reduce the amount of noise going out.
 
-We are planning on also automating announcements of releases to Twitter, and already have automated the release notifications on our main [Slack channel](https://reactiveui.net/slack).
+We are planning on also automating announcements of releases to Twitter, and already have automated the release notifications on our main [ReactiveUI Slack](https://join.slack.com/t/reactivex/shared_invite/zt-lt48skpz-G5WDYOAuzA80_MByZrLT0g).

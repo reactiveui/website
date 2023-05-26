@@ -21,4 +21,4 @@ The work will begin in the next week to push a package with `ReactiveList` marke
 
 Dynamic Data's creator Roland Pheasant has provided an [Introduction for ReactiveUI Users](https://github.com/RolandPheasant/DynamicData/wiki/Introduction-for-ReactiveUI-users) as a starting point for ReactiveUI consumers.
 
-If you're willing to test the pre-release version of this change, or you have concerns that this change will break your app join us over at https://reactiveui.net/slack, or comment on the RFC or Issue linked above.
+If you're willing to test the pre-release version of this change, or you have concerns that this change will break your app join us over at [ReactiveUI Slack](https://join.slack.com/t/reactivex/shared_invite/zt-lt48skpz-G5WDYOAuzA80_MByZrLT0g), or comment on the RFC or Issue linked above.

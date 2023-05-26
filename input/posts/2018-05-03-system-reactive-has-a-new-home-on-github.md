@@ -6,7 +6,7 @@ Author: Geoffrey Huntley
 Published: 2018-05-03
 ---
 
-At MVP Summit, [the community met with Microsoft](https://github.com/Reactive-Extensions/Rx.NET/issues/466#issuecomment-370496523) and with their support and encouragement the community forked control of System.Reactive. Over the last couple weeks some of the smartest brains from multiple ecosystems have united in [our Slack instance](https://reactiveui.net/slack) to plan for the future.
+At MVP Summit, [the community met with Microsoft](https://github.com/Reactive-Extensions/Rx.NET/issues/466#issuecomment-370496523) and with their support and encouragement the community forked control of System.Reactive. Over the last couple weeks some of the smartest brains from multiple ecosystems have united in [our Slack instance](https://join.slack.com/t/reactivex/shared_invite/zt-lt48skpz-G5WDYOAuzA80_MByZrLT0g) to plan for the future.
 
 One of the items that everyone agreed upon almost instantaneously was that reactive programming on dotnet needed to have a stronger branding/marketing presense. We need to signal that `System.Reactive` is part of .NET and that living under the existing Reactive-Extensions GitHub organization did not convey that message.
 
@@ -24,4 +24,4 @@ This is big news because `System.Reactive` for .NET is the OG and original imple
 
 It also means that the Reactive Extensions will now automatically show up in data exports of opensource activity on GitHub for Microsoft execs. This is a big deal as Microsoft is heavily driven by data. If the community shines bright, is open/inclusive, stays on track then the future is very very 🚀
 
-This is a new era. Join the conversation over at https://reactiveui.net/slack and ask how you can help.
+This is a new era. Join the conversation over at [ReactiveUI Slack](https://join.slack.com/t/reactivex/shared_invite/zt-lt48skpz-G5WDYOAuzA80_MByZrLT0g) and ask how you can help.

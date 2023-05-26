@@ -214,7 +214,7 @@ public partial class MainWindow : ReactiveWindow<MainViewModel>
 
 Now ReactiveUI's view model-first routing should work as expected. `IScreen`s and `RoutedViewHost`s can be nested any number of levels without impacting routing. However, this only works for XAML pages; for modal and pop-up dialogs [Interactions](../interactions) are a better choice. 
 
-> **Note:** If you experience any difficulties with this tutorial, you can join the [ReactiveUI Slack](https://reactiveui.net/slack) channel and ask for help. We are always ready to give a hand.
+> **Note:** If you experience any difficulties with this tutorial, you can join the [ReactiveUI Slack](https://join.slack.com/t/reactivex/shared_invite/zt-lt48skpz-G5WDYOAuzA80_MByZrLT0g) channel and ask for help. We are always ready to give a hand.
 
 ## View Location
 

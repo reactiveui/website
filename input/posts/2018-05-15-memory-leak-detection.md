@@ -25,4 +25,4 @@ Thank-you Grzegorz!
 
 ps. We are currently looking for folks who are interested in performance work to aide with critically accessing the performance of ReactiveUI, the [Reactive Extensions for .NET](https://reactiveui.net/blog/2018/05/system-reactive-has-a-new-home-on-github) and [System.Linq.Expressions](https://github.com/bartdesmet/ExpressionFutures). 
 
-Sound interesting? Jump in https://reactiveui.net/slack, introduce yourself and ask how you can help out.
+Sound interesting? Jump in [ReactiveUI Slack](https://join.slack.com/t/reactivex/shared_invite/zt-lt48skpz-G5WDYOAuzA80_MByZrLT0g), introduce yourself and ask how you can help out.
