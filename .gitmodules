@@ -5,15 +5,3 @@
 [submodule "external/splat"]
 	path = external/splat
 	url = https://github.com/reactiveui/splat
-[submodule "external/akavache"]
-	path = external/akavache
-	url = https://github.com/reactiveui/Akavache
-[submodule "external/dynamicdata"]
-	path = external/dynamicdata
-	url = https://github.com/reactivemarbles/DynamicData
-[submodule "external/punchclock"]
-	path = external/punchclock
-	url = https://github.com/reactiveui/punchclock
-[submodule "external/fusillade"]
-	path = external/fusillade
-	url = https://github.com/reactiveui/Fusillade
