@@ -13,8 +13,9 @@
 
   <ItemGroup>
     <PackageReference Include="Statiq.Docs" Version="1.0.0-beta.11" />
+    <PackageReference Include="Polly" Version="7.2.3" />
   </ItemGroup>
-
+  
   <ItemGroup>
     <Compile Remove="external\**" />
     <EmbeddedResource Remove="external\**" />
@@ -25,5 +26,7 @@
     <Using Include="Statiq.App" />
     <Using Include="Statiq.Docs" />
     <Using Include="Statiq.Razor" />
+    <Using Include="Statiq.Markdown"/>
+    <Using Include="ReactiveUI.Web"/>
   </ItemGroup>
 </Project>
