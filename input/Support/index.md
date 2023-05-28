@@ -1,4 +1,5 @@
 NoTitle: true
+ShowInSidebar: false
 Title: Support
 Order: 2
 ---
