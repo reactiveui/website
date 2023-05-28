@@ -97,8 +97,9 @@ sass-font-family-serif: "\"Source Sans Pro\", Helvetica, Arial, sans-serif;" - T
 sass-font-family-monospace: "\"Source Sans Pro\", Helvetica, Arial, sans-serif;" - The font family to use for monospace
 sass-font-family-base: "\"Source Sans Pro\", Helvetica, Arial, sans-serif;" - The font family to use for base
 PostTitle: Blog - The title to use for blog posts
-PostOrder: 1 - The Navigation menu order to use for blog posts
+PostOrder: 1 - The Navigation menu order to use for the blog / posts section
 ApiLayout: Api/_ApiLayout - The layout to use for api pages
+ApiOrder: 1 - The Navigation menu order to use for the API section
 PostSources: posts/**/* - The sources to use for blog posts
 PageSources: pages/**/* - The sources to use for pages
 ```

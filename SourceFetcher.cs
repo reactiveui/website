@@ -2,11 +2,14 @@
 
 using Polly.RateLimit;
 using Polly;
+using System.Diagnostics;
 
 namespace ReactiveUI.Web;
 
 internal static class SourceFetcher
 {
+    private static readonly object _lockObject = new();
+
     public static Bootstrapper GetSources(this Bootstrapper bootStrapper, string owner, params string[] repositories)
     {
         Directory.CreateDirectory("external/Zip");
@@ -30,6 +33,8 @@ internal static class SourceFetcher
 
         Task.WaitAll(repositories.Select(repository => Task.Run(async () =>
         {
+            LogToConsole(repository, "Downloading");
+
             var url = $"https://codeload.github.com/{owner}/{repository}/zip/main";
 
             var zipPath = $"external/Zip/{repository}.zip";
@@ -50,10 +55,12 @@ internal static class SourceFetcher
                 }
 
                 using (Stream contentStream = await response.Content.ReadAsStreamAsync(),
-                    stream = new FileStream(zipPath, System.IO.FileMode.Create, FileAccess.Write, FileShare.None))
+                    stream = new FileStream(zipPath, FileMode.Create, FileAccess.Write, FileShare.None))
                 {
                     await contentStream.CopyToAsync(stream);
                 }
+
+                LogToConsole(repository, "Extracting Files");
 
                 ZipFile.ExtractToDirectory(zipPath, extractPath);
                 if (Directory.Exists(finalPath))
@@ -68,9 +75,43 @@ internal static class SourceFetcher
                 }
 
                 File.Delete(zipPath);
+
+                LogToConsole(repository, "Restoring Packages for ");
+
+                Process process = new Process();
+                ProcessStartInfo startInfo = new ProcessStartInfo
+                {
+                    WindowStyle = ProcessWindowStyle.Hidden,
+                    FileName = "cmd.exe",
+                    Arguments = $"/C dotnet restore {repository}.sln",
+                    WorkingDirectory = Path.Combine(finalPath, "src")
+                };
+                process.StartInfo = startInfo;
+                process.Start();
+                process.WaitForExit();
+
+                LogToConsole(repository,"Downloaded");
             }));
         })).ToArray());
 
         return bootStrapper;
+    }
+
+    public static string WithSourceFilter(this string repository, params string[] exclude)
+    {
+        var excludeFilter = exclude.Length > 0 ? string.Join(",", exclude.Select(x => $"!{x}")) + "," : string.Empty;
+        return $"../../{repository}/src/**/{{!.git,!bin,!obj,!packages,!*.Tests,!*.Templates,!*.Benchmarks,{excludeFilter}}}/**/*.cs";
+    }
+
+    private static void LogToConsole(string repository, string message)
+    {
+        lock (_lockObject)
+        {
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write("[INFO] ");
+            Console.ResetColor();
+            Console.Write($"{message} {repository}...");
+            Console.WriteLine();
+        }
     }
 }
