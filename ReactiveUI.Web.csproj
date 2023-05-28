@@ -26,7 +26,7 @@
     <Using Include="Statiq.App" />
     <Using Include="Statiq.Docs" />
     <Using Include="Statiq.Razor" />
-    <Using Include="Statiq.Markdown"/>
-    <Using Include="ReactiveUI.Web"/>
+    <Using Include="Statiq.Markdown" />
+    <Using Include="ReactiveUI.Web" />
   </ItemGroup>
 </Project>
