@@ -6,11 +6,11 @@ If you are tired of writing boilerplate code for property change notifications, 
 Typically properties are declared like this:
 
 ```cs
-private string name;
+private string _name;
 public string Name 
 {
-    get => name;
-    set => this.RaiseAndSetIfChanged(ref name, value);
+    get => _name;
+    set => this.RaiseAndSetIfChanged(ref _name, value);
 }
 ```
 
@@ -28,15 +28,15 @@ public string Name { get; set; }
 Similarly, to declare output properties, the code looks like this:
 
 ```cs
-ObservableAsPropertyHelper<string> firstName;
-public string FirstName => firstName.Value;
+ObservableAsPropertyHelper<string> _firstName;
+public string FirstName => _firstName.Value;
 ```
 
 Then the helper is initialized with a call to `ToProperty`:
 
 ```cs
 // firstNameObservable is IObservable<string>
-firstName = firstNameObservable
+_firstName = firstNameObservable
   .ToProperty(this, x => x.FirstName);
 ```
 

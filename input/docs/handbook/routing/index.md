@@ -5,11 +5,11 @@ Routing enables an application to coordinate navigation through multiple views a
 ReactiveUI supports routing for the following platforms:
 
 - Avalonia
-- Universal Windows Platform (UWP)
+- Uno Platform
 - Windows Forms
 - Windows Presentation Foundation (WPF)
-- WinRT
-- WP8
+- WinUI
+- MAUI
 - Xamarin Forms
 
 Routing also works on iOS and Android without Xamarin.Forms, but it isn't always easy to use. If view model routing turns out hard to implement on those platforms, you can use view-first routing and customize most aspects of it.
