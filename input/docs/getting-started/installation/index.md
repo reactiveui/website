@@ -10,7 +10,7 @@ ReactiveUI packages are now signed by the dotnet foundation. Only builds from th
 | ----------------- | ----------------------------------- | ---------------------- |
 | .NET Standard     | [ReactiveUI][CoreDoc]               | [![CoreBadge]][Core]   |
 |                   | [ReactiveUI.Fody][FodyDoc]          | [![FodyBadge]][Fody]   |
-| .NET 6            | [ReactiveUI][CoreDoc]               | [![CoreBadge]][Core]   |
+| .NET              | [ReactiveUI][CoreDoc]               | [![CoreBadge]][Core]   |
 |                   | [ReactiveUI.Fody][FodyDoc]          | [![FodyBadge]][Fody]   |
 | Unit Testing      | [ReactiveUI.Testing][TestDoc]       | [![TestBadge]][Test]   |
 | WPF               | [ReactiveUI.WPF][WpfDoc]            | [![WpfBadge]][Wpf]     |
@@ -132,27 +132,22 @@ The following isn't an exhausitve example, as some solutions will follow a diffe
 
 ReactiveUI is published to [NuGet.org](https://www.nuget.org/packages?q=ReactiveUI) when a release of the software is done. Get email notifications when new release is pushed over at [reactiveui libraries](https://libraries.io/nuget/reactiveui)
 
+- Splat
+    - [Splat](https://www.nuget.org/packages/Splat/) is a library to make things cross-platform that support .NET Standard 2.0
+- Splat.Microsoft.Extensions.DependencyInjection
+    - [Splat.Microsoft.Extensions.DependencyInjection](https://www.nuget.org/packages/Splat.Microsoft.Extensions.DependencyInjection/) is a library to make things cross-platform that support .NET Standard 2.0
+- Splat.Micrsoft.Extensions.Logging
+    - [Splat.Microsoft.Extensions.Logging](https://www.nuget.org/packages/Splat.Microsoft.Extensions.Logging) A library to extend the functionality of Splat  
 - ReactiveUI
     - [ReactiveUI](https://www.nuget.org/packages/ReactiveUI/) is the base package that has the base platform implementations.
  - ReactiveUI.Blazor
     - [ReactiveUI.Blazor](https://www.nuget.org/packages/ReactiveUI.Blazor/) this package has ReactiveUI platform specific extensions for Blazor
-- ReactiveUI.Events
-    - [ReactiveUI.Events](https://www.nuget.org/packages/ReactiveUI.Events/) is the base package for ReactiveUI Events as Observables API.
 - ReactiveUI.WinForms
     - [ReactiveUI.WinForms](https://www.nuget.org/packages/ReactiveUI.WinForms/) this package has ReactiveUI platform specific extensions for Windows Forms
-    - [Reactiveui.Events.WinForms](https://www.nuget.org/packages/ReactiveUI.Events.WinForms/) this package provides Observable-based events API for Win Forms UI controls/eventhandlers.
 - ReactiveUI.WPF
     - [ReactiveUI.WPF](https://www.nuget.org/packages/ReactiveUI.WPF/) this package has ReactiveUI platform specific extensions for WPF
-    - [Reactiveui.Events.WPF](https://www.nuget.org/packages/ReactiveUI.Events.WPF/) this package provides Observable-based events API for WPF UI controls/eventhandlers.
 - ReactiveUI.XamForms
     - [ReactiveUI.XamForms](https://www.nuget.org/packages/ReactiveUI.XamForms/) this package has ReactiveUI platform specific extensions for Xamarin Forms
-    - [Reactiveui.Events.XamForms](https://www.nuget.org/packages/ReactiveUI.Events.XamForms/) this package provides Observable-based events API for Xamarin Forms UI controls/eventhandlers.
 - ReactiveUI.Fody
     - [ReactiveUI.Fody](https://www.nuget.org/packages/ReactiveUI.Fody/) this package is a Fody extension that will generate RaisePropertyChange notifications for properties and ObservableAsPropertyHelper properties.
 
-## Development Packages
-
-Pre-release nuget packages are uploaded to the Reactive UI [GitHub Packages](https://github.com/orgs/reactiveui/packages). You can use this feed to access hotfixes before they are released and to help the maintainers verify resolution to issues.
-
-1. Visit [visualstudio consume](https://www.visualstudio.com/en-us/docs/package/nuget/consume)
-2. Configure in the following address `https://nuget.pkg.github.com/reactiveui/index.json`

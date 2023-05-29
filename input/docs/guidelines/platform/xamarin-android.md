@@ -25,7 +25,7 @@ Use disposables to manage lifetime, scope and resources:
 
 - [Reactive Programming#disposables](https://reactiveui.net/docs/reactive-programming#disposables)
 
-Don't use eventhandlers, use the extension methods shipped in `reactiveui.events` instead
+Don't use eventhandlers, use the extension methods shipped in `ReactiveMarbles.ObservableEvents.SourceGenerator` instead
 
 - [Events](https://reactiveui.net/docs/handbook/events/)
 

@@ -17,6 +17,6 @@ Assuming the following project structure:
 - MyCoolApp.UnitTests (tests)
 ```
 
-* Install `ReactiveUI` into your netstandard libraries, application and tests.
-* Install `Avalonia.ReactiveUI` into your application and add `.UseReactiveUI()` to your AppBuilder.
-* Install `ReactiveUI.Testing` into your tests.
+* Install [ReactiveUI](https://www.nuget.org/packages/ReactiveUI) into your netstandard libraries and tests.
+* Install [Avalonia.ReactiveUI](https://www.nuget.org/packages/Avalonia.ReactiveUI) into your application and add `.UseReactiveUI()` to your AppBuilder.
+* Install [ReactiveUI.Testing](https://www.nuget.org/packages/ReactiveUI.Testing) into your tests.

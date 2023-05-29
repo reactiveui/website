@@ -7,7 +7,7 @@ Let's create a simple application demonstrating a number of ReactiveUI functiona
 
 ## 1. Create the project
 
-In [Visual Studio](https://visualstudio.microsoft.com/), create a new WPF application (.NET 4.6.1 or above), use `ReactiveDemo` app name. Our view has been already created for us, the `MainWindow`, so we will proceed with creating our ViewModel.
+In [Visual Studio](https://visualstudio.microsoft.com/), create a new WPF application (.NET 4.6.2 or above), use `ReactiveDemo` app name. Our view has been already created for us, the `MainWindow`, so we will proceed with creating our ViewModel.
 
 ## 2. Add NuGet packages
 

@@ -1,6 +1,6 @@
 NoTitle: true
 ---
-ReactiveUI recommends the use of [DynamicData](https://github.com/reactiveui/DynamicData) for collection based operations.
+ReactiveUI recommends the use of [DynamicData](https://github.com/reactivemarbles/DynamicData) for collection based operations.
 
 > DynamicData has replaced internally the use of [ReactiveList](../obsolete/collections/reactive-list)
 
@@ -268,7 +268,7 @@ shared.Connect();
 
 ## Explore DynamicData
 
-* [DynamicData GitHub page](https://github.com/RolandPheasant/DynamicData)
+* [DynamicData GitHub page](https://github.com/reactivemarbles/DynamicData)
 * [DynamicData Snippets](https://github.com/RolandPheasant/DynamicData.Snippets) - Snippets curated based on small example problems
 * [DynamicData Trader App](https://github.com/RolandPheasant/Dynamic.Trader) - A sample stock trading application showing off various implementations.
 * [DynamicData Tail Blazer](https://github.com/RolandPheasant/TailBlazer) - A sample closer to a end application.

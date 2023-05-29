@@ -29,9 +29,9 @@ ReactiveUI makes it easy to combine the MVVM pattern with Reactive Programming b
 
 ReactiveUI is much more than just a MVVM helper. Take a look at the following projects to get started exploring what is available
 
+- [DynamicData](https://github.com/reactivemarbles/DynamicData) - Reactive collections based on reactive extensions
+- [ObservableEvents](https://github.com/reactivemarbles/ObservableEvents) - Build Observables from Events
 - [Sextant](https://github.com/reactiveui/Sextant)- Navigation library for Xamarin.Forms using ReactiveUI
-- [Pharmacist](https://github.com/reactiveui/Pharmacist) - Build Observables from Events
-- [DynamicData](https://github.com/RolandPheasant/DynamicData) - Reactive collections based on reactive extensions
 - [Samples](https://reactiveui.net/docs/resources/samples/) - Open Source applications built with ReactiveUI
 - [Blog](https://reactiveui.net/blog/) - Release Notes and Announcements
 - [Videos and Presentations](https://reactiveui.net/docs/resources/videos) - Videos and Presentations
