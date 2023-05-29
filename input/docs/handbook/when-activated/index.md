@@ -57,7 +57,7 @@ The framework will acknowledge the link from your `ViewModel` to your `View` if 
 
 ## Views
 
-Whenever you subscribe one object to an event exposed by another object, you introduce the potential for a memory leak. This is especially true for XAML based platforms where [objects/events referenced by a dependency property may not get garbage collected for you automatically](https://sharpfellows.com/post/Memory-Leaks-and-Dependency-Properties).
+Whenever you subscribe one object to an event exposed by another object, you introduce the potential for a memory leak. This is especially true for XAML based platforms where objects/events referenced by a dependency property may not get garbage collected for you automatically.
 
 In a nutshell, when object A provides a handler for an event exposed by object B, the handler is attached to the event and the lifetime of the handler is tied to the lifetime of object B. When object B is disposed, it's event handlers are cleared, thus under normal circumstances it is not necessary to explicitly clear event subscriptions. In XAML, however, there is an additional wrinkle with dependency properties. If you hook change events on the "Value" property, _even when the object goes way_, you have leaked the event because it's tied to the static property ValueProperty.
 
