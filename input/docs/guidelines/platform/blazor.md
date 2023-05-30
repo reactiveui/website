@@ -1,11 +1,12 @@
+NoTitle: true
 Title: Blazor
 ---
 
-### Project
+## Project
 
 Ensure that you install `ReactiveUI.Blazor` into your application.
 
-### ViewModel
+## ViewModel
 
 Your ViewModel should inherit from `ReactiveObject` or 'ReactiveValidationObject' if you wish to use [ReactiveUI.Validation](https://www.reactiveui.net/docs/handbook/user-input-validation/)
 
@@ -25,7 +26,7 @@ Use disposables to manage lifetime, scope and resources:
 
 - [Reactive programming#disposables](https://reactiveui.net/docs/reactive-programming/#disposables)
 
-### View
+## View
 
 Your Page (View) should inherit from
 

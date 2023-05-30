@@ -1,4 +1,6 @@
-# Performance optimization
+NoTitle: true
+---
+## Performance optimization
 
 ## Splat
 

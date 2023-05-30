@@ -1,4 +1,5 @@
-
+NoTitle: true
+---
 ## Visual Studio Minimums
 
 Visual Studio 2019 and beyond.
@@ -9,12 +10,11 @@ ReactiveUI has the following minimum platform requirements:
 
 | Platform | Minimum |
 |----------|---------|
-| .Net Framework | 4.6.1 |
+| .Net Framework | 4.6.2 |
 | .Net Standard | 2.0 |
-| .Net Core | 3.1 |
-| .Net | 5.0 |
-| UWP | 10.0.16299.0 |
-| Xamarin Android | 11.0 |
+| .Net | 6.0 |
+| Windows | 10.0.17763.0 |
+| Xamarin Android | 12.0 |
 | Xamarin iOS | 1.0 |
 | Xamarin Mac | 2.0 |
 | Xamarin TVOS | 1.0 |
@@ -22,7 +22,7 @@ ReactiveUI has the following minimum platform requirements:
 
 ## Android Minimums
 
-Android 11.0 is the minimum, with SDK 30.
+Android 12.0 is the minimum, with SDK 30.
 
 Make sure your `AndroidManifest.xml` has SDK 30 as the target SDK.
 
@@ -34,4 +34,4 @@ Make sure your `AndroidManifest.xml` has SDK 30 as the target SDK.
 </manifest> 
 ```
 
-Also that your `CSPROJ` references Android 11.0.
+Also that your `CSPROJ` references Android 12.0.

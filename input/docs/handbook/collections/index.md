@@ -1,8 +1,10 @@
-ReactiveUI recommends the use of [DynamicData](https://github.com/reactiveui/DynamicData) for collection based operations.
+NoTitle: true
+---
+ReactiveUI recommends the use of [DynamicData](https://github.com/reactivemarbles/DynamicData) for collection based operations.
 
-> DynamicData has replaced internally the use of [ReactiveList](../obsolete/collections)
+> DynamicData has replaced internally the use of [ReactiveList](../obsolete/collections/reactive-list)
 
-# Overview of Dynamic Data
+## Overview of Dynamic Data
 
 Dynamic Data is reactive collections based on [Reactive Extensions for .NET](/docs/reactive-programming/). 
 
@@ -98,7 +100,7 @@ If you have a unique id, you should use an observable cache as it is dictionary 
 
 There is another difference. The cache side of dynamic data is much more mature and has a wider range of operators. Having more operators is mainly because I found it easier to achieve good all round performance with the key based operators and do not want to add anything to Dynamic Data which inherently has poor performance.
 
-# Using DynamicData with ReactiveUI
+## Using DynamicData with ReactiveUI
 
 When building applications with ReactiveUI and DynamicData, you have a choice to work with mutable or with immutable collections. When working with immutable ones, using an `ObservableAsPropertyHelper<T>` is enough in simple cases. The `ObservableAsPropertyHelper<T>` represents an `Observable<T>`, a stream of values over time. You can treat those values as events, and the new values as event arguments. This means if you are using immutable collections, you can treat them as event arguments and update a property with a new collection each time it changes. See [ObservableAsPropertyHelper Handbook section](/docs/handbook/oaph/) to learn how to use this feature. Note, that creating a new collection for each update degrades performance and should be generally avoided, prefer to use DynamicData instead.
 
@@ -200,7 +202,7 @@ public class SynchronizedCollectionsViewModel : ReactiveObject
 }
 ```
 
-# Tracking Changes in Collections of Reactive Objects
+## Tracking Changes in Collections of Reactive Objects
 
 DynamicData supports change tracking for classes that implement the `INotifyPropertyChanged` interface — `ReactiveObject`s. For example, if you'd like to do a `WhenAnyValue` on each element in a collection of changing objects, use the `AutoRefresh()` DynamicData operator:
 
@@ -221,7 +223,7 @@ _databasesValid = databasesValid.ToProperty(this, x => x.DatabasesValid);
 
 > **Note** `ToCollection()` works pretty differently internally, it re-generates the entire list every time while SourceCache/SourceList `Bind()` does addition/removals etc. `ToCollection()` is only meant for aggregation based on operations where you really need a full collection each time as an observable.
 
-# Converting ReactiveList to DynamicData
+## Converting ReactiveList to DynamicData
 
 If you are using `ReactiveList<T>`, and only adding/removing from the UI thread use `ObservableCollectionExtended<T>`. It provides similar functionality where you `AddRange()` and suppress notifications. This approach should only be used if you are doing Single Threaded operations and wanting to mutate your data.
 
@@ -264,9 +266,9 @@ shared.Connect();
   * `Select()` is `Transform()`
   * `SelectMany()` is `TransformMany()`
 
-# Explore DynamicData
+## Explore DynamicData
 
-* [DynamicData GitHub page](https://github.com/RolandPheasant/DynamicData)
+* [DynamicData GitHub page](https://github.com/reactivemarbles/DynamicData)
 * [DynamicData Snippets](https://github.com/RolandPheasant/DynamicData.Snippets) - Snippets curated based on small example problems
 * [DynamicData Trader App](https://github.com/RolandPheasant/Dynamic.Trader) - A sample stock trading application showing off various implementations.
 * [DynamicData Tail Blazer](https://github.com/RolandPheasant/TailBlazer) - A sample closer to a end application.
