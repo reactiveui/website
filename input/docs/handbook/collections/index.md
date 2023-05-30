@@ -100,7 +100,7 @@ There is another difference. The cache side of dynamic data is much more mature 
 
 # Using DynamicData with ReactiveUI
 
-When building applications with ReactiveUI and DynamicData, you have a choice to work with mutable or with immutable collections. When working with immutable ones, using an `ObservableAsPropertyHelper<T>` is enough in simple cases. The `ObservableAsPropertyHelper<T>` represents an `Observable<T>`, a stream of values over time. You can treat those values as events, and the new values as event arguments. This means if you are using immutable collections, you can treat them as event arguments and update a property with a new collection each time it changes. See [ObservableAsPropertyHelper Handbook section](/docs/handbook/oaph/) to learn how to use this feature. Note, that creating a new colletion for each update degrades performance and should be generally avoided, prefer to use DynamicData instead.
+When building applications with ReactiveUI and DynamicData, you have a choice to work with mutable or with immutable collections. When working with immutable ones, using an `ObservableAsPropertyHelper<T>` is enough in simple cases. The `ObservableAsPropertyHelper<T>` represents an `Observable<T>`, a stream of values over time. You can treat those values as events, and the new values as event arguments. This means if you are using immutable collections, you can treat them as event arguments and update a property with a new collection each time it changes. See [ObservableAsPropertyHelper Handbook section](/docs/handbook/oaph/) to learn how to use this feature. Note, that creating a new collection for each update degrades performance and should be generally avoided, prefer to use DynamicData instead.
 
 ### An Example
 
