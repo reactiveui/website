@@ -1,4 +1,6 @@
-# Visual Studio IntelliTrace
+NoTitle: true
+---
+## Visual Studio IntelliTrace
 
 * Modify Visual Studio's IntelliTrace settings via Debug>IntelliTrace>Open
    IntelliTrace Settings>IntelliTrace Events>Tracing> Check everything except

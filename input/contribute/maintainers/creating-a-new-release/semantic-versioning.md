@@ -1,10 +1,12 @@
+NoTitle: true
+---
 Semantic versioning is all about releases, our continuous integration infrastructure uses [GitVersion](https://gitversion.readthedocs.io) to automatically version our releases [as per the configuration](https://github.com/reactiveui/ReactiveUI/blob/develop/GitVersion.yml).
 
 For maintainer sanity, we version ReactiveUI and package as a pinned group - all packages in a release will always be the same version and only work with that version which makes it impossible for a consumer to run into situations where they use `reactiveui-core` at `7.1.0` but `reactiveui-xamforms` at `7.0.0`. Additionally all assemblies share the same [CommonAssemblyInfo.cs](https://github.com/reactiveui/ReactiveUI/blob/develop/src/CommonAssemblyInfo.cs) which is updated just before compile time by the build infrastructure.
 
 We have three different workflows which control how ReactiveUI is versioned.
 
-# Development Builds
+## Development Builds
 
 ![Development suffix](/contribute/maintainers/semver-develop.png)
 
@@ -12,13 +14,13 @@ Builds from the `develop` branch have a suffix of `alpha` so that they are sorte
 
 GitVersion is configured in [Continuous Deployment mode](https://gitversion.readthedocs.io/en/latest/reference/continuous-deployment/) which automatically increments the version for you.
 
-# Pull Request Builds
+## Pull Request Builds
 
 ![Pull-request suffix](/contribute/maintainers/semver-pull-request-into-develop.png)
 
 Builds from pull-requests have a suffix of `pullrequest$GitHubIssueNumber` and are not automatically published to NuGet or MyGet but the packages are available for download from AppVeyor which allows the team to test the unit of change without merging into `develop`.
 
-# Release Builds
+## Release Builds
 
 ![Release has no suffix](/contribute/maintainers/semver-master.png)
 
@@ -26,7 +28,7 @@ Builds from the `main` branch do not have a suffix and GitVersion is configured 
 
 ![Building a tagged release](/contribute/maintainers/building-a-tagged-release.png)
 
-# Versioning
+## Versioning
 
 ```BREAKING.MINOR.PATCH\[-ALPHA-BUILDNUMBER\]```
 

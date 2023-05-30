@@ -1,6 +1,8 @@
+NoTitle: true
+---
 `ReactiveCommand` is a Reactive Extensions and asynchronous aware implementation of the [`ICommand`](https://msdn.microsoft.com/en-us/library/system.windows.input.icommand.aspx) interface. `ICommand` is often used in the [MVVM design pattern](https://docs.microsoft.com/en-us/dotnet/framework/wpf/advanced/commanding-overview) to allow the View to trigger business logic defined in the ViewModel. This allows for easier maintenance, unit testing, and the ability to reuse ViewModels across different UI frameworks. Examples of where a View might invoke a command include clicking a *Save* menu item, tapping a phone icon, or stretching an image. In these cases, the ViewModel will then invoke the business logic of saving outstanding changes, performing a phone call, or zooming into an image.
 
-# Creating commands
+## Creating commands
 
 A `ReactiveCommand` is created using static factory methods which allows you to create command logic that executes either synchronously or asynchronously. The following are the different static factory methods:
 
@@ -40,7 +42,7 @@ command.Execute(Unit.Default).Subscribe();
 command.Subscribe(value => Console.WriteLine(value));
 ```
 
-# Synchronous commands
+## Synchronous commands
 
 If your command is not CPU-intensive or I/O-bound then it probably makes sense to provide synchronous execution logic. You can do so by creating a command via `ReactiveCommand.Create`:
 
@@ -52,11 +54,17 @@ var command = ReactiveCommand.Create(
 );
 ```
 
-# Asynchronous commands
+## Asynchronous commands
 
 One of the most important features of `ReactiveCommand` is its built-in facilities for orchestrating asynchronous operations, commands will block re-execution while executing. `ReactiveCommand`s are fully integrated into the Reactive Extensions framework, providing an `.IsExecuting` property (of type `IObservable<bool>`) which tells you whether the command is currently executing. This is often useful if you want to trigger activity animations or you want to prevent other commands from executing while the command is executing.
 
 It is important to know, that ReactiveCommand itself as an `IObservable` will never complete or OnError - errors that happen in the async method will instead show up on the `ThrownExceptions` property. If it is possible that your async method can throw an exception, you should subscribe to `ThrownExceptions` or the exception will be rethrown on the UI thread.
+
+Three methods are provided for creating asynchronous commands:
+
+* `CreateFromObservable()` - Execute the logic using an `IObservable`.
+* `CreateFromTask()` - Execute a C# [Task Parallel Library (TPL)](https://docs.microsoft.com/en-us/dotnet/standard/parallel-programming/task-based-asynchronous-programming) Task. This allows use also of the C# [async/await](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/async) operators. Read more on canceling commands [here](./canceling).
+* `CreateRunInBackground()` - Execute a method on a background thread allowing UI status to update.
 
 ```cs
 // Here we declare a ReactiveCommand, an OAPH and a property.
@@ -86,11 +94,11 @@ LoadUsers.ThrownExceptions.Subscribe(exception =>
 });
 ```
 
-> **Note** For performance based solutions you can also use the nameof() operator override of ToProperty() which won't use the Expression. Read more on ObservableAsPropertyHelper [here](../oaph).
+> **Note** For performance based solutions you can also use the nameof() operator override of ToProperty() which won't use the Expression. Read more on ObservableAsPropertyHelper [here](../observable-as-property-helper).
 
 `ReactiveCommand` guarantees the result of events are delivered to the provided `outputScheduler`. The executing logic thread safety is the user's responsibility but any result from the logic is guaranteed to arrive on the specified `outputScheduler`. Read more on scheduling [here](#controlling-scheduling).
 
-# Controlling executability
+## Controlling executability
 
 A `ReactiveCommand` may or may not be executable in a given situation. For example, the command backing the *Save* menu item might be unavailable if there are no unsaved changes. We pass into the `ReactiveCommand` an `IObservable<bool>` of when the ReactiveCommand should be allowed to be executed. The `ReactiveCommand` uses an IObservable eventing system to determine if execution should be allowed which differs from other frameworks where you might have the command continuous poll if execution is allowed. The ReactiveCommand approach has some performance advantages in that the value is cached between the can execute observable being fired. You commonly will create your can execute observable using the [`WhenAnyValue` functions](../when-any) provided by the ReactiveUI framework: 
 
@@ -115,7 +123,7 @@ Parameters, unlike in other frameworks, are typically *not used* in the canExecu
 
 > **Warning** For performance reasons, `ReactiveCommand` does not marshal your `canExecute` observable to the main scheduler. You almost certainly want your `canExecute` observable to be ticking on the main thread, so be sure to add a call to `ObserveOn` if necessary.
 
-# Handling exceptions
+## Handling exceptions
 
 If the logic you provide to a `ReactiveCommand` can fail in expected ways, you need a means of dealing with those failures. For command execution, the pipeline you get back from `Execute` will tick any errors that occur in your execution logic. However, the subscription to this observable is often instigated by the binding infrastructure. As such, it's likely that you cannot even get a hold of the observable to observe any errors.
 
@@ -165,7 +173,7 @@ commandA.ThrownExceptions.Merge(commandB.ThrownExceptions)
     .Subscribe(error => ErrorInteraction.Handle("Error in B!"));
 ```
 
-# Invoking commands
+## Invoking commands
 
 The best way to execute ReactiveCommands is via the `Execute()` method:
 
@@ -203,7 +211,7 @@ Observable.Timer(interval, interval)
 
 > **Hint** `InvokeCommand` respects the command's executability. That is, if the command's `CanExecute` method returns `false`, `InvokeCommand` will not execute the command when the source observable ticks.
 
-# Combining commands
+## Combining commands
 
 At times it can be useful to have several commands aggregated into one. As an example, consider a browser that allows the user to clear individual caches \(browsing history, download history, cookies\), or clear all caches. There would be a command for clearing each individual cache, each of which might have its own logic to dictate the executability of the command. It would be onerous and error-prone to have to repeat or combine all this logic for the command that clears all caches. Combined commands provide an elegant means of addressing this situation:
 
@@ -242,7 +250,7 @@ var clearAll = ReactiveCommand.CreateCombined(
 
 All child commands provided to the `CreateCombined` method must be of the same type. You cannot combine, say, a `ReactiveCommand<Unit, Unit>` with a `ReactiveCommand<int, Unit>`. Nor can you combine, say, a `ReactiveCommand<Unit, Unit>` with a `ReactiveCommand<Unit, int>`. This is because all child commands will receive the parameter provided to the combined command, and the result of executing the combined command is a list of all child results.
 
-# Controlling scheduling
+## Controlling scheduling
 
 By default, `ReactiveCommand` uses `RxApp.MainThreadScheduler` to surface events. That is, values from `CanExecute`, `IsExecuting`, `ThrownExceptions`, and result values from the command itself. Typically UI components are subscribed to these observables, so it's a sensible default. However, when writing unit tests for your view models, you may want more control over scheduling. All `Create*` methods take an optional `outputScheduler` parameter, so you can pass in a custom scheduler if you need to:
 
@@ -265,11 +273,11 @@ command.Execute().Subscribe();
 
 > **Note** If you're using ReactiveUI's `With` extension method in your tests, you can create commands using the default scheduling behavior. That's because the `With` extension method will switch out `RxApp.MainThreadScheduler` with the scheduler you provide it.
 
-# Bindings
+## Bindings
 
 `ReactiveCommand` can be connected to the View by either using XAML binding on supported platforms, or using the inbuilt [ReactiveUI binding](../data-binding) method `BindCommand`. Use of BindCommand is preferred but not required where XAML bindings are supported. Read more on this [here](./binding-commands).
 
-# Unit Testing
+## Unit Testing
 
 Read: [Using the Visual Studio Test Runner for Mobile Development](https://kent-boogaart.com/blog/using-the-visual-studio-test-runner-for-mobile-development)
 

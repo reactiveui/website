@@ -1,4 +1,6 @@
-# Dispose your subscriptions
+NoTitle: true
+---
+## Dispose your subscriptions
 
 [Lifetime management](http://www.introtorx.com/Content/v1.0.10621.0/03_LifetimeManagement.html)
 

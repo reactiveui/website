@@ -1,3 +1,5 @@
+NoTitle: true
+---
 1. Assign one or more labels to categorize what component of ReactiveUI was changed by this unit of work. ![](images/apply-one-or-more-labels.png)
 
 2. Rename the title of the GitHub issue to match [our convention](/contribute/software-style-guide/commit-message-convention). ![](images/rename-the-title.png)

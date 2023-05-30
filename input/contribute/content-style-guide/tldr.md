@@ -1,8 +1,9 @@
+NoTitle: true
 Title: TL;DR
 Order: 0
 ---
 
-# Principles
+## Principles
 
 Good content is:
 
@@ -11,7 +12,7 @@ Good content is:
 * Friendly
 * Appropriate
 
-# Voice and tone
+## Voice and tone
 
 ReactiveUI’s voice is:
 
@@ -24,7 +25,7 @@ Our tone changes depending on the situation, but it's generally informal. We hav
 
 Our priorities are to educate our users without patronizing or confusing them, so they can get their work done and get on with their lives.
 
-# Writing about people
+## Writing about people
 
 We write and build apps with a person-first perspective. 
 
@@ -35,7 +36,7 @@ We write and build apps with a person-first perspective.
 
 Related resource: [The Conscious Style Guide](https://consciousstyleguide.com/).
 
-# Grammar and mechanics
+## Grammar and mechanics
 
 * Some people will read every word you write. Others will just scan. Help everyone by grouping related ideas together and using descriptive headers and subheaders.
 * Focus your message, and create a hierarchy of information. Lead with the main point or the most important content.
@@ -50,7 +51,7 @@ Related resource: [The Conscious Style Guide](https://consciousstyleguide.com/).
 * Don’t use underline, and don’t use any combination of italic, bold, caps, and underline.
 * When in doubt, read your writing out loud.
 
-# Web elements
+## Web elements
 
 * Organize your page around one topic.
 * Use clear, descriptive terms that relate to the topic in titles and headings.
@@ -67,7 +68,7 @@ Related resource: [The Conscious Style Guide](https://consciousstyleguide.com/).
 * Don't say things like "Click here!" or "Click for more information" or "Read this." Instead, link relevant keywords.
 * Use lists to present steps, groups, or sets of info. Set up your list with a brief introduction. Number lists when the order of information is important.
 
-# Writing for accessibility
+## Writing for accessibility
 
 * Create a hierarchy, with the most important information first.
 * Place similar topics in the same paragraph, and clearly separate different topics with headings.

@@ -1,14 +1,15 @@
+NoTitle: true
 Title: A Compelling Example
 Order: 10
 ---
 
 Let's create a simple application demonstrating a number of ReactiveUI functionalities, without getting into too many under-the-hood details. We will create a WPF application, which will allow us to search through NuGet public repositories. The full code of the application is shown at the end of this chapter, and we will show relevant snippets as we go.
 
-### 1. Create the project
+## 1. Create the project
 
-In [Visual Studio](https://visualstudio.microsoft.com/), create a new WPF application (.NET 4.6.1 or above), use `ReactiveDemo` app name. Our view has been already created for us, the `MainWindow`, so we will proceed with creating our ViewModel.
+In [Visual Studio](https://visualstudio.microsoft.com/), create a new WPF application (.NET 4.6.2 or above), use `ReactiveDemo` app name. Our view has been already created for us, the `MainWindow`, so we will proceed with creating our ViewModel.
 
-### 2. Add NuGet packages
+## 2. Add NuGet packages
 
     Install-Package ReactiveUI.WPF
 
@@ -18,7 +19,7 @@ The complete list containing NuGet packages for all supported platforms [can be 
 
 We also need a NuGet client library in this tutorial, and we are going to install and use [NuGet Client](https://docs.microsoft.com/en-us/nuget/reference/nuget-client-sdk).
 
-### 3. Create ViewModels
+## 3. Create ViewModels
 
     // AppViewModel is where we will describe the interaction of our application.
     // We can describe the entire application in one class since it's very small now. 
@@ -168,7 +169,7 @@ Let's now create a `NugetDetailsViewModel.cs` class that will wrap our NuGet met
         public ReactiveCommand<Unit, Unit> OpenPage { get; }
     }
 
-### 4. Create Views
+## 4. Create Views
 
 ReactiveUI allows you to create views using two different approaches. The recommended approach is using [type-safe ReactiveUI bindings](https://reactiveui.net/docs/handbook/data-binding/) that can save you from memory leaks and runtime errors. The second approach is using XAML markup bindings.
 

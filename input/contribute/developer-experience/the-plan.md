@@ -1,3 +1,4 @@
+NoTitle: true
 Title: The Plan (tm)
 Order: 100
 ---
@@ -10,4 +11,4 @@ IMHO (Geoff here) the .NET ecosystem is behind the eight-ball with reactive prog
 
 Why? It's cause the the developer experience (documentation, samples, people presenting and sharing their experiences at meetups) has been lacking. Let's fix this.
 
-See https://reactivex.slack.com/archives/C02AJB872/p1502462627603705 for some ideas on how to fix this, head on over to https://reactiveui.net/slack for an invite if you don't have access.
+See https://reactivex.slack.com/archives/C02AJB872/p1502462627603705 for some ideas on how to fix this, head on over to [Slack Reactive, Inc](https://join.slack.com/t/reactivex/shared_invite/zt-lt48skpz-G5WDYOAuzA80_MByZrLT0g) for an invite if you don't have access.

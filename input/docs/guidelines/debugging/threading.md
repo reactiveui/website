@@ -1,4 +1,6 @@
-# Thread Troubleshooting
+NoTitle: true
+---
+## Thread Troubleshooting
 
     moswald [5:04 AM] 
     does anyone have a good way to find which property on a View is being accessed from the wrong thread?
