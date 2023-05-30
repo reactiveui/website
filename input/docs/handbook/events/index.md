@@ -1,8 +1,8 @@
 NoTitle: true
 ---
-Install the `ReactiveMarbles.ObservableEvents.SourceGenerator` package into your application. See <a href="https://reactiveui.net/docs/getting-started/installation/">installation guide</a> for more info. You can use this events package standalone, without any reference to ReactiveUI. `ReactiveMarbles.ObservableEvents.SourceGenerator` will always be a separate package that has no dependancy on the `ReactiveUI` package.
+Install the `ReactiveMarbles.ObservableEvents.SourceGenerator` package into your application. See <a href="../../../docs/getting-started/installation/">installation guide</a> for more info. You can use this events package standalone, without any reference to ReactiveUI. `ReactiveMarbles.ObservableEvents.SourceGenerator` will always be a separate package that has no dependancy on the `ReactiveUI` package.
 
-This package uses SourceGenerator to generate the observables for events within the platform.  `ReactiveMarbles.ObservableEvents.SourceGenerator` has now replaced the `ReactiveUI.Events.*` packages. Don't use `EventHandlers` ever, use the generated `Observable.FromEventPattern` versions. Combine multiple `Observable.FromEventPattern`together to get amazing composition. Remember to [dispose of your subscriptions](https://reactiveui.net/docs/reactive-programming/#lifecycle) using the features provided by the Reactive Extensions.
+This package uses SourceGenerator to generate the observables for events within the platform.  `ReactiveMarbles.ObservableEvents.SourceGenerator` has now replaced the `ReactiveUI.Events.*` packages. Don't use `EventHandlers` ever, use the generated `Observable.FromEventPattern` versions. Combine multiple `Observable.FromEventPattern`together to get amazing composition. Remember to [dispose of your subscriptions](../../../docs/reactive-programming/#lifecycle) using the features provided by the Reactive Extensions.
 
 ```csharp
 var codes = new[]
