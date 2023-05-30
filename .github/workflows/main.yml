@@ -8,11 +8,50 @@ on:
 
 jobs:
   build:
-    uses: reactiveui/actions-common/.github/workflows/workflow-common-setup-and-build.yml@main
-    with:
-      configuration: Release
-      useVisualStudioPreview: false
-      useMauiCheckDotNetTool: false
-      srcFolder: "./"
-      dotNetBuild: true
-      installWorkflows: false
+    steps:
+    - name: Get Current Visual Studio Information
+      shell: bash
+      run: |
+        dotnet tool update -g dotnet-vs
+        echo "## About RELEASE ##"
+        vs where release
+        
+    - name: Checkout
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+        lfs: true
+
+    - name: Install .NET 6
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 6.0.x
+
+    - name: Install .NET 7
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 7.0.x
+
+    - name: Install DotNet workloads
+      shell: bash
+      run: |
+        dotnet workload install android ios tvos macos maui maccatalyst
+        
+    - name: Add MSBuild to PATH
+      uses: microsoft/setup-msbuild@v1.3.1
+      with:
+        vs-prerelease: true
+
+    - name: Install NuGet 
+      uses: nuget/setup-nuget@v1
+      with:
+        nuget-version: '6.x'
+
+    - name: NuGet Restore 
+      run: nuget restore
+
+    - name: Build DotNet
+      run: dotnet build --no-restore --configuration Release
+
+    - name: Run DotNet
+      run: dotnet run --no-restore --no-build --configuration Release
