@@ -1,8 +1,7 @@
 {
   "profiles": {
     "ReactiveUI.Web": {
-      "commandName": "Project",
-      "commandLineArgs": "-- preview"
+      "commandName": "Project"
     }
   }
 }

@@ -103,6 +103,25 @@ internal static class SourceFetcher
         return $"../../{repository}/src/**/{{!.git,!bin,!obj,!packages,!*.Tests,!*.Templates,!*.Benchmarks,{excludeFilter}}}/**/*.cs";
     }
 
+    public static Bootstrapper ConfigureLinks(this Bootstrapper bootStrapper)
+    {
+        var isProduction = Environment.GetCommandLineArgs().Any(x => x.Contains("preview")) ? "false" : "true";
+        LogInfo($"Is Production Build: {isProduction}");
+        return bootStrapper.AddSetting(WebKeys.MakeLinksAbsolute, isProduction);
+    }
+
+    internal static void LogInfo(string message)
+    {
+        lock (_lockObject)
+        {
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write("[INFO] ");
+            Console.ResetColor();
+            Console.Write($"{message}");
+            Console.WriteLine();
+        }
+    }
+
     private static void LogToConsole(string repository, string message)
     {
         lock (_lockObject)

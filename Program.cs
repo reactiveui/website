@@ -3,7 +3,7 @@
         .CreateDocs(args)
         .GetSources("reactiveui", "reactiveui", "akavache", "fusillade", "punchclock", "splat")
         .GetSources("reactivemarbles", "DynamicData")
-        .AddSetting(WebKeys.MakeLinksAbsolute, "true") // Comment out to test locally with preview
+        .ConfigureLinks()
         .AddSetting(MarkdownKeys.MarkdownExtensions, "bootstrap")
         .AddSourceFiles(
             "dynamicdata".WithSourceFilter(),
