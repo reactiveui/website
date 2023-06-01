@@ -1,5 +1,3 @@
-NoTitle: true
----
 ReactiveUI has been going through rapid changes since version 7. 
 
 Here are some guides on how to upgrade to newer features.
@@ -31,7 +29,7 @@ A tip in the new PackageReference you no longer have to include dependencies suc
 
 TIP: if the upgrade option does not show when right clicking on the `packages.config` file, make sure that PackageReference are your default choice under Tools -> Options -> NuGet Package Manager -> General, You can change the "Default package management format" to "PackageReference".
 
-## Use the platform ReactiveUI NuGet packages for Xamarin Forms, WinForms, WPF, MAUI, Uno Platform, etc
+## Use the platform ReactiveUI NuGet packages for Xamarin Forms, WinForms, WPF
 
 We had to introduce a number of new NuGet packages for various platforms. This is because Visual Studio for Mac would be looking for Windows only symbols if we didn't exclude them from the main package.
 

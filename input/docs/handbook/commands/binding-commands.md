@@ -1,6 +1,4 @@
-NoTitle: true
----
-## Binding
+# Binding
 
 View model commands that need to be bound to view controls must implement the `ICommand` interface. View model commands are typically bound to view controls using one of the `BindCommand` overloads available in the view. Let's see an example:
 
@@ -27,7 +25,7 @@ Here we bind `myControl` in the view to `MyCommand` from the view model. What ha
 >     });
 > ```
 > 
-> See the [documentation](../../../docs/handbook/when-activated/) on `WhenActivated` for more information.
+> See the [documentation](https://reactiveui.net/docs/handbook/when-activated/) on `WhenActivated` for more information.
 
 The `BindCommand` call shown above doesn't provide any hint as to which event will trigger command execution. In this case, the default event for the control will be used, such as `Click` or `Tapped`. If the command should execute when a specific event is triggered, use an overload of `BindCommand` that takes an event name:
 

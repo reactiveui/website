@@ -1,6 +1,4 @@
-NoTitle: true
----
-## Digital Signature Details
+# Digital Signature Details
 
 ## Issuer
 ```

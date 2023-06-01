@@ -1,6 +1,4 @@
-NoTitle: true
----
-## ViewModels
+# ViewModels
 
 WhenActivated is a way to track disposables. Besides that, it can be used to defer the setup of a ViewModel until it's truly required. WhenActivated also gives us an ability to start or stop reacting to hot observables, like a background task that periodically pings a network endpoint or an observable updating users current location. Moreover, one can use WhenActivated to trigger startup logic when the ViewModel comes on stage. See an example:
 
@@ -55,9 +53,9 @@ public class ActivatableViewModel : IActivatableViewModel
 
 The framework will acknowledge the link from your `ViewModel` to your `View` if the latter implements the [IViewFor interface](../../handbook/view-location/extending-iviewfor). Remember to make your ViewModel a `DependencyProperty` and to add a call to `WhenActivated` in your `IViewFor<TViewModel>` implementation constructor.
 
-## Views
+# Views
 
-Whenever you subscribe one object to an event exposed by another object, you introduce the potential for a memory leak. This is especially true for XAML based platforms where objects/events referenced by a dependency property may not get garbage collected for you automatically.
+Whenever you subscribe one object to an event exposed by another object, you introduce the potential for a memory leak. This is especially true for XAML based platforms where [objects/events referenced by a dependency property may not get garbage collected for you automatically](https://sharpfellows.com/post/Memory-Leaks-and-Dependency-Properties).
 
 In a nutshell, when object A provides a handler for an event exposed by object B, the handler is attached to the event and the lifetime of the handler is tied to the lifetime of object B. When object B is disposed, it's event handlers are cleared, thus under normal circumstances it is not necessary to explicitly clear event subscriptions. In XAML, however, there is an additional wrinkle with dependency properties. If you hook change events on the "Value" property, _even when the object goes way_, you have leaked the event because it's tied to the static property ValueProperty.
 
@@ -95,7 +93,7 @@ public class ActivatableControl : ReactiveUserControl<ActivatableViewModel>
 
 As a rule of thumb for all platforms, you should use it for bindings and any time there's something your view sets up that will outlive the view bindings. It is also super useful for setting up things that should get added to the visual tree, even if they are not a disposable.
 
-## When should I bother disposing of IDisposable objects?
+# When should I bother disposing of IDisposable objects?
 
 If you do a [WhenAny](../when-any) on anything other than `this`, you **need** to put it inside a `WhenActivated` block and add a call to `DisposeWith`. If you just launch a window and then that window goes away when app goes away and you have nothing else to manage, you don't need `WhenActivated`. 
 

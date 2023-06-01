@@ -1,0 +1,21 @@
+@{
+	Layout = "/_BlogLayout.cshtml";
+}
+
+@Html.Partial("_BlogPostDetails")
+
+@RenderBody()
+
+<hr />
+
+@{
+    string sharingLink = Uri.EscapeDataString(Context.GetLink(Model));
+    string sharingTitle = Uri.EscapeDataString(Model.String(Keys.Title));
+}
+<ul class="share-buttons">
+  <li><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Freactiveui.net@(sharingLink)&t=@(sharingTitle)" title="Share on Facebook" target="_blank"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+  <li><a href="https://twitter.com/intent/tweet?source=http%3A%2F%2Freactiveui.net@(sharingLink)&text=@(sharingTitle):%20http%3A%2F%2Freactiveui.net@(sharingLink)&via=reactiveuinet" target="_blank" title="Tweet"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+  <li><a href="https://www.reddit.com/submit?url=http%3A%2F%2Freactiveui.net@(sharingLink)&title=@(sharingTitle)" target="_blank" title="Submit to Reddit"><i class="fa fa-reddit-alien" aria-hidden="true"></i></a></li>
+  <li><a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Freactiveui.net@(sharingLink)&title=@(sharingTitle)&summary=&source=http%3A%2F%2Freactiveui.net@(sharingLink)" target="_blank" title="Share on LinkedIn"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+  <li><a href="mailto:?subject=@(sharingTitle)&body=:%20http%3A%2F%2Freactiveui.net@(sharingLink)" target="_blank" title="Send email"><i class="fa fa-envelope" aria-hidden="true"></i></a></li>
+</ul>

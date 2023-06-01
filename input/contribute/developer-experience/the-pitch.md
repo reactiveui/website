@@ -1,4 +1,3 @@
-NoTitle: true
 Order: 0
 ---
 
@@ -12,4 +11,4 @@ Have you ever screamed in frustration after a long debugging session related to 
 
 Internally the maintainers debate whether ReactiveUI is or is not a framework, as at its core the project is essentially a bunch of extension methods for the Reactive Extensions. With ReactiveUI, a little bit of code goes a long way and you don't need to go all-in with the framework or reactive programming. Use as little as where needed, along side an existing framework, or as your end-to-end model-view-viewmodel framework. 
 
-Buyer be warned however, the Reactive Extensions are quite addictive. Once you start writing software in this manner you won't ever want to go back. If your interested in learning a better way to develop applications please come join us in [Slack](https://join.slack.com/t/reactivex/shared_invite/zt-lt48skpz-G5WDYOAuzA80_MByZrLT0g). Stick around, send in a pull-request if you see an opportunity for improvement and we will invest in you, in hope that you will stick around and pay it forward when you are ready.
+Buyer be warned however, the Reactive Extensions are quite addictive. Once you start writing software in this manner you won't ever want to go back. If your interested in learning a better way to develop applications please come join us in [Slack](https://reactiveui.net/slack). Stick around, send in a pull-request if you see an opportunity for improvement and we will invest in you, in hope that you will stick around and pay it forward when you are ready.

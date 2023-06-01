@@ -1,5 +1,3 @@
-NoTitle: true
----
 Change your base class to one of the Reactive Activity / Fragment classes
 (i.e. ReactiveActivity&lt;T&gt;), *or* implement `IViewFor` on your View
 and ensure that your ViewModel signals changes.
