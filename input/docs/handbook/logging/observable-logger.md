@@ -1,1 +1,3 @@
-[Twitter](https://twitter.com/jcmm33/status/898602652086435840)
+NoTitle: true
+---
+[Vistian.Reactive.Logging](https://github.com/VistianOpenSource/Vistian.Reactive/blob/master/Vistian.Reactive/docs/LoggingOverview.md)

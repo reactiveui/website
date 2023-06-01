@@ -1,8 +1,10 @@
-# IViewFor, Activation and Data Binding
+NoTitle: true
+---
+## IViewFor, Activation and Data Binding
 
 In order to use bindings in the View, you must first implement `IViewFor<TViewModel>` on your View. Once you [implement `IViewFor<T>`](extending-iviewfor), binding methods are now available as extension methods on your class, as well as [activation and deactivation](../when-activated) feature for your views and associated view models that implement the `IActivatableViewModel` interface. See [Data Binding](../data-binding) section for details and platform-specific examples.
 
-# View Location
+## View Location
 
 View Location is a feature of ReactiveUI that allows you to associate Views with ViewModels and set them up Automagically.
 

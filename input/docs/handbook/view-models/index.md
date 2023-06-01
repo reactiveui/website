@@ -1,6 +1,8 @@
+NoTitle: true
+---
 At the core of every MVVM framework is the *ViewModel* - while this class is the most interesting aspect of the MVVM pattern, it is also the most misunderstood. Properly reasoning about what a ViewModel is and is not, is crucial to correctly applying the MVVM pattern.
 
-# The Zen of The ViewModel
+## The Zen of The ViewModel
 
 Most UI frameworks have applied almost zero thought to unit testing when their framework was designed, or those concerns were deemed as out-of-scope. As a result, UI objects are often very difficult to test in unit test runners, as they are not just *plain objects*. They may have dependencies on a runloop existing, or often expect static classes / globals to be initialized in a certain way.
 
@@ -25,7 +27,7 @@ Another common misconception is that of separation - while it is very important 
 
 With the theory out of the way, let's see how to create ViewModels in ReactiveUI.
 
-# Creating a ViewModel class
+## Creating a ViewModel class
 
 **ReactiveObject** is the base object for ViewModel classes, and it implements `INotifyPropertyChanged`. In addition, ReactiveObject provides `Changing` and `Changed` Observables to monitor object changes. A typical ViewModel created using ReactiveUI framework should inherit from `ReactiveObject` or implement `IReactiveObject` interface:
 
@@ -33,7 +35,7 @@ With the theory out of the way, let's see how to create ViewModels in ReactiveUI
 public class ExampleViewModel : ReactiveObject { }
 ```
 
-# Read-Write Properties
+## Read-Write Properties
 
 Properties that participate in change notification (i.e. that signal when they are changed), are written in the following way:
 
@@ -48,7 +50,7 @@ public string Name
 
 Note, that unlike in other frameworks, they are **always written this way**, using the exact same boilerplate code. If you are attempting to put *anything* in the setter, you are almost certainly Doing It Wrong, and should be using [WhenAnyValue](../when-any) and [ToProperty](../observable-as-property-helper) instead. 
 
-# Read-Only Properties
+## Read-Only Properties
 
 Properties that are only initialized in the constructor and don't ever change, don't need to be written via `RaiseAndSetIfChanged`, they can be declared as normal properties:
 
@@ -63,7 +65,7 @@ public PostViewModel()
 }
 ```
 
-# Output Properties
+## Output Properties
 
 So far, nothing here has been particularly surprising, just boilerplate MVVM features. However, there is another type of Property in ReactiveUI that doesn't exist in other frameworks that is **very important** to effectively use ReactiveUI, the "Output Property".
 
@@ -87,7 +89,7 @@ this.WhenAnyValue(x => x.Name)
 
 Here, `ToProperty` creates an `ObservableAsPropertyHelper` instance which will signal that the "FirstName" property has changed. `ToProperty` is an extension method on `IObservable<T>` and semantically acts like a "Subscribe".
 
-# Best Practices
+## Best Practices
 
 One of the core concepts of Functional Reactive Programming, is that instead of writing *imperative code* (i.e. "Do A right now, then do B, then do C"), we want to write *Functional, Declarative code* - instead of writing event handlers and methods to change properties, we want **to Describe how properties are related to each other**, using [WhenAnyValue](../when-any) and [ToProperty](../observable-as-property-helper).
 

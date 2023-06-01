@@ -1,4 +1,6 @@
-# Dependency Injection
+NoTitle: true
+---
+## Dependency Injection
 
 Dependency resolution is very useful for moving logic that would normally have to be in platform-specific code, into the shared platform code. First, we need to define an Interface for something that we want to use - this example isn't a Best Practice, but it's illustrative.
 
@@ -89,4 +91,4 @@ public interface IDependencyResolver
 Given a type T (usually an interface), you can now receive an implementation of T. If the T registered is very common ("string" for example), or you want to distinguish by a method other than type, you can use the "contract" parameter which is an arbitrary key that you provide. The current resolver that ReactiveUI itself will use (as well as what your app
 should use as well), is provided by [Splat.ModernDependencyResolver](https://github.com/reactiveui/splat/blob/b833718d1b7940d1d02403e86864d03d2af5cea7/Splat/ServiceLocation.cs).
 
-> **Note** If you are willing to use your own DI container, see [Override Default Depenedency Inversion Container](https://www.reactiveui.net/docs/handbook/dependency-inversion/custom-dependency-inversion). [Splat](https://github.com/reactiveui/splat#dependency-resolver-packages) includes dependency resolver packages for `Autofac`, `DryIoc`, `Microsoft.Extensions.DependencyInjection`, `Ninject`, and `SimpleInjector`.
+> **Note** If you are willing to use your own DI container, see [Override Default Depenedency Inversion Container](../../../docs/handbook/dependency-inversion/custom-dependency-inversion). [Splat](https://github.com/reactiveui/splat#dependency-resolver-packages) includes dependency resolver packages for `Autofac`, `DryIoc`, `Microsoft.Extensions.DependencyInjection`, `Ninject`, and `SimpleInjector`.

@@ -1,3 +1,5 @@
+NoTitle: true
+---
 Like many other MVVM frameworks, ReactiveUI includes an implementation of the
 message bus pattern. This allows you to send and recieve messages between
 different parts of the code without them directly accessing each other.
@@ -16,7 +18,7 @@ destination is invisible. It also encourages bad design as many people will
 directly proxy View events to the ViewModel layer, which makes them not
 particularly ViewModelly.
 
-### The Basics
+## The Basics
 
 MessageBus is quite straightforward. First, set up a listener:
 
@@ -41,7 +43,7 @@ Or, if you're feeling very imperative and not very Functional:
 MessageBus.Current.SendMessage(new KeyUpEventArgs());
 ```
 
-### Ways to avoid using MessageBus
+## Ways to avoid using MessageBus
 
 Unlike other MVVM frameworks, there are often more correct ways to solve
 problems, given a bit of ingenuity. `WhenAny` and `WhenAnyObservable` can
