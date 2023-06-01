@@ -1,6 +1,4 @@
-NoTitle: true
----
-## ReactiveUI Bindings
+# ReactiveUI Bindings
 
 ReactiveUI offers a better design-time data system for solutions that use [ReactiveUI type-safe bindings](../data-binding). `this.Bind` methods family overwrite whatever has been put into XAML. If your XAML markup looks like this:
 
@@ -24,7 +22,7 @@ this.WhenActivated(disposable =>
 });
 ```
 
-## Regular Bindings
+# Regular Bindings
 
 If you use regular bindings, or type-safe `{x:Bind }` markup extension available on UWP, then you can import the `d` directive and set design-time `DataContext`. For the ease of use, you can extract an interface from your ViewModel and create two implementations for it, one implementation would display design-time data only, and another one would be your actual view model. See an example.
 

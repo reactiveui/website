@@ -1,9 +1,8 @@
-NoTitle: true
 Order: 40
 Title: Blog Posts
 ---
 
-## 2017
+# 2017
 
 ## Erik Sink
 >  The effort to learn Rx and ReactiveUI is worth the trouble. My claim is based on this notion that ReactiveUI shines as complexity increases, but also on my belief that most people underestimate the complexity of their app. If you disagree that most of your code is reacting to something that changed, you might be underestimating the complexity of your app. - Creator of [SQLitePCL.raw](https://github.com/ericsink/SQLitePCL.raw)
