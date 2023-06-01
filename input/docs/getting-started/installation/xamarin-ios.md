@@ -1,9 +1,8 @@
-NoTitle: true
 Title: Xamarin iOS
 Order: 50
 ---
 
-## Package Installation
+# Package Installation
 
 Assuming the following project structure:
 
@@ -14,7 +13,6 @@ Assuming the following project structure:
 - MyCoolApp.UnitTests (tests)
 ```
 
-* Install [ReactiveUI](https://www.nuget.org/packages/ReactiveUI) into your netstandard libraries and tests.
-* Install [ReactiveUI.XamForms](https://www.nuget.org/packages/ReactiveUI.XamForms) into your netstandard UI library, platform library, applications and tests.
-* Install [ReactiveMarbles.ObservableEvents.SourceGenerator](https://www.nuget.org/packages/ReactiveMarbles.ObservableEvents.SourceGenerator) into your application.
-* Install [ReactiveUI.Testing](https://www.nuget.org/packages/ReactiveUI.Testing) into your tests.
+* Install `ReactiveUI` into your netstandard library, platform library, application and tests.
+* Install `ReactiveUI.Events` into your application.
+* Install `ReactiveUI.Testing` into your tests.

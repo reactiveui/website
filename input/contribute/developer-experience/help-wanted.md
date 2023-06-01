@@ -1,10 +1,8 @@
-NoTitle: true
----
 Read the plan first.
 
 This page needs fleshing out, pretty much every interaction we have. If you have questions PR the answers here. It's the onboarding guide for other people who may wish to help with documentation:
 
-[developer-experience](./contribute/developer-experience/)
+https://reactiveui.net/contribute/developer-experience/
 
 That page is really for _the maintainers_ (not the users) it's so maintainers/contributors don't burn out.
 
@@ -13,7 +11,7 @@ That page is really for _the maintainers_ (not the users) it's so maintainers/co
 
 As of a couple days ago have a gramatical guide and writing style guide. Personally I've always been a big fan of mailchimp. They open sourced their guide so ours is based off theirs. It's theirs as a baseline and we can change it as need be.
 
-See [writing for social media](./contribute/content-style-guide/writing-for-social-media#engagement) as example for customization that's happening.
+See https://reactiveui.net/contribute/content-style-guide/writing-for-social-media#engagement as example for customization that's happening.
 
 
 <hr/>

@@ -1,8 +1,7 @@
-NoTitle: true
 Title: Troubleshooting
 ---
 
-## Binary Logging
+# Binary Logging
 ReactiveUI [uses the binary logger feature](https://github.com/reactiveui/ReactiveUI/blob/72b4921d0b60d55b795474c2f7a03918a85fb150/build.cake#L214) which was made available from msbuild v15.3 onwards to output all build events to a structured/binary log file.
 
 ![](msbuild-binlog-cli.png)

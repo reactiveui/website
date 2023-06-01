@@ -1,29 +1,25 @@
-name: Build
+# This is a basic workflow to help you get started with Actions
 
+name: Build website
+
+# Controls when the action will run. Triggers the workflow on push or pull request
+# events but only for the main branch
 on:
   push:
     branches: [ main ]
   pull_request:
     branches: [ main ]
 
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
+  # This workflow contains a single job called "build"
   build:
+    # The type of runner that the job will run on
     runs-on: windows-latest
+    
+    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-    - name: Get Current Visual Studio Information
-      shell: bash
-      run: |
-        dotnet tool update -g dotnet-vs
-        echo "## About RELEASE ##"
-        vs where release
-        
-    - name: Checkout
-      uses: actions/checkout@v3
-      with:
-        fetch-depth: 0
-        lfs: true
-
-    - name: Install .NET 6
+    - name: Setup dotnet
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 6.0.x
@@ -46,7 +42,9 @@ jobs:
     - name: Install NuGet 
       uses: nuget/setup-nuget@v1
       with:
-        nuget-version: '6.x'
+        nuget-version: |
+          '6.x'
+          '7.x'
 
     - name: NuGet Restore 
       run: nuget restore
@@ -73,4 +71,4 @@ jobs:
       if: ${{ github.event_name != 'pull_request' }}    
       run: |
         npm install -g netlify-cli
-        netlify deploy --auth=${{ secrets.NETLIFY_DEPLOY_KEY }} --site=${{ secrets.NETLIFY_SITE_ID }} --prod --dir=output             
+        netlify deploy --auth=${{ secrets.NETLIFY_DEPLOY_KEY }} --site=${{ secrets.NETLIFY_SITE_ID }} --prod --dir=output

@@ -1,4 +1,3 @@
-NoTitle: true
 Order: 0
 ---
 C# Style Guide

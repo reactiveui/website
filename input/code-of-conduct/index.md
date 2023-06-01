@@ -1,5 +1,4 @@
 Title: Code of Conduct
-ShowInNavigation: false
 ---
 
 ## Our Pledge
