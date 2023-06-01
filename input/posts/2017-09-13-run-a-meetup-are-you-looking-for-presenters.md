@@ -17,6 +17,6 @@ TL;DR
 
 - Do you run a #xamarin / #uwp / #dotnet meetup?
 - Are you looking for presenters? 
-- We will come to you https://reactiveui.net/meetup/co-host/ 
+- We will come to you [meet up co-host](./meetup/co-host/) 
 
 

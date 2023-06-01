@@ -2,7 +2,7 @@ NoTitle: true
 Order: 12
 ---
 
-> <img src="https://reactiveui.net/assets/img/Rx_Icon.png" width="25" height="25" alt="Rx Icon"> &nbsp; [Reactive programming](https://reactivex.io) is programming with asynchronous data streams.
+> <img src="../../assets/img/Rx_Icon.png" width="25" height="25" alt="Rx Icon"> &nbsp; [Reactive programming](https://reactivex.io) is programming with asynchronous data streams.
 
 Event buses or your typical click events are really an asynchronous event stream, on which you can observe and do some side effects. [Reactive programming](https://reactivex.io) is that idea on steroids. You are able to create data streams of anything, not just from click and hover events. Streams are cheap and ubiquitous and anything can be a stream: variables, user inputs, properties, caches, data structures, etc. For example, imagine your Twitter feed would be a data stream in the same fashion that click events are. You can listen to that stream and react accordingly.
 
@@ -54,7 +54,7 @@ You can use the IDisposable interface for more than the common use of determinis
 
 ## Disposables
 
-ReactiveUI provides you with [WhenActivated](/docs/handbook/when-activated) to help manage lifecycle and the Reactive Extensions provides several different implementations of the IDisposable interface to help you with managing lifetime, scope and resources. For example, [CompositeDisposable](https://msdn.microsoft.com/en-us/library/system.reactive.disposables.compositedisposable(v=vs.103).aspx) is used to merge multiple disposables into single one and is used in [WhenActivated](/docs/handbook/when-activated). [SerialDisposable](https://msdn.microsoft.com/en-us/library/system.reactive.disposables.serialdisposable(v=vs.103).aspx) is another most useful disposable - what's useful about it is that when you set the disposable, the previous one is Disposed. It's also atomic aka thread safe, and [immunes to double-disposing](https://twitter.com/anaisbetts/status/1034168666739200000). For a full rundown of each of the implementations see the [Disposables section at Introduction to Reactive Extensions book](http://introtorx.com/Content/v1.0.10621.0/20_Disposables.html#Disposables).
+ReactiveUI provides you with [WhenActivated](./docs/handbook/when-activated) to help manage lifecycle and the Reactive Extensions provides several different implementations of the IDisposable interface to help you with managing lifetime, scope and resources. For example, [CompositeDisposable](https://msdn.microsoft.com/en-us/library/system.reactive.disposables.compositedisposable(v=vs.103).aspx) is used to merge multiple disposables into single one and is used in [WhenActivated](/docs/handbook/when-activated). [SerialDisposable](https://msdn.microsoft.com/en-us/library/system.reactive.disposables.serialdisposable(v=vs.103).aspx) is another most useful disposable - what's useful about it is that when you set the disposable, the previous one is Disposed. It's also atomic aka thread safe, and [immunes to double-disposing](https://twitter.com/anaisbetts/status/1034168666739200000). For a full rundown of each of the implementations see the [Disposables section at Introduction to Reactive Extensions book](http://introtorx.com/Content/v1.0.10621.0/20_Disposables.html#Disposables).
 
 ## Schedulers
 
@@ -64,4 +64,4 @@ If you want to introduce multithreading into your cascade of Observable operator
 
 - [Introduction to RX](http://introtorx.com/) by Lee Campbell
 - [Reactive extensions documentation](https://reactivex.io/)
-- [Videos](/docs/reactive-programming/videos)
+- [Videos](./docs/reactive-programming/videos)

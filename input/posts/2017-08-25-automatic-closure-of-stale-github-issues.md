@@ -14,6 +14,6 @@ Moments ago we enabled `probot/stale` on our GitHub repository. What this means 
 
 I've gone through by hand and where appropriate marked some of them to never be automatically closed (legitimate bugs or outstanding pull-requests), but if I've missed one, please accept our apologies if your contribution has not been attended to properly and perform some form of activity (comment, label, assign to milestone) to reset the clock.
 
-As is always with open-source, if you want an issue progressed faster please start talks with a maintainer with how you can help out. There are so many ways to contribute to open-source and the most valued are often not code related. We are always looking for more help and look after those who stick around. Say howdy to one of the maintainers or browse [reactiveui.net/contribute](https://reactiveui.net/contribute) for ideas on where to start your journey.
+As is always with open-source, if you want an issue progressed faster please start talks with a maintainer with how you can help out. There are so many ways to contribute to open-source and the most valued are often not code related. We are always looking for more help and look after those who stick around. Say howdy to one of the maintainers or browse [reactiveui.net/contribute](./contribute) for ideas on where to start your journey.
 
 Thank-you

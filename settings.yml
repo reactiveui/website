@@ -1,5 +1,5 @@
 SiteTitle: ReactiveUI
-Logo: /assets/img/logo.png
+Logo: ./assets/img/logo.png
 Host: reactiveui.net
 LinksUseHttps: true
 NetlifyRedirects: true

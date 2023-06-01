@@ -29,7 +29,7 @@ A billion dollar company not upgrading software and expecting an unpaid open-sou
 
 ## Handling abuse
 
-In the case of commerical abuse, steer the conversation towards the encouraging the company [to financially support open-source and the the project](https://reactiveui.net/donate) if the request is not unreasonable. We need to tactful in these situations as in most cases companies do not know that they were abusive. In these situations, we need to be the educators. Take the discussion off-line from GitHub ASAP and speak with the other maintainers to progress.
+In the case of commerical abuse, steer the conversation towards the encouraging the company [to financially support open-source and the the project](https://github.com/sponsors/reactivemarbles) if the request is not unreasonable. We need to tactful in these situations as in most cases companies do not know that they were abusive. In these situations, we need to be the educators. Take the discussion off-line from GitHub ASAP and speak with the other maintainers to progress.
 
 Otherwise:
 
@@ -37,7 +37,7 @@ Otherwise:
 2. Delete the entire comment, even if the comment contains non-problematic content.
 3. Post a response of the format:
 
-> {{at-mention}} your comment was deleted as a violation of the [Code of Conduct](https://reactiveui.net/code-of-conduct) as it was {{clause in the CoC that was violated}}. You may consider this an official warning.
+> {{at-mention}} your comment was deleted as a violation of the [Code of Conduct](./code-of-conduct) as it was {{clause in the CoC that was violated}}. You may consider this an official warning.
 
 In the case of serious code-of-conduct violations, please start a thread in the `private` repository.
 

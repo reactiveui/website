@@ -12,7 +12,7 @@ NoTitle: true
 ## version.json
 * This is how we automatically version our software (look at build.cake)
 * See https://github.com/dotnet/Nerdbank.GitVersioning
-* See https://reactiveui.net/contribute/maintainers/creating-a-new-release/semantic-versioning
+* See [semantic-versioning](./contribute/maintainers/creating-a-new-release/semantic-versioning)
 
 ## clean-merged-branches
 
@@ -21,9 +21,9 @@ NoTitle: true
 ## pull_request_template.md
 
 ## code_of_conduct.md
-* https://reactiveui.net/contribute/maintainers/accountability-and-expectations/
-* https://reactiveui.net/code-of-conduct
+* [accountability and expectations](./contribute/maintainers/accountability-and-expectations/)
+* [code-of-conduct](./code-of-conduct)
 
 ## license
 
-* https://reactiveui.net/license
+* [license](./license)
