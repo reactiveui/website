@@ -1,6 +1,4 @@
-NoTitle: true
----
-In addition to registering `Interaction` handlers manually, we also provide a set of view extension methods for setting up bindings, both of which mimic the `handler` parameter of the `RegisterHandler` overloads:
+ In addition to registering `Interaction` handlers manually, we also provide a set of view extension methods for setting up bindings, both of which mimic the `handler` parameter of the `RegisterHandler` overloads:
 
 ```cs
 IDisposable BindInteraction<TViewModel, TView, TInput, TOutput>(

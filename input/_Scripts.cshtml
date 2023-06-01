@@ -1,0 +1,35 @@
+<script type="text/javascript" src="/assets/js/anchor.min.js"></script>
+<script type="text/javascript" src="/assets/js/clipboard.min.js"></script>
+<script type="text/javascript">
+    anchors.options.placement = 'left';
+    anchors.add('.content h1:not(.no-anchor), .content h2:not(.no-anchor), .content h3:not(.no-anchor), .content h4:not(.no-anchor), .content-header h1:not(.no-anchor)');
+
+    var snippets = document.querySelectorAll("pre > code");
+    [].forEach.call(snippets, function(snippet) {
+        snippet.insertAdjacentHTML("beforebegin", "<button class='btn-copy' data-clipboard-snippet><i class='fa fa-clipboard clippy' aria-hidden='true'></i></button>");
+    });
+    var clipboardSnippets = new Clipboard('[data-clipboard-snippet]', {
+        target: function(trigger) {
+            return trigger.nextElementSibling;
+        }
+    });
+    clipboardSnippets.on('success', function(e) {
+        e.clearSelection();
+        showTooltip(e.trigger, "Copied!");
+    });
+    clipboardSnippets.on('error', function(e) {
+        showTooltip(e.trigger, fallbackMessage(e.action));
+    });
+
+    var iframeItem = $('iframe');
+    iframeItem.attr('title', 'video');
+
+    var apiSearchButton = $('.sidebar-form .btn');
+    apiSearchButton.attr('title', 'Search button');
+
+    var sideBarTreeView = $('.treeview a');
+    sideBarTreeView.attr('aria-label', 'link');
+
+    var copyButton = $('.btn-copy');
+    copyButton.attr('title', 'copy button');
+</script>

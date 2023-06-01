@@ -1,8 +1,6 @@
-NoTitle: true
----
 For Xamarin.Forms applications you need to install the ReactiveUI.XamForms [Nuget package](https://www.nuget.org/packages/ReactiveUI.XamForms/).
 
-## ViewModels
+### ViewModels
 
 Your Viewmodels should inherit from `ReactiveObject`. This brings all the power of ReactiveUI, such as `WhenAnyValue`, that are powerful building blocks for any viewmodel.
 
@@ -32,7 +30,7 @@ public class TheViewModel : ReactiveObject
 }
 ```
 
-## Views
+### Views
 
 Xamarin.Forms has the option to create views with either C# or XAML. ReactiveUI supports both. As a general rule you should use the _Reactive_ versions of the Xamarin.Forms controls (e.g. use `ReactiveContentPage<TViewModel>` instead of `ContentPage`).
 
@@ -56,7 +54,7 @@ Your XAML views should inherit from `ReactiveContentPage`, as shown here:
 </rxui:ReactiveContentPage>
 ```
 
-## Binding
+### Binding
 
 The example below demonstrates how to use the ReactiveUI binding, but the Xamarin.Forms binding engine and XAML can also be used. Using one doesn't limit the use of the others, so all of them can be used in the same application.
 
@@ -115,7 +113,7 @@ public partial class TheContentPage : ReactiveContentPage<TheViewModel>
 }
 ```
 
-## Routing
+### Routing
 
 Want to know how this affects ViewModel based routing?
 
