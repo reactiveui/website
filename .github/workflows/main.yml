@@ -45,8 +45,8 @@ jobs:
       with:
         nuget-version: '6.x'
 
-    - name: NuGet Restore 
-      run: nuget restore
+    #- name: NuGet Restore 
+    #  run: nuget restore
 
     - name: Build DotNet
       run: dotnet build --no-restore --configuration Release
