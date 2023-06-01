@@ -1,4 +1,6 @@
-# Asynchronous Commands
+NoTitle: true
+---
+## Asynchronous Commands
 
 Prefer using async `ReactiveCommand` over the more basic `ReactiveCommand` for all but the most simple tasks. In ReactiveUI, you should never put Interesting™ code inside the Subscribe block - Subscribe is solely to log the result of operations, or to wire up properties to other properties.
 

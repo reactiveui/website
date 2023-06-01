@@ -1,3 +1,5 @@
+NoTitle: true
+---
 In interactive UI applications, state is continually changing in response to user actions and application events. ReactiveUI enables you to express changes to application state as streams of values and combine and manipulate them using the powerful Reactive Extensions library.
 
 The motivation is intuitive enough when you think about it. It's not hard to imagine that changes to a property can be considered events - that's how `INotifyPropertyChanged` works. From there, the same argument for using Rx over events applies. In the context of MVVM application design specifically, modelling property changes as observables leads to several advantages:
@@ -8,7 +10,7 @@ The motivation is intuitive enough when you think about it. It's not hard to ima
 
 ReactiveUI provides several variants of `WhenAny` to help you work with properties as an observable stream.
 
-# What is WhenAny
+## What is WhenAny
 
 `WhenAny` is a set of extension methods, each starting with the prefix `WhenAny`, that allow you to get notifications when properties on objects change.
 
@@ -22,13 +24,13 @@ It will check the property for support for each of those property types, and whe
 
 You can also wrap the `WhenAny` in a `Observable.Defer` to avoid the value being calculated until a `Subscribe` has happened. This is useful for `ObservableAsPropertyHelper` when you're using the defer feature.
 
-# Basic syntax
+## Basic syntax
 
 The following examples demonstrate simple uses of `WhenAnyValue`; the `WhenAny` variant you are likely to use most frequently.
 
 ## WhenAnyValue
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/IH2yx7b9DNY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<div class="youtube-video-container"><iframe src="https://www.youtube.com/embed/IH2yx7b9DNY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
 
 ### Watching single property
 
@@ -87,9 +89,9 @@ this.WhenAnyValue(x => x.SearchText, x => x.Length, (text, length) => text + " (
     .ToProperty(this, x => x.SearchTextLength, out _searchTextLength);
 ```
 
-This will set an ([ObservableAsPropertyHelper](../oaph/) property) field called `_searchTextLength` which you then expose via the `SearchTextLength` property. `ObservableAsPropertyHelper` properties cannot be mutated directly, but are instead calculated via the `WhenAnyValue` selector lambda.
+This will set an ([ObservableAsPropertyHelper](../observable-as-property-helper/) property) field called `_searchTextLength` which you then expose via the `SearchTextLength` property. `ObservableAsPropertyHelper` properties cannot be mutated directly, but are instead calculated via the `WhenAnyValue` selector lambda.
 
-See the [ObservableAsPropertyHelper](../oaph/) section for more information on this pattern.
+See the [ObservableAsPropertyHelper](../observable-as-property-helper/) section for more information on this pattern.
 
 #### `ReactiveCommand.CanExecute` observable
 
@@ -189,7 +191,7 @@ public class Document
 
 Above whenever the document is saved, it will print the value from the `IsSaved` observable.  It will automatically unsubscribe and re-subscribe when the `Document` property is changed.
 
-# Additional Considerations
+## Additional Considerations
 
 ### Property Changed Notifications needed
 Using `WhenAny` variants is fairly straightforward. However, there are a few aspects of their behaviour that are worth highlighting.
@@ -265,7 +267,7 @@ this.WhenAnyValue(x => x.Foo, x => x.Foo.Bar, x => x.Foo.Bar.Baz, (foo, bar, baz
     .Subscribe(x => Console.WriteLine(x));
 ```
 
-# How WhenAny knows about different type of properties
+## How WhenAny knows about different type of properties
 
 `WhenAny` operators will look for services registered with Splat with the `ICreatesObservableForProperty` interface.
 

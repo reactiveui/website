@@ -1,18 +1,20 @@
+NoTitle: true
+---
 Routing enables an application to coordinate navigation through multiple views and their corresponding view models, and to keep track of the user's navigation state.
 
 ReactiveUI supports routing for the following platforms:
 
 - Avalonia
-- Universal Windows Platform (UWP)
+- Uno Platform
 - Windows Forms
 - Windows Presentation Foundation (WPF)
-- WinRT
-- WP8
+- WinUI
+- MAUI
 - Xamarin Forms
 
 Routing also works on iOS and Android without Xamarin.Forms, but it isn't always easy to use. If view model routing turns out hard to implement on those platforms, you can use view-first routing and customize most aspects of it.
 
-# About ReactiveUI Routing
+## About ReactiveUI Routing
 
 The following elements participate in routing:
 
@@ -23,7 +25,7 @@ The following elements participate in routing:
 
 `IScreen` is the root of the navigation stack. Despite the name, views associated with an `IScreen` do not need to extend to the full screen. `RoutingState` manages the view model's navigation stack and allows view models to navigate to other view models. `RoutedViewHost` monitors an instance of `RoutingState` and responds to changes in the navigation stack by creating and embedding the required view.
 
-# A Compelling Example
+## A Compelling Example
 
 > **Note:** The example below is adapted for WPF, but ReactiveUI's routing supports more platforms.
 >
@@ -212,9 +214,9 @@ public partial class MainWindow : ReactiveWindow<MainViewModel>
 
 Now ReactiveUI's view model-first routing should work as expected. `IScreen`s and `RoutedViewHost`s can be nested any number of levels without impacting routing. However, this only works for XAML pages; for modal and pop-up dialogs [Interactions](../interactions) are a better choice. 
 
-> **Note:** If you experience any difficulties with this tutorial, you can join the [ReactiveUI Slack](https://reactiveui.net/slack) channel and ask for help. We are always ready to give a hand.
+> **Note:** If you experience any difficulties with this tutorial, you can join the [ReactiveUI Slack](https://join.slack.com/t/reactivex/shared_invite/zt-lt48skpz-G5WDYOAuzA80_MByZrLT0g) channel and ask for help. We are always ready to give a hand.
 
-# View Location
+## View Location
 
 Override the default `IViewLocator` implementation to avoid having to manually register views. In the bootstrapping stage of your routing, register your view locator using `Locator.CurrentMutable.RegisterLazySingleton`. See [View Location](../view-location) for details.
 
@@ -233,7 +235,7 @@ public class SimpleViewLocator : IViewLocator
 Locator.CurrentMutable.RegisterLazySingleton(() => new SimpleViewLocator(), typeof(IViewLocator));
 ```
 
-# Assembly Scanning
+## Assembly Scanning
 
 To register all view models in your application and their associated views, use the following code:
 
