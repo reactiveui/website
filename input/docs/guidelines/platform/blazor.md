@@ -30,7 +30,7 @@ Use disposables to manage lifetime, scope and resources:
 
 Your Page (View) should inherit from
 
-- [ReactiveComponentBase<T>](https://../../../api/reactiveui.blazor/reactivecomponentbase_1/): If you want to pass your ViewModel to the page as a parameter or you want to instantiate it to the View, then set the ViewModel property in the Page's code behind.
+- [ReactiveComponentBase<T>](../../../api/reactiveui.blazor/reactivecomponentbase_1/): If you want to pass your ViewModel to the page as a parameter or you want to instantiate it to the View, then set the ViewModel property in the Page's code behind.
 - [ReactiveInjectableComponentBase<T>](../../../api/reactiveui.blazor/reactiveinjectablecomponentbase_1/): If you want that your corresponding ViewModel should be injected by the dependency injection container.
 - [ReactiveLayoutComponentBase](../../../api/reactiveui.blazor/reactivelayoutcomponentbase_1/): If you only want to instantiate your ViewModel corresponding to the View, then just set the ViewModel property in the Page's code behind.
 
