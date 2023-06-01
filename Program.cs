@@ -1,6 +1,7 @@
 ﻿await Bootstrapper
         .Factory
         .CreateDocs(args)
+        .FetchTheme()
         .GetSources("reactiveui", "reactiveui", "akavache", "fusillade", "punchclock", "splat")
         .GetSources("reactivemarbles", "DynamicData")
         .ConfigureLinks()

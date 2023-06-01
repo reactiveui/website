@@ -12,6 +12,32 @@ internal static class SourceFetcher
 
     public static Bootstrapper GetSources(this Bootstrapper bootStrapper, string owner, params string[] repositories)
     {
+        FetchGitHubZip(owner, repositories, "external", true);
+
+        return bootStrapper;
+    }
+
+    public static string WithSourceFilter(this string repository, params string[] exclude)
+    {
+        var excludeFilter = exclude.Length > 0 ? string.Join(",", exclude.Select(x => $"!{x}")) + "," : string.Empty;
+        return $"../../{repository}/src/**/{{!.git,!bin,!obj,!packages,!*.Tests,!*.Templates,!*.Benchmarks,{excludeFilter}}}/**/*.cs";
+    }
+
+    public static Bootstrapper ConfigureLinks(this Bootstrapper bootStrapper)
+    {
+        var isProduction = Environment.GetCommandLineArgs().Any(x => x.Contains("preview")) ? "false" : "true";
+        LogInfo($"Is Production Build: {isProduction}");
+        return bootStrapper.AddSetting(WebKeys.MakeLinksAbsolute, isProduction);
+    }
+
+    public static Bootstrapper FetchTheme(this Bootstrapper bootStrapper, string owner = "glennawatson", string repository = "Docable5")
+    {
+        FetchGitHubZip(owner, new[] { repository }, "theme", false);
+        return bootStrapper;
+    }
+
+    private static void FetchGitHubZip(string owner, string[] repositories, string outputFolder, bool fetchNuGet)
+    {
         Directory.CreateDirectory("external/Zip");
 
         using var client = new HttpClient();
@@ -37,20 +63,19 @@ internal static class SourceFetcher
 
             var url = $"https://codeload.github.com/{owner}/{repository}/zip/main";
 
-            var zipPath = $"external/Zip/{repository}.zip";
-            var extractPath = $"external/Zip/{repository}/";
-            var finalPath = $"external/{repository}";
+            var zipPath = Path.Combine("external", "zip", $"{repository}.zip");
+            var extractPath = Path.Combine("external", "zip", repository);
+            var finalPath = Path.Combine(outputFolder, repository);
 
             File.Delete(zipPath);
 
-            // Retry the following call according to the policy - 15 times.
+            // Retry the following call according to the policy
             await policy.ExecuteAsync(() => waitAndRetry.ExecuteAsync(async () =>
             {
                 var response = await client.GetAsync(url);
 
                 if (!response.IsSuccessStatusCode)
                 {
-                    bootStrapper.FileSystem.GetCachePath(zipPath);
                     throw new HttpRequestException("Could not find a valid document at: " + url, default, response.StatusCode);
                 }
 
@@ -74,43 +99,36 @@ internal static class SourceFetcher
                     Directory.Delete(extractPath, true);
                 }
 
-                File.Delete(zipPath);
-
-                LogToConsole(repository, "Restoring Packages for ");
-
-                Process process = new Process();
-                ProcessStartInfo startInfo = new ProcessStartInfo
+                if (fetchNuGet)
                 {
-                    WindowStyle = ProcessWindowStyle.Hidden,
-                    FileName = "cmd.exe",
-                    Arguments = $"/C dotnet restore {repository}.sln",
-                    WorkingDirectory = Path.Combine(finalPath, "src")
-                };
-                process.StartInfo = startInfo;
-                process.Start();
-                process.WaitForExit();
+                    FetchNuGet(repository, finalPath);
+                }
+
+                File.Delete(zipPath);
 
                 LogToConsole(repository,"Downloaded");
             }));
         })).ToArray());
-
-        return bootStrapper;
     }
 
-    public static string WithSourceFilter(this string repository, params string[] exclude)
+    private static void FetchNuGet(string repository, string finalPath)
     {
-        var excludeFilter = exclude.Length > 0 ? string.Join(",", exclude.Select(x => $"!{x}")) + "," : string.Empty;
-        return $"../../{repository}/src/**/{{!.git,!bin,!obj,!packages,!*.Tests,!*.Templates,!*.Benchmarks,{excludeFilter}}}/**/*.cs";
+        LogToConsole(repository, "Restoring Packages for ");
+
+        Process process = new Process();
+        ProcessStartInfo startInfo = new ProcessStartInfo
+        {
+            WindowStyle = ProcessWindowStyle.Hidden,
+            FileName = "cmd.exe",
+            Arguments = $"/C dotnet restore {repository}.sln",
+            WorkingDirectory = Path.Combine(finalPath, "src")
+        };
+        process.StartInfo = startInfo;
+        process.Start();
+        process.WaitForExit();
     }
 
-    public static Bootstrapper ConfigureLinks(this Bootstrapper bootStrapper)
-    {
-        var isProduction = Environment.GetCommandLineArgs().Any(x => x.Contains("preview")) ? "false" : "true";
-        LogInfo($"Is Production Build: {isProduction}");
-        return bootStrapper.AddSetting(WebKeys.MakeLinksAbsolute, isProduction);
-    }
-
-    internal static void LogInfo(string message)
+    private static void LogInfo(string message)
     {
         lock (_lockObject)
         {
