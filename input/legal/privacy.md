@@ -1,5 +1,3 @@
-NoTitle: true
----
 Thanks for using ReactiveUI or visiting one of our websites. This policy explains the what, how, and why of the information we collect when you visit one of our websites, or when you use our Services. It also explains the specific ways we use and disclose that information. We take your privacy extremely seriously, and we never sell lists or email addresses.
 
 If you have any questions or comments, or if you want to update, delete, or change any Personal Information we hold, or you have a concern about the way in which we have handled any privacy matter, please contact us by [email](mailto:hello@reactiveui.net).

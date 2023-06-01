@@ -1,4 +1,3 @@
-NoTitle: true
 Title: Xamarin iOS
 ---
 

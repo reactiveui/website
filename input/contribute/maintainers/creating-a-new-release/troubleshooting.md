@@ -1,6 +1,4 @@
-NoTitle: true
----
-## Version wasn't bumped when merging from develop into main
+# Version wasn't bumped when merging from develop into main
 
 You'll need to do a pull-request similar to this [https://github.com/reactiveui/ReactiveUI/pull/1226](https://github.com/reactiveui/ReactiveUI/pull/1226)
 
@@ -45,7 +43,7 @@ Open a pull-request to `main` and once the release has been approved, you'll nee
 
 Do not customize the merge commit message or more specifically, do not bump the semver in the merge commit message.
 
-## Release failed because of labeling issue
+# Release failed because of labeling issue
 
 Visit the issue, resolve the problem and then visit AppVeyor and click "Rebuild Commit". It is safe to do this multiple times because building `main` does not automatically release unless the commit has been tagged.
 

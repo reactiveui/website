@@ -1,5 +1,3 @@
-NoTitle: true
----
 > **Note** First of all, ensure you install the `Avalonia.ReactiveUI` package and *add a call* to `UseReactiveUI()` to your `AppBuilder` — that's super important. Note, that `Avalonia.ReactiveUI` package is supported by AvaloniaUI team, so if anything goes wrong, head over to [AvaloniaUI Gitter](https://gitter.im/AvaloniaUI/Avalonia). Also see [Avalonia.ReactiveUI Docs](https://docs.avaloniaui.net/guides/deep-dives/reactiveui).
 
 For [WhenActivated](../when-activated) to work, you need to use custom base classes from `Avalonia.ReactiveUI` package, such as `ReactiveWindow<TViewModel>` or `ReactiveUserControl<TViewModel>`. Of course, you can also implement the `IViewFor<TViewModel>` interface by hand in your class, but ensure to store the `ViewModel` inside an `AvaloniaProperty`. If you wish to add activation support to your view models, then implement the `IActivatableViewModel` interface. A view model implementing `IActivatableViewModel` might look like the one below:

@@ -1,4 +1,3 @@
-NoTitle: true
 Title: ReactiveCompositeCollections
 ---
 
@@ -6,7 +5,7 @@ One of the options available in the reactive ecosystem is the `ReactiveComposite
 
 The library lives at [Reactive Composite Collections (github)](https://github.com/Weingartner/ReactiveCompositeCollections) and is available from NuGet at [Reactive Composite Collections (nuget)](https://www.nuget.org/packages/ReactiveCompositeCollections/)
 
-## Example
+# Example
 
 Here's a unit test that models a typical scenario:
     

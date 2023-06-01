@@ -1,12 +1,10 @@
-NoTitle: true
----
 The ObservableAsPropertyHelper (OAPH) is a class that simplifies the interop between an IObservable and a property on your ViewModel. It allows you to have a property which reflects the latest value that has been sent through the IObservable<T> stream. 
 
 It is important to note that OAPH will not set the property value immediately, but will rather schedule it on the provided or default scheduler. The `[Reactive]` property with `.BindTo()` should be used for business-critical code.
   
 It will invoke the `INotifyPropertyChanged` and `INotifyPropertyChanging` based events for the View Model when the observable emits a new value. `ObservableAsPropertyHelper<T>` is very similar to a Lazy<T> in so far as it provides a Value member which provides the latest value of the Observable<T>. They are often read-only and reflect the IObservable<T> stream. It is common to combine ObservableAsPropertyHelper<T> with the `WhenAny` extensions. 
 
-## Example
+# Example
 
 First, we need to declare an Output Property, using a class called
 `ObservableAsPropertyHelper<T>`:
@@ -39,7 +37,7 @@ this.WhenAnyValue(x => x.Name)
     .ToProperty(this, x => x.FirstName, out firstName);
 ```
 
-## ToProperty()
+### ToProperty()
 
 `ToProperty` allows you to construct an `ObservableAsPropertyHelper<T>` from an `IObservable<T>`. When a new value has been added to the `IObservable<T>`, it will use the overload methods in the IReactiveObject interface to trigger the required events.
 
@@ -61,7 +59,7 @@ The parameters of `ToProperty` allows you to specify the source of the property,
 * Optionally if you defer subscription that will not subscribe to the observable until the user accesses the Property. By default we will subscribe to the observable immediately so that you have the latest value.
 * Optionally a scheduler, by default this will be CurrentThreadScheduler from where the call is made.
 
-## Property vs ObservableAsPropertyHelper
+### Property vs ObservableAsPropertyHelper
 
 You should use a property and `RaiseAndSetIfChanged` if you are intending to mutate the value.
 
@@ -69,7 +67,7 @@ You should use a property and `RaiseAndSetIfChanged` if you are intending to mut
 
 `ObservableAsPropertyHelper` properties are helpful to remove spaghetti code where different methods and components may be mutating multiple locations. They also clearly define what values are used in the calculation of the value and help describe the dependent properties for the `ObservableAsPropertyHelper`, unlike settable properties where you have to search the code base further for location where the value is mutating.
 
-## Performance considerations
+# Performance considerations
 
 ## nameof() instead of using default Index.
 For performance based solutions you can also use the `nameof()` operator override of `ToProperty()`
