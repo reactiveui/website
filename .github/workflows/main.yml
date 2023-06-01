@@ -1,37 +1,34 @@
-name: Build
+# This is a basic workflow to help you get started with Actions
 
+name: Build website
+
+# Controls when the action will run. Triggers the workflow on push or pull request
+# events but only for the main branch
 on:
   push:
     branches: [ main ]
   pull_request:
     branches: [ main ]
 
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
+  # This workflow contains a single job called "build"
   build:
+    # The type of runner that the job will run on
     runs-on: windows-latest
-    steps:
-    - name: Get Current Visual Studio Information
-      shell: bash
-      run: |
-        dotnet tool update -g dotnet-vs
-        echo "## About RELEASE ##"
-        vs where release
-        
+    steps:        
     - name: Checkout
       uses: actions/checkout@v3
       with:
         fetch-depth: 0
         lfs: true
 
-    - name: Install .NET 6
+    - name: Install .NET
       uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: 6.0.x
-
-    - name: Install .NET 7
-      uses: actions/setup-dotnet@v3
-      with:
-        dotnet-version: 7.0.x
+        dotnet-version: |
+          6.0.x
+          7.0.x
 
     - name: Install DotNet workloads
       shell: bash
@@ -48,23 +45,32 @@ jobs:
       with:
         nuget-version: '6.x'
 
-    - name: NuGet Restore 
-      run: nuget restore
-
     - name: Build DotNet
       run: dotnet build --no-restore --configuration Release
 
     - name: Run DotNet
       run: dotnet run --no-restore --no-build --configuration Release
 
+    - name: Archive output
+      uses: actions/upload-artifact@v3
+      with:
+        name: output
+        path: output
+        
     - name: Install Node.js
       if: ${{ github.event_name != 'pull_request' }}    
       uses: actions/setup-node@v3
       with:
         node-version: '16.x'
-
+    - name: Checkout 
+      uses: actions/checkout@v3
+    - name: Build Website
+      uses: cake-build/cake-action@v1
+      with:
+        verbosity: Diagnostic
+        cake-bootstrap: true
     - name: Deploy netlify   
       if: ${{ github.event_name != 'pull_request' }}    
       run: |
         npm install -g netlify-cli
-        netlify deploy --auth=${{ secrets.NETLIFY_DEPLOY_KEY }} --site=${{ secrets.NETLIFY_SITE_ID }} --prod --dir=output             
+        netlify deploy --auth=${{ secrets.NETLIFY_DEPLOY_KEY }} --site=${{ secrets.NETLIFY_SITE_ID }} --prod --dir=output
