@@ -23,7 +23,6 @@ jobs:
         vs where release
         
     - name: Update Visual Studio Latest Release
-      if: inputs.useVisualStudioPreview == true
       shell: bash
       run: |
         echo "-- Update RELEASE --"
