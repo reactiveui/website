@@ -14,13 +14,29 @@ jobs:
   build:
     # The type of runner that the job will run on
     runs-on: windows-latest
-    steps:        
+    steps:
+    - name: Get Current Visual Studio Information
+      shell: bash
+      run: |
+        dotnet tool update -g dotnet-vs
+        echo "-- About RELEASE --"
+        vs where release
+        
+    - name: Update Visual Studio Latest Release
+      if: inputs.useVisualStudioPreview == true
+      shell: bash
+      run: |
+        echo "-- Update RELEASE --"
+        vs update release Enterprise
+        vs modify release Enterprise +mobile +desktop +uwp +web
+        echo "-- RELEASE Updated --"
+        vs where release
+
     - name: Checkout
       uses: actions/checkout@v3
       with:
         fetch-depth: 0
         lfs: true
-        submodules: recursive
 
     - name: Install .NET
       uses: actions/setup-dotnet@v3
