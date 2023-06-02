@@ -2,6 +2,7 @@
 using System.IO.Compression;
 
 using Polly;
+using Polly.RateLimit;
 
 namespace ReactiveUI.Web;
 
@@ -43,18 +44,23 @@ internal static class SourceFetcher
 
         using var client = new HttpClient();
 
-        // Create the semaphore.
-        using var semaphore = new SemaphoreSlim(3, 3);
-
-        var waitAndRetry = Policy.Handle<HttpRequestException>()
+        var waitAndRetry = Policy.Handle<Exception>()
             .WaitAndRetryAsync(
                 6, // We can also do this with WaitAndRetryForever... but chose WaitAndRetry this time.
                 attempt => TimeSpan.FromSeconds(0.1 * Math.Pow(2,
                                                     attempt))); // Back off!  2, 4, 8, 16 etc times 1/4-second
 
+        var rateLimitTime = TimeSpan.FromSeconds(1);
+
+        // Allow up to 3 executions per second.
+        var rateLimit = Policy.RateLimitAsync(3, rateLimitTime);
+
+        var policy = Policy.Handle<RateLimitRejectedException>()
+            .WaitAndRetryAsync(5, _ => rateLimitTime)
+            .WrapAsync(rateLimit);
+
         Task.WaitAll(repositories.Select(repository => Task.Run(async () =>
         {
-            await semaphore.WaitAsync();
             try
             {
                 LogRepositoryInfo(owner, repository, "Downloading");
@@ -69,7 +75,7 @@ internal static class SourceFetcher
                 extractZipPath.Recreate();
 
                 // Retry the following call according to the policy
-                await waitAndRetry.ExecuteAsync(async () =>
+                await policy.ExecuteAsync(() => waitAndRetry.ExecuteAsync(async () =>
                 {
                     var response = await client.GetAsync(url);
 
@@ -103,15 +109,11 @@ internal static class SourceFetcher
                     zipFilePath.DeleteSafe();
 
                     LogRepositoryInfo(owner, repository, "Downloaded");
-                });
+                }));
             }
             catch (Exception ex)
             {
                 LogRepositoryError(owner, repository, "Failed to download: " + ex);
-            }
-            finally
-            {
-                semaphore.Release();
             }
         })).ToArray());
     }
