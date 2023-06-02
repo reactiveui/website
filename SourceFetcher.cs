@@ -41,6 +41,10 @@ internal static class SourceFetcher
     {
         var zipCache = fileSystem.GetCacheDirectory("external/zip");
         zipCache.Create();
+        if (includeRepositoryInFinal)
+        {
+            fileSystem.GetRootDirectory(outputFolder).Create();
+        }
 
         using var client = new HttpClient();
 
@@ -92,14 +96,18 @@ internal static class SourceFetcher
                     }
 
                     LogRepositoryInfo(owner, repository, "Extracting Files");
-
                     ZipFile.ExtractToDirectory(zipFilePath.Path.FullPath, extractZipPath.Path.FullPath, true);
 
-                    finalPath.DeleteSafe(true);
-
-                    var zipInternalPath = extractZipPath.GetDirectory(repository + "-main");
-
-                    zipInternalPath.MoveTo(finalPath);
+                    try
+                    {
+                        var zipInternalPath = extractZipPath.GetDirectory(repository + "-main");
+                        finalPath.DeleteSafe(true);
+                        zipInternalPath.MoveTo(finalPath);
+                    }
+                    catch (Exception ex)
+                    {
+                        LogRepositoryError(owner, repository, "Failed to move: " + ex);
+                    }
 
                     if (fetchNuGet)
                     {
