@@ -22,9 +22,9 @@ internal static class SourceFetcher
         return $"../../{repository}/src/**/{{!.git,!bin,!obj,!packages,!*.Tests,!*.Templates,!*.Benchmarks,{excludeFilter}}}/**/*.cs";
     }
 
-    public static Bootstrapper ConfigureLinks(this Bootstrapper bootstrapper)
+    public static Bootstrapper ConfigureLinks(this Bootstrapper bootstrapper, string[] args)
     {
-        var isProduction = Environment.GetCommandLineArgs().Any(x => x.Contains("preview")) ? "false" : "true";
+        var isProduction = args.Any(x => x.Contains("preview")) ? "false" : "true";
         LogInfo($"Is Production Build: {isProduction}");
         return bootstrapper.AddSetting(WebKeys.MakeLinksAbsolute, isProduction);
     }
@@ -57,12 +57,12 @@ internal static class SourceFetcher
             await semaphore.WaitAsync();
             try
             {
-                LogToConsole(owner, repository, "Downloading");
+                LogRepositoryInfo(owner, repository, "Downloading");
 
                 var url = $"https://codeload.github.com/{owner}/{repository}/zip/main";
 
                 var zipFilePath = zipCache.GetFile($"{owner}-{repository}.zip");
-                zipFilePath.Delete();
+                zipFilePath.DeleteSafe();
                 var extractZipPath = zipCache.GetDirectory($"{owner}-{repository}-extract");
                 var finalPath = !includeRepositoryInFinal ? fileSystem.GetRootDirectory(outputFolder) : fileSystem.GetRootDirectory(Path.Combine(outputFolder, repository));
 
@@ -75,7 +75,7 @@ internal static class SourceFetcher
 
                     if (!response.IsSuccessStatusCode)
                     {
-                        LogToConsole(owner, repository, "Could not find a valid document at: " + url + " " + response.StatusCode);
+                        LogRepositoryInfo(owner, repository, "Could not find a valid document at: " + url + " " + response.StatusCode);
                         throw new HttpRequestException("Could not find a valid document at: " + url, default, response.StatusCode);
                     }
 
@@ -85,7 +85,7 @@ internal static class SourceFetcher
                         await contentStream.CopyToAsync(stream);
                     }
 
-                    LogToConsole(owner, repository, "Extracting Files");
+                    LogRepositoryInfo(owner, repository, "Extracting Files");
 
                     ZipFile.ExtractToDirectory(zipFilePath.Path.FullPath, extractZipPath.Path.FullPath);
 
@@ -100,14 +100,14 @@ internal static class SourceFetcher
                         FetchNuGet(owner, repository, finalPath);
                     }
 
-                    zipFilePath.Delete();
+                    zipFilePath.DeleteSafe();
 
-                    LogToConsole(owner, repository, "Downloaded");
+                    LogRepositoryInfo(owner, repository, "Downloaded");
                 });
             }
             catch (Exception ex)
             {
-                LogErrorToConsole(owner, repository, "Failed to download: " + ex);
+                LogRepositoryError(owner, repository, "Failed to download: " + ex);
             }
             finally
             {
@@ -116,35 +116,46 @@ internal static class SourceFetcher
         })).ToArray());
     }
 
-    private static void DeleteSafe(this IDirectory directory, bool recursive)
+    private static void DeleteSafe(this IFile? file)
     {
-        if (directory.Exists)
+        if (file?.Exists == true)
+        {
+            file.Delete();
+        }
+    }
+
+    private static void DeleteSafe(this IDirectory? directory, bool recursive)
+    {
+        if (directory?.Exists == true)
         {
             directory.Delete(recursive);
         }
     }
 
-    private static void Recreate(this IDirectory directory)
+    private static void Recreate(this IDirectory? directory)
     {
         directory.DeleteSafe(true);
-        directory.Create();
+        directory?.Create();
     }
 
     private static void FetchNuGet(string owner, string repository, IDirectory finalPath)
     {
-        LogToConsole(owner, repository, "Restoring Packages for ");
+        LogRepositoryInfo(owner, repository, "Restoring Packages for ");
 
-        Process process = new Process();
-        ProcessStartInfo startInfo = new ProcessStartInfo
+        ProcessStartInfo startInfo = new()
         {
             WindowStyle = ProcessWindowStyle.Hidden,
             FileName = "cmd.exe",
             Arguments = $"/C dotnet restore {repository}.sln",
             WorkingDirectory = Path.Combine(finalPath.Path.FullPath, "src")
         };
-        process.StartInfo = startInfo;
+        Process process = new()
+        {
+            StartInfo = startInfo
+        };
         process.Start();
         process.WaitForExit();
+        process.Dispose();
     }
 
     private static void LogInfo(string message)
@@ -159,19 +170,10 @@ internal static class SourceFetcher
         }
     }
 
-    private static void LogToConsole(string owner, string repository, string message)
-    {
-        lock (_lockObject)
-        {
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.Write("[INFO] ");
-            Console.ResetColor();
-            Console.Write($"{message} {owner}/{repository}...");
-            Console.WriteLine();
-        }
-    }
+    private static void LogRepositoryInfo(string owner, string repository, string message) =>
+        LogInfo($"{message} {owner}/{repository}...");
 
-    private static void LogErrorToConsole(string owner, string repository, string message)
+    private static void LogRepositoryError(string owner, string repository, string message)
     {
         lock (_lockObject)
         {
@@ -182,5 +184,4 @@ internal static class SourceFetcher
             Console.WriteLine();
         }
     }
-
 }

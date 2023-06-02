@@ -4,7 +4,7 @@
         .FetchTheme()
         .GetSources("reactiveui", "reactiveui", "akavache", "fusillade", "punchclock", "splat")
         .GetSources("reactivemarbles", "DynamicData")
-        .ConfigureLinks()
+        .ConfigureLinks(args)
         .AddSetting(MarkdownKeys.MarkdownExtensions, "bootstrap")
         .AddSourceFiles(
             "dynamicdata".WithSourceFilter(),
