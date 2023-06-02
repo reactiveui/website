@@ -93,7 +93,7 @@ internal static class SourceFetcher
 
                     LogRepositoryInfo(owner, repository, "Extracting Files");
 
-                    ZipFile.ExtractToDirectory(zipFilePath.Path.FullPath, extractZipPath.Path.FullPath);
+                    ZipFile.ExtractToDirectory(zipFilePath.Path.FullPath, extractZipPath.Path.FullPath, true);
 
                     finalPath.DeleteSafe(true);
 
