@@ -37,6 +37,14 @@ jobs:
         fetch-depth: 0
         lfs: true
 
+    - name: Checkout
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+        lfs: true
+        repository: glennawatson/Docable5
+        path: theme
+
     - name: Install .NET
       uses: actions/setup-dotnet@v3
       with:
@@ -44,10 +52,6 @@ jobs:
           6.0.x
           7.0.x
 
-    - name: Install DotNet workloads
-      shell: bash
-      run: |
-        dotnet workload install android ios tvos macos maui maccatalyst
         
     - name: Add MSBuild to PATH
       uses: microsoft/setup-msbuild@v1.3.1

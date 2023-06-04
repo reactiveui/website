@@ -106,6 +106,7 @@ internal static class SourceFetcher
 
                     if (fetchNuGet)
                     {
+                        WorkflowRestore(owner, repository, finalPath);
                         FetchNuGet(owner, repository, finalPath);
                     }
 
@@ -151,11 +152,23 @@ internal static class SourceFetcher
     {
         LogRepositoryInfo(owner, repository, "Restoring Packages for ");
 
+        RunDotNet(owner, repository, finalPath, $"restore {repository}.sln");
+    }
+
+    private static void WorkflowRestore(string owner, string repository, IDirectory finalPath)
+    {
+        LogRepositoryInfo(owner, repository, "Restoring workload for ");
+
+        RunDotNet(owner, repository, finalPath, $"workload  restore {repository}.sln");
+    }
+
+    private static void RunDotNet(string owner, string repository, IDirectory finalPath, string parameters)
+    {
         ProcessStartInfo startInfo = new()
         {
             WindowStyle = ProcessWindowStyle.Hidden,
             FileName = "cmd.exe",
-            Arguments = $"/C dotnet restore {repository}.sln",
+            Arguments = $"/C dotnet {parameters}",
             WorkingDirectory = Path.Combine(finalPath.Path.FullPath, "src")
         };
         Process process = new()
