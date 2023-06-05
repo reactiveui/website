@@ -31,6 +31,11 @@ jobs:
         echo "-- RELEASE Updated --"
         vs where release
 
+    - name: Install DotNet workloads
+      shell: bash
+      run: |
+        dotnet workload install android ios tvos macos maui maccatalyst
+
     - name: Checkout
       uses: actions/checkout@v3
       with:
