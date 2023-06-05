@@ -15,27 +15,36 @@ jobs:
     # The type of runner that the job will run on
     runs-on: windows-latest
     steps:
-    - name: Get Current Visual Studio Information
+    - name: Update Visual Studio Latest Release
       shell: bash
       run: |
         dotnet tool update -g dotnet-vs
         echo "-- About RELEASE --"
         vs where release
-        
-    - name: Update Visual Studio Latest Release
-      shell: bash
-      run: |
         echo "-- Update RELEASE --"
         vs update release Enterprise
         vs modify release Enterprise +mobile +desktop +uwp +web
         echo "-- RELEASE Updated --"
         vs where release
 
+    - name: Install DotNet workloads
+      shell: bash
+      run: |
+        dotnet workload install android ios tvos macos maui maccatalyst
+
     - name: Checkout
       uses: actions/checkout@v3
       with:
         fetch-depth: 0
         lfs: true
+
+    - name: Checkout
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+        lfs: true
+        repository: glennawatson/Docable5
+        path: theme
 
     - name: Install .NET
       uses: actions/setup-dotnet@v3
@@ -46,10 +55,6 @@ jobs:
           6.0.x
           7.0.x
 
-    - name: Install DotNet workloads
-      shell: bash
-      run: |
-        dotnet workload install android ios tvos macos maui maccatalyst
         
     - name: Add MSBuild to PATH
       uses: microsoft/setup-msbuild@v1.3.1
