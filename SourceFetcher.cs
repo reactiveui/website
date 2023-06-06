@@ -30,8 +30,15 @@ internal static class SourceFetcher
         return bootstrapper.AddSetting(WebKeys.MakeLinksAbsolute, isProduction);
     }
 
-    public static Bootstrapper FetchTheme(this Bootstrapper bootstrapper, string owner = "glennawatson", string repository = "Docable5")
+    public static Bootstrapper FetchTheme(this Bootstrapper bootstrapper, string[] args, string owner = "glennawatson", string repository = "Docable5")
     {
+        var isProduction = args.Any(x => x.Contains("preview")) ? "false" : "true";
+        if (isProduction == "true")
+        {
+            LogInfo($"Skipping Theme Fetching");
+            return bootstrapper;
+        }
+
         LogInfo($"Fetching Theme");
         FetchGitHubZip(bootstrapper.FileSystem, owner, new[] { repository }, "theme", false, false);
         return bootstrapper;
