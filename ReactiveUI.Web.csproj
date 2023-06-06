@@ -17,12 +17,17 @@
     <EmbeddedResource Remove="external\**" />
     <None Remove="external\**" />
   </ItemGroup>
+  
+  <ItemGroup>
+    <ProjectReference Include="theme\Docable5.csproj" Condition="Exists('theme\Docable5.csproj')" />
+  </ItemGroup>
 
   <ItemGroup>
     <Using Include="Statiq.App" />
     <Using Include="Statiq.Docs" />
     <Using Include="Statiq.Razor" />
     <Using Include="Statiq.Markdown" />
+    <Using Include="Docable" />
     <Using Include="ReactiveUI.Web" />
   </ItemGroup>
 </Project>

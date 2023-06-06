@@ -2,17 +2,17 @@
 using System.IO.Compression;
 
 using Polly;
-using Polly.RateLimit;
 
 namespace ReactiveUI.Web;
 
 internal static class SourceFetcher
 {
-    private static readonly object _lockObject = new();
+    private static readonly object _lockConsoleObject = new();
+    private static readonly object _lockWorkloadObject = new();
 
     public static Bootstrapper GetSources(this Bootstrapper bootstrapper, string owner, params string[] repositories)
     {
-        FetchGitHubZip(bootstrapper.FileSystem, owner, repositories, "external", true, true);
+        FetchGitHubZip(bootstrapper.FileSystem, owner, repositories, "external", true, true, true);
 
         return bootstrapper;
     }
@@ -40,11 +40,11 @@ internal static class SourceFetcher
         }
 
         LogInfo($"Fetching Theme");
-        FetchGitHubZip(bootstrapper.FileSystem, owner, new[] { repository }, "theme", false, false);
+        FetchGitHubZip(bootstrapper.FileSystem, owner, new[] { repository }, "theme", true, false, false);
         return bootstrapper;
     }
 
-    private static void FetchGitHubZip(IFileSystem fileSystem, string owner, string[] repositories, string outputFolder, bool fetchNuGet, bool includeRepositoryInFinal)
+    private static void FetchGitHubZip(IFileSystem fileSystem, string owner, string[] repositories, string outputFolder, bool fetchNuGet, bool includeRepositoryInFinal, bool useSrc)
     {
         var zipCache = fileSystem.GetCacheDirectory("external/zip");
         zipCache.Create();
@@ -113,8 +113,8 @@ internal static class SourceFetcher
 
                     if (fetchNuGet)
                     {
-                        WorkflowRestore(owner, repository, finalPath);
-                        FetchNuGet(owner, repository, finalPath);
+                        WorkflowRestore(owner, repository, finalPath, useSrc);
+                        FetchNuGet(owner, repository, finalPath, useSrc);
                     }
 
                     zipFilePath.DeleteSafe();
@@ -155,18 +155,23 @@ internal static class SourceFetcher
         directory?.Create();
     }
 
-    private static void FetchNuGet(string owner, string repository, IDirectory finalPath)
+    private static void FetchNuGet(string owner, string repository, IDirectory finalPath, bool useSrc)
     {
         LogRepositoryInfo(owner, repository, "Restoring Packages for ");
 
-        RunDotNet(owner, repository, finalPath, $"restore {repository}.sln");
+        var directory = useSrc ? finalPath.GetDirectory("src") : finalPath;
+        RunDotNet(owner, repository, directory, $"restore {repository}.sln");
     }
 
-    private static void WorkflowRestore(string owner, string repository, IDirectory finalPath)
+    private static void WorkflowRestore(string owner, string repository, IDirectory finalPath, bool useSrc)
     {
-        LogRepositoryInfo(owner, repository, "Restoring workload for ");
+        lock (_lockWorkloadObject)
+        {
+            LogRepositoryInfo(owner, repository, "Restoring workload for ");
 
-        RunDotNet(owner, repository, finalPath, $"workload  restore {repository}.sln");
+            var directory = useSrc ? finalPath.GetDirectory("src") : finalPath;
+            RunDotNet(owner, repository, directory, $"workload  restore {repository}.sln");
+        }
     }
 
     private static void RunDotNet(string owner, string repository, IDirectory finalPath, string parameters)
@@ -176,7 +181,7 @@ internal static class SourceFetcher
             WindowStyle = ProcessWindowStyle.Hidden,
             FileName = "cmd.exe",
             Arguments = $"/C dotnet {parameters}",
-            WorkingDirectory = Path.Combine(finalPath.Path.FullPath, "src")
+            WorkingDirectory = finalPath.Path.FullPath
         };
         Process process = new()
         {
@@ -189,7 +194,7 @@ internal static class SourceFetcher
 
     private static void LogInfo(string message)
     {
-        lock (_lockObject)
+        lock (_lockConsoleObject)
         {
             Console.ForegroundColor = ConsoleColor.Green;
             Console.Write("[INFO] ");
@@ -204,7 +209,7 @@ internal static class SourceFetcher
 
     private static void LogRepositoryError(string owner, string repository, string message)
     {
-        lock (_lockObject)
+        lock (_lockConsoleObject)
         {
             Console.ForegroundColor = ConsoleColor.Red;
             Console.Write("[ERROR] ");
