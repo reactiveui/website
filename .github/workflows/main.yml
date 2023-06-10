@@ -75,7 +75,7 @@ jobs:
       run: dotnet build --no-restore --configuration Release
 
     - name: Run DotNet
-      run: dotnet run --no-restore --no-build --configuration Release
+      run: dotnet run -l Debug --no-restore --no-build --configuration Release
 
     - name: Archive output
       uses: actions/upload-artifact@v3
