@@ -4,7 +4,6 @@
     <OutputType>Exe</OutputType>
     <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
@@ -18,16 +17,19 @@
     <None Remove="external\**" />
   </ItemGroup>
   
-  <ItemGroup>
-    <ProjectReference Include="theme\Docable5.csproj" Condition="Exists('theme\Docable5.csproj')" />
+  <ItemGroup Condition="Exists('theme\Docable5.csproj')">
+    <ProjectReference Include="theme\Docable5.csproj" />
+    <Using Include="Docable" />
   </ItemGroup>
 
   <ItemGroup>
+    <Using Include="Statiq.Web" />
     <Using Include="Statiq.App" />
+    <Using Include="Statiq.Common" />
     <Using Include="Statiq.Docs" />
     <Using Include="Statiq.Razor" />
     <Using Include="Statiq.Markdown" />
-    <Using Include="Docable" />
+    <Using Include="Statiq.CodeAnalysis" />
     <Using Include="ReactiveUI.Web" />
   </ItemGroup>
 </Project>

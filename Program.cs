@@ -2,15 +2,15 @@
         .Factory
         .CreateDocs(args)
         .FetchTheme(args)
-        .GetSources("reactiveui", "reactiveui", "akavache", "fusillade", "punchclock", "splat")
-        .GetSources("reactivemarbles", "DynamicData")
+        //.GetSources("reactiveui", "reactiveui", "akavache", "fusillade", "punchclock", "splat")
+        //.GetSources("reactivemarbles", "DynamicData")
         .ConfigureLinks(args)
         .AddSetting(MarkdownKeys.MarkdownExtensions, "bootstrap")
-        .AddSourceFiles(
-            "dynamicdata".WithSourceFilter(),
-            "splat".WithSourceFilter("*.Drawing"),
-            "reactiveui".WithSourceFilter("Benchmarks", "*.Test", "*.LeakTests", "*.TestRunner", "*.Uwp"),
-            "akavache".WithSourceFilter(),
-            "punchclock".WithSourceFilter(),
-            "fusillade".WithSourceFilter())
+        //.AddSourceFiles(
+        //    "dynamicdata".WithSourceFilter(),
+        //    "splat".WithSourceFilter("*.Drawing"),
+        //    "reactiveui".WithSourceFilter("Benchmarks", "*.Test", "*.LeakTests", "*.TestRunner", "*.Uwp"),
+        //    "akavache".WithSourceFilter(),
+        //    "punchclock".WithSourceFilter(),
+        //    "fusillade".WithSourceFilter())
         .RunAsync();

@@ -32,8 +32,8 @@ internal static class SourceFetcher
 
     public static Bootstrapper FetchTheme(this Bootstrapper bootstrapper, string[] args, string owner = "glennawatson", string repository = "Docable5")
     {
-        var isProduction = args.Any(x => x.Contains("preview")) ? "false" : "true";
-        if (isProduction == "true")
+        var isProduction = !args.Any(x => x.Contains("preview"));
+        if (isProduction)
         {
             LogInfo($"Skipping Theme Fetching");
             return bootstrapper;
@@ -133,26 +133,26 @@ internal static class SourceFetcher
         })).ToArray());
     }
 
-    private static void DeleteSafe(this IFile? file)
+    private static void DeleteSafe(this IFile file)
     {
-        if (file?.Exists == true)
+        if (file.Exists == true)
         {
             file.Delete();
         }
     }
 
-    private static void DeleteSafe(this IDirectory? directory, bool recursive)
+    private static void DeleteSafe(this IDirectory directory, bool recursive)
     {
-        if (directory?.Exists == true)
+        if (directory.Exists == true)
         {
             directory.Delete(recursive);
         }
     }
 
-    private static void Recreate(this IDirectory? directory)
+    private static void Recreate(this IDirectory directory)
     {
         directory.DeleteSafe(true);
-        directory?.Create();
+        directory.Create();
     }
 
     private static void FetchNuGet(string owner, string repository, IDirectory finalPath, bool useSrc)
@@ -174,7 +174,9 @@ internal static class SourceFetcher
         }
     }
 
+#pragma warning disable IDE0060 // Remove unused parameter
     private static void RunDotNet(string owner, string repository, IDirectory finalPath, string parameters)
+#pragma warning restore IDE0060 // Remove unused parameter
     {
         ProcessStartInfo startInfo = new()
         {
