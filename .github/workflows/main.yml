@@ -27,11 +27,6 @@ jobs:
         echo "-- RELEASE Updated --"
         vs where release
 
-    - name: Install DotNet workloads
-      shell: bash
-      run: |
-        dotnet workload install android ios tvos macos maui maccatalyst
-
     - name: Checkout
       uses: actions/checkout@v3
       with:
@@ -60,6 +55,13 @@ jobs:
       uses: microsoft/setup-msbuild@v1.3.1
       with:
         vs-prerelease: true
+
+    - name: Install DotNet workloads
+      shell: bash
+      run: |
+        dotnet workload restore ReactiveUI.Web.sln
+
+    #install android ios tvos macos maui maccatalyst
 
     - name: Install NuGet 
       uses: nuget/setup-nuget@v1
