@@ -19,12 +19,12 @@ jobs:
       shell: bash
       run: |
         dotnet tool update -g dotnet-vs
-        echo "-- About RELEASE --"
+        echo "-- About Current Version of Visual Studio --"
         vs where release
-        echo "-- Update RELEASE --"
+        echo "-- Update to Latest Version of Visual Studio --"
         vs update release Enterprise
         vs modify release Enterprise +mobile +desktop +uwp +web
-        echo "-- RELEASE Updated --"
+        echo "-- Visual Studio Updated here are the details --"
         vs where release
 
     - name: Checkout
@@ -61,12 +61,16 @@ jobs:
       run: |
         dotnet workload restore ReactiveUI.Web.sln
 
-    #install android ios tvos macos maui maccatalyst
-
     - name: Install NuGet 
       uses: nuget/setup-nuget@v1
       with:
         nuget-version: '6.x'
+
+    - name: Install Node.js  
+      uses: actions/setup-node@v3
+      with:
+        node-version: '16.x'
+    - run: cd functions && npm install && npm run build
 
     - name: NuGet Restore 
       run: nuget restore
@@ -75,24 +79,16 @@ jobs:
       run: dotnet build --no-restore --configuration Release
 
     - name: Run DotNet
-      run: dotnet run -l Debug
-    
-    #--no-restore --no-build --configuration Release
+      run: dotnet run -l Debug --configuration Release
 
     - name: Archive output
       uses: actions/upload-artifact@v3
       with:
         name: output
         path: output
-        
-    - name: Install Node.js
-      if: ${{ github.event_name != 'pull_request' }}    
-      uses: actions/setup-node@v3
-      with:
-        node-version: '16.x'
 
     - name: Deploy netlify   
-      if: ${{ github.event_name != 'pull_request' }}    
+      if: ${{ github.event_name != 'pull_request' }}
       run: |
         npm install -g netlify-cli
         netlify deploy --auth=${{ secrets.NETLIFY_DEPLOY_KEY }} --site=${{ secrets.NETLIFY_SITE_ID }} --prod --dir=output
