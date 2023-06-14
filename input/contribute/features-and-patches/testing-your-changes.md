@@ -1,4 +1,5 @@
 NoTitle: true
+Title: Testing Your Changes
 ---
 ## Approval Tests
 Approval tests are run to make sure that changes to the public API surface are known about.

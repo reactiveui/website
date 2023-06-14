@@ -8,7 +8,7 @@ We have three different workflows which control how ReactiveUI is versioned.
 
 ## Development Builds
 
-![Development suffix](/contribute/maintainers/semver-develop.png)
+![Development suffix](/semver-develop.png)
 
 Builds from the `develop` branch have a suffix of `alpha` so that they are sorted higher than release builds which provides the team the ability to manually publish development builds to NuGet as pre-releases if they so desire.
 
@@ -16,17 +16,17 @@ GitVersion is configured in [Continuous Deployment mode](https://gitversion.read
 
 ## Pull Request Builds
 
-![Pull-request suffix](/contribute/maintainers/semver-pull-request-into-develop.png)
+![Pull-request suffix](/semver-pull-request-into-develop.png)
 
 Builds from pull-requests have a suffix of `pullrequest$GitHubIssueNumber` and are not automatically published to NuGet or MyGet but the packages are available for download from AppVeyor which allows the team to test the unit of change without merging into `develop`.
 
 ## Release Builds
 
-![Release has no suffix](/contribute/maintainers/semver-master.png)
+![Release has no suffix](/semver-master.png)
 
 Builds from the `main` branch do not have a suffix and GitVersion is configured in [ContinuousDelivery mode](https://gitversion.readthedocs.io/en/latest/reference/continuous-delivery). If the current commit is tagged, the version in the tag overrides the automatic versioning strategies.
 
-![Building a tagged release](/contribute/maintainers/building-a-tagged-release.png)
+![Building a tagged release](/building-a-tagged-release.png)
 
 ## Versioning
 

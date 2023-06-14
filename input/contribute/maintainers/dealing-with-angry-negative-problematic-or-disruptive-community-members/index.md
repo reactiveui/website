@@ -23,7 +23,7 @@ Open-source is a huge generational gift, and people should now be concerned abou
 > All problems in community generated software that threaten the sustainability of the project are due to an imbalance between those consuming the software and those participating in building the software. - [Community Imbalnce Theory](https://medium.com/@mikeal/community-imbalance-theory-c5f8688ae352
 )
 
-![](abuse-by-company-employees.jpg)
+![](/abuse-by-company-employees.jpg)
 
 A billion dollar company not upgrading software and expecting an unpaid open-source community to support it unreasonable. The developers at such company need to be highlighting to their organisation that the longer you leave things not updated the more friction that will cause in development for people trying to use newer tools.
 
@@ -45,11 +45,11 @@ In the case of serious code-of-conduct violations, please start a thread in the 
 
 Now, with all of the above said, how do you determine what crosses the line? Well, there's the obvious ones like:
 
-![](obvious-abuse.png)
+![](/obvious-abuse.png)
 
 But there are also the more subtle ones:
 
-![](subtle-abuse.png)
+![](/subtle-abuse.png)
 
 ## The the rule of thumb
 

@@ -1,5 +1,5 @@
 NoTitle: true
-Title: TL;DR
+Title: Principles For Content
 Order: 0
 ---
 

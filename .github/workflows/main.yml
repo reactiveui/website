@@ -66,25 +66,33 @@ jobs:
       with:
         nuget-version: '6.x'
 
-    - name: Install Node.js  
-      uses: actions/setup-node@v3
-      with:
-        node-version: '16.x'
-
     - name: NuGet Restore 
       run: nuget restore
 
     - name: Build DotNet
       run: dotnet build --no-restore --configuration Release
 
-    - name: Run DotNet
+    - name: Generate Output with Debug
       run: dotnet run -l Debug --configuration Release
 
-    - name: Archive output
+    - name: Finalise Output
+      run: dotnet run --configuration Release
+
+    - name: Archive files
       uses: actions/upload-artifact@v3
       with:
         name: output
-        path: output
+        path: |
+          output
+          input
+          theme
+          external
+
+    - name: Install Node.js  
+      if: ${{ github.event_name != 'pull_request' }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: '16.x'
 
     - name: Deploy netlify   
       if: ${{ github.event_name != 'pull_request' }}

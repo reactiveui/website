@@ -7,7 +7,6 @@ Published: 2021-01-04
 ShowFullBlog: true
 ---
 
-
 ## OSS Sustainability
 Open Source Sustainability has become a big topic in the .NET community.  With several Open Source projects having issues with long term sustainability, the ReactiveUI team has been identifying ways to address the long term sustainability of our open-source software.  Our main goal is to make sure that as .NET grows and evolves that Reactive Programming and ReactiveUI evolve and grow with it.  We have started to talk about strategies to ensure that ReactiveUI has maintenance and growth for the future.
 
