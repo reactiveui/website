@@ -72,11 +72,11 @@ jobs:
     - name: Build DotNet
       run: dotnet build --no-restore --configuration Release
 
-    - name: Generate Output with Debug
-      run: dotnet run -l Debug --configuration Release
-
-    - name: Finalise Output
+    - name: Generate Output
       run: dotnet run --configuration Release
+
+    - name: Finalise Output with Debug
+      run: dotnet run -l Debug --configuration Release
 
     - name: Archive files
       uses: actions/upload-artifact@v3
