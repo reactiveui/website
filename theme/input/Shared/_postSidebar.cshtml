@@ -1,0 +1,66 @@
+@* The root page of this section is passed in as the model *@
+
+@inherits StatiqRazorPage<IDocument>
+<div class="sidebar-root">
+    @{
+        if (OutputPages.GetChildrenOf(Model).Any(x => x.ContainsKey(SiteKeys.Tags)))
+        {
+            <h4 class="header"><i class="fa fa-bookmark"></i> Categories</h4>
+            var tagViews = OutputPages.GetChildrenOf(Model)
+            .Where(x => x.GetBool(SiteKeys.ShowInSidebar, true) && !x.ContainsKey(Keys.RedirectTo) && x.ContainsKey(SiteKeys.Tags))
+            .DistinctBy(x => x.GetString(SiteKeys.Tags))
+            .OrderBy(x => x.GetString(SiteKeys.Tags));
+
+            foreach (IDocument doc in tagViews)
+            {
+                var tags = doc.GetString(SiteKeys.Tags);
+                var linkText = tags.Replace(" ", "-").Replace("'", string.Empty);
+                var currentTags = tagViews.Where(x => x.GetString(SiteKeys.Tags).Contains(tags));
+                <div class="sidebar-nav-item @(Document.IdEquals(doc) ? "active" : null)">
+                    <a class="@(Document.IdEquals(doc) ? "active" : null)" href="@Context.GetLink($"/posts/Categories?category={linkText}")">@linkText</a>
+                </div>
+            }
+        }
+
+        <h4 class="header"><i class="fa fa-calendar"></i> Archive</h4>
+        var publishedViews = OutputPages.GetChildrenOf(Model)
+        .Where(x => x.GetBool(SiteKeys.ShowInSidebar, true) && !x.ContainsKey(Keys.RedirectTo) && x.ContainsKey(WebKeys.Published))
+        .DistinctBy(x =>
+        {
+            var d = x.GetDateTime(WebKeys.Published);
+            return new DateTime(d.Year, d.Month, 1);
+        })
+        .OrderByDescending(x =>
+        {
+            var d = x.GetDateTime(WebKeys.Published);
+            return new DateTime(d.Year, d.Month, 1);
+        });
+        foreach (var doc in publishedViews)
+        {
+            var linkText = doc.GetDateTime(WebKeys.Published).ToString("MMMM,yyyy");
+            var currentPublished = publishedViews.Where(x => x.GetDateTime(WebKeys.Published).ToString("MMMM,yyyy").Contains(linkText));
+            <div class="sidebar-nav-item @(Document.IdEquals(doc) ? "active" : null)">
+                <a class="@(Document.IdEquals(doc) ? "active" : null)" href="@Context.GetLink($"/posts/Archive?archive={linkText}")">@linkText</a>
+            </div>
+        }
+
+        if (OutputPages.GetChildrenOf(Model).Any(x => x.ContainsKey(WebKeys.Author)))
+        {
+            <h4 class="header"><i class="fa fa-user"></i> Authors</h4>
+            var authorViews = OutputPages.GetChildrenOf(Model)
+            .Where(x => x.GetBool(SiteKeys.ShowInSidebar, true) && !x.ContainsKey(Keys.RedirectTo) && x.ContainsKey(WebKeys.Author));
+
+            foreach (var doc in authorViews
+            .DistinctBy(x => x.GetString(WebKeys.Author))
+            .OrderBy(x => x.GetString(WebKeys.Author)))
+            {
+                var author = doc.GetString(WebKeys.Author);
+                var linkText = author.Replace(" ", "-").Replace("'", string.Empty);
+                var currentAuthor = authorViews.Where(x => x.GetString(WebKeys.Author).Contains(author));
+                <div class="sidebar-nav-item @(Document.IdEquals(doc) ? "active" : null)">
+                    <a class="@(Document.IdEquals(doc) ? "active" : null)" href="@Context.GetLink($"/posts/Authors?author={linkText}")">@linkText</a>
+                </div>
+            }
+        }
+    }
+</div>

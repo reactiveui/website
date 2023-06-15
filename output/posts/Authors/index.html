@@ -1,0 +1,1435 @@
+<!DOCTYPE html>
+<html data-bs-theme="auto">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="/assets/bootstrap/bootstrap.css" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=Dosis:wght@700&family=Source+Sans+Pro:wght@300;400&display=swap" rel="stylesheet" data-no-mirror>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.26.0/themes/prism.css">
+    <link href="/assets/css/theme.css" rel="stylesheet" />
+    <link href="/assets/css/styles.css" rel="stylesheet" />
+
+    <!-- Lunr search -->
+
+    
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicons/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicons/favicon-16x16.png">
+<link rel="manifest" href="/assets/img/favicons/manifest.json">
+<link rel="shortcut icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico"/>
+<link rel="mask-icon" href="/assets/img/favicons/safari-pinned-tab.svg" color="#319af3")">
+<meta name="msapplication-config" content="/assets/img/favicons/browserconfig.xml" />
+<meta name="msapplication-TileColor" content="#319af3">
+<meta name="theme-color" content="#319af3">
+
+<meta property="og:url" content="https://reactiveui.net/posts/Authors" />
+<meta property="og:type" content="article" />
+<meta property="og:title" />
+<meta property="og:image" content="/assets/img/facebook-card.png" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:site" content="@reactivexui" />
+<meta name="twitter:creator" content="@reactivexui" />
+<meta name="twitter:title" />
+<meta name="twitter:image" content="/assets/img/twitter-card.png" />
+<meta name="twitter:image:alt" content="An advanced, composable, functional reactive model-view-viewmodel framework for all .NET platforms" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+
+    <title>ReactiveUI - Blog</title>
+</head>
+<body class="d-flex flex-column">
+    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+        <symbol id="arrow-right" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z" />
+        </symbol>
+        <symbol id="book-half" viewBox="0 0 16 16">
+            <path d="M8.5 2.687c.654-.689 1.782-.886 3.112-.752 1.234.124 2.503.523 3.388.893v9.923c-.918-.35-2.107-.692-3.287-.81-1.094-.111-2.278-.039-3.213.492V2.687zM8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783z" />
+        </symbol>
+        <symbol id="box-seam" viewBox="0 0 16 16">
+            <path d="M8.186 1.113a.5.5 0 0 0-.372 0L1.846 3.5l2.404.961L10.404 2l-2.218-.887zm3.564 1.426L5.596 5 8 5.961 14.154 3.5l-2.404-.961zm3.25 1.7-6.5 2.6v7.922l6.5-2.6V4.24zM7.5 14.762V6.838L1 4.239v7.923l6.5 2.6zM7.443.184a1.5 1.5 0 0 1 1.114 0l7.129 2.852A.5.5 0 0 1 16 3.5v8.662a1 1 0 0 1-.629.928l-7.185 2.874a.5.5 0 0 1-.372 0L.63 13.09a1 1 0 0 1-.63-.928V3.5a.5.5 0 0 1 .314-.464L7.443.184z" />
+        </symbol>
+        <symbol id="braces" viewBox="0 0 16 16">
+            <path d="M2.114 8.063V7.9c1.005-.102 1.497-.615 1.497-1.6V4.503c0-1.094.39-1.538 1.354-1.538h.273V2h-.376C3.25 2 2.49 2.759 2.49 4.352v1.524c0 1.094-.376 1.456-1.49 1.456v1.299c1.114 0 1.49.362 1.49 1.456v1.524c0 1.593.759 2.352 2.372 2.352h.376v-.964h-.273c-.964 0-1.354-.444-1.354-1.538V9.663c0-.984-.492-1.497-1.497-1.6zM13.886 7.9v.163c-1.005.103-1.497.616-1.497 1.6v1.798c0 1.094-.39 1.538-1.354 1.538h-.273v.964h.376c1.613 0 2.372-.759 2.372-2.352v-1.524c0-1.094.376-1.456 1.49-1.456V7.332c-1.114 0-1.49-.362-1.49-1.456V4.352C13.51 2.759 12.75 2 11.138 2h-.376v.964h.273c.964 0 1.354.444 1.354 1.538V6.3c0 .984.492 1.497 1.497 1.6z" />
+        </symbol>
+        <symbol id="braces-asterisk" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M1.114 8.063V7.9c1.005-.102 1.497-.615 1.497-1.6V4.503c0-1.094.39-1.538 1.354-1.538h.273V2h-.376C2.25 2 1.49 2.759 1.49 4.352v1.524c0 1.094-.376 1.456-1.49 1.456v1.299c1.114 0 1.49.362 1.49 1.456v1.524c0 1.593.759 2.352 2.372 2.352h.376v-.964h-.273c-.964 0-1.354-.444-1.354-1.538V9.663c0-.984-.492-1.497-1.497-1.6ZM14.886 7.9v.164c-1.005.103-1.497.616-1.497 1.6v1.798c0 1.094-.39 1.538-1.354 1.538h-.273v.964h.376c1.613 0 2.372-.759 2.372-2.352v-1.524c0-1.094.376-1.456 1.49-1.456v-1.3c-1.114 0-1.49-.362-1.49-1.456V4.352C14.51 2.759 13.75 2 12.138 2h-.376v.964h.273c.964 0 1.354.444 1.354 1.538V6.3c0 .984.492 1.497 1.497 1.6ZM7.5 11.5V9.207l-1.621 1.621-.707-.707L6.792 8.5H4.5v-1h2.293L5.172 5.879l.707-.707L7.5 6.792V4.5h1v2.293l1.621-1.621.707.707L9.208 7.5H11.5v1H9.207l1.621 1.621-.707.707L8.5 9.208V11.5h-1Z" />
+        </symbol>
+        <symbol id="check2" viewBox="0 0 16 16">
+            <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
+        </symbol>
+        <symbol id="chevron-expand" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M3.646 9.146a.5.5 0 0 1 .708 0L8 12.793l3.646-3.647a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 0-.708zm0-2.292a.5.5 0 0 0 .708 0L8 3.207l3.646 3.647a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 0 0 0 .708z" />
+        </symbol>
+        <symbol id="circle-half" viewBox="0 0 16 16">
+            <path d="M8 15A7 7 0 1 0 8 1v14zm0 1A8 8 0 1 1 8 0a8 8 0 0 1 0 16z" />
+        </symbol>
+        <symbol id="clipboard" viewBox="0 0 16 16">
+            <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z" />
+            <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z" />
+        </symbol>
+        <symbol id="code" viewBox="0 0 16 16">
+            <path d="M5.854 4.854a.5.5 0 1 0-.708-.708l-3.5 3.5a.5.5 0 0 0 0 .708l3.5 3.5a.5.5 0 0 0 .708-.708L2.707 8l3.147-3.146zm4.292 0a.5.5 0 0 1 .708-.708l3.5 3.5a.5.5 0 0 1 0 .708l-3.5 3.5a.5.5 0 0 1-.708-.708L13.293 8l-3.147-3.146z" />
+        </symbol>
+        <symbol id="file-earmark-richtext" viewBox="0 0 16 16">
+            <path d="M14 4.5V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h5.5L14 4.5zm-3 0A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4.5h-2z" />
+            <path d="M4.5 12.5A.5.5 0 0 1 5 12h3a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5zm0-2A.5.5 0 0 1 5 10h6a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5zm1.639-3.708 1.33.886 1.854-1.855a.25.25 0 0 1 .289-.047l1.888.974V8.5a.5.5 0 0 1-.5.5H5a.5.5 0 0 1-.5-.5V8s1.54-1.274 1.639-1.208zM6.25 6a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5z" />
+        </symbol>
+        <symbol id="globe2" viewBox="0 0 16 16">
+            <path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm7.5-6.923c-.67.204-1.335.82-1.887 1.855-.143.268-.276.56-.395.872.705.157 1.472.257 2.282.287V1.077zM4.249 3.539c.142-.384.304-.744.481-1.078a6.7 6.7 0 0 1 .597-.933A7.01 7.01 0 0 0 3.051 3.05c.362.184.763.349 1.198.49zM3.509 7.5c.036-1.07.188-2.087.436-3.008a9.124 9.124 0 0 1-1.565-.667A6.964 6.964 0 0 0 1.018 7.5h2.49zm1.4-2.741a12.344 12.344 0 0 0-.4 2.741H7.5V5.091c-.91-.03-1.783-.145-2.591-.332zM8.5 5.09V7.5h2.99a12.342 12.342 0 0 0-.399-2.741c-.808.187-1.681.301-2.591.332zM4.51 8.5c.035.987.176 1.914.399 2.741A13.612 13.612 0 0 1 7.5 10.91V8.5H4.51zm3.99 0v2.409c.91.03 1.783.145 2.591.332.223-.827.364-1.754.4-2.741H8.5zm-3.282 3.696c.12.312.252.604.395.872.552 1.035 1.218 1.65 1.887 1.855V11.91c-.81.03-1.577.13-2.282.287zm.11 2.276a6.696 6.696 0 0 1-.598-.933 8.853 8.853 0 0 1-.481-1.079 8.38 8.38 0 0 0-1.198.49 7.01 7.01 0 0 0 2.276 1.522zm-1.383-2.964A13.36 13.36 0 0 1 3.508 8.5h-2.49a6.963 6.963 0 0 0 1.362 3.675c.47-.258.995-.482 1.565-.667zm6.728 2.964a7.009 7.009 0 0 0 2.275-1.521 8.376 8.376 0 0 0-1.197-.49 8.853 8.853 0 0 1-.481 1.078 6.688 6.688 0 0 1-.597.933zM8.5 11.909v3.014c.67-.204 1.335-.82 1.887-1.855.143-.268.276-.56.395-.872A12.63 12.63 0 0 0 8.5 11.91zm3.555-.401c.57.185 1.095.409 1.565.667A6.963 6.963 0 0 0 14.982 8.5h-2.49a13.36 13.36 0 0 1-.437 3.008zM14.982 7.5a6.963 6.963 0 0 0-1.362-3.675c-.47.258-.995.482-1.565.667.248.92.4 1.938.437 3.008h2.49zM11.27 2.461c.177.334.339.694.482 1.078a8.368 8.368 0 0 0 1.196-.49 7.01 7.01 0 0 0-2.275-1.52c.218.283.418.597.597.932zm-.488 1.343a7.765 7.765 0 0 0-.395-.872C9.835 1.897 9.17 1.282 8.5 1.077V4.09c.81-.03 1.577-.13 2.282-.287z" />
+        </symbol>
+        <symbol id="grid-fill" viewBox="0 0 16 16">
+            <path d="M1 2.5A1.5 1.5 0 0 1 2.5 1h3A1.5 1.5 0 0 1 7 2.5v3A1.5 1.5 0 0 1 5.5 7h-3A1.5 1.5 0 0 1 1 5.5v-3zm8 0A1.5 1.5 0 0 1 10.5 1h3A1.5 1.5 0 0 1 15 2.5v3A1.5 1.5 0 0 1 13.5 7h-3A1.5 1.5 0 0 1 9 5.5v-3zm-8 8A1.5 1.5 0 0 1 2.5 9h3A1.5 1.5 0 0 1 7 10.5v3A1.5 1.5 0 0 1 5.5 15h-3A1.5 1.5 0 0 1 1 13.5v-3zm8 0A1.5 1.5 0 0 1 10.5 9h3a1.5 1.5 0 0 1 1.5 1.5v3a1.5 1.5 0 0 1-1.5 1.5h-3A1.5 1.5 0 0 1 9 13.5v-3z" />
+        </symbol>
+        <symbol id="lightning-charge-fill" viewBox="0 0 16 16">
+            <path d="M11.251.068a.5.5 0 0 1 .227.58L9.677 6.5H13a.5.5 0 0 1 .364.843l-8 8.5a.5.5 0 0 1-.842-.49L6.323 9.5H3a.5.5 0 0 1-.364-.843l8-8.5a.5.5 0 0 1 .615-.09z" />
+        </symbol>
+        <symbol id="list" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
+        </symbol>
+        <symbol id="magic" viewBox="0 0 16 16">
+            <path d="M9.5 2.672a.5.5 0 1 0 1 0V.843a.5.5 0 0 0-1 0v1.829Zm4.5.035A.5.5 0 0 0 13.293 2L12 3.293a.5.5 0 1 0 .707.707L14 2.707ZM7.293 4A.5.5 0 1 0 8 3.293L6.707 2A.5.5 0 0 0 6 2.707L7.293 4Zm-.621 2.5a.5.5 0 1 0 0-1H4.843a.5.5 0 1 0 0 1h1.829Zm8.485 0a.5.5 0 1 0 0-1h-1.829a.5.5 0 0 0 0 1h1.829ZM13.293 10A.5.5 0 1 0 14 9.293L12.707 8a.5.5 0 1 0-.707.707L13.293 10ZM9.5 11.157a.5.5 0 0 0 1 0V9.328a.5.5 0 0 0-1 0v1.829Zm1.854-5.097a.5.5 0 0 0 0-.706l-.708-.708a.5.5 0 0 0-.707 0L8.646 5.94a.5.5 0 0 0 0 .707l.708.708a.5.5 0 0 0 .707 0l1.293-1.293Zm-3 3a.5.5 0 0 0 0-.706l-.708-.708a.5.5 0 0 0-.707 0L.646 13.94a.5.5 0 0 0 0 .707l.708.708a.5.5 0 0 0 .707 0L8.354 9.06Z" />
+        </symbol>
+        <symbol id="menu-button-wide-fill" viewBox="0 0 16 16">
+            <path d="M1.5 0A1.5 1.5 0 0 0 0 1.5v2A1.5 1.5 0 0 0 1.5 5h13A1.5 1.5 0 0 0 16 3.5v-2A1.5 1.5 0 0 0 14.5 0h-13zm1 2h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1 0-1zm9.927.427A.25.25 0 0 1 12.604 2h.792a.25.25 0 0 1 .177.427l-.396.396a.25.25 0 0 1-.354 0l-.396-.396zM0 8a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V8zm1 3v2a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2H1zm14-1V8a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v2h14zM2 8.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0 4a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5z" />
+        </symbol>
+        <symbol id="moon-stars-fill" viewBox="0 0 16 16">
+            <path d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278z" />
+            <path d="M10.794 3.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387a1.734 1.734 0 0 0-1.097 1.097l-.387 1.162a.217.217 0 0 1-.412 0l-.387-1.162A1.734 1.734 0 0 0 9.31 6.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387a1.734 1.734 0 0 0 1.097-1.097l.387-1.162zM13.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.156 1.156 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.156 1.156 0 0 0-.732-.732l-.774-.258a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732L13.863.1z" />
+        </symbol>
+        <symbol id="palette2" viewBox="0 0 16 16">
+            <path d="M0 .5A.5.5 0 0 1 .5 0h5a.5.5 0 0 1 .5.5v5.277l4.147-4.131a.5.5 0 0 1 .707 0l3.535 3.536a.5.5 0 0 1 0 .708L10.261 10H15.5a.5.5 0 0 1 .5.5v5a.5.5 0 0 1-.5.5H3a2.99 2.99 0 0 1-2.121-.879A2.99 2.99 0 0 1 0 13.044m6-.21 7.328-7.3-2.829-2.828L6 7.188v5.647zM4.5 13a1.5 1.5 0 1 0-3 0 1.5 1.5 0 0 0 3 0zM15 15v-4H9.258l-4.015 4H15zM0 .5v12.495V.5z" />
+            <path d="M0 12.995V13a3.07 3.07 0 0 0 0-.005z" />
+        </symbol>
+        <symbol id="plugin" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M1 8a7 7 0 1 1 2.898 5.673c-.167-.121-.216-.406-.002-.62l1.8-1.8a3.5 3.5 0 0 0 4.572-.328l1.414-1.415a.5.5 0 0 0 0-.707l-.707-.707 1.559-1.563a.5.5 0 1 0-.708-.706l-1.559 1.562-1.414-1.414 1.56-1.562a.5.5 0 1 0-.707-.706l-1.56 1.56-.707-.706a.5.5 0 0 0-.707 0L5.318 5.975a3.5 3.5 0 0 0-.328 4.571l-1.8 1.8c-.58.58-.62 1.6.121 2.137A8 8 0 1 0 0 8a.5.5 0 0 0 1 0Z" />
+        </symbol>
+        <symbol id="plus" viewBox="0 0 16 16">
+            <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+        </symbol>
+        <symbol id="sun-fill" viewBox="0 0 16 16">
+            <path d="M8 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z" />
+        </symbol>
+        <symbol id="three-dots" viewBox="0 0 16 16">
+            <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" />
+        </symbol>
+        <symbol id="tools" viewBox="0 0 16 16">
+            <path d="M1 0 0 1l2.2 3.081a1 1 0 0 0 .815.419h.07a1 1 0 0 1 .708.293l2.675 2.675-2.617 2.654A3.003 3.003 0 0 0 0 13a3 3 0 1 0 5.878-.851l2.654-2.617.968.968-.305.914a1 1 0 0 0 .242 1.023l3.356 3.356a1 1 0 0 0 1.414 0l1.586-1.586a1 1 0 0 0 0-1.414l-3.356-3.356a1 1 0 0 0-1.023-.242L10.5 9.5l-.96-.96 2.68-2.643A3.005 3.005 0 0 0 16 3c0-.269-.035-.53-.102-.777l-2.14 2.141L12 4l-.364-1.757L13.777.102a3 3 0 0 0-3.675 3.68L7.462 6.46 4.793 3.793a1 1 0 0 1-.293-.707v-.071a1 1 0 0 0-.419-.814L1 0zm9.646 10.646a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708zM3 11l.471.242.529.026.287.445.445.287.026.529L5 13l-.242.471-.026.529-.445.287-.287.445-.529.026L3 15l-.471-.242L2 14.732l-.287-.445L1.268 14l-.026-.529L1 13l.242-.471.026-.529.445-.287.287-.445.529-.026L3 11z" />
+        </symbol>
+        <symbol id="ui-radios" viewBox="0 0 16 16">
+            <path d="M7 2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5v-1zM0 12a3 3 0 1 1 6 0 3 3 0 0 1-6 0zm7-1.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5v-1zm0-5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0 8a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zM3 1a3 3 0 1 0 0 6 3 3 0 0 0 0-6zm0 4.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" />
+        </symbol>
+    </svg>
+    <div class="flex-grow-1 d-flex flex-column">
+        <div class="bg-nav">
+            <div class="container-xl py-3">
+                <div class="row justify-content-center">
+                    <div class="offset-lg-2 col-14">
+                        <nav class="navbar navbar-expand-md navbar-light align-items-start">
+    <a class="navbar-brand" href="/">
+                <img id="logo" src="/assets/img/logo.png" alt="ReactiveUI">
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapse-topnav" aria-controls="collapse-topnav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div id="collapse-topnav" class="collapse navbar-collapse flex-wrap">
+        <ul class="navbar-nav mr-auto">
+            
+        </ul>
+        <ul class="navbar-nav">
+                    <li class="nav-item">
+            <a class="nav-link" href="/docs">Documentation</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/posts">Blog</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/Extensions">Extensions</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/vs">ReactiveUI vs.</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/contribute">Contribute</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/Support">Support</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/Book">Book</a>
+        </li>
+
+            <li class="nav-item small">
+    <a class="nav-link" href="https://join.slack.com/t/reactivex/shared_invite/zt-lt48skpz-G5WDYOAuzA80_MByZrLT0g"><i class="fab fa-slack"></i> Slack</a>
+</li>
+<li class="nav-item small">
+    <a class="nav-link" href="https://github.com/reactiveui/reactiveui"><i class="fab fa-github"></i> GitHub</a>
+</li>
+<li class="nav-item small">
+    <a class="nav-link" href="https://twitter.com/reactivexui"><i class="fab fa-twitter"></i> Twitter</a>
+</li>
+<li class="nav-item small">
+    <a class="nav-link" href="https://www.youtube.com/ReactiveUI"><i class="fab fa-youtube"></i> YouTube</a>
+</li>
+<li class="nav-item dropdown">
+    <button class="btn btn-link nav-link dropdown-toggle d-flex align-items-center" id="bd-theme" type="button" aria-expanded="false" data-bs-toggle="dropdown" data-bs-display="static" aria-label="Toggle theme (dark)" style="width: 50px; height: 50px;">
+        <svg class="bi my-1 theme-icon-active"><use href="#moon-stars-fill"></use></svg>
+        <span class="d-lg-none ms-2" id="bd-theme-text">Toggle theme</span>
+    </button>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="bd-theme-text">
+        <li>
+            <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="light" aria-pressed="false" style="width: 140px; height: 40px; ">
+                <svg class="bi me-2 opacity-50 theme-icon" style="width: 35px; height: 35px;"><use href="#sun-fill"></use></svg>
+                Light
+                <svg class="bi ms-auto d-none"><use href="#check2"></use></svg>
+            </button>
+        </li>
+        <li>
+            <button type="button" class="dropdown-item d-flex align-items-center active" data-bs-theme-value="dark" aria-pressed="false" style="width: 140px; height: 40px; ">
+                <svg class="bi me-2 opacity-50 theme-icon" style="width: 35px; height: 35px;"><use href="#moon-stars-fill"></use></svg>
+                Dark
+                <svg class="bi ms-auto d-none"><use href="#check2"></use></svg>
+            </button>
+        </li>
+        <li>
+            <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="auto" aria-pressed="true" style="width: 140px; height: 40px; ">
+                <svg class="bi me-2 opacity-50 theme-icon" style="width: 35px; height: 35px;"><use href="#circle-half"></use></svg>
+                Auto
+                <svg class="bi ms-auto d-none"><use href="#check2"></use></svg>
+            </button>
+        </li>
+    </ul>
+</li>
+
+        </ul>
+    </div>
+</nav>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="flex-grow-1 d-flex flex-column">
+            <div id="titlebar" class="py-4">
+                <div class="container-xl">
+                    <div class="row">
+                        <div class="offset-lg-2 col-12 col-lg-8 px-3 px-lg-0 w-100 d-flex flex-wrap align-items-end">
+                            <div class="flex-grow-1">
+                                <div class="breadcrumbs d-flex flex-column flex-md-row text-break">
+
+        <span><a href="/posts">Blog</a></span>
+                                </div>
+                                <div class="text-white m-0 text-break">
+
+Blog
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Document Body -->
+            <div class="flex-grow-1 d-flex flex-column">
+                <div class="container-xl flex-grow-1 d-flex flex-column">
+                    <div class="row flex-grow-1 align-items-stretch">
+                            <div class="col-md-3 col-lg-2 p-md-0 m-md-0 bg-body">
+                                <div id="left-sidebar" tabindex="0" class="sidebar collapse px-0 px-md-3 pt-3">
+
+<div class="sidebar-root">
+            <h4 class="header"><i class="fa fa-bookmark"></i> Categories</h4>
+                <div class="sidebar-nav-item">
+                    <a href="/posts/Categories?category=Announcement">Announcement</a>
+                </div>
+                <div class="sidebar-nav-item">
+                    <a href="/posts/Categories?category=Article">Article</a>
+                </div>
+                <div class="sidebar-nav-item">
+                    <a href="/posts/Categories?category=Release-Notes">Release-Notes</a>
+                </div>
+        <h4 class="header"><i class="fa fa-calendar"></i> Archive</h4>
+            <div class="sidebar-nav-item">
+                <a href="/posts/Archive?archive=January,2021">January,2021</a>
+            </div>
+            <div class="sidebar-nav-item">
+                <a href="/posts/Archive?archive=July,2020">July,2020</a>
+            </div>
+            <div class="sidebar-nav-item">
+                <a href="/posts/Archive?archive=May,2019">May,2019</a>
+            </div>
+            <div class="sidebar-nav-item">
+                <a href="/posts/Archive?archive=March,2019">March,2019</a>
+            </div>
+            <div class="sidebar-nav-item">
+                <a href="/posts/Archive?archive=January,2019">January,2019</a>
+            </div>
+            <div class="sidebar-nav-item">
+                <a href="/posts/Archive?archive=December,2018">December,2018</a>
+            </div>
+            <div class="sidebar-nav-item">
+                <a href="/posts/Archive?archive=November,2018">November,2018</a>
+            </div>
+            <div class="sidebar-nav-item">
+                <a href="/posts/Archive?archive=October,2018">October,2018</a>
+            </div>
+            <div class="sidebar-nav-item">
+                <a href="/posts/Archive?archive=August,2018">August,2018</a>
+            </div>
+            <div class="sidebar-nav-item">
+                <a href="/posts/Archive?archive=May,2018">May,2018</a>
+            </div>
+            <div class="sidebar-nav-item">
+                <a href="/posts/Archive?archive=April,2018">April,2018</a>
+            </div>
+            <div class="sidebar-nav-item">
+                <a href="/posts/Archive?archive=September,2017">September,2017</a>
+            </div>
+            <div class="sidebar-nav-item">
+                <a href="/posts/Archive?archive=August,2017">August,2017</a>
+            </div>
+            <div class="sidebar-nav-item">
+                <a href="/posts/Archive?archive=May,2017">May,2017</a>
+            </div>
+            <div class="sidebar-nav-item">
+                <a href="/posts/Archive?archive=January,2017">January,2017</a>
+            </div>
+            <div class="sidebar-nav-item">
+                <a href="/posts/Archive?archive=November,2016">November,2016</a>
+            </div>
+            <div class="sidebar-nav-item">
+                <a href="/posts/Archive?archive=September,2016">September,2016</a>
+            </div>
+            <div class="sidebar-nav-item">
+                <a href="/posts/Archive?archive=August,2016">August,2016</a>
+            </div>
+            <div class="sidebar-nav-item">
+                <a href="/posts/Archive?archive=May,2015">May,2015</a>
+            </div>
+            <div class="sidebar-nav-item">
+                <a href="/posts/Archive?archive=February,2015">February,2015</a>
+            </div>
+            <div class="sidebar-nav-item">
+                <a href="/posts/Archive?archive=January,2015">January,2015</a>
+            </div>
+            <div class="sidebar-nav-item">
+                <a href="/posts/Archive?archive=November,2014">November,2014</a>
+            </div>
+            <div class="sidebar-nav-item">
+                <a href="/posts/Archive?archive=October,2014">October,2014</a>
+            </div>
+            <div class="sidebar-nav-item">
+                <a href="/posts/Archive?archive=September,2014">September,2014</a>
+            </div>
+            <div class="sidebar-nav-item">
+                <a href="/posts/Archive?archive=August,2014">August,2014</a>
+            </div>
+            <div class="sidebar-nav-item">
+                <a href="/posts/Archive?archive=July,2014">July,2014</a>
+            </div>
+            <div class="sidebar-nav-item">
+                <a href="/posts/Archive?archive=May,2014">May,2014</a>
+            </div>
+            <div class="sidebar-nav-item">
+                <a href="/posts/Archive?archive=April,2014">April,2014</a>
+            </div>
+            <div class="sidebar-nav-item">
+                <a href="/posts/Archive?archive=March,2014">March,2014</a>
+            </div>
+            <div class="sidebar-nav-item">
+                <a href="/posts/Archive?archive=January,2014">January,2014</a>
+            </div>
+            <div class="sidebar-nav-item">
+                <a href="/posts/Archive?archive=December,2013">December,2013</a>
+            </div>
+            <div class="sidebar-nav-item">
+                <a href="/posts/Archive?archive=November,2013">November,2013</a>
+            </div>
+            <div class="sidebar-nav-item">
+                <a href="/posts/Archive?archive=October,2013">October,2013</a>
+            </div>
+            <div class="sidebar-nav-item">
+                <a href="/posts/Archive?archive=July,2013">July,2013</a>
+            </div>
+            <div class="sidebar-nav-item">
+                <a href="/posts/Archive?archive=June,2013">June,2013</a>
+            </div>
+            <div class="sidebar-nav-item">
+                <a href="/posts/Archive?archive=March,2013">March,2013</a>
+            </div>
+            <div class="sidebar-nav-item">
+                <a href="/posts/Archive?archive=February,2013">February,2013</a>
+            </div>
+            <h4 class="header"><i class="fa fa-user"></i> Authors</h4>
+                <div class="sidebar-nav-item">
+                    <a href="/posts/Authors?author=Ana&#xEF;s-Betts">Ana&#xEF;s-Betts</a>
+                </div>
+                <div class="sidebar-nav-item">
+                    <a href="/posts/Authors?author=Artyom-Gorchakov">Artyom-Gorchakov</a>
+                </div>
+                <div class="sidebar-nav-item">
+                    <a href="/posts/Authors?author=Geoffrey-Huntley">Geoffrey-Huntley</a>
+                </div>
+                <div class="sidebar-nav-item">
+                    <a href="/posts/Authors?author=Glenn-Watson">Glenn-Watson</a>
+                </div>
+                <div class="sidebar-nav-item">
+                    <a href="/posts/Authors?author=Kent-Boogaart">Kent-Boogaart</a>
+                </div>
+                <div class="sidebar-nav-item">
+                    <a href="/posts/Authors?author=Rich-Bryant">Rich-Bryant</a>
+                </div>
+                <div class="sidebar-nav-item">
+                    <a href="/posts/Authors?author=Rodney-Littles,-II">Rodney-Littles,-II</a>
+                </div>
+</div>
+                                </div>
+                            </div>
+ <!-- Blog Content Start -->
+                            <div id="content" class="col-md-9 col-lg-8 p-4 pt-md-0">
+                                <div class="container">
+                                    <div class="row">
+                                        <div id="content" class="col-md-12">
+                                                    <div>
+
+<div class="post-preview">
+    <h2 class="post-title"><a href="/posts/2014-05-31-reactiveui-v6.0.0-preview-7-released">ReactiveUI v6.0.0 Preview 7 released</a></h2>
+        <div class="post-subtitle"><i class="fa fa-user"></i> Author : Ana&#xEF;s Betts</div>
+        <div class="post-subtitle"><i class="fa fa-bookmark"></i> Category : Release Notes</div>
+    <p class="post-meta"><i class="fa fa-calendar"></i> Published on : 31 May 2014</p>
+
+<p>This is a prerelease version of ReactiveUI 6.0 - use at your own release, we make no guarantees that this works for you or even at all.</p>        <p class="small"><a href="/posts/2014-05-31-reactiveui-v6.0.0-preview-7-released">Read more...</a></p>
+</div>
+        </div>
+        <div>
+
+<div class="post-preview">
+    <h2 class="post-title"><a href="/posts/2014-01-30-reactiveui-v6.0.0-preview-4-released">ReactiveUI v6.0.0 Preview 4 released</a></h2>
+        <div class="post-subtitle"><i class="fa fa-user"></i> Author : Ana&#xEF;s Betts</div>
+        <div class="post-subtitle"><i class="fa fa-bookmark"></i> Category : Release Notes</div>
+    <p class="post-meta"><i class="fa fa-calendar"></i> Published on : 30 January 2014</p>
+
+<p>This is a prerelease version of ReactiveUI 6.0 - use at your own release, we make no guarantees that this works for you or even at all.</p>        <p class="small"><a href="/posts/2014-01-30-reactiveui-v6.0.0-preview-4-released">Read more...</a></p>
+</div>
+        </div>
+        <div>
+
+<div class="post-preview">
+    <h2 class="post-title"><a href="/posts/2014-03-29-reactiveui-v6.0.0-preview-6-released">ReactiveUI v6.0.0 Preview 6 released</a></h2>
+        <div class="post-subtitle"><i class="fa fa-user"></i> Author : Ana&#xEF;s Betts</div>
+        <div class="post-subtitle"><i class="fa fa-bookmark"></i> Category : Release Notes</div>
+    <p class="post-meta"><i class="fa fa-calendar"></i> Published on : 29 March 2014</p>
+
+<p>This is a prerelease version of ReactiveUI 6.0 - use at your own release, we make no guarantees that this works for you or even at all.</p>        <p class="small"><a href="/posts/2014-03-29-reactiveui-v6.0.0-preview-6-released">Read more...</a></p>
+</div>
+        </div>
+        <div>
+
+<div class="post-preview">
+    <h2 class="post-title"><a href="/posts/2013-02-27-reactiveui-v4.4.2-released">ReactiveUI v4.4.2 released</a></h2>
+        <div class="post-subtitle"><i class="fa fa-user"></i> Author : Ana&#xEF;s Betts</div>
+        <div class="post-subtitle"><i class="fa fa-bookmark"></i> Category : Release Notes</div>
+    <p class="post-meta"><i class="fa fa-calendar"></i> Published on : 27 February 2013</p>
+
+</div>
+        </div>
+        <div>
+
+<div class="post-preview">
+    <h2 class="post-title"><a href="/posts/2014-08-26-reactiveui-v6.0.6-released">ReactiveUI v6.0.6 released</a></h2>
+        <div class="post-subtitle"><i class="fa fa-user"></i> Author : Ana&#xEF;s Betts</div>
+        <div class="post-subtitle"><i class="fa fa-bookmark"></i> Category : Release Notes</div>
+    <p class="post-meta"><i class="fa fa-calendar"></i> Published on : 26 August 2014</p>
+
+</div>
+        </div>
+        <div>
+
+<div class="post-preview">
+    <h2 class="post-title"><a href="/posts/2013-12-25-reactiveui-v6.0.0-preview-1-released">ReactiveUI v6.0.0 Preview 1 released</a></h2>
+        <div class="post-subtitle"><i class="fa fa-user"></i> Author : Ana&#xEF;s Betts</div>
+        <div class="post-subtitle"><i class="fa fa-bookmark"></i> Category : Release Notes</div>
+    <p class="post-meta"><i class="fa fa-calendar"></i> Published on : 25 December 2013</p>
+
+<p>This is a prerelease version of ReactiveUI 6.0 - use at your own release, we make no guarantees that this works for you or even at all.</p>        <p class="small"><a href="/posts/2013-12-25-reactiveui-v6.0.0-preview-1-released">Read more...</a></p>
+</div>
+        </div>
+        <div>
+
+<div class="post-preview">
+    <h2 class="post-title"><a href="/posts/2014-07-25-reactiveui-v6.0.2-released">ReactiveUI v6.0.2 released</a></h2>
+        <div class="post-subtitle"><i class="fa fa-user"></i> Author : Ana&#xEF;s Betts</div>
+        <div class="post-subtitle"><i class="fa fa-bookmark"></i> Category : Release Notes</div>
+    <p class="post-meta"><i class="fa fa-calendar"></i> Published on : 25 July 2014</p>
+
+</div>
+        </div>
+        <div>
+
+<div class="post-preview">
+    <h2 class="post-title"><a href="/posts/2014-11-23-reactiveui-v6.2.1-released">ReactiveUI v6.2.1 released</a></h2>
+        <div class="post-subtitle"><i class="fa fa-user"></i> Author : Ana&#xEF;s Betts</div>
+        <div class="post-subtitle"><i class="fa fa-bookmark"></i> Category : Release Notes</div>
+    <p class="post-meta"><i class="fa fa-calendar"></i> Published on : 23 November 2014</p>
+
+<p>Bug Fixes:</p>        <p class="small"><a href="/posts/2014-11-23-reactiveui-v6.2.1-released">Read more...</a></p>
+</div>
+        </div>
+        <div>
+
+<div class="post-preview">
+    <h2 class="post-title"><a href="/posts/2013-11-21-reactiveui-v5.3.0-released">ReactiveUI v5.3.0 released</a></h2>
+        <div class="post-subtitle"><i class="fa fa-user"></i> Author : Ana&#xEF;s Betts</div>
+        <div class="post-subtitle"><i class="fa fa-bookmark"></i> Category : Release Notes</div>
+    <p class="post-meta"><i class="fa fa-calendar"></i> Published on : 21 November 2013</p>
+
+<p>Thanks to &#64;meteficha and &#64;alanpog, ReactiveUI's support for UITableView and UICollectionView is now vastly improved. We now support:</p>        <p class="small"><a href="/posts/2013-11-21-reactiveui-v5.3.0-released">Read more...</a></p>
+</div>
+        </div>
+        <div>
+
+<div class="post-preview">
+    <h2 class="post-title"><a href="/posts/2014-08-20-reactiveui-v6.0.5-released">ReactiveUI v6.0.5 released</a></h2>
+        <div class="post-subtitle"><i class="fa fa-user"></i> Author : Ana&#xEF;s Betts</div>
+        <div class="post-subtitle"><i class="fa fa-bookmark"></i> Category : Release Notes</div>
+    <p class="post-meta"><i class="fa fa-calendar"></i> Published on : 20 August 2014</p>
+
+<p>In certain situations, tests that appear to be reasonable would fail, due to a View not being bound to the ViewModel under test. This is due to an optimization that was added in the RxUI 6.0 era, where subscriptions would not be created until the value was requested for the first time.</p>        <p class="small"><a href="/posts/2014-08-20-reactiveui-v6.0.5-released">Read more...</a></p>
+</div>
+        </div>
+        <div>
+
+<div class="post-preview">
+    <h2 class="post-title"><a href="/posts/2014-08-19-reactiveui-v6.0.4-released">ReactiveUI v6.0.4 released</a></h2>
+        <div class="post-subtitle"><i class="fa fa-user"></i> Author : Ana&#xEF;s Betts</div>
+        <div class="post-subtitle"><i class="fa fa-bookmark"></i> Category : Release Notes</div>
+    <p class="post-meta"><i class="fa fa-calendar"></i> Published on : 19 August 2014</p>
+
+</div>
+        </div>
+        <div>
+
+<div class="post-preview">
+    <h2 class="post-title"><a href="/posts/2013-06-19-reactiveui-v4.6.4-released">ReactiveUI v4.6.4 released</a></h2>
+        <div class="post-subtitle"><i class="fa fa-user"></i> Author : Ana&#xEF;s Betts</div>
+        <div class="post-subtitle"><i class="fa fa-bookmark"></i> Category : Release Notes</div>
+    <p class="post-meta"><i class="fa fa-calendar"></i> Published on : 19 June 2013</p>
+
+</div>
+        </div>
+        <div>
+
+<div class="post-preview">
+    <h2 class="post-title"><a href="/posts/2014-09-17-reactiveui-v6.0.7-released">ReactiveUI v6.0.7 released</a></h2>
+        <div class="post-subtitle"><i class="fa fa-user"></i> Author : Ana&#xEF;s Betts</div>
+        <div class="post-subtitle"><i class="fa fa-bookmark"></i> Category : Release Notes</div>
+    <p class="post-meta"><i class="fa fa-calendar"></i> Published on : 17 September 2014</p>
+
+<p>On Android, an improved Scheduler based on RxJava is now automatically configured in your application, that no longer requires setup in OnCreate. Using the main thread scheduler should now work even in contexts such as bound services or other non-Activity scenarios. (#717).</p>        <p class="small"><a href="/posts/2014-09-17-reactiveui-v6.0.7-released">Read more...</a></p>
+</div>
+        </div>
+        <div>
+
+<div class="post-preview">
+    <h2 class="post-title"><a href="/posts/2014-07-17-reactiveui-v6.0.1-released">ReactiveUI v6.0.1 released</a></h2>
+        <div class="post-subtitle"><i class="fa fa-user"></i> Author : Ana&#xEF;s Betts</div>
+        <div class="post-subtitle"><i class="fa fa-bookmark"></i> Category : Release Notes</div>
+    <p class="post-meta"><i class="fa fa-calendar"></i> Published on : 17 July 2014</p>
+
+</div>
+        </div>
+        <div>
+
+<div class="post-preview">
+    <h2 class="post-title"><a href="/posts/2013-12-14-reactiveui-v5.4.0-released">ReactiveUI v5.4.0 released</a></h2>
+        <div class="post-subtitle"><i class="fa fa-user"></i> Author : Ana&#xEF;s Betts</div>
+        <div class="post-subtitle"><i class="fa fa-bookmark"></i> Category : Release Notes</div>
+    <p class="post-meta"><i class="fa fa-calendar"></i> Published on : 14 December 2013</p>
+
+<p>Since some of these fixes change behavior (such as the NLog fix), this is a minor release - however, most of these changes <em>shouldn't</em> affect existing programs</p>        <p class="small"><a href="/posts/2013-12-14-reactiveui-v5.4.0-released">Read more...</a></p>
+</div>
+        </div>
+        <div>
+
+<div class="post-preview">
+    <h2 class="post-title"><a href="/posts/2015-01-13-reactiveui-v6.3.1-released">ReactiveUI v6.4.0 released</a></h2>
+        <div class="post-subtitle"><i class="fa fa-user"></i> Author : Ana&#xEF;s Betts</div>
+        <div class="post-subtitle"><i class="fa fa-bookmark"></i> Category : Release Notes</div>
+    <p class="post-meta"><i class="fa fa-calendar"></i> Published on : 13 January 2015</p>
+
+</div>
+        </div>
+        <div>
+
+<div class="post-preview">
+    <h2 class="post-title"><a href="/posts/2013-10-12-reactiveui-v5.2.0-released">ReactiveUI v5.2.0 released</a></h2>
+        <div class="post-subtitle"><i class="fa fa-user"></i> Author : Ana&#xEF;s Betts</div>
+        <div class="post-subtitle"><i class="fa fa-bookmark"></i> Category : Release Notes</div>
+    <p class="post-meta"><i class="fa fa-calendar"></i> Published on : 12 October 2013</p>
+
+<p>This release adds Reactive versions of a number of common UIKit classes, such as UIImageView. RxUI also now comes with a new class for UITableViewSource, <code>ReactiveTableViewSource</code>. This class will wrap a <code>ReactiveList&lt;ViewModel&gt;</code> class and automatically animate in and out cells from the table view as they change (PR #377)</p>        <p class="small"><a href="/posts/2013-10-12-reactiveui-v5.2.0-released">Read more...</a></p>
+</div>
+        </div>
+        <div>
+
+<div class="post-preview">
+    <h2 class="post-title"><a href="/posts/2013-03-12-reactiveui-v4.5.0-released">ReactiveUI v4.5.0 released</a></h2>
+        <div class="post-subtitle"><i class="fa fa-user"></i> Author : Ana&#xEF;s Betts</div>
+        <div class="post-subtitle"><i class="fa fa-bookmark"></i> Category : Release Notes</div>
+    <p class="post-meta"><i class="fa fa-calendar"></i> Published on : 12 March 2013</p>
+
+<p>This release brings initial support for the latest Xamarin.Mac and Xamarin.iOS. Using ReactiveUI and Xamarin Studio, you can write cross-platform ViewModels and Model classes and bind them to Views using the same RxUI 4.x binding syntax.</p>        <p class="small"><a href="/posts/2013-03-12-reactiveui-v4.5.0-released">Read more...</a></p>
+</div>
+        </div>
+        <div>
+
+<div class="post-preview">
+    <h2 class="post-title"><a href="/posts/2014-11-11-reactiveui-v6.2.0-released">ReactiveUI v6.2.0 released</a></h2>
+        <div class="post-subtitle"><i class="fa fa-user"></i> Author : Ana&#xEF;s Betts</div>
+        <div class="post-subtitle"><i class="fa fa-bookmark"></i> Category : Release Notes</div>
+    <p class="post-meta"><i class="fa fa-calendar"></i> Published on : 11 November 2014</p>
+
+<p>ReactiveUI now fully supports the new 64-bit Xamarin.iOS API, if you are running Xamarin.iOS 8.4 or higher (currently in the Beta channel).</p>        <p class="small"><a href="/posts/2014-11-11-reactiveui-v6.2.0-released">Read more...</a></p>
+</div>
+        </div>
+        <div>
+
+<div class="post-preview">
+    <h2 class="post-title"><a href="/posts/2015-05-11-reactiveui-v6.5.0-released">ReactiveUI v6.5.0 released</a></h2>
+        <div class="post-subtitle"><i class="fa fa-user"></i> Author : Ana&#xEF;s Betts</div>
+        <div class="post-subtitle"><i class="fa fa-bookmark"></i> Category : Release Notes</div>
+    <p class="post-meta"><i class="fa fa-calendar"></i> Published on : 11 May 2015</p>
+
+<p>Thanks to &#64;kentcb, our support of UITableViewController and UICollectionViewController are <strong>much</strong> more reliable, and will correctly animate in items. A huge thanks for an awesome PR!</p>        <p class="small"><a href="/posts/2015-05-11-reactiveui-v6.5.0-released">Read more...</a></p>
+</div>
+        </div>
+        <div>
+
+<div class="post-preview">
+    <h2 class="post-title"><a href="/posts/2014-04-10-reactiveui-v5.5.1-released">ReactiveUI v5.5.1 released</a></h2>
+        <div class="post-subtitle"><i class="fa fa-user"></i> Author : Ana&#xEF;s Betts</div>
+        <div class="post-subtitle"><i class="fa fa-bookmark"></i> Category : Release Notes</div>
+    <p class="post-meta"><i class="fa fa-calendar"></i> Published on : 10 April 2014</p>
+
+</div>
+        </div>
+        <div>
+
+<div class="post-preview">
+    <h2 class="post-title"><a href="/posts/2014-07-09-reactiveui-v6.0.0-released">ReactiveUI v6.0.0 released</a></h2>
+        <div class="post-subtitle"><i class="fa fa-user"></i> Author : Ana&#xEF;s Betts</div>
+        <div class="post-subtitle"><i class="fa fa-bookmark"></i> Category : Release Notes</div>
+    <p class="post-meta"><i class="fa fa-calendar"></i> Published on : 09 July 2014</p>
+
+<p>After 8 months of work, 878 commits, and 1032 files changed, ReactiveUI 6.0 is finally released, the biggest RxUI release ever! A huge thanks to our contributers for this release:</p>        <p class="small"><a href="/posts/2014-07-09-reactiveui-v6.0.0-released">Read more...</a></p>
+</div>
+        </div>
+        <div>
+
+<div class="post-preview">
+    <h2 class="post-title"><a href="/posts/2015-02-09-reactiveui-v6.4.0-released">ReactiveUI v6.4.0 released</a></h2>
+        <div class="post-subtitle"><i class="fa fa-user"></i> Author : Ana&#xEF;s Betts</div>
+        <div class="post-subtitle"><i class="fa fa-bookmark"></i> Category : Release Notes</div>
+    <p class="post-meta"><i class="fa fa-calendar"></i> Published on : 09 February 2015</p>
+
+<p>Thanks to &#64;mteper, ReactiveUI now has 64-bit Xamarin.Mac support</p>        <p class="small"><a href="/posts/2015-02-09-reactiveui-v6.4.0-released">Read more...</a></p>
+</div>
+        </div>
+        <div>
+
+<div class="post-preview">
+    <h2 class="post-title"><a href="/posts/2013-03-05-reactiveui-v4.4.3-released">ReactiveUI v4.4.3 released</a></h2>
+        <div class="post-subtitle"><i class="fa fa-user"></i> Author : Ana&#xEF;s Betts</div>
+        <div class="post-subtitle"><i class="fa fa-bookmark"></i> Category : Release Notes</div>
+    <p class="post-meta"><i class="fa fa-calendar"></i> Published on : 05 March 2013</p>
+
+</div>
+        </div>
+        <div>
+
+<div class="post-preview">
+    <h2 class="post-title"><a href="/posts/2015-01-04-reactiveui-v6.3.0-released">ReactiveUI v6.3.0 released</a></h2>
+        <div class="post-subtitle"><i class="fa fa-user"></i> Author : Ana&#xEF;s Betts</div>
+        <div class="post-subtitle"><i class="fa fa-bookmark"></i> Category : Release Notes</div>
+    <p class="post-meta"><i class="fa fa-calendar"></i> Published on : 04 January 2015</p>
+
+</div>
+        </div>
+        <div>
+
+<div class="post-preview">
+    <h2 class="post-title"><a href="/posts/2014-10-03-reactiveui-v6.1.0-released">ReactiveUI v6.1.0 released</a></h2>
+        <div class="post-subtitle"><i class="fa fa-user"></i> Author : Ana&#xEF;s Betts</div>
+        <div class="post-subtitle"><i class="fa fa-bookmark"></i> Category : Release Notes</div>
+    <p class="post-meta"><i class="fa fa-calendar"></i> Published on : 03 October 2014</p>
+
+<p>Several small fixes have come together to enable ReactiveUI ViewModel-based Routing and auto-serialization for Xamarin.Forms-based apps:</p>        <p class="small"><a href="/posts/2014-10-03-reactiveui-v6.1.0-released">Read more...</a></p>
+</div>
+        </div>
+        <div>
+
+<div class="post-preview">
+    <h2 class="post-title"><a href="/posts/2014-08-03-reactiveui-v6.0.3-released">ReactiveUI v6.0.3 released</a></h2>
+        <div class="post-subtitle"><i class="fa fa-user"></i> Author : Ana&#xEF;s Betts</div>
+        <div class="post-subtitle"><i class="fa fa-bookmark"></i> Category : Release Notes</div>
+    <p class="post-meta"><i class="fa fa-calendar"></i> Published on : 03 August 2014</p>
+
+</div>
+        </div>
+        <div>
+
+<div class="post-preview">
+    <h2 class="post-title"><a href="/posts/2013-07-03-reactiveui-v5.0.1-released">ReactiveUI v5.0.1 released</a></h2>
+        <div class="post-subtitle"><i class="fa fa-user"></i> Author : Ana&#xEF;s Betts</div>
+        <div class="post-subtitle"><i class="fa fa-bookmark"></i> Category : Release Notes</div>
+    <p class="post-meta"><i class="fa fa-calendar"></i> Published on : 03 July 2013</p>
+
+<p>After 3 months, 427 commits by 12 different contributors, and 689 total files changed, the stable release of ReactiveUI 5.0 is now live! A huge thanks to the contributors for this release:</p>        <p class="small"><a href="/posts/2013-07-03-reactiveui-v5.0.1-released">Read more...</a></p>
+</div>
+        </div>
+        <div>
+
+<div class="post-preview">
+    <h2 class="post-title"><a href="/posts/2014-03-03-reactiveui-v5.5.0-released">ReactiveUI v5.5.0 released</a></h2>
+        <div class="post-subtitle"><i class="fa fa-user"></i> Author : Ana&#xEF;s Betts</div>
+        <div class="post-subtitle"><i class="fa fa-bookmark"></i> Category : Release Notes</div>
+    <p class="post-meta"><i class="fa fa-calendar"></i> Published on : 03 March 2014</p>
+
+<p>Thanks to the great work by &#64;jen20, the View / ViewModel activation from ReactiveUI 6.0 has been backported to 5.x. Normally large features aren't backported, but due to discovering that DependencyProperties leak memory in bindings without this feature, we decided to backport it.</p>        <p class="small"><a href="/posts/2014-03-03-reactiveui-v5.5.0-released">Read more...</a></p>
+</div>
+        </div>
+        <div>
+
+<div class="post-preview">
+    <h2 class="post-title"><a href="/posts/2019-01-20-reactiveui-rebranding">ReactiveUI Rebranding</a></h2>
+        <div class="post-subtitle"><i class="fa fa-user"></i> Author : Artyom Gorchakov</div>
+        <div class="post-subtitle"><i class="fa fa-bookmark"></i> Category : Announcement</div>
+    <p class="post-meta"><i class="fa fa-calendar"></i> Published on : 20 January 2019</p>
+
+<p>ReactiveUI was created by Anaïs Betts whilst working in Office Labs at Microsoft, and released in early 2011. Since that time, ReactiveUI has become a mature framework <a href="https://github.com/reactiveui/ReactiveUI/issues/979#issuecomment-196735701">trusted by Slack, GitHub, Amazon, Elastic and Microsoft</a>, has become a member of the <a href="https://www.dotnetfoundation.org/">Dot Net Foundation</a>, and actively maintained by the open-source community on GitHub. The work we do is sponsored by <a href="https://opencollective.com/reactiveui">our wonderful Backers on OpenCollective</a>.</p>        <p class="small"><a href="/posts/2019-01-20-reactiveui-rebranding">Read more...</a></p>
+</div>
+        </div>
+        <div>
+
+<div class="post-preview">
+    <h2 class="post-title"><a href="/posts/2018-04-30-the-future-of-system-reactive">The future of System.Reactive</a></h2>
+        <div class="post-subtitle"><i class="fa fa-user"></i> Author : Geoffrey Huntley</div>
+        <div class="post-subtitle"><i class="fa fa-bookmark"></i> Category : Announcement</div>
+    <p class="post-meta"><i class="fa fa-calendar"></i> Published on : 30 April 2018</p>
+
+<p>The last official release of System.Reactive by Microsoft was back in 2014. On the 16th of June 2016 Oren Novotny (with the help of Bart De Smet)  <a href="https://www.dotnetfoundation.org/blog/2016/06/16/rx-net-welcome">moved Rx/Ix into the .NET Foundation</a>.</p>        <p class="small"><a href="/posts/2018-04-30-the-future-of-system-reactive">Read more...</a></p>
+</div>
+        </div>
+        <div>
+
+<div class="post-preview">
+    <h2 class="post-title"><a href="/posts/2017-08-25-automatic-closure-of-stale-github-issues">Automatic closure of stale GitHub issues</a></h2>
+        <div class="post-subtitle"><i class="fa fa-user"></i> Author : Geoffrey Huntley</div>
+        <div class="post-subtitle"><i class="fa fa-bookmark"></i> Category : Announcement</div>
+    <p class="post-meta"><i class="fa fa-calendar"></i> Published on : 25 August 2017</p>
+
+<p>One of the perks of being a maintainer of an open-source project is you get to be part of the fantastic initiative by GitHub - <a href="https://maintainers.github.com/">maintainers.github.com</a> where some of the brightest minds in open-source leadership from across disciplines/ecosystems share their insights on how to run projects, productively at scale towards successful outcomes.</p>        <p class="small"><a href="/posts/2017-08-25-automatic-closure-of-stale-github-issues">Read more...</a></p>
+</div>
+        </div>
+        <div>
+
+<div class="post-preview">
+    <h2 class="post-title"><a href="/posts/2017-05-23-reactiveui-v7.4.0-released">ReactiveUI v7.4.0 released</a></h2>
+        <div class="post-subtitle"><i class="fa fa-user"></i> Author : Geoffrey Huntley</div>
+        <div class="post-subtitle"><i class="fa fa-bookmark"></i> Category : Release Notes</div>
+    <p class="post-meta"><i class="fa fa-calendar"></i> Published on : 23 May 2017</p>
+
+<p>As part of this release we had <a href="https://github.com/reactiveui/reactiveui/compare/7.3.0...7.4.0">8 commits</a> which resulted in <a href="https://github.com/reactiveui/ReactiveUI/issues?milestone=9&amp;amp;state=closed">3 issues</a> being closed.</p>        <p class="small"><a href="/posts/2017-05-23-reactiveui-v7.4.0-released">Read more...</a></p>
+</div>
+        </div>
+        <div>
+
+<div class="post-preview">
+    <h2 class="post-title"><a href="/posts/2016-08-17-reactiveui-v6.5.1-released">ReactiveUI v6.5.1 released</a></h2>
+        <div class="post-subtitle"><i class="fa fa-user"></i> Author : Geoffrey Huntley</div>
+        <div class="post-subtitle"><i class="fa fa-bookmark"></i> Category : Release Notes</div>
+    <p class="post-meta"><i class="fa fa-calendar"></i> Published on : 17 August 2016</p>
+
+<p>This release resolves a NuGet metadata defect which was preventing the installation of ReactiveUI into portable class libraries that targeted <code>Profile259</code>. The assemblies within v6.5.1 are the same as those found in v6.5.0.</p>        <p class="small"><a href="/posts/2016-08-17-reactiveui-v6.5.1-released">Read more...</a></p>
+</div>
+        </div>
+        <div>
+
+<div class="post-preview">
+    <h2 class="post-title"><a href="/posts/2018-05-15-memory-leak-detection">Memory Leak Detection</a></h2>
+        <div class="post-subtitle"><i class="fa fa-user"></i> Author : Geoffrey Huntley</div>
+        <div class="post-subtitle"><i class="fa fa-bookmark"></i> Category : Announcement</div>
+    <p class="post-meta"><i class="fa fa-calendar"></i> Published on : 15 May 2018</p>
+
+<p>Moments ago we merged <a href="https://github.com/reactiveui/ReactiveUI/pull/1527">a contribution</a> by <a href="https://twitter.com/gkotfis">Grzegorz Kotfis</a> that adds another layer of protection before the project moves towards <a href="https://reactiveui.net/blog/2018/05/moving-towards-vsts-and-continuous-deployment">automated continuous delivery</a>. The pull-request added a new project called <code>ReactiveUI.LeakTests</code> which allows the maintainers to specify tests that can determine memory leaks by checking memory usage for objects of a particular type, or tests that track memory traffic and fail in case the traffic exceeds some threshold.</p>        <p class="small"><a href="/posts/2018-05-15-memory-leak-detection">Read more...</a></p>
+</div>
+        </div>
+        <div>
+
+<div class="post-preview">
+    <h2 class="post-title"><a href="/posts/2018-05-14-reactiveui-v8.2.1-released">ReactiveUI v8.2.1 released</a></h2>
+        <div class="post-subtitle"><i class="fa fa-user"></i> Author : Geoffrey Huntley</div>
+        <div class="post-subtitle"><i class="fa fa-bookmark"></i> Category : Release Notes</div>
+    <p class="post-meta"><i class="fa fa-calendar"></i> Published on : 14 May 2018</p>
+
+<p><strong>macOS</strong></p>        <p class="small"><a href="/posts/2018-05-14-reactiveui-v8.2.1-released">Read more...</a></p>
+</div>
+        </div>
+        <div>
+
+<div class="post-preview">
+    <h2 class="post-title"><a href="/posts/2017-09-13-run-a-meetup-are-you-looking-for-presenters">Run a meetup? Are you looking for presenters?</a></h2>
+        <div class="post-subtitle"><i class="fa fa-user"></i> Author : Geoffrey Huntley</div>
+        <div class="post-subtitle"><i class="fa fa-bookmark"></i> Category : Announcement</div>
+    <p class="post-meta"><i class="fa fa-calendar"></i> Published on : 13 September 2017</p>
+
+<p>Announcing something pretty special today; I'm not sure if anyone has done this before so here we go.</p>        <p class="small"><a href="/posts/2017-09-13-run-a-meetup-are-you-looking-for-presenters">Read more...</a></p>
+</div>
+        </div>
+        <div>
+
+<div class="post-preview">
+    <h2 class="post-title"><a href="/posts/2016-11-12-reactiveui-v7.0.0-released">ReactiveUI v7.0.0 released</a></h2>
+        <div class="post-subtitle"><i class="fa fa-user"></i> Author : Geoffrey Huntley</div>
+        <div class="post-subtitle"><i class="fa fa-bookmark"></i> Category : Release Notes</div>
+    <p class="post-meta"><i class="fa fa-calendar"></i> Published on : 12 November 2016</p>
+
+<p><em>Oh, hai!</em></p>
+<p><img src="https://media.giphy.com/media/nrYqOTU8hoAeY/giphy.gif" class="img-fluid" alt=""></p>
+<p>Wow! It's been a while, but we have a juicy new release for you. We had to take some time to heal internally, to train and mentor the future generations of maintainers which are going to carry us forward.  Additionally the .NET ecosystem changed underneath us, and we didn't have continuous integration setup. Let this be a lesson to anyone considering operating an open-source project that targets nine platforms. Have a roadmap and succession plan in place and never allow long-running branches, ever. Implement continuous integration and mature your release processes to the point where cutting a new release is as simple as pressing a button.</p>
+<p><strong>So what is ReactiveUI?</strong></p>
+<p>ReactiveUI is inspired by functional reactive programming and is the father of the ReactiveCocoa (Cocoa/Swift) framework. Internally we debate whether we are or are not a framework, as at its core the project is essentially a bunch of extension methods for the Reactive Extensions.</p>
+<p>ReactiveUI was started seven years ago and is now old enough to attend grade school but unlike a teenager is extremely stable. ReactiveUI has matured over the years into a solid and fine choice for building your next application. Additionally, because the implementation is unopinionated migration from another framework to ReactiveUI is incredibly easy.. You can slide it in on a single ViewModel and then migrate as you become more comfortable. Avoid those costly rewrites.</p>
+<p>When reading the code, you'll find that ReactiveUI is rather unopinionated in the implementation, but we have always held some beliefs which have been the basis and foundation of the project.</p>
+<p>We believe that code is communication between people, that also happens to run on a computer. If you optimise for humans, then over a long time your project will end up better. Software should be understandable by other people; that is super important.</p>
+<p>We believe that only the power of the Reactive Extensions allows you to express the idea around a feature in one readable place.</p>
+<p><img src="https://i.imgur.com/mCYZ2M4.png" class="img-fluid" alt="Even Miguel de Icaza agrees"></p>
+<p>Think about your typical user interface? It's a mutable bag of sadness with code all over the place. Instead of telling a computer how to do its job, why not define what the computers job is and get out of its way? If that sounds odd, let us re-introduce you to Microsoft Excel.</p>
+<p>Instead of doing the typical ViewModel isLoading = true/false mutable dance by toggling it on and off in different branches of your code. Why not express the condition in a single place using a Microsoft Excel expression - =SUM(A1: B2)?</p>
+<p><strong>Still not convinced?</strong></p>
+
+<p>Maybe you need to watch this insanely smart, and eccentric guy in a tie-dye t-shirt do maths on a whiteboard:</p>
+<p><a href="https://channel9.msdn.com/Shows/Going+Deep/E2E-Erik-Meijer-and-Wes-Dyer-Reactive-Framework-Rx-Under-the-Hood-1-of-2"><img src="https://i.imgur.com/P1Bt3iw.png" class="img-fluid" alt=""></a></p>
+<p>Async/await is the zombie plague. Liberate your codebase today.</p>
+<p>ReactiveUI is used in production at GitHub, Slack, Microsoft and is supported by consultants from different companies from all around the world. It's used at our clients, we can't name names specifically, but we encourage our community to <a href="https://github.com/reactiveui/ReactiveUI/issues/979">showcase where and how they have used ReactiveUI in their applications</a>, some members have even gone <a href="https://github.com/github/VisualStudio/tree/master/src">as far as open-sourcing their app and sharing their entire codebase</a>. You are of course under no obligation to share these insights (or code) with us but it is greatly appreciated by the project maintainers, and you'll usually get a retweet out of it.</p>
+<p><strong>Where are the examples?</strong></p>
+<p>We are working on it; this release was for us. Next release is for you.  For now:</p>
+
+<p><strong>Rx is hard</strong></p>
+<p>No, it's not. Learning Rx is one of the best things you can do to improve yourself as a software engineer. Unit testing was hard, so was dependency injection at first. The principals you learn during your journey will forever change you and best of all the knowledge is implementation and language agnostic. We have designed ReactiveUI so you can slowly transition from an async/await codebase at a pace that feels comfortable to you.</p>        <p class="small"><a href="/posts/2016-11-12-reactiveui-v7.0.0-released">Read more...</a></p>
+</div>
+        </div>
+        <div>
+
+<div class="post-preview">
+    <h2 class="post-title"><a href="/posts/2017-01-12-reactiveui-v7.1.0-released">ReactiveUI v7.1.0 released</a></h2>
+        <div class="post-subtitle"><i class="fa fa-user"></i> Author : Geoffrey Huntley</div>
+        <div class="post-subtitle"><i class="fa fa-bookmark"></i> Category : Release Notes</div>
+    <p class="post-meta"><i class="fa fa-calendar"></i> Published on : 12 January 2017</p>
+
+<p>As part of this release we had <a href="https://github.com/reactiveui/reactiveui/compare/7.0.0...7.1.0">8 commits</a> which resulted in <a href="https://github.com/reactiveui/ReactiveUI/issues?milestone=5&amp;amp;state=closed">4 issues</a> being closed.</p>        <p class="small"><a href="/posts/2017-01-12-reactiveui-v7.1.0-released">Read more...</a></p>
+</div>
+        </div>
+        <div>
+
+<div class="post-preview">
+    <h2 class="post-title"><a href="/posts/2018-05-09-reactiveui-v8.0.1-released">ReactiveUI v8.0.1 released</a></h2>
+        <div class="post-subtitle"><i class="fa fa-user"></i> Author : Geoffrey Huntley</div>
+        <div class="post-subtitle"><i class="fa fa-bookmark"></i> Category : Release Notes</div>
+    <p class="post-meta"><i class="fa fa-calendar"></i> Published on : 09 May 2018</p>
+
+<p>Elijah Reva noticed a <code>net461</code> regression that affected Windows Presentation Foundation and Windows Forms. During the netstandard refactor we missed renaming a compilation symbol which resulted in <code>PropertyChangedEventManager.DeliverEvent</code> being used when setting reactive properties. WeakEventManager <a href="https://github.com/reactiveui/ReactiveUI/issues/661">should not be used</a> on these platforms and this hotfix disables it.</p>        <p class="small"><a href="/posts/2018-05-09-reactiveui-v8.0.1-released">Read more...</a></p>
+</div>
+        </div>
+        <div>
+
+<div class="post-preview">
+    <h2 class="post-title"><a href="/posts/2017-09-07-the-public-api-surface-of-reactiveui-is-now-protected-by-approval-tests">The public API surface of ReactiveUI is now protected by API approval tests</a></h2>
+        <div class="post-subtitle"><i class="fa fa-user"></i> Author : Geoffrey Huntley</div>
+        <div class="post-subtitle"><i class="fa fa-bookmark"></i> Category : Announcement</div>
+    <p class="post-meta"><i class="fa fa-calendar"></i> Published on : 07 September 2017</p>
+
+<p>When reviewing pull requests the maintainers used to manually eyeball the changes proposed in a pull-request to determine if there was a change to the public API surface. We now have new tests, one per platform that trip when the public API surface changes for that platform.</p>        <p class="small"><a href="/posts/2017-09-07-the-public-api-surface-of-reactiveui-is-now-protected-by-approval-tests">Read more...</a></p>
+</div>
+        </div>
+        <div>
+
+<div class="post-preview">
+    <h2 class="post-title"><a href="/posts/2018-08-07-reactiveui-v8.4.4-released">ReactiveUI v8.4.4 released</a></h2>
+        <div class="post-subtitle"><i class="fa fa-user"></i> Author : Geoffrey Huntley</div>
+        <div class="post-subtitle"><i class="fa fa-bookmark"></i> Category : Release Notes</div>
+    <p class="post-meta"><i class="fa fa-calendar"></i> Published on : 07 August 2018</p>
+
+<p>Release 8.4.4 of ReactiveUI is available!</p>        <p class="small"><a href="/posts/2018-08-07-reactiveui-v8.4.4-released">Read more...</a></p>
+</div>
+        </div>
+        <div>
+
+<div class="post-preview">
+    <h2 class="post-title"><a href="/posts/2018-05-07-dotnet-core-3-and-reactiveui">.NET Core 3 and ReactiveUI</a></h2>
+        <div class="post-subtitle"><i class="fa fa-user"></i> Author : Geoffrey Huntley</div>
+        <div class="post-subtitle"><i class="fa fa-bookmark"></i> Category : Announcement</div>
+    <p class="post-meta"><i class="fa fa-calendar"></i> Published on : 07 May 2018</p>
+
+<p>At Microsoft Build Live today, Microsoft <a href="https://blogs.msdn.microsoft.com/dotnet/2018/05/07/net-core-3-and-support-for-windows-desktop-applications/">shared a first look at their plans</a> for .NET Core 3. The highlight of .NET Core 3 is support for Windows desktop applications, specifically Windows Forms, Windows Presentation Framework (WPF), and UWP XAML. Soon you will be able to run new and existing Windows desktop applications on .NET Core and enjoy all the benefits that .NET Core has to offer.</p>        <p class="small"><a href="/posts/2018-05-07-dotnet-core-3-and-reactiveui">Read more...</a></p>
+</div>
+        </div>
+        <div>
+
+<div class="post-preview">
+    <h2 class="post-title"><a href="/posts/2017-09-05-assemblies-are-now-code-signed-with-the-dotnet-foundation-certificate">Assemblies are now code signed with the .NET Foundation  certificate</a></h2>
+        <div class="post-subtitle"><i class="fa fa-user"></i> Author : Geoffrey Huntley</div>
+        <div class="post-subtitle"><i class="fa fa-bookmark"></i> Category : Announcement</div>
+    <p class="post-meta"><i class="fa fa-calendar"></i> Published on : 05 September 2017</p>
+
+<p>Thanks to a legendary contribution from Oren Novotny, all ReactiveUI assemblies from <code>v8.0.0-alpha73</code> and onwards are code signed with the .NET Foundation certificate. Identity signing of the assemblies means that you can <a href="docs/security">verify the authenticity of the binaries</a>  used in your application and ensure they have not been tampered with as only assemblies compiled via the .NET Foundation CI infrastructure are signed with this certificate.</p>        <p class="small"><a href="/posts/2017-09-05-assemblies-are-now-code-signed-with-the-dotnet-foundation-certificate">Read more...</a></p>
+</div>
+        </div>
+        <div>
+
+<div class="post-preview">
+    <h2 class="post-title"><a href="/posts/2016-09-04-reactiveui-v6.5.2-released">ReactiveUI v6.5.2 released</a></h2>
+        <div class="post-subtitle"><i class="fa fa-user"></i> Author : Geoffrey Huntley</div>
+        <div class="post-subtitle"><i class="fa fa-bookmark"></i> Category : Release Notes</div>
+    <p class="post-meta"><i class="fa fa-calendar"></i> Published on : 04 September 2016</p>
+
+<p>This release resolves a NuGet metadata defect which was preventing the installation of ReactiveUI into Windows Phone projects (issue <a href="https://github.com/reactiveui/ReactiveUI/issues/1146">https://github.com/reactiveui/ReactiveUI/issues/1146</a>). The assemblies within v6.5.2 are the same as those found in v6.5.1 and v6.5.0.</p>        <p class="small"><a href="/posts/2016-09-04-reactiveui-v6.5.2-released">Read more...</a></p>
+</div>
+        </div>
+        <div>
+
+<div class="post-preview">
+    <h2 class="post-title"><a href="/posts/2018-05-04-delisting-of-versions-before-8-0-0-from-nuget">Delisting of versions before 8.0.0 from NuGet</a></h2>
+        <div class="post-subtitle"><i class="fa fa-user"></i> Author : Geoffrey Huntley</div>
+        <div class="post-subtitle"><i class="fa fa-bookmark"></i> Category : Announcement</div>
+    <p class="post-meta"><i class="fa fa-calendar"></i> Published on : 04 May 2018</p>
+
+<p>As part of the v8.0.0 release, ReactiveUI changed the field separator used in our package names from dashes to periods which is the standard convention used in dotnet. It was a breaking change, and our documentation was updated as part of the release to provide you <a href="https://reactiveui.net/docs/getting-started/installation/nuget-packages/">with instructions of which package is needed</a> for every platform.</p>        <p class="small"><a href="/posts/2018-05-04-delisting-of-versions-before-8-0-0-from-nuget">Read more...</a></p>
+</div>
+        </div>
+        <div>
+
+<div class="post-preview">
+    <h2 class="post-title"><a href="/posts/2017-05-04-reactiveui-v7.3.0-released">ReactiveUI v7.3.0 released</a></h2>
+        <div class="post-subtitle"><i class="fa fa-user"></i> Author : Geoffrey Huntley</div>
+        <div class="post-subtitle"><i class="fa fa-bookmark"></i> Category : Release Notes</div>
+    <p class="post-meta"><i class="fa fa-calendar"></i> Published on : 04 May 2017</p>
+
+<p>As part of this release we had <a href="https://github.com/reactiveui/reactiveui/compare/7.2.0...7.3.0">17 commits</a> which resulted in <a href="https://github.com/reactiveui/ReactiveUI/issues?milestone=7&amp;amp;state=closed">17 issues</a> being closed.</p>        <p class="small"><a href="/posts/2017-05-04-reactiveui-v7.3.0-released">Read more...</a></p>
+</div>
+        </div>
+        <div>
+
+<div class="post-preview">
+    <h2 class="post-title"><a href="/posts/2018-05-03-system-reactive-has-a-new-home-on-github">System.Reactive has a new home on GitHub</a></h2>
+        <div class="post-subtitle"><i class="fa fa-user"></i> Author : Geoffrey Huntley</div>
+        <div class="post-subtitle"><i class="fa fa-bookmark"></i> Category : Announcement</div>
+    <p class="post-meta"><i class="fa fa-calendar"></i> Published on : 03 May 2018</p>
+
+<p>At MVP Summit, <a href="https://github.com/Reactive-Extensions/Rx.NET/issues/466#issuecomment-370496523">the community met with Microsoft</a> and with their support and encouragement the community forked control of System.Reactive. Over the last couple weeks some of the smartest brains from multiple ecosystems have united in <a href="https://join.slack.com/t/reactivex/shared_invite/zt-lt48skpz-G5WDYOAuzA80_MByZrLT0g">our Slack instance</a> to plan for the future.</p>        <p class="small"><a href="/posts/2018-05-03-system-reactive-has-a-new-home-on-github">Read more...</a></p>
+</div>
+        </div>
+        <div>
+
+<div class="post-preview">
+    <h2 class="post-title"><a href="/posts/2018-05-02-moving-towards-vsts-and-continuous-deployment">Moving towards VSTS and continuous deployment</a></h2>
+        <div class="post-subtitle"><i class="fa fa-user"></i> Author : Geoffrey Huntley</div>
+        <div class="post-subtitle"><i class="fa fa-bookmark"></i> Category : Announcement</div>
+    <p class="post-meta"><i class="fa fa-calendar"></i> Published on : 02 May 2018</p>
+
+<p>Howdy folks,</p>        <p class="small"><a href="/posts/2018-05-02-moving-towards-vsts-and-continuous-deployment">Read more...</a></p>
+</div>
+        </div>
+        <div>
+
+<div class="post-preview">
+    <h2 class="post-title"><a href="/posts/2018-05-01-reactiveui-v8.0.0-released">ReactiveUI v8.0.0 released</a></h2>
+        <div class="post-subtitle"><i class="fa fa-user"></i> Author : Geoffrey Huntley</div>
+        <div class="post-subtitle"><i class="fa fa-bookmark"></i> Category : Release Notes</div>
+    <p class="post-meta"><i class="fa fa-calendar"></i> Published on : 01 May 2018</p>
+
+<p>Hello ;-)</p>        <p class="small"><a href="/posts/2018-05-01-reactiveui-v8.0.0-released">Read more...</a></p>
+</div>
+        </div>
+        <div>
+
+<div class="post-preview">
+    <h2 class="post-title"><a href="/posts/2018-12-30-release-notes-on-github">Release notes now on GitHub</a></h2>
+        <div class="post-subtitle"><i class="fa fa-user"></i> Author : Glenn Watson</div>
+        <div class="post-subtitle"><i class="fa fa-bookmark"></i> Category : Release Notes</div>
+    <p class="post-meta"><i class="fa fa-calendar"></i> Published on : 30 December 2018</p>
+
+<p>Rather than creating a blog entry for every Release we are now going to store the release note exclusively on the <a href="https://github.com/reactiveui/ReactiveUI/releases">GitHub Releases</a>.</p>        <p class="small"><a href="/posts/2018-12-30-release-notes-on-github">Read more...</a></p>
+</div>
+        </div>
+        <div>
+
+<div class="post-preview">
+    <h2 class="post-title"><a href="/posts/2018-10-28-reactiveui-v9.1.1-released">ReactiveUI v9.1.1 released</a></h2>
+        <div class="post-subtitle"><i class="fa fa-user"></i> Author : Glenn Watson</div>
+        <div class="post-subtitle"><i class="fa fa-bookmark"></i> Category : Release Notes</div>
+    <p class="post-meta"><i class="fa fa-calendar"></i> Published on : 28 October 2018</p>
+
+<p>Release 9.1.1 of ReactiveUI is available!</p>        <p class="small"><a href="/posts/2018-10-28-reactiveui-v9.1.1-released">Read more...</a></p>
+</div>
+        </div>
+        <div>
+
+<div class="post-preview">
+    <h2 class="post-title"><a href="/posts/2018-12-26-reactiveui-v9.5.1-released">ReactiveUI v9.5.1 released</a></h2>
+        <div class="post-subtitle"><i class="fa fa-user"></i> Author : Glenn Watson</div>
+        <div class="post-subtitle"><i class="fa fa-bookmark"></i> Category : Release Notes</div>
+    <p class="post-meta"><i class="fa fa-calendar"></i> Published on : 26 December 2018</p>
+
+<p>Release 9.5.1 of ReactiveUI is available!</p>        <p class="small"><a href="/posts/2018-12-26-reactiveui-v9.5.1-released">Read more...</a></p>
+</div>
+        </div>
+        <div>
+
+<div class="post-preview">
+    <h2 class="post-title"><a href="/posts/2018-11-20-reactiveui-v9.3.1-released">ReactiveUI v9.3.1 released</a></h2>
+        <div class="post-subtitle"><i class="fa fa-user"></i> Author : Glenn Watson</div>
+        <div class="post-subtitle"><i class="fa fa-bookmark"></i> Category : Release Notes</div>
+    <p class="post-meta"><i class="fa fa-calendar"></i> Published on : 20 November 2018</p>
+
+<p>Release 9.3.1 of ReactiveUI is available!</p>        <p class="small"><a href="/posts/2018-11-20-reactiveui-v9.3.1-released">Read more...</a></p>
+</div>
+        </div>
+        <div>
+
+<div class="post-preview">
+    <h2 class="post-title"><a href="/posts/2018-08-17-reactiveui-v8.6.3-released">ReactiveUI v8.6.3 released</a></h2>
+        <div class="post-subtitle"><i class="fa fa-user"></i> Author : Glenn Watson</div>
+        <div class="post-subtitle"><i class="fa fa-bookmark"></i> Category : Release Notes</div>
+    <p class="post-meta"><i class="fa fa-calendar"></i> Published on : 17 August 2018</p>
+
+<p>Release 8.6.3 of ReactiveUI is available!</p>        <p class="small"><a href="/posts/2018-08-17-reactiveui-v8.6.3-released">Read more...</a></p>
+</div>
+        </div>
+        <div>
+
+<div class="post-preview">
+    <h2 class="post-title"><a href="/posts/2019-05-13-uwp-minimum-requirement">UWP minimum version is now 10.0.17763.0</a></h2>
+        <div class="post-subtitle"><i class="fa fa-user"></i> Author : Glenn Watson</div>
+        <div class="post-subtitle"><i class="fa fa-bookmark"></i> Category : Release Notes</div>
+    <p class="post-meta"><i class="fa fa-calendar"></i> Published on : 13 May 2019</p>
+
+<p>Due to a ongoing issue with <a href="https://github.com/microsoft/azure-pipelines-image-generation/pull/770">Azure DevOps</a> we had to change our minimum version from 10.0.16299 to 10.0.17763.0 for the UWP platform.</p>        <p class="small"><a href="/posts/2019-05-13-uwp-minimum-requirement">Read more...</a></p>
+</div>
+        </div>
+        <div>
+
+<div class="post-preview">
+    <h2 class="post-title"><a href="/posts/2018-11-11-reactiveui-v9.2.2-released">ReactiveUI v9.2.2 released</a></h2>
+        <div class="post-subtitle"><i class="fa fa-user"></i> Author : Glenn Watson</div>
+        <div class="post-subtitle"><i class="fa fa-bookmark"></i> Category : Release Notes</div>
+    <p class="post-meta"><i class="fa fa-calendar"></i> Published on : 11 November 2018</p>
+
+<p>Release 9.2.2 of ReactiveUI is available!</p>        <p class="small"><a href="/posts/2018-11-11-reactiveui-v9.2.2-released">Read more...</a></p>
+</div>
+        </div>
+        <div>
+
+<div class="post-preview">
+    <h2 class="post-title"><a href="/posts/2018-10-05-reactiveui-v9.0.1-released">ReactiveUI v9.0.1 released</a></h2>
+        <div class="post-subtitle"><i class="fa fa-user"></i> Author : Glenn Watson</div>
+        <div class="post-subtitle"><i class="fa fa-bookmark"></i> Category : Release Notes</div>
+    <p class="post-meta"><i class="fa fa-calendar"></i> Published on : 05 October 2018</p>
+
+<p>Release 9.0.1 of ReactiveUI is available!</p>        <p class="small"><a href="/posts/2018-10-05-reactiveui-v9.0.1-released">Read more...</a></p>
+</div>
+        </div>
+        <div>
+
+<div class="post-preview">
+    <h2 class="post-title"><a href="/posts/2018-12-04-reactiveui-v9.4.1-released">ReactiveUI v9.4.1 released</a></h2>
+        <div class="post-subtitle"><i class="fa fa-user"></i> Author : Glenn Watson</div>
+        <div class="post-subtitle"><i class="fa fa-bookmark"></i> Category : Release Notes</div>
+    <p class="post-meta"><i class="fa fa-calendar"></i> Published on : 04 December 2018</p>
+
+<p>Release 9.4.1 of ReactiveUI is available!</p>        <p class="small"><a href="/posts/2018-12-04-reactiveui-v9.4.1-released">Read more...</a></p>
+</div>
+        </div>
+        <div>
+
+<div class="post-preview">
+    <h2 class="post-title"><a href="/posts/2018-04-22-you-i-and-reactiveui">You, I, and ReactiveUI</a></h2>
+        <div class="post-subtitle"><i class="fa fa-user"></i> Author : Kent Boogaart</div>
+        <div class="post-subtitle"><i class="fa fa-bookmark"></i> Category : Announcement</div>
+    <p class="post-meta"><i class="fa fa-calendar"></i> Published on : 22 April 2018</p>
+
+<p>I'm elated to finally announce the launch of my book, <em>You, I, and ReactiveUI</em>. This has been a labor of love, and I'm sure you'll be as happy as I am with the result. You can find out more at <a href="https://kent-boogaart.com/you-i-and-reactiveui/">https://kent-boogaart.com/you-i-and-reactiveui/</a>.</p>        <p class="small"><a href="/posts/2018-04-22-you-i-and-reactiveui">Read more...</a></p>
+</div>
+        </div>
+        <div>
+
+<div class="post-preview">
+    <h2 class="post-title"><a href="/posts/2020-07-16-article-on-elevated-values">In Praise of Elevated Values</a></h2>
+        <div class="post-subtitle"><i class="fa fa-user"></i> Author : Rich Bryant</div>
+        <div class="post-subtitle"><i class="fa fa-bookmark"></i> Category : Article</div>
+    <p class="post-meta"><i class="fa fa-calendar"></i> Published on : 16 July 2020</p>
+
+<p>You know what you don't get when you work with Enumerables and Observables?</p>        <p class="small"><a href="/posts/2020-07-16-article-on-elevated-values">Read more...</a></p>
+</div>
+        </div>
+        <div>
+
+<div class="post-preview">
+    <h2 class="post-title"><a href="/posts/2020-07-12-article-blazor-compelling-example">ReactiveUI On The Web with Blazor</a></h2>
+        <div class="post-subtitle"><i class="fa fa-user"></i> Author : Rich Bryant</div>
+        <div class="post-subtitle"><i class="fa fa-bookmark"></i> Category : Article</div>
+    <p class="post-meta"><i class="fa fa-calendar"></i> Published on : 12 July 2020</p>
+
+<p>I hope by now people are starting to learn about the existence of the <a href="https://www.nuget.org/packages/ReactiveUI.Blazor/">ReactiveUI.Blazor</a> package.  Blazor means &quot;writing Single Page Apps like Angular or Vue in C#&quot; and it has all the potential in the world.  And ReactiveUI supports it.  The official <a href="https://github.com/reactiveui/ReactiveUI.Samples/tree/main/blazor">samples are here</a> but I don't feel that they really sell the reason <em>why</em> you'd want to do web work with ReactiveUI, and I should know, I wrote them.</p>        <p class="small"><a href="/posts/2020-07-12-article-blazor-compelling-example">Read more...</a></p>
+</div>
+        </div>
+        <div>
+
+<div class="post-preview">
+    <h2 class="post-title"><a href="/posts/2020-07-10-article-on-reactive-programing">On Reactive Programming</a></h2>
+        <div class="post-subtitle"><i class="fa fa-user"></i> Author : Rich Bryant</div>
+        <div class="post-subtitle"><i class="fa fa-bookmark"></i> Category : Article</div>
+    <p class="post-meta"><i class="fa fa-calendar"></i> Published on : 10 July 2020</p>
+
+<p>Well, some say the Creator took a handful of sand and - wait, no.  Why are we <em>here</em>? Why ReactiveUI?</p>        <p class="small"><a href="/posts/2020-07-10-article-on-reactive-programing">Read more...</a></p>
+</div>
+        </div>
+        <div>
+
+<div class="post-preview">
+    <h2 class="post-title"><a href="/posts/2018-08-28-reactiveui-succession-update">ReactiveUI Succession Update</a></h2>
+        <div class="post-subtitle"><i class="fa fa-user"></i> Author : Rodney Littles, II</div>
+        <div class="post-subtitle"><i class="fa fa-bookmark"></i> Category : Announcement</div>
+    <p class="post-meta"><i class="fa fa-calendar"></i> Published on : 28 August 2018</p>
+
+<p>ReactiveUI has released several minor versions since 8.0.  Some of the most recent versions have been released without Geoff having to push code, or prep issues.  This is thanks to members of the core team, and community members who have stepped up to move the project forward.  Glenn Watson has started to play a large role in the maintenance of ReactiveUI.  There have been other's getting involved in enhancing some of the platform logic, and documentation.  Community members have been identifying and resolving issues that help make our framework better.  What does this mean for ReactiveUI succession? It's happening.  What does that mean for you?  It means we are working on ways to improve ReactiveUI and make it easier to consume.  We have several initiatives on the team and there are a few RFC's planned for the 9.0 release that might be of interest.</p>        <p class="small"><a href="/posts/2018-08-28-reactiveui-succession-update">Read more...</a></p>
+</div>
+        </div>
+        <div>
+
+<div class="post-preview">
+    <h2 class="post-title"><a href="/posts/2019-03-19-splat-v7.0.1-released">Splat v7.0.1 released</a></h2>
+        <div class="post-subtitle"><i class="fa fa-user"></i> Author : Rodney Littles, II</div>
+        <div class="post-subtitle"><i class="fa fa-bookmark"></i> Category : Release Notes</div>
+    <p class="post-meta"><i class="fa fa-calendar"></i> Published on : 19 March 2019</p>
+
+<p>Splat 7.0.1 is here!</p>        <p class="small"><a href="/posts/2019-03-19-splat-v7.0.1-released">Read more...</a></p>
+</div>
+        </div>
+        <div>
+
+<div class="post-preview">
+    <h2 class="post-title"><a href="/posts/2018-08-17-reactiveui-v8.7.1-released">ReactiveUI v8.7.1 released</a></h2>
+        <div class="post-subtitle"><i class="fa fa-user"></i> Author : Rodney Littles, II</div>
+        <div class="post-subtitle"><i class="fa fa-bookmark"></i> Category : Release Notes</div>
+    <p class="post-meta"><i class="fa fa-calendar"></i> Published on : 17 August 2018</p>
+
+<p>Release 8.7.1 of ReactiveUI is available!</p>        <p class="small"><a href="/posts/2018-08-17-reactiveui-v8.7.1-released">Read more...</a></p>
+</div>
+        </div>
+        <div>
+
+<div class="post-preview">
+    <h2 class="post-title"><a href="/posts/2018-08-14-reactiveui-v8.6.1-released">ReactiveUI v8.6.1 released</a></h2>
+        <div class="post-subtitle"><i class="fa fa-user"></i> Author : Rodney Littles, II</div>
+        <div class="post-subtitle"><i class="fa fa-bookmark"></i> Category : Release Notes</div>
+    <p class="post-meta"><i class="fa fa-calendar"></i> Published on : 14 August 2018</p>
+
+<p>Release 8.6.1 of ReactiveUI is available!</p>        <p class="small"><a href="/posts/2018-08-14-reactiveui-v8.6.1-released">Read more...</a></p>
+</div>
+        </div>
+        <div>
+
+<div class="post-preview">
+    <h2 class="post-title"><a href="/posts/2018-05-14-reactiveui-succession">ReactiveUI Succession</a></h2>
+        <div class="post-subtitle"><i class="fa fa-user"></i> Author : Rodney Littles, II</div>
+        <div class="post-subtitle"><i class="fa fa-bookmark"></i> Category : Announcement</div>
+    <p class="post-meta"><i class="fa fa-calendar"></i> Published on : 14 May 2018</p>
+
+<p>OSS project maintainers have a serious load on their shoulders.  They are responsbile for authoring and maintaining tools that enable developers to deliver business value faster and easier.  Gone are the days where a developer has to start every project by defining their own IO, data structures and sub routines.  Modern developers rely on frameworks, third party libraries and other niceties that use to take hundreds of developer man hours before writing any business logic.  Being a maintainer, and focusing that level of effort is a labor of love, but a labor not the less.</p>        <p class="small"><a href="/posts/2018-05-14-reactiveui-succession">Read more...</a></p>
+</div>
+        </div>
+        <div>
+
+<div class="post-preview">
+    <h2 class="post-title"><a href="/posts/2018-08-13-deprecated-reactive-list">Deprecating ReactiveList</a></h2>
+        <div class="post-subtitle"><i class="fa fa-user"></i> Author : Rodney Littles, II</div>
+        <div class="post-subtitle"><i class="fa fa-bookmark"></i> Category : Announcement</div>
+    <p class="post-meta"><i class="fa fa-calendar"></i> Published on : 13 August 2018</p>
+
+<p>With the coming 8.6.1 release, <code>ReactiveList</code> will be marked as deprecated.  ReactiveList is being replaced by Roland Pheasants <a href="https://github.com/RolandPheasant/DynamicData">Dynamic Data</a></p>        <p class="small"><a href="/posts/2018-08-13-deprecated-reactive-list">Read more...</a></p>
+</div>
+        </div>
+        <div>
+
+<div class="post-preview">
+    <h2 class="post-title"><a href="/posts/2018-08-10-reactiveui-v8.5.1-released">ReactiveUI v8.5.1 released</a></h2>
+        <div class="post-subtitle"><i class="fa fa-user"></i> Author : Rodney Littles, II</div>
+        <div class="post-subtitle"><i class="fa fa-bookmark"></i> Category : Release Notes</div>
+    <p class="post-meta"><i class="fa fa-calendar"></i> Published on : 10 August 2018</p>
+
+<p>Release 8.5.1 of ReactiveUI is available!</p>        <p class="small"><a href="/posts/2018-08-10-reactiveui-v8.5.1-released">Read more...</a></p>
+</div>
+        </div>
+        <div>
+
+<div class="post-preview">
+    <h2 class="post-title"><a href="/posts/2018-11-07-reactive-command-abstract">Removing ReactiveCommand abstract base class</a></h2>
+        <div class="post-subtitle"><i class="fa fa-user"></i> Author : Rodney Littles, II</div>
+        <div class="post-subtitle"><i class="fa fa-bookmark"></i> Category : Announcement</div>
+    <p class="post-meta"><i class="fa fa-calendar"></i> Published on : 07 November 2018</p>
+
+<p>The ReactiveUI team has been urging consumers for some time now to move away from the <code>ReactiveCommand</code> abstract class for properties.  There are some slight nuiances with type constraints that can sometimes cause run time bugs.  Because your property can resolve to an abstract base implementation doesn't mean you should define it that way.  We are very adamante about creating a type safe environment where consumers don't have to worry about hidden runtime issues with the framework. <a href="https://github.com/reactiveui/rfcs/issues/19">RFC: Remove ReactiveCommand abstract base class</a> was raised to address this exact issue.</p>        <p class="small"><a href="/posts/2018-11-07-reactive-command-abstract">Read more...</a></p>
+</div>
+        </div>
+        <div>
+
+<div class="post-preview">
+    <h2 class="post-title"><a href="/posts/2018-08-07-reactiveui-v8.4.1-released">ReactiveUI v8.4.1 released</a></h2>
+        <div class="post-subtitle"><i class="fa fa-user"></i> Author : Rodney Littles, II</div>
+        <div class="post-subtitle"><i class="fa fa-bookmark"></i> Category : Release Notes</div>
+    <p class="post-meta"><i class="fa fa-calendar"></i> Published on : 07 August 2018</p>
+
+<p>Release 8.4.1 of ReactiveUI is available!</p>        <p class="small"><a href="/posts/2018-08-07-reactiveui-v8.4.1-released">Read more...</a></p>
+</div>
+        </div>
+        <div>
+        <div class="page-box">
+            <h2 class="ms-5 post-title"> <a href="/posts/2021-01-04-reactiveui-association">ReactiveUI Association, Inc.</a></h2>
+                <div class="ms-5 post-subtitle"> <i class="fa fa-user"></i> Author : Rodney Littles, II</div>
+                <div class="ms-5 post-subtitle"> <i class="fa fa-bookmark"></i> Category : Announcement</div>
+            <p class="ms-5 post-meta"> <i class="fa fa-calendar"></i> Published on : 04 January 2021</p>
+            <div>
+                <!-- Blog Content Start -->
+                            <div id="content" class="col-md-9 col-lg-8 p-4 pt-md-0">
+                                <div class="container">
+                                    <div class="row">
+                                        <div id="content" class="col-md-12">
+                                            <h2 id="oss-sustainability">OSS Sustainability</h2>
+<p>Open Source Sustainability has become a big topic in the .NET community.  With several Open Source projects having issues with long term sustainability, the ReactiveUI team has been identifying ways to address the long term sustainability of our open-source software.  Our main goal is to make sure that as .NET grows and evolves that Reactive Programming and ReactiveUI evolve and grow with it.  We have started to talk about strategies to ensure that ReactiveUI has maintenance and growth for the future.</p>
+<h2 id="reactiveui-association-inc">ReactiveUI Association, Inc.</h2>
+<p>Introducing.  ReactiveUI Association Inc.  A non for profit organization geared towards several goals</p>
+<ul>
+<li>Open Source Sustainability for ReactiveUI</li>
+<li>Educational Resources for building applications using ReactiveUI</li>
+</ul>
+<h3 id="reactive-programming-open-source-sustainability-in-the.net-ecosystem">Reactive Programming Open Source Sustainability in the .NET ecosystem</h3>
+<p>The maintainers of ReactiveUI are also consumers of the framework.  We strive to make sure that as .NET continues to grow, that ReactiveUI will be a safe long-term choice for building .NET native applications.  We want to be sure that we continue to grow and mentor the community so that more members get involved.  We already have a very healthy user community.  Developers who take time to log issues, provide reproductions, and pull request fixes.  This is a good sign that this project is capable of long term health.</p>
+<h3 id="providing-educational-resources-on-building.net-applications-using-reactive-programming">Providing Educational Resources on building .NET applications using Reactive Programming</h3>
+<p>We have been making a conscious effort to make the framework more approachable.  We have started recording videos and bolstering documentation in the hopes it makes it easier to consume ReactiveUI.  We recently had our first ever RxUI Conf, which was spurred on to help with this very endeavor.  Educating people on how to consume Rx in the .NET space is the only way to grow the Rx community in the .NET space.  So we are committing time and resources towards making these learnings available.</p>
+<h3 id="securing-sponsorships">Securing sponsorships</h3>
+<p>The reality is things code money.  So we are trying to find ways to engage with more consumers as a way to cover the costs of the goals of the ReactiveUI Association.  Now that we have our legal entity, the appeal of Open Collective is dwindling.  With new services like GitHub Sponsorships, we will move towards a platform that allows consumers, sponsors, and friends to contribute monetarily to the ReactiveUI Association and its mission.  The original purpose of the Open Collective was to allocate money towards a resource to maintain the library.  We no longer feel that is the immediate goal, so we plan on closing the open collective.  This will allow the governance of the fund to exist within the ReactiveUI Associate towards its mission and goals.  If you are currently sponsoring the Open Collective, we ask that you consider changing to <a href="https://github.com/sponsors/reactivemarbles">become a GitHub Sponsor</a> until we can sort out the current Open Collective.</p>
+<h2 id="whats-next">Whats next</h2>
+<h3 id="setting-up-reactiveui-association-github-sponsorship">Setting up ReactiveUI Association GitHub Sponsorship</h3>
+<p>In the coming months, we will be moving over to the GitHub Sponsorship platform.  This will allow a consistent mechanism for any Open Source project you want to sponsor via GitHub.  This will be a change for anyone currently using the Open Collective.  We are working to set up a self-sufficient association that can manage the funds without the need for Open Collective.  Now that we are our Non-Profit organization, we can manage the funds directly.  This will allow us to put more of the funds we have to use towards the betterment of the ReactiveUI project.</p>
+<h3 id="focus-on-learnings">Focus on learnings</h3>
+<p>We realize that the barrier to entry to Rx is high.  The ReactiveUI Association's primary focus is fostering learning.  The core team have been putting together a series of videos on various aspects of ReactiveUI.  We are posting periodic videos to the <a href="https://www.youtube.com/channel/UCWVSpLajyZcooAngLV3ItaQ">ReactiveUI YouTube</a> channel. We hosted our first ever <a href="https://www.rxuiconf.net/">RxUI Conf</a> that is available on our YouTube Channel.  We plan on doing more things focused on helping people experience and enjoy the power of Reactive Programming.</p>
+<h3 id="reactive-marbles-is-the-incubator-for-future-reactiveui-work">Reactive Marbles is the incubator for future ReactiveUI work</h3>
+<p>The ReactiveUI Association has a new GitHub organization, <a href="https://github.com/reactivemarbles">Reactive Marbles</a> this will be the incubator for new things coming to the ReactiveUI platform.  Currently, we have new <code>WhenAnyValue</code> methods, code analyzers and fixers, and more coming soon!  Same guys, different name, same mission!</p>
+
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+            </div>
+        </div>
+        </div>
+
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+<!-- Blog Content End -->
+                        <div class="col-lg-2 p-md-0 m-md-0 bg-body">
+                            <div id="right-sidebar" tabindex="0" class="sidebar px-0 px-md-3 pt-3">
+        <p class="small font-weight-bold"><a href="https://github.com/reactiveui/website/edit/main/input/posts/Authors/index.cshtml" data-no-validate><i class="fad fa-pencil"></i> Edit This Page</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div id="footer" class="p-3">
+        <div class="container-xl">
+            <div class="row">
+    <div class="offset-lg-1 col-10 col-lg-10" style="padding-top: 18px">
+        <ul class="list-inline">
+            <li class="list-inline-item">
+                <a class="nav-link" href="https://github.com/reactiveui/reactiveui#core-team">Team</a>
+            </li>
+            <li class="list-inline-item">
+                <a class="nav-link" href="https://github.com/sponsors/reactivemarbles">Support</a>
+            </li>
+            <li class="list-inline-item">
+                <a class="nav-link" href="https://github.com/reactiveui/ReactiveUI/discussions">Discussions</a>
+            </li>
+            <li class="list-inline-item">
+                <a class="nav-link" href="https://github.com/reactiveui/styleguide">Branding</a>
+            </li>
+            <li class="list-inline-item">
+                <a class="nav-link" href="/docs">Documentation</a>
+            </li>
+            <li class="list-inline-item">
+                <a class="nav-link" href="https://github.com/reactiveui/ReactiveUI/releases/">Changelog</a>
+            </li>
+            <li class="list-inline-item">
+                <a class="nav-link" href="/contact">Contact Us</a>
+            </li>
+            <li class="list-inline-item">
+                <a class="nav-link" href="https://twitter.com/reactivexui"><i class="fab fa-twitter"></i> Twitter</a>
+            </li>
+            <li class="list-inline-item">
+                <a class="nav-link" href="https://github.com/reactiveui/reactiveui"><i class="fab fa-github"></i> GitHub</a>
+            </li>
+                    <li class="list-inline-item">
+                        <a href="/"><img src="/assets/img/logo.png" width="64" height="64" class="footer-logo" alt="ReactiveUI"></a>
+                    </li>
+        </ul>
+    </div>
+</div>
+
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        $(document).ready(function () {
+            quicklink.listen();
+
+            // Bootstrap tooltips
+            $('[data-toggle="tooltip"]').tooltip();
+
+            // Keeps the sidebars in view on wider viewports
+            let left = null;
+            let leftParent = null;
+            let right = null;
+            let rightParent = null;
+            function stickSidebars() {
+                if (left == null) {
+                    left = $('#left-sidebar');
+                    right = $('#right-sidebar');
+                }
+                if (left.length) {
+                    if (window.innerWidth >= 768) {
+                        if (leftParent == null) {
+                            leftParent = left.parent()[0];
+                        }
+                        if (leftParent) {
+                            let leftRect = leftParent.getBoundingClientRect();
+                            stickSidebar(left, leftRect);
+                        }
+                    } else {
+                        left.css('position', 'relative');
+                        if (left.css('bottom') != 0) {
+                            left.css('bottom', '0');
+                        }
+                    }
+                }
+                if (right.length) {
+                    if (window.innerWidth >= 768) {
+                        if (rightParent == null) {
+                            rightParent = right.parent()[0];
+                        }
+                        if (rightParent) {
+                            let rightRect = rightParent.getBoundingClientRect();
+                            stickSidebar(right, rightRect);
+                        }
+                    } else {
+                        right.css('position', 'relative');
+                        if (right.css('bottom') != 0) {
+                            right.css('bottom', '0');
+                        }
+                    }
+                }
+            }
+            function stickSidebar(sidebar, rect) {
+                // Bottom
+                if (rect.bottom > window.innerHeight) {
+                    sidebar.css('bottom', rect.bottom - window.innerHeight + "px");
+                } else {
+                    sidebar.css('bottom', 0);
+                }
+                // Top
+                if (rect.top < 0) {
+                    sidebar.css('position', 'sticky');
+                } else {
+                    sidebar.css('position', 'absolute');
+                }
+            }
+            $(window).on("load", function () {
+                stickSidebars();
+            });
+            $(window).scroll(function () {
+                stickSidebars();
+            });
+            $(window).resize(function () {
+                stickSidebars();
+            })
+
+            // Mermaid diagrams
+            mermaid.initialize(
+                {
+                    flowchart:
+                    {
+                        useMaxWidth: false
+                    },
+                    startOnLoad: false,
+                    cloneCssStyles: false
+                });
+            mermaid.init(undefined, ".mermaid");
+
+            // Remove the max-width setting that Mermaid sets
+            var mermaidSvg = $('.mermaid svg');
+            mermaidSvg.addClass('img-fluid');
+            mermaidSvg.css('max-width', '');
+
+            // Make it scrollable
+            var target = document.querySelector(".mermaid svg");
+            if (target !== null) {
+                var panZoom = window.panZoom = svgPanZoom(target, {
+                    zoomEnabled: true,
+                    controlIconsEnabled: true,
+                    fit: true,
+                    center: true,
+                    maxZoom: 20,
+                    zoomScaleSensitivity: 0.6
+                });
+
+                // Do the reset once right away to fit the diagram
+                panZoom.resize();
+                panZoom.fit();
+                panZoom.center();
+
+                $(window).resize(function () {
+                    panZoom.resize();
+                    panZoom.fit();
+                    panZoom.center();
+                });
+            }
+        });
+    </script>
+
+    
+
+    <script src="https://code.jquery.com/jquery-3.7.0.slim.js" integrity="sha256-7GO+jepT9gJe9LB4XFf8snVOjX3iYNb0FHYr5LI1N5c=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+<script src="https://kit.fontawesome.com/a1cad7ed9a.js" crossorigin="anonymous" data-no-mirror></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@8.4.8/dist/mermaid.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/svg-pan-zoom@3.6.1/dist/svg-pan-zoom.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-core.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/autoloader/prism-autoloader.min.js" data-no-mirror></script>
+<script src="https://cdn.jsdelivr.net/npm/quicklink@2.0.0/dist/quicklink.umd.js"></script>
+<script src="/assets/js/color-modes.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,11 @@
+MinimumStatiqDocsVersion-Docable: "1.0.0-beta.11"
+SiteTitle: Documentation
+ApiLayout: Api/_ApiLayout
+ApiOrder: 100
+FontLink: "https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&family=Roboto+Slab:wght@400;700&family=Roboto:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap"
+PostSources: posts/**/*
+IsPost: => Context.Outputs.FilterSources(Context.GetString("PostSources")).ContainsById(Document)
+PostTitle: Posts
+PostOrder: 99
+PageSources: pages/**/*
+IsPage: => Context.Outputs.FilterSources(Context.GetString("PageSources")).ContainsById(Document)

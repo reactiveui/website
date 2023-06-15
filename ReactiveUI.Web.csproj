@@ -13,8 +13,11 @@
   
   <ItemGroup>
     <Compile Remove="external\**" />
+    <Compile Remove="theme\bin\**" />
     <EmbeddedResource Remove="external\**" />
+    <EmbeddedResource Remove="theme\bin\**" />
     <None Remove="external\**" />
+    <None Remove="theme\bin\**" />
   </ItemGroup>
   
   <ItemGroup Condition="Exists('theme\Docable5.csproj')">
@@ -32,4 +35,5 @@
     <Using Include="Statiq.CodeAnalysis" />
     <Using Include="ReactiveUI.Web" />
   </ItemGroup>
+
 </Project>

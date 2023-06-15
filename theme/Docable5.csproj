@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<TargetFramework>net7.0</TargetFramework>
+		<LangVersion>latest</LangVersion>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Statiq.Docs" Version="1.0.0-beta.13" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Using Include="Statiq.App" />
+		<Using Include="Statiq.Common" />
+		<Using Include="Statiq.CodeAnalysis" />
+		<Using Include="Statiq.Docs" />
+		<Using Include="Statiq.Razor" />
+		<Using Include="Statiq.Markdown" />
+		<Using Include="Statiq.Web" />
+		<Using Include="Docable" />
+	</ItemGroup>
+</Project>

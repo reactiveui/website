@@ -33,13 +33,13 @@ jobs:
         fetch-depth: 0
         lfs: true
 
-    - name: Checkout
-      uses: actions/checkout@v3
-      with:
-        fetch-depth: 0
-        lfs: true
-        repository: glennawatson/Docable5
-        path: theme
+    #- name: Checkout
+    #  uses: actions/checkout@v3
+    #  with:
+    #    fetch-depth: 0
+    #    lfs: true
+    #    repository: glennawatson/Docable5
+    #    path: theme
 
     - name: Install .NET
       uses: actions/setup-dotnet@v3
