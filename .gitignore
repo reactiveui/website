@@ -2,8 +2,8 @@
 /cache
 /debug.log
 /packages.xml
-#/[Tt]heme
-#[Oo]utput/
+/[Tt]heme
+[Oo]utput/
 ![Ii]nput/
 
 # User-specific files
