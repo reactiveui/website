@@ -8,17 +8,18 @@
 
   <ItemGroup>
     <PackageReference Include="Statiq.Docs" Version="1.0.0-beta.14" />
-    <PackageReference Include="Polly" Version="7.2.3" />
   </ItemGroup>
   
   <ItemGroup>
+    <Compile Remove="build\**" />
+    <EmbeddedResource Remove="build\**" />
+    <None Remove="build\**" />
     <Compile Remove="external\**" />
     <EmbeddedResource Remove="external\**" />
     <None Remove="external\**" />
   </ItemGroup>
   
   <ItemGroup Condition="Exists('theme\Docable5.csproj')">
-    <ProjectReference Include="theme\Docable5.csproj" />
     <Using Include="Docable" />
   </ItemGroup>
 

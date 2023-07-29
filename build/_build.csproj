@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<OutputType>Exe</OutputType>
+		<TargetFramework>net7.0</TargetFramework>
+		<RootNamespace></RootNamespace>
+		<NoWarn>CS0649;CS0169</NoWarn>
+		<NukeRootDirectory>..</NukeRootDirectory>
+		<NukeScriptDirectory>..</NukeScriptDirectory>
+		<NukeTelemetryVersion>1</NukeTelemetryVersion>
+		<ImplicitUsings>true</ImplicitUsings>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Nerdbank.GitVersioning" Version="3.6.133" />
+		<PackageReference Include="Nuke.Common" Version="7.0.2" />
+		<PackageReference Include="Polly" Version="7.2.3" />
+	</ItemGroup>
+
+</Project>
