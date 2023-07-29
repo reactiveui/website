@@ -8,11 +8,11 @@ await Bootstrapper
         .CreateDocs(args)
         .ConfigureLinks(args)
         .AddSetting(MarkdownKeys.MarkdownExtensions, "bootstrap")
-        ////.AddSourceFiles(
-        ////    "dynamicdata".WithSourceFilter(),
-        ////    "splat".WithSourceFilter("*.Drawing"),
-        ////    "reactiveui".WithSourceFilter("Benchmarks", "*.Test", "*.LeakTests", "*.TestRunner", "*.Uwp"),
-        ////    "akavache".WithSourceFilter(),
-        ////    "punchclock".WithSourceFilter(),
-        ////    "fusillade".WithSourceFilter())
+        .AddSourceFiles(
+            "akavache".WithSourceFilter(),
+            "dynamicdata".WithSourceFilter(),
+            "fusillade".WithSourceFilter(),
+            "punchclock".WithSourceFilter())
+            ////"reactiveui".WithSourceFilter("Benchmarks", "*.Test", "*.LeakTests", "*.TestRunner", "*.Uwp"),
+            ////"splat".WithSourceFilter("*.Drawing"),
         .RunAsync();

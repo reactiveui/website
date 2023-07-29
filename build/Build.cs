@@ -6,6 +6,7 @@ using Nuke.Common.Tools.NerdbankGitVersioning;
     "continuous",
     GitHubActionsImage.WindowsLatest,
     Lfs = true,
+    FetchDepth = 0,
     On = new[] { GitHubActionsTrigger.Push },
     InvokedTargets = new[] { nameof(Pack) },
     CacheKeyFiles = new[] { "**/global.json", "**/*.csproj" },
@@ -67,7 +68,9 @@ class Build : NukeBuild
             // I have not been able to locate any documentation nor examples on how to do this,
             // except for the installation of the Build Project specified Target SDK via the specified value in global.json.
             await this.InstallDotNetSdk("3.1.x", "7.x.x");
-            Git($"checkout {Repository.Branch}");
+
+            // TODO: Confirm that we need to checkout the existing branch, this should be done by Nuke and always results in Nothing to checkout.
+            ////Git($"checkout {Repository.Branch}");
             Git($"clone -s -n https://github.com/glennawatson/Docable5.git {ThemeDirectory.ToString("dn")}");
             Git($"checkout", ThemeDirectory.ToString("dn"));
         });
@@ -79,8 +82,8 @@ class Build : NukeBuild
                 .SetConfiguration(Configuration)));
 
     Target Pack => _ => _
-        .DependsOn(Compile) // TODO: Confirm that we want to artifact each induvidual folder in the output dir.
-        .Produces(OutputDirectory.GlobDirectories("**/*").Select(x => x.ToString()).ToArray())
+        .DependsOn(Compile) // TODO: Confirm that we want to artifact each induvidual folder in the output dir. - .GlobDirectories("**/*").Select(x => x.ToString()).ToArray()
+        .Produces(OutputDirectory)
         .Executes(() => DotNetRun(_ => _
                 .SetProjectFile(Solution.AllProjects.First(x => x.Name.Contains("ReactiveUI.Web")))
                 .SetConfiguration(Configuration)));

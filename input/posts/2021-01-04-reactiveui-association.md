@@ -4,7 +4,6 @@ Title: ReactiveUI Association, Inc.
 Tags: Announcement
 Author: Rodney Littles, II
 Published: 2021-01-04
-ShowFullBlog: true
 ---
 
 ## OSS Sustainability
