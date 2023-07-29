@@ -4,9 +4,9 @@ name: Build website
 # events but only for the main branch
 on:
   push:
-    branches: [ main ]
+    branches: [ OLDmain ]
   pull_request:
-    branches: [ main ]
+    branches: [ OLDmain ]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:

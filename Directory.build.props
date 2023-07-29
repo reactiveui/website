@@ -9,13 +9,12 @@
     <AnalysisLevel>latest</AnalysisLevel>
     <AnalysisMode>AllEnabledByDefault</AnalysisMode>
     <ImplicitUsings>true</ImplicitUsings>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
-
   <ItemGroup>
     <PackageReference Include="stylecop.analyzers" Version="1.2.0-beta.435" PrivateAssets="all" />
     <PackageReference Include="Roslynator.Analyzers" Version="4.3.0" PrivateAssets="All" />
   </ItemGroup>
-
   <ItemGroup>
     <AdditionalFiles Include="$(MSBuildThisFileDirectory)stylecop.json" Link="stylecop.json" />
   </ItemGroup>

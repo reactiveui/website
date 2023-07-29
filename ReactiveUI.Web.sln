@@ -7,8 +7,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReactiveUI.Web", "ReactiveU
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{6EC3FF5D-8E64-4A2E-BCAA-4D0A605192F2}"
 	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		.gitignore = .gitignore
 		Directory.build.props = Directory.build.props
+		global.json = global.json
+		LICENSE = LICENSE
 		.github\workflows\main.yml = .github\workflows\main.yml
+		README.md = README.md
+		stylecop.json = stylecop.json
+		version.json = version.json
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "_build", "build\_build.csproj", "{CA0C518B-D50E-4FC9-962D-BA4D30403F4A}"

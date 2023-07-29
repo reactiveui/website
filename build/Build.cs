@@ -1,4 +1,5 @@
-using Nuke.Common.Tools.GitVersion;
+using CP.BuildTools;
+using Nuke.Common.Git;
 using Nuke.Common.Tools.NerdbankGitVersioning;
 
 [GitHubActions(
@@ -6,7 +7,7 @@ using Nuke.Common.Tools.NerdbankGitVersioning;
     GitHubActionsImage.WindowsLatest,
     Lfs = true,
     On = new[] { GitHubActionsTrigger.Push },
-    InvokedTargets = new[] { nameof(Compile) },
+    InvokedTargets = new[] { nameof(Pack) },
     CacheKeyFiles = new[] { "**/global.json", "**/*.csproj" },
     CacheIncludePatterns = new[] { ".nuke/temp", "~/.nuget/packages" },
     CacheExcludePatterns = new string[0])]
@@ -18,42 +19,33 @@ class Build : NukeBuild
     ///   - Microsoft VisualStudio     https://nuke.build/visualstudio
     ///   - Microsoft VSCode           https://nuke.build/vscode
 
-    public static int Main () => Execute<Build>(x => x.Pack);
+    public static int Main() => Execute<Build>(x => x.Pack);
 
     [Parameter("Configuration to build - Default is 'Debug' (local) or 'Release' (server)")]
-    readonly Configuration Configuration = IsLocalBuild ? Configuration.Debug : Configuration.Release;
+    private readonly Configuration Configuration = IsLocalBuild ? Configuration.Debug : Configuration.Release;
 
-    [CI]
-    private static GitHubActions GitHubActions => GitHubActions.Instance;
+    [GitRepository]
+    private readonly GitRepository Repository;
+
+    [Solution(GenerateProjects = true)]
+    private readonly Solution Solution;
+
+    [NerdbankGitVersioning]
+    private readonly NerdbankGitVersioning NerdbankVersioning;
 
     private static AbsolutePath OutputDirectory => RootDirectory / "output";
 
-    private AbsolutePath WebOutputDirectory => RootDirectory / "web";
+    private AbsolutePath ThemeDirectory => RootDirectory / "theme";
 
-    private AbsolutePath ThemeDirectory => WebOutputDirectory / "theme";
-
-    private static AbsolutePath SourceDirectory => RootDirectory;
-
-    private static AbsolutePath SolutionFile => RootDirectory / "ReactiveUI.Web.sln";
-
-    [NerdbankGitVersioning]
-    readonly NerdbankGitVersioning NerdbankVersioning;
+    ////private static AbsolutePath SourceDirectory => RootDirectory;
 
     Target Print => _ => _
-        .DependsOn(InstallDependencies)
         .Before(Clean)
         .Executes(() =>
         {
-            Log.Information("Branch = {Branch}", GitHubActions?.Ref);
-            Log.Information("Commit = {Commit}", GitHubActions?.Sha);
+            Log.Information("Branch = {Branch}", Repository.Branch);
+            Log.Information("Commit = {Commit}", Repository.Commit);
             Log.Information("GitVersion = {Value}", NerdbankVersioning.SimpleVersion);
-        });
-
-    Target InstallDependencies => _ => _
-        .Executes(() =>
-        {
-            NerdbankGitVersioningInstall();
-            NerdbankGitVersioningCloud();            
         });
 
     Target Clean => _ => _
@@ -61,30 +53,35 @@ class Build : NukeBuild
         .Before(Restore)
         .Executes(() =>
         {
-            SourceDirectory.GlobDirectories("*/bin", "*/obj").DeleteDirectories();
+            // throws=> UnauthorizedAccessException: Access to the path 'Azure.Core.dll' is denied.
+            ////SourceDirectory.GlobDirectories("*/bin", "*/obj").DeleteDirectories();
             ThemeDirectory.DeleteDirectory();
-            OutputDirectory.CreateOrCleanDirectory();
+            OutputDirectory.DeleteDirectory();
         });
 
     Target Restore => _ => _
-        .DependsOn(InstallDependencies)
-        .Executes(() =>
+        .DependsOn(Clean)
+        .Executes(async () =>
         {
-            Git($"checkout {GitHubActions.Ref} {WebOutputDirectory.ToString("d")}");
-            Git($"checkout https://github.com/glennawatson/Docable5.git {ThemeDirectory.ToString("d")}");
+            // TODO: Replace this with Nuke's inbuilt mechanism for installing SDK's
+            // I have not been able to locate any documentation nor examples on how to do this,
+            // except for the installation of the Build Project specified Target SDK via the specified value in global.json.
+            await this.InstallDotNetSdk("3.1.x", "7.x.x");
+            Git($"checkout {Repository.Branch}");
+            Git($"clone -s -n https://github.com/glennawatson/Docable5.git {ThemeDirectory.ToString("dn")}");
+            Git($"checkout", ThemeDirectory.ToString("dn"));
         });
 
     Target Compile => _ => _
         .DependsOn(Restore)
-        .Executes(() =>
-        {
-            DotNetBuild(_ => _
-                .SetProjectFile(SolutionFile)
-                .SetConfiguration(Configuration));
-        });
+        .Executes(() => DotNetBuild(_ => _
+                .SetProjectFile(Solution)
+                .SetConfiguration(Configuration)));
 
     Target Pack => _ => _
-        .DependsOn(Compile)
+        .DependsOn(Compile) // TODO: Confirm that we want to artifact each induvidual folder in the output dir.
         .Produces(OutputDirectory.GlobDirectories("**/*").Select(x => x.ToString()).ToArray())
-        .Executes(() => { /* Implementation */ });
+        .Executes(() => DotNetRun(_ => _
+                .SetProjectFile(Solution.AllProjects.First(x => x.Name.Contains("ReactiveUI.Web")))
+                .SetConfiguration(Configuration)));
 }

@@ -1,10 +1,10 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<OutputType>Exe</OutputType>
 		<TargetFramework>net7.0</TargetFramework>
 		<RootNamespace></RootNamespace>
-		<NoWarn>CS0649;CS0169</NoWarn>
+		<NoWarn>$(NoWarn);CS0649;CS0169;CA1822;IDE1006</NoWarn>
 		<NukeRootDirectory>..</NukeRootDirectory>
 		<NukeScriptDirectory>..</NukeScriptDirectory>
 		<NukeTelemetryVersion>1</NukeTelemetryVersion>
@@ -13,8 +13,13 @@
 
 	<ItemGroup>
 		<PackageReference Include="Nerdbank.GitVersioning" Version="3.6.133" />
+    <PackageReference Include="CP.Nuke.BuildTools" Version="1.0.13" />
 		<PackageReference Include="Nuke.Common" Version="7.0.2" />
-		<PackageReference Include="Polly" Version="7.2.3" />
+		<PackageReference Include="Polly" Version="7.2.4" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageDownload Include="nbgv" Version="[3.6.133]" />
 	</ItemGroup>
 
 </Project>
