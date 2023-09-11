@@ -33,7 +33,7 @@ jobs:
       with:
         node-version: '16.x'
     - name: Checkout 
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
     - name: Build Website
       uses: cake-build/cake-action@v1
       with:
