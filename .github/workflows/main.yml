@@ -28,19 +28,18 @@ jobs:
           5.0.x
           6.0.x
           7.0.x
-    - name: Use Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: '16.x'
+
     - name: Checkout 
       uses: actions/checkout@v4
+
+    - name: Install docfx
+      run: dotnet tool update -g docfx
+
     - name: Build Website
-      uses: cake-build/cake-action@v1
-      with:
-        verbosity: Diagnostic
-        cake-bootstrap: true
+      run: docfx reactiveui/docfx.json
+
     - name: Deploy netlify   
       if: ${{ github.event_name != 'pull_request' }}    
       run: |
         npm install -g netlify-cli
-        netlify deploy --auth=${{ secrets.NETLIFY_DEPLOY_KEY }} --site=${{ secrets.NETLIFY_SITE_ID }} --prod --dir=output
+        netlify deploy --auth=${{ secrets.NETLIFY_DEPLOY_KEY }} --site=${{ secrets.NETLIFY_SITE_ID }} --prod --dir=reactiveui/_site

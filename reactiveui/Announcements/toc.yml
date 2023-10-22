@@ -1,0 +1,12 @@
+- name: Assemblies are now code signed with the .NET Foundation  certificate
+  href: 2017-09-05-assemblies-are-now-code-signed-with-the-dotnet-foundation-certificate.md
+- name: Delisting of versions before 8.0.0 from NuGet
+  href: 2018-05-04-delisting-of-versions-before-8-0-0-from-nuget.md
+- name: ReactiveUI Succession Update
+  href: 2018-08-28-reactiveui-succession-update.md
+- name: Removing ReactiveCommand abstract base class
+  href: 2018-11-07-reactive-command-abstract.md
+- name: ReactiveUI Rebranding
+  href: 2019-01-20-reactiveui-rebranding.md
+- name: ReactiveUI Association, Inc.
+  href: 2021-01-04-reactiveui-association.md

@@ -1,1 +1,0 @@
-Each project has a .licenseheader file within the directory and if https://marketplace.visualstudio.com/items?itemName=StefanWenig.LicenseHeaderManager is installed all new files will automatically have the license added to the top.
