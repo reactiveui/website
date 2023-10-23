@@ -23,9 +23,11 @@
   "build": {
     "globalMetadata": {
       "_appTitle": "An advanced, composable, reactive model-view-viewmodel framework",
-      "_appLogoPath": "images/logo.png",
+      "_appLogoPath": "images/logoSmall.png",
       "_appFaviconPath": "images/favicons/favicon.ico",
-      "_disableContribution": true
+      "_disableContribution": true,
+      "_appFooter": "Copyright (c) .NET Foundation and Contributors",
+      "_appName": "ReactiveUI"
     },
     "content": [
       {
@@ -41,10 +43,13 @@
           "articles/**.md",
           "articles/**/toc.yml",
           "Book/**.md",
-          "Docs/**.md",
+          "docs/**.md",
+          "docs/**/toc.yml",
           "Extensions/**.md",
-          "contibute/**.md",
+          "contribute/**.md",
+          "contribute/**/toc.yml",
           "vs/**.md",
+          "vs/**/toc.yml",
           "Support/**.md",
           "toc.yml",
           "*.md"

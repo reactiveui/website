@@ -1,7 +1,29 @@
+- name: Automatic closure of stale GitHub issues
+  href: 2017-08-25-automatic-closure-of-stale-github-issues.md
 - name: Assemblies are now code signed with the .NET Foundation  certificate
   href: 2017-09-05-assemblies-are-now-code-signed-with-the-dotnet-foundation-certificate.md
+- name: The public API surface of ReactiveUI is now protected by API approval tests
+  href: 2017-09-07-the-public-api-surface-of-reactiveui-is-now-protected-by-approval-tests.md
+- name: Run a meetup? Are you looking for presenters?
+  href: 2017-09-13-run-a-meetup-are-you-looking-for-presenters.md
+- name: You, I, and ReactiveUI
+  href: 2018-04-22-you-i-and-reactiveui.md
+- name: The future of System.Reactive
+  href: 2018-04-30-the-future-of-system-reactive.md
+- name: Moving towards VSTS and continuous deployment
+  href: 2018-05-02-moving-towards-vsts-and-continuous-deployment.md
+- name: System.Reactive has a new home on GitHub
+  href: 2018-05-03-system-reactive-has-a-new-home-on-github.md
 - name: Delisting of versions before 8.0.0 from NuGet
   href: 2018-05-04-delisting-of-versions-before-8-0-0-from-nuget.md
+- name: .NET Core 3 and ReactiveUI
+  href: 2018-05-07-dotnet-core-3-and-reactiveui.md
+- name: ReactiveUI Succession
+  href: 2018-05-14-reactiveui-succession.md
+- name: Memory Leak Detection
+  href: 2018-05-15-memory-leak-detection.md
+- name: Deprecating ReactiveList
+  href: 2018-08-13-deprecated-reactive-list.md
 - name: ReactiveUI Succession Update
   href: 2018-08-28-reactiveui-succession-update.md
 - name: Removing ReactiveCommand abstract base class

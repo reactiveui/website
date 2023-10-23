@@ -1,10 +1,12 @@
 - name: Documentation
   href: docs/
+  homepage: docs/index.md
 - name: Announcements
   href: Announcements/
   homepage: Announcements/2021-01-04-reactiveui-association.md
 - name: Articles
   href: articles/
+  homepage: articles/2020-07-16-article-on-elevated-values.md
 - name: Extensions
   href: Extensions/
 - name: ReactiveUI vs.

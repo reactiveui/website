@@ -1,0 +1,14 @@
+- name: Getting Started
+  href: getting-started/
+  items:
+  - name: Installation
+    href: getting-started/installation/
+- name: Guidelines
+  href: guidelines/
+  items:
+    - name: Debugging
+      href: guidelines/debugging/
+    - name: Framework
+      href: guidelines/framework/
+    - name: Platform
+      href: guidelines/platform/

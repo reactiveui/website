@@ -14,9 +14,9 @@ Below is a short list of features commong to Mvvm Frameworks and which framework
 |Framework|View Model Navigation|Binding Extensions|Dependency Inversion|Application State LifeCycle|
 |:--:|:--:|:--:|:--:|:--:|:--:|
 |[ReactiveUI](./)|&#x2714;|&#x2714;|&#x2714;|&#x2714;|
-|[Prism](./prism)|&#x2714;|-|&#x2714;|-|
-|[Mvvm Cross](./mvvmcross)|&#x2714;|&#x2714;|&#x2714;|-|
-|[Fresh Mvvm](./freshmvvm)|&#x2714;|-|&#x2714;|-|
-|[Mvvm Light](./mvvmlight)|&#x2714;|-|&#x2714;|-|
-|[Xamarin.Forms](./xamarin-forms)|-|-|&#x2714;|-|
+|[Prism](prism.md)|&#x2714;|-|&#x2714;|-|
+|[Mvvm Cross](mvvmcross.md)|&#x2714;|&#x2714;|&#x2714;|-|
+|[Fresh Mvvm](freshmvvm.md)|&#x2714;|-|&#x2714;|-|
+|[Mvvm Light](mvvmlight.md)|&#x2714;|-|&#x2714;|-|
+|[Xamarin.Forms](xamarin-forms.md)|-|-|&#x2714;|-|
 

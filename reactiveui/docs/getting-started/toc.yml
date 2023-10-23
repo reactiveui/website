@@ -1,0 +1,6 @@
+- name: Installation
+  href: installation/
+- name: Compelling Example
+  href: compelling-example.md
+- name: Minimum Versions
+  href: minimum-versions.md

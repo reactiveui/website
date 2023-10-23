@@ -1,6 +1,6 @@
 ---
-Order: 2
-ShowInSidebar: false
+_disableTocFilter: true
+_layout: landing
 ---
 [Reactive Extensions Class Library](https://learn.microsoft.com/en-us/previous-versions/dotnet/reactive-extensions/hh242986(v=vs.103))
 
