@@ -1,7 +1,5 @@
 ---
-NoTitle: true
 Title: Xamarin Mac
-Order: 70
 ---
 
 ## Package Installation

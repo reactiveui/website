@@ -1,7 +1,5 @@
 ---
-NoTitle: true
 Title: Xamarin Forms
-Order: 40
 ---
 
 ## Package Installation

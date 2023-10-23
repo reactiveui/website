@@ -1,6 +1,4 @@
----
-NoTitle: true
----
+
 ## UI Thread and Schedulers
 Always make sure to update the UI on the `RxApp.MainThreadScheduler` to ensure UI  changes happen on the UI thread. In practice, this typically means making sure to update view models on the main thread scheduler.
 

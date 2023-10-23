@@ -1,7 +1,5 @@
 ---
-NoTitle: true
 Title: Windows Forms
-Order: 10
 ---
 
 ## Package Installation

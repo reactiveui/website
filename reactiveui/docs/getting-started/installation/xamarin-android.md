@@ -1,7 +1,5 @@
 ---
-NoTitle: true
 Title: Xamarin Android
-Order: 60
 ---
 
 ## Package Installation

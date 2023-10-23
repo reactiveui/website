@@ -1,9 +1,7 @@
----
-NoTitle: true
----
+
 ## Visual Studio Minimums
 
-Visual Studio 2019 and beyond.
+Visual Studio 2022 and beyond.
 
 ## Platform Minimums
 

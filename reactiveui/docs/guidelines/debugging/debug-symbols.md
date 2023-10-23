@@ -1,6 +1,4 @@
----
-NoTitle: true
----
+
 We use [SourceLink](https://docs.microsoft.com/en-us/dotnet/standard/library-guidance/sourcelink) which allows you to break and get live debugging into our code base.
 
 The only requirement is to ensure the check the `Enable source link support` under `Debugging`  in Visual Studio preferences as shown below:

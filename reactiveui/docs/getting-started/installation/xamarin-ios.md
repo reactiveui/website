@@ -1,7 +1,5 @@
 ---
-NoTitle: true
 Title: Xamarin iOS
-Order: 50
 ---
 
 ## Package Installation

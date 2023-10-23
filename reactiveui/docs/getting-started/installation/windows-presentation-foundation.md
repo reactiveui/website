@@ -1,7 +1,5 @@
 ---
-NoTitle: true
 Title: Windows Presentation Foundation
-Order: 20
 ---
 
 ## Package Installation

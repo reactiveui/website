@@ -1,7 +1,5 @@
 ---
-NoTitle: true
 Title: Blazor
-Order: 90
 ---
 
 # Package Installation
