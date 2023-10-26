@@ -11,7 +11,7 @@ Release 9.0.1 of ReactiveUI is available!
 
 ## What's Changed
 
-Please note the biggest change is ReactiveList, IReactiveDerivedList are being marked as deprecated. Recommend the use of DynamicData instead https://github.com/RolandPheasant/DynamicData
+Please note the biggest change is ReactiveList, IReactiveDerivedList are being marked as deprecated. Recommend the use of DynamicData instead https://github.com/reactivemarbles/DynamicData
 
 * Added Benchmark Harness (#1729) (#1729) @RLittlesII
 * feature: Add a constructor to take the constructor to RoutingState (#1730) @glennawatson

@@ -18,7 +18,7 @@ For me, the big seller is that you've already got a WPF or Xamarin or WinForms a
   
 ### The ReactiveUI Compelling Example  
   
-The ReactiveUI website Getting Started section links a [Compelling Example](https://www.reactiveui.net/docs/getting-started/compelling-example), a simple Nuget browser that you can build very quickly with copypasta.  
+The ReactiveUI website Getting Started section links a [Compelling Example](~/docs/getting-started/compelling-example.md), a simple Nuget browser that you can build very quickly with copypasta.  
 
 <img src="https://i.imgur.com/GoczlPS.png" align="center" alt="img"/>
 

@@ -1,2 +1,4 @@
-- name: Merging pull requests
-  href: index.md
+- name: Android
+  href: Android/index.md
+- name: Xamarin Forms
+  href: xamarin-forms/index.md

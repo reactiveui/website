@@ -43,14 +43,15 @@
           "articles/**.md",
           "articles/**/toc.yml",
           "Book/**.md",
+          "Book/**/toc.yml",
+          "contribute/**.md",
+          "contribute/**/toc.yml",
           "docs/**.md",
           "docs/**/toc.yml",
           "Extensions/**.md",
-          "contribute/**.md",
-          "contribute/**/toc.yml",
+          "Extensions/**/toc.yml",
           "vs/**.md",
           "vs/**/toc.yml",
-          "Support/**.md",
           "toc.yml",
           "*.md"
         ]

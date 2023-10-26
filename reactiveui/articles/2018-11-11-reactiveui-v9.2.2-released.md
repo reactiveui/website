@@ -9,7 +9,7 @@ Published: 2018-11-11
 
 Release 9.2.2 of ReactiveUI is available!
 
-Note there has been a major change to the ReactiveCommand. See [here](https://reactiveui.net/blog/2018/11/reactive-command-abstract) for details.
+Note there has been a major change to the ReactiveCommand. See [here](~/Announcements/2018-11-07-reactive-command-abstract.md) for details.
 
 ## What's Changed
 
