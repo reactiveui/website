@@ -14,7 +14,7 @@ ReactiveUI has a presence on most major social media platforms. Here are our mos
 
 ## Guidelines
 
-Our writing for social media should generally follow the style points outlined in the [Voice and tone](voice-and-tone) and [Grammar and mechanics](grammar-and-mechanics) sections. Here are some additional pointers, too.
+Our writing for social media should generally follow the style points outlined in the [Voice and tone](voice-and-tone.md) and [Grammar and mechanics](grammar-and-mechanics.md) sections. Here are some additional pointers, too.
 
 ## Write short, but smart
 
@@ -31,8 +31,8 @@ Do your best to adhere to ReactiveUI style guidelines when you’re using our so
 
 When appropriate, you can tag the subject of your post on Twitter or Facebook. But avoid directly tweeting at or otherwise publicly tagging a post subject with messages like, "Hey, we wrote about you!" Never ask for retweets, likes, or favorites.
 
-* Yes: "We talked with @GeoffreyHuntley about building an reactive application. [Blog](./../posts)”
-* No: "Hey @GeoffreyHuntley, can you RT this post we wrote about you? [Blog](./../posts)”
+* Yes: "We talked with @GeoffreyHuntley about building an reactive application. [Blog](~/articles/2020-07-10-article-on-reactive-programing.md)”
+* No: "Hey @GeoffreyHuntley, can you RT this post we wrote about you? [Blog](~/articles/2020-07-10-article-on-reactive-programing.md)”
 
 <blockquote class="twitter-tweet" data-conversation="none" data-lang="en"><p lang="en" dir="ltr">Hot tip, don&#39;t shy away from having conversations between both accounts, you&#39;ll get great questions &amp; ppl will see you reply 😁</p>&mdash; Lyndsey Jackson (@ok_lyndsey) <a href="https://twitter.com/ok_lyndsey/status/895384141130211328">August 9, 2017</a></blockquote>
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>

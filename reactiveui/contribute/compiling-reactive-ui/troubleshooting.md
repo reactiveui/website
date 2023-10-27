@@ -6,11 +6,11 @@ Title: Troubleshooting
 ## Binary Logging
 ReactiveUI [uses the binary logger feature](https://github.com/reactiveui/ReactiveUI/blob/72b4921d0b60d55b795474c2f7a03918a85fb150/build.cake#L214) which was made available from msbuild v15.3 onwards to output all build events to a structured/binary log file.
 
-![](msbuild-binlog-cli.png)
+![](~/Images/msbuild-binlog-cli.png)
 
 You'll find `reactiveui.binlog` and `eventgenerator.binlog` in the project directory after your first compile. Install the [MSBuild Structured Log Viewer](https://msbuildlog.com/) and double-click on the `.binlog` to for a more productive troubleshooting experience. Please attach your `.binlog` when opening GitHub issues related to compilation.
 
-![](structured-log-viewer.png)
+![](~/Images/structured-log-viewer.png)
 
 ## Binary log advantages
 

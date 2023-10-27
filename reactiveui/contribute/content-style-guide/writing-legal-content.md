@@ -14,11 +14,11 @@ But that doesn't mean legal content has to be difficult to read. We try to prese
 * **Succinctness**. We want our users to read and understand our legal documents, while also respecting their time.
 
 ## Types of legal content
-We keep these in one place on our [legal page](/legal):
+We keep these in one place on our [legal page]():
 
-* [Terms of use](/legal/terms-of-use)
-* [Privacy policy](/legal/privacy)
-* [Copyright policy](/legal/copyright)
+* [Terms of use]()
+* [Privacy policy]()
+* [Copyright policy]()
 
 
 ## Guidelines

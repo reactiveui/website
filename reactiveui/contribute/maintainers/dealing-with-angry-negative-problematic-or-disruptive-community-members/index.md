@@ -10,7 +10,7 @@ GitHub's [recent research](https://opensourcesurvey.org/2017/) has shown that ev
 
 _It is important to note that "stopped contributing" was the most common response to experiencing or witnessing a negative behavior._
 
-People don't just wake up overnight and decide to become maintainers of a project of this scale. They first start out as users, over time if they may become active and engaged contributors. Without a healthy community and people stepping up to help out the project maintainers will [burn out](../avoiding-burnout).
+People don't just wake up overnight and decide to become maintainers of a project of this scale. They first start out as users, over time if they may become active and engaged contributors. Without a healthy community and people stepping up to help out the project maintainers will [burn out](~/contribute/maintainers/avoiding-burnout/index.md).
 
 If ReactiveUI has no maintainers it will quickly become useless to all users and the project will die. As a result, no user complaint, behaviour or need takes priority (except in the case of [Code of Conduct](https://reactiveui.net/code-of-conduct) violations) over the burnout of maintainers. If users do not like the direction of the project, the easiest way to influence it is to make significant, high-quality contributions and become a maintainer.
 
@@ -24,7 +24,7 @@ Open-source is a huge generational gift, and people should now be concerned abou
 > All problems in community generated software that threaten the sustainability of the project are due to an imbalance between those consuming the software and those participating in building the software. - [Community Imbalnce Theory](https://medium.com/@mikeal/community-imbalance-theory-c5f8688ae352
 )
 
-![](/abuse-by-company-employees.jpg)
+![](~/images/abuse-by-company-employees.jpg)
 
 A billion dollar company not upgrading software and expecting an unpaid open-source community to support it unreasonable. The developers at such company need to be highlighting to their organisation that the longer you leave things not updated the more friction that will cause in development for people trying to use newer tools.
 
@@ -38,7 +38,7 @@ Otherwise:
 2. Delete the entire comment, even if the comment contains non-problematic content.
 3. Post a response of the format:
 
-> {{at-mention}} your comment was deleted as a violation of the [Code of Conduct](./code-of-conduct) as it was {{clause in the CoC that was violated}}. You may consider this an official warning.
+> {{at-mention}} your comment was deleted as a violation of the [Code of Conduct](https://github.com/reactiveui/ReactiveUI/blob/main/CODE_OF_CONDUCT.md) as it was {{clause in the CoC that was violated}}. You may consider this an official warning.
 
 In the case of serious code-of-conduct violations, please start a thread in the `private` repository.
 
@@ -46,11 +46,11 @@ In the case of serious code-of-conduct violations, please start a thread in the 
 
 Now, with all of the above said, how do you determine what crosses the line? Well, there's the obvious ones like:
 
-![](/obvious-abuse.png)
+![](~/images/obvious-abuse.png)
 
 But there are also the more subtle ones:
 
-![](/subtle-abuse.png)
+![](~/images/subtle-abuse.png)
 
 ## The the rule of thumb
 

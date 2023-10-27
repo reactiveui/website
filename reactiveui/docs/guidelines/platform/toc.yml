@@ -1,2 +1,16 @@
-- name: Merging pull requests
-  href: index.md
+- name: Blazor
+  href: blazor.md
+- name: Tizen
+  href: tizen.md
+- name: Windows Forms
+  href: windows-forms.md
+- name: Windows Presentation Framework
+  href: windows-presentation-framework.md
+- name: Xamarin Android
+  href: xamarin-android.md
+- name: Xamarin Forms
+  href: xamarin-forms.md
+- name: Xamarin iOS
+  href: xamarin-ios.md
+- name: Xamarin Mac
+  href: xamarin-mac.md

@@ -5,10 +5,15 @@
     href: getting-started/installation/
 - name: Guidelines
   href: guidelines/
-  items:
-    - name: Debugging
-      href: guidelines/debugging/
-    - name: Framework
-      href: guidelines/framework/
-    - name: Platform
-      href: guidelines/platform/
+- name: Handbook
+  href: handbook/
+- name: Reactive Programming
+  href: reactive-programming/
+- name: Resources
+  href: resources/
+- name: Roadmap
+  href: roadmap/
+- name: Security
+  href: security/
+- name: Upgrading
+  href: upgrading/

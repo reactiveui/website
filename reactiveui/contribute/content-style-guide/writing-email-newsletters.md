@@ -16,7 +16,7 @@ Our email newsletters help empower and inform ReactiveUI users. Here are the mos
 * Internal newsletters
 
 ## Guidelines
-Email newsletters generally follow the style points outlined in the [Voice and tone](voice-and-tone) and [Grammar and mechanics](grammar-and-mechanics) sections. Here are some additional considerations.
+Email newsletters generally follow the style points outlined in the [Voice and tone](voice-and-tone.md) and [Grammar and mechanics](grammar-and-mechanics.md) sections. Here are some additional considerations.
 
 ## Consider all elements
 Every email newsletter is made up of the following elements. Make sure they’re all in place before clicking send:

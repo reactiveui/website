@@ -33,7 +33,7 @@ ReactiveUI has a sense of humor, so feel free to be funny when it’s appropriat
 
 ## Style tips
 
-Here are a few key elements of writing ReactiveUI’s voice. For more, see the [Grammar and mechanics section](grammar-and-mechanics).
+Here are a few key elements of writing ReactiveUI’s voice. For more, see the [Grammar and mechanics section](grammar-and-mechanics.md).
 
 * **Active voice** Use active voice. Avoid passive voice.
 * **Avoid slang and jargon** Write in plain English.
