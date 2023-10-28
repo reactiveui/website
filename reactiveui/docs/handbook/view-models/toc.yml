@@ -1,2 +1,4 @@
-- name: Merging pull requests
+- name: View Models
   href: index.md
+- name: Boilerplate code
+  href: boilerplate-code.md

@@ -1,5 +1,3 @@
-- name: Software Style Guide
-  href: index.md
 - name: Breaking Changes
   href: breaking-changes.md
 - name: Code Style

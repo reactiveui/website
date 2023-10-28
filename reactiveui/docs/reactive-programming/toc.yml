@@ -1,2 +1,4 @@
-- name: Merging pull requests
+- name: Reactive Programming
   href: index.md
+- name: Videos
+  href: videos.md

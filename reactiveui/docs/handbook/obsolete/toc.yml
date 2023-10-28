@@ -1,2 +1,14 @@
-- name: Merging pull requests
+- name: Obsolete
   href: index.md
+  items:
+  - name: Collections
+    href: Collections/
+    items:
+    - name: Collections
+      href: Collections/index.md
+    - name: Derived Lists
+      href: Collections/derived-lists.md
+    - name: Reactive List
+      href: Collections/reactive-list.md
+    - name: Reactive Composite Collections
+      href: Collections/reactive-composite-collections/index.md
