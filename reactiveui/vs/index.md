@@ -13,7 +13,7 @@ Below is a short list of features commong to Mvvm Frameworks and which framework
 
 |Framework|View Model Navigation|Binding Extensions|Dependency Inversion|Application State LifeCycle|
 |:--:|:--:|:--:|:--:|:--:|:--:|
-|[ReactiveUI](./)|&#x2714;|&#x2714;|&#x2714;|&#x2714;|
+|[ReactiveUI]()|&#x2714;|&#x2714;|&#x2714;|&#x2714;|
 |[Prism](prism.md)|&#x2714;|-|&#x2714;|-|
 |[Mvvm Cross](mvvmcross.md)|&#x2714;|&#x2714;|&#x2714;|-|
 |[Fresh Mvvm](freshmvvm.md)|&#x2714;|-|&#x2714;|-|

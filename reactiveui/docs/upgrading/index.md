@@ -28,7 +28,7 @@ Follow the [Upgrade Guide](https://docs.microsoft.com/en-us/nuget/reference/migr
 
 If you have any packages that rely on `System.Reactive` less than v4, make sure you include a `PackageReference` to `System.Reactive.Compatibility`.
 
-A tip in the new PackageReference you no longer have to include dependencies such as `System.Reactive` unless you want to deliberately upgrade to a newer version then we have set. We recommend only including `ReactiveUI` and [Platform Packages](../getting-started/installation/).
+A tip in the new PackageReference you no longer have to include dependencies such as `System.Reactive` unless you want to deliberately upgrade to a newer version then we have set. We recommend only including `ReactiveUI` and [Platform Packages](~/docs/getting-started/installation/index.md).
 
 TIP: if the upgrade option does not show when right clicking on the `packages.config` file, make sure that PackageReference are your default choice under Tools -> Options -> NuGet Package Manager -> General, You can change the "Default package management format" to "PackageReference".
 
@@ -36,7 +36,7 @@ TIP: if the upgrade option does not show when right clicking on the `packages.co
 
 We had to introduce a number of new NuGet packages for various platforms. This is because Visual Studio for Mac would be looking for Windows only symbols if we didn't exclude them from the main package.
 
-See [Platform Package](../getting-started/installation/) for more details.
+See [Platform Package](~/docs/getting-started/installation/index.md) for more details.
 
 NOTE: The Event packages also are separated for some platforms also.
 
@@ -58,11 +58,11 @@ someCommand.Execute(Unit.Default).Subscribe();
 
 ## Use Interactions instead of UserError
 
-UserError were replaced by a much more generic mechanism called [Interactions](../handbook/interactions/).
+UserError were replaced by a much more generic mechanism called [Interactions](~/docs/handbook/interactions/index.md).
 
 
 ## Use DynamicData instead of ReactiveList
 
 ReactiveList was starting to get rather buggy and a maintenance issue for maintainers.
 
-We decided to recommend [DynamicData](../handbook/collections/) as many of the maintainers were already using that library.
+We decided to recommend [DynamicData](~/docs/handbook/collections/index.md) as many of the maintainers were already using that library.

@@ -211,15 +211,15 @@ public partial class MainWindow : ReactiveWindow<MainViewModel>
 }
 ```
 
-<img src="./routing.gif" width="60%" alt="routing"/>
+<img src="~/images/routing.gif" width="60%" alt="routing"/>
 
-Now ReactiveUI's view model-first routing should work as expected. `IScreen`s and `RoutedViewHost`s can be nested any number of levels without impacting routing. However, this only works for XAML pages; for modal and pop-up dialogs [Interactions](../interactions) are a better choice. 
+Now ReactiveUI's view model-first routing should work as expected. `IScreen`s and `RoutedViewHost`s can be nested any number of levels without impacting routing. However, this only works for XAML pages; for modal and pop-up dialogs [Interactions](~/docs/handbook/interactions/index.md) are a better choice. 
 
 > **Note:** If you experience any difficulties with this tutorial, you can join the [ReactiveUI Slack](https://join.slack.com/t/reactivex/shared_invite/zt-lt48skpz-G5WDYOAuzA80_MByZrLT0g) channel and ask for help. We are always ready to give a hand.
 
 ## View Location
 
-Override the default `IViewLocator` implementation to avoid having to manually register views. In the bootstrapping stage of your routing, register your view locator using `Locator.CurrentMutable.RegisterLazySingleton`. See [View Location](../view-location) for details.
+Override the default `IViewLocator` implementation to avoid having to manually register views. In the bootstrapping stage of your routing, register your view locator using `Locator.CurrentMutable.RegisterLazySingleton`. See [View Location](~/docs/handbook/view-location/index.md) for details.
 
 ```cs
 public class SimpleViewLocator : IViewLocator

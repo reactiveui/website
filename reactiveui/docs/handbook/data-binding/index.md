@@ -29,23 +29,23 @@ In order to use bindings in the View, you must first implement `IViewFor<TViewMo
 
 For a detailed overview of the bindings on each platform, see the following sections:
 
-* [Xamarin.Forms](./xamarin-forms)
+* [Xamarin.Forms](xamarin-forms.md)
 
-* [Xamarin.Android](./xamarin-android)
+* [Xamarin.Android](/xamarin-android/index.md)
 
-* [Xamarin.iOS](./xamarin-ios)
+* [Xamarin.iOS](xamarin-ios.md)
 
-* [Windows Presentation Foundation](./windows-presentation-foundation)
+* [Windows Presentation Foundation](windows-presentation-foundation.md)
 
-* [Windows Forms](./windows-forms)
+* [Windows Forms](windows-forms.md)
 
-* [Avalonia UI](./avalonia)
+* [Avalonia UI](avalonia.md)
 
 ## Types of Bindings
 
-Once you implement `IViewFor<T>`, binding methods are now available as extension methods on your class, as well as [activation and deactivation](../when-activated) feature for your views and associated view models. Like many other things in ReactiveUI, you should only set up bindings in a constructor or even better in a [WhenActivated](../when-activated) block.
+Once you implement `IViewFor<T>`, binding methods are now available as extension methods on your class, as well as [activation and deactivation](~/docs/handbook/when-activated/index.md) feature for your views and associated view models. Like many other things in ReactiveUI, you should only set up bindings in a constructor or even better in a [WhenActivated](~/docs/handbook/when-activated/index.md) block.
 
-`OneWayBind`, `Bind`, `BindCommand` and `Subscribe` methods return an `IDisposable`. In general, you shouldn't care about this return value, except if you want to break a binding manually, or you're on a XAML-based platform, where bindings can leak memory. [WhenActivated](../when-activated) feature helps handle this concern gracefully.
+`OneWayBind`, `Bind`, `BindCommand` and `Subscribe` methods return an `IDisposable`. In general, you shouldn't care about this return value, except if you want to break a binding manually, or you're on a XAML-based platform, where bindings can leak memory. [WhenActivated](~/docs/handbook/when-activated/index.md) feature helps handle this concern gracefully.
 
 * **OneWayBind:** - Sets up a one-way binding from a property on the ViewModel
   to the View.
@@ -104,7 +104,7 @@ this.OneWayBind(ViewModel,
 
 ### Creating custom Value Converters classes
 
-You can also register converters globally and convert types for two-way bindings. See [Value Converters](./value-converters) page for details.
+You can also register converters globally and convert types for two-way bindings. See [Value Converters](value-converters.md) page for details.
 
 ## Choosing when to update the source
 
@@ -148,7 +148,7 @@ ViewModel.Name
 
 Although both are similar, `BindTo` does offer a number of benefits:
 
-* Can handle globally registered converters - See the [Value Converters](./value-converters) page for details
+* Can handle globally registered converters - See the [Value Converters](value-converters.md) page for details
 * Can handle special semantics within the ReactiveUI binding engine - e.g. on WinForms there are a number of properties where the set methods are automatically called
 * Provides a consistent style across multiple projects (iOS/Android...)
 

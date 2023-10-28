@@ -1,7 +1,7 @@
 ---
 NoTitle: true
 ---
-ReactiveUI itself offers a few powerful features allowing you to validate user input on fly. With [WhenAnyValue](/docs/handbook/when-any/), you can listen to view model property changes and control [ReactiveCommand](/docs/handbook/commands/) executability. When reactive command's `CanExecute` observable returns false, the control to which you bind that command stays disabled. The simplest validator looks as follows:
+ReactiveUI itself offers a few powerful features allowing you to validate user input on fly. With [WhenAnyValue](~/docs/handbook/when-any/index.md), you can listen to view model property changes and control [ReactiveCommand](~/docs/handbook/commands/index.md) executability. When reactive command's `CanExecute` observable returns false, the control to which you bind that command stays disabled. The simplest validator looks as follows:
 
 ```cs
 // Declare name validator as IObservable<bool> which emitts a new value when name changes.
@@ -25,7 +25,7 @@ This is the primary way we make validations. The package contains validation hel
 
 [Core]: https://www.nuget.org/packages/ReactiveUI.Validation/
 [CoreBadge]: https://img.shields.io/nuget/v/ReactiveUI.Validation.svg
-[CoreDoc]: ./docs/handbook/user-input-validation/
+[CoreDoc]: ~/docs/handbook/user-input-validation/index.md
 
 [Dro]: https://www.nuget.org/packages/ReactiveUI.Validation.AndroidSupport/
 [DroBadge]: https://img.shields.io/nuget/v/ReactiveUI.Validation.AndroidSupport.svg

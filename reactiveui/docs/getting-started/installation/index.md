@@ -31,23 +31,23 @@ ReactiveUI packages are now signed by the dotnet foundation. Only builds from th
 
 [Core]: https://www.nuget.org/packages/ReactiveUI/
 [CoreBadge]: https://img.shields.io/nuget/v/ReactiveUI.svg
-[CoreDoc]: docs/getting-started/installation/
+[CoreDoc]: ~/docs/getting-started/installation/index.md
 
 [Fody]: https://www.nuget.org/packages/ReactiveUI.Fody/
 [FodyBadge]: https://img.shields.io/nuget/v/ReactiveUI.Fody.svg
-[FodyDoc]: docs/handbook/view-models/boilerplate-code
+[FodyDoc]: ~/docs/handbook/view-models/boilerplate-code.md
 
 [Test]: https://www.nuget.org/packages/ReactiveUI.Testing/
 [TestBadge]: https://img.shields.io/nuget/v/ReactiveUI.Testing.svg
-[TestDoc]: docs/handbook/testing/
+[TestDoc]: ~/docs/handbook/testing/index.md
 
 [Wpf]: https://www.nuget.org/packages/ReactiveUI.WPF/
 [WpfBadge]: https://img.shields.io/nuget/v/ReactiveUI.WPF.svg
-[WpfDoc]: docs/getting-started/installation/windows-presentation-foundation
+[WpfDoc]: ~/docs/getting-started/installation/windows-presentation-foundation.md
 
 [WinUi]: https://www.nuget.org/packages/ReactiveUI.WinUI/
 [WinUiBadge]: https://img.shields.io/nuget/v/ReactiveUI.WinUI.svg
-[WinUiDoc]: docs/getting-started/installation/universal-windows-platform
+[WinUiDoc]: ~/docs/getting-started/installation/winui.md
 
 [Maui]: https://www.nuget.org/packages/ReactiveUI.Maui/
 [MauiBadge]: https://img.shields.io/nuget/v/ReactiveUI.Maui.svg
@@ -56,21 +56,21 @@ ReactiveUI packages are now signed by the dotnet foundation. Only builds from th
 [Win]: https://www.nuget.org/packages/ReactiveUI.WinForms/
 [WinEvents]: https://www.nuget.org/packages/ReactiveUI.Events.WinForms/
 [WinBadge]: https://img.shields.io/nuget/v/ReactiveUI.WinForms.svg
-[WinDoc]: docs/getting-started/installation/windows-forms
+[WinDoc]: ~/docs/getting-started/installation/windows-forms.md
 
 [Xam]: https://www.nuget.org/packages/ReactiveUI.XamForms/
 [XamEvents]: https://www.nuget.org/packages/ReactiveUI.Events.XamForms/
 [XamBadge]: https://img.shields.io/nuget/v/ReactiveUI.XamForms.svg
-[XamDoc]: docs/getting-started/installation/xamarin-forms
+[XamDoc]: ~/docs/getting-started/installation/xamarin-forms.md
+
 [Dro]: https://www.nuget.org/packages/ReactiveUI.AndroidSupport/
 [DroBadge]: https://img.shields.io/nuget/v/ReactiveUI.AndroidSupport.svg
-[DroDoc]: docs/getting-started/installation/xamarin-android
+[DroDoc]: ~/docs/getting-started/installation/xamarin-android.md
 
 [DroX]: https://www.nuget.org/packages/ReactiveUI.AndroidX/
 [DroXBadge]: https://img.shields.io/nuget/v/ReactiveUI.AndroidX.svg
-
-[MacDoc]: docs/getting-started/installation/xamarin-mac
-[IosDoc]: docs/getting-started/installation/xamarin-ios
+[MacDoc]: ~/docs/getting-started/installation/xamarin-mac.md
+[IosDoc]: ~/docs/getting-started/installation/xamarin-ios.md
 
 [Uno]: https://www.nuget.org/packages/ReactiveUI.Uno/
 [UnoBadge]: https://img.shields.io/nuget/v/ReactiveUI.Uno.svg
@@ -81,16 +81,16 @@ ReactiveUI packages are now signed by the dotnet foundation. Only builds from th
 
 [Blaz]: https://www.nuget.org/packages/ReactiveUI.Blazor/
 [BlazBadge]: https://img.shields.io/nuget/v/ReactiveUI.Blazor.svg
-[BlazDoc]: docs/getting-started/installation/blazor
+[BlazDoc]: ~/docs/getting-started/installation/blazor.md
 
 [Ava]: https://www.nuget.org/packages/Avalonia.ReactiveUI/
 [AvaBadge]: https://img.shields.io/nuget/v/Avalonia.ReactiveUI.svg
-[AvaDoc]: docs/getting-started/installation/avalonia
-[EventsDocs]: docs/handbook/events/
+[AvaDoc]: ~/docs/getting-started/installation/avalonia.md
+[EventsDocs]: ~/docs/handbook/events/index.md
 
 [ValCore]: https://www.nuget.org/packages/ReactiveUI.Validation/
 [ValBadge]: https://img.shields.io/nuget/v/ReactiveUI.Validation.svg
-[ValDocs]: docs/handbook/user-input-validation/
+[ValDocs]: ~/docs/handbook/user-input-validation/index.md
 
 > **Note** ReactiveUI has packages for older .NET versions. Those packages are unlisted from NuGet and not supported, but you can still use them at your own risk to have ReactiveUI running on good old devices, such as Lumias, Surface Hubs, Windows XP, etc. See [Delisting of versions before 8.0.0 from NuGet](https://reactiveui.net/blog/2018/05/delisting-of-versions-before-8-0-0-from-nuget) blog post for more info.
 

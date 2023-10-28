@@ -1,7 +1,7 @@
 ---
 NoTitle: true
 ---
-Implement `IViewFor<T>` by hand and ensure that ViewModel is a `DependencyProperty`. Also, always dispose bindings via [WhenActivated](../when-activated), or else the bindings leak memory. The XAML `DependencyProperty` system causes memory leaks if you don't use `WhenActivated`. There's a few rules, but the number one rule is: if you do a `WhenAny` on anything other than `this`, then you need to put it inside a `WhenActivated`. See [WhenActivated](../when-activated) for details.
+Implement `IViewFor<T>` by hand and ensure that ViewModel is a `DependencyProperty`. Also, always dispose bindings via [WhenActivated](~/docs/handbook/when-activated/index.md), or else the bindings leak memory. The XAML `DependencyProperty` system causes memory leaks if you don't use `WhenActivated`. There's a few rules, but the number one rule is: if you do a `WhenAny` on anything other than `this`, then you need to put it inside a `WhenActivated`. See [WhenActivated](~/docs/handbook/when-activated/index.md) for details.
   
 The goal in this example is to two-way bind `TheText` property of the ViewModel to the TextBox and one-way bind `TheText` property to the TextBlock, so the TextBlock updates when the user types text into the TextBox. 
   
