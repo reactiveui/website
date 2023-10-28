@@ -1,5 +1,6 @@
 - name: Getting Started
   href: getting-started/
+  homepage: getting-started/index.md
   items:
   - name: Installation
     href: getting-started/installation/

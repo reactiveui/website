@@ -2,17 +2,103 @@
   href: Community/
 - name: Compiling ReactiveUI
   href: Compiling-Reactive-UI/
+  items:
+  - name: Important Files
+    href: Compiling-Reactive-UI/important-files.md
+  - name: Project Structure
+    href: Compiling-Reactive-UI/project-structure.md
+  - name: Troubleshooting
+    href: Compiling-Reactive-UI/troubleshooting.md
 - name: Content Style Guide
   href: Content-Style-Guide/
+  items:
+  - name: Grammar and Mechanics
+    href: Content-Style-Guide/grammar-and-mechanics.md
+  - name: Principles For Content
+    href: Content-Style-Guide/principles-for-content.md
+  - name: Voice And Tone
+    href: Content-Style-Guide/voice-and-tone.md
+  - name: Style Guide - Words
+    href: Content-Style-Guide/word-list.md
+  - name: Writing About People
+    href: Content-Style-Guide/writing-about-people.md
+  - name: Blogging Guidelines
+    href: Content-Style-Guide/writing-blog-posts.md
+  - name: Email Newsletters
+    href: Content-Style-Guide/writing-email-newsletters.md
+  - name: Social media
+    href: Content-Style-Guide/writing-for-social-media.md
+  - name: Legal Content
+    href: Content-Style-Guide/writing-legal-content.md
 - name: Design
   href: Design/
 - name: Developer Experience
   href: Developer-Experience/
+  items:
+  - name: Help Wanted
+    href: Developer-Experience/help-wanted.md
+  - name: The Pitch
+    href: Developer-Experience/the-pitch.md
+  - name: The Plan
+    href: Developer-Experience/the-plan.md
 - name: Features and Patches
   href: Features-and-Patches/
+  items:
+  - name: Submitting a Pull Request
+    href: Features-and-Patches/submitting-a-pull-request.md
+  - name: Testing Your Changes
+    href: Features-and-Patches/testing-your-changes.md
 - name: Maintainers
   href: Maintainers/
+  items:
+  - name: Accountability and expectations
+    href: Maintainers/accountability-and-expectations/index.md
+  - name: Approval Tests
+    href: Maintainers/approval-tests/index.md
+  - name: Avoiding Burnout
+    href: Maintainers/avoiding-burnout/index.md
+  - name: Creating a new release
+    href: Maintainers/creating-a-new-release/
+    homepage: Maintainers/creating-a-new-release/creating-a-new-release.md
+    items:
+    - name: Creating a new release
+      href: Maintainers/creating-a-new-release/creating-a-new-release.md
+    - name: Semantic versioning
+      href: Maintainers/creating-a-new-release/semantic-versioning.md
+    - name: Troubleshooting
+      href: Maintainers/creating-a-new-release/troubleshooting.md
+    - name: Workflow
+      href: Maintainers/creating-a-new-release/workflow.md
+  - name: Dealing with Angry, Negative, Problematic or Disruptive community members
+    href: Maintainers/dealing-with-angry-negative-problematic-or-disruptive-community-members/index.md
+  - name: Merging Pull Requests
+    href: Maintainers/merging-pull-requests/index.md
+  - name: Minimum Supported Version
+    href: Maintainers/minimum-supported-version/index.md
+  - name: platform-knowledge
+    href: Maintainers/platform-knowledge/
+    items:
+    - name: Android
+      href: Maintainers/platform-knowledge/android/index.md
+    - name: Xamarin Forms
+      href: Maintainers/platform-knowledge/xamarin-forms/index.md
+  - name: Reviewing pull requests
+    href: Maintainers/reviewing-pull-requests/index.md
+  - name: Team management
+    href: Maintainers/team-management/index.md
+  - name: Traiging github issues
+    href: Maintainers/traiging-github-issues/index.md
 - name: Marketing
   href: Marketing/
 - name: Software Style Guide
   href: Software-Style-Guide/
+  homepage: Software-Style-Guide/code-style.md
+  items:
+  - name: Code Style
+    href: Software-Style-Guide/code-style.md
+  - name: Breaking Changes
+    href: Software-Style-Guide/breaking-changes.md
+  - name: Commit Message Convention
+    href: Software-Style-Guide/commit-message-convention.md
+  - name: License Headers
+    href: Software-Style-Guide/license-headers.md

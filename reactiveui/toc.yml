@@ -12,7 +12,8 @@
 - name: ReactiveUI vs.
   href: vs/
 - name: Contribute
-  href: contribute/
+  href: contribute/  
+  homepage: contribute/index.md
 - name: Support
   href: https://github.com/sponsors/reactivemarbles
 - name: Book
