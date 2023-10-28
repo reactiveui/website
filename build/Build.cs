@@ -8,9 +8,11 @@ using Nuke.Common.IO;
 using Nuke.Common.ProjectModel;
 using Nuke.Common.Tooling;
 using Nuke.Common.Utilities.Collections;
+using static Nuke.Common.Tools.Git.GitTasks;
 using static Nuke.Common.EnvironmentInfo;
 using static Nuke.Common.IO.FileSystemTasks;
 using static Nuke.Common.IO.PathConstruction;
+using ReactiveUI.Web;
 
 class Build : NukeBuild
 {
@@ -25,10 +27,13 @@ class Build : NukeBuild
     [Parameter("Configuration to build - Default is 'Debug' (local) or 'Release' (server)")]
     readonly Configuration Configuration = IsLocalBuild ? Configuration.Debug : Configuration.Release;
 
+    private AbsolutePath APIDirectory => RootDirectory / "reactiveui" / "api" / "reactiveui";
+
     Target Clean => _ => _
         .Before(Restore)
         .Executes(async () =>
         {
+            APIDirectory.DeleteDirectory();
             // Install docfx
             ProcessTasks.StartShell("dotnet tool update -g docfx").AssertZeroExitCode();
             // Install DotNet SDK's
@@ -40,7 +45,9 @@ class Build : NukeBuild
         .Executes(() =>
         {
             // TODO: Restore ReactiveUI Projects
-            
+            APIDirectory.GetSources("reactiveui", "reactiveui", "akavache", "fusillade", "punchclock", "splat");
+            APIDirectory.GetSources("reactivemarbles", "DynamicData");
+
             // TODO: Build ReactiveUI Projects
         });
 
