@@ -28,7 +28,6 @@ jobs:
           5.0.x
           6.0.x
           7.0.x
-
     - name: Checkout 
       uses: actions/checkout@v4
 
