@@ -1,18 +1,9 @@
-using System;
-using System.Linq;
 using CP.BuildTools;
 using Nuke.Common;
-using Nuke.Common.CI;
-using Nuke.Common.Execution;
 using Nuke.Common.IO;
-using Nuke.Common.ProjectModel;
 using Nuke.Common.Tooling;
-using Nuke.Common.Utilities.Collections;
-using static Nuke.Common.Tools.Git.GitTasks;
-using static Nuke.Common.EnvironmentInfo;
-using static Nuke.Common.IO.FileSystemTasks;
-using static Nuke.Common.IO.PathConstruction;
 using ReactiveUI.Web;
+using Nuke.Common.Tools.MSBuild;
 
 class Build : NukeBuild
 {
@@ -27,13 +18,17 @@ class Build : NukeBuild
     [Parameter("Configuration to build - Default is 'Debug' (local) or 'Release' (server)")]
     readonly Configuration Configuration = IsLocalBuild ? Configuration.Debug : Configuration.Release;
 
-    private AbsolutePath APIDirectory => RootDirectory / "reactiveui" / "api" / "reactiveui";
+    private readonly string reactiveui = nameof(reactiveui);
+
+    private AbsolutePath RxUIAPIDirectory => RootDirectory / reactiveui / "api" / reactiveui;
+    private AbsolutePath RxMAPIDirectory => RootDirectory / reactiveui / "api" / "reactivemarbles";
 
     Target Clean => _ => _
         .Before(Restore)
         .Executes(async () =>
         {
-            APIDirectory.DeleteDirectory();
+            RxUIAPIDirectory.DeleteDirectory();
+            RxMAPIDirectory.DeleteDirectory();
             // Install docfx
             ProcessTasks.StartShell("dotnet tool update -g docfx").AssertZeroExitCode();
             // Install DotNet SDK's
@@ -44,23 +39,45 @@ class Build : NukeBuild
         .DependsOn(Clean)
         .Executes(() =>
         {
-            // TODO: Restore ReactiveUI Projects
-            APIDirectory.GetSources("reactiveui", "reactiveui", "akavache", "fusillade", "punchclock", "splat");
-            APIDirectory.GetSources("reactivemarbles", "DynamicData");
+            var RxUIProjects = new string[] { reactiveui, "akavache", "fusillade", "punchclock", "splat" };
+            // Restore ReactiveUI Projects
+            RxUIAPIDirectory.GetSources(reactiveui, RxUIProjects);
 
-            // TODO: Build ReactiveUI Projects
+            // Build ReactiveUI Projects
+            foreach (var project in RxUIProjects)
+            {
+                try
+                {
+                    MSBuildTasks.MSBuild(s => s
+                        .SetProjectFile(RxUIAPIDirectory / "external" / project / $"{project}-main" / "src")
+                        .SetConfiguration(Configuration)
+                        .SetRestore(false));
+                }
+                catch { }
+            }
+
+            // Build Reactive Marbles Projects
+            RxMAPIDirectory.GetSources("reactivemarbles", "DynamicData");
+            try
+            {
+                MSBuildTasks.MSBuild(s => s
+                    .SetProjectFile(RxMAPIDirectory / "external" / "DynamicData" / "DynamicData-main" / "src")
+                    .SetConfiguration(Configuration)
+                    .SetRestore(false));
+            }
+            catch { }
         });
 
     Target Compile => _ => _
         .DependsOn(Restore)
         .Executes(() =>
         {
-            // TODO: Generate ReactiveUI API Docs
-
             // Generate Website output
-            ProcessTasks.StartShell($"docfx {RootDirectory}\\reactiveui\\docfx.json").AssertZeroExitCode();
+            ProcessTasks.StartShell($"docfx {RootDirectory / reactiveui}\\docfx.json").AssertZeroExitCode();
 
-            // TODO: Publish to netlify
+            // Copy main.css file to output
+            (RootDirectory / reactiveui / "public" / "main.css").MoveToDirectory(RootDirectory / reactiveui / "_site" / "public");
+
+            // Publish to netlify via yml
         });
-
 }

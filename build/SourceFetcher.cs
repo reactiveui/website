@@ -16,19 +16,16 @@ internal static class SourceFetcher
     private static readonly object _lockConsoleObject = new();
     private static readonly object _lockWorkloadObject = new();
 
-    public static void GetSources(this AbsolutePath bootstrapper, string owner, params string[] repositories)
+    public static void GetSources(this AbsolutePath fileSystem, string owner, params string[] repositories)
     {
-        FetchGitHubZip(bootstrapper, owner, repositories, "external", true, true, true);
+        FetchGitHubZip(fileSystem, owner, repositories, "external", true, true);
     }
 
-    private static void FetchGitHubZip(AbsolutePath fileSystem, string owner, string[] repositories, string outputFolder, bool fetchNuGet, bool includeRepositoryInFinal, bool useSrc)
+    private static void FetchGitHubZip(AbsolutePath fileSystem, string owner, string[] repositories, string outputFolder, bool fetchNuGet, bool useSrc)
     {
         var zipCache = fileSystem / "zip";
         zipCache.CreateDirectory();
-        if (includeRepositoryInFinal)
-        {
-            (fileSystem / outputFolder).CreateDirectory();
-        }
+        (fileSystem / outputFolder).CreateDirectory();
 
         using var client = new HttpClient();
 
@@ -38,8 +35,7 @@ internal static class SourceFetcher
         var waitAndRetry = Policy.Handle<HttpRequestException>()
             .WaitAndRetryAsync(
                 6, // We can also do this with WaitAndRetryForever... but chose WaitAndRetry this time.
-                attempt => TimeSpan.FromSeconds(0.1 * Math.Pow(2,
-                                                    attempt))); // Back off!  2, 4, 8, 16 etc times 1/4-second
+                attempt => TimeSpan.FromSeconds(0.1 * Math.Pow(2, attempt))); // Back off!  2, 4, 8, 16 etc times 1/4-second
 
         Task.WaitAll(repositories.Select(repository => Task.Run(async () =>
         {
@@ -53,7 +49,7 @@ internal static class SourceFetcher
                 var zipFilePath = zipCache / $"{owner}-{repository}.zip";
                 zipFilePath.DeleteFile();
                 var extractZipPath = zipCache / $"{owner}-{repository}-extract";
-                var finalPath = !includeRepositoryInFinal ? fileSystem / outputFolder : fileSystem / outputFolder / repository;
+                var finalPath = fileSystem / outputFolder / repository;
 
                 extractZipPath.DeleteDirectory();
                 extractZipPath.CreateDirectory();
@@ -82,6 +78,7 @@ internal static class SourceFetcher
                     {
                         var zipInternalPath = extractZipPath / repository + "-main";
                         finalPath.DeleteDirectory();
+                        finalPath.CreateDirectory();
                         zipInternalPath.MoveToDirectory(finalPath);
                     }
                     catch (Exception ex)
@@ -115,8 +112,8 @@ internal static class SourceFetcher
     {
         LogRepositoryInfo(owner, repository, "Restoring Packages for ");
 
-        var directory = useSrc ? finalPath / "src" : finalPath;
-        RunDotNet(owner, repository, directory, $"restore {repository}.sln");
+        var directory = useSrc ? finalPath / $"{repository}-main" / "src" : finalPath;
+        RunDotNet(directory, $"restore {repository}.sln");
     }
 
     private static void WorkflowRestore(string owner, string repository, AbsolutePath finalPath, bool useSrc)
@@ -125,12 +122,12 @@ internal static class SourceFetcher
         {
             LogRepositoryInfo(owner, repository, "Restoring workload for ");
 
-            var directory = useSrc ? finalPath / "src" : finalPath;
-            RunDotNet(owner, repository, directory, $"workload  restore {repository}.sln");
+            var directory = useSrc ? finalPath / $"{repository}-main" / "src" : finalPath;
+            RunDotNet(directory, $"workload  restore {repository}.sln");
         }
     }
 
-    private static void RunDotNet(string owner, string repository, AbsolutePath finalPath, string parameters)
+    private static void RunDotNet(AbsolutePath finalPath, string parameters)
     {
         ProcessStartInfo startInfo = new()
         {

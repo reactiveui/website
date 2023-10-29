@@ -13,7 +13,7 @@ _layout: landing
                       <img class="img-responsive branding-image" alt="ReactiveUI" src="images/logo.png" />
                     </div>
                     <div class="col-md-8">
-                    	<h1 style="color:#319af3;font-size: 51px;font-weight: 300;margin-top: 10px;font-family: "Source Sans Pro",Helvetica,Arial,sans-serif;">ReactiveUI</h1>
+                    	<h1 class="branding-title">ReactiveUI</h1>
                         <h3>
                         	An advanced, composable, functional reactive model-view-viewmodel framework for all .NET platforms!
                     	</h3>

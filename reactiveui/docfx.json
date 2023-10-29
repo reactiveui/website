@@ -4,7 +4,12 @@
       "src": [
         {
           "files": [
-            "bin/**/*.dll"
+            "/**/bin/**/ReactiveUI*.dll",
+            "/**/bin/**/Splat*.dll",
+            "/**/bin/**/Akavache*.dll",
+            "/**/bin/**/Fusillade*.dll",
+            "/**/bin/**/Punchclock*.dll",
+            "/**/bin/**/DynamicData*.dll"
           ]
         }
       ],
