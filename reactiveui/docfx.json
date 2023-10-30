@@ -4,16 +4,15 @@
       "src": [
         {
           "files": [
-            "/**/reactiveui/reactiveui-main/src/ReactiveUI/bin/**/ReactiveUI*.dll",
-            "/**/splat/splat-main/src/Splat/bin/**/Splat*.dll",
-            "/**/akavache/akavache-main/src/Akavache/bin/**/Akavache*.dll",
-            "/**/fusillade/fusillade-main/src/Fusillade/bin/**/Fusillade*.dll",
-            "/**/punchclock/punchclock-main/src/Punchclock/bin/**/Punchclock*.dll",
-            "/**/DynamicData/DynamicData-main/src/DynamicData/bin/**/DynamicData*.dll"
+            "/**/Akavache.csproj",
+            "/**/DynamicData.csproj"
           ]
         }
       ],
       "dest": "api",
+      "properties": {
+        "TargetFramework": "net7.0"
+      },
       "outputFormat": "mref",
       "includePrivateMembers": false,
       "disableGitFeatures": false,
@@ -22,7 +21,8 @@
       "namespaceLayout": "flattened",
       "memberLayout": "samePage",
       "enumSortOrder": "alphabetic",
-      "allowCompilationErrors": false
+      "allowCompilationErrors": false,
+      "filter": "filter.yml"
     }
   ],
   "build": {

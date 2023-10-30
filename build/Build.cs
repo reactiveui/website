@@ -40,29 +40,29 @@ class Build : NukeBuild
             // Restore ReactiveUI Projects
             RxUIAPIDirectory.GetSources(reactiveui, RxUIProjects);
 
-            // Build ReactiveUI Projects
-            foreach (var project in RxUIProjects)
-            {
-                try
-                {
-                    MSBuildTasks.MSBuild(s => s
-                        .SetProjectFile(RxUIAPIDirectory / "external" / project / $"{project}-main" / "src")
-                        .SetConfiguration(Configuration)
-                        .SetRestore(false));
-                }
-                catch { }
-            }
+            ////// Build ReactiveUI Projects
+            ////foreach (var project in RxUIProjects)
+            ////{
+            ////    try
+            ////    {
+            ////        MSBuildTasks.MSBuild(s => s
+            ////            .SetProjectFile(RxUIAPIDirectory / "external" / project / $"{project}-main" / "src")
+            ////            .SetConfiguration(Configuration)
+            ////            .SetRestore(false));
+            ////    }
+            ////    catch { }
+            ////}
 
             // Build Reactive Marbles Projects
             RxMAPIDirectory.GetSources("reactivemarbles", "DynamicData");
-            try
-            {
-                MSBuildTasks.MSBuild(s => s
-                    .SetProjectFile(RxMAPIDirectory / "external" / "DynamicData" / "DynamicData-main" / "src")
-                    .SetConfiguration(Configuration)
-                    .SetRestore(false));
-            }
-            catch { }
+            ////try
+            ////{
+            ////    MSBuildTasks.MSBuild(s => s
+            ////        .SetProjectFile(RxMAPIDirectory / "external" / "DynamicData" / "DynamicData-main" / "src")
+            ////        .SetConfiguration(Configuration)
+            ////        .SetRestore(false));
+            ////}
+            ////catch { }
         });
 
     Target Compile => _ => _
