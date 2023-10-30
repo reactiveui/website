@@ -36,7 +36,7 @@ class Build : NukeBuild
         .DependsOn(Clean)
         .Executes(() =>
         {
-            var RxUIProjects = new string[] { reactiveui, "akavache", "fusillade", "punchclock", "splat" };
+            var RxUIProjects = new string[] { reactiveui, "akavache" }; ////, "fusillade", "punchclock", "splat" };
             // Restore ReactiveUI Projects
             RxUIAPIDirectory.GetSources(reactiveui, RxUIProjects);
 
