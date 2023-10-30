@@ -4,12 +4,12 @@
       "src": [
         {
           "files": [
-            "/**/bin/**/ReactiveUI*.dll",
-            "/**/bin/**/Splat*.dll",
-            "/**/bin/**/Akavache*.dll",
-            "/**/bin/**/Fusillade*.dll",
-            "/**/bin/**/Punchclock*.dll",
-            "/**/bin/**/DynamicData*.dll"
+            "/reactiveui/external/reactiveui/reactiveui-main/src/ReactiveUI/bin/**/ReactiveUI*.dll",
+            "/reactiveui/external/splat/splat-main/src/Splat/bin/**/Splat*.dll",
+            "/reactiveui/external/akavache/akavache-main/src/Akavache/bin/**/Akavache*.dll",
+            "/reactiveui/external/fusillade/fusillade-main/src/Fusillade/bin/**/Fusillade*.dll",
+            "/reactiveui/external/punchclock/punchclock-main/src/Punchclock/bin/**/Punchclock*.dll",
+            "/reactivemarbles/external/DynamicData/DynamicData-main/src/DynamicData/bin/**/DynamicData*.dll"
           ]
         }
       ],

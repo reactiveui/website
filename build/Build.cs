@@ -1,4 +1,3 @@
-using CP.BuildTools;
 using Nuke.Common;
 using Nuke.Common.IO;
 using Nuke.Common.Tooling;
@@ -25,14 +24,12 @@ class Build : NukeBuild
 
     Target Clean => _ => _
         .Before(Restore)
-        .Executes(async () =>
+        .Executes(() =>
         {
             RxUIAPIDirectory.DeleteDirectory();
             RxMAPIDirectory.DeleteDirectory();
             // Install docfx
             ProcessTasks.StartShell("dotnet tool update -g docfx").AssertZeroExitCode();
-            // Install DotNet SDK's
-            await this.InstallDotNetSdk("3.1.x", "5.x.x", "6.x.x", "7.x.x");
         });
 
     Target Restore => _ => _
