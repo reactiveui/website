@@ -36,7 +36,7 @@ class Build : NukeBuild
         .DependsOn(Clean)
         .Executes(() =>
         {
-            var RxUIProjects = new string[] { reactiveui, "akavache" }; ////, "fusillade", "punchclock", "splat" };
+            var RxUIProjects = new string[] { reactiveui, "akavache", "fusillade", "punchclock", "splat" };
             // Restore ReactiveUI Projects
             RxUIAPIDirectory.GetSources(reactiveui, RxUIProjects);
 
@@ -71,9 +71,6 @@ class Build : NukeBuild
         {
             // Generate Website output
             ProcessTasks.StartShell($"docfx {RootDirectory / reactiveui}\\docfx.json").AssertZeroExitCode();
-
-            // Copy main.css file to output
-            (RootDirectory / reactiveui / "public" / "main.css").MoveToDirectory(RootDirectory / reactiveui / "_site" / "public");
 
             // Publish to netlify via yml
         });
