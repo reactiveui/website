@@ -1,2 +1,8 @@
 - name: Guidelines
   href: index.md
+- name: Debugging
+  href: debugging/toc.yml
+- name: Framework
+  href: framework/toc.yml
+- name: Platform
+  href: platform/toc.yml

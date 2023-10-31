@@ -1,2 +1,25 @@
 - name: Maintainers
   href: index.md
+- name: Accountability and expectations
+  href: accountability-and-expectations.md
+- name: Approval Tests
+  href: approval-tests.md
+- name: Avoiding Burnout
+  href: avoiding-burnout.md
+- name: Creating a new release
+  href: creating-a-new-release/toc.yml
+  homepage: creating-a-new-release/creating-a-new-release.md
+- name: Dealing with Angry, Negative, Problematic or Disruptive community members
+  href: dealing-with-angry-negative-problematic-or-disruptive-community-members.md
+- name: Merging Pull Requests
+  href: merging-pull-requests.md
+- name: Minimum Supported Version
+  href: minimum-supported-version.md
+- name: platform-knowledge
+  href: platform-knowledge/toc.yml
+- name: Reviewing pull requests
+  href: reviewing-pull-requests.md
+- name: Team management
+  href: team-management.md
+- name: Traiging github issues
+  href: traiging-github-issues.md

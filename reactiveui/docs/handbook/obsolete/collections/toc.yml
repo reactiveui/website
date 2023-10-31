@@ -1,2 +1,8 @@
 - name: Collections
   href: index.md
+- name: Derived Lists
+  href: derived-lists.md
+- name: Reactive List
+  href: reactive-list.md
+- name: Reactive Composite Collections
+  href: reactive-composite-collections.md

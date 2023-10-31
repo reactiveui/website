@@ -1,3 +1,5 @@
+- name: Installation
+  href: index.md
 - name: Avalonia
   href: avalonia.md
 - name: Blazor
@@ -6,3 +8,13 @@
   href: tizen.md
 - name: Windows Forms
   href: windows-forms.md
+- name: Windows Presentation Foundation
+  href: windows-presentation-foundation.md
+- name: Xamarin Android
+  href: xamarin-android.md
+- name: Xamarin Forms
+  href: xamarin-forms.md
+- name: Xamarin iOS
+  href: xamarin-ios.md
+- name: Xamarin Mac
+  href: xamarin-mac.md

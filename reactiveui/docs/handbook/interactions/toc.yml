@@ -1,2 +1,4 @@
-- name: Merging pull requests
+- name: Interactions
   href: index.md
+- name: Binding Interactions
+  href: binding-interactions.md

@@ -1,2 +1,14 @@
 - name: Data Binding
   href: index.md
+- name: Value Converters
+  href: value-converters.md
+- name: Avalonia
+  href: avalonia.md
+- name: Windows Forms
+  href: windows-forms.md
+- name: WPF
+  href: windows-presentation-foundation.md
+- name: Xamarin Forms
+  href: xamarin-forms.md      
+- name: Xamarin Android
+  href: xamarin-android/toc.yml

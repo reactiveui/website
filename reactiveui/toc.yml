@@ -8,19 +8,20 @@
   href: articles/
   homepage: articles/2020-07-16-article-on-elevated-values.md
 - name: Extensions
-  href: Extensions/
+  href: Extensions.md
 - name: ReactiveUI vs.
   href: vs/
+  homepage: vs/index.md
 - name: Contribute
-  href: contribute/  
+  href: contribute/
   homepage: contribute/index.md
-- name: Support
-  href: https://github.com/sponsors/reactivemarbles
-- name: Book
-  href: book/
 - name: Api
   href: api/
   homepage: api/index.md
+- name: Book
+  href: book.md
+- name: Support
+  href: https://github.com/sponsors/reactivemarbles
 - name: Slack
   href: https://join.slack.com/t/reactivex/shared_invite/zt-lt48skpz-G5WDYOAuzA80_MByZrLT0g
 - name: GitHub

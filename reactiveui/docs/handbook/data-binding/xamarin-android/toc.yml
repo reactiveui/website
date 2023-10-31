@@ -1,2 +1,4 @@
 - name: Xamarin Android
   href: index.md
+- name: Wire up controls
+  href: wire-up-controls.md

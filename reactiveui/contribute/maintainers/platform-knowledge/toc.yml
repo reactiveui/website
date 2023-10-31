@@ -1,4 +1,4 @@
 - name: Android
-  href: Android/index.md
+  href: Android.md
 - name: Xamarin Forms
-  href: xamarin-forms/index.md
+  href: xamarin-forms.md

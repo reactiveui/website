@@ -16,5 +16,5 @@
   href: ui-thread-and-schedulers.md
 - name: Use descriptive variables with WhenAny
   href: use-descriptive-variables-with-whenany.md
-- name: Yse this on left of WhenAny
+- name: Use this on left of WhenAny
   href: use-this-on-left-of-whenany.md

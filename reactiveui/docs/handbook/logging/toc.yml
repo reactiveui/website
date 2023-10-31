@@ -1,2 +1,6 @@
-- name: Merging pull requests
+- name: Logging
   href: index.md
+- name: Observable logger
+  href: observable-logger.md
+- name: Visual Studio Intellitrace
+  href: visual-studio-intellitrace.md
