@@ -12,7 +12,7 @@ class Build : NukeBuild
     ///   - Microsoft VisualStudio     https://nuke.build/visualstudio
     ///   - Microsoft VSCode           https://nuke.build/vscode
 
-    public static int Main () => Execute<Build>(x => x.Compile);
+    public static int Main() => Execute<Build>(x => x.Compile);
 
     [Parameter("Configuration to build - Default is 'Debug' (local) or 'Release' (server)")]
     readonly Configuration Configuration = IsLocalBuild ? Configuration.Debug : Configuration.Release;
@@ -48,9 +48,13 @@ class Build : NukeBuild
         .DependsOn(Restore)
         .Executes(() =>
         {
-            // Generate Website output
-            ProcessTasks.StartShell($"docfx {RootDirectory / reactiveui}\\docfx.json").AssertZeroExitCode();
-
-            // Publish to netlify via yml
+            try
+            {
+                MSBuildTasks.MSBuild(s => s
+                    .SetProjectFile(RxUIAPIDirectory / "external" / reactiveui / $"{reactiveui}-main" / "src" / $"{reactiveui}.sln")
+                    .SetConfiguration(Configuration)
+                    .SetRestore(false));
+            }
+            catch { }
         });
 }

@@ -17,7 +17,7 @@ _layout: landing
                         <h3>
                         	An advanced, composable, functional reactive model-view-viewmodel framework for all .NET platforms!
                     	</h3>
-                        <a class="branding-button" href="docs/getting-started/">
+                        <a class="branding-button" href="~/docs/getting-started/index.md">
                             🛠️ Get Started
                         </a> &nbsp;
                         <a class="branding-button secondary-button" href="https://github.com/reactiveui/reactiveui">
@@ -30,13 +30,13 @@ _layout: landing
                 <br class="visible-xs visible-sm">
                 <div class="code-sample">
                  	<pre class="branding-code">
-<a class="text-danger" href="docs/handbook/view-models/">this</a>.<a class="text-info" href="docs/handbook/when-any/">WhenAnyValue</a>(x => x.SearchQuery)
-    .<a class="text-info" href="https://reactivex.io/documentation/operators/debounce.html">Throttle</a>(<span class="text-danger">TimeSpan</span>.<span class="text-info">FromSeconds</span>(<span class="text-danger">0.8</span>), <span class="text-danger">RxApp</span>.<a class="text-info" href="docs/handbook/scheduling/">TaskpoolScheduler</a>)
+<a class="text-danger" href="~/docs/handbook/view-models/index.md">this</a>.<a class="text-info" href="docs/handbook/when-any/">WhenAnyValue</a>(x => x.SearchQuery)
+    .<a class="text-info" href="https://reactivex.io/documentation/operators/debounce.html">Throttle</a>(<span class="text-danger">TimeSpan</span>.<span class="text-info">FromSeconds</span>(<span class="text-danger">0.8</span>), <span class="text-danger">RxApp</span>.<a class="text-info" href="~/docs/handbook/scheduling.md">TaskpoolScheduler</a>)
     .<a class="text-info" href="https://reactivex.io/documentation/operators/map.html">Select</a>(query => query?.<span class="text-info">Trim</span>())
     .<a class="text-info" href="https://reactivex.io/documentation/operators/distinct.html">DistinctUntilChanged</a>()
     .<a class="text-info" href="https://reactivex.io/documentation/operators/filter.html">Where</a>(query => !<span class="text-danger">string</span>.<span class="text-info">IsNullOrWhiteSpace</span>(query))
-    .<a class="text-info" href="https://reactivex.io/documentation/operators/observeon.html">ObserveOn</a>(<span class="text-danger">RxApp</span>.<a class="text-info" href="docs/handbook/scheduling/">MainThreadScheduler</a>)
-    .<a class="text-info" href="docs/handbook/commands/">InvokeCommand</a>(ExecuteSearch);</pre>
+    .<a class="text-info" href="https://reactivex.io/documentation/operators/observeon.html">ObserveOn</a>(<span class="text-danger">RxApp</span>.<a class="text-info" href="~/docs/handbook/scheduling.md">MainThreadScheduler</a>)
+    .<a class="text-info" href="~/docs/handbook/commands/index.md">InvokeCommand</a>(ExecuteSearch);</pre>
                 </div>
             </div>
         </div>
@@ -50,11 +50,11 @@ _layout: landing
         </div>
         <div class="span6 col-md-4">
             <h3 class="branding-subheader">Composable</h3>
-            <p>Create re-usable chunks of functionality that can be seamlessly integrated into your reactive pipelines. These chunks might be widely applicable, or specific to your application. Regardless, you have the power to write and <a href="docs/handbook/testing")">test code</a> once, and leverage it many times over.</p>
+            <p>Create re-usable chunks of functionality that can be seamlessly integrated into your reactive pipelines. These chunks might be widely applicable, or specific to your application. Regardless, you have the power to write and <a href="docs/handbook/testing.md")">test code</a> once, and leverage it many times over.</p>
         </div>
         <div class="span6 col-md-4">
             <h3 class="branding-subheader">Cross-platform</h3>
-            <p>Any device, any platform. Share business logic between your mobile and desktop applications. ReactiveUI has <a href="docs/getting-started/installation/">first class support</a> for MAUI, Windows Presentation Foundation (WPF), Windows Forms, UNO Platform, Xamarin Forms, Xamarin.iOS, Xamarin.Android, Xamarin.Mac, &amp; Tizen.</p>
+            <p>Any device, any platform. Share business logic between your mobile and desktop applications. ReactiveUI has <a href="~/docs/getting-started/installation/index.md">first class support</a> for MAUI, Windows Presentation Foundation (WPF), Windows Forms, UNO Platform, Xamarin Forms, Xamarin.iOS, Xamarin.Android, Xamarin.Mac, &amp; Tizen.</p>
         </div>
     </div>
 </div>
@@ -68,7 +68,7 @@ _layout: landing
         </div>
         <div class="span6 col-md-6">
             <h3 class="branding-subheader">Open-source</h3>
-            <p>ReactiveUI is developed under an <a href="https://github.com/reactiveui/ReactiveUI/blob/main/LICENSE" target="_blank">OSI-approved open source license</a>, making it freely usable and distributable, even for commercial use. We ❤ the people who are involved in this project, and we’d love <a href="Contribute/">to have you on board</a>, especially if you are just getting started or have never contributed to open-source before.</p>
+            <p>ReactiveUI is developed under an <a href="https://github.com/reactiveui/ReactiveUI/blob/main/LICENSE" target="_blank">OSI-approved open source license</a>, making it freely usable and distributable, even for commercial use. We ❤ the people who are involved in this project, and we’d love <a href="~/Contribute/index.md">to have you on board</a>, especially if you are just getting started or have never contributed to open-source before.</p>
             <p>ReactiveUI is a <a href="https://dotnetfoundation.org/" target="_blank">.NET Foundation</a> project. Other projects that are associated with the foundation include the .NET Compiler Platform ("Roslyn") as well as the ASP.NET family of projects, .NET Core, MAUI, Avalonia &amp; Xamarin Forms.</p>
         </div>
     </div>
