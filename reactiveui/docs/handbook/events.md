@@ -46,7 +46,7 @@ this.Events().KeyUp
 
 ## Using events with WhenActivated
 
-If you are reacting to events emitted by the view and referencing the view model in your observable sequence, remember to dispose your subscriptions. If your view model outlives your view or vice versa, there is a potential for a memory leak, and `WhenActivated` helps you to avoid that. See [WhenActivated documentation](~/docs/handbook/when-activated/index.md) for more info.
+If you are reacting to events emitted by the view and referencing the view model in your observable sequence, remember to dispose your subscriptions. If your view model outlives your view or vice versa, there is a potential for a memory leak, and `WhenActivated` helps you to avoid that. See [WhenActivated documentation](~/docs/handbook/when-activated.md) for more info.
 
 ```cs
 InitializeComponent();

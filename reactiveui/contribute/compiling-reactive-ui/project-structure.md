@@ -23,10 +23,10 @@ The [ReactiveUI.Drawing](~/api/reactiveui.drawing.yml) package is an extension t
 The [ReactiveUI.Fody](~/api/ReactiveUI.Fody.yml) package is a [Fody](https://github.com/Fody/Fody) extension that will generate RaisePropertyChange notifications for properties and ObservableAsPropertyHelper properties.
 
 ## ReactiveUI.Fody.Analyzer
-The [ReactiveUI.Fody.Analyzer](~/api/reactiveui.fody.analyzer/) package is a [Roslyn](https://learn.microsoft.com/en-us/dotnet/csharp/roslyn-sdk/) extension that checks correct usage of the [Fody](https://github.com/Fody/Fody) extension.
+The [ReactiveUI.Fody.Analyzer](~/api/ReactiveUI.Fody.Analyzer.yml) package is a [Roslyn](https://learn.microsoft.com/en-us/dotnet/csharp/roslyn-sdk/) extension that checks correct usage of the [Fody](https://github.com/Fody/Fody) extension.
 
 ## ReactiveUI.Fody.Helpers
-The [ReactiveUI.Fody.Helpers](~/api/reactiveui.fody.helpers/) package [Fody](https://github.com/Fody/Fody) extension to generate RaisePropertyChange notifications for properties and ObservableAsPropertyHelper properties.
+The [ReactiveUI.Fody.Helpers](~/api/ReactiveUI.Fody.Helpers.yml) package [Fody](https://github.com/Fody/Fody) extension to generate RaisePropertyChange notifications for properties and ObservableAsPropertyHelper properties.
 ## ReactiveUI.Maui
 The [ReactiveUI.Maui](~/api/ReactiveUI.Maui.yml) package contains the ReactiveUI platform specific extensions for [Microsoft Maui](https://dotnet.microsoft.com/en-us/apps/maui).
 

@@ -98,7 +98,7 @@ As a rule of thumb for all platforms, you should use it for bindings and any tim
 
 ## When should I bother disposing of IDisposable objects?
 
-If you do a [WhenAny](~/docs/handbook/when-any/index.md) on anything other than `this`, you **need** to put it inside a `WhenActivated` block and add a call to `DisposeWith`. If you just launch a window and then that window goes away when app goes away and you have nothing else to manage, you don't need `WhenActivated`. 
+If you do a [WhenAny](~/docs/handbook/when-any.md) on anything other than `this`, you **need** to put it inside a `WhenActivated` block and add a call to `DisposeWith`. If you just launch a window and then that window goes away when app goes away and you have nothing else to manage, you don't need `WhenActivated`. 
 
 Always use `WhenActivated` and `DisposeWith` with XAML views, if you're writing `this.WhenAnyValue(x => x.ViewModel.Prop).BindTo(...)` or `this.Bind*(...)` (read more on bindings [here](~/docs/handbook/data-binding/index.md)). You should use it any time there's something your view sets up that will outlive the view - on a Xaml platform, you may have a subscription that you don't want to stay active when the view is detached from the visual tree. It's also useful for setting up things when you get added to the visual tree, although usually the correct place for something like that is in the ViewModel's `WhenActivated`. 
 

@@ -22,7 +22,7 @@ NoTitle: true
 ## pull_request_template.md
 
 ## code_of_conduct.md
-* [accountability and expectations](~/contribute/maintainers/accountability-and-expectations/index.md)
+* [accountability and expectations](~/contribute/maintainers/accountability-and-expectations.md)
 * [code-of-conduct](https://github.com/reactiveui/ReactiveUI/blob/main/CODE_OF_CONDUCT.md)
 
 ## license

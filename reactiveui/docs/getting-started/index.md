@@ -15,10 +15,10 @@ The Model-View-ViewModel (MVVM) pattern helps create more portable and maintaina
 
 ReactiveUI makes it easy to combine the MVVM pattern with Reactive Programming by providing features such as:
 
-- [WhenAnyValue](~/docs/handbook/when-any/index.md)
+- [WhenAnyValue](~/docs/handbook/when-any.md)
 - [ReactiveCommand](~/docs/handbook/commands/index.md)
-- [ObservableAsPropertyHelper](~/docs/handbook/observable-as-property-helper/index.md)
-- [WhenActivated](~/docs/handbook/when-activated/index.md)
+- [ObservableAsPropertyHelper](~/docs/handbook/observable-as-property-helper.md)
+- [WhenActivated](~/docs/handbook/when-activated.md)
 - [Data Binding](~/docs/handbook/data-binding/index.md)
 
 <img src="~/images/mvvm.png" width="500" alt="mvvm">

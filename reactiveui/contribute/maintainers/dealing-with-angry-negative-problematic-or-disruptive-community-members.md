@@ -10,7 +10,7 @@ GitHub's [recent research](https://opensourcesurvey.org/2017/) has shown that ev
 
 _It is important to note that "stopped contributing" was the most common response to experiencing or witnessing a negative behavior._
 
-People don't just wake up overnight and decide to become maintainers of a project of this scale. They first start out as users, over time if they may become active and engaged contributors. Without a healthy community and people stepping up to help out the project maintainers will [burn out](~/contribute/maintainers/avoiding-burnout/index.md).
+People don't just wake up overnight and decide to become maintainers of a project of this scale. They first start out as users, over time if they may become active and engaged contributors. Without a healthy community and people stepping up to help out the project maintainers will [burn out](~/contribute/maintainers/avoiding-burnout.md).
 
 If ReactiveUI has no maintainers it will quickly become useless to all users and the project will die. As a result, no user complaint, behaviour or need takes priority (except in the case of [Code of Conduct](https://reactiveui.net/code-of-conduct) violations) over the burnout of maintainers. If users do not like the direction of the project, the easiest way to influence it is to make significant, high-quality contributions and become a maintainer.
 

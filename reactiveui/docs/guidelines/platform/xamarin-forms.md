@@ -6,7 +6,7 @@ Ensure that you install `ReactiveUI.XamForms` into your applications.
 
 Your viewmodels should inherit from `ReactiveObject`
 
-- [ReactiveObject](~/api/reactiveui/reactiveobject/)
+- [ReactiveObject](~/api/ReactiveUI.ReactiveObject.yml)
 
 Use `WireUpControls`
 
@@ -14,8 +14,8 @@ Use `WireUpControls`
 
 Use `IActivatableViewModel` and `WhenActivated` for lifecycle
 
-- [IActivatableViewModel](~/api/reactiveui/IActivatableViewModel/)
-- [When Activated](~/docs/handbook/when-activated/index.md)
+- [IActivatableViewModel](~/api/ReactiveUI.IActivatableViewModel.yml)
+- [When Activated](~/docs/handbook/when-activated.md)
 
 Keep references to your subscriptions
 
@@ -27,7 +27,7 @@ Use disposables to manage lifetime, scope and resources:
 
 Don't use eventhandlers, use the extension methods shipped in `ReactiveMarbles.ObservableEvents.SourceGenerator` instead
 
-- [Events](~/docs/handbook/events/index.md)
+- [Events](~/docs/handbook/events.md)
 
 Use your normal Xamarin Forms concepts that you would usually use in  Xamarin Forms development, we have some base classes which you should use as they expose observables such as `Changed`, `Changing` and `Deactivated` that can be used for composition.
 

@@ -65,4 +65,4 @@ UserError were replaced by a much more generic mechanism called [Interactions](~
 
 ReactiveList was starting to get rather buggy and a maintenance issue for maintainers.
 
-We decided to recommend [DynamicData](~/docs/handbook/collections/index.md) as many of the maintainers were already using that library.
+We decided to recommend [DynamicData](~/docs/handbook/collections.md) as many of the maintainers were already using that library.

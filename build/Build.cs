@@ -17,10 +17,13 @@ class Build : NukeBuild
     [Parameter("Configuration to build - Default is 'Debug' (local) or 'Release' (server)")]
     readonly Configuration Configuration = IsLocalBuild ? Configuration.Debug : Configuration.Release;
 
-    private readonly string reactiveui = nameof(reactiveui);
+    private static readonly string reactiveui = nameof(reactiveui);
+    private static readonly string reactivemarbles = nameof(reactivemarbles);
+    private static readonly string[] RxUIProjects = new string[] { reactiveui, "akavache", "fusillade", "punchclock", "splat", "ReactiveUI.Validation" };
 
     private AbsolutePath RxUIAPIDirectory => RootDirectory / reactiveui / "api" / reactiveui;
-    private AbsolutePath RxMAPIDirectory => RootDirectory / reactiveui / "api" / "reactivemarbles";
+    private AbsolutePath RxMAPIDirectory => RootDirectory / reactiveui / "api" / reactivemarbles;
+
 
     Target Clean => _ => _
         .Before(Restore)
@@ -36,25 +39,27 @@ class Build : NukeBuild
         .DependsOn(Clean)
         .Executes(() =>
         {
-            var RxUIProjects = new string[] { reactiveui, "akavache", "fusillade", "punchclock", "splat" };
             // Restore ReactiveUI Projects
             RxUIAPIDirectory.GetSources(reactiveui, RxUIProjects);
 
             // Restore Reactive Marbles Projects
-            RxMAPIDirectory.GetSources("reactivemarbles", "DynamicData");
+            RxMAPIDirectory.GetSources(reactivemarbles, "DynamicData");
         });
 
     Target Compile => _ => _
         .DependsOn(Restore)
         .Executes(() =>
         {
-            try
+            foreach (var project in RxUIProjects)
             {
-                MSBuildTasks.MSBuild(s => s
-                    .SetProjectFile(RxUIAPIDirectory / "external" / reactiveui / $"{reactiveui}-main" / "src" / $"{reactiveui}.sln")
-                    .SetConfiguration(Configuration)
-                    .SetRestore(false));
+                try
+                {
+                    MSBuildTasks.MSBuild(s => s
+                        .SetProjectFile(RxUIAPIDirectory / "external" / project / $"{project}-main" / "src" / $"{project}.sln")
+                        .SetConfiguration(Configuration)
+                        .SetRestore(false));
+                }
+                catch { }
             }
-            catch { }
         });
 }

@@ -28,7 +28,7 @@ Here we bind `myControl` in the view to `MyCommand` from the view model. What ha
 >     });
 > ```
 > 
-> See the [documentation](~/docs/handbook/when-activated/index.md) on `WhenActivated` for more information.
+> See the [documentation](~/docs/handbook/when-activated.md) on `WhenActivated` for more information.
 
 The `BindCommand` call shown above doesn't provide any hint as to which event will trigger command execution. In this case, the default event for the control will be used, such as `Click` or `Tapped`. If the command should execute when a specific event is triggered, use an overload of `BindCommand` that takes an event name:
 

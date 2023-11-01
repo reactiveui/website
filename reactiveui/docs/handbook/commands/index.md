@@ -95,13 +95,13 @@ LoadUsers.ThrownExceptions.Subscribe(exception =>
 });
 ```
 
-> **Note** For performance based solutions you can also use the nameof() operator override of ToProperty() which won't use the Expression. Read more on ObservableAsPropertyHelper [here](~/docs/handbook/observable-as-property-helper/index.md).
+> **Note** For performance based solutions you can also use the nameof() operator override of ToProperty() which won't use the Expression. Read more on ObservableAsPropertyHelper [here](~/docs/handbook/observable-as-property-helper.md).
 
 `ReactiveCommand` guarantees the result of events are delivered to the provided `outputScheduler`. The executing logic thread safety is the user's responsibility but any result from the logic is guaranteed to arrive on the specified `outputScheduler`. Read more on scheduling [here](#controlling-scheduling).
 
 ## Controlling executability
 
-A `ReactiveCommand` may or may not be executable in a given situation. For example, the command backing the *Save* menu item might be unavailable if there are no unsaved changes. We pass into the `ReactiveCommand` an `IObservable<bool>` of when the ReactiveCommand should be allowed to be executed. The `ReactiveCommand` uses an IObservable eventing system to determine if execution should be allowed which differs from other frameworks where you might have the command continuous poll if execution is allowed. The ReactiveCommand approach has some performance advantages in that the value is cached between the can execute observable being fired. You commonly will create your can execute observable using the [`WhenAnyValue` functions](~/docs/handbook/when-any/index.md) provided by the ReactiveUI framework: 
+A `ReactiveCommand` may or may not be executable in a given situation. For example, the command backing the *Save* menu item might be unavailable if there are no unsaved changes. We pass into the `ReactiveCommand` an `IObservable<bool>` of when the ReactiveCommand should be allowed to be executed. The `ReactiveCommand` uses an IObservable eventing system to determine if execution should be allowed which differs from other frameworks where you might have the command continuous poll if execution is allowed. The ReactiveCommand approach has some performance advantages in that the value is cached between the can execute observable being fired. You commonly will create your can execute observable using the [`WhenAnyValue` functions](~/docs/handbook/when-any.md) provided by the ReactiveUI framework: 
 
 ```cs
 // Each time values of UserName and Password properties change,
@@ -135,7 +135,7 @@ To address this dilemma, `ReactiveCommand` includes a `ThrownExceptions` observa
 LoadCommand.ThrownExceptions.Subscribe(error => { });
 ```
 
-Use <a href="~/docs/handbook/default-exception-handler/index.md">RxApp.DefaultExceptionHandler</a> if you'd like to override the default `ThrownExceptions` behaviour. This may be useful if you have crash analytics plugins installed and would like to handle all exceptions. 
+Use <a href="~/docs/handbook/default-exception-handler.md">RxApp.DefaultExceptionHandler</a> if you'd like to override the default `ThrownExceptions` behaviour. This may be useful if you have crash analytics plugins installed and would like to handle all exceptions. 
 
 It can be tempting to *always* add a subscription to `ThrownExceptions`, even if the only recourse is to just log the problem. However, it is advisable to treat this like any other exception handling and only handle problems you can redress. If, for example, your command merely updates a property in your view model and it should never fail, any subscription to `ThrownExceptions` will serve only to obscure implementation problems. That said, be aware of the potential for intermittent problems, such as network and I/O errors. As always, a strong suite of tests will help you identify where a subscription to `ThrownExceptions` makes sense.
 
@@ -194,7 +194,7 @@ Regardless of whether your command is synchronous or asynchronous in nature, you
 
 `ReactiveCommand` implements the `ICommand` for UI framework compatibility and backwards compatibility only. It is recommended you don't use the `ICommand` interface directly in your code. `ReactiveCommand` is explicitly derived from the `ICommand` interface to avoid users accidentally calling the non-reactive style methods. The `ICommand` methods do not lend well to long-running and also asynchronous commands, such as those that perform I/O operations. The `ICommand` also focuses on an imperative style of execution over the reactive style.`ReactiveCommand` provides methods and observable properties that are the equivalent of the `ICommand` interface. `Execute()` provides an Observable which you can `Subscribe()` to execute the logic of the `ReactiveCommand` and `CanExecute` is also exposed through a read-only property. Additionally `ReactiveCommand` provides the `IsExecuting` observable which is functionally not provided by the `ICommand` interface.
 
-> **Hint** Try not to execute commands in the ViewModel constructor. If commands are invoked in the constructor, your ViewModel classes become more difficult to test, because you always have to mock out the effects of calling that commands, even if the thing you are testing is unrelated. Instead, use <a href="~/docs/handbook/when-activated/index.md">WhenActivated</a>.
+> **Hint** Try not to execute commands in the ViewModel constructor. If commands are invoked in the constructor, your ViewModel classes become more difficult to test, because you always have to mock out the effects of calling that commands, even if the thing you are testing is unrelated. Instead, use <a href="~/docs/handbook/when-activated.md">WhenActivated</a>.
 
 ## Invoking commands in an Observable pipeline
 

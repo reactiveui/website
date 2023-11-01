@@ -45,7 +45,7 @@ public interface ISchedulerProvider
 
 ## Unit Tests
 
-Then, in unit tests project, you can inject a `TestScheduler` instance that allows you to play with time. There are a few more utility classes to help handle testing, see details on the [API documentation site](../../../api/reactiveui.testing/). 
+Then, in unit tests project, you can inject a `TestScheduler` instance that allows you to play with time. There are a few more utility classes to help handle testing, see details on the [API documentation site](~/api/reactiveui.testing.yml). 
 
 ```cs
 new TestScheduler().With(scheduler =>

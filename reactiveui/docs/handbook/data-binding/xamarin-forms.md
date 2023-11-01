@@ -120,4 +120,4 @@ public partial class TheContentPage : ReactiveContentPage<TheViewModel>
 
 Want to know how this affects ViewModel based routing?
 
-See [Routing documentation](~/docs/handbook/routing/index.md)!
+See [Routing documentation](~/docs/handbook/routing.md)!

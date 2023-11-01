@@ -43,9 +43,9 @@ For a detailed overview of the bindings on each platform, see the following sect
 
 ## Types of Bindings
 
-Once you implement `IViewFor<T>`, binding methods are now available as extension methods on your class, as well as [activation and deactivation](~/docs/handbook/when-activated/index.md) feature for your views and associated view models. Like many other things in ReactiveUI, you should only set up bindings in a constructor or even better in a [WhenActivated](~/docs/handbook/when-activated/index.md) block.
+Once you implement `IViewFor<T>`, binding methods are now available as extension methods on your class, as well as [activation and deactivation](~/docs/handbook/when-activated.md) feature for your views and associated view models. Like many other things in ReactiveUI, you should only set up bindings in a constructor or even better in a [WhenActivated](~/docs/handbook/when-activated.md) block.
 
-`OneWayBind`, `Bind`, `BindCommand` and `Subscribe` methods return an `IDisposable`. In general, you shouldn't care about this return value, except if you want to break a binding manually, or you're on a XAML-based platform, where bindings can leak memory. [WhenActivated](~/docs/handbook/when-activated/index.md) feature helps handle this concern gracefully.
+`OneWayBind`, `Bind`, `BindCommand` and `Subscribe` methods return an `IDisposable`. In general, you shouldn't care about this return value, except if you want to break a binding manually, or you're on a XAML-based platform, where bindings can leak memory. [WhenActivated](~/docs/handbook/when-activated.md) feature helps handle this concern gracefully.
 
 * **OneWayBind:** - Sets up a one-way binding from a property on the ViewModel
   to the View.

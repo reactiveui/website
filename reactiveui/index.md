@@ -30,7 +30,7 @@ _layout: landing
                 <br class="visible-xs visible-sm">
                 <div class="code-sample">
                  	<pre class="branding-code">
-<a class="text-danger" href="~/docs/handbook/view-models/index.md">this</a>.<a class="text-info" href="docs/handbook/when-any/">WhenAnyValue</a>(x => x.SearchQuery)
+<a class="text-danger" href="~/docs/handbook/view-models/index.md">this</a>.<a class="text-info" href="~/docs/handbook/when-any.md">WhenAnyValue</a>(x => x.SearchQuery)
     .<a class="text-info" href="https://reactivex.io/documentation/operators/debounce.html">Throttle</a>(<span class="text-danger">TimeSpan</span>.<span class="text-info">FromSeconds</span>(<span class="text-danger">0.8</span>), <span class="text-danger">RxApp</span>.<a class="text-info" href="~/docs/handbook/scheduling.md">TaskpoolScheduler</a>)
     .<a class="text-info" href="https://reactivex.io/documentation/operators/map.html">Select</a>(query => query?.<span class="text-info">Trim</span>())
     .<a class="text-info" href="https://reactivex.io/documentation/operators/distinct.html">DistinctUntilChanged</a>()

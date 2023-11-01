@@ -39,7 +39,7 @@ ReactiveUI packages are now signed by the dotnet foundation. Only builds from th
 
 [Test]: https://www.nuget.org/packages/ReactiveUI.Testing/
 [TestBadge]: https://img.shields.io/nuget/v/ReactiveUI.Testing.svg
-[TestDoc]: ~/docs/handbook/testing/index.md
+[TestDoc]: ~/docs/handbook/testing.md
 
 [Wpf]: https://www.nuget.org/packages/ReactiveUI.WPF/
 [WpfBadge]: https://img.shields.io/nuget/v/ReactiveUI.WPF.svg
@@ -86,11 +86,11 @@ ReactiveUI packages are now signed by the dotnet foundation. Only builds from th
 [Ava]: https://www.nuget.org/packages/Avalonia.ReactiveUI/
 [AvaBadge]: https://img.shields.io/nuget/v/Avalonia.ReactiveUI.svg
 [AvaDoc]: ~/docs/getting-started/installation/avalonia.md
-[EventsDocs]: ~/docs/handbook/events/index.md
+[EventsDocs]: ~/docs/handbook/events.md
 
 [ValCore]: https://www.nuget.org/packages/ReactiveUI.Validation/
 [ValBadge]: https://img.shields.io/nuget/v/ReactiveUI.Validation.svg
-[ValDocs]: ~/docs/handbook/user-input-validation/index.md
+[ValDocs]: ~/docs/handbook/user-input-validation.md
 
 > **Note** ReactiveUI has packages for older .NET versions. Those packages are unlisted from NuGet and not supported, but you can still use them at your own risk to have ReactiveUI running on good old devices, such as Lumias, Surface Hubs, Windows XP, etc. See [Delisting of versions before 8.0.0 from NuGet](https://reactiveui.net/blog/2018/05/delisting-of-versions-before-8-0-0-from-nuget) blog post for more info.
 
