@@ -10,6 +10,8 @@
   href: windows-forms.md
 - name: Windows Presentation Foundation
   href: windows-presentation-foundation.md
+- name: Windows UI
+  href: winui.md
 - name: Xamarin Android
   href: xamarin-android.md
 - name: Xamarin Forms

@@ -6,7 +6,8 @@ Title: Avalonia
 
 # Package Installation
 
-Please note that the ReactiveUI support for [Avalonia](https://avaloniaui.net/) is provided directly by that team. See them for any support questions.
+Please note that the ReactiveUI support for [Avalonia](https://avaloniaui.net/) is provided directly by that team. 
+See them for any support questions.
 
 Assuming the following project structure:
 
