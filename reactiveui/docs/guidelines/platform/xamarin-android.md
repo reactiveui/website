@@ -31,17 +31,17 @@ Don't use eventhandlers, use the extension methods shipped in `ReactiveMarbles.O
 
 Use your normal Android concepts that you would usually use in Android development, we have some base classes which you should use as they expose observables such as `Changed`, `Changing` and `Deactivated` that can be used for composition.
 
-- [ReactiveActivity](~/api/reactiveui/reactiveactivity_1/)
-- [ReactiveFragment](~/api/reactiveui/reactivefragment_1/)
-- [ReactivePreferenceFragment](~/api/reactiveui/reactivepreferencefragment_1/)
-- [ReactivePreferenceActivity](~/api/reactiveui/reactivepreferenceactivity_1/)
+- [ReactiveActivity](~/api/ReactiveUI.ReactiveActivity-1.yml)
+- [ReactiveFragment](~/api/ReactiveUI.ReactiveFragment-1.yml)
+- [ReactivePreferenceFragment](~/api/ReactiveUI.ReactivePreferenceFragment-1.yml)
+- [ReactivePreferenceActivity](~/api/ReactiveUI.ReactivePreferenceActivity-1.yml)
 - [ReactiveUI.AndroidSupport](~/api/reactiveui.androidsupport.yml)
 - [ReactiveUI.AndroidX](~/api/ReactiveUI.AndroidX.yml)
 
 There's also some extension methods which will make your life easier
 
-- [ControlFetcherMixin](~/api/reactiveui.androidsupport/controlfetchermixin/)
-- [SharedPreferencesExtensions](~/api/reactiveui/sharedpreferencesextensions/)
-- [UsbManagerExtensions](~/api/reactiveui/usbmanagerextensions/)
-- [AndroidObservableForWidgets](~/api/reactiveui/androidobservableforwidgets/)
-- [FlexibleCommandBinder](~/api/reactiveui/flexiblecommandbinder/)
+- [ControlFetcherMixin](~/api/reactiveui.androidsupport.controlfetchermixin.yml)
+- [SharedPreferencesExtensions](~/api/ReactiveUI.SharedPreferencesExtensions.yml)
+- [UsbManagerExtensions](~/api/ReactiveUI.UsbManagerExtensions.yml)
+- [AndroidObservableForWidgets](~/api/ReactiveUI.AndroidObservableForWidgets.yml)
+- [FlexibleCommandBinder](~/api/ReactiveUI.FlexibleCommandBinder.yml)

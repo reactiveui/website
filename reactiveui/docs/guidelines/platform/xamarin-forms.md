@@ -31,18 +31,18 @@ Don't use eventhandlers, use the extension methods shipped in `ReactiveMarbles.O
 
 Use your normal Xamarin Forms concepts that you would usually use in  Xamarin Forms development, we have some base classes which you should use as they expose observables such as `Changed`, `Changing` and `Deactivated` that can be used for composition.
 
-- [ReactiveCarouselPage](~/api/reactiveui.xamforms/reactivecarouselpage_1/)
-- [ReactiveContentPage](~/api/reactiveui.xamforms/reactivecontentpage_1/)
-- [ReactiveContentView](~/api/reactiveui.xamforms/reactivecontentview_1/)
-- [ReactiveEntryCell](~/api/reactiveui.xamforms/reactiveentrycell_1/)
-- [ReactiveImageCell](~/api/reactiveui.xamforms/reactiveimagecell_1/)
-- [ReactiveMasterDetailPage](~/api/reactiveui.xamforms/reactivemasterdetailpage_1/)
-- [ReactiveNavigationPage](~/api/reactiveui.xamforms/reactivenavigationpage_1/)
-- [ReactiveSwitchCell](~/api/reactiveui.xamforms/reactiveswitchcell_1/)
-- [ReactiveTabbedPage](~/api/reactiveui.xamforms/reactivetabbedpage_1/)
-- [ReactiveTextCell](~/api/reactiveui.xamforms/reactivetextcell_1/)
-- [ReactiveViewCell](~/api/reactiveui.xamforms/reactiveviewcell_1/)
-- [RoutedViewHost](~/api/reactiveui.xamforms/routedviewhost/)
-- [ViewModelViewHost](~/api/reactiveui.xamforms/viewmodelviewhost/)
+- [ReactiveCarouselPage](~/api/ReactiveUI.XamForms.ReactiveCarouselPage-1.yml)
+- [ReactiveContentPage](~/api/ReactiveUI.XamForms.ReactiveContentPage-1.yml)
+- [ReactiveContentView](~/api/ReactiveUI.XamForms.ReactiveContentView-1.yml)
+- [ReactiveEntryCell](~/api/ReactiveUI.XamForms.ReactiveEntryCell-1.yml)
+- [ReactiveImageCell](~/api/ReactiveUI.XamForms.ReactiveImageCell-1.yml)
+- [ReactiveMasterDetailPage](~/api/ReactiveUI.XamForms.ReactiveMasterDetailPage-1.yml)
+- [ReactiveNavigationPage](~/api/ReactiveUI.XamForms.ReactiveNavigationPage-1.yml)
+- [ReactiveSwitchCell](~/api/ReactiveUI.XamForms.ReactiveSwitchCell-1.yml)
+- [ReactiveTabbedPage](~/api/ReactiveUI.XamForms.ReactiveTabbedPage-1.yml)
+- [ReactiveTextCell](~/api/ReactiveUI.XamForms.ReactiveTextCell-1.yml)
+- [ReactiveViewCell](~/api/ReactiveUI.XamForms.ReactiveViewCell-1.yml)
+- [RoutedViewHost](~/api/ReactiveUI.XamForms.RoutedViewHost.yml)
+- [ViewModelViewHost](~/api/ReactiveUI.XamForms.ViewModelViewHost.yml)
 
 

@@ -3,7 +3,7 @@ NoTitle: true
 ---
 The default behaviour of ReactiveUI is to crash the application with whenever an object that has a ThrownExceptions property doesn't have a subscription. 
 
-You can override this behaviour or hook your debugger or analytics client by connecting an observable to [RxApp.DefaultExceptionHandler](~/api/ReactiveUI.RxApp.html#ReactiveUI_RxApp_DefaultExceptionHandler.yml):
+You can override this behaviour or hook your debugger or analytics client by connecting an observable to [RxApp.DefaultExceptionHandler](~/api/ReactiveUI.RxApp.yml#ReactiveUI_RxApp_DefaultExceptionHandler):
 
 ```csharp
 public class MyCoolObservableExceptionHandler : IObserver<Exception>

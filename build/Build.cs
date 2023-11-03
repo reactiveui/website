@@ -3,6 +3,7 @@ using Nuke.Common.IO;
 using Nuke.Common.Tooling;
 using ReactiveUI.Web;
 using Nuke.Common.Tools.MSBuild;
+using System.IO;
 
 class Build : NukeBuild
 {
@@ -54,12 +55,25 @@ class Build : NukeBuild
             {
                 try
                 {
+                    var dirRx = RxUIAPIDirectory / "external" / project / $"{project}-main" / "src";
+                    File.Copy(RootDirectory / "global.json", dirRx / "global.json", true);
                     MSBuildTasks.MSBuild(s => s
-                        .SetProjectFile(RxUIAPIDirectory / "external" / project / $"{project}-main" / "src" / $"{project}.sln")
+                        .SetProjectFile(dirRx / $"{project}.sln")
                         .SetConfiguration(Configuration)
-                        .SetRestore(false));
+                        .SetRestore(true));
                 }
                 catch { }
             }
+
+            try
+            {
+                var dirDd = RxMAPIDirectory / "external" / "DynamicData" / $"{"DynamicData"}-main" / "src";
+                File.Copy(RootDirectory / "global.json", dirDd / "global.json", true);
+                MSBuildTasks.MSBuild(s => s
+                    .SetProjectFile(dirDd / "DynamicData.sln")
+                    .SetConfiguration(Configuration)
+                    .SetRestore(true));
+            }
+            catch { }
         });
 }

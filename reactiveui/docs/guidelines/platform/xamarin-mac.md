@@ -37,10 +37,10 @@ Don't use eventhandlers, use the extension methods shipped in `ReactiveMarbles.O
 
 Use your normal iOS concepts that you would usually use in OSX development, we have some base classes which you should use as they expose observables such as `Changed`, `Changing` and `Deactivated` that can be used for composition.
 
-- [ReactiveTableViewController](~/api/reactiveui/reactivetableviewcontroller/)
-- [ReactiveTableView](~/api/reactiveui/reactivetableview/)
-- [ReactiveCollectionView](~/api/reactiveui/reactivecollectionview/)
-- [ReactiveCollectionViewController](~/api/reactiveui/reactivecollectionviewcontroller)
-- [ReactiveNavigationController](~/api/reactiveui/reactivenavigationcontroller)
-- [ReactiveTabBarController](~/api/reactiveui/reactivetabbarcontroller/)
-- [ReactivePageViewController](~/api/reactiveui/reactivepageviewcontroller/)
+- [ReactiveTableViewController](~/api/ReactiveUI.ReactiveTableViewController.yml)
+- [ReactiveTableView](~/api/ReactiveUI.ReactiveTableView.yml)
+- [ReactiveCollectionView](~/api/ReactiveUI.ReactiveCollectionView-1.yml)
+- [ReactiveCollectionViewController](~/api/ReactiveUI.ReactiveCollectionViewController.yml)
+- [ReactiveNavigationController](~/api/ReactiveUI.ReactiveNavigationController.yml)
+- [ReactiveTabBarController](~/api/ReactiveUI.ReactiveTabBarController.yml)
+- [ReactivePageViewController](~/api/ReactiveUI.ReactivePageViewController.yml)
