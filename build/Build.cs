@@ -90,4 +90,19 @@ class Build : NukeBuild
                 SourceFetcher.LogRepositoryError(reactivemarbles, DynamicData, ex.ToString());
             }
         });
+
+    Target BuildWebsite => _ => _
+    .Produces(RootDirectory / reactiveui / "_site")
+    .Executes(() =>
+    {
+        try
+        {
+            ProcessTasks.StartShell("docfx reactiveui/docfx.json").AssertZeroExitCode();
+            SourceFetcher.LogInfo("Web Site build complete");
+        }
+        catch (Exception ex)
+        {
+            SourceFetcher.LogError(ex.ToString());
+        }
+    });
 }

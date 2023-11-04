@@ -39,7 +39,7 @@ jobs:
         run: ./build.cmd Compile
         
       - name: Build Website
-        run: docfx reactiveui/docfx.json
+        run: ./build.cmd BuildWebsite
 
       - name: Deploy netlify   
         if: ${{ github.event_name != 'pull_request' }}    

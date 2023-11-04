@@ -75,6 +75,7 @@
       "_appLogoPath": "images/logoSmall.png",
       "_appFaviconPath": "images/favicons/favicon.ico",
       "_disableContribution": true,
+      "_enableSearch": true,
       "_appFooter": "Copyright (c) .NET Foundation and Contributors",
       "_appName": "ReactiveUI"
     },

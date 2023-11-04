@@ -162,12 +162,17 @@ internal static class SourceFetcher
 
     internal static void LogRepositoryError(string owner, string repository, string message)
     {
+        LogError($"{message} {owner}/{repository}...");
+    }
+
+    internal static void LogError(string message)
+    {
         lock (_lockConsoleObject)
         {
             Console.ForegroundColor = ConsoleColor.Red;
             Console.Write("[ERROR] ");
             Console.ResetColor();
-            Console.Write($"{message} {owner}/{repository}...");
+            Console.Write(message);
             Console.WriteLine();
         }
     }
