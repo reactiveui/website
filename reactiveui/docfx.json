@@ -18,8 +18,8 @@
             "/**/ReactiveUI.AndroidSupport/bin/*/monoandroid13.0/ReactiveUI.AndroidSupport.dll",
             "/**/ReactiveUI.AndroidX/bin/*/monoandroid13.0/ReactiveUI.AndroidX.dll",
             "/**/ReactiveUI.Blazor/bin/*/netstandard2.0/ReactiveUI.Blazor.dll",
-            "/**/ReactiveUI.Blend/bin/*/net7.0-windows10.0.19041.0/ReactiveUI.Blend.dll",
-            "/**/ReactiveUI.Drawing/bin/*/net7.0/ReactiveUI.Drawing.dll",
+            "/**/ReactiveUI.Blend/bin/*/net7.0-windows10.0.17763.0/ReactiveUI.Blend.dll",
+            "/**/ReactiveUI.Drawing/bin/*/netstandard2.0/ReactiveUI.Drawing.dll",
             "/**/ReactiveUI.Fody/bin/*/netstandard2.0/ReactiveUI.Fody.dll",
             "/**/ReactiveUI.Fody.Analyzer/bin/*/netstandard2.0/ReactiveUI.Fody.Analyzer.dll",
             "/**/ReactiveUI.Fody.Helpers/bin/*/netstandard2.0/ReactiveUI.Fody.Helpers.dll",
@@ -54,9 +54,6 @@
         }
       ],
       "dest": "api",
-      "properties": {
-        "TargetFramework": "net7.0"
-      },
       "outputFormat": "mref",
       "includePrivateMembers": false,
       "disableGitFeatures": false,
