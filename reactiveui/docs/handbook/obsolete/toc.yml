@@ -1,0 +1,4 @@
+- name: Obsolete
+  href: index.md
+- name: Collections
+  href: Collections/toc.yml

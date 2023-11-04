@@ -1,112 +1,74 @@
+[CmdletBinding()]
+Param(
+    [Parameter(Position=0,Mandatory=$false,ValueFromRemainingArguments=$true)]
+    [string[]]$BuildArguments
+)
+
+Write-Output "PowerShell $($PSVersionTable.PSEdition) version $($PSVersionTable.PSVersion)"
+
+Set-StrictMode -Version 2.0; $ErrorActionPreference = "Stop"; $ConfirmPreference = "None"; trap { Write-Error $_ -ErrorAction Continue; exit 1 }
 $PSScriptRoot = Split-Path $MyInvocation.MyCommand.Path -Parent
 
-[string] $CakeVersion = ''
-foreach($line in Get-Content "$PSScriptRoot\build.config")
-{
-  if ($line -like 'CAKE_VERSION=*') {
-      $CakeVersion = $line.SubString(13)
-  }
-}
-
-
-if ([string]::IsNullOrEmpty($CakeVersion)) {
-    'Failed to parse Cake Version'
-    exit 1
-}
-
-# Make sure tools folder exists
-$ToolPath = Join-Path $PSScriptRoot "tools"
-if (!(Test-Path $ToolPath)) {
-    Write-Verbose "Creating tools directory..."
-    New-Item -Path $ToolPath -Type Directory -Force | out-null
-}
-
-
-if ($PSVersionTable.PSEdition -ne 'Core') {
-    # Attempt to set highest encryption available for SecurityProtocol.
-    # PowerShell will not set this by default (until maybe .NET 4.6.x). This
-    # will typically produce a message for PowerShell v2 (just an info
-    # message though)
-    try {
-        # Set TLS 1.2 (3072), then TLS 1.1 (768), then TLS 1.0 (192), finally SSL 3.0 (48)
-        # Use integers because the enumeration values for TLS 1.2 and TLS 1.1 won't
-        # exist in .NET 4.0, even though they are addressable if .NET 4.5+ is
-        # installed (.NET 4.5 is an in-place upgrade).
-        [System.Net.ServicePointManager]::SecurityProtocol = 3072 -bor 768 -bor 192 -bor 48
-      } catch {
-        Write-Output 'Unable to set PowerShell to use TLS 1.2 and TLS 1.1 due to old .NET Framework installed. If you see underlying connection closed or trust errors, you may need to upgrade to .NET Framework 4.5+ and PowerShell v3'
-      }
-}
-
 ###########################################################################
-# INSTALL .NET CORE CLI
+# CONFIGURATION
 ###########################################################################
 
-Function Remove-PathVariable([string]$VariableToRemove)
-{
-    $SplitChar = ';'
-    if ($IsMacOS -or $IsLinux) {
-        $SplitChar = ':'
-    }
+$BuildProjectFile = "$PSScriptRoot\build\_build.csproj"
+$TempDirectory = "$PSScriptRoot\\.nuke\temp"
 
-    $path = [Environment]::GetEnvironmentVariable("PATH", "User")
-    if ($path -ne $null)
-    {
-        $newItems = $path.Split($SplitChar, [StringSplitOptions]::RemoveEmptyEntries) | Where-Object { "$($_)" -inotlike $VariableToRemove }
-        [Environment]::SetEnvironmentVariable("PATH", [System.String]::Join($SplitChar, $newItems), "User")
-    }
+$DotNetGlobalFile = "$PSScriptRoot\\global.json"
+$DotNetInstallUrl = "https://dot.net/v1/dotnet-install.ps1"
+$DotNetChannel = "STS"
 
-    $path = [Environment]::GetEnvironmentVariable("PATH", "Process")
-    if ($path -ne $null)
-    {
-        $newItems = $path.Split($SplitChar, [StringSplitOptions]::RemoveEmptyEntries) | Where-Object { "$($_)" -inotlike $VariableToRemove }
-        [Environment]::SetEnvironmentVariable("PATH", [System.String]::Join($SplitChar, $newItems), "Process")
-    }
+$env:DOTNET_SKIP_FIRST_TIME_EXPERIENCE = 1
+$env:DOTNET_CLI_TELEMETRY_OPTOUT = 1
+$env:DOTNET_MULTILEVEL_LOOKUP = 0
+
+###########################################################################
+# EXECUTION
+###########################################################################
+
+function ExecSafe([scriptblock] $cmd) {
+    & $cmd
+    if ($LASTEXITCODE) { exit $LASTEXITCODE }
 }
 
-$env:DOTNET_SKIP_FIRST_TIME_EXPERIENCE=1
-$env:DOTNET_CLI_TELEMETRY_OPTOUT=1
-
-###########################################################################
-# INSTALL CAKE
-###########################################################################
-
-# Make sure Cake has been installed.
-[string] $CakeExePath = ''
-[string] $CakeInstalledVersion = Get-Command dotnet-cake -ErrorAction SilentlyContinue  | % {&$_.Source --version}
-
-if ($CakeInstalledVersion -eq $CakeVersion) {
-    # Cake found locally
-    $CakeExePath = (Get-Command dotnet-cake).Source
+# If dotnet CLI is installed globally and it matches requested version, use for execution
+if ($null -ne (Get-Command "dotnet" -ErrorAction SilentlyContinue) -and `
+     $(dotnet --version) -and $LASTEXITCODE -eq 0) {
+    $env:DOTNET_EXE = (Get-Command "dotnet").Path
 }
 else {
-    $CakePath = Join-Path $ToolPath ".store\cake.tool\$CakeVersion"
-    $CakeExePath = (Get-ChildItem -Path $ToolPath -Filter "dotnet-cake*" -File| ForEach-Object FullName | Select-Object -First 1)
+    # Download install script
+    $DotNetInstallFile = "$TempDirectory\dotnet-install.ps1"
+    New-Item -ItemType Directory -Path $TempDirectory -Force | Out-Null
+    [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+    (New-Object System.Net.WebClient).DownloadFile($DotNetInstallUrl, $DotNetInstallFile)
 
-
-    if ((!(Test-Path -Path $CakePath -PathType Container)) -or (!(Test-Path $CakeExePath -PathType Leaf))) {
-
-        if ((![string]::IsNullOrEmpty($CakeExePath)) -and (Test-Path $CakeExePath -PathType Leaf))
-        {
-            & dotnet tool uninstall --tool-path $ToolPath Cake.Tool
+    # If global.json exists, load expected version
+    if (Test-Path $DotNetGlobalFile) {
+        $DotNetGlobal = $(Get-Content $DotNetGlobalFile | Out-String | ConvertFrom-Json)
+        if ($DotNetGlobal.PSObject.Properties["sdk"] -and $DotNetGlobal.sdk.PSObject.Properties["version"]) {
+            $DotNetVersion = $DotNetGlobal.sdk.version
         }
-
-        & dotnet tool install --tool-path $ToolPath --version $CakeVersion Cake.Tool
-        if ($LASTEXITCODE -ne 0)
-        {
-            'Failed to install cake'
-            exit 1
-        }
-        $CakeExePath = (Get-ChildItem -Path $ToolPath -Filter "dotnet-cake*" -File| ForEach-Object FullName | Select-Object -First 1)
     }
+
+    # Install by channel or version
+    $DotNetDirectory = "$TempDirectory\dotnet-win"
+    if (!(Test-Path variable:DotNetVersion)) {
+        ExecSafe { & powershell $DotNetInstallFile -InstallDir $DotNetDirectory -Channel $DotNetChannel -NoPath }
+    } else {
+        ExecSafe { & powershell $DotNetInstallFile -InstallDir $DotNetDirectory -Version $DotNetVersion -NoPath }
+    }
+    $env:DOTNET_EXE = "$DotNetDirectory\dotnet.exe"
 }
 
-###########################################################################
-# RUN BUILD SCRIPT
-###########################################################################
-& "$CakeExePath" ./build.cake --bootstrap
-if ($LASTEXITCODE -eq 0)
-{
-    & "$CakeExePath" ./build.cake $args
+Write-Output "Microsoft (R) .NET SDK version $(& $env:DOTNET_EXE --version)"
+
+if (Test-Path env:NUKE_ENTERPRISE_TOKEN) {
+    & $env:DOTNET_EXE nuget remove source "nuke-enterprise" > $null
+    & $env:DOTNET_EXE nuget add source "https://f.feedz.io/nuke/enterprise/nuget" --name "nuke-enterprise" --username "PAT" --password $env:NUKE_ENTERPRISE_TOKEN > $null
 }
-exit $LASTEXITCODE
+
+ExecSafe { & $env:DOTNET_EXE build $BuildProjectFile /nodeReuse:false /p:UseSharedCompilation=false -nologo -clp:NoSummary --verbosity quiet }
+ExecSafe { & $env:DOTNET_EXE run --project $BuildProjectFile --no-build -- $BuildArguments }

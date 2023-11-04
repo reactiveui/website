@@ -1,0 +1,46 @@
+- name: Handbook
+  href: index.md
+- name: Collections
+  href: collections.md
+- name: Commands
+  href: commands/toc.yml
+- name: Data Binding
+  href: data-binding/toc.yml
+- name: Data Persistence
+  href: data-persistence.md
+- name: Default exception handler
+  href: default-exception-handler.md
+- name: Dependency Injection
+  href: dependency-inversion/toc.yml
+- name: Design Time
+  href: design-time.md
+- name: Events
+  href: events.md
+- name: Interactions
+  href: interactions/toc.yml
+- name: Logging
+  href: logging/toc.yml
+- name: Message Bus
+  href: message-bus.md
+- name: Observable as property helper
+  href: observable-as-property-helper.md
+- name: Obsolete
+  href: obsolete/toc.yml
+- name: Routing
+  href: routing.md
+- name: Scheduling
+  href: scheduling.md
+- name: Snippets
+  href: snippets.md
+- name: Testing
+  href: testing.md
+- name: User input validation
+  href: user-input-validation.md
+- name: View location
+  href: view-location/toc.yml
+- name: View Models
+  href: view-models/toc.yml
+- name: When Activated
+  href: when-activated.md
+- name: When Any
+  href: when-any.md

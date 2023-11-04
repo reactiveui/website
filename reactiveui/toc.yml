@@ -1,0 +1,22 @@
+- name: Documentation
+  href: docs/
+  homepage: docs/index.md
+- name: Api
+  href: api/
+  homepage: api/index.md
+- name: Contribute
+  href: contribute/
+  homepage: contribute/index.md
+- name: ReactiveUI vs.
+  href: vs/
+  homepage: vs/index.md
+- name: Announcements
+  href: Announcements/
+  homepage: Announcements/2021-01-04-reactiveui-association.md
+- name: Articles
+  href: articles/
+  homepage: articles/2020-07-16-article-on-elevated-values.md
+- name: Extensions
+  href: Extensions.md
+- name: Book
+  href: book.md

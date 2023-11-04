@@ -1,0 +1,8 @@
+- name: Getting Started
+  href: index.md
+- name: Installation
+  href: installation/toc.yml
+- name: Compelling Example
+  href: compelling-example.md
+- name: Minimum Versions
+  href: minimum-versions.md

@@ -1,2 +1,7 @@
-@echo off
-powershell -ExecutionPolicy Unrestricted ./build.ps1 %CAKE_ARGS% %*
+:; set -eo pipefail
+:; SCRIPT_DIR=$(cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd)
+:; ${SCRIPT_DIR}/build.sh "$@"
+:; exit $?
+
+@ECHO OFF
+powershell -ExecutionPolicy ByPass -NoProfile -File "%~dp0build.ps1" %*

@@ -1,0 +1,8 @@
+- name: Creating A New Release
+  href: creating-a-new-release.md
+- name: Semantic Versioning
+  href: semantic-versioning.md
+- name: Troubleshooting
+  href: troubleshooting.md
+- name: Workflow
+  href: workflow.md

@@ -1,0 +1,61 @@
+.navbar-brand {
+    color: #319af3;
+    font-weight: 300;
+    font-family: "Source Sans Pro",Helvetica,Arial,sans-serif;
+}
+
+.branding-button {
+    border-radius: 30px;
+    border: 1px solid #319af3;
+    transition: all .3s ease;
+    text-decoration: none;
+    display: inline-block;
+    margin-bottom: 10px;
+    padding: 7px 15px;
+}
+
+.branding-button:hover {
+    transition: all .3s ease;
+    border-color: #319af3;
+    background-color: #319af3;
+    text-decoration: none;
+    color: #fff
+}
+
+.branding-title {
+    color: #319af3;
+    font-size: 51px;
+    font-weight: 300;
+    margin-top: 10px;
+    font-family: "Source Sans Pro",Helvetica,Arial,sans-serif;
+}
+
+.branding-subheader {
+    font-size: 25px;
+    color: #319af3
+}
+
+.branding-sub-caption {
+    color: #2a4249
+}
+
+.branding-code {
+    font-size: 14px;
+    line-height: 1.8em;
+    margin-top: 20px;
+    overflow: hidden
+}
+
+.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
+    font-family: "Source Sans Pro",Helvetica,Arial,sans-serif
+}
+
+a {
+    color: #319af3
+}
+
+    a:active, a:focus, a:hover {
+        outline: 0;
+        text-decoration: none;
+        color: #319af3
+    }
