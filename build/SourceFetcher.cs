@@ -145,7 +145,7 @@ internal static class SourceFetcher
         process.Dispose();
     }
 
-    private static void LogInfo(string message)
+    internal static void LogInfo(string message)
     {
         lock (_lockConsoleObject)
         {
@@ -160,7 +160,7 @@ internal static class SourceFetcher
     private static void LogRepositoryInfo(string owner, string repository, string message) =>
         LogInfo($"{message} {owner}/{repository}...");
 
-    private static void LogRepositoryError(string owner, string repository, string message)
+    internal static void LogRepositoryError(string owner, string repository, string message)
     {
         lock (_lockConsoleObject)
         {

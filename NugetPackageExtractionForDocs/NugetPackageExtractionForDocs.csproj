@@ -9,6 +9,7 @@
         <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
         <BaseOutputPath>..\reactiveui\api\src\bin</BaseOutputPath>
         <PlatformTarget>x64</PlatformTarget>
+        <IsPackable>false</IsPackable>
     </PropertyGroup>
 
     <ItemGroup Condition="'$(TargetFramework)' == 'net7.0'">
