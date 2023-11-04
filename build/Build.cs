@@ -1,37 +1,36 @@
 using Nuke.Common;
 using Nuke.Common.IO;
+using Nuke.Common.ProjectModel;
 using Nuke.Common.Tooling;
+using Nuke.Common.Tools.DotNet;
 using ReactiveUI.Web;
 using Nuke.Common.Tools.MSBuild;
 using System.IO;
+using static Nuke.Common.Tools.DotNet.DotNetTasks;
 
 class Build : NukeBuild
 {
-    /// Support plugins are available for:
-    ///   - JetBrains ReSharper        https://nuke.build/resharper
-    ///   - JetBrains Rider            https://nuke.build/rider
-    ///   - Microsoft VisualStudio     https://nuke.build/visualstudio
-    ///   - Microsoft VSCode           https://nuke.build/vscode
-
     public static int Main() => Execute<Build>(x => x.Compile);
 
-    [Parameter("Configuration to build - Default is 'Debug' (local) or 'Release' (server)")]
-    readonly Configuration Configuration = IsLocalBuild ? Configuration.Debug : Configuration.Release;
-
     private static readonly string reactiveui = nameof(reactiveui);
-    private static readonly string reactivemarbles = nameof(reactivemarbles);
-    private static readonly string[] RxUIProjects = new string[] { reactiveui, "akavache", "fusillade", "punchclock", "splat", "ReactiveUI.Validation" };
+
+    [Solution(GenerateProjects = true)] private readonly Solution Solution;
+
+    [Parameter("Configuration to build - Default is 'Debug' (local) or 'Release' (server)")]
+    private readonly Configuration Configuration = IsLocalBuild ? Configuration.Debug : Configuration.Release;
 
     private AbsolutePath RxUIAPIDirectory => RootDirectory / reactiveui / "api" / reactiveui;
-    private AbsolutePath RxMAPIDirectory => RootDirectory / reactiveui / "api" / reactivemarbles;
+    private AbsolutePath RxSrcIDirectory => RootDirectory / reactiveui / "api" / "src";
 
+    private Project PackageProject;
 
     Target Clean => _ => _
         .Before(Restore)
         .Executes(() =>
         {
             RxUIAPIDirectory.DeleteDirectory();
-            RxMAPIDirectory.DeleteDirectory();
+            RxSrcIDirectory.CreateOrCleanDirectory();
+
             // Install docfx
             ProcessTasks.StartShell("dotnet tool update -g docfx").AssertZeroExitCode();
         });
@@ -41,39 +40,31 @@ class Build : NukeBuild
         .Executes(() =>
         {
             // Restore ReactiveUI Projects
-            RxUIAPIDirectory.GetSources(reactiveui, RxUIProjects);
+            RxUIAPIDirectory.GetSources(reactiveui, reactiveui);
 
-            // Restore Reactive Marbles Projects
-            RxMAPIDirectory.GetSources(reactivemarbles, "DynamicData");
+            // Restore Reactive Projects from Nuget
+            PackageProject = Solution.GetProject("NugetPackageExtractionForDocs");
+            DotNetRestore(s => s.SetProjectFile(PackageProject));
         });
 
     Target Compile => _ => _
         .DependsOn(Restore)
         .Executes(() =>
         {
-            foreach (var project in RxUIProjects)
-            {
-                try
-                {
-                    var dirRx = RxUIAPIDirectory / "external" / project / $"{project}-main" / "src";
-                    File.Copy(RootDirectory / "global.json", dirRx / "global.json", true);
-                    MSBuildTasks.MSBuild(s => s
-                        .SetProjectFile(dirRx / $"{project}.sln")
-                        .SetConfiguration(Configuration)
-                        .SetRestore(true));
-                }
-                catch { }
-            }
-
             try
             {
-                var dirDd = RxMAPIDirectory / "external" / "DynamicData" / $"{"DynamicData"}-main" / "src";
-                File.Copy(RootDirectory / "global.json", dirDd / "global.json", true);
+                var dirRx = RxUIAPIDirectory / "external" / reactiveui / $"{reactiveui}-main" / "src";
+                File.Copy(RootDirectory / "global.json", dirRx / "global.json", true);
                 MSBuildTasks.MSBuild(s => s
-                    .SetProjectFile(dirDd / "DynamicData.sln")
+                    .SetProjectFile(dirRx / $"{reactiveui}.sln")
                     .SetConfiguration(Configuration)
                     .SetRestore(true));
             }
             catch { }
+
+            MSBuildTasks.MSBuild(s => s
+                .SetProjectFile(PackageProject)
+                .SetConfiguration(Configuration)
+                .SetRestore(true));
         });
 }
