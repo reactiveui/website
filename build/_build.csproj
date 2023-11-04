@@ -12,6 +12,10 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <None Include="..\reactiveui\**\*.*" LinkBase="WebSite" Exclude="..\reactiveui\_site\**\*.*;..\reactiveui\**\*.gitignore;..\reactiveui\api\*.yml;..\reactiveui\api\*.manifest;..\reactiveui\api\reactiveui\**\*.*;..\reactiveui\api\reactivemarbles\**\*.*" />
+    </ItemGroup>
+
+    <ItemGroup>
         <PackageReference Include="Nuke.Common" Version="7.0.6" />
         <PackageReference Include="Polly" Version="7.2.3" />
     </ItemGroup>
