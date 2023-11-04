@@ -17,6 +17,11 @@ jobs:
           6.0.x
           7.0.x
 
+      - name: Install DotNet workloads
+        shell: bash
+        run: |
+          dotnet workload install android ios tvos macos maui maccatalyst
+
       - name: Checkout 
         uses: actions/checkout@v4
         with:
