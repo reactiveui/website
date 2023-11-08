@@ -68,6 +68,7 @@
   ],
   "build": {
     "globalMetadata": {
+      "_lang": "en",
       "_appTitle": "An advanced, composable, reactive model-view-viewmodel framework",
       "_appLogoPath": "images/logoSmall.png",
       "_appFaviconPath": "images/favicons/favicon.ico",
