@@ -1,23 +1,10 @@
 ---
-NoTitle: true
 Title: Documentation
-BreadcrumbTitle: Documentation
-ShowInSidebar: false
-Order: 1
 ---
-
-@{
-    var numbers = new []{ "zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen" };
-
-    var inception = 2009;
-    var years = DateTime.Now.Year - inception;
-    var projectAge = numbers[years];
-}
-
 
 <p>ReactiveUI is a composable, cross-platform model-view-viewmodel framework for all .NET platforms, that is inspired by functional reactive programming. Reactive programming is a paradigm that allows you to express the idea around a feature in one readable place, abstract mutable state away from your user interfaces and improve the testability of your application.</p>
 
-<p>It is the father of the extremely popular <a href="https://github.com/ReactiveCocoa/">ReactiveCocoa</a> framework. Internally the maintainers debate whether ReactiveUI is or is not a framework, as at its core the project is essentially a bunch of extension methods for the Reactive Extensions. The project was started @projectAge years ago by Anaïs Betts and is now old enough to attend grade school but unlike a teenager it is extremely stable and has matured over the years into a solid and fine choice for building your next application. <a href="https://github.com/reactiveui/ReactiveUI/issues/979#issuecomment-196735701" target="_blank">The framework is used by Slack, GitHub, Amazon, Elastic and Microsoft</a>.</p>
+<p>It is the father of the extremely popular <a href="https://github.com/ReactiveCocoa/">ReactiveCocoa</a> framework. Internally the maintainers debate whether ReactiveUI is or is not a framework, as at its core the project is essentially a bunch of extension methods for the Reactive Extensions. The project was started in 2009 by Anaïs Betts and is now old enough to attend grade school but unlike a teenager it is extremely stable and has matured over the years into a solid and fine choice for building your next application. <a href="https://github.com/reactiveui/ReactiveUI/issues/979#issuecomment-196735701" target="_blank">The framework is used by Slack, GitHub, Amazon, Elastic and Microsoft</a>.</p>
 
 <p>We believe that code is communication between people, that also happens to run on a computer. If you optimise for humans, then over a long time your project will end up better. Software should be understandable by other people; that is super important. We believe that only <a href="https://www.youtube.com/watch?v=5DZ8nC0ENdg" target="_blank">the power of the Reactive Extensions allows you to express the idea around a feature in one readable place</a>.</p>
 
