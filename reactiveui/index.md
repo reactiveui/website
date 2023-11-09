@@ -4,8 +4,7 @@ _disableTocFilter: true
 _layout: landing
 ---
 
-<div class="header">
-    <div class="container">
+<div class="container">
         <div class="row branding">
             <div class="span6 col-md-6">
                 <div class="row">
@@ -41,7 +40,6 @@ _layout: landing
             </div>
         </div>
     </div>
-</div>
 <div class="container">
     <div class="row text-center">
         <div class="span6 col-md-4">
