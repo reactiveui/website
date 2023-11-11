@@ -40,7 +40,7 @@ _layout: landing
             </div>
         </div>
     </div>
-<div class="container">
+<div class="container" style="margin-top: 30px">
     <div class="row text-center">
         <div class="span6 col-md-4">
             <h3 class="branding-subheader">Declarative</h3>
