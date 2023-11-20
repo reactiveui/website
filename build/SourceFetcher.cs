@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
+using Nuke.Common;
 using Nuke.Common.IO;
 using Polly;
 
@@ -16,12 +17,12 @@ internal static class SourceFetcher
     private static readonly object _lockConsoleObject = new();
     private static readonly object _lockWorkloadObject = new();
 
-    public static void GetSources(this AbsolutePath fileSystem, string owner, params string[] repositories)
+    public static void GetSources(this AbsolutePath fileSystem, AbsolutePath rootDirectory, string owner, params string[] repositories)
     {
-        FetchGitHubZip(fileSystem, owner, repositories, "external", true, true);
+        FetchGitHubZip(fileSystem, rootDirectory, owner, repositories, "external", true, true);
     }
 
-    private static void FetchGitHubZip(AbsolutePath fileSystem, string owner, string[] repositories, string outputFolder, bool fetchNuGet, bool useSrc)
+    private static void FetchGitHubZip(AbsolutePath fileSystem, AbsolutePath rootDirectory, string owner, string[] repositories, string outputFolder, bool fetchNuGet, bool useSrc)
     {
         var zipCache = fileSystem / "zip";
         zipCache.CreateDirectory();
@@ -88,6 +89,8 @@ internal static class SourceFetcher
 
                     if (fetchNuGet)
                     {
+                        var directory = useSrc ? finalPath / $"{repository}-main" / "src" : finalPath;
+                        File.Copy(rootDirectory / "global.json", directory / "global.json", true);
                         WorkflowRestore(owner, repository, finalPath, useSrc);
                         FetchNuGet(owner, repository, finalPath, useSrc);
                     }

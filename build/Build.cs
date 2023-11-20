@@ -47,10 +47,10 @@ class Build : NukeBuild
         .Executes(() =>
         {
             // Restore ReactiveUI Projects
-            RxUIAPIDirectory.GetSources(reactiveui, RxUIProjects);
+            RxUIAPIDirectory.GetSources(RootDirectory, reactiveui, RxUIProjects);
 
             // Restore Reactive Marbles Projects
-            RxMAPIDirectory.GetSources(reactivemarbles, DynamicData);
+            RxMAPIDirectory.GetSources(RootDirectory, reactivemarbles, DynamicData);
         });
 
     Target Compile => _ => _
