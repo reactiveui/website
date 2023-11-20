@@ -10,14 +10,26 @@ jobs:
   build:
     runs-on: windows-latest
     steps:
-      - name: Setup dotnet
+      - name: 'Setup dotnet 6 / 7 / 8'
         uses: actions/setup-dotnet@v3
         with:
          dotnet-version: | 
           6.0.x
           7.0.x
+          8.0.x
 
-      - name: Install DotNet workloads
+      - name: 'Setup Java JDK 11'
+        uses: actions/setup-java@v3.13.0
+        with:
+          distribution: 'microsoft'
+          java-version: '11'
+        
+      - name: 'Add MSBuild to PATH'
+        uses: microsoft/setup-msbuild@v1.3.1
+        with:
+          vs-prerelease: true
+
+      - name: 'Install DotNet workloads'
         shell: bash
         run: |
           dotnet workload install android ios tvos macos maui maccatalyst
@@ -38,11 +50,11 @@ jobs:
       - name: 'Restore and Compile ReactiveUI Projects'
         run: ./build.cmd Compile
         
-      - name: Build Website
+      - name: 'Build Website'
         run: ./build.cmd BuildWebsite
 
-      - name: Deploy netlify   
-        if: ${{ github.event_name != 'pull_request' }}    
+      - name: 'Deploy netlify'
+        if: ${{ github.event_name != 'pull_request' }}
         run: |
             npm install -g netlify-cli
             netlify deploy --auth=${{ secrets.NETLIFY_DEPLOY_KEY }} --site=${{ secrets.NETLIFY_SITE_ID }} --prod --dir=reactiveui/_site
