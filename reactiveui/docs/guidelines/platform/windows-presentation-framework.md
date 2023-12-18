@@ -4,6 +4,10 @@ Title: Windows Presentation Framework
 
 Ensure that you install `ReactiveUI.WPF` into your application.
 
+Please ensure that you are targeting at least windows10.0.17763.0
+
+i.e `<TargetFramework>net8.0-windows10.0.17763.0</TargetFramework>` in your csproj file.
+
 Your viewmodels should inherit from `ReactiveObject`
 
 - [ReactiveObject](~/api/ReactiveUI.ReactiveObject.yml)
