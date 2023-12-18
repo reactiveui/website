@@ -13,7 +13,7 @@ ReactiveUI has the following minimum platform requirements:
 | .Net Standard | 2.0 |
 | .Net | 6.0 |
 | Windows | 10.0.17763.0 |
-| Xamarin Android | 12.0 |
+| Xamarin Android | 13.0 |
 | Xamarin iOS | 1.0 |
 | Xamarin Mac | 2.0 |
 | Xamarin TVOS | 1.0 |
@@ -21,16 +21,16 @@ ReactiveUI has the following minimum platform requirements:
 
 ## Android Minimums
 
-Android 12.0 is the minimum, with SDK 30.
+Android 13.0 is the minimum, with SDK 32.
 
-Make sure your `AndroidManifest.xml` has SDK 30 as the target SDK.
+Make sure your `AndroidManifest.xml` has SDK 32 as the target SDK.
 
 ```diff
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="1" android:versionName="1.0" package="com.giusepe.SextantSample" android:installLocation="auto">
-+	<uses-sdk android:minSdkVersion="19" android:targetSdkVersion="30" />
++	<uses-sdk android:minSdkVersion="19" android:targetSdkVersion="32" />
  	<application android:label="SextantSample.Android"></application>
 </manifest> 
 ```
 
-Also that your `CSPROJ` references Android 12.0.
+Also that your `CSPROJ` references Android 13.0.
