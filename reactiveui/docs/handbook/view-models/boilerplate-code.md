@@ -66,8 +66,8 @@ As fody operates at the IL level, it can be used to generate properties that dir
 Source Generators add to your code instead of replacing it, so you we use fields and methods to generate the properties and commands.
 
 The `[Reactive]` and `[ObservableAsProperty]` Attributes are applied to fields, and the Source Generator will generate the properties for you.
-[Reactive] will generate a property with a backing field and the RaiseAndSetIfChanged method.
-`[ObservableAsProperty]` will generate a property with a ObservableAsPropertyHelper backing field.
+`[Reactive]` will generate a property with a backing field and the RaiseAndSetIfChanged method. You can provide initialisers for the field.
+`[ObservableAsProperty]` will generate a property with a ObservableAsPropertyHelper backing field. Any initialisers will be ignored.
 
 The `[ReactiveCommand]` Attribute is applied to methods, and the Source Generator will generate a ReactiveCommand property for you.
 The method can be one of the following
