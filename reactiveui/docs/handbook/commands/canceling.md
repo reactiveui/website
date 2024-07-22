@@ -111,22 +111,45 @@ But what if we want to cancel the execution based on an external factor, just as
 
 Besides forgoing TPL completely \(which is recommended if possible, but not always practical\), there are actually quite a few ways to achieve this. Perhaps the easiest is to use `CreateFromObservable` instead:
 
+Ideally avoid using `Observable.FromAsync` with a cancellation token as Exceptions do not bubble as expected, Replace any calls that use this with a ReactiveCommand and initialise it with the `ReactiveCommand.CreateFromTask(async (ct) =>{});` method.
+
 ```cs
 public class SomeViewModel : ReactiveObject
 {
     public SomeViewModel()
     {
+        // Handle class exceptions
+        ThrownExceptions
+            .Subscribe(ex => Console.Out.WriteLine("SomeViewModel threw:" + ex.Message));
+
+        // Create a command to execute the asynchronous operation
+        this.DoSomethingCommand = ReactiveCommand
+            .CreateFromTask(ct => this.DoSomethingAsync(ct));
+
+        // Create a command for bindings to execute the asynchronous operation
+        // This can be skipped if you don't need to bind to the command and just want to execute it
+        // i.e. var disposable = DoSomethingCommand.Execute().TakeUntil(this.CancelCommand).Subscribe();
+        // This will execute the command and cancel it when the `CancelCommand` is executed but can also be cancelled by disposing the disposable
         this.CancelableCommand = ReactiveCommand
             .CreateFromObservable(
-                () => Observable
-                    .StartAsync(ct => this.DoSomethingAsync(ct))
+                () => DoSomethingCommand.Execute()
                     .TakeUntil(this.CancelCommand));
-        this.CancelCommand = ReactiveCommand.Create(
-            () => { },
+
+        // Create a command to cancel the asynchronous operation
+        this.CancelCommand = ReactiveCommand
+            .Create(() => { },
             this.CancellableCommand.IsExecuting);
+
+        // Handle exceptions
+        CancelableCommand.ThrownExceptions
+            .Subscribe(ex => Console.Out.WriteLine("CancelableCommand threw:" + ex.Message));
+        DoSomethingCommand.ThrownExceptions
+            .Subscribe(ex => Console.Out.WriteLine("DoSomethingCommand threw:" + ex.Message));
     }
 
     public ReactiveCommand<Unit, Unit> CancelableCommand { get; }
+
+    public ReactiveCommand<Unit, Unit> DoSomethingCommand { get; }
 
     public ReactiveCommand<Unit, Unit> CancelCommand { get; }
 
