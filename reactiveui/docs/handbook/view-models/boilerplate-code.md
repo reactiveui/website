@@ -45,7 +45,7 @@ _firstName = firstNameObservable
   .ToProperty(this, x => x.FirstName);
 ```
 
-# Using ReativeUI.SourceGenerators
+# Using ReactiveUI.SourceGenerators
 
 With [ReactiveUI.SourceGenerators](https://www.nuget.org/packages/ReactiveUI.SourceGenerators/).
 
