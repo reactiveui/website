@@ -3,9 +3,9 @@ NoTitle: true
 ---
 If your command's execution logic can take a long time to complete, it can be useful to allow the execution to be canceled. This cancellation support can be used internally by your view models, or exposed so that users have a say in the matter.
 
-## Basic Cancelation
+## Basic Cancellation
 
-At its most primitive form, canceling a command's execution involves disposing the execution subscription:
+At its most primitive form, cancelling a command's execution involves disposing the execution subscription:
 
 ```cs
 var subscription = someReactiveCommand.Execute().Subscribe();
@@ -18,7 +18,7 @@ However, this requires you to obtain, and keep a hold of the subscription. If yo
 
 ## Canceling via Another Observable
 
-Rx itself has intrinsic support for canceling one observable when another observable ticks. It provides this via the `TakeUntil` operator:
+Rx itself has intrinsic support for cancelling one observable when another observable ticks. It provides this via the `TakeUntil` operator:
 
 ```cs
 var cancel = new Subject<Unit>();
@@ -43,7 +43,7 @@ public class SomeViewModel : ReactiveObject
 {
     public SomeViewModel()
     {
-        this.CancelableCommand = ReactiveCommand
+        this.CancellableCommand = ReactiveCommand
             .CreateFromObservable(
                 () => Observable
                     .Return(Unit.Default)
@@ -54,15 +54,15 @@ public class SomeViewModel : ReactiveObject
             this.CancellableCommand.IsExecuting);
     }
 
-    public ReactiveCommand<Unit, Unit> CancelableCommand { get; }
+    public ReactiveCommand<Unit, Unit> CancellableCommand { get; }
 
     public ReactiveCommand<Unit, Unit> CancelCommand { get; }
 }
 ```
 
-Here we have a view model with a command, `CancelableCommand`, that can be canceled by executing another command, `CancelCommand`. Notice how `CancelCommand` can only be executed when `CancelableCommand` is executing.
+Here we have a view model with a command, `CancelablleCommand`, that can be canceled by executing another command, `CancelCommand`. Notice how `CancelCommand` can only be executed when `CancellableCommand` is executing.
 
-> **Note** At first glance there may appear to be an irresolvable circular dependency between `CancelableCommand` and `CancelCommand`. However, note that `CancelableCommand` does not need to resolve its execution pipeline until it is executed. So as long as `CancelCommand` exists before `CancelableCommand` is executed, the circular dependency is resolved.
+> **Note** At first glance there may appear to be an irresolvable circular dependency between `CancellableCommand` and `CancelCommand`. However, note that `CancellableCommand` does not need to resolve its execution pipeline until it is executed. So as long as `CancelCommand` exists before `CancellableCommand` is executed, the circular dependency is resolved.
 
 ## Cancellation with the Task Parallel Library
 
@@ -75,12 +75,12 @@ public class SomeViewModel : ReactiveObject
 {
     public SomeViewModel()
     {
-        this.CancelableCommand = ReactiveCommand
+        this.CancellableCommand = ReactiveCommand
             .CreateFromTask(
                 ct => this.DoSomethingAsync(ct));
     }
 
-    public ReactiveCommand<Unit, Unit> CancelableCommand { get; }
+    public ReactiveCommand<Unit, Unit> CancellableCommand { get; }
 
     private async Task DoSomethingAsync(CancellationToken ct)
     {
@@ -99,7 +99,7 @@ The above code allows us to do something like this:
 
 ```cs
 var subscription = viewModel
-    .CancelableCommand
+    .CancellableCommand
     .Execute()
     .Subscribe();
 
@@ -130,7 +130,7 @@ public class SomeViewModel : ReactiveObject
         // This can be skipped if you don't need to bind to the command and just want to execute it
         // i.e. var disposable = DoSomethingCommand.Execute().TakeUntil(this.CancelCommand).Subscribe();
         // This will execute the command and cancel it when the `CancelCommand` is executed but can also be cancelled by disposing the disposable
-        this.CancelableCommand = ReactiveCommand
+        this.CancellableCommand = ReactiveCommand
             .CreateFromObservable(
                 () => DoSomethingCommand.Execute()
                     .TakeUntil(this.CancelCommand));
@@ -141,13 +141,13 @@ public class SomeViewModel : ReactiveObject
             this.CancellableCommand.IsExecuting);
 
         // Handle exceptions
-        CancelableCommand.ThrownExceptions
-            .Subscribe(ex => Console.Out.WriteLine("CancelableCommand threw:" + ex.Message));
+        CancellableCommand.ThrownExceptions
+            .Subscribe(ex => Console.Out.WriteLine("CancellableCommand threw:" + ex.Message));
         DoSomethingCommand.ThrownExceptions
             .Subscribe(ex => Console.Out.WriteLine("DoSomethingCommand threw:" + ex.Message));
     }
 
-    public ReactiveCommand<Unit, Unit> CancelableCommand { get; }
+    public ReactiveCommand<Unit, Unit> CancellableCommand { get; }
 
     public ReactiveCommand<Unit, Unit> DoSomethingCommand { get; }
 
