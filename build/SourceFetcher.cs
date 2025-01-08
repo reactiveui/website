@@ -6,7 +6,6 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using Nuke.Common;
 using Nuke.Common.IO;
 using Polly;
 

@@ -53,8 +53,11 @@ With [ReactiveUI.SourceGenerators](https://www.nuget.org/packages/ReactiveUI.Sou
 
 These Source Generators were designed to work in full with ReactiveUI V19.5.31 and newer supporting all features, currently:
 - [Reactive]
+- [Reactive(SetModifier = AccessModifier.Protected)]
 - [ObservableAsProperty]
 - [ObservableAsProperty(PropertyName = "ReadOnlyPropertyName")]
+- [ObservableAsProperty(ReadOnly = false)]
+- [ObservableAsProperty(UseProtected = true)]
 - [ReactiveCommand]
 - [ReactiveCommand(CanExecute = nameof(IObservableBoolName))] with CanExecute
 - [ReactiveCommand][property: AttribueToAddToCommand] with Attribute passthrough
@@ -93,6 +96,8 @@ The method can be one of the following
 
 
 ## Usage Reactive property `[Reactive]`
+
+### Usage Reactive property with field
 ```csharp
 using ReactiveUI.SourceGenerators;
 
@@ -100,6 +105,40 @@ public partial class MyReactiveClass : ReactiveObject
 {
     [Reactive]
     private string _myProperty;
+}
+```
+
+### Usage Reactive property with set Access Modifier
+```csharp
+using ReactiveUI.SourceGenerators;
+
+public partial class MyReactiveClass : ReactiveObject
+{
+    [Reactive(SetModifier = AccessModifier.Protected)]
+    private string _myProperty;
+}
+```
+
+### Usage Reactive property with property Attribute pass through
+```csharp
+using ReactiveUI.SourceGenerators;
+
+public partial class MyReactiveClass : ReactiveObject
+{
+    [Reactive]
+    [property: JsonIgnore]
+    private string _myProperty;
+}
+```
+
+### Usage Reactive property with initial value
+```csharp
+using ReactiveUI.SourceGenerators;
+
+public partial class MyReactiveClass : ReactiveObject
+{
+    [Reactive]
+    private string _myProperty = "Default Value";
 }
 ```
 
@@ -169,6 +208,25 @@ public partial class MyReactiveClass : ReactiveObject
 
     [ObservableAsProperty(PropertyName = TestValueProperty)]
     IObservable<string> MyObservable => Observable.Return("Test Value");
+}
+```
+
+### Usage ObservableAsPropertyHelper with Observable Property and protected OAPH field
+```csharp
+using ReactiveUI.SourceGenerators;
+
+public partial class MyReactiveClass : ReactiveObject
+{
+    [ObservableAsProperty(UseProtected = true)]
+    private string _myProperty = "Default Value";
+
+    public MyReactiveClass()
+    {
+        _myPropertyHelper = MyPropertyObservable()
+            .ToProperty(this, x => x.MyProperty);
+    }
+
+    IObservable<string> MyPropertyObservable() => Observable.Return("Test Value");
 }
 ```
 
