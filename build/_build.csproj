@@ -17,6 +17,6 @@
 
     <ItemGroup>
         <PackageReference Include="Nuke.Common" Version="9.0.3" />
-        <PackageReference Include="Polly" Version="8.5.0" />
+        <PackageReference Include="Polly" Version="8.5.1" />
     </ItemGroup>
 </Project>
