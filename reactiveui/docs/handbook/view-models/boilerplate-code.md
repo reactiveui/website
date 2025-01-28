@@ -53,8 +53,11 @@ With [ReactiveUI.SourceGenerators](https://www.nuget.org/packages/ReactiveUI.Sou
 
 These Source Generators were designed to work in full with ReactiveUI V19.5.31 and newer supporting all features, currently:
 - [Reactive]
+- [Reactive(SetModifier = AccessModifier.Protected)]
 - [ObservableAsProperty]
 - [ObservableAsProperty(PropertyName = "ReadOnlyPropertyName")]
+- [ObservableAsProperty(ReadOnly = false)]
+- [ObservableAsProperty(UseProtected = true)]
 - [ReactiveCommand]
 - [ReactiveCommand(CanExecute = nameof(IObservableBoolName))] with CanExecute
 - [ReactiveCommand][property: AttribueToAddToCommand] with Attribute passthrough
@@ -93,6 +96,8 @@ The method can be one of the following
 
 
 ## Usage Reactive property `[Reactive]`
+
+### Usage Reactive property with field
 ```csharp
 using ReactiveUI.SourceGenerators;
 
@@ -103,7 +108,47 @@ public partial class MyReactiveClass : ReactiveObject
 }
 ```
 
+### Usage Reactive property with set Access Modifier
+```csharp
+using ReactiveUI.SourceGenerators;
+
+public partial class MyReactiveClass : ReactiveObject
+{
+    [Reactive(SetModifier = AccessModifier.Protected)]
+    private string _myProperty;
+}
+```
+
+### Usage Reactive property with property Attribute pass through
+```csharp
+using ReactiveUI.SourceGenerators;
+
+public partial class MyReactiveClass : ReactiveObject
+{
+    [Reactive]
+    [property: JsonIgnore]
+    private string _myProperty;
+}
+```
+
+### Usage Reactive property with initial value
+```csharp
+using ReactiveUI.SourceGenerators;
+
+public partial class MyReactiveClass : ReactiveObject
+{
+    [Reactive]
+    private string _myProperty = "Default Value";
+}
+```
+
 ## Usage ObservableAsPropertyHelper `[ObservableAsProperty]`
+
+ObservableAsPropertyHelper is used to create a read-only property from an IObservable. The generated code will create a backing field and a property that returns the value of the backing field. The backing field is initialized with the value of the IObservable when the class is instantiated.
+
+A private field is created with the name of the property prefixed with an underscore. The field is initialized with the value of the IObservable when the class is instantiated. The property is created with the same name as the field without the underscore. The property returns the value of the field until initialized, then it returns the value of the IObservable.
+
+You can define the name of the property by using the PropertyName parameter. If you do not define the PropertyName, the property name will be the same as the field name without the underscore.
 
 ### Usage ObservableAsPropertyHelper with Field
 ```csharp
@@ -132,6 +177,9 @@ public partial class MyReactiveClass : ReactiveObject
 {    
     public MyReactiveClass()
     { 
+        // default value for MyObservableProperty prior to initialization.
+        _myObservable = "Test Value Pre Init";
+
         // Initialize generated _myObservablePropertyHelper
         // for the generated MyObservableProperty
         InitializeOAPH();
@@ -150,6 +198,9 @@ public partial class MyReactiveClass : ReactiveObject
 {    
     public MyReactiveClass()
     { 
+        // default value for TestValueProperty prior to initialization.
+        _testValueProperty = "Test Value Pre Init";
+
         // Initialize generated _testValuePropertyHelper
         // for the generated TestValueProperty
         InitializeOAPH();
@@ -157,6 +208,25 @@ public partial class MyReactiveClass : ReactiveObject
 
     [ObservableAsProperty(PropertyName = TestValueProperty)]
     IObservable<string> MyObservable => Observable.Return("Test Value");
+}
+```
+
+### Usage ObservableAsPropertyHelper with Observable Property and protected OAPH field
+```csharp
+using ReactiveUI.SourceGenerators;
+
+public partial class MyReactiveClass : ReactiveObject
+{
+    [ObservableAsProperty(UseProtected = true)]
+    private string _myProperty = "Default Value";
+
+    public MyReactiveClass()
+    {
+        _myPropertyHelper = MyPropertyObservable()
+            .ToProperty(this, x => x.MyProperty);
+    }
+
+    IObservable<string> MyPropertyObservable() => Observable.Return("Test Value");
 }
 ```
 
@@ -200,17 +270,14 @@ public partial class MyReactiveClass : ReactiveObject
 
 ## Usage ReactiveCommand `[ReactiveCommand]`
 
+Note: `InitializeCommands();` has been removed from the latest version of the Source Generators. This is now handled by the Source Generator.
+
 ### Usage ReactiveCommand without parameter
 ```csharp
 using ReactiveUI.SourceGenerators;
 
 public partial class MyReactiveClass
 {
-    public MyReactiveClass()
-    {
-        InitializeCommands();
-    }
-
     [ReactiveCommand]
     private void Execute() { }
 }
@@ -222,11 +289,6 @@ using ReactiveUI.SourceGenerators;
 
 public partial class MyReactiveClass
 {
-    public MyReactiveClass()
-    {
-        InitializeCommands();
-    }
-
     [ReactiveCommand]
     private void Execute(string parameter) { }
 }
@@ -238,11 +300,6 @@ using ReactiveUI.SourceGenerators;
 
 public partial class MyReactiveClass
 {
-    public MyReactiveClass()
-    {
-        InitializeCommands();
-    }
-
     [ReactiveCommand]
     private string Execute(string parameter) => parameter;
 }
@@ -254,11 +311,6 @@ using ReactiveUI.SourceGenerators;
 
 public partial class MyReactiveClass
 {
-    public MyReactiveClass()
-    {
-        InitializeCommands();
-    }
-
     [ReactiveCommand]
     private async Task<string> Execute(string parameter) => await Task.FromResult(parameter);
 }
@@ -270,11 +322,6 @@ using ReactiveUI.SourceGenerators;
 
 public partial class MyReactiveClass
 {
-    public MyReactiveClass()
-    {
-        InitializeCommands();
-    }
-
     [ReactiveCommand]
     private IObservable<string> Execute(string parameter) => Observable.Return(parameter);
 }
@@ -286,11 +333,6 @@ using ReactiveUI.SourceGenerators;
 
 public partial class MyReactiveClass
 {
-    public MyReactiveClass()
-    {
-        InitializeCommands();
-    }
-
     [ReactiveCommand]
     private async Task Execute(CancellationToken token) => await Task.Delay(1000, token);
 }
@@ -302,11 +344,6 @@ using ReactiveUI.SourceGenerators;
 
 public partial class MyReactiveClass
 {
-    public MyReactiveClass()
-    {
-        InitializeCommands();
-    }
-
     [ReactiveCommand]
     private async Task<string> Execute(string parameter, CancellationToken token)
     {
@@ -332,7 +369,6 @@ public partial class MyReactiveClass
 
     public MyReactiveClass()
     {
-        InitializeCommands();
         _canExecute = this.WhenAnyValue(x => x.MyProperty1, x => x.MyProperty2, (x, y) => !string.IsNullOrEmpty(x) && !string.IsNullOrEmpty(y));
     }
 
@@ -357,7 +393,6 @@ public partial class MyReactiveClass
 
     public MyReactiveClass()
     {
-        InitializeCommands();
         _canExecute = this.WhenAnyValue(x => x.MyProperty1, x => x.MyProperty2, (x, y) => !string.IsNullOrEmpty(x) && !string.IsNullOrEmpty(y));
     }
 
