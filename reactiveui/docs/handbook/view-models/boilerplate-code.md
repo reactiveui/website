@@ -51,19 +51,25 @@ _firstName = firstNameObservable
 
 With [ReactiveUI.SourceGenerators](https://www.nuget.org/packages/ReactiveUI.SourceGenerators/).
 
+- **Minimum Requirements**:
+  - **C# Version**: 12.0
+  - **Visual Studio Version**: 17.8.0
+  - **ReactiveUI Version**: 19.5.31+
+
 These Source Generators were designed to work in full with ReactiveUI V19.5.31 and newer supporting all features, currently:
-- [Reactive]
-- [Reactive(SetModifier = AccessModifier.Protected)]
-- [ObservableAsProperty]
-- [ObservableAsProperty(PropertyName = "ReadOnlyPropertyName")]
-- [ObservableAsProperty(ReadOnly = false)]
-- [ObservableAsProperty(UseProtected = true)]
-- [ReactiveCommand]
-- [ReactiveCommand(CanExecute = nameof(IObservableBoolName))] with CanExecute
-- [ReactiveCommand][property: AttribueToAddToCommand] with Attribute passthrough
-- [IViewFor(nameof(ViewModelName))]
-- [RoutedControlHost("YourNameSpace.CustomControl")] for WinForms
-- [ViewModelControlHost("YourNameSpace.CustomControl")] for WinForms
+- `[Reactive]` With field and access modifiers, partial property support (C# 13 Visual Studio Version 17.12.0)
+- `[ObservableAsProperty]` With field, method, Observable property and partial property support (C# 13 Visual Studio Version 17.12.0)
+- `[ObservableAsProperty(ReadOnly = false)]` Removes readonly keyword from the generated helper field
+- `[ObservableAsProperty(PropertyName = "ReadOnlyPropertyName")]`
+- `[ObservableAsProperty(InitialValue = "Default Value")]` Only valid for partial properties using (C# 13 Visual Studio Version 17.12.0)
+- `[ReactiveCommand]`
+- `[ReactiveCommand(CanExecute = nameof(IObservableBoolName))]` with CanExecute
+- `[ReactiveCommand(OutputScheduler = "RxApp.MainThreadScheduler")]` using a ReactiveUI Scheduler
+- `[ReactiveCommand(OutputScheduler = nameof(_isheduler))]` using a Scheduler defined in the class
+- `[ReactiveCommand][property: AttributeToAddToCommand]` with Attribute passthrough
+- `[IViewFor(nameof(ViewModelName))]`
+- `[RoutedControlHost("YourNameSpace.CustomControl")]`
+- `[ViewModelControlHost("YourNameSpace.CustomControl")]`
 
 Versions older than V19.5.31 to this:
 - All functions fully supported, except for `[ReactiveCommand]` all supported except Cancellation Token asnyc methods.
@@ -141,6 +147,24 @@ public partial class MyReactiveClass : ReactiveObject
     private string _myProperty = "Default Value";
 }
 ```
+
+### Usage Reactive property from partial property
+
+Partial properties are supported in C# 13 and Visual Studio 17.12.0 and later.
+Both the getter and setter must be empty, and the `[Reactive]` attribute must be placed on the property.
+Override and Virtual properties are supported.
+Set Access Modifier is also supported on partial properties.
+
+```csharp
+using ReactiveUI.SourceGenerators;
+
+public partial class MyReactiveClass : ReactiveObject
+{
+    [Reactive]
+    public partial string MyProperty { get; set; }
+}
+```
+
 
 ## Usage ObservableAsPropertyHelper `[ObservableAsProperty]`
 
@@ -265,6 +289,34 @@ public partial class MyReactiveClass : ReactiveObject
 
     [ObservableAsProperty(PropertyName = TestValueProperty)]
     IObservable<string> MyObservable() => Observable.Return("Test Value");
+}
+```
+
+### Usage ObservableAsPropertyHelper with partial Property and a default value
+
+Partial properties are supported in C# 13 and Visual Studio 17.12.0 and later.
+The getter must be empty and no setter defined (ReadOnly), and the `[ObservableAsProperty]` attribute must be placed on the property.
+Override and Virtual properties are supported.
+The readonly Modifier is also supported to set the Helper field not to be readonly.
+An InitialValue can be set to provide a default value for the property. This is a string value that will be passed through to the defined property until the Observable is initialized.
+The Partial property can be defined with different access modifiers other than public, such as protected and virtual.
+
+```csharp
+using ReactiveUI.SourceGenerators;
+
+public partial class MyReactiveClass : ReactiveObject
+{
+    public MyReactiveClass()
+    {
+        // The value of MyProperty will be "Default Value" until the Observable is initialized
+        _myPrpertyHelper = MyPropertyObservable()
+            .ToProperty(this, nameof(MyProperty));
+    }
+    
+    [ObservableAsProperty(InitialValue = "Default Value")]
+    public string MyProperty { get; }
+
+    public IObservable<string> MyPropertyObservable() => Observable.Return("Test Value");
 }
 ```
 
