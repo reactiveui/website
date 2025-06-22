@@ -151,7 +151,7 @@ public class ViewModel : ReactiveObject
         service.Connect()
             // Transform in DynamicData works like Select in
             // LINQ, it observes changes in one collection, and
-            // projects it's elements to another collection.
+            // projects its elements to another collection.
             .Transform(x => !x)
             // Filter is basically the same as .Where() operator
             // from LINQ. See all operators in DynamicData docs.
