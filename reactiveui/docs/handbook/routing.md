@@ -112,7 +112,7 @@ public class MainViewModel : ReactiveObject, IScreen
     public ReactiveCommand<Unit, IRoutableViewModel> GoNext { get; }
 
     // The command that navigates a user back.
-    public ReactiveCommand<Unit, Unit> GoBack { get; }
+    public ReactiveCommand<Unit, IRoutableViewModel> GoBack { get; }
 
     public MainViewModel()
     {
