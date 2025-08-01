@@ -16,7 +16,7 @@ export default {
             title: 'GitHub'
         },
         {
-            icon: 'X',
+            icon: 'x',
             href: 'https://x.com/reactivexui',
             title: 'X'
         },
