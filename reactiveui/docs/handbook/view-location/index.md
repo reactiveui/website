@@ -1,7 +1,4 @@
----
-NoTitle: true
----
-## IViewFor, Activation and Data Binding
+# IViewFor, Activation and Data Binding
 
 In order to use bindings in the View, you must first implement `IViewFor<TViewModel>` on your View. Once you [implement `IViewFor<T>`](extending-iviewfor.md), binding methods are now available as extension methods on your class, as well as [activation and deactivation](~/docs/handbook/when-activated.md) feature for your views and associated view models that implement the `IActivatableViewModel` interface. See [Data Binding](~/docs/handbook/data-binding/index.md) section for details and platform-specific examples.
 

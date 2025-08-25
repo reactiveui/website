@@ -1,9 +1,4 @@
----
-NoTitle: true
-Title: Extending View Support
----
-
-## Extending IViewFor
+# Extending IViewFor
 
 There will be times where you need to extend the power of ReactiveUI view types to concrete implementations you don't control. The answer then is in extending the `IViewFor` interface so that ReactiveUI will pick up and register it against the `ViewLocator` instance.  Once you implement `IViewFor<T>`, binding methods are now available as extension methods on your class.
 

@@ -1,6 +1,4 @@
----
-Title: Xamarin iOS
----
+# Xamarin iOS
 
 ## Package Installation
 

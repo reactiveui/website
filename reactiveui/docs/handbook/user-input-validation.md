@@ -1,6 +1,7 @@
----
-NoTitle: true
----
+# User Input Validation
+
+When building applications, you often need to validate user input. This is especially true for mobile applications, where users expect immediate feedback on their actions. In this guide, we will explore how to implement user input validation in ReactiveUI applications using built-in features and the ReactiveUI.Validation package.
+
 ReactiveUI itself offers a few powerful features allowing you to validate user input on fly. With [WhenAnyValue](~/docs/handbook/when-any.md), you can listen to view model property changes and control [ReactiveCommand](~/docs/handbook/commands/index.md) executability. When reactive command's `CanExecute` observable returns false, the control to which you bind that command stays disabled. The simplest validator looks as follows:
 
 ```cs

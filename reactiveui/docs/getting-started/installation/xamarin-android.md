@@ -1,6 +1,4 @@
----
-Title: Xamarin Android
----
+# Xamarin Android
 
 ## Package Installation
 

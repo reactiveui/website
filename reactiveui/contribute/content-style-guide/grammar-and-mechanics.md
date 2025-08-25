@@ -1,7 +1,4 @@
----
-NoTitle: true
-Title: Grammar and Mechanics
----
+# Grammar and Mechanics
 
 Adhering to certain rules of grammar and mechanics helps us keep our writing clear and consistent. This section will lay out our house style, which applies to all of our content unless otherwise noted in this guide. (We cover a lot of ground in this section—the search feature will help if you're looking for something in particular.)
 

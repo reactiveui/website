@@ -1,6 +1,5 @@
----
-NoTitle: true
----
+# Collections in ReactiveUI
+
 ReactiveUI recommends the use of [DynamicData](https://github.com/reactivemarbles/DynamicData) for collection based operations.
 
 > DynamicData has replaced internally the use of [ReactiveList](~/docs/handbook/obsolete/collections/reactive-list.md)

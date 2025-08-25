@@ -1,6 +1,4 @@
----
-NoTitle: true
-Title: Roadmap
+# Roadmap
 ---
 
 Want to see something done sooner? Speak with one of the maintainers and ask how you can help as the easiest way to influence the direction or have a feature implemented earlier is to make significant, high-quality contributions and if you so desire, become a project maintainer.

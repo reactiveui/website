@@ -1,7 +1,7 @@
 ---
-NoTitle: true
 Order: 0
 ---
+# The Pitch
 
 Knowledge of reactive programming changes you as a developer, makes you better and aligns your career with where the industry is going. One of the cool things about reactive programming is that the knowledge is _universal across programming languages_. 
 

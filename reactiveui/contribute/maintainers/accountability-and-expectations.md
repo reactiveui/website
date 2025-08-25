@@ -1,7 +1,5 @@
----
-NoTitle: true
-Title: Accountability-and-expectations
----
+# Accountability-and-expectations
+
 A great software engineering team is vital for the success of a Open Source Project.
 
 Therefore, many resources, time, and knowledge go into improving their performance, making them more productive and creative, and rightfully so.

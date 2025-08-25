@@ -1,6 +1,4 @@
----
-Title: Windows Presentation Framework
----
+# Windows Presentation Framework
 
 Ensure that you install `ReactiveUI.WPF` into your application.
 

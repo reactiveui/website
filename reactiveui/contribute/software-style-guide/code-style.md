@@ -1,9 +1,8 @@
 ---
-NoTitle: true
 Order: 0
 ---
-C# Style Guide
-===============
+# C# Style Guide
+
 
 The general rule we follow is "use Visual Studio defaults".
 

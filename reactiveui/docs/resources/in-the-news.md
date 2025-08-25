@@ -1,7 +1,7 @@
 ---
-NoTitle: true
 Order: 50
 ---
+# In the News
 
 ## 2017
 

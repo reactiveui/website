@@ -1,6 +1,3 @@
----
-NoTitle: true
----
 # Source Generators and Fody, the easy way to create properties in ReactiveUI
 
 If you are tired of writing boilerplate code for property change notifications, you can try one of the following: 

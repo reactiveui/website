@@ -1,7 +1,5 @@
----
-NoTitle: true
-Title: Triaging GitHub issues
----
+# Triaging GitHub issues
+
 @inherits StatiqRazorPage<IDocument>
 
 <li><a href="https://github.com/reactiveui/ReactiveUI/pull/1448">housekeeping and proposal labels won't be autoclosed</a></li>

@@ -1,6 +1,4 @@
----
-Title: Blazor
----
+# Blazor
 
 # Package Installation
 

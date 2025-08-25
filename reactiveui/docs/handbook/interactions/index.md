@@ -1,6 +1,5 @@
----
-NoTitle: true
----
+# Interactions
+
 Sometimes view model code needs to request a confirmation from the user. For example, before deleting a file or after an error occurs.
 
 Displaying an interactive dialog from the view model is an easy solution, but it ties the view model to a particular UI framework and makes the application harder or impossible to test.
