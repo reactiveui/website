@@ -4,6 +4,8 @@
   href: avalonia.md
 - name: Blazor
   href: blazor.md
+- name: .NET MAUI
+  href: maui.md
 - name: Tizen
   href: tizen.md
 - name: Windows Forms
@@ -12,11 +14,11 @@
   href: windows-presentation-foundation.md
 - name: Windows UI
   href: winui.md
-- name: Xamarin Android
+- name: Xamarin Android (legacy)
   href: xamarin-android.md
-- name: Xamarin Forms
+- name: Xamarin Forms (legacy)
   href: xamarin-forms.md
-- name: Xamarin iOS
+- name: Xamarin iOS (legacy)
   href: xamarin-ios.md
-- name: Xamarin Mac
+- name: Xamarin Mac (legacy)
   href: xamarin-mac.md
