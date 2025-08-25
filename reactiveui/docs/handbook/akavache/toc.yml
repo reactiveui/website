@@ -1,0 +1,20 @@
+- name: Akavache (v11)
+  href: index.md
+- name: Installation
+  href: installation.md
+- name: Caches
+  href: caches.md
+- name: Usage
+  href: usage.md
+- name: Serialization
+  href: serialization.md
+- name: Settings
+  href: settings.md
+- name: Images
+  href: images.md
+- name: Migration (v10 ? v11)
+  href: migration.md
+- name: Performance
+  href: performance.md
+- name: Troubleshooting
+  href: troubleshooting.md
