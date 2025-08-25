@@ -1,6 +1,4 @@
----
-Title: Xamarin Android
----
+# Xamarin Android
 
 Ensure that you install either `ReactiveUI.AndroidX` or `ReactiveUI.AndroidSupport` into your applications.
 

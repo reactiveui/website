@@ -1,6 +1,4 @@
----
-Title: A Compelling Example
----
+# A Compelling Example
 
 Let's create a simple application demonstrating a number of ReactiveUI functionalities, without getting into too many under-the-hood details. We will create a WPF application, which will allow us to search through NuGet public repositories. The full code of the application is shown at the end of this chapter, and we will show relevant snippets as we go.
 

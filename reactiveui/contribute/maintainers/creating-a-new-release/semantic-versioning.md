@@ -1,6 +1,5 @@
----
-NoTitle: true
----
+# Semantic Versioning
+
 Semantic versioning is all about releases, our continuous integration infrastructure uses [GitVersion](https://gitversion.readthedocs.io) to automatically version our releases [as per the configuration](https://github.com/reactiveui/ReactiveUI/blob/develop/GitVersion.yml).
 
 For maintainer sanity, we version ReactiveUI and package as a pinned group - all packages in a release will always be the same version and only work with that version which makes it impossible for a consumer to run into situations where they use `reactiveui-core` at `7.1.0` but `reactiveui-xamforms` at `7.0.0`. Additionally all assemblies share the same [CommonAssemblyInfo.cs](https://github.com/reactiveui/ReactiveUI/blob/develop/src/CommonAssemblyInfo.cs) which is updated just before compile time by the build infrastructure.

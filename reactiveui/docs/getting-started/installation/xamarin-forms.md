@@ -1,6 +1,4 @@
----
-Title: Xamarin Forms
----
+# Xamarin Forms
 
 ## Package Installation
 

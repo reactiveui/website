@@ -1,7 +1,4 @@
----
-NoTitle: true
----
-## Reactive Programming: changing the world at Netflix, Microsoft, Slack and beyond!
+# Reactive Programming: changing the world at Netflix, Microsoft, Slack and beyond!
 
 Matthew Podwysocki at AngularConf
 

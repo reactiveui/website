@@ -1,6 +1,5 @@
----
-NoTitle: true
----
+# ViewModels
+
 At the core of every MVVM framework is the *ViewModel* - while this class is the most interesting aspect of the MVVM pattern, it is also the most misunderstood. Properly reasoning about what a ViewModel is and is not, is crucial to correctly applying the MVVM pattern.
 
 ## The Zen of The ViewModel

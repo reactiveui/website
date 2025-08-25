@@ -1,5 +1,4 @@
-
-## Visual Studio Minimums
+# Visual Studio Minimums
 
 Visual Studio 2022 and beyond.
 

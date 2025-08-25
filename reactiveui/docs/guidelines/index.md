@@ -1,5 +1,2 @@
----
-NoTitle: true
-Title: Guidelines
----
+# Guidelines
 

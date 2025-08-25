@@ -1,7 +1,5 @@
----
-NoTitle: true
-Title: Email Newsletters
----
+# Email Newsletters
+
 As devices shrink and the inbox evolves, the oldest tip is still the most important: Only send when you have something to say.
 
 ## Basics

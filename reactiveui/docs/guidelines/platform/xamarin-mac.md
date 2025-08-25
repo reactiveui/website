@@ -1,6 +1,4 @@
----
-Title: Xamarin Mac
----
+# Xamarin Mac
 
 This platform has two different base class libraries:
 

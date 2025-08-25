@@ -1,6 +1,5 @@
----
-NoTitle: true
----
+# Custom Dependency Inversion Container
+
 ## Override Default Depenedency Inversion Container
 
 We understand that some developers would prefer to use their favorite dependency inversion container. ReactiveUI allows for this by implementing `IMutableDependencyResolver`. Once this class has been implemented you simply need to assign it to `Locator` via `Locator.SetLocator()`. 

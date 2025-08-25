@@ -1,7 +1,4 @@
----
-NoTitle: true
-Title: Compiling
----
+# Compiling
 
 0. ReactiveUI will not build correctly on Visual Studio for Mac as of 22/08/2017 building for multiple TFM's is not implemented nor working in Visual Studio for Mac. Only netstandard is compiled.
 

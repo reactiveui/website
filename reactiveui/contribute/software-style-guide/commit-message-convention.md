@@ -1,10 +1,9 @@
----
-NoTitle: true
----
+# Commit Message Convention
+
 Each commit message consists of a **header**, a **body** and a **footer**.  The header has a special
 format that includes a **type**  and a **subject**:
 
-```
+```xml
 <type>: <subject>
 <body>
 <BLANK LINE>

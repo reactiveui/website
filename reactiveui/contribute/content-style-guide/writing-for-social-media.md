@@ -1,7 +1,5 @@
----
-NoTitle: true
-Title: Social media
----
+# Social media
+
 We use social media to build relationships with ReactiveUI users and share all the cool stuff we do. But it also creates opportunities to say the wrong thing, put off developers, and damage our brand. So we’re careful and deliberate in what we post to our social channels. This section lays out how we strike that delicate balance.
 
 ## Basics

@@ -1,6 +1,5 @@
----
-NoTitle: true
----
+# Data Binding in ReactiveUI
+
 A core part of being able to use the MVVM pattern is the very specific relationship between the ViewModel and View - that is, the View is connected in a one-way dependent manner to the ViewModel via *bindings*. ReactiveUI provides its own implementation of this concept, which has a number of advantages compared to platform-specific implementations such as XAML-based bindings.
 
 * Bindings work on **all platforms** and operate the same.

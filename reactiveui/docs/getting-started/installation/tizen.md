@@ -1,8 +1,7 @@
 ---
-NoTitle: true
-Title: Tizen
 Order: 80
 ---
+# Tizen
 
 ## Package Installation
 

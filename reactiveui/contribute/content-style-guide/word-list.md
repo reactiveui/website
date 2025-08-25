@@ -1,7 +1,5 @@
----
-NoTitle: true
-Title: Style Guide - Words
----
+# Style Guide - Words
+
 These words can be slippery. Here’s how we write them.
 
 * add-on (noun, adjective), add on (verb)
