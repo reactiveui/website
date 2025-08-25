@@ -1,6 +1,4 @@
----
-Title: Xamarin Forms
----
+# Xamarin Forms
 
 Ensure that you install `ReactiveUI.XamForms` into your applications.
 

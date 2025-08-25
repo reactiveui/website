@@ -1,6 +1,4 @@
----
-Title: Windows Presentation Foundation
----
+# Windows Presentation Foundation
 
 ## Package Installation
 

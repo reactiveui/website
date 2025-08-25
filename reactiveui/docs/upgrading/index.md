@@ -1,6 +1,5 @@
----
-NoTitle: true
----
+# Upgrading ReactiveUI
+
 ReactiveUI has been going through rapid changes since version 7. 
 
 Here are some guides on how to upgrade to newer features.

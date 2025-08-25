@@ -1,7 +1,7 @@
 ---
-NoTitle: true
 Order: 12
 ---
+# Reactive Programming
 
 > <img src="~/images/Rx_Icon.png" width="25" height="25" alt="Rx Icon"> &nbsp; [Reactive programming](https://reactivex.io) is programming with asynchronous data streams.
 

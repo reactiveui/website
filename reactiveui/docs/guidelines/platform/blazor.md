@@ -1,7 +1,4 @@
----
-NoTitle: true
-Title: Blazor
----
+# Blazor
 
 ## Project
 

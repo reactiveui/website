@@ -1,6 +1,4 @@
----
-Title: Windows Forms
----
+# Windows Forms
 
 ## Package Installation
 

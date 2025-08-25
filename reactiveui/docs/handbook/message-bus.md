@@ -1,6 +1,5 @@
----
-NoTitle: true
----
+# Message Bus
+
 Like many other MVVM frameworks, ReactiveUI includes an implementation of the
 message bus pattern. This allows you to send and recieve messages between
 different parts of the code without them directly accessing each other.

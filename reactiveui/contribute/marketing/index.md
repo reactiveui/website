@@ -1,6 +1,5 @@
----
-NoTitle: true
----
+# Marketing for Engineers
+
 @inherits StatiqRazorPage<IDocument>
 
 Website stats https://clicky.com/stats/?site_id=100909170

@@ -1,6 +1,4 @@
----
-Title: Avalonia
----
+# Avalonia
 
 <div class="youtube-video-container"><iframe src="https://www.youtube.com/embed/q6uWPtKw3UQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
 

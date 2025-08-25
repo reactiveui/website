@@ -1,8 +1,9 @@
 ---
-NoTitle: true
 Order: 40
-Title: Blog Posts
 ---
+# Blog Posts
+
+A collection of blog posts about ReactiveUI and related topics.
 
 ## 2017
 

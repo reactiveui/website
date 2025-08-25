@@ -1,7 +1,4 @@
----
-NoTitle: true
-Title: Dealing with Angry, Negative, Problematic or Disruptive community members
----
+# Dealing with Angry, Negative, Problematic or Disruptive community members
 
 GitHub's [recent research](https://opensourcesurvey.org/2017/) has shown that even witnessing these negative interactions can be costing our project of consumers stepping up to become contributors:
 

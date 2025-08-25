@@ -1,7 +1,4 @@
----
-NoTitle: true
----
-## Binding
+# Binding Commands
 
 View model commands that need to be bound to view controls must implement the `ICommand` interface. View model commands are typically bound to view controls using one of the `BindCommand` overloads available in the view. Let's see an example:
 

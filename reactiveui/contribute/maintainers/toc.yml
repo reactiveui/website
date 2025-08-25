@@ -15,8 +15,6 @@
   href: merging-pull-requests.md
 - name: Minimum Supported Version
   href: minimum-supported-version.md
-- name: platform-knowledge
-  href: platform-knowledge/toc.yml
 - name: Reviewing pull requests
   href: reviewing-pull-requests.md
 - name: Team management

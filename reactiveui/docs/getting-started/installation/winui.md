@@ -1,6 +1,4 @@
----
-Title: WinUI
----
+# WinUI
 
 ## Package Installation
 

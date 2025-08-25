@@ -1,7 +1,5 @@
----
-NoTitle: true
-Title: Blogging Guidelines
----
+# Blogging Guidelines
+
 ReactiveUI's blog posts are written by people from from all walks of life. We love having maintainers, contributors and businesses blog about their experiences with programming in an reactive manner. The person most familiar with the subject is in the best position to convey it. 
 
 ## Basics

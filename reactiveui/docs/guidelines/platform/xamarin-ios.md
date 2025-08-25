@@ -1,6 +1,4 @@
----
-Title: Xamarin iOS
----
+# Xamarin iOS
 
 Your viewmodels should inherit from `ReactiveObject`
 

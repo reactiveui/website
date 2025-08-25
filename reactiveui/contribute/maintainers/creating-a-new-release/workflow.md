@@ -1,6 +1,4 @@
----
-NoTitle: true
----
+# Workflow for Creating a New Release
 
 ## Development
 

@@ -1,7 +1,9 @@
 ---
-NoTitle: true
 Order: 10
 ---
+# Videos
+A collection of videos about ReactiveUI and related topics.
+
 ## 2021
 
 ## On .NET Live - Building Reactive UIs with Blazor

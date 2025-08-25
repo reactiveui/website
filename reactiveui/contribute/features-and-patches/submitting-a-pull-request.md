@@ -1,7 +1,5 @@
----
-NoTitle: true
-Title: Submitting a Pull Request
----
+# Submitting a Pull Request
+
 Before you submit your pull request, please:
 
 * If you are considering submitting a pull-request that is more than a simple fix, open a discussion on GitHub first with your proposal.

@@ -1,10 +1,8 @@
 ---
-NoTitle: true
-Title: Principles For Content
 Order: 0
 ---
 
-## Principles
+# Principles
 
 Good content is:
 

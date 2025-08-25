@@ -1,6 +1,7 @@
----
-NoTitle: true
----
+# Merging Pull Requests
+
+When a pull-request is ready to be merged, please follow these steps to ensure a smooth and consistent process.
+
 1. Assign one or more labels to categorize what component of ReactiveUI was changed by this unit of work. ![](~/images/apply-one-or-more-labels.png)
 
 2. Rename the title of the GitHub issue to match [our convention](~/contribute/software-style-guide/commit-message-convention.md). ![](~/images/rename-the-title.png)

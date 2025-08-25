@@ -1,6 +1,4 @@
----
-Title: Xamarin Mac
----
+# Xamarin Mac
 
 ## Package Installation
 

@@ -1,6 +1,7 @@
----
-NoTitle: true
----
+# WhenAny
+
+[![YouTube](https://img.shields.io/badge/YouTube-ReactiveUI-red?logo=youtube)](https://www.youtube.com/watch?v=IH2yx7b9DNY)
+
 In interactive UI applications, state is continually changing in response to user actions and application events. ReactiveUI enables you to express changes to application state as streams of values and combine and manipulate them using the powerful Reactive Extensions library.
 
 The motivation is intuitive enough when you think about it. It's not hard to imagine that changes to a property can be considered events - that's how `INotifyPropertyChanged` works. From there, the same argument for using Rx over events applies. In the context of MVVM application design specifically, modelling property changes as observables leads to several advantages:

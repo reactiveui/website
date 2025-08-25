@@ -1,8 +1,7 @@
 ---
-NoTitle: true
-Title: Samples
 Order: 15
 ---
+# Samples
 
 ## Samples Repository
 
