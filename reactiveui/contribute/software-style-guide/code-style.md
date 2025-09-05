@@ -3,38 +3,46 @@ Order: 0
 ---
 # C# Style Guide
 
-
 The general rule we follow is "use Visual Studio defaults".
 
 1. We use [Allman style](https://en.wikipedia.org/wiki/Indent_style#Allman_style) braces, where each brace begins on a new line. A single line statement block can go without braces but the block must be properly indented on its own line and must not be nested in other statement blocks that use braces (See RFC [18](https://github.com/reactiveui/rfcs/issues/18) for examples). One exception is that a `using` statement is permitted to be nested within another `using` statement by starting on the following line at the same indentation level, even if the nested `using` contains a controlled block.
 2. We use four spaces of indentation (no tabs).
-3. We use `_camelCase` for internal and private fields and use `readonly` where possible. Prefix internal and private instance fields with `_`. When used on static fields, `readonly` should come after `static` (e.g. `static readonly` not `readonly static`).  Public fields should be used sparingly and should use PascalCasing with no prefix when used.
+3. We use `_camelCase` for internal and private fields and use `readonly` where possible. Prefix internal and private instance fields with `_`. When used on static fields, `readonly` should come after `static` (e.g. `static readonly` not `readonly static`). Public fields should be used sparingly and should use PascalCasing with no prefix when used.
 4. We avoid `this.` unless absolutely necessary.
-5. We always specify the visibility, even if it's the default (e.g.
-   `private string _foo` not `string _foo`). Visibility should be the first modifier (e.g.
-   `public abstract` not `abstract public`).
-6. Namespace imports should be specified at the top of the file, *outside* of
-   `namespace` declarations. They should be sorted with system namespaces alphabetically, then third party namespaces alphabetically.
-7. Avoid more than one empty line at any time. For example, do not have two
-   blank lines between members of a type.
-8. Avoid spurious free spaces.
-   For example avoid `if (someVar == 0)...`, where the dots mark the spurious free spaces.
-   Consider enabling "View White Space (Ctrl+E, S)" if using Visual Studio to aid detection.
-9. If a file happens to differ in style from these guidelines (e.g. private members are named `m_member`
-   rather than `_member`), the existing style in that file takes precedence.
+5. We always specify the visibility, even if it's the default (e.g. `private string _foo` not `string _foo`). Visibility should be the first modifier (e.g. `public abstract` not `abstract public`).
+6. Namespace imports should be specified at the top of the file, *outside* of `namespace` declarations. They should be sorted with system namespaces alphabetically, then third party namespaces alphabetically. Use global using directives where appropriate to reduce repetition across files.
+7. Avoid more than one empty line at any time. For example, do not have two blank lines between members of a type.
+8. Avoid spurious free spaces. For example avoid `if (someVar == 0)...`, where the dots mark the spurious free spaces. Consider enabling "View White Space (Ctrl+E, S)" if using Visual Studio to aid detection.
+9. If a file happens to differ in style from these guidelines (e.g. private members are named `m_member` rather than `_member`), the existing style in that file takes precedence.
 10. The use of `var` is encouraged if it makes sense to do so. Good use cases are where the return type has a large name, where refactoring is possible. If there is a need for clarity than using the full type name is allowed.
 11. We use language keywords instead of BCL types (e.g. `int, string, float` instead of `Int32, String, Single`, etc) for both type references as well as method calls (e.g. `int.Parse` instead of `Int32.Parse`). See issue [391](https://github.com/dotnet/runtime/issues/13976) for examples.
 12. We use PascalCasing to name all our constant local variables and fields. The only exception is for interop code where the constant value should exactly match the name and value of the code you are calling via interop.
-13. We use ```nameof(...)``` instead of ```"..."``` whenever possible and relevant.
+13. We use `nameof(...)` instead of `"..."` whenever possible and relevant.
 14. Fields should be specified at the top within type declarations.
 15. When including non-ASCII characters in the source code use Unicode escape sequences (\uXXXX) instead of literal characters. Literal non-ASCII characters occasionally get garbled by a tool or editor.
 16. When using labels (for goto), indent the label one less than the current indentation.
-17. All publically exposed methods and properties should have a .net XML comment associated with them. This includes protected methods of public declared classes.
-18. Use of method groups is encourged where appropriate.
-19. Use the C# 7 style pattern matching when possible.
+17. All publicly exposed methods and properties should have a .NET XML comment associated with them. This includes protected methods of public declared classes.
+18. Use of method groups is encouraged where appropriate.
+19. Use the C# 7 style pattern matching when possible. Extend this to enhanced pattern matching features from later versions, including recursive, tuple, positional, type, relational, and list patterns for more expressive conditional logic.
 20. When using methods with `out` parameters, try to use the inline variable feature within C# 7.
+21. Enable nullable reference types in projects to distinguish nullable from non-nullable references, reducing null-related errors at compile time.
+22. Use ranges (`..`) and indices (`^`) for slicing collections to make sequence operations more concise and readable.
+23. Employ using declarations for automatic resource disposal without nested blocks, improving code cleanliness.
+24. Declare static local functions to avoid capturing unnecessary state, enhancing performance in local scopes.
+25. Prefer switch expressions over statements for concise control flow in value-based decisions.
+26. Use records (and record structs) for data-centric types with value semantics, reducing boilerplate for equality and immutability.
+27. Apply init-only setters for properties that should only be set during initialization, supporting immutable designs.
+28. Utilize target-typed new expressions to infer types from context, reducing verbosity in object creation.
+29. Declare static anonymous functions or lambdas to prevent state capture, aligning with functional best practices.
+30. Use file-scoped namespace declarations for a single-line namespace syntax, making files more concise.
+31. Apply with expressions on structs and anonymous types for nondestructive mutation, promoting immutability.
+32. Use raw string literals (starting with `"""`) for multi-line or complex strings without escapes, improving readability.
+33. Mark required members with the `required` modifier to enforce initialization, enhancing code reliability.
+34. Use primary constructors in classes and structs to centralize initialization logic and reduce boilerplate.
+35. Employ collection expressions (`[...]`) for concise initialization of arrays, lists, and spans, with spread elements (`..`).
+36. Add default parameters to lambda expressions to reduce the need for overloads in functional code.
 
-We have provided an analyzer ruleset (`analyzers.ruleset`) at the root of the reactiveui repository, enabling C# auto-formatting conforming to the above guidelines.
+We have provided an analyzer ruleset (`.editorconfig`) at the root of the reactiveui repository, enabling C# auto-formatting conforming to the above guidelines. Update the ruleset as needed to enforce newer features like nullable reference types.
 
 ### Example File:
 
