@@ -15,6 +15,6 @@ Assuming the following project structure:
 * Install [ReactiveMarbles.ObservableEvents.SourceGenerator](https://www.nuget.org/packages/ReactiveMarbles.ObservableEvents.SourceGenerator) into your application.
 * Install [ReactiveUI.Testing](https://www.nuget.org/packages/ReactiveUI.Testing) into your tests.
 
-Please ensure that you are targeting at least windows10.0.17763.0
+Please ensure that you are targeting at least windows10.0.19041.0
 
-i.e `<TargetFramework>net8.0-windows10.0.17763.0</TargetFramework>` in your csproj file.
+i.e `<TargetFramework>net10.0-windows10.0.19041.0</TargetFramework>` in your csproj file.
