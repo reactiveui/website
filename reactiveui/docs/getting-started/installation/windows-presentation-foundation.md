@@ -18,3 +18,26 @@ Assuming the following project structure:
 Please ensure that you are targeting at least windows10.0.19041.0
 
 i.e `<TargetFramework>net10.0-windows10.0.19041.0</TargetFramework>` in your csproj file.
+
+In your `App.xaml.cs`'s `OnStartup()`, create a `ReactiveUiBuilder`, configure it for WPF and run it:
+
+```c#
+//...
+using ReactiveUI.Builder;
+
+public partial class App : Application
+{
+    protected override void OnStartup(StartupEventArgs e)
+    {
+        base.OnStartup(e);
+
+        RxAppBuilder.CreateReactiveUIBuilder()
+                    .WithWpf()
+                    .WithViewsFromAssembly(typeof(App).Assembly)
+                    .Build();
+        //...
+    }
+
+    //...
+}
+```
