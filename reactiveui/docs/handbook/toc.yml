@@ -1,5 +1,7 @@
 - name: Handbook
   href: index.md
+- name: RxAppBuilder
+  href: rxappbuilder.md
 - name: Collections
   href: collections.md
 - name: Commands
