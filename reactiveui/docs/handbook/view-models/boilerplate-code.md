@@ -1,5 +1,6 @@
 # Source Generators and Fody, the easy way to create properties in ReactiveUI
 
+## Legacy Note
 If you are tired of writing boilerplate code for property change notifications, you can try one of the following: 
 - [PropertyChanged.Fody](https://github.com/Fody/PropertyChanged) or 
 - [ReactiveUI.Fody](https://www.nuget.org/packages/ReactiveUI.Fody).
@@ -7,6 +8,7 @@ If you are tired of writing boilerplate code for property change notifications, 
 These two libraries are both based on [Fody](https://github.com/Fody) - an extensible tool for weaving .NET assemblies, and they'll 
 inject `INotifyPropertyChanged` code into decorated properties at compile time for you. 
 
+## Recommend for new projects
 - [ReactiveUI.SourceGenerators](https://www.nuget.org/packages/ReactiveUI.SourceGenerators/)
 
 This library is a Source Generator that generates properties and commands for you. It is a new way to generate properties and commands for ReactiveUI taking decorated fields and methods and generating the properties and ReactiveCommands for you.
@@ -499,7 +501,7 @@ using ReactiveUI.SourceGenerators.WinForms;
 public partial class MyCustomViewModelControlHost;
 ```
 
-# Using ReactiveUI.Fody
+# Using ReactiveUI.Fody - Legacy
 
 With [ReactiveUI.Fody](https://www.nuget.org/packages/ReactiveUI.Fody/), you don't have to write boilerplate code for getters and setters of read-write properties — the package will do it automagically for you at compile time.
 All you have to do is annotate the property with the `[Reactive]` attribute, as shown below.
