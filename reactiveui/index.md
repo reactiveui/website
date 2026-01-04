@@ -30,11 +30,11 @@ _layout: landing
                 <div class="code-sample">
                  	<pre class="branding-code">
 <a class="text-danger" href="~/docs/handbook/view-models/index.md">this</a>.<a class="text-info" href="~/docs/handbook/when-any.md">WhenAnyValue</a>(x => x.SearchQuery)
-    .<a class="text-info" href="https://reactivex.io/documentation/operators/debounce.html">Throttle</a>(<span class="text-danger">TimeSpan</span>.<span class="text-info">FromSeconds</span>(<span class="text-danger">0.8</span>), <span class="text-danger">RxApp</span>.<a class="text-info" href="~/docs/handbook/scheduling.md">TaskpoolScheduler</a>)
+    .<a class="text-info" href="https://reactivex.io/documentation/operators/debounce.html">Throttle</a>(<span class="text-danger">TimeSpan</span>.<span class="text-info">FromSeconds</span>(<span class="text-danger">0.8</span>), <span class="text-danger">RxSchedulers</span>.<a class="text-info" href="~/docs/handbook/scheduling.md">TaskpoolScheduler</a>)
     .<a class="text-info" href="https://reactivex.io/documentation/operators/map.html">Select</a>(query => query?.<span class="text-info">Trim</span>())
     .<a class="text-info" href="https://reactivex.io/documentation/operators/distinct.html">DistinctUntilChanged</a>()
     .<a class="text-info" href="https://reactivex.io/documentation/operators/filter.html">Where</a>(query => !<span class="text-danger">string</span>.<span class="text-info">IsNullOrWhiteSpace</span>(query))
-    .<a class="text-info" href="https://reactivex.io/documentation/operators/observeon.html">ObserveOn</a>(<span class="text-danger">RxApp</span>.<a class="text-info" href="~/docs/handbook/scheduling.md">MainThreadScheduler</a>)
+    .<a class="text-info" href="https://reactivex.io/documentation/operators/observeon.html">ObserveOn</a>(<span class="text-danger">RxSchedulers</span>.<a class="text-info" href="~/docs/handbook/scheduling.md">MainThreadScheduler</a>)
     .<a class="text-info" href="~/docs/handbook/commands/index.md">InvokeCommand</a>(ExecuteSearch);</pre>
                 </div>
             </div>

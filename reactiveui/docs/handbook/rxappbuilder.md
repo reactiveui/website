@@ -62,7 +62,7 @@ You can configure the main thread and task pool schedulers used by ReactiveUI us
 .WithTaskpoolScheduler(TaskPoolScheduler.Default)
 ```
 
-The default scheduler extensions register the RxApp.MainThreadScheduler and RxApp.TaskpoolScheduler to use the appropriate schedulers for the platform.
+The default scheduler extensions register the RxSchedulers.MainThreadScheduler and RxSchedulers.TaskpoolScheduler to use the appropriate schedulers for the platform.
 This can be overridden by calling the above methods with `setRxApp = false` to prevent setting the RxApp static properties.
 
 ```csharp

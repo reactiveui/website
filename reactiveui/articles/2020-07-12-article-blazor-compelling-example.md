@@ -46,10 +46,10 @@ This did require some wrangling of Splat, shown here in the App.xaml.cs of the W
     {
         public App()
         {
-            Locator.CurrentMutable.Register(() => new MainWindow(), typeof(IViewFor<AppViewModel>));
-            Locator.CurrentMutable.Register(() => new NugetDetailsView(), typeof(IViewFor<NugetDetailsViewModel>));
+            AppLocator.CurrentMutable.Register(() => new MainWindow(), typeof(IViewFor<AppViewModel>));
+            AppLocator.CurrentMutable.Register(() => new NugetDetailsView(), typeof(IViewFor<NugetDetailsViewModel>));
             
-            Locator.CurrentMutable.RegisterLazySingleton(() =>
+            AppLocator.CurrentMutable.RegisterLazySingleton(() =>
                 RestService.For<INugetService>("https://localhost:44394/api"), typeof(INugetService));
             
         }
@@ -72,14 +72,14 @@ Here's my Program.cs.  As you can see, I'm using [Blazorise](https://blazorise.c
                 .AddFontAwesomeIcons();
 
             builder.Services.UseMicrosoftDependencyResolver(); //Splat config
-            var resolver = Locator.CurrentMutable;
+            var resolver = AppLocator.CurrentMutable;
             resolver.InitializeSplat();
             resolver.InitializeReactiveUI();
 
-            Locator.CurrentMutable.Register(() => new IndexView(), typeof(IViewFor<AppViewModel //Splat!
-            Locator.CurrentMutable.Register(() => new NugetDetailsView(), typeof(IViewFor<NugetDetailsViewModel>)); //Splat!
+            AppLocator.CurrentMutable.Register(() => new IndexView(), typeof(IViewFor<AppViewModel //Splat!
+            AppLocator.CurrentMutable.Register(() => new NugetDetailsView(), typeof(IViewFor<NugetDetailsViewModel>)); //Splat!
 
-            Locator.CurrentMutable.RegisterLazySingleton(() =>
+            AppLocator.CurrentMutable.RegisterLazySingleton(() =>
                 RestService.For<INugetService>("https://localhost:44394/api", new RefitSettings{ ContentSerializer = new JsonContentSerializer()}), typeof(INugetService)); //Annoying bit of Splat that I kicked myself for forgetting!
 
             builder.RootComponents.Add<App>("app");
