@@ -10,12 +10,11 @@ ReactiveUI packages are signed by the .NET Foundation. Install platform-specific
 | WinUI             | [ReactiveUI.WinUI][WinUiDoc]        | [![WinUiBadge]][WinUi] |
 | MAUI              | [ReactiveUI.Maui][MauiDoc]          | [![MauiBadge]][Maui]   |
 | Windows Forms     | [ReactiveUI.WinForms][WinDoc]       | [![WinBadge]][Win]     |
-| Xamarin.Forms (legacy) | [ReactiveUI.XamForms][XamDoc]  | [![XamBadge]][Xam]     |
-| AndroidX (legacy Xamarin) | [ReactiveUI.AndroidX][DroDoc] | [![DroXBadge]][DroX] |
+| AndroidX (Xamarin) | [ReactiveUI.AndroidX][DroDoc]      | [![DroXBadge]][DroX]   |
 | Blazor            | [ReactiveUI.Blazor][BlazDoc]        | [![BlazBadge]][Blaz]   |
 | Uno               | [ReactiveUI.Uno][UnoDoc]            | [![UnoBadge]][Uno]     |
 | Uno WinUI         | [ReactiveUI.Uno.WinUI][UnoWinUiDoc] | [![UnoWinUiBadge]][UnoWinUi] |
-| Avalonia          | [Avalonia.ReactiveUI][AvaDoc]       | [![AvaBadge]][Ava]     |
+| Avalonia          | [ReactiveUI.Avalonia][AvaDoc]       | [![AvaBadge]][Ava]     |
 | Validation        | [ReactiveUI.Validation][ValDocs]    | [![ValBadge]][ValCore] |
 
 [Core]: https://www.nuget.org/packages/ReactiveUI/
@@ -42,12 +41,9 @@ ReactiveUI packages are signed by the .NET Foundation. Install platform-specific
 [WinBadge]: https://img.shields.io/nuget/v/ReactiveUI.WinForms.svg
 [WinDoc]: ~/docs/getting-started/installation/windows-forms.md
 
-[Xam]: https://www.nuget.org/packages/ReactiveUI.XamForms/
-[XamBadge]: https://img.shields.io/nuget/v/ReactiveUI.XamForms.svg
-[XamDoc]: ~/docs/getting-started/installation/xamarin-forms.md
-
 [DroX]: https://www.nuget.org/packages/ReactiveUI.AndroidX/
 [DroXBadge]: https://img.shields.io/nuget/v/ReactiveUI.AndroidX.svg
+[DroDoc]: ~/docs/getting-started/installation/androidx.md
 
 [Uno]: https://www.nuget.org/packages/ReactiveUI.Uno/
 [UnoBadge]: https://img.shields.io/nuget/v/ReactiveUI.Uno.svg
@@ -60,8 +56,8 @@ ReactiveUI packages are signed by the .NET Foundation. Install platform-specific
 [BlazBadge]: https://img.shields.io/nuget/v/ReactiveUI.Blazor.svg
 [BlazDoc]: ~/docs/getting-started/installation/blazor.md
 
-[Ava]: https://www.nuget.org/packages/Avalonia.ReactiveUI/
-[AvaBadge]: https://img.shields.io/nuget/v/Avalonia.ReactiveUI.svg
+[Ava]: https://www.nuget.org/packages/ReactiveUI.Avalonia/
+[AvaBadge]: https://img.shields.io/nuget/v/ReactiveUI.Avalonia.svg
 [AvaDoc]: ~/docs/getting-started/installation/avalonia.md
 
 [ValCore]: https://www.nuget.org/packages/ReactiveUI.Validation/
