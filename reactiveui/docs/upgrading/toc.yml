@@ -1,2 +1,8 @@
 - name: Upgrading
   href: index.md
+- name: Fody to SourceGenerators
+  href: fody-to-sourcegenerators.md
+- name: RxAppBuilder Migration
+  href: rxappbuilder-migration.md
+- name: Xamarin to MAUI
+  href: xamarin-to-maui.md

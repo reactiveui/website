@@ -6,7 +6,7 @@ Akavache exposes logical caches through a single instance:
 - InMemory: fast process-local cache
 
 ```csharp
-var ak = Locator.Current.GetService<IAkavacheInstance>(contract: "MyApp");
+var ak = AppLocator.Current.GetService<IAkavacheInstance>(contract: "MyApp");
 await ak.LocalMachine.InsertObject("user:42", user);
 var u = await ak.LocalMachine.GetObject<User>("user:42");
 

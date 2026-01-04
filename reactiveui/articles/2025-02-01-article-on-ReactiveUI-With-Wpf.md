@@ -62,12 +62,12 @@ namespace ReactiveUIWpfExample
             base.OnStartup(e);
 
             // Initialize ReactiveUI routing
-            Locator.CurrentMutable.RegisterViewsForViewModels(typeof(App).Assembly);
+            AppLocator.CurrentMutable.RegisterViewsForViewModels(typeof(App).Assembly);
         }
     }
 }
 ```
-Here, the Locator.CurrentMutable.RegisterViewsForViewModels method registers all View-ViewModel pairs within the assembly, enabling automatic view resolution during navigation. 
+Here, the AppLocator.CurrentMutable.RegisterViewsForViewModels method registers all View-ViewModel pairs within the assembly, enabling automatic view resolution during navigation. 
 This setup ensures that when a ViewModel is navigated to, its corresponding View is automatically resolved and displayed.
 
 Next, create a basic folder structure to organize your project. 
@@ -756,7 +756,7 @@ this.WhenAnyValue(x => x.SearchQuery)
     .Throttle(TimeSpan.FromMilliseconds(300))
     .Select(query => PerformSearch(query))
     .Switch()
-    .ObserveOn(RxApp.MainThreadScheduler)
+    .ObserveOn(RxSchedulers.MainThreadScheduler)
     .ToProperty(this, x => x.SearchResults, out _searchResults);
 ```
 This example demonstrates how ReactiveUI can handle real-time search queries efficiently, debouncing user input and switching to the latest search results without blocking the UI thread.
@@ -843,7 +843,7 @@ this.WhenAnyValue(x => x.SearchQuery)
     .DistinctUntilChanged() // Ignore duplicate queries
     .Select(query => PerformSearch(query)) // Execute the search
     .Switch() // Cancel previous searches if a new query arrives
-    .ObserveOn(RxApp.MainThreadScheduler) // Ensure UI updates occur on the UI thread
+    .ObserveOn(RxSchedulers.MainThreadScheduler) // Ensure UI updates occur on the UI thread
     .ToProperty(this, x => x.SearchResults, out _searchResults); // Bind results to a property
 ```
 This example demonstrates how Rx allows developers to declaratively define how events should be handled, reducing boilerplate code and improving readability. 
@@ -863,7 +863,7 @@ var timerTicks = Observable.Interval(TimeSpan.FromSeconds(5));
 var stockData = filterChanges
     .CombineLatest(timerTicks, (filter, _) => filter)
     .SelectMany(filter => FetchStockDataAsync(filter))
-    .ObserveOn(RxApp.MainThreadScheduler);
+    .ObserveOn(RxSchedulers.MainThreadScheduler);
 
 stockData.Subscribe(data =>
 {
@@ -883,13 +883,13 @@ For example, the `ObserveOn` operator ensures that notifications are marshalled 
 Here’s an example of fetching data on a background thread and updating the UI on the main thread:
 
 ```csharp
-Observable.Start(() => FetchDataFromDatabase(), RxApp.TaskpoolScheduler
+Observable.Start(() => FetchDataFromDatabase(), RxSchedulers.TaskpoolScheduler
     .Subscribe(data =>
     {
         this.DataItems = new ObservableCollection<DataItem>(data);
     });
 ```
-In this snippet, `RxApp.TaskpoolScheduler` ensures that the database query runs on a background thread, while `RxApp.MainThreadScheduler` ensures that the UI updates occur on the main thread. 
+In this snippet, `RxSchedulers.TaskpoolScheduler` ensures that the database query runs on a background thread, while `RxSchedulers.MainThreadScheduler` ensures that the UI updates occur on the main thread. 
 This separation of concerns eliminates the need for manual thread synchronization, reducing the risk of threading-related bugs.
 
 ### Building Complex Workflows with Composable Streams
@@ -963,21 +963,21 @@ Example: Updating on the UI Thread
 this.WhenAnyValue(x => x.SearchQuery)
     .Throttle(TimeSpan.FromMilliseconds(300))
     .Select(query => PerformSearch(query))
-    .ObserveOn(RxApp.MainThreadScheduler) // Ensure UI updates occur on the UI thread
+    .ObserveOn(RxSchedulers.MainThreadScheduler) // Ensure UI updates occur on the UI thread
     .ToProperty(this, x => x.SearchResults, out _searchResults);
 ```
-In this snippet, the `ObserveOn(RxApp.MainThreadScheduler)` operator ensures that the SearchResults property is updated on the UI thread, allowing the View to reflect changes without causing threading exceptions.
+In this snippet, the `ObserveOn(RxSchedulers.MainThreadScheduler)` operator ensures that the SearchResults property is updated on the UI thread, allowing the View to reflect changes without causing threading exceptions.
 
 ### Leveraging TaskPool Threads
 
-The TaskPool threads , managed by the `RxApp.TaskPoolScheduler`, are designed for executing computationally intensive or long-running tasks outside the UI thread. 
+The TaskPool threads , managed by the `RxSchedulers.TaskPoolScheduler`, are designed for executing computationally intensive or long-running tasks outside the UI thread. 
 Offloading work to TaskPool threads prevents the UI from freezing during heavy processing, ensuring a smooth and responsive user experience. 
 ReactiveUI integrates seamlessly with TaskPool threads through Rx schedulers, enabling developers to specify where observables execute their work.
 
 Example: Performing Background Work
 ```csharp
-Observable.Start(() => FetchDataFromDatabase(), RxApp.TaskPoolScheduler)
-    .ObserveOn(RxApp.MainThreadScheduler)
+Observable.Start(() => FetchDataFromDatabase(), RxSchedulers.TaskPoolScheduler)
+    .ObserveOn(RxSchedulers.MainThreadScheduler)
     .Subscribe(data =>
     {
         this.DataItems = new ObservableCollection<DataItem>(data);

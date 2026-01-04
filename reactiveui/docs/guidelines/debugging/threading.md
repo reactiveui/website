@@ -2,7 +2,7 @@
 
     moswald [5:04 AM] 
     does anyone have a good way to find which property on a View is being accessed from the wrong thread?
-    sigh. found it, but there should be an easier way than just adding `.ObserveOn(RxApp.MainThreadScheduler)` everywhere until it goes away
+    sigh. found it, but there should be an easier way than just adding `.ObserveOn(RxSchedulers.MainThreadScheduler)` everywhere until it goes away
     
     anaisbetts [6:43 AM] 
     Can't you just see it on the call stack?

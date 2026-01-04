@@ -82,7 +82,7 @@ LoadUsers = ReactiveCommand.CreateFromTask(LoadUsersAsync);
 // LoadUsers Observable, update our OAPH and notify the UI 
 // that the value of Users property has changed.
 _users = LoadUsers.ToProperty(
-    this, x => x.Users, scheduler: RxApp.MainThreadScheduler);
+    this, x => x.Users, scheduler: RxSchedulers.MainThreadScheduler);
 
 // Here we subscribe to all exceptions thrown by our 
 // command and log them using ReactiveUI logging system.
@@ -169,7 +169,7 @@ The easiest way of resolving this issue is using `Throttle()` operator over merg
 ```cs
 // Now our ErrorInteraction will be handled only once if command A throws!
 commandA.ThrownExceptions.Merge(commandB.ThrownExceptions)
-    .Throttle(TimeSpan.FromMilliseconds(250), RxApp.MainThreadScheduler)
+    .Throttle(TimeSpan.FromMilliseconds(250), RxSchedulers.MainThreadScheduler)
     .Subscribe(error => ErrorInteraction.Handle("Error in B!"));
 ```
 
@@ -252,7 +252,7 @@ All child commands provided to the `CreateCombined` method must be of the same t
 
 ## Controlling scheduling
 
-By default, `ReactiveCommand` uses `RxApp.MainThreadScheduler` to surface events. That is, values from `CanExecute`, `IsExecuting`, `ThrownExceptions`, and result values from the command itself. Typically UI components are subscribed to these observables, so it's a sensible default. However, when writing unit tests for your view models, you may want more control over scheduling. All `Create*` methods take an optional `outputScheduler` parameter, so you can pass in a custom scheduler if you need to:
+By default, `ReactiveCommand` uses `RxSchedulers.MainThreadScheduler` to surface events. That is, values from `CanExecute`, `IsExecuting`, `ThrownExceptions`, and result values from the command itself. Typically UI components are subscribed to these observables, so it's a sensible default. However, when writing unit tests for your view models, you may want more control over scheduling. All `Create*` methods take an optional `outputScheduler` parameter, so you can pass in a custom scheduler if you need to:
 
 ```cs
 var command = ReactiveCommand.Create(() => { }, outputScheduler: someScheduler);
@@ -263,7 +263,7 @@ It's important to understand that the execution logic for a reactive command is 
 ```cs
 var command = ReactiveCommand.Create(
     () => Console.WriteLine(Environment.CurrentManagedThreadId), 
-    outputScheduler: RxApp.MainThreadScheduler
+    outputScheduler: RxSchedulers.MainThreadScheduler
 );
 
 // This will output the ID of the thread from which you make 
@@ -271,7 +271,7 @@ var command = ReactiveCommand.Create(
 command.Execute().Subscribe();
 ```
 
-> **Note** If you're using ReactiveUI's `With` extension method in your tests, you can create commands using the default scheduling behavior. That's because the `With` extension method will switch out `RxApp.MainThreadScheduler` with the scheduler you provide it.
+> **Note** If you're using ReactiveUI's `With` extension method in your tests, you can create commands using the default scheduling behavior. That's because the `With` extension method will switch out `RxSchedulers.MainThreadScheduler` with the scheduler you provide it.
 
 ## Bindings
 
