@@ -44,7 +44,7 @@ public bool TryConvert(object from, Type toType, object conversionHint, out obje
 If you'd like to use a custom converter globally, you need to register it using Splat Locator.
 
 ```csharp
-Locator.CurrentMutable.RegisterConstant(
+AppLocator.CurrentMutable.RegisterConstant(
     new MyCoolTypeConverter(), 
     typeof(IBindingTypeConverter)
 );

@@ -12,7 +12,7 @@ public class SearchViewModel : ReactiveObject, ISearchViewModel
     
     public SearchViewModel(ISearchService searchService = null) 
     { 
-        this.searchService = searchService ?? Locator.Current.GetService<ISearchService>();
+        this.searchService = searchService ?? AppLocator.Current.GetService<ISearchService>();
 
         var canSearch = this
             .WhenAnyValue(x => x.SearchQuery)
@@ -119,7 +119,7 @@ public class NewtonsoftJsonSuspensionDriver : ISuspensionDriver
 
 ## 2. Define the AppState Object
 
-The `AppState` is an object with `DataContract` notations, the `AppState` is platform independent. You can use your root ViewModel as your `AppState` retrieving services from `Locator.Current.GetService<T>` for [dependency inversion feature](/docs/handbook/dependency-inversion/) to work.
+The `AppState` is an object with `DataContract` notations, the `AppState` is platform independent. You can use your root ViewModel as your `AppState` retrieving services from `AppLocator.Current.GetService<T>` for [dependency inversion feature](/docs/handbook/dependency-inversion/) to work.
 
 ```cs
 [DataContract]

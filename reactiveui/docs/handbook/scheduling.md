@@ -2,14 +2,14 @@
 
 Scheduling is a core part of writing any app that uses the Reactive Extensions, as all operations are deferred (i.e. run on other threads or on the UI thread). Schedulers allow apps to control what context code runs in, and it is important that libraries that run code on other threads are scheduler-aware. ReactiveUI provides two app-wide schedulers that should be used in-place of other schedulers such as the built-in Rx schedulers:
 
-* **RxApp.MainThreadScheduler** - This scheduler executes on the UI thread. On XAML-based platforms, this is equivalent to Dispatcher.BeginInvoke.
+* **RxSchedulers.MainThreadScheduler** - This scheduler executes on the UI thread. On XAML-based platforms, this is equivalent to Dispatcher.BeginInvoke.
 
-* **RxApp.TaskpoolScheduler** - This scheduler executes code via the TPL taskpool. This is equivalent to Task.Run.
+* **RxSchedulers.TaskpoolScheduler** - This scheduler executes code via the TPL taskpool. This is equivalent to Task.Run.
 
 To use these two inbuilt schedulers use the `ObserveOn` operator in your Observable chain:
 
 ```cs
-this.WhenAnyValue(x => x.MyImportantProperty).ObserveOn(RxApp.MainThreadScheduler).Subscribe(x => ...);
+this.WhenAnyValue(x => x.MyImportantProperty).ObserveOn(RxSchedulers.MainThreadScheduler).Subscribe(x => ...);
 ```
 
 To control where a `ReactiveControl` runs the `Subscribe` you can pass in a scheduler. By default it will use whatever the current thread's scheduler is, so if you initialize from the UI thread it will use that thread.
@@ -28,8 +28,8 @@ public class MyVm : ReactiveObject
 
   public MyVm()
   {
-    MyCommand = ReactiveCommand.Create<Unit, string>(_ => ...do stuff..., outputScheduler: RxApp.MainThreadScheduler);
-    _isRunning = MyCommand.IsExecuting.ToProperty(this, nameof(IsRunning), scheduler: RxApp.MainThreadScheduler);  
+    MyCommand = ReactiveCommand.Create<Unit, string>(_ => ...do stuff..., outputScheduler: RxSchedulers.MainThreadScheduler);
+    _isRunning = MyCommand.IsExecuting.ToProperty(this, nameof(IsRunning), scheduler: RxSchedulers.MainThreadScheduler);  
   }
 
   public ReactiveCommand<Unit, string> MyCommand { get; }
@@ -59,9 +59,9 @@ Dispatcher.BeginInvoke(new Action(() => DoAThing()));
 var result = await Observable.Start(() => {
     int number = ThisCalculationTakesALongTime();
     return number;
-}, RxApp.TaskpoolScheduler);
+}, RxSchedulers.TaskpoolScheduler);
 
-RxApp.MainThreadScheduler.Schedule(() => DoAThing());
+RxSchedulers.MainThreadScheduler.Schedule(() => DoAThing());
 ```
 
 If you create a shared component, you should also consider allowing the scheduler being specified as an optional constructor parameter.
@@ -73,7 +73,7 @@ In a unit test runner, by default, the `MainThreadScheduler` runs code immediate
 ```csharp
 new TestScheduler().With(sheduler => 
 {
-    // Code run in this block will have both RxApp.MainThreadScheduler
-    // and RxApp.TaskpoolScheduler assigned to the new TestScheduler.
+    // Code run in this block will have both RxSchedulers.MainThreadScheduler
+    // and RxSchedulers.TaskpoolScheduler assigned to the new TestScheduler.
 });
 ```

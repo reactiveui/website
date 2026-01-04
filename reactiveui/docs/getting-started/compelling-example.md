@@ -91,7 +91,7 @@ We also need a NuGet client library in this tutorial, and we are going to instal
                 .DistinctUntilChanged()
                 .Where(term => !string.IsNullOrWhiteSpace(term))
                 .SelectMany(SearchNuGetPackages)
-                .ObserveOn(RxApp.MainThreadScheduler)
+                .ObserveOn(RxSchedulers.MainThreadScheduler)
                 .ToProperty(this, x => x.SearchResults);
                 
             // We subscribe to the "ThrownExceptions" property of our OAPH, where ReactiveUI 
@@ -181,7 +181,7 @@ First, we need to register our views in the `App.xaml.cs` file.
             // A helper method that will register all classes that derive off IViewFor 
             // into our dependency injection container. ReactiveUI uses Splat for it's 
             // dependency injection by default, but you can override this if you like.
-            Locator.CurrentMutable.RegisterViewsForViewModels(Assembly.GetCallingAssembly());
+            AppLocator.CurrentMutable.RegisterViewsForViewModels(Assembly.GetCallingAssembly());
         }
     }
 
