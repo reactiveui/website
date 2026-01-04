@@ -6,7 +6,7 @@ ReactiveUI includes a few tools to help testing, built on what Reactive Extensio
 
 > Scheduling, and therefore threading, is generally avoided in test scenarios as it can introduce race conditions which may lead to non-deterministic tests — [Intro to Rx @ Testing Rx](http://introtorx.com/Content/v1.0.10621.0/16_TestingRx.html#TestingRx)
 
-By default, `ReactiveCommand` uses `RxApp.MainThreadScheduler` and `ObservableAsPropertyHelper` uses `CurrentThreadScheduler.Instance`, but this behavior can be easily overriden:
+By default, `ReactiveCommand` uses `RxSchedulers.MainThreadScheduler` and `ObservableAsPropertyHelper` uses `CurrentThreadScheduler.Instance`, but this behavior can be easily overriden:
 
 ```cs
 // Inject custom schedulers into your view model.
@@ -14,8 +14,8 @@ public LoginViewModel(IScheduler customMainThreadScheduler = null)
 {
   // If custom main thread scheduler isn't initialized, fallback to default one.
   // For current thread scheduler, use CurrentThreadScheduler.Instance;
-  // For task pool scheduler, use RxApp.TaskPoolScheduler.
-  customMainThreadScheduler = customMainThreadScheduler ?? RxApp.MainThreadScheduler;
+  // For task pool scheduler, use RxSchedulers.TaskPoolScheduler.
+  customMainThreadScheduler = customMainThreadScheduler ?? RxSchedulers.MainThreadScheduler;
 
   // Initialize a reactive command with a custom output scheduler.
   _loginCommand = ReactiveCommand.CreateFromTask(
@@ -59,19 +59,19 @@ new TestScheduler().With(scheduler =>
 
 ## Replacing Schedulers Without Injecting Them
 
-The `With` method also replaces the schedulers ReactiveUI is using. This means, that both `RxApp.MainThreadScheduler` and `RxApp.TaskPoolScheduler` will stay replaced with `TestScheduler` until the `With` method returns. 
+The `With` method also replaces the schedulers ReactiveUI is using. This means, that both `RxSchedulers.MainThreadScheduler` and `RxSchedulers.TaskPoolScheduler` will stay replaced with `TestScheduler` until the `With` method returns. 
 
-`ReactiveCommand`s use `RxApp.MainThreadScheduler` as an output scheduler by default, but OAPHs don't. OAPHs use `CurrentThreadScheduler.Instance`, which won't get replaced during test execution. 
+`ReactiveCommand`s use `RxSchedulers.MainThreadScheduler` as an output scheduler by default, but OAPHs don't. OAPHs use `CurrentThreadScheduler.Instance`, which won't get replaced during test execution. 
 
 > Just a judgement call for performance. It’s assumed that more often than not the observable that pipes into ToProperty is already ticking on the main thread, so scheduling work on the main thread is superfluous and degrades performance. — [Kent Boogaart @ You, I and ReactiveUI](https://kent-boogaart.com/you-i-and-reactiveui/)
 
-That's why in some cases you may need to replace the default scheduler with the `RxApp.MainThreadScheduler` by hand to handle unit testing.
+That's why in some cases you may need to replace the default scheduler with the `RxSchedulers.MainThreadScheduler` by hand to handle unit testing.
 
 ```cs
 _errorMessage = _loginCommand.ThrownExceptions
   .Select(exception => exception.Message)
   .ToProperty(this, x => x.ErrorMessage, 
-    scheduler: RxApp.MainThreadScheduler);
+    scheduler: RxSchedulers.MainThreadScheduler);
 ```
 
 ## Playing With Ticks

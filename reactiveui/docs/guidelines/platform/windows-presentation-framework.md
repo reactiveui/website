@@ -27,7 +27,7 @@ Don't use eventhandlers, use the extension methods shipped in `ReactiveMarbles.O
 
 - [Events](~/docs/handbook/events.md)
 
-When starting a WPF application from another application (e.g. Console) set `RxApp.MainThreadScheduler` to a `DispatcherScheduler` after creating the WPF application on a separate thread, to avoid threading errors.
+When starting a WPF application from another application (e.g. Console) set `RxSchedulers.MainThreadScheduler` to a `DispatcherScheduler` after creating the WPF application on a separate thread, to avoid threading errors.
 
 Use your normal WPF concepts that you would usually use in WPF development. There's also some extension methods which will make your life easier
 

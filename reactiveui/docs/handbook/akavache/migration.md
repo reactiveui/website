@@ -11,7 +11,7 @@ Example:
 BlobCache.LocalMachine.InsertObject("user", user);
 
 // v11
-var ak = Locator.Current.GetService<IAkavacheInstance>(contract: "MyApp");
+var ak = AppLocator.Current.GetService<IAkavacheInstance>(contract: "MyApp");
 ak.LocalMachine.InsertObject("user", user);
 ```
 
