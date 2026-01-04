@@ -20,15 +20,3 @@ The [ReactiveUI.WinUI](~/api/reactiveui.winui.yml) package contains the Reactive
 
 ## ReactiveUI.Wpf
 The [ReactiveUI.Wpf](~/api/reactiveui.wpf.yml) package contains the ReactiveUI platform-specific extensions for [Windows Presentation Foundation (WPF)](https://learn.microsoft.com/en-us/dotnet/desktop/wpf/overview/).
-
-## ReactiveUI.Fody (legacy)
-The [ReactiveUI.Fody](~/api/ReactiveUI.Fody.yml) package is a [Fody](https://github.com/Fody/Fody) extension that generates property change notifications and ObservableAsPropertyHelpers. It remains available but is no longer the recommended approach for new projects.
-
-## ReactiveUI.Fody.Analyzer (legacy)
-The [ReactiveUI.Fody.Analyzer](~/api/ReactiveUI.Fody.Analyzer.yml) package is a [Roslyn](https://learn.microsoft.com/en-us/dotnet/csharp/roslyn-sdk/) analyzer that checks usage of the Fody extension.
-
-## ReactiveUI.Fody.Helpers (legacy)
-The [ReactiveUI.Fody.Helpers](~/api/ReactiveUI.Fody.Helpers.yml) package extends Fody helpers. Prefer SourceGenerators going forward.
-
-## ReactiveUI.XamForms (legacy)
-The [ReactiveUI.XamForms](~/api/reactiveui.xamforms.yml) package contains the ReactiveUI platform-specific extensions for Xamarin.Forms. Xamarin platforms are legacy and supported for maintenance only.
