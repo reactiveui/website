@@ -30,11 +30,11 @@ Install the following packages for ReactiveUI with AndroidX:
 
 ### Framework Requirements
 
-Ensure your Android project targets at least Android 5.0 (API Level 21):
+Ensure your Android project targets at least Android 14.0 (API Level 34):
 
 ```xml
-<TargetFramework>net8.0-android</TargetFramework>
-<SupportedOSPlatformVersion>21</SupportedOSPlatformVersion>
+<TargetFramework>net9.0-android</TargetFramework>
+<SupportedOSPlatformVersion>34</SupportedOSPlatformVersion>
 ```
 
 ## Getting Started with RxAppBuilder (Recommended)
