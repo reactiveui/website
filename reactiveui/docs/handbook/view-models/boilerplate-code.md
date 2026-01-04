@@ -63,7 +63,7 @@ These Source Generators were designed to work in full with ReactiveUI V19.5.31 a
 - `[ObservableAsProperty(InitialValue = "Default Value")]` Only valid for partial properties using (C# 13 Visual Studio Version 17.12.0)
 - `[ReactiveCommand]`
 - `[ReactiveCommand(CanExecute = nameof(IObservableBoolName))]` with CanExecute
-- `[ReactiveCommand(OutputScheduler = "RxApp.MainThreadScheduler")]` using a ReactiveUI Scheduler
+- `[ReactiveCommand(OutputScheduler = "RxSchedulers.MainThreadScheduler")]` using a ReactiveUI Scheduler
 - `[ReactiveCommand(OutputScheduler = nameof(_isheduler))]` using a Scheduler defined in the class
 - `[ReactiveCommand][property: AttributeToAddToCommand]` with Attribute passthrough
 - `[IViewFor(nameof(ViewModelName))]`
@@ -502,6 +502,8 @@ public partial class MyCustomViewModelControlHost;
 ```
 
 # Using ReactiveUI.Fody - Legacy
+
+### Strongly discouraged for new projects
 
 With [ReactiveUI.Fody](https://www.nuget.org/packages/ReactiveUI.Fody/), you don't have to write boilerplate code for getters and setters of read-write properties — the package will do it automagically for you at compile time.
 All you have to do is annotate the property with the `[Reactive]` attribute, as shown below.

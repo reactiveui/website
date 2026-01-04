@@ -38,7 +38,7 @@ autofacResolver.InitializeReactiveUI();
 // builder.RegisterType<MyCustomViewLocator>().As<IViewLocator>().SingleInstance();
 ```
 
-> **Note** Call `Locator.CurrentMutable.InitializeReactiveUI()` *only if you are going to override* the default Splat locator. Otherwise *you don't need to explicitly call the method*, as ReactiveUI calls the method implicitly for you.
+> **Note** Call `AppLocator.CurrentMutable.InitializeReactiveUI()` *only if you are going to override* the default Splat locator. Otherwise *you don't need to explicitly call the method*, as ReactiveUI calls the method implicitly for you.
 
 Set Autofac Locator's lifetime after the ContainerBuilder has been built:
 
@@ -137,11 +137,11 @@ Locator.SetLocator(new AutofacDependencyResolver(containerBuilder.Build()));
 // These InitializeX() methods will add ReactiveUI platform 
 // registrations to your container. They MUST be present if
 // you override the default Locator.
-Locator.CurrentMutable.InitializeSplat();
-Locator.CurrentMutable.InitializeReactiveUI();
+AppLocator.CurrentMutable.InitializeSplat();
+AppLocator.CurrentMutable.InitializeReactiveUI();
 ``` 
 
-From this point on calls `Locator.Current` will go against your custom implementation!
+From this point on calls `AppLocator.Current` will go against your custom implementation!
 
 > **Note** Some DI engines get locked away after they're being built and become immutable. For such services, the `Use<MatchingService>DependencyResolver` extension method (`UseAutofacDependencyResolver` in Autofac) must be called again on the locked container. See AutoFac [docs](https://github.com/reactiveui/splat/tree/main/src/Splat.Autofac).
 

@@ -53,7 +53,7 @@ This is a simple built in logger, Console logging is not available on every plat
 ```cs
 // I only want to hear about errors
 var logger = new ConsoleLogger() { Level = LogLevel.Error };
-Locator.CurrentMutable.RegisterConstant(logger, typeof(ILogger));
+AppLocator.CurrentMutable.RegisterConstant(logger, typeof(ILogger));
 ```
 
 #### Debug
@@ -63,7 +63,7 @@ This is a simple built in logger, useful during early development, but you may w
 ```cs
 // I only want to hear about errors
 var logger = new DebugLogger() { Level = LogLevel.Error };
-Locator.CurrentMutable.RegisterConstant(logger, typeof(ILogger));
+AppLocator.CurrentMutable.RegisterConstant(logger, typeof(ILogger));
 ```
 
 #### Log4Net
@@ -74,7 +74,7 @@ First configure Log4Net. For guidance see [configuration](https://logging.apache
 using Splat.Log4Net;
 
 // then in your service locator initialisation
-Locator.CurrentMutable.UseLog4NetWithWrappingFullLogger();
+AppLocator.CurrentMutable.UseLog4NetWithWrappingFullLogger();
 ```
 
 #### Microsoft.Extensions.Logging
@@ -93,7 +93,7 @@ var loggerFactory = container.Resolve<ILoggerFactory>();
 
 
 /// then in your service locator initialisation
-Locator.CurrentMutable.UseMicrosoftExtensionsLoggingWithWrappingFullLogger(loggerFactory);
+AppLocator.CurrentMutable.UseMicrosoftExtensionsLoggingWithWrappingFullLogger(loggerFactory);
 ```
 
 #### NLog
@@ -104,7 +104,7 @@ First configure NLog. For guidance see [tutorial](https://github.com/nlog/nlog/w
 using Splat.NLog;
 
 //  then in your service locator initialisation
-Locator.CurrentMutable.UseNLogWithWrappingFullLogger();
+AppLocator.CurrentMutable.UseNLogWithWrappingFullLogger();
 ```
 
 #### Serilog
@@ -115,7 +115,7 @@ First configure Serilog. For guidance see [configuration basics](https://github.
 using Splat.Serilog;
 
 // Then in your service locator initialisation
-Locator.CurrentMutable.UseSerilogFullLogger()
+AppLocator.CurrentMutable.UseSerilogFullLogger()
 ```
 
 #### Using a different logging framework

@@ -30,7 +30,7 @@ this.OneWayBind(ViewModel, vm => vm.ToasterList, v => v.ToasterList.ItemsSource)
 To use View Location, you must first register types, via Splat's Service Location feature.
 
 ```cs
-Locator.CurrentMutable.Register(() => new ToasterView(), typeof(IViewFor<ToasterViewModel>));
+AppLocator.CurrentMutable.Register(() => new ToasterView(), typeof(IViewFor<ToasterViewModel>));
 ```
 
 View Location internally uses a class called `ViewLocator` which can either be replaced, or the default one used. The `ResolveView` method will return the View associated with a given ViewModel object.
@@ -39,7 +39,7 @@ View Location internally uses a class called `ViewLocator` which can either be r
 ReactiveUI has some helper methods that use Reflection to register all the view's that implement the `IViewFor` interface. Be aware that due to the fact it is using Reflection it is slower than manually registering each view by hand.
 
 ```cs
-Locator.CurrentMutable.RegisterViewsForViewModels(Assembly.GetExecutingAssembly());
+AppLocator.CurrentMutable.RegisterViewsForViewModels(Assembly.GetExecutingAssembly());
 ```
 
 ### Overriding ViewLocator
@@ -80,7 +80,7 @@ Then, while bootstrapping your app you'll want to tell ReactiveUI about your new
 ```cs
 // Make sure Splat and ReactiveUI are already configured in the locator
 // so that our override runs last
-Locator.CurrentMutable.RegisterLazySingleton(() => new ConventionalViewLocator(), typeof(IViewLocator));
+AppLocator.CurrentMutable.RegisterLazySingleton(() => new ConventionalViewLocator(), typeof(IViewLocator));
 ```
 
 ### Manually setting the view
