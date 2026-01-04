@@ -1,6 +1,6 @@
-# Xamarin Android
+# AndroidX
 
-Ensure that you install either `ReactiveUI.AndroidX` or `ReactiveUI.AndroidSupport` into your applications.
+Ensure that you install either `ReactiveUI.AndroidX` into your applications.
 
 Your viewmodels should inherit from `ReactiveObject`
 
@@ -33,7 +33,6 @@ Use your normal Android concepts that you would usually use in Android developme
 - [ReactiveFragment](~/api/ReactiveUI.ReactiveFragment-1.yml)
 - [ReactivePreferenceFragment](~/api/ReactiveUI.ReactivePreferenceFragment-1.yml)
 - [ReactivePreferenceActivity](~/api/ReactiveUI.ReactivePreferenceActivity-1.yml)
-- [ReactiveUI.AndroidSupport](~/api/reactiveui.androidsupport.yml)
 - [ReactiveUI.AndroidX](~/api/ReactiveUI.AndroidX.yml)
 
 There's also some extension methods which will make your life easier
