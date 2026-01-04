@@ -11,9 +11,9 @@ This is the source code for the [ReactiveUI](https://www.reactiveui.net/) websit
 2. Create a new branch, if needed
 3. Clone the project
 4. In order to build and host the docs do the following:
-**Windows** -- Open command prompt and install the following tools:
+**Windows** -- Open command prompt and install/update the following tools:
 - the DocFx tool `dotnet tool update -g docfx`
-- the Nuke tool `dotnet tool install Nuke.GlobalTool --global`
+- the Nuke tool `dotnet tool update Nuke.GlobalTool --global`
  
 - Open command prompt at the repository root folder, ensure that you have installed the DocFx tool and then run `docfx reactiveui/docfx.json --serve`
 
@@ -21,7 +21,7 @@ This is the source code for the [ReactiveUI](https://www.reactiveui.net/) websit
 6. Browse the website on `localhost:8080`
 ---
 
-To build the entire Website we use `Nuke Build` you will need to install the tool so that you can run command line nuke commands using `dotnet tool install Nuke.GlobalTool --global`.
+To build the entire Website we use `Nuke BuildWebsite` you will need to install the tool so that you can run command line nuke commands using `dotnet tool install Nuke.GlobalTool --global`.
 
 ---
 Once installed from the command prompt execute `Nuke` this will download and build the sources for the API section of the website, this takes around 35 minutes to compile and build the website with the API sections.
@@ -30,4 +30,4 @@ Once installed from the command prompt execute `Nuke` this will download and bui
 Once complete you can either execute `docfx reactiveui/docfx.json --serve` to run the site OR `Nuke BuildWebsite` to build the API only.
 
 ---
-If you have generated the API section and wish to remove it on your local machine to enable the website to compile faster, run `nuke clean` and then run `docfx reactiveui/docfx.json --serve`
+If you have generated the API section and wish to remove it on your local machine to enable the website to compile faster, run `nuke Clean` and then run `docfx reactiveui/docfx.json --serve`
