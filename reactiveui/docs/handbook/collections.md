@@ -84,7 +84,7 @@ ReadOnlyObservableCollection<T> bindingData;
 var disposable = mySource
     .Connect() // make the source an observable change set
     .Sort(SortExpressionComparer<T>.Ascending(t => t.DateTime))
-    .ObserveOn(RxApp.MainThreadScheduler) 
+    .ObserveOn(RxSchedulers.MainThreadScheduler) 
     // Make sure this line^^ is only right before the Bind()
     // This may be important to avoid threading issues if
     // 'mySource' is updated on a different thread.
@@ -156,7 +156,7 @@ public class ViewModel : ReactiveObject
             // from LINQ. See all operators in DynamicData docs.
             .Filter(x => x)
             // Ensure the updates arrive on the UI thread.
-            .ObserveOn(RxApp.MainThreadScheduler)
+            .ObserveOn(RxSchedulers.MainThreadScheduler)
             // We .Bind() and now our mutable Items collection 
             // contains the new items and the GUI gets refreshed.
             .Bind(out _items)
@@ -165,7 +165,7 @@ public class ViewModel : ReactiveObject
 }
 ```
 
-> **Note** If you are updating an observable list or an observable cache from a background thread, adding `.ObserveOn(RxApp.MainThreadScheduler)` right before a call to `.Bind()` might be neccessary, to ensure the updates arrive on the UI thread.
+> **Note** If you are updating an observable list or an observable cache from a background thread, adding `.ObserveOn(RxSchedulers.MainThreadScheduler)` right before a call to `.Bind()` might be neccessary, to ensure the updates arrive on the UI thread.
 
 `ObservableCollectionExtended<T>` is a good single threaded collection where you don't need to do derived based functionality. To synchronize two collections in your view model, declare one of your collections as `ObservableCollectionExtended<T>` and another one as `ReadOnlyObservableCollection<T>`. Then you apply the `.ToObservableChangeSet()` operator to your observable collection that turns it to `IObservable<IChangeSet<T>>`.
 
@@ -233,7 +233,7 @@ A lot of users try to do the following even though it's unnecessary for single t
 var myList = new SourceList<T>()
 var disposable = myList
     .Connect() // make the source an observable change set
-    .ObserveOn(RxApp.MainThreadScheduler)
+    .ObserveOn(RxSchedulers.MainThreadScheduler)
     .Bind(out _myOutputList)
     .Subscribe();
 ```
