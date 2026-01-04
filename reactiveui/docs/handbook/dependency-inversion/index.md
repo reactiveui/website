@@ -6,7 +6,7 @@ Dependency resolution is a feature built into the core framework, which allows l
 
 ReactiveUI's use of dependency resolution can more properly be called the Service Locator pattern. If the locator pattern doesn't fit your situation then have a look at how to do composition root.
 
-Since ReactiveUI 6, [Splat](https://github.com/reactiveui/splat) is used by ReactiveUI for service locator and dependency injection. Earlier versions included a RxUI resolver. If you come across samples for RxUI versions earlier than 6, you should replace references to `RxApp.DependencyResolver` with `Locator.Current` and `RxApp.MutableResolver` with `Locator.CurrentMutable`.
+Since ReactiveUI 6, [Splat](https://github.com/reactiveui/splat) is used by ReactiveUI for service locator and dependency injection. Earlier versions included a RxUI resolver. If you come across samples for RxUI versions earlier than 6, you should replace references to `RxApp.DependencyResolver` with `AppLocator.Current` and `RxApp.MutableResolver` with `AppLocator.CurrentMutable`.
 
 ## Why Splat?
 
@@ -29,13 +29,13 @@ Splat supports on-demand new'ing, constant and lazy registration of dependencies
 
 ```cs
 // Create a new Toaster any time someone asks
-Locator.CurrentMutable.Register(() => new Toaster(), typeof(IToaster));
+AppLocator.CurrentMutable.Register(() => new Toaster(), typeof(IToaster));
 
 // Register a singleton instance
-Locator.CurrentMutable.RegisterConstant(new ExtraGoodToaster(), typeof(IToaster));
+AppLocator.CurrentMutable.RegisterConstant(new ExtraGoodToaster(), typeof(IToaster));
 
 // Register a singleton which won't get created until the first user accesses it
-Locator.CurrentMutable.RegisterLazySingleton(() => new LazyToaster(), typeof(IToaster));
+AppLocator.CurrentMutable.RegisterLazySingleton(() => new LazyToaster(), typeof(IToaster));
 ```
 
 It is recommended to register your dependencies all at one place. This can be achieved for example with an AppBootstrapper.
@@ -45,7 +45,7 @@ public class AppBootstrapper : IEnableLogger
 {  
     public AppBootstrapper() 
     { 
-        Locator.CurrentMutable.RegisterConstant(new FeedService(), typeof(IFeedService));
+        AppLocator.CurrentMutable.RegisterConstant(new FeedService(), typeof(IFeedService));
         // Other registrations go here...
     }  
 } 
@@ -58,8 +58,8 @@ This code can be extended to have multiple methods to group the dependencies and
 Splat provides methods to resolve dependencies to single or multiple instances. 
  
 ```csharp
-var toaster = Locator.Current.GetService<IToaster>();
-var allToasterImpls = Locator.Current.GetServices<IToaster>();
+var toaster = AppLocator.Current.GetService<IToaster>();
+var allToasterImpls = AppLocator.Current.GetServices<IToaster>();
 ```
 
 Recommended usage is:
@@ -67,13 +67,13 @@ Recommended usage is:
 ```csharp
 public FeedsViewModel(IBlobCache cache = null) 
 { 
-	Cache = cache ?? Locator.Current.GetService<IBlobCache>();
+	Cache = cache ?? AppLocator.Current.GetService<IBlobCache>();
 }
 ```
  
 ## Advanced Usage
 
-Splat's dependency resolver, accessible using `Locator.Current` conceptually resembles the below:
+Splat's dependency resolver, accessible using `AppLocator.Current` conceptually resembles the below:
 
 ```csharp
 public interface IDependencyResolver

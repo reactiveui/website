@@ -6,11 +6,5 @@
   href: windows-forms.md
 - name: Windows Presentation Framework
   href: windows-presentation-framework.md
-- name: Xamarin Android
+- name: AndroidX
   href: xamarin-android.md
-- name: Xamarin Forms
-  href: xamarin-forms.md
-- name: Xamarin iOS
-  href: xamarin-ios.md
-- name: Xamarin Mac
-  href: xamarin-mac.md

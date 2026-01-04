@@ -23,7 +23,7 @@ Then at your composition root, register your implementation
 public void ConfigureLogging()
 {
 #if DEBUG
-    Locator.CurrentMutable.RegisterConstant(new LoggingService { Level = LogLevel.Debug }, typeof(ILogger));
+    AppLocator.CurrentMutable.RegisterConstant(new LoggingService { Level = LogLevel.Debug }, typeof(ILogger));
 #endif
 }
 ```

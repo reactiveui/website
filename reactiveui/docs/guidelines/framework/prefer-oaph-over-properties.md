@@ -27,7 +27,7 @@ public class RepositoryViewModel : ReactiveObject
 
 ```csharp
 this.WhenAny(x => x.StuffFetched, y => y.OtherStuffNotBusy, (x, y) => x && y)
-  .ObserveOn(RxApp.MainThreadScheduler)
+  .ObserveOn(RxSchedulers.MainThreadScheduler)
   .Subscribe(x => CanDoIt = x);
 ```
 
