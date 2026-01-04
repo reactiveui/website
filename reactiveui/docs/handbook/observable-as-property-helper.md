@@ -4,7 +4,7 @@ The ObservableAsPropertyHelper (OAPH) bridges IObservable<T> streams and read-on
 
 Key points:
 - OAPH subscribes to the source observable and surfaces the latest value through `Value`.
-- Delivery of notifications uses the scheduler you pass to `ToProperty` (defaults to `CurrentThreadScheduler`), so UI updates can be marshaled to `RxApp.MainThreadScheduler` when needed.
+- Delivery of notifications uses the scheduler you pass to `ToProperty` (defaults to `CurrentThreadScheduler`), so UI updates can be marshaled to `RxSchedulers.MainThreadScheduler` when needed.
 - You can supply an initial value and optionally defer subscription until the property is first read.
 - Ideal for computed/read-only properties; use `RaiseAndSetIfChanged` for mutable properties.
 
@@ -19,7 +19,7 @@ public MyViewModel()
         .WhenAnyValue(x => x.Name)
         .Where(n => !string.IsNullOrWhiteSpace(n))
         .Select(n => n.Split(' ')[0])
-        .ToProperty(this, x => x.FirstName, scheduler: RxApp.MainThreadScheduler);
+        .ToProperty(this, x => x.FirstName, scheduler: RxSchedulers.MainThreadScheduler);
 }
 ```
 
@@ -36,7 +36,7 @@ public static ObservableAsPropertyHelper<TRet> ToProperty<TObj, TRet>(
 ```
 - `initialValue`: Used before the first tick (or when deferring, until subscribed).
 - `deferSubscription`: Subscribe on first property access (lazy).
-- `scheduler`: Use `RxApp.MainThreadScheduler` for UI properties.
+- `scheduler`: Use `RxSchedulers.MainThreadScheduler` for UI properties.
 
 ## nameof Optimization
 Avoid expression compilation by using the `nameof` overload:
