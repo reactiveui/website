@@ -115,7 +115,26 @@ internal static class SourceFetcher
         LogRepositoryInfo(owner, repository, "Restoring Packages for ");
 
         var directory = useSrc ? finalPath / $"{repository}-main" / "src" : finalPath;
-        RunDotNet(directory, $"restore {repository}.sln");
+
+        // Find any .sln or .slnx file and run dotnet restore on it
+        var solutionFile = Directory.EnumerateFiles(directory.ToString(), "*.sln*").FirstOrDefault();
+
+        if (File.Exists(directory / $"{repository}.sln"))
+        {
+            RunDotNet(directory, $"restore {repository}.sln");
+        }
+        else if (File.Exists(directory / $"{repository}.slnx"))
+        {
+            RunDotNet(directory, $"restore {repository}.slnx");
+        }
+        else if (solutionFile != null)
+        {
+            RunDotNet(directory, $"restore {Path.GetFileName(solutionFile)}");
+        }
+        else
+        {
+            LogRepositoryError(owner, repository, "No solution file found to restore packages.");
+        }
     }
 
     private static void WorkflowRestore(string owner, string repository, AbsolutePath finalPath, bool useSrc)
@@ -125,7 +144,25 @@ internal static class SourceFetcher
             LogRepositoryInfo(owner, repository, "Restoring workload for ");
 
             var directory = useSrc ? finalPath / $"{repository}-main" / "src" : finalPath;
-            RunDotNet(directory, $"workload  restore {repository}.sln");
+
+            // Find any .sln or .slnx file and run dotnet restore on it
+            var solutionFile = Directory.EnumerateFiles(directory.ToString(), "*.sln*").FirstOrDefault();
+            if (File.Exists(directory / $"{repository}.sln"))
+            {
+                RunDotNet(directory, $"workload  restore {repository}.sln");
+            }
+            else if (File.Exists(directory / $"{repository}.slnx"))
+            {
+                RunDotNet(directory, $"workload  restore {repository}.slnx");
+            }
+            else if (solutionFile != null)
+            {
+                RunDotNet(directory, $"workload  restore {Path.GetFileName(solutionFile)}");
+            }
+            else
+            {
+                LogRepositoryError(owner, repository, "No solution file found to restore workloads.");
+            }
         }
     }
 
@@ -159,7 +196,7 @@ internal static class SourceFetcher
         }
     }
 
-    private static void LogRepositoryInfo(string owner, string repository, string message) =>
+    internal static void LogRepositoryInfo(string owner, string repository, string message) =>
         LogInfo($"{message} {owner}/{repository}...");
 
     internal static void LogRepositoryError(string owner, string repository, string message)

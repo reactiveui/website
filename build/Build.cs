@@ -1,10 +1,14 @@
 using Nuke.Common;
 using Nuke.Common.IO;
+using Nuke.Common.ProjectModel;
 using Nuke.Common.Tooling;
-using ReactiveUI.Web;
+using Nuke.Common.Tools.DotNet;
 using Nuke.Common.Tools.MSBuild;
-using System.IO;
+using ReactiveUI.Web;
 using System;
+using System.IO;
+using System.Linq;
+using static Nuke.Common.Tools.DotNet.DotNetTasks;
 
 class Build : NukeBuild
 {
@@ -65,19 +69,33 @@ class Build : NukeBuild
                     var dirRx = RxUIAPIDirectory / "external" / project / $"{project}-main" / "src";
                     File.Copy(RootDirectory / "global.json", dirRx / "global.json", true);
                     var solutionFile = dirRx / $"{project}.sln";
+
+                    // Find any .sln or .slnx file as a fallback
+                    var solutionFileSearch = Directory.EnumerateFiles(dirRx, "*.sln*").FirstOrDefault();
                     if (File.Exists(solutionFile) == false)
                     {
                         solutionFile += "x";
                         if (File.Exists(solutionFile) == false)
                         {
-                            SourceFetcher.LogRepositoryError(reactiveui, project, $"Solution file not found: {dirRx / $"{project}.sln(x)"}");
-                            continue;
+                            if (File.Exists(solutionFileSearch))
+                            {
+                                solutionFile = solutionFileSearch;
+                            }
+                            else
+                            {
+                                SourceFetcher.LogRepositoryError(reactiveui, project, $"Solution file not found: {dirRx / $"{project}.sln(x)"}");
+                                continue;
+                            }
                         }
                     }
-                    MSBuildTasks.MSBuild(s => s
+
+                    SourceFetcher.LogInfo($"Restoring {solutionFile}...");
+                    DotNetRestore(s => s.SetProjectFile(solutionFile));
+                    SourceFetcher.LogInfo($"Building {solutionFile}...");
+                    DotNetBuild(s => s
                         .SetProjectFile(solutionFile)
                         .SetConfiguration(Configuration)
-                        .SetRestore(true));
+                        .EnableNoRestore());
                     SourceFetcher.LogInfo($"{project} build complete");
                 }
                 catch (Exception ex)
@@ -100,6 +118,8 @@ class Build : NukeBuild
                         return;
                     }
                 }
+
+                SourceFetcher.LogInfo($"Building {solutionFile}...");
                 MSBuildTasks.MSBuild(s => s
                     .SetProjectFile(solutionFile)
                     .SetConfiguration(Configuration)
