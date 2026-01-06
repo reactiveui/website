@@ -48,3 +48,11 @@
   href: when-any.md
 - name: Akavache (v11)
   href: akavache/toc.yml
+- name: ObservableEvents
+  href: observable-events/toc.yml
+- name: Sextant
+  href: sextant/toc.yml
+- name: MAUI Plugins Popup
+  href: maui-plugins-popup/toc.yml
+- name: Extensions
+  href: extensions/toc.yml
