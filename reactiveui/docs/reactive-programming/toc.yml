@@ -1,4 +1,8 @@
 - name: Reactive Programming
   href: index.md
+- name: Observables Introduction
+  href: observables.md
+- name: Operators
+  href: operators.md
 - name: Videos
   href: videos.md
