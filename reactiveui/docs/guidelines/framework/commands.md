@@ -6,7 +6,7 @@ Prefer binding user interactions to commands rather than methods.
 
 ```csharp
 // In the view
-this.BindCommand(ViewModel, vm => vm.Delete, v => v.deleteButton);
+this.BindCommand(ViewModel, vm => vm.DeleteCommand, v => v.deleteButton);
 
 public class RepositoryViewModel : ReactiveObject
 {
@@ -16,7 +16,7 @@ public class RepositoryViewModel : ReactiveObject
     Delete.ThrownExceptions.Subscribe(ex => /*...*/);
   }
 
-  public ReactiveAsyncCommand Delete { get; private set; }
+  public ReactiveAsyncCommand DeleteCommand { get; private set; }
 
   public IObservable<Unit> DeleteImpl() {...}
 }
