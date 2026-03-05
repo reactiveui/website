@@ -26,8 +26,8 @@
       "enum": [
         "BuildWebsite",
         "Clean",
-        "Compile",
-        "Restore"
+        "FetchPackages",
+        "Serve"
       ]
     },
     "Verbosity": {
@@ -101,13 +101,10 @@
   "allOf": [
     {
       "properties": {
-        "Configuration": {
-          "type": "string",
-          "description": "Configuration to build - Default is 'Debug' (local) or 'Release' (server)",
-          "enum": [
-            "Debug",
-            "Release"
-          ]
+        "Port": {
+          "type": "integer",
+          "description": "Port for the preview server (default: 8080)",
+          "format": "int32"
         }
       }
     },

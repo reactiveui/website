@@ -12,7 +12,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <None Include="..\reactiveui\**\*.*" LinkBase="WebSite" Exclude="..\reactiveui\_site\**\*.*;..\reactiveui\**\*.gitignore;..\reactiveui\api\*.yml;..\reactiveui\api\*.manifest;..\reactiveui\api\reactiveui\**\*.*;..\reactiveui\api\reactivemarbles\**\*.*" />
+      <None Include="..\reactiveui\**\*.*" LinkBase="WebSite" Exclude="..\reactiveui\_site\**\*.*;..\reactiveui\**\*.gitignore;..\reactiveui\api\*.yml;..\reactiveui\api\*.manifest;..\reactiveui\api\lib\**\*.*;..\reactiveui\api\cache\**\*.*" />
     </ItemGroup>
 
     <ItemGroup>
