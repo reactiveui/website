@@ -349,5 +349,12 @@ MigrationBackup/
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
 
+reactiveui/api/lib/
+reactiveui/api/cache/
+reactiveui/api/refs/
 reactiveui/api/reactiveui/
 reactiveui/api/reactivemarbles/
+reactiveui/api-android/
+reactiveui/api-test/
+reactiveui/api-windows/
+reactiveui/_site/
