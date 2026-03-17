@@ -31,7 +31,7 @@ class Build : NukeBuild
     private static readonly string DynamicData = nameof(DynamicData);
     private static readonly string reactivemarbles = nameof(reactivemarbles);
     private static readonly string extensions = nameof(extensions);
-    private static readonly string[] RxUIProjects = [reactiveui, akavache, fusillade, punchclock, splat, extensions]; ////, "ReactiveUI.Validation", "ReactiveUI.Avalonia", "Maui.Plugins.Popup"];
+    private static readonly string[] RxUIProjects = [akavache, fusillade, punchclock, splat, extensions]; ////, reactiveui, "ReactiveUI.Validation", "ReactiveUI.Avalonia", "Maui.Plugins.Popup"];
 
     private AbsolutePath RxUIAPIDirectory => RootDirectory / reactiveui / "api" / reactiveui;
     private AbsolutePath RxMAPIDirectory => RootDirectory / reactiveui / "api" / reactivemarbles;
