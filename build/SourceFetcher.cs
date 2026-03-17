@@ -21,6 +21,38 @@ internal static class SourceFetcher
         FetchGitHubZip(fileSystem, rootDirectory, owner, repositories, "external", true, true);
     }
 
+    internal static void LogInfo(string message)
+    {
+        lock (_lockConsoleObject)
+        {
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write("[INFO] ");
+            Console.ResetColor();
+            Console.Write($"{message}");
+            Console.WriteLine();
+        }
+    }
+
+    internal static void LogRepositoryInfo(string owner, string repository, string message) =>
+        LogInfo($"{message} {owner}/{repository}...");
+
+    internal static void LogRepositoryError(string owner, string repository, string message)
+    {
+        LogError($"{message} {owner}/{repository}...");
+    }
+
+    internal static void LogError(string message)
+    {
+        lock (_lockConsoleObject)
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.Write("[ERROR] ");
+            Console.ResetColor();
+            Console.Write(message);
+            Console.WriteLine();
+        }
+    }
+
     private static void FetchGitHubZip(AbsolutePath fileSystem, AbsolutePath rootDirectory, string owner, string[] repositories, string outputFolder, bool fetchNuGet, bool useSrc)
     {
         var zipCache = fileSystem / "zip";
@@ -37,7 +69,7 @@ internal static class SourceFetcher
                 6, // We can also do this with WaitAndRetryForever... but chose WaitAndRetry this time.
                 attempt => TimeSpan.FromSeconds(0.1 * Math.Pow(2, attempt))); // Back off!  2, 4, 8, 16 etc times 1/4-second
 
-        Task.WaitAll(repositories.Select(repository => Task.Run(async () =>
+        Task.WaitAll([.. repositories.Select(repository => Task.Run(async () =>
         {
             await semaphore.WaitAsync();
             try
@@ -107,7 +139,7 @@ internal static class SourceFetcher
             {
                 semaphore.Release();
             }
-        })).ToArray());
+        }))]);
     }
 
     private static void FetchNuGet(string owner, string repository, AbsolutePath finalPath, bool useSrc)
@@ -116,25 +148,7 @@ internal static class SourceFetcher
 
         var directory = useSrc ? finalPath / $"{repository}-main" / "src" : finalPath;
 
-        // Find any .sln or .slnx file and run dotnet restore on it
-        var solutionFile = Directory.EnumerateFiles(directory.ToString(), "*.sln*").FirstOrDefault();
-
-        if (File.Exists(directory / $"{repository}.sln"))
-        {
-            RunDotNet(directory, $"restore {repository}.sln");
-        }
-        else if (File.Exists(directory / $"{repository}.slnx"))
-        {
-            RunDotNet(directory, $"restore {repository}.slnx");
-        }
-        else if (solutionFile != null)
-        {
-            RunDotNet(directory, $"restore {Path.GetFileName(solutionFile)}");
-        }
-        else
-        {
-            LogRepositoryError(owner, repository, "No solution file found to restore packages.");
-        }
+        RunDotNetOnSolution(owner, repository, directory, "restore");
     }
 
     private static void WorkflowRestore(string owner, string repository, AbsolutePath finalPath, bool useSrc)
@@ -145,24 +159,29 @@ internal static class SourceFetcher
 
             var directory = useSrc ? finalPath / $"{repository}-main" / "src" : finalPath;
 
-            // Find any .sln or .slnx file and run dotnet restore on it
-            var solutionFile = Directory.EnumerateFiles(directory.ToString(), "*.sln*").FirstOrDefault();
-            if (File.Exists(directory / $"{repository}.sln"))
-            {
-                RunDotNet(directory, $"workload  restore {repository}.sln");
-            }
-            else if (File.Exists(directory / $"{repository}.slnx"))
-            {
-                RunDotNet(directory, $"workload  restore {repository}.slnx");
-            }
-            else if (solutionFile != null)
-            {
-                RunDotNet(directory, $"workload  restore {Path.GetFileName(solutionFile)}");
-            }
-            else
-            {
-                LogRepositoryError(owner, repository, "No solution file found to restore workloads.");
-            }
+            RunDotNetOnSolution(owner, repository, directory, "workload  restore");
+        }
+    }
+
+    private static void RunDotNetOnSolution(string owner, string repository, AbsolutePath directory, string command)
+    {
+        // Find any .sln or .slnx file and run dotnet restore on it
+        var solutionFile = Directory.EnumerateFiles(directory.ToString(), "*.sln*").FirstOrDefault();
+        if (File.Exists(directory / $"{repository}.sln"))
+        {
+            RunDotNet(directory, $"{command} {repository}.sln");
+        }
+        else if (File.Exists(directory / $"{repository}.slnx"))
+        {
+            RunDotNet(directory, $"{command} {repository}.slnx");
+        }
+        else if (solutionFile != null)
+        {
+            RunDotNet(directory, $"{command} {Path.GetFileName(solutionFile)}");
+        }
+        else
+        {
+            LogRepositoryError(owner, repository, $"No solution file found to {command}.");
         }
     }
 
@@ -182,37 +201,5 @@ internal static class SourceFetcher
         process.Start();
         process.WaitForExit();
         process.Dispose();
-    }
-
-    internal static void LogInfo(string message)
-    {
-        lock (_lockConsoleObject)
-        {
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.Write("[INFO] ");
-            Console.ResetColor();
-            Console.Write($"{message}");
-            Console.WriteLine();
-        }
-    }
-
-    internal static void LogRepositoryInfo(string owner, string repository, string message) =>
-        LogInfo($"{message} {owner}/{repository}...");
-
-    internal static void LogRepositoryError(string owner, string repository, string message)
-    {
-        LogError($"{message} {owner}/{repository}...");
-    }
-
-    internal static void LogError(string message)
-    {
-        lock (_lockConsoleObject)
-        {
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.Write("[ERROR] ");
-            Console.ResetColor();
-            Console.Write(message);
-            Console.WriteLine();
-        }
     }
 }
