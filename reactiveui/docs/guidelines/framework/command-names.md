@@ -86,9 +86,9 @@ public ReactiveCommand<Unit, Unit> Save { get; }  // Missing 'Command' suffix
 public ReactiveCommand<Unit, Unit> PerformSave { get; }  // Unclear naming
 ```
 
-### Implementation Method Names
+### Using Legacy Implementation Method Names
 
-When implementation is too complex for inline code, suffix the method with `Impl`:
+When implementation is suffixed the method with `Impl` as per legacy conventions:
 
 ```csharp
 public partial class MyViewModel : ReactiveObject
@@ -105,7 +105,7 @@ public partial class MyViewModel : ReactiveObject
         await DeleteImpl();
     }
     
-    // Implementation methods
+    // Legacy Implementation methods
     private async Task SaveImpl() { /* ... */ }
     private async Task DeleteImpl() { /* ... */ }
 }
@@ -125,14 +125,8 @@ public partial class MainViewModel : ReactiveObject
     [ReactiveCommand]
     private async Task Search()
     {
-        var results = await SearchImpl(SearchText);
+        var results = await _searchService.SearchAsync(searchText);
         Results = results;
-    }
-    
-    private async Task<List<SearchResult>> SearchImpl(string searchText)
-    {
-        // Actual search implementation
-        return await _searchService.SearchAsync(searchText);
     }
 }
 ```
@@ -145,11 +139,6 @@ public partial class ItemViewModel : ReactiveObject
     // Generates: public ReactiveCommand<Item, Unit> DeleteItemCommand { get; }
     [ReactiveCommand]
     private async Task DeleteItem(Item item)
-    {
-        await DeleteItemImpl(item);
-    }
-    
-    private async Task DeleteItemImpl(Item item)
     {
         await _repository.DeleteAsync(item);
     }
@@ -174,11 +163,6 @@ public partial class EditViewModel : ReactiveObject
     // Generates: public ReactiveCommand<Unit, Unit> SaveCommand { get; }
     [ReactiveCommand(CanExecute = nameof(_canSave))]
     private async Task Save()
-    {
-        await SaveImpl();
-    }
-    
-    private async Task SaveImpl()
     {
         await _dataService.SaveAsync(Data);
     }
