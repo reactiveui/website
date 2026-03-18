@@ -49,7 +49,7 @@ internal static class NuGetFetcher
         public string PathPrefix { get; set; } = "ref";
     }
 
-    public static void FetchPackages(AbsolutePath rootDirectory)
+    public static void FetchPackages(AbsolutePath rootDirectory, AbsolutePath apiPath)
     {
         var manifestPath = rootDirectory / "nuget-packages.json";
         var json = File.ReadAllText(manifestPath);
@@ -57,9 +57,9 @@ internal static class NuGetFetcher
             ?? throw new InvalidOperationException("Failed to deserialize nuget-packages.json");
 
         // DLLs go into per-TFM subdirectories under lib/ for docfx to resolve cross-package references
-        var libDir = rootDirectory / "reactiveui" / "api" / "lib";
-        var cacheDir = rootDirectory / "reactiveui" / "api" / "cache";
-        var refsDir = rootDirectory / "reactiveui" / "api" / "refs";
+        var libDir = apiPath / "lib";
+        var cacheDir = apiPath / "cache";
+        var refsDir = apiPath / "refs";
 
         libDir.CreateDirectory();
         cacheDir.CreateDirectory();

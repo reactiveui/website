@@ -12,12 +12,17 @@
             "Akavache.Sqlite3.dll",
             "Akavache.SystemTextJson.dll",
             "CrissCross.Avalonia.dll",
+            "CrissCross.Avalonia.UI.dll",
             "CrissCross.dll",
             "CrissCross.MAUI.dll",
+            "DynamicData.dll",
+            "Extensions.Hosting.Avalonia.dll",
             "Extensions.Hosting.Identity.EntityFrameworkCore.Sqlite.dll",
             "Extensions.Hosting.Identity.EntityFrameworkCore.SqlServer.dll",
+            "Extensions.Hosting.MainUIThread.dll",
             "Extensions.Hosting.Maui.dll",
             "Extensions.Hosting.Plugins.dll",
+            "Extensions.Hosting.ReactiveUI.Avalonia.dll",
             "Extensions.Hosting.ReactiveUI.Maui.dll",
             "Extensions.Hosting.SingleInstance.dll",
             "Fusillade.dll",
@@ -105,14 +110,7 @@
         {
           "src": "api/lib/net10.0-windows10.0.19041",
           "files": [
-            "CrissCross.WinForms.dll",
-            "CrissCross.WPF.dll",
-            "CrissCross.WPF.Plot.dll",
-            "CrissCross.WPF.UI.dll",
-            "CrissCross.WPF.UI.resources.dll",
-            "Extensions.Hosting.ReactiveUI.WinForms.dll",
             "Extensions.Hosting.ReactiveUI.WinUI.dll",
-            "Extensions.Hosting.ReactiveUI.Wpf.dll",
             "Extensions.Hosting.WinUI.dll",
             "ReactiveUI.WinUI.dll"
           ]
@@ -133,32 +131,8 @@
     {
       "src": [
         {
-          "src": "api/lib/net10.0-windows7.0",
-          "files": [
-            "CrissCross.WPF.WebView2.dll",
-            "Extensions.Hosting.WinForms.dll"
-          ]
-        }
-      ],
-      "dest": "api-windows",
-      "outputFormat": "mref",
-      "includePrivateMembers": false,
-      "disableGitFeatures": false,
-      "disableDefaultFilter": false,
-      "noRestore": false,
-      "namespaceLayout": "flattened",
-      "memberLayout": "samePage",
-      "enumSortOrder": "alphabetic",
-      "allowCompilationErrors": false,
-      "filter": "filter.yml"
-    },
-    {
-      "src": [
-        {
           "src": "api/lib/net462",
           "files": [
-            "Extensions.Hosting.MainUIThread.dll",
-            "Extensions.Hosting.Wpf.dll",
             "ReactiveMarbles.PropertyChanged.dll"
           ]
         }
@@ -180,6 +154,17 @@
         {
           "src": "api/lib/net481",
           "files": [
+            "CrissCross.WinForms.dll",
+            "CrissCross.WPF.dll",
+            "CrissCross.WPF.Plot.dll",
+            "CrissCross.WPF.UI.dll",
+            "CrissCross.WPF.UI.resources.dll",
+            "CrissCross.WPF.WebView2.dll",
+            "Extensions.Hosting.PluginService.dll",
+            "Extensions.Hosting.ReactiveUI.WinForms.dll",
+            "Extensions.Hosting.ReactiveUI.Wpf.dll",
+            "Extensions.Hosting.WinForms.dll",
+            "Extensions.Hosting.Wpf.dll",
             "ReactiveUI.Binding.WinForms.dll",
             "ReactiveUI.Binding.Wpf.dll",
             "ReactiveUI.Blend.dll",
@@ -277,7 +262,6 @@
           "files": [
             "Akavache.Mobile.dll",
             "CrissCross.XamForms.dll",
-            "DynamicData.dll",
             "Splat.Avalonia.Autofac.dll",
             "Splat.Avalonia.DryIoc.dll",
             "Splat.Avalonia.Microsoft.Extensions.DependencyInjection.dll",
@@ -304,7 +288,6 @@
           "src": "api/lib/netstandard2.0",
           "files": [
             "Cake.PinNuGetDependency.dll",
-            "Extensions.Hosting.PluginService.dll",
             "Minimalist.Reactive.dll",
             "Pharmacist.Common.dll",
             "Pharmacist.Core.dll",
