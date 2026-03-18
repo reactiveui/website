@@ -1,6 +1,6 @@
 # ReactiveUI API Documentation
 
-Browse the latest API documentation generated from the current ReactiveUI source code. This section provides reference material for all major ReactiveUI packages and related projects.
+Browse the latest API documentation for all major ReactiveUI packages and related projects. This section is generated from the published NuGet packages and reflects the latest stable releases.
 
 - [Akavache API](akavache.html)
 - [DynamicData API](dynamicdata.html)
@@ -38,4 +38,4 @@ Browse the latest API documentation generated from the current ReactiveUI source
 - [Fusillade API](fusillade.html)
 - [Punchclock API](punchclock.html)
 
-> The API documentation is generated from the latest source and reflects .NET 8 compatibility and current best practices.
+> The API documentation is generated from the latest stable NuGet package releases and reflects current best practices.

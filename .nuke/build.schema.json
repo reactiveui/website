@@ -26,8 +26,8 @@
       "enum": [
         "BuildWebsite",
         "Clean",
-        "Compile",
-        "Restore"
+        "FetchPackages",
+        "Serve"
       ]
     },
     "Verbosity": {
@@ -108,6 +108,11 @@
             "Debug",
             "Release"
           ]
+        },
+        "Port": {
+          "type": "integer",
+          "description": "Port for the preview server (default: 8080)",
+          "format": "int32"
         }
       }
     },

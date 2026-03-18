@@ -1,0 +1,45 @@
+{
+  "nugetPackageOwners": ["reactiveui", "reactivemarbles"],
+  "tfmPreference": [
+    "net10.0",
+    "net9.0",
+    "net8.0",
+    "net481",
+    "net471",
+    "net462",
+    "netstandard2.1",
+    "netstandard2.0",
+    "net10.0-windows10.0.19041.0",
+    "net9.0-windows10.0.19041.0",
+    "net10.0-android",
+    "net10.0-ios",
+    "net10.0-maccatalyst",
+    "net9.0-android",
+    "net9.0-ios",
+    "net9.0-maccatalyst"
+  ],
+  "additionalPackages": [
+    { "id": "System.Reactive" },
+    { "id": "DynamicData" }
+  ],
+  "excludePackages": [],
+  "referencePackages": [
+    { "id": "Microsoft.NETCore.App.Ref", "version": "10.0.0", "targetTfm": "net10.0", "pathPrefix": "ref/net10.0" },
+    { "id": "Microsoft.NETCore.App.Ref", "version": "9.0.0",  "targetTfm": "net9.0",  "pathPrefix": "ref/net9.0" },
+    { "id": "Microsoft.NETCore.App.Ref", "version": "8.0.0",  "targetTfm": "net8.0",  "pathPrefix": "ref/net8.0" },
+    { "id": "Microsoft.NETFramework.ReferenceAssemblies.net461", "targetTfm": "net461", "pathPrefix": "build/.NETFramework/v4.6.1" },
+    { "id": "Microsoft.NETFramework.ReferenceAssemblies.net462", "targetTfm": "net462", "pathPrefix": "build/.NETFramework/v4.6.2" },
+    { "id": "Microsoft.NETFramework.ReferenceAssemblies.net471", "targetTfm": "net471", "pathPrefix": "build/.NETFramework/v4.7.1" },
+    { "id": "Microsoft.NETFramework.ReferenceAssemblies.net472", "targetTfm": "net472", "pathPrefix": "build/.NETFramework/v4.7.2" },
+    { "id": "Microsoft.NETFramework.ReferenceAssemblies.net48",  "targetTfm": "net48",  "pathPrefix": "build/.NETFramework/v4.8" },
+    { "id": "Microsoft.NETFramework.ReferenceAssemblies.net481", "targetTfm": "net481", "pathPrefix": "build/.NETFramework/v4.8.1" }
+  ],
+  "tfmOverrides": {
+    "ReactiveUI.AndroidX": "net10.0-android",
+    "ReactiveUI.Validation.AndroidX": "net10.0-android",
+    "ReactiveUI.Blend": "net10.0-windows10.0.19041.0",
+    "ReactiveUI.Winforms": "net10.0-windows10.0.19041.0",
+    "ReactiveUI.WinUI": "net10.0-windows10.0.19041.0",
+    "ReactiveUI.Wpf": "net10.0-windows10.0.19041.0"
+  }
+}

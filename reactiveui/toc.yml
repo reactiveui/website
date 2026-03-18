@@ -4,6 +4,14 @@
 - name: Api
   href: api/
   homepage: api/index.md
+- name: Api - Android
+  href: api-android/
+- name: Api - iOS
+  href: api-ios/
+- name: Api - macOS
+  href: api-maccatalyst/
+- name: Api - Windows
+  href: api-windows/
 - name: Contribute
   href: contribute/
   homepage: contribute/index.md
