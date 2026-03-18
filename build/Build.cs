@@ -6,7 +6,29 @@ using System;
 
 class Build : NukeBuild
 {
-    public static int Main() => Execute<Build>(x => x.BuildWebsite);
+    /// Support plugins are available for:
+    ///   - JetBrains ReSharper        https://nuke.build/resharper
+    ///   - JetBrains Rider            https://nuke.build/rider
+    ///   - Microsoft VisualStudio     https://nuke.build/visualstudio
+    ///   - Microsoft VSCode           https://nuke.build/vscode
+
+    public static int Main() => Execute<Build>(x => x.Compile);
+
+    [Parameter("Configuration to build - Default is 'Debug' (local) or 'Release' (server)")]
+    readonly Configuration Configuration = IsLocalBuild ? Configuration.Debug : Configuration.Release;
+
+    private static readonly string reactiveui = nameof(reactiveui);
+    private static readonly string akavache = nameof(akavache);
+    private static readonly string fusillade = nameof(fusillade);
+    private static readonly string punchclock = nameof(punchclock);
+    private static readonly string splat = nameof(splat);
+    private static readonly string DynamicData = nameof(DynamicData);
+    private static readonly string reactivemarbles = nameof(reactivemarbles);
+    private static readonly string extensions = nameof(extensions);
+    private static readonly string[] RxUIProjects = [akavache, fusillade, punchclock, splat, extensions]; ////, reactiveui, "ReactiveUI.Validation", "ReactiveUI.Avalonia", "Maui.Plugins.Popup"];
+
+    private AbsolutePath RxUIAPIDirectory => RootDirectory / reactiveui / "api" / reactiveui;
+    private AbsolutePath RxMAPIDirectory => RootDirectory / reactiveui / "api" / reactivemarbles;
 
     private AbsolutePath ApiLibDirectory => RootDirectory / "reactiveui" / "api" / "lib";
     private AbsolutePath ApiRefsDirectory => RootDirectory / "reactiveui" / "api" / "refs";
