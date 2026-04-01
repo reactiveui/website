@@ -56,10 +56,10 @@ You can register custom services and dependencies using the `WithPlatformModule`
 .WithPlatformModule<Services.MyPlatformModule>()
 ```
 ## Configure Schedulers
-You can configure the main thread and task pool schedulers used by ReactiveUI using the `WithMainThreadScheduler` and `WithTaskpoolScheduler` methods.
+You can configure the main thread and task pool schedulers used by ReactiveUI using the `WithMainThreadScheduler` and `WithTaskPoolScheduler` methods.
 ```csharp
 .WithMainThreadScheduler(DispatcherScheduler.Current)
-.WithTaskpoolScheduler(TaskPoolScheduler.Default)
+.WithTaskPoolScheduler(TaskPoolScheduler.Default)
 ```
 
 The default scheduler extensions register the RxSchedulers.MainThreadScheduler and RxSchedulers.TaskpoolScheduler to use the appropriate schedulers for the platform.
@@ -67,7 +67,7 @@ This can be overridden by calling the above methods with `setRxApp = false` to p
 
 ```csharp
 .WithMainThreadScheduler(DispatcherScheduler.Current, setRxApp: false)
-.WithTaskpoolScheduler(TaskPoolScheduler.Default, setRxApp: false)
+.WithTaskPoolScheduler(TaskPoolScheduler.Default, setRxApp: false)
 ```
 
 Each platform module also registers the appropriate default schedulers for that platform.
