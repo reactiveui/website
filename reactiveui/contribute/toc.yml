@@ -11,5 +11,7 @@
   href: ai-assisted-development.md
 - name: CI & Shared Tooling
   href: ci-and-tooling.md
+- name: Renovate & Dependencies
+  href: renovate.md
 - name: Maintainers
   href: maintainers.md

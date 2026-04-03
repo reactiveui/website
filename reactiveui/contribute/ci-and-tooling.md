@@ -37,7 +37,7 @@ Version configuration lives in `version.json` at the repo root.
 
 ## Dependency management
 
-All repos use [Renovate](https://github.com/renovatebot/renovate) for automated dependency updates, with shared configuration extending from `local>reactiveui/.github:renovate`. Renovate PRs use the `chore(deps):` commit prefix and are auto-categorised in release notes.
+All repos use [Renovate](https://github.com/renovatebot/renovate) for automated dependency updates with a shared configuration. See the dedicated [Renovate & Dependencies](renovate.md) page for full details on the setup, defaults, and package grouping rules.
 
 ## Release notes
 
