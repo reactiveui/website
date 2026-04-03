@@ -13,5 +13,7 @@
   href: ci-and-tooling.md
 - name: Renovate & Dependencies
   href: renovate.md
+- name: Security & Code Scanning
+  href: security-scanning.md
 - name: Maintainers
   href: maintainers.md
