@@ -1,47 +1,69 @@
 # Commit Message Convention
 
-Each commit message consists of a **header**, a **body** and a **footer**.  The header has a special
-format that includes a **type**  and a **subject**:
+We use [Conventional Commits](https://www.conventionalcommits.org/). Commit messages are parsed by our release note generator to produce changelogs automatically, so consistent formatting matters.
 
-```xml
+## Format
+
+```
 <type>: <subject>
+
 <body>
-<BLANK LINE>
+
 <footer>
 ```
 
-## Revert
+An optional **scope** can be added in parentheses: `fix(bindings): resolve nullable handling`.
 
-If the commit reverts a previous commit, it should begin with `revert: `, followed by the header of the reverted commit. In the body it should say: `This reverts commit <hash>.`, where the hash is the SHA of the commit being reverted.
+## Types
 
-## Type
+| Type | Description | Release notes category |
+|---|---|---|
+| `break` | Breaking change to the public API | Breaking Changes |
+| `feat` | New feature | Features |
+| `fix` | Bug fix | Fixes |
+| `refactor` | Code change that neither fixes a bug nor adds a feature | Refactoring |
+| `perf` | Performance improvement | Performance |
+| `chore` | Build process, tooling, or maintenance | General Changes |
+| `test` | Adding or updating tests | Tests |
+| `doc` | Documentation only changes | Documentation |
+| `style` | Formatting, whitespace — no code behaviour change | Style Changes |
+| `dep` | Dependency updates | Dependencies |
+| `ci` | CI/CD pipeline changes | General Changes |
 
-Must be one of the following:
-
-* **feat**: A new feature
-* **fix**: A bug fix
-* **docs**: Documentation only changes
-* **style**: Changes that do not affect the meaning of the code (white-space, formatting, missing
-  semi-colons, etc)
-* **refactor**: A code change that neither fixes a bug nor adds a feature
-* **perf**: A code change that improves performance
-* **test**: Adding missing tests
-* **chore**: Changes to the build process or auxiliary tools and libraries such as documentation
-  generation
+> [!NOTE]
+> Dependency bot commits (Renovate, Dependabot) are automatically categorised as dependency updates regardless of prefix.
 
 ## Subject
-The subject contains succinct description of the change:
 
-* use the imperative, present tense: "change" not "changed" nor "changes"
-* don't capitalize first letter
-* no dot (.) at the end
+- Use imperative, present tense: "change" not "changed" nor "changes"
+- Don't capitalise the first letter
+- No full stop at the end
 
 ## Body
-Just as in the **subject**, use the imperative, present tense: "change" not "changed" nor "changes".
-The body should include the motivation for the change and contrast this with previous behavior.
+
+Optional. Use it to explain **why** the change was made and how it differs from previous behaviour. Same tense rules as the subject.
 
 ## Footer
-The footer should contain any information about **Breaking Changes** and is also the place to
-reference GitHub issues that this commit **Closes**.
 
-**Breaking Changes** should start with the word `BREAKING CHANGE:` with a space or two newlines. The rest of the commit message is then used for this.
+Use the footer for:
+
+- **Breaking changes** — start with `BREAKING CHANGE:` followed by a description
+- **Issue references** — e.g. `Closes #123`
+
+## Examples
+
+```
+feat: add WhenAnyValue overload for six properties
+
+Closes #4200
+```
+
+```
+break: seal ValidationState as record
+
+BREAKING CHANGE: ValidationState is now a sealed record. Subclassing is no longer supported.
+```
+
+```
+chore(deps): update dependency DynamicData to 9.4.31
+```
