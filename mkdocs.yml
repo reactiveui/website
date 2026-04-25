@@ -1,0 +1,131 @@
+site_name: ReactiveUI
+site_url: https://www.reactiveui.net/
+site_description: An advanced, composable, functional reactive model-view-viewmodel framework for all .NET platforms.
+site_author: ReactiveUI Association and Contributors
+copyright: Copyright &copy; ReactiveUI Association and Contributors
+
+repo_url: https://github.com/reactiveui/ReactiveUI
+repo_name: reactiveui/ReactiveUI
+edit_uri: https://github.com/reactiveui/website/edit/main/docs/
+
+docs_dir: docs
+site_dir: site
+
+theme:
+  name: material
+  custom_dir: overrides
+  logo: images/logo.png
+  favicon: images/favicons/favicon.ico
+  font:
+    text: Source Sans 3
+    code: JetBrains Mono
+  icon:
+    repo: fontawesome/brands/github
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.indexes
+    - navigation.instant
+    - navigation.tracking
+    - navigation.top
+    - toc.follow
+    - content.code.copy
+    - content.code.annotate
+    - content.tabs.link
+    - search.suggest
+    - search.highlight
+    - search.share
+
+extra_css:
+  - stylesheets/extra.css
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/reactiveui/ReactiveUI
+    - icon: fontawesome/brands/slack
+      link: https://reactivex.slack.com/
+    - icon: fontawesome/brands/x-twitter
+      link: https://twitter.com/ReactiveXUI
+    - icon: fontawesome/brands/youtube
+      link: https://www.youtube.com/c/ReactiveUI
+
+plugins:
+  - search
+  - social
+  - tags
+  - autorefs
+  - awesome-pages
+  - blog:
+      blog_dir: articles
+      blog_toc: true
+      post_url_format: "{slug}"
+      archive: true
+      categories: true
+      pagination: true
+  - blog:
+      blog_dir: Announcements
+      blog_toc: true
+      post_url_format: "{date}/{slug}"
+      post_date_format: long
+      archive_date_format: yyyy
+      archive: true
+      categories: true
+      pagination: true
+
+markdown_extensions:
+  - abbr
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.caret
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.keys
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.snippets
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+      slugify: !!python/object/apply:pymdownx.slugs.slugify
+        kwds:
+          case: lower
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.tilde
+
+watch:
+  - overrides
+  - mkdocs.yml

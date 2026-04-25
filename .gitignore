@@ -456,18 +456,36 @@ test_results/
 
 # Claude Settings
 .claude/
-reactiveui/docfx.json
-
-# Docfx output and Nuke build artifacts
-reactiveui/_site/
-reactiveui/api/*.yml
-reactiveui/api/*.manifest
-reactiveui/api/lib/
-reactiveui/api/refs/
-reactiveui/api/cache/
-reactiveui/api-*/
+# mkdocs output and Nuke build artifacts
+site/
+docs/api/
 .nuke/temp/
 .nuke/tools/
 build/_intermediate/
 nuget-packages.full.json.bak
+
+# Python — virtualenv, byte-compiled files, caches, build/dist artefacts
 .venv/
+venv/
+env/
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+*.egg
+.eggs/
+.python-version
+.pip-cache/
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+.tox/
+.coverage
+.coverage.*
+htmlcov/
+build/lib/
+dist/
+pip-log.txt
+pip-delete-this-directory.txt
+*.so
+.ipynb_checkpoints/

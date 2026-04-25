@@ -1,0 +1,62 @@
+:root {
+  --rxui-blue: #319af3;
+  --rxui-blue-light: #5cb0f6;
+  --rxui-blue-dark: #1f6fb8;
+
+  --md-primary-fg-color: var(--rxui-blue);
+  --md-primary-fg-color--light: var(--rxui-blue-light);
+  --md-primary-fg-color--dark: var(--rxui-blue-dark);
+  --md-accent-fg-color: var(--rxui-blue);
+  --md-accent-fg-color--transparent: rgba(49, 154, 243, 0.1);
+}
+
+[data-md-color-scheme="slate"] {
+  --md-primary-fg-color: var(--rxui-blue-light);
+  --md-accent-fg-color: var(--rxui-blue-light);
+}
+
+.rxui-hero {
+  background: linear-gradient(135deg, var(--rxui-blue-dark) 0%, var(--rxui-blue) 100%);
+  color: #fff;
+  padding: 4rem 1.5rem 5rem;
+  margin: -1.5rem -1.5rem 2rem;
+  text-align: center;
+  border-radius: 0 0 0.4rem 0.4rem;
+}
+
+.rxui-hero h1 {
+  color: #fff;
+  font-size: 2.6rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem;
+}
+
+.rxui-hero p.tagline {
+  font-size: 1.15rem;
+  opacity: 0.92;
+  max-width: 48rem;
+  margin: 0 auto 1.75rem;
+}
+
+.rxui-hero .md-button {
+  margin: 0.25rem 0.5rem;
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.7);
+}
+
+.rxui-hero .md-button--primary {
+  background-color: #fff;
+  color: var(--rxui-blue-dark);
+  border-color: #fff;
+}
+
+.rxui-hero .md-button:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+  color: #fff;
+  border-color: #fff;
+}
+
+.rxui-hero .md-button--primary:hover {
+  background-color: rgba(255, 255, 255, 0.92);
+  color: var(--rxui-blue-dark);
+}
