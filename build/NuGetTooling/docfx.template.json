@@ -1,0 +1,81 @@
+{
+  "metadata": [
+    {
+      "src": [],
+      "dest": "",
+      "outputFormat": "mref",
+      "includePrivateMembers": false,
+      "disableGitFeatures": false,
+      "disableDefaultFilter": false,
+      "noRestore": false,
+      "namespaceLayout": "flattened",
+      "memberLayout": "samePage",
+      "enumSortOrder": "alphabetic",
+      "allowCompilationErrors": false,
+      "filter": "filter.yml"
+    }
+  ],
+  "build": {
+    "globalMetadata": {
+      "_lang": "en",
+      "_appTitle": "An advanced, composable, reactive model-view-viewmodel framework",
+      "_appLogoPath": "images/logoSmall.png",
+      "_appFaviconPath": "images/favicons/favicon.ico",
+      "_disableContribution": true,
+      "_enableSearch": true,
+      "_appFooter": "Copyright (c) .NET Foundation and Contributors",
+      "_appName": "ReactiveUI"
+    },
+    "content": [
+      {
+        "files": [
+          "api/**.yml",
+          "api/index.md"
+        ]
+      },
+      {
+        "files": [
+          "Announcements/**.md",
+          "Announcements/**/toc.yml",
+          "articles/**.md",
+          "articles/**/toc.yml",
+          "Book/**.md",
+          "Book/**/toc.yml",
+          "contribute/**.md",
+          "contribute/**/toc.yml",
+          "docs/**.md",
+          "docs/**/toc.yml",
+          "Extensions/**.md",
+          "Extensions/**/toc.yml",
+          "vs/**.md",
+          "vs/**/toc.yml",
+          "toc.yml",
+          "*.md"
+        ]
+      }
+    ],
+    "resource": [
+      {
+        "files": [
+          "images/**"
+        ]
+      }
+    ],
+    "output": "_site",
+    "globalMetadataFiles": [],
+    "fileMetadataFiles": [],
+    "template": [
+      "default",
+      "modern",
+      "template"
+    ],
+    "postProcessors": [],
+    "keepFileLink": false,
+    "disableGitFeatures": false,
+    "sitemap": {
+      "baseUrl": "https://www.reactiveui.net",
+      "priority": 0.1,
+      "changefreq": "monthly"
+    }
+  }
+}

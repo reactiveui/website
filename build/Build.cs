@@ -1,7 +1,5 @@
 #nullable enable
 
-using System.IO;
-using System.Linq;
 using Nuke.Common;
 using Nuke.Common.IO;
 using Nuke.Common.Tooling;
@@ -12,16 +10,12 @@ namespace ReactiveUI.Web;
 /// <summary>
 /// Nuke build entry point. Drives the docfx documentation pipeline:
 /// fetching NuGet packages, generating a docfx configuration that points
-/// at the extracted assemblies, then running docfx itself.
+/// at the extracted assemblies, then running docfx itself. The docfx CLI
+/// is restored from the local tool manifest at <c>.config/dotnet-tools.json</c>
+/// so its version is tracked there (and bumped automatically by Renovate).
 /// </summary>
 internal sealed class Build : NukeBuild
 {
-    /// <summary>
-    /// Pinned docfx CLI version. Updated explicitly so doc generation is
-    /// reproducible across machines and CI runs.
-    /// </summary>
-    private const string DocfxVersion = "2.78.5";
-
     /// <summary>
     /// Top-level docs directory name in the repository (also the docfx
     /// project root). Held as a const so path expressions read clearly.
@@ -69,16 +63,18 @@ internal sealed class Build : NukeBuild
     /// <summary>Path docfx writes the rendered website to.</summary>
     private static AbsolutePath SiteOutputPath => WebRootPath / "_site";
 
-    /// <summary>Path used for the locally installed docfx tool.</summary>
-    private static AbsolutePath LocalToolsPath => RootDirectory / ".nuke" / "tools";
-
-    /// <summary>Path of the dynamically generated docfx configuration file.</summary>
-    private static AbsolutePath GeneratedDocfxConfigPath => TemporaryDirectory / "docfx.generated.json";
+    /// <summary>
+    /// Path of the dynamically generated docfx configuration file.
+    /// Written into the docfx project root so docfx resolves the
+    /// relative <c>api/</c>, <c>articles/</c>, ... paths correctly.
+    /// Regenerated on every run and gitignored.
+    /// </summary>
+    private static AbsolutePath GeneratedDocfxConfigPath => WebRootPath / "docfx.json";
 
     /// <summary>
     /// Removes previously-fetched assemblies and the generated docfx
-    /// configuration, and ensures the docfx CLI tool is installed at the
-    /// pinned version. Always runs before <see cref="FetchPackages"/>.
+    /// configuration, and restores the locally pinned docfx CLI from the
+    /// tool manifest. Always runs before <see cref="FetchPackages"/>.
     /// </summary>
     private Target Clean => _ => _
         .Before(FetchPackages)
@@ -87,7 +83,7 @@ internal sealed class Build : NukeBuild
             ApiLibDirectory.DeleteDirectory();
             ApiRefsDirectory.DeleteDirectory();
             GeneratedDocfxConfigPath.DeleteFile();
-            EnsureDocfxTool();
+            RestoreDocfxTool();
         });
 
     /// <summary>
@@ -111,7 +107,7 @@ internal sealed class Build : NukeBuild
         .Executes(() =>
         {
             var generatedDocfxConfigPath = DocfxConfigWriter.Write(RootDirectory, GeneratedDocfxConfigPath);
-            ProcessTasks.StartProcess("dotnet", $"\"{ResolveDocfxDllPath()}\" \"{generatedDocfxConfigPath}\"", workingDirectory: RootDirectory)
+            ProcessTasks.StartProcess("dotnet", $"docfx \"{generatedDocfxConfigPath}\"", workingDirectory: RootDirectory)
                 .AssertZeroExitCode();
             Log.Info("Web Site build complete");
         });
@@ -125,52 +121,18 @@ internal sealed class Build : NukeBuild
         .Executes(() =>
         {
             Log.Info($"Serving website at http://localhost:{Port}");
-            ProcessTasks.StartProcess("dotnet", $"\"{ResolveDocfxDllPath()}\" serve \"{SiteOutputPath}\" -p {Port}", workingDirectory: RootDirectory)
+            ProcessTasks.StartProcess("dotnet", $"docfx serve \"{SiteOutputPath}\" -p {Port}", workingDirectory: RootDirectory)
                 .AssertZeroExitCode();
         });
 
     /// <summary>
-    /// Installs or updates the pinned docfx CLI under <see
-    /// cref="LocalToolsPath"/>. Tries <c>tool update</c> first and falls
-    /// back to <c>tool install</c> when the tool is not yet present.
+    /// Restores the local dotnet tool manifest at
+    /// <c>.config/dotnet-tools.json</c>, which pins the docfx CLI version
+    /// used by <see cref="BuildWebsite"/> and <see cref="Serve"/>. The
+    /// manifest is the single source of truth for the docfx version and
+    /// is updated by Renovate.
     /// </summary>
-    private static void EnsureDocfxTool()
-    {
-        try
-        {
-            ProcessTasks.StartProcess("dotnet", $"tool update docfx --tool-path \"{LocalToolsPath}\" --version {DocfxVersion}", workingDirectory: RootDirectory)
-                .AssertZeroExitCode();
-        }
-        catch
-        {
-            ProcessTasks.StartProcess("dotnet", $"tool install docfx --tool-path \"{LocalToolsPath}\" --version {DocfxVersion}", workingDirectory: RootDirectory)
-                .AssertZeroExitCode();
-        }
-    }
-
-    /// <summary>
-    /// Locates the <c>docfx.dll</c> shipped under <see
-    /// cref="LocalToolsPath"/> for the pinned version. Probes successive
-    /// TFM-specific install layouts because the docfx tool's assets folder
-    /// changes between releases.
-    /// </summary>
-    /// <returns>Absolute path to the <c>docfx.dll</c>.</returns>
-    /// <exception cref="FileNotFoundException">Thrown when no candidate path exists on disk.</exception>
-    private static AbsolutePath ResolveDocfxDllPath()
-    {
-        AbsolutePath[] candidates =
-        [
-            LocalToolsPath / ".store" / "docfx" / DocfxVersion / "docfx" / DocfxVersion / "tools" / "net10.0" / "any" / "docfx.dll",
-            LocalToolsPath / ".store" / "docfx" / DocfxVersion / "docfx" / DocfxVersion / "tools" / "net9.0" / "any" / "docfx.dll",
-            LocalToolsPath / ".store" / "docfx" / DocfxVersion / "docfx" / DocfxVersion / "tools" / "net8.0" / "any" / "docfx.dll",
-        ];
-
-        var existingPath = candidates.FirstOrDefault(path => File.Exists(path));
-        if (existingPath == null)
-        {
-            throw new FileNotFoundException($"Could not locate docfx.dll under {LocalToolsPath}");
-        }
-
-        return existingPath;
-    }
+    private static void RestoreDocfxTool() =>
+        ProcessTasks.StartProcess("dotnet", "tool restore", workingDirectory: RootDirectory)
+            .AssertZeroExitCode();
 }

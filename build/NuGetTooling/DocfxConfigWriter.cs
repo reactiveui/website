@@ -13,18 +13,27 @@ namespace ReactiveUI.Web.NuGetTooling;
 /// Generates the docfx configuration consumed by the build, dynamically
 /// patching <c>metadata</c> and <c>build.content</c> based on the TFM
 /// directories that <see cref="NuGetFetcher"/> has materialised under
-/// <c>api/lib</c> and <c>api/refs</c>.
+/// <c>api/lib</c> and <c>api/refs</c>. The template lives as an embedded
+/// resource in the build assembly so the generated <c>docfx.json</c> can
+/// be regenerated cleanly each run and is not committed to the
+/// repository.
 /// </summary>
 internal static class DocfxConfigWriter
 {
     /// <summary>
-    /// Reads the template <c>reactiveui/docfx.json</c>, rewrites the
-    /// <c>metadata</c> and <c>build.content</c> sections to reflect the
-    /// discovered TFMs, and writes the result to <paramref
-    /// name="outputPath"/>. One metadata entry is produced per lib TFM that
-    /// has matching reference assemblies; platform TFMs are bucketed into
-    /// per-platform output directories so the docfx site can switch between
-    /// them.
+    /// Logical name of the embedded docfx template resource. Set
+    /// explicitly via <c>LogicalName</c> in the project so it does not
+    /// depend on the default-resource-name convention.
+    /// </summary>
+    private const string TemplateResourceName = "ReactiveUI.Web.NuGetTooling.docfx.template.json";
+
+    /// <summary>
+    /// Reads the embedded docfx template, rewrites the <c>metadata</c>
+    /// and <c>build.content</c> sections to reflect the discovered TFMs,
+    /// and writes the result to <paramref name="outputPath"/>. One
+    /// metadata entry is produced per lib TFM that has matching reference
+    /// assemblies; platform TFMs are bucketed into per-platform output
+    /// directories so the docfx site can switch between them.
     /// </summary>
     /// <param name="rootDirectory">Repository root.</param>
     /// <param name="outputPath">File to write the generated docfx configuration to.</param>
@@ -34,7 +43,6 @@ internal static class DocfxConfigWriter
         var apiDir = rootDirectory / "reactiveui" / "api";
         var libDir = apiDir / "lib";
         var refsDir = apiDir / "refs";
-        var docfxTemplatePath = rootDirectory / "reactiveui" / "docfx.json";
 
         if (!Directory.Exists(libDir))
         {
@@ -66,7 +74,7 @@ internal static class DocfxConfigWriter
         Log.Info($"Discovered lib/ TFMs: {string.Join(", ", libTfms)}");
         Log.Info($"Discovered refs/ TFMs: {string.Join(", ", refsTfms)}");
 
-        var template = ReadTemplate(docfxTemplatePath);
+        var template = ReadTemplate();
         var sharedExtra = ExtractSharedMetadataExtras(template.Metadata.FirstOrDefault());
 
         var metadataEntries = new List<DocfxMetadataEntry>();
@@ -134,18 +142,22 @@ internal static class DocfxConfigWriter
     }
 
     /// <summary>
-    /// Reads and deserialises the template <c>docfx.json</c>. Throws when
-    /// the file is missing or empty so misconfiguration surfaces as a clear
-    /// error rather than a downstream null-reference.
+    /// Reads and deserialises the docfx template embedded in the build
+    /// assembly. Throws when the resource is missing or empty so
+    /// misconfiguration surfaces as a clear error rather than a
+    /// downstream null-reference.
     /// </summary>
-    /// <param name="docfxTemplatePath">Path to the template file.</param>
     /// <returns>The parsed template configuration.</returns>
-    private static DocfxConfig ReadTemplate(AbsolutePath docfxTemplatePath)
+    private static DocfxConfig ReadTemplate()
     {
-        var docfxJson = File.ReadAllText(docfxTemplatePath);
-        return JsonSerializer.Deserialize(docfxJson, DocfxConfigContext.Default.DocfxConfig)
+        var assembly = typeof(DocfxConfigWriter).Assembly;
+        using var stream = assembly.GetManifestResourceStream(TemplateResourceName)
             ?? throw new InvalidOperationException(
-                $"Failed to deserialize docfx template at {docfxTemplatePath}");
+                $"Embedded docfx template '{TemplateResourceName}' not found in {assembly.FullName}");
+
+        return JsonSerializer.Deserialize(stream, DocfxConfigContext.Default.DocfxConfig)
+            ?? throw new InvalidOperationException(
+                "Failed to deserialize the embedded docfx template");
     }
 
     /// <summary>
