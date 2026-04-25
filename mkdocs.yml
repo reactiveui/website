@@ -75,9 +75,13 @@ plugins:
   # below as needed.
   - search
   - autorefs
-  - glightbox
 
 markdown_extensions:
+  # Mirrors the default extension set Zensical activates for new projects
+  # (per https://zensical.org/docs/setup/extensions/) so this config works
+  # cleanly under either Zensical or stock mkdocs Material. All callable
+  # references use the dotted-string form rather than !!python/name: tags
+  # — modern pymdownx accepts both, Zensical only accepts strings.
   - abbr
   - admonition
   - attr_list
@@ -87,6 +91,7 @@ markdown_extensions:
   - tables
   - toc:
       permalink: true
+  - pymdownx.betterem
   - pymdownx.caret
   - pymdownx.details
   - pymdownx.highlight:
@@ -95,6 +100,7 @@ markdown_extensions:
       pygments_lang_class: true
   - pymdownx.inlinehilite
   - pymdownx.keys
+  - pymdownx.magiclink
   - pymdownx.mark
   - pymdownx.smartsymbols
   - pymdownx.snippets
@@ -102,12 +108,19 @@ markdown_extensions:
       custom_fences:
         - name: mermaid
           class: mermaid
-          format: !!python/name:pymdownx.superfences.fence_code_format
+          format: pymdownx.superfences.fence_code_format
   - pymdownx.tabbed:
       alternate_style: true
+      combine_header_slug: true
   - pymdownx.tasklist:
       custom_checkbox: true
   - pymdownx.tilde
+  # Zensical-native — adds zoom/lightbox to all images automatically.
+  # The equivalent of [project.markdown_extensions.zensical.extensions.glightbox]
+  # in zensical.toml. Plain mkdocs ignores the unknown extension name; if
+  # we ever need a stock-mkdocs build with the same UX, swap in the
+  # mkdocs-glightbox PyPI plugin under plugins: instead.
+  - zensical.extensions.glightbox
 
 watch:
   - overrides

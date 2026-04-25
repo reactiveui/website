@@ -1,5 +1,5 @@
 mkdocs
 mkdocs-material
 mkdocs-autorefs
-mkdocs-glightbox
 pymdown-extensions
+zensical
