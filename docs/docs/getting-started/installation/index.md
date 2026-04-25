@@ -19,31 +19,31 @@ ReactiveUI packages are signed by the .NET Foundation. Install platform-specific
 
 [Core]: https://www.nuget.org/packages/ReactiveUI/
 [CoreBadge]: https://img.shields.io/nuget/v/ReactiveUI.svg
-[CoreDoc]: ~/docs/getting-started/installation/index.md
+[CoreDoc]: index.md
 
 [Test]: https://www.nuget.org/packages/ReactiveUI.Testing/
 [TestBadge]: https://img.shields.io/nuget/v/ReactiveUI.Testing.svg
-[TestDoc]: ~/docs/handbook/testing.md
+[TestDoc]: ../../handbook/testing.md
 
 [Wpf]: https://www.nuget.org/packages/ReactiveUI.WPF/
 [WpfBadge]: https://img.shields.io/nuget/v/ReactiveUI.WPF.svg
-[WpfDoc]: ~/docs/getting-started/installation/windows-presentation-foundation.md
+[WpfDoc]: windows-presentation-foundation.md
 
 [WinUi]: https://www.nuget.org/packages/ReactiveUI.WinUI/
 [WinUiBadge]: https://img.shields.io/nuget/v/ReactiveUI.WinUI.svg
-[WinUiDoc]: ~/docs/getting-started/installation/winui.md
+[WinUiDoc]: winui.md
 
 [Maui]: https://www.nuget.org/packages/ReactiveUI.Maui/
 [MauiBadge]: https://img.shields.io/nuget/v/ReactiveUI.Maui.svg
-[MauiDoc]: ~/docs/getting-started/installation/maui.md
+[MauiDoc]: maui.md
 
 [Win]: https://www.nuget.org/packages/ReactiveUI.WinForms/
 [WinBadge]: https://img.shields.io/nuget/v/ReactiveUI.WinForms.svg
-[WinDoc]: ~/docs/getting-started/installation/windows-forms.md
+[WinDoc]: windows-forms.md
 
 [DroX]: https://www.nuget.org/packages/ReactiveUI.AndroidX/
 [DroXBadge]: https://img.shields.io/nuget/v/ReactiveUI.AndroidX.svg
-[DroDoc]: ~/docs/getting-started/installation/androidx.md
+[DroDoc]: androidx.md
 
 [Uno]: https://www.nuget.org/packages/ReactiveUI.Uno/
 [UnoBadge]: https://img.shields.io/nuget/v/ReactiveUI.Uno.svg
@@ -54,15 +54,15 @@ ReactiveUI packages are signed by the .NET Foundation. Install platform-specific
 
 [Blaz]: https://www.nuget.org/packages/ReactiveUI.Blazor/
 [BlazBadge]: https://img.shields.io/nuget/v/ReactiveUI.Blazor.svg
-[BlazDoc]: ~/docs/getting-started/installation/blazor.md
+[BlazDoc]: blazor.md
 
 [Ava]: https://www.nuget.org/packages/ReactiveUI.Avalonia/
 [AvaBadge]: https://img.shields.io/nuget/v/ReactiveUI.Avalonia.svg
-[AvaDoc]: ~/docs/getting-started/installation/avalonia.md
+[AvaDoc]: avalonia.md
 
 [ValCore]: https://www.nuget.org/packages/ReactiveUI.Validation/
 [ValBadge]: https://img.shields.io/nuget/v/ReactiveUI.Validation.svg
-[ValDocs]: ~/docs/handbook/user-input-validation.md
+[ValDocs]: ../../handbook/user-input-validation.md
 
 > Note: Xamarin platforms are considered legacy. For new applications, prefer .NET (WPF/WinForms/WinUI), MAUI, Avalonia, or Uno. Fody-based packages are legacy; prefer ReactiveUI.SourceGenerators for code generation.
 

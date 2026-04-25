@@ -9,11 +9,11 @@ i.e `<TargetFramework>net8.0-windows10.0.19041.0</TargetFramework>` in your cspr
 
 Your viewmodels should inherit from `ReactiveObject`
 
-- [ReactiveObject](../../../api/ReactiveUI.ReactiveObject.yml)
+- `ReactiveObject`
 
 Use `IActivatableViewModel` and `WhenActivated` for lifecycle
 
-- [IActivatableViewModel](../../../api/ReactiveUI.IActivatableViewModel.yml)
+- `IActivatableViewModel`
 - [When Activated](../../handbook/when-activated.md)
 
 Keep references to your subscriptions
@@ -30,7 +30,7 @@ Don't use eventhandlers, use the extension methods shipped in `ReactiveMarbles.O
 
 Use your normal WinForms concepts that you would usually use in WinForms development. There's also some extension methods which will make your life easier
 
-- [ReactiveUserControl](../../../api/ReactiveUI.ReactiveUserControl-1.yml)
-- [IViewFor](../../../api/ReactiveUI.IViewFor-1.yml)
-- [RoutedViewHost](../../../api/ReactiveUI.RoutedViewHost.yml)
-- [AutoDataTemplateBindingHook](../../../api/ReactiveUI.AutoDataTemplateBindingHook.yml)
+- `ReactiveUserControl`
+- `IViewFor`
+- `RoutedViewHost`
+- `AutoDataTemplateBindingHook`

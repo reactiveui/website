@@ -1,41 +1,11 @@
-# ReactiveUI API Documentation
+# API Reference
 
-Browse the latest API documentation for all major ReactiveUI packages and related projects. This section is generated from the published NuGet packages and reflects the latest stable releases.
+The API reference is generated from the latest stable NuGet packages — types, members, signatures, XML docs, and source-link locations are walked directly out of the published `.dll` + `.xml` triples by `SourceDocParser`.
 
-- [Akavache API](akavache.html)
-- [DynamicData API](dynamicdata.html)
-- [ReactiveUI API](reactiveui.html)
-- [ReactiveUI.AndroidX API](reactiveui.androidx.html)
-- [ReactiveUI.Blazor API](reactiveui.blazor.html)
-- [ReactiveUI.Blend](reactiveui.blend.html)
-- [ReactiveUI.Builder](reactiveui.builder.html)
-- [ReactiveUI.Drawing API](reactiveui.drawing.html)
-- [ReactiveUI.Extensions API](reactiveui.extensions.html)
-- [ReactiveUI.Maui API](reactiveui.maui.html)
-- [ReactiveUI.Maui.Plugins.Popup API](reactiveui.maui.plugins.popup.html)
-- [ReactiveUI.Testing API](reactiveui.testing.html)
-- [ReactiveUI.Validation API](reactiveui.validation.helpers.html)
-- [ReactiveUI.WinUI API](reactiveui.winui.html)
-- [ReactiveUI.WinForms API](reactiveui.winforms.html)
-- [ReactiveUI.WPF API](reactiveui.wpf.html)
-- [Splat API](splat.html)
-- [Splat.ApplicationInsights API](splat.applicationinsights.html)
-- [Splat.ApplicationPerformanceMonitoring API](splat.applicationperformancemonitoring.html)
-- [Splat.AutoFac API](splat.autofac.html)
-- [Splat.Builder API](splat.builder.html)
-- [Splat.DryIoc API](splat.dryioc.html)
-- [Splat.Exceptionless API](splat.exceptionless.html)
-- [Splat.Log4Net API](splat.log4net.html)
-- [Splat.Microsoft.Extensions.DependencyInjection API](splat.microsoft.extensions.dependencyinjection.html)
-- [Splat.Microsoft.Extensions.Logging API](splat.microsoft.extensions.logging.html)
-- [Splat.ModeDetection API](splat.modedetection.html)
-- [Splat.NLog API](splat.nlog.html)
-- [Splat.Ninject API](splat.ninject.html)
-- [Splat.Prism API](splat.prism.html)
-- [Splat.Prism.Forms API](splat.prism.forms.html)
-- [Splat.Serilog API](splat.serilog.html)
-- [Splat.SimpleInjector API](splat.simpleinjector.html)
-- [Fusillade API](fusillade.html)
-- [Punchclock API](punchclock.html)
+Use the navigation on the left to browse by namespace. Cross-references between members resolve through `mkdocs-autorefs`, so you can jump from any signature into the type it returns.
 
-> The API documentation is generated from the latest stable NuGet package releases and reflects current best practices.
+!!! info "Tracked packages"
+
+    `Akavache` · `DynamicData` · `ReactiveUI` and platform companions (`AndroidX`, `Blazor`, `Blend`, `Builder`, `Drawing`, `Extensions`, `Maui`, `Maui.Plugins.Popup`, `Testing`, `Validation`, `WinUI`, `WinForms`, `WPF`) · `Splat` and its container/logging adapters (`ApplicationInsights`, `ApplicationPerformanceMonitoring`, `AutoFac`, `Builder`, `DryIoc`, `Exceptionless`, `Log4Net`, `Microsoft.Extensions.DependencyInjection`, `Microsoft.Extensions.Logging`, `ModeDetection`, `NLog`, `Ninject`, `Prism`, `Prism.Forms`, `Serilog`, `SimpleInjector`) · `Fusillade` · `Punchclock`.
+
+    The exact list and resolved versions are pinned in [`nuget-packages.json`](https://github.com/reactiveui/website/blob/main/nuget-packages.json) and rebuilt on every site deploy.

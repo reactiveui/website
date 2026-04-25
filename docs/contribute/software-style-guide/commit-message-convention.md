@@ -30,8 +30,9 @@ An optional **scope** can be added in parentheses: `fix(bindings): resolve nulla
 | `dep` | Dependency updates | Dependencies |
 | `ci` | CI/CD pipeline changes | General Changes |
 
-> [!NOTE]
-> Dependency bot commits (Renovate, Dependabot) are automatically categorised as dependency updates regardless of prefix.
+!!! note
+
+    Dependency bot commits (Renovate, Dependabot) are automatically categorised as dependency updates regardless of prefix.
 
 ## Subject
 

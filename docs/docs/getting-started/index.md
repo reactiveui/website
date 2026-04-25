@@ -45,7 +45,7 @@ The [Compelling Example](compelling-example.md) walks through creating a more co
 
 The Model-View-ViewModel (MVVM) pattern helps create more portable and maintainable codebases for cross-platform .NET applications. It increases the amount of code that can be shared between different platforms (Windows, iOS, Android, Web, etc.) and makes testing easier.
 
-<img src="~/images/mvvm.png" width="500" alt="mvvm">
+<img src="../../images/mvvm.png" width="500" alt="mvvm">
 
 ## Explore the ReactiveUI Ecosystem
 

@@ -273,6 +273,5 @@ public void TestObservableSequence()
 ## Related Topics
 
 - [Operators](operators.md)
-- [Error Handling](error-handling.md)
-- [Testing](testing.md)
-- [Schedulers](schedulers.md)
+- [Testing](../handbook/testing.md)
+- [Scheduling](../handbook/scheduling.md)

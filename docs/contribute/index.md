@@ -32,7 +32,7 @@ Use [GitHub Discussions](https://github.com/reactiveui/ReactiveUI/discussions). 
 
 ## Code of Conduct
 
-All participants are expected to follow our [Code of Conduct](../Code-Of-Conduct). If you experience or witness unacceptable behaviour, contact us at [hello@reactiveui.net](mailto:hello@reactiveui.net).
+All participants are expected to follow our [Code of Conduct](https://github.com/reactiveui/website/blob/main/CODE_OF_CONDUCT.md). If you experience or witness unacceptable behaviour, contact us at [hello@reactiveui.net](mailto:hello@reactiveui.net).
 
 ## License
 

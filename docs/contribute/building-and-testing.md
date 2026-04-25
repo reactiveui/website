@@ -17,8 +17,9 @@ dotnet restore
 dotnet build
 ```
 
-> [!IMPORTANT]
-> Use a full recursive clone. Shallow clones can fail because build and versioning depend on git history.
+!!! info
+
+    Use a full recursive clone. Shallow clones can fail because build and versioning depend on git history.
 
 Most repositories keep their solution file under `src/`. Check the repo's README if the layout differs. Some repos use the newer `.slnx` format — it works the same way with `dotnet build/test`.
 
@@ -53,8 +54,9 @@ Builds run several analysers automatically:
 
 The `.editorconfig` at the repository root configures all formatting rules. Your IDE should pick these up automatically. If an analyser flags something, fix it — CI treats warnings as errors.
 
-> [!NOTE]
-> **Zero pragma policy** — do not use `#pragma warning disable` in production code. StyleCop warnings must be fixed, not suppressed. CA warnings may use `[SuppressMessage]` with justification as a last resort only.
+!!! note
+
+    **Zero pragma policy** — do not use `#pragma warning disable` in production code. StyleCop warnings must be fixed, not suppressed. CA warnings may use `[SuppressMessage]` with justification as a last resort only.
 
 ## Multi-targeting
 

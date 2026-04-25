@@ -8,11 +8,11 @@ i.e `<TargetFramework>net10.0-windows10.0.19041.0</TargetFramework>` in your csp
 
 Your viewmodels should inherit from `ReactiveObject`
 
-- [ReactiveObject](../../../api/ReactiveUI.ReactiveObject.yml)
+- `ReactiveObject`
 
 Use `IActivatableViewModel` and `WhenActivated` for lifecycle
 
-- [IActivatableViewModel](../../../api/ReactiveUI.IActivatableViewModel.yml)
+- `IActivatableViewModel`
 - [When Activated](../../handbook/when-activated.md)
 
 Keep references to your subscriptions
@@ -31,7 +31,7 @@ When starting a WPF application from another application (e.g. Console) set `RxS
 
 Use your normal WPF concepts that you would usually use in WPF development. There's also some extension methods which will make your life easier
 
-- [ReactiveUserControl](../../../api/ReactiveUI.ReactiveUserControl-1.yml)
-- [IViewFor](../../../api/ReactiveUI.IViewFor-1.yml)
-- [RoutedViewHost](../../../api/ReactiveUI.RoutedViewHost.yml)
-- [AutoDataTemplateBindingHook](../../../api/ReactiveUI.AutoDataTemplateBindingHook.yml)
+- `ReactiveUserControl`
+- `IViewFor`
+- `RoutedViewHost`
+- `AutoDataTemplateBindingHook`

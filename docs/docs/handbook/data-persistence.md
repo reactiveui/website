@@ -119,7 +119,7 @@ public class NewtonsoftJsonSuspensionDriver : ISuspensionDriver
 
 ## 2. Define the AppState Object
 
-The `AppState` is an object with `DataContract` notations, the `AppState` is platform independent. You can use your root ViewModel as your `AppState` retrieving services from `AppLocator.Current.GetService<T>` for [dependency inversion feature](/docs/handbook/dependency-inversion/) to work.
+The `AppState` is an object with `DataContract` notations, the `AppState` is platform independent. You can use your root ViewModel as your `AppState` retrieving services from `AppLocator.Current.GetService<T>` for [dependency inversion feature](dependency-inversion/index.md) to work.
 
 ```cs
 [DataContract]

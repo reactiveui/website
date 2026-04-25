@@ -30,7 +30,7 @@ For a detailed overview of the bindings on each platform, see the following sect
 
 * [Xamarin.Forms](xamarin-forms.md)
 
-* [Xamarin.Android](/xamarin-android/index.md)
+* [Xamarin.Android](xamarin-android/index.md)
 
 * [Xamarin.iOS](xamarin-ios.md)
 

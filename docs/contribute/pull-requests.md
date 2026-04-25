@@ -35,8 +35,9 @@ This creates your fork on GitHub, clones it locally, and sets up `origin` (your 
 
 For documentation or small code changes, press `.` on any repo page to open it in [github.dev](https://docs.github.com/en/codespaces/the-githubdev-web-based-editor), or use [GitHub Codespaces](https://docs.github.com/en/codespaces) for a full cloud dev environment with build support.
 
-> [!IMPORTANT]
-> Use a full recursive clone. Shallow clones can fail because build and versioning depend on git history. If you already have a shallow clone, run `git fetch --unshallow`.
+!!! info
+
+    Use a full recursive clone. Shallow clones can fail because build and versioning depend on git history. If you already have a shallow clone, run `git fetch --unshallow`.
 
 ## Keeping your fork up to date
 

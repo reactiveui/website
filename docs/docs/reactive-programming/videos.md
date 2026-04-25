@@ -6,7 +6,7 @@ Matthew Podwysocki at AngularConf
 
 ## Duality
 
-<img src="~/images/general-theory.jpg" width="50%" alt="general theory">
+<img src="../../images/general-theory.jpg" width="50%" alt="general theory">
 
 [Meijer.duality.pdf](https://csl.stanford.edu/~christos/pldi2010.fit/meijer.duality.pdf)
 

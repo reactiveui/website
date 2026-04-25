@@ -4,7 +4,7 @@ Ensure that you install either `ReactiveUI.AndroidX` into your applications.
 
 Your viewmodels should inherit from `ReactiveObject`
 
-- [ReactiveObject](../../../api/ReactiveUI.ReactiveObject.yml)
+- `ReactiveObject`
 
 Use `WireUpControls`
 
@@ -12,7 +12,7 @@ Use `WireUpControls`
 
 Use `IActivatableViewModel` and `WhenActivated` for lifecycle
 
-- [IActivatableViewModel](../../../api/ReactiveUI.IActivatableViewModel.yml)
+- `IActivatableViewModel`
 - [When Activated](../../handbook/when-activated.md)
 
 Keep references to your subscriptions
@@ -29,16 +29,16 @@ Don't use eventhandlers, use the extension methods shipped in `ReactiveMarbles.O
 
 Use your normal Android concepts that you would usually use in Android development, we have some base classes which you should use as they expose observables such as `Changed`, `Changing` and `Deactivated` that can be used for composition.
 
-- [ReactiveActivity](../../../api/ReactiveUI.ReactiveActivity-1.yml)
-- [ReactiveFragment](../../../api/ReactiveUI.ReactiveFragment-1.yml)
-- [ReactivePreferenceFragment](../../../api/ReactiveUI.ReactivePreferenceFragment-1.yml)
-- [ReactivePreferenceActivity](../../../api/ReactiveUI.ReactivePreferenceActivity-1.yml)
-- [ReactiveUI.AndroidX](../../../api/ReactiveUI.AndroidX.yml)
+- `ReactiveActivity`
+- `ReactiveFragment`
+- `ReactivePreferenceFragment`
+- `ReactivePreferenceActivity`
+- `ReactiveUI.AndroidX`
 
 There's also some extension methods which will make your life easier
 
-- [ControlFetcherMixin](../../../api/reactiveui.androidsupport.controlfetchermixin.yml)
-- [SharedPreferencesExtensions](../../../api/ReactiveUI.SharedPreferencesExtensions.yml)
-- [UsbManagerExtensions](../../../api/ReactiveUI.UsbManagerExtensions.yml)
-- [AndroidObservableForWidgets](../../../api/ReactiveUI.AndroidObservableForWidgets.yml)
-- [FlexibleCommandBinder](../../../api/ReactiveUI.FlexibleCommandBinder.yml)
+- `ControlFetcherMixin`
+- `SharedPreferencesExtensions`
+- `UsbManagerExtensions`
+- `AndroidObservableForWidgets`
+- `FlexibleCommandBinder`

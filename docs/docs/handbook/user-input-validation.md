@@ -26,7 +26,7 @@ This is the primary way we make validations. The package contains validation hel
 
 [Core]: https://www.nuget.org/packages/ReactiveUI.Validation/
 [CoreBadge]: https://img.shields.io/nuget/v/ReactiveUI.Validation.svg
-[CoreDoc]: ~/docs/handbook/user-input-validation.md
+[CoreDoc]: user-input-validation.md
 
 [Dro]: https://www.nuget.org/packages/ReactiveUI.Validation.AndroidSupport/
 [DroBadge]: https://img.shields.io/nuget/v/ReactiveUI.Validation.AndroidSupport.svg
