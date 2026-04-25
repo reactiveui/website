@@ -28,7 +28,6 @@
         "Clean",
         "EnsurePythonEnv",
         "ExtractMetadata",
-        "FetchPackages",
         "Serve",
         "ValidateSourceLinks"
       ]
@@ -112,6 +111,10 @@
           "type": "integer",
           "description": "Port for the preview server (default: 8000)",
           "format": "int32"
+        },
+        "Strict": {
+          "type": "boolean",
+          "description": "Pass --strict to mkdocs (CI gate); fails on any broken link or unresolved cross-ref"
         }
       }
     },

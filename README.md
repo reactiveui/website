@@ -2,32 +2,54 @@
 
 ![Build website](https://github.com/reactiveui/website/workflows/Build%20website/badge.svg)
 
-This is the source code for the [ReactiveUI](https://www.reactiveui.net/) website. The site is rendered by [Zensical](https://zensical.org/) (mkdocs Material's modern successor); the API reference is produced by an in-house Roslyn-based converter under `build/DocsConversion/` that uses parts of [dotnet/docfx](https://github.com/dotnet/docfx) (MIT licensed). See [LICENSE](LICENSE) for attribution.
+Source for the [ReactiveUI](https://www.reactiveui.net/) website. The site is rendered by [mkdocs Material](https://squidfunk.github.io/mkdocs-material/); the API reference is generated from the published NuGet packages by [`SourceDocParser`](https://github.com/glennawatson/SourceDocParserLib) (Roslyn + ICSharpCode.Decompiler under the hood).
+
+The build is orchestrated by [Nuke](https://nuke.build/) — it owns NuGet fetching, the API metadata walk, source-link validation, and the mkdocs invocation. Python lives in a project-local `.venv/` that Nuke bootstraps on first run.
+
+## Quick start
+
+```bash
+./build.sh BuildWebsite      # full build: NuGet fetch + API walk + mkdocs build → site/
+./build.sh Serve             # serve at http://127.0.0.1:8000
+./build.sh BuildWebsite --strict   # CI-style: fail on broken links / unresolved refs
+./build.sh Clean             # drop generated API tree + site/
+```
+
+Direct mkdocs invocations also work once the venv is set up (faster iteration on prose):
+
+```bash
+.venv/bin/mkdocs serve
+.venv/bin/mkdocs build --strict
+```
+
+The Nuke targets are in `build/Build.cs`. Top-level configuration lives in `mkdocs.yml`; per-folder navigation is handled by [`awesome-pages`](https://github.com/lukasgeiter/mkdocs-awesome-pages-plugin) — drop a `.pages` file in any folder to override ordering.
+
+## Layout
+
+```
+website/
+├── mkdocs.yml             site config (theme, plugins, nav)
+├── overrides/             Material theme overrides
+├── docs/                  all rendered content
+│   ├── index.md           Material landing
+│   ├── stylesheets/       brand palette + hero CSS
+│   ├── docs/              docs handbook, getting-started, guidelines, …
+│   ├── articles/          curated articles (rendered as a blog)
+│   ├── Announcements/     chronological announcements (rendered as a blog)
+│   ├── contribute/        contributor guide
+│   ├── api/               GENERATED — Zensical-emitter output, gitignored
+│   └── _redirects         Netlify catchall for legacy docfx .html URLs
+├── build/                 Nuke build (Build.cs, _build.csproj)
+├── nuget-packages.json    package list driven by SourceDocParser.NuGet
+├── requirements.txt       mkdocs + plugins
+└── .venv/                 bootstrapped on first ./build.sh run
+```
 
 ## Contributing
 
-**Steps**
-1. Fork the current project
-2. Create a new branch, if needed
-3. Clone the project
-4. In order to build and host the docs do the following:
-**Windows** -- Open command prompt and install/update the following tools:
-- the DocFx tool `dotnet tool update -g docfx`
-- the Nuke tool `dotnet tool update Nuke.GlobalTool --global`
- 
-- Open command prompt at the repository root folder, ensure that you have installed the DocFx tool and then run `docfx reactiveui/docfx.json --serve`
+1. Fork and clone the repo.
+2. Create a branch.
+3. `./build.sh Serve` (or `mkdocs serve` once the venv exists) — open `http://127.0.0.1:8000` and iterate on the docs.
+4. PRs against `main` build under CI (`actions/setup-python@v6` + `actions/setup-dotnet@v5`) and deploy to Netlify on merge.
 
-5. Wait several minutes while it installs dependencies and initializes (approx 5 mins).  It is ready when you see `Hit Ctrl-C to exit`
-6. Browse the website on `localhost:8080`
----
-
-To build the entire Website we use `Nuke BuildWebsite` you will need to install the tool so that you can run command line nuke commands using `dotnet tool install Nuke.GlobalTool --global`.
-
----
-Once installed from the command prompt execute `Nuke` this will download and build the sources for the API section of the website, this takes around 35 minutes to compile and build the website with the API sections.
-
----
-Once complete you can either execute `docfx reactiveui/docfx.json --serve` to run the site OR `Nuke BuildWebsite` to build the API only.
-
----
-If you have generated the API section and wish to remove it on your local machine to enable the website to compile faster, run `nuke Clean` and then run `docfx reactiveui/docfx.json --serve`
+For the API extraction pipeline see [`SourceDocParserLib`](https://github.com/glennawatson/SourceDocParserLib). The `SourceDocParser.Zensical` package emits the mkdocs Material markdown that Build.cs hands to mkdocs.
