@@ -608,7 +608,7 @@ If you're upgrading from older ReactiveUI versions:
 
 For detailed platform-specific guidance, see:
 
-- [Framework Guidelines](framework/toc.yml)
-- [Platform Guidelines](platform/toc.yml)
-- [Debugging Guidelines](debugging/toc.yml)
+- **Framework Guidelines** — see the `framework/` section in the navigation
+- **Platform Guidelines** — see the `platform/` section
+- **Debugging Guidelines** — see the `debugging/` section
 

@@ -458,6 +458,8 @@ test_results/
 .claude/
 # mkdocs output and Nuke build artifacts
 site/
+# Generated API tree (per-namespace dirs from the Zensical emitter +
+# fetched assemblies + auto-written index.md).
 docs/api/
 .nuke/temp/
 .nuke/tools/

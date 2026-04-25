@@ -1,7 +1,10 @@
 #nullable enable
 
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Text;
 using Microsoft.Extensions.Logging;
 using Nuke.Common;
 using Nuke.Common.IO;
@@ -70,8 +73,13 @@ internal sealed class Build : NukeBuild
         {
             ApiLibDirectory.DeleteDirectory();
             ApiRefsDirectory.DeleteDirectory();
-            ApiPath.GlobFiles("**/*.md").DeleteFiles();
-            ApiPath.GlobFiles("**/.pages").DeleteFiles();
+            // Delete only the per-namespace dirs the Zensical emitter
+            // creates; preserve the hand-curated docs/api/index.md and
+            // any sibling .pages file at the api/ root.
+            foreach (var dir in ApiPath.GlobDirectories("*"))
+            {
+                dir.DeleteDirectory();
+            }
             SiteOutputPath.DeleteDirectory();
         });
 
@@ -80,7 +88,10 @@ internal sealed class Build : NukeBuild
     /// NuGetAssemblySource handles the fetch + extract internally and is
     /// idempotent against the package cache, so there's no separate fetch
     /// target — invoking ExtractMetadata gets you both. Re-emit to docs/api/
-    /// directly so mkdocs picks the tree up without a copy step.
+    /// directly so mkdocs picks the tree up without a copy step. Also
+    /// regenerates docs/api/index.md from the discovered namespace dirs
+    /// so the API landing page stays in sync with whatever the emitter
+    /// actually produced.
     /// </summary>
     private Target ExtractMetadata => _ => _
         .Executes(async () =>
@@ -88,7 +99,42 @@ internal sealed class Build : NukeBuild
             var source = new NuGetAssemblySource(RootDirectory, ApiPath, _loggerFactory.CreateLogger(nameof(NuGetAssemblySource)));
             var emitter = new ZensicalDocumentationEmitter();
             _lastExtractionResult = await new MetadataExtractor().RunAsync(source, ApiPath, emitter, _loggerFactory.CreateLogger(nameof(MetadataExtractor)));
+            WriteApiIndex();
         });
+
+    private static void WriteApiIndex()
+    {
+        // Skip the well-known scaffold dirs Zensical / NuGetFetcher create
+        // alongside the per-namespace API trees.
+        var skip = new HashSet<string>(StringComparer.OrdinalIgnoreCase) { "lib", "refs", "cache", "_global" };
+        var namespaces = ApiPath.GlobDirectories("*")
+            .Select(p => p.Name)
+            .Where(name => !skip.Contains(name))
+            .OrderBy(name => name, StringComparer.OrdinalIgnoreCase)
+            .ToList();
+
+        var sb = new StringBuilder();
+        sb.AppendLine("# API Reference");
+        sb.AppendLine();
+        sb.AppendLine("The API reference is generated from the latest stable NuGet packages — types, members, signatures, XML docs, and source-link locations are walked directly out of the published `.dll` + `.xml` triples by `SourceDocParser`.");
+        sb.AppendLine();
+        sb.AppendLine("Use the navigation on the left to browse by namespace. Cross-references between members resolve through `mkdocs-autorefs`, so you can jump from any signature into the type it returns.");
+        sb.AppendLine();
+        sb.AppendLine("## Namespaces");
+        sb.AppendLine();
+        foreach (var ns in namespaces)
+        {
+            sb.AppendLine($"- [`{ns}`]({ns}/)");
+        }
+
+        sb.AppendLine();
+        sb.AppendLine("!!! info \"Tracked packages\"");
+        sb.AppendLine();
+        sb.AppendLine("    The exact list and resolved versions are pinned in [`nuget-packages.json`](https://github.com/reactiveui/website/blob/main/nuget-packages.json) and rebuilt on every site deploy.");
+
+        File.WriteAllText(ApiPath / "index.md", sb.ToString());
+        Serilog.Log.Information("Wrote API index for {Count} namespace(s)", namespaces.Count);
+    }
 
     private Target ValidateSourceLinks => _ => _
         .DependsOn(ExtractMetadata)

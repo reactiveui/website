@@ -56,7 +56,7 @@ ReactiveUI is much more than just a MVVM helper. Take a look at the following pr
 - **[DynamicData](https://github.com/reactivemarbles/DynamicData)** - Reactive collections based on Rx.NET
 - **[ObservableEvents](https://github.com/reactivemarbles/ObservableEvents)** - Generate observables from .NET events
 - **[Splat](https://github.com/reactiveui/Splat)** - Cross-platform dependency injection and logging
-- **[Akavache](../handbook/akavache/toc.yml)** - Asynchronous key-value store with SQLite persistence
+- **[Akavache](../handbook/akavache/index.md)** - Asynchronous key-value store with SQLite persistence
 - **[ReactiveUI.Validation](../handbook/user-input-validation.md)** - Reactive validation for user input
 
 ### Platform Extensions
