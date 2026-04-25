@@ -66,26 +66,16 @@ extra:
       link: https://www.youtube.com/c/ReactiveUI
 
 plugins:
+  # Zensical-supported set today: search + autorefs (verified against the
+  # checkbox state on https://zensical.org/compatibility/plugins/).
+  # tags, blog (×2), social, awesome-pages aren't supported yet — Zensical
+  # plans to subsume their functionality natively (ZAP 004/005, backlog
+  # #30/#37/#38). Auto nav-discovery from docs_dir replaces awesome-pages
+  # for the no-config case; per-section ordering moves into nav: blocks
+  # below as needed.
   - search
-  - tags
   - autorefs
-  - awesome-pages
-  - blog:
-      blog_dir: articles
-      blog_toc: true
-      post_url_format: "{slug}"
-      archive: true
-      categories: true
-      pagination: true
-  - blog:
-      blog_dir: Announcements
-      blog_toc: true
-      post_url_format: "{date}/{slug}"
-      post_date_format: long
-      archive_date_format: yyyy
-      archive: true
-      categories: true
-      pagination: true
+  - glightbox
 
 markdown_extensions:
   - abbr
@@ -99,9 +89,6 @@ markdown_extensions:
       permalink: true
   - pymdownx.caret
   - pymdownx.details
-  - pymdownx.emoji:
-      emoji_index: !!python/name:material.extensions.emoji.twemoji
-      emoji_generator: !!python/name:material.extensions.emoji.to_svg
   - pymdownx.highlight:
       anchor_linenums: true
       line_spans: __span
@@ -118,9 +105,6 @@ markdown_extensions:
           format: !!python/name:pymdownx.superfences.fence_code_format
   - pymdownx.tabbed:
       alternate_style: true
-      slugify: !!python/object/apply:pymdownx.slugs.slugify
-        kwds:
-          case: lower
   - pymdownx.tasklist:
       custom_checkbox: true
   - pymdownx.tilde

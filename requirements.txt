@@ -1,5 +1,5 @@
 mkdocs
 mkdocs-material
-mkdocs-awesome-pages-plugin
 mkdocs-autorefs
+mkdocs-glightbox
 pymdown-extensions
