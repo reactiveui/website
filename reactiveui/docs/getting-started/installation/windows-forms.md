@@ -28,12 +28,12 @@ Install the following packages for ReactiveUI with Windows Forms:
 
 ### Framework Requirements
 
-Ensure you are targeting at least .NET 8.0 with Windows 10.0.17763.0:
+Ensure you are targeting at least .NET 8.0 with Windows 10.0.19041.0:
 
 ```xml
-<TargetFramework>net8.0-windows10.0.17763.0</TargetFramework>
+<TargetFramework>net8.0-windows10.0.19041.0</TargetFramework>
 <!-- Or for .NET 9/10 -->
-<TargetFramework>net10.0-windows10.0.17763.0</TargetFramework>
+<TargetFramework>net10.0-windows10.0.19041.0</TargetFramework>
 ```
 
 ## Getting Started with RxAppBuilder (Recommended)
