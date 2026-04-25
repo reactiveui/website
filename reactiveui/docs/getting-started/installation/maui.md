@@ -30,23 +30,19 @@ public static class MauiProgram
         var builder = MauiApp.CreateBuilder();
         builder
             .UseMauiApp<App>()
-            .ConfigureReactiveUI();
-
-        // Initialize ReactiveUI with RxAppBuilder
-        var app = RxAppBuilder.CreateReactiveUIBuilder()
-            .WithMaui()
-            .WithViewsFromAssembly(typeof(App).Assembly)
-            .WithRegistration(locator =>
-            {
-                // Register your services
-                locator.RegisterLazySingleton<INavigationService>(() => new NavigationService());
-                locator.RegisterLazySingleton<IDataService>(() => new DataService());
-            })
-            .BuildApp();
-
-        // Optional: Register additional MAUI-specific services
-        builder.Services.AddSingleton(app.MainThreadScheduler);
-        builder.Services.AddSingleton(app.TaskpoolScheduler);
+            // Initialize ReactiveUI with RxAppBuilder
+            .UseReactiveUI(rxAppBuilder =>
+            {    
+                rxAppBuilder
+                    .WithMaui()
+                    .WithViewsFromAssembly(typeof(App).Assembly)
+                    .WithRegistration(locator =>
+                    {
+                        // Register your services here
+                        locator.RegisterLazySingleton<INavigationService>(() => new NavigationService());
+                        locator.RegisterLazySingleton<IDataService>(() => new DataService());
+                    });
+            });
 
         return builder.Build();
     }
