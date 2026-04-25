@@ -42,7 +42,6 @@
   <ItemGroup>
     <PackageVersion Include="SourceDocParser" Version="0.1.23-alpha" />
     <PackageVersion Include="SourceDocParser.NuGet" Version="0.1.23-alpha" />
-    <PackageVersion Include="SourceDocParser.Docfx" Version="0.1.23-alpha" />
     <PackageVersion Include="SourceDocParser.Zensical" Version="0.1.23-alpha" />
   </ItemGroup>
 </Project>

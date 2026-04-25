@@ -1,4 +1,0 @@
-- name: Dependency Injection
-  href: index.md
-- name: Override Default Depenedency Inversion Container
-  href: custom-dependency-inversion.md

@@ -26,6 +26,7 @@
       "enum": [
         "BuildWebsite",
         "Clean",
+        "EnsurePythonEnv",
         "ExtractMetadata",
         "FetchPackages",
         "Serve",
@@ -109,7 +110,7 @@
         },
         "Port": {
           "type": "integer",
-          "description": "Port for the preview server (default: 8080)",
+          "description": "Port for the preview server (default: 8000)",
           "format": "int32"
         }
       }

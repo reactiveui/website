@@ -15,7 +15,9 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <None Include="..\reactiveui\**\*.*" LinkBase="WebSite" Exclude="..\reactiveui\_site\**\*.*;..\reactiveui\**\*.gitignore;..\reactiveui\api\*.yml;..\reactiveui\api\*.manifest;..\reactiveui\api\lib\**\*.*;..\reactiveui\api\cache\**\*.*" />
+      <None Include="..\docs\**\*.*" LinkBase="docs" Exclude="..\docs\api\lib\**\*.*;..\docs\api\refs\**\*.*;..\docs\api\cache\**\*.*" />
+      <None Include="..\mkdocs.yml" />
+      <None Include="..\requirements.txt" />
     </ItemGroup>
 
     <ItemGroup>
@@ -26,7 +28,6 @@
     <ItemGroup>
         <PackageReference Include="SourceDocParser" />
         <PackageReference Include="SourceDocParser.NuGet" />
-        <PackageReference Include="SourceDocParser.Docfx" />
         <PackageReference Include="SourceDocParser.Zensical" />
     </ItemGroup>
 </Project>

@@ -67,7 +67,6 @@ extra:
 
 plugins:
   - search
-  - social
   - tags
   - autorefs
   - awesome-pages

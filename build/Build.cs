@@ -1,12 +1,13 @@
 #nullable enable
 
+using System;
+using System.IO;
 using Microsoft.Extensions.Logging;
 using Nuke.Common;
 using Nuke.Common.IO;
 using Nuke.Common.Tooling;
 using Serilog.Extensions.Logging;
 using SourceDocParser;
-using SourceDocParser.Docfx;
 using SourceDocParser.NuGet;
 using SourceDocParser.SourceLink;
 using SourceDocParser.Zensical;
@@ -14,151 +15,81 @@ using SourceDocParser.Zensical;
 namespace ReactiveUI.Web;
 
 /// <summary>
-/// Nuke build entry point. Drives the docfx documentation pipeline:
-/// fetching NuGet packages, generating a docfx configuration that points
-/// at the extracted assemblies, then running docfx itself. The docfx CLI
-/// is restored from the local tool manifest at <c>.config/dotnet-tools.json</c>
-/// so its version is tracked there (and bumped automatically by Renovate).
+/// Nuke build entry point. Drives the documentation pipeline: fetches
+/// NuGet packages, walks their public API surface into mkdocs Material
+/// markdown via the SourceDocParser.Zensical emitter, then shells out
+/// to mkdocs in a project-local venv to render the final site.
 /// </summary>
 internal sealed class Build : NukeBuild
 {
-    /// <summary>
-    /// Top-level docs directory name in the repository (also the docfx
-    /// project root). Held as a const so path expressions read clearly.
-    /// </summary>
-    private const string ReactiveUiFolder = "reactiveui";
-
-    /// <summary>
-    /// Sub-folder under <see cref="ReactiveUiFolder"/> where the generated
-    /// API content lives.
-    /// </summary>
+    private const string DocsFolder = "docs";
     private const string ApiFolder = "api";
+    private const string SiteFolder = "site";
+    private const string VenvFolder = ".venv";
+    private const string RequirementsFile = "requirements.txt";
+    private const int DefaultPort = 8000;
 
-    /// <summary>
-    /// Default port the local preview server listens on. Overridable from
-    /// the command line via <c>--port</c>.
-    /// </summary>
-    private const int DefaultPort = 8080;
-
-    /// <summary>
-    /// Port for the preview server. Sourced from the <c>--port</c>
-    /// command-line argument; defaults to <see cref="DefaultPort"/>.
-    /// </summary>
-    [Parameter("Port for the preview server (default: 8080)")]
+    [Parameter("Port for the preview server (default: 8000)")]
     private readonly int Port = DefaultPort;
 
-    /// <summary>
-    /// Bridges the Serilog logger Nuke configures into an
-    /// <see cref="ILoggerFactory"/> so the parser libraries can log
-    /// through their own <c>Microsoft.Extensions.Logging</c> abstraction.
-    /// </summary>
+    [Parameter("Treat broken source links as a build failure (mkdocs-style strict mode)")]
+    private readonly bool FailOnBrokenSourceLinks;
+
+    [Parameter("Pass --strict to mkdocs (CI gate); fails on any broken link or unresolved cross-ref")]
+    private readonly bool Strict;
+
     private static readonly SerilogLoggerFactory _loggerFactory = new(Serilog.Log.Logger, dispose: false);
 
-    /// <summary>
-    /// Entry point invoked by the Nuke bootstrap script. Selects <see
-    /// cref="BuildWebsite"/> as the default target.
-    /// </summary>
-    /// <returns>Process exit code.</returns>
+    private static ExtractionResult? _lastExtractionResult;
+
     public static int Main() => Execute<Build>(x => x.BuildWebsite);
 
-    /// <summary>Path to the docfx project root inside the repository.</summary>
-    private static AbsolutePath WebRootPath => RootDirectory / ReactiveUiFolder;
+    private static AbsolutePath WebRootPath => RootDirectory / DocsFolder;
 
-    /// <summary>Path to the generated API content folder.</summary>
     private static AbsolutePath ApiPath => WebRootPath / ApiFolder;
 
-    /// <summary>Path to the per-TFM extracted package assemblies.</summary>
     private static AbsolutePath ApiLibDirectory => ApiPath / "lib";
 
-    /// <summary>Path to the per-TFM extracted reference assemblies.</summary>
     private static AbsolutePath ApiRefsDirectory => ApiPath / "refs";
 
-    /// <summary>Path docfx writes the rendered website to.</summary>
-    private static AbsolutePath SiteOutputPath => WebRootPath / "_site";
+    private static AbsolutePath SiteOutputPath => RootDirectory / SiteFolder;
 
+    private static AbsolutePath VenvPath => RootDirectory / VenvFolder;
 
-    /// <summary>
-    /// Path of the dynamically generated docfx configuration file.
-    /// Written into the docfx project root so docfx resolves the
-    /// relative <c>api/</c>, <c>articles/</c>, ... paths correctly.
-    /// Regenerated on every run and gitignored.
-    /// </summary>
-    private static AbsolutePath GeneratedDocfxConfigPath => WebRootPath / "docfx.json";
+    private static AbsolutePath MkdocsExecutable => OperatingSystem.IsWindows()
+        ? VenvPath / "Scripts" / "mkdocs.exe"
+        : VenvPath / "bin" / "mkdocs";
 
-    /// <summary>
-    /// Removes previously-fetched assemblies and the generated docfx
-    /// configuration, and restores the locally pinned docfx CLI from the
-    /// tool manifest. Always runs before <see cref="FetchPackages"/>.
-    /// </summary>
+    private static AbsolutePath VenvPipExecutable => OperatingSystem.IsWindows()
+        ? VenvPath / "Scripts" / "pip.exe"
+        : VenvPath / "bin" / "pip";
+
     private Target Clean => _ => _
-        .Before(FetchPackages)
+        .Before(ExtractMetadata)
         .Executes(() =>
         {
             ApiLibDirectory.DeleteDirectory();
             ApiRefsDirectory.DeleteDirectory();
-            GeneratedDocfxConfigPath.DeleteFile();
-            RestoreDocfxTool();
+            ApiPath.GlobFiles("**/*.md").DeleteFiles();
+            ApiPath.GlobFiles("**/.pages").DeleteFiles();
+            SiteOutputPath.DeleteDirectory();
         });
 
     /// <summary>
-    /// Fetches every package described in <c>nuget-packages.json</c> and
-    /// extracts their assemblies into <see cref="ApiPath"/>.
-    /// </summary>
-    private Target FetchPackages => _ => _
-        .DependsOn(Clean)
-        .Executes(async () =>
-        {
-            await new NuGetFetcher().FetchPackagesAsync(RootDirectory, ApiPath, _loggerFactory.CreateLogger(nameof(NuGetFetcher)));
-        });
-
-    /// <summary>
-    /// In-memory handoff between <see cref="ExtractMetadata"/> and
-    /// <see cref="ValidateSourceLinks"/>. Stashes the most recent
-    /// extraction result on the build instance so the validator can
-    /// pick up the (uid, url) pairs without re-walking symbols or
-    /// reading a manifest file from disk. Cleared (default) until
-    /// ExtractMetadata has run in the current process.
-    /// </summary>
-    private static ExtractionResult? _lastExtractionResult;
-
-    /// <summary>
-    /// Loads each package assembly into a Roslyn Compilation, walks
-    /// its public surface into an ApiCatalog, and emits one Markdown
-    /// page per documented type under build/_intermediate/api-md/.
-    /// Stashes the resulting source-link list on the build instance
-    /// for an optional follow-up validation target.
+    /// Walks each NuGet package's public API into mkdocs Material markdown.
+    /// NuGetAssemblySource handles the fetch + extract internally and is
+    /// idempotent against the package cache, so there's no separate fetch
+    /// target — invoking ExtractMetadata gets you both. Re-emit to docs/api/
+    /// directly so mkdocs picks the tree up without a copy step.
     /// </summary>
     private Target ExtractMetadata => _ => _
-        .DependsOn(FetchPackages)
         .Executes(async () =>
         {
-            var markdownOutput = RootDirectory / "build" / "_intermediate" / "api-md";
             var source = new NuGetAssemblySource(RootDirectory, ApiPath, _loggerFactory.CreateLogger(nameof(NuGetAssemblySource)));
             var emitter = new ZensicalDocumentationEmitter();
-            _lastExtractionResult = await new MetadataExtractor().RunAsync(source, markdownOutput, emitter, _loggerFactory.CreateLogger(nameof(MetadataExtractor)));
+            _lastExtractionResult = await new MetadataExtractor().RunAsync(source, ApiPath, emitter, _loggerFactory.CreateLogger(nameof(MetadataExtractor)));
         });
 
-    /// <summary>
-    /// Strict-mode flag for <see cref="ValidateSourceLinks"/>. When
-    /// true, the target throws (non-zero exit) on any broken URL —
-    /// matches mkdocs's <c>strict</c> behaviour for CI gates.
-    /// Default false so day-to-day runs report and continue.
-    /// </summary>
-    [Parameter("Treat broken source links as a build failure (mkdocs-style strict mode)")]
-    private readonly bool FailOnBrokenSourceLinks;
-
-    /// <summary>
-    /// Optional post-extraction sweep that HEAD-checks every unique
-    /// source URL the converter generated. Reports broken links per
-    /// URL with the symbols that referenced them. Rate-limited via
-    /// Polly v8 + System.Threading.RateLimiting so we stay friendly
-    /// to GitHub and other source hosts.
-    ///
-    /// In-memory handoff: depends on <see cref="ExtractMetadata"/>,
-    /// reads the stashed result from this build instance — no
-    /// manifest file on disk. Run on demand, never as part of the
-    /// default build chain.
-    /// </summary>
     private Target ValidateSourceLinks => _ => _
         .DependsOn(ExtractMetadata)
         .Executes(async () =>
@@ -177,41 +108,59 @@ internal sealed class Build : NukeBuild
         });
 
     /// <summary>
-    /// Generates the docfx configuration based on the discovered
-    /// assemblies and runs docfx to produce the final website output.
+    /// Bootstraps the project-local Python venv if missing, then makes
+    /// sure requirements.txt is installed. Idempotent and cheap once the
+    /// venv exists. Cross-platform: picks the right interpreter / script
+    /// dir for Windows vs Linux/macOS.
     /// </summary>
+    [System.Diagnostics.CodeAnalysis.SuppressMessage(
+        "Performance",
+        "CA1822:Mark members as static",
+        Justification = "Nuke Target properties are bound to the build instance by convention and must remain instance members.")]
+    private Target EnsurePythonEnv => _ => _
+        .Executes(() =>
+        {
+            var freshlyCreated = false;
+            if (!File.Exists(MkdocsExecutable))
+            {
+                Serilog.Log.Information("Bootstrapping Python venv at {VenvPath}", VenvPath);
+                var python = OperatingSystem.IsWindows() ? "python" : "python3";
+                ProcessTasks.StartProcess(python, $"-m venv \"{VenvPath}\"", workingDirectory: RootDirectory)
+                    .AssertZeroExitCode();
+                freshlyCreated = true;
+            }
+
+            // Only pip-install when bootstrapping the venv or when requirements.txt
+            // is newer than the last install. Avoids a network round trip on every
+            // local build.
+            var requirements = RootDirectory / RequirementsFile;
+            var stamp = VenvPath / ".requirements.stamp";
+            if (freshlyCreated || !File.Exists(stamp) || File.GetLastWriteTimeUtc(requirements) > File.GetLastWriteTimeUtc(stamp))
+            {
+                ProcessTasks.StartProcess(VenvPipExecutable, $"install --quiet --upgrade --requirement \"{requirements}\"", workingDirectory: RootDirectory)
+                    .AssertZeroExitCode();
+                File.WriteAllText(stamp, DateTime.UtcNow.ToString("o"));
+            }
+        });
+
     private Target BuildWebsite => _ => _
-        .DependsOn(FetchPackages)
+        .DependsOn(ExtractMetadata)
+        .DependsOn(EnsurePythonEnv)
         .Produces(SiteOutputPath)
         .Executes(() =>
         {
-            var generatedDocfxConfigPath = DocfxConfigWriter.Write(ApiPath, GeneratedDocfxConfigPath, _loggerFactory.CreateLogger(nameof(DocfxConfigWriter)));
-            ProcessTasks.StartProcess("dotnet", $"docfx \"{generatedDocfxConfigPath}\"", workingDirectory: RootDirectory)
+            var strictFlag = Strict ? "--strict " : string.Empty;
+            ProcessTasks.StartProcess(MkdocsExecutable, $"build {strictFlag}--site-dir \"{SiteOutputPath}\"", workingDirectory: RootDirectory)
                 .AssertZeroExitCode();
-            Serilog.Log.Information("Web Site build complete");
+            Serilog.Log.Information("Site built at {SiteOutputPath}", SiteOutputPath);
         });
 
-    /// <summary>
-    /// Builds the website and then serves it locally on <see cref="Port"/>
-    /// via docfx's built-in preview server.
-    /// </summary>
     private Target Serve => _ => _
-        .DependsOn(BuildWebsite)
+        .DependsOn(EnsurePythonEnv)
         .Executes(() =>
         {
-            Serilog.Log.Information("Serving website at http://localhost:{Port}", Port);
-            ProcessTasks.StartProcess("dotnet", $"docfx serve \"{SiteOutputPath}\" -p {Port}", workingDirectory: RootDirectory)
+            Serilog.Log.Information("Serving site at http://127.0.0.1:{Port}", Port);
+            ProcessTasks.StartProcess(MkdocsExecutable, $"serve --dev-addr 127.0.0.1:{Port}", workingDirectory: RootDirectory)
                 .AssertZeroExitCode();
         });
-
-    /// <summary>
-    /// Restores the local dotnet tool manifest at
-    /// <c>.config/dotnet-tools.json</c>, which pins the docfx CLI version
-    /// used by <see cref="BuildWebsite"/> and <see cref="Serve"/>. The
-    /// manifest is the single source of truth for the docfx version and
-    /// is updated by Renovate.
-    /// </summary>
-    private static void RestoreDocfxTool() =>
-        ProcessTasks.StartProcess("dotnet", "tool restore", workingDirectory: RootDirectory)
-            .AssertZeroExitCode();
 }
