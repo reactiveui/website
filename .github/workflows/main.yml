@@ -19,24 +19,36 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.14'
+          cache: pip
+
       - name: Setup .NET
-        uses: actions/setup-dotnet@v5.2.0
+        uses: actions/setup-dotnet@v5
         with:
           dotnet-version: 10.0.x
+
+      - name: Setup Node.js
+        if: github.event_name != 'pull_request'
+        uses: actions/setup-node@v6
+        with:
+          node-version: '22'
 
       - name: Cache fetched packages
         uses: actions/cache@v5
         with:
           path: |
             ~/.nuget/packages
-            reactiveui/api/cache
+            docs/api/cache
           key: ${{ runner.os }}-website-api-${{ hashFiles('nuget-packages.json', 'build/_build.csproj') }}
 
       - name: Build website
-        run: ./build.sh BuildWebsite
+        run: ./build.sh BuildWebsite --strict
 
       - name: 'Deploy netlify'
         if: ${{ github.event_name != 'pull_request' }}
         run: |
-            npm install -g netlify-cli
-            netlify deploy --auth=${{ secrets.NETLIFY_DEPLOY_KEY }} --site=${{ secrets.NETLIFY_SITE_ID }} --prod --dir=reactiveui/_site
+          npm install -g netlify-cli
+          netlify deploy --auth=${{ secrets.NETLIFY_DEPLOY_KEY }} --site=${{ secrets.NETLIFY_SITE_ID }} --prod --dir=site

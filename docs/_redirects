@@ -1,0 +1,6 @@
+# Legacy docfx URLs redirected to mkdocs directory URLs.
+# Catchall while we migrate from docfx (.html) to mkdocs (directory) URLs.
+# Per-page redirects can be added above this line as more granular rules.
+# Once https://github.com/zensical/backlog/issues/23 lands and we move
+# the renderer to Zensical, the mkdocs-redirects plugin can replace this.
+/*.html  /:splat/  301
