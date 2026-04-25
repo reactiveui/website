@@ -26,8 +26,10 @@
       "enum": [
         "BuildWebsite",
         "Clean",
-        "Compile",
-        "Restore"
+        "ExtractMetadata",
+        "FetchPackages",
+        "Serve",
+        "ValidateSourceLinks"
       ]
     },
     "Verbosity": {
@@ -101,13 +103,14 @@
   "allOf": [
     {
       "properties": {
-        "Configuration": {
-          "type": "string",
-          "description": "Configuration to build - Default is 'Debug' (local) or 'Release' (server)",
-          "enum": [
-            "Debug",
-            "Release"
-          ]
+        "FailOnBrokenSourceLinks": {
+          "type": "boolean",
+          "description": "Treat broken source links as a build failure (mkdocs-style strict mode)"
+        },
+        "Port": {
+          "type": "integer",
+          "description": "Port for the preview server (default: 8080)",
+          "format": "int32"
         }
       }
     },

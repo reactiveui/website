@@ -6,53 +6,34 @@ on:
   pull_request:
     branches: [ main ]
 
+concurrency:
+  group: website-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     steps:
-      - name: Setup .NET (With cache)
-        uses: actions/setup-dotnet@v5.2.0
-        with:
-         dotnet-version: |
-            8.0.x
-            9.0.x
-            10.0.x
-         dotnet-quality: 'preview'
-
-      - name: 'Setup Java JDK 11'
-        uses: actions/setup-java@v5.2.0
-        with:
-          distribution: 'microsoft'
-          java-version: '11'
-        
-      - name: 'Add MSBuild to PATH'
-        uses: microsoft/setup-msbuild@v3.0.0
-        with:
-          vs-prerelease: true
-
-      - name: 'Install DotNet workloads'
-        shell: bash
-        run: |
-          dotnet workload install android ios tvos macos maui maccatalyst
-
-      - name: Checkout 
+      - name: Checkout
         uses: actions/checkout@v6
         with:
           fetch-depth: 0
 
-      - name: 'Cache: .nuke/temp, ~/.nuget/packages'
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v5.2.0
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Cache fetched packages
         uses: actions/cache@v5
         with:
           path: |
-            .nuke/temp
             ~/.nuget/packages
-          key: ${{ runner.os }}-${{ hashFiles('**/global.json', '**/*.csproj', '**/Directory.Packages.props') }}
+            reactiveui/api/cache
+          key: ${{ runner.os }}-website-api-${{ hashFiles('nuget-packages.json', 'build/_build.csproj') }}
 
-      - name: 'Restore and Compile ReactiveUI Projects'
-        run: ./build.cmd Compile
-        
-      - name: 'Build Website'
-        run: ./build.cmd BuildWebsite
+      - name: Build website
+        run: ./build.sh BuildWebsite
 
       - name: 'Deploy netlify'
         if: ${{ github.event_name != 'pull_request' }}

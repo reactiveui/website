@@ -1,0 +1,48 @@
+<Project>
+  <PropertyGroup>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+    <CentralPackageTransitivePinningEnabled>true</CentralPackageTransitivePinningEnabled>
+  </PropertyGroup>
+  <!-- Analyzers (referenced from Directory.Build.props) -->
+  <ItemGroup>
+    <PackageVersion Include="stylecop.analyzers" Version="1.2.0-beta.556" />
+    <PackageVersion Include="Roslynator.Analyzers" Version="4.15.0" />
+    <PackageVersion Include="Blazor.Common.Analyzers" Version="1.0.28" />
+  </ItemGroup>
+  <!-- Build project -->
+  <ItemGroup>
+    <PackageVersion Include="Nuke.Common" Version="10.1.0" />
+    <PackageVersion Include="Polly" Version="8.6.6" />
+    <!-- Roslyn (compilation + symbol model) and Decompiler (PE reading + transitive
+         reference resolution). Together these replace the Docfx.Dotnet library —
+         see build/DocsConversion/CompilationLoader.cs which lifts the relevant
+         pieces of dotnet/docfx (MIT) into our own pipeline. -->
+    <PackageVersion Include="Microsoft.CodeAnalysis.CSharp" Version="5.3.0" />
+    <PackageVersion Include="ICSharpCode.Decompiler" Version="10.0.0.8330" />
+    <!-- Rate limiting types ship as a separate NuGet package even on
+         .NET 10 (not in the runtime). Polly.RateLimiting bridges
+         System.Threading.RateLimiting into Polly v8 ResiliencePipelines. -->
+    <PackageVersion Include="System.Threading.RateLimiting" Version="10.0.7" />
+    <PackageVersion Include="Polly.RateLimiting" Version="8.6.6" />
+    <!-- Logging abstraction. Libraries depend on Microsoft.Extensions.Logging
+         only; the build project bridges Serilog into ILogger via
+         Serilog.Extensions.Logging so the libraries stay platform-agnostic. -->
+    <PackageVersion Include="Microsoft.Extensions.Logging.Abstractions" Version="10.0.7" />
+    <PackageVersion Include="Serilog.Extensions.Logging" Version="10.0.0" />
+  </ItemGroup>
+  <!-- NuGet client libraries used by SourceDocParser.NuGet for TFM compatibility
+       and SemVer resolution. NuGet.Packaging is also a transitive vuln pin. -->
+  <ItemGroup>
+    <PackageVersion Include="NuGet.Frameworks" Version="7.3.1" />
+    <PackageVersion Include="NuGet.Versioning" Version="7.3.1" />
+    <PackageVersion Include="NuGet.Packaging" Version="7.3.1" />
+    <PackageVersion Include="System.Security.Cryptography.Xml" Version="10.0.7" />
+  </ItemGroup>
+  <!-- SourceDocParser libraries (published from glennawatson/SourceDocParserLib). -->
+  <ItemGroup>
+    <PackageVersion Include="SourceDocParser" Version="0.1.23-alpha" />
+    <PackageVersion Include="SourceDocParser.NuGet" Version="0.1.23-alpha" />
+    <PackageVersion Include="SourceDocParser.Docfx" Version="0.1.23-alpha" />
+    <PackageVersion Include="SourceDocParser.Zensical" Version="0.1.23-alpha" />
+  </ItemGroup>
+</Project>
