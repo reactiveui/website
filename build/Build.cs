@@ -175,6 +175,12 @@ internal sealed class Build : NukeBuild
             var stamp = VenvPath / ".requirements.stamp";
             if (freshlyCreated || !File.Exists(stamp) || File.GetLastWriteTimeUtc(requirements) > File.GetLastWriteTimeUtc(stamp))
             {
+                // Bring pip itself up to date before installing the
+                // requirements. Stops the "A new release of pip is
+                // available" notice from showing up in CI logs and
+                // ensures the resolver in use is the latest release.
+                ProcessTasks.StartProcess(VenvPipExecutable, "install --quiet --upgrade pip", workingDirectory: RootDirectory)
+                    .AssertZeroExitCode();
                 ProcessTasks.StartProcess(VenvPipExecutable, $"install --quiet --upgrade --requirement \"{requirements}\"", workingDirectory: RootDirectory)
                     .AssertZeroExitCode();
                 File.WriteAllText(stamp, DateTime.UtcNow.ToString("o"));
@@ -255,6 +261,15 @@ internal sealed class Build : NukeBuild
             RedirectStandardError = true,
             UseShellExecute = false,
         };
+
+        // Python's stdout switches to block-buffering when its stdout
+        // isn't a TTY (which it isn't once we redirect it to a Process
+        // pipe). Result: zensical's progress output sits in an 8 KB
+        // buffer for minutes at a time before flushing on exit, so the
+        // build looks frozen even though it's actively rendering.
+        // PYTHONUNBUFFERED=1 forces line-buffered output, same effect
+        // as `python -u`.
+        psi.Environment["PYTHONUNBUFFERED"] = "1";
 
         using var process = new System.Diagnostics.Process { StartInfo = psi };
         process.OutputDataReceived += (_, e) =>
