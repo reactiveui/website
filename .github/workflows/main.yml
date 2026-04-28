@@ -10,6 +10,13 @@ concurrency:
   group: website-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
 
+# Minimal token scope. The build only reads source; the netlify deploy
+# step authenticates against Netlify via NETLIFY_AUTH_TOKEN, not the
+# GITHUB_TOKEN, so no `contents: write` / `actions: write` etc are
+# required here.
+permissions:
+  contents: read
+
 jobs:
   build:
     runs-on: ubuntu-latest

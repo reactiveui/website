@@ -16,7 +16,10 @@ jobs:
   action:
     runs-on: ubuntu-latest
     steps:
-      - uses: dessant/lock-threads@v6
+      # Pinned to the v6 commit SHA so a compromised tag upstream
+      # can't execute untrusted code here (CodeQL actions/unpinned-tag).
+      # Renovate keeps the SHA in step with the moving v6 tag.
+      - uses: dessant/lock-threads@7266a7ce5c1df01b1c6db85bf8cd86c737dadbe7 # v6
         with:
           github-token: ${{ github.token }}
           issue-inactive-days: '14'
