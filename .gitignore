@@ -456,10 +456,15 @@ test_results/
 
 # Claude Settings
 .claude/
-# mkdocs output and Nuke build artifacts
+# Generated mkdocs config (built by `nuke WriteMkdocsConfig` from mkdocs.base.yml).
+mkdocs.yml
+# mkdocs/zensical output and Nuke build artifacts
 site/
+# Out-of-tree NuGet fetch cache (lib/, refs/, cache/, .primary-packages).
+# Lives outside docs/ so binary artefacts don't ship to the published site.
+.api-cache/
 # Generated API tree (per-namespace dirs from the Zensical emitter +
-# fetched assemblies + auto-written index.md).
+# auto-written index.md).
 docs/api/
 .nuke/temp/
 .nuke/tools/

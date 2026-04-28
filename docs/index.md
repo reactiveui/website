@@ -1,9 +1,11 @@
 ---
-title: An advanced, composable, reactive MVVM framework
+title: Home
 hide:
   - navigation
   - toc
 ---
+
+<div class="rxui-landing" markdown>
 
 <div class="rxui-hero" markdown>
 
@@ -15,6 +17,8 @@ hide:
 [:fontawesome-brands-github: Star on GitHub](https://github.com/reactiveui/ReactiveUI){ .md-button }
 
 </div>
+
+<div class="rxui-sample" markdown>
 
 === "C#"
 
@@ -39,6 +43,10 @@ hide:
         .ObserveOn(RxApp.MainThreadScheduler)
         .InvokeCommand(this, fun x -> x.ExecuteSearch)
     ```
+
+</div>
+
+</div>
 
 <div class="grid cards" markdown>
 

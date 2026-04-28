@@ -14,6 +14,7 @@ site_dir: site
 theme:
   name: material
   custom_dir: overrides
+  language: en
   logo: images/logo.png
   favicon: images/favicons/favicon.ico
   font:
@@ -38,23 +39,31 @@ theme:
         name: Switch to light mode
   features:
     - navigation.tabs
-    - navigation.sections
     - navigation.indexes
-    - navigation.instant
+    # `navigation.prune` is the big lever for large sites: instead of
+    # embedding the full nav into every page, only the active branch
+    # is emitted -- ~33% smaller per page, and far less peak memory in
+    # zensical's renderer. Required to keep the build under the OOM
+    # limit at 13k+ API pages.
+    - navigation.prune
+    # `navigation.instant.*` was previously enabled for SPA-style
+    # routing, but on a 13k-page site each page ends up bundling enough
+    # nav state in JS to push the build into OOM (SIGKILL / exit 137).
+    # Plain hyperlinks render fine; revisit per-section if a smaller
+    # corner of the site can opt in.
     - navigation.tracking
     - navigation.top
+    - navigation.footer
     - toc.follow
-    - content.code.copy
-    - content.code.annotate
+    - content.action.edit
+    - content.action.view
     - content.tabs.link
-    - search.suggest
-    - search.highlight
-    - search.share
 
 extra_css:
   - stylesheets/extra.css
 
 extra:
+  generator: false
   social:
     - icon: fontawesome/brands/github
       link: https://github.com/reactiveui/ReactiveUI
@@ -66,22 +75,15 @@ extra:
       link: https://www.youtube.com/c/ReactiveUI
 
 plugins:
-  # Zensical-supported set today: search + autorefs (verified against the
-  # checkbox state on https://zensical.org/compatibility/plugins/).
-  # tags, blog (×2), social, awesome-pages aren't supported yet — Zensical
-  # plans to subsume their functionality natively (ZAP 004/005, backlog
-  # #30/#37/#38). Auto nav-discovery from docs_dir replaces awesome-pages
-  # for the no-config case; per-section ordering moves into nav: blocks
-  # below as needed.
   - search
-  - autorefs
+  # The `autorefs` plugin builds an in-memory index of every heading
+  # across every page so cross-references resolve by symbol name. With
+  # 13k+ API pages each carrying dozens of headings, that index pushes
+  # the build into OOM on commodity runners. Anchored intra-page links
+  # still work; cross-page jumps must be written as explicit relative
+  # URLs while autorefs is off.
 
 markdown_extensions:
-  # Mirrors the default extension set Zensical activates for new projects
-  # (per https://zensical.org/docs/setup/extensions/) so this config works
-  # cleanly under either Zensical or stock mkdocs Material. All callable
-  # references use the dotted-string form rather than !!python/name: tags
-  # — modern pymdownx accepts both, Zensical only accepts strings.
   - abbr
   - admonition
   - attr_list
@@ -104,6 +106,9 @@ markdown_extensions:
   - pymdownx.mark
   - pymdownx.smartsymbols
   - pymdownx.snippets
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
   - pymdownx.superfences:
       custom_fences:
         - name: mermaid
@@ -115,13 +120,8 @@ markdown_extensions:
   - pymdownx.tasklist:
       custom_checkbox: true
   - pymdownx.tilde
-  # Zensical-native — adds zoom/lightbox to all images automatically.
-  # The equivalent of [project.markdown_extensions.zensical.extensions.glightbox]
-  # in zensical.toml. Plain mkdocs ignores the unknown extension name; if
-  # we ever need a stock-mkdocs build with the same UX, swap in the
-  # mkdocs-glightbox PyPI plugin under plugins: instead.
   - zensical.extensions.glightbox
 
 watch:
   - overrides
-  - mkdocs.yml
+  - mkdocs.base.yml

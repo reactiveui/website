@@ -29,7 +29,8 @@
         "EnsurePythonEnv",
         "ExtractMetadata",
         "Serve",
-        "ValidateSourceLinks"
+        "ValidateSourceLinks",
+        "WriteMkdocsConfig"
       ]
     },
     "Verbosity": {
@@ -114,7 +115,7 @@
         },
         "Strict": {
           "type": "boolean",
-          "description": "Pass --strict to mkdocs (CI gate); fails on any broken link or unresolved cross-ref"
+          "description": "Pass --strict to zensical (CI gate); fails on any broken link or unresolved cross-ref"
         }
       }
     },

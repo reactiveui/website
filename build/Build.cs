@@ -1,9 +1,7 @@
 #nullable enable
 
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
 using Microsoft.Extensions.Logging;
 using Nuke.Common;
@@ -11,17 +9,22 @@ using Nuke.Common.IO;
 using Nuke.Common.Tooling;
 using Serilog.Extensions.Logging;
 using SourceDocParser;
-using SourceDocParser.NuGet;
+using SourceDocParser.Model;
+using SourceDocParser.NuGet.Infrastructure;
 using SourceDocParser.SourceLink;
 using SourceDocParser.Zensical;
+using SourceDocParser.Zensical.Navigation;
+using SourceDocParser.Zensical.Options;
 
 namespace ReactiveUI.Web;
 
 /// <summary>
 /// Nuke build entry point. Drives the documentation pipeline: fetches
-/// NuGet packages, walks their public API surface into mkdocs Material
-/// markdown via the SourceDocParser.Zensical emitter, then shells out
-/// to mkdocs in a project-local venv to render the final site.
+/// NuGet packages, walks their public API surface into Zensical-flavoured
+/// Markdown via SourceDocParser.Zensical, regenerates mkdocs.yml with an
+/// explicit nav (Zensical doesn't support awesome-nav-style auto-discovery
+/// overrides), then shells out to the zensical CLI in a project-local venv
+/// to render the final site.
 /// </summary>
 internal sealed class Build : NukeBuild
 {
@@ -30,6 +33,16 @@ internal sealed class Build : NukeBuild
     private const string SiteFolder = "site";
     private const string VenvFolder = ".venv";
     private const string RequirementsFile = "requirements.txt";
+    private const string MkdocsBaseFile = "mkdocs.base.yml";
+    private const string MkdocsFile = "mkdocs.yml";
+
+    /// <summary>
+    /// Out-of-tree cache for the NuGet fetcher (lib/, refs/, cache/, and
+    /// the .primary-packages sidecar). Keeping it out of <c>docs/</c>
+    /// stops these binary artefacts from getting copied into the
+    /// published <c>site/</c>.
+    /// </summary>
+    private const string ApiCacheFolder = ".api-cache";
     private const int DefaultPort = 8000;
 
     [Parameter("Port for the preview server (default: 8000)")]
@@ -38,12 +51,14 @@ internal sealed class Build : NukeBuild
     [Parameter("Treat broken source links as a build failure (mkdocs-style strict mode)")]
     private readonly bool FailOnBrokenSourceLinks;
 
-    [Parameter("Pass --strict to mkdocs (CI gate); fails on any broken link or unresolved cross-ref")]
+    [Parameter("Pass --strict to zensical (CI gate); fails on any broken link or unresolved cross-ref")]
     private readonly bool Strict;
 
     private static readonly SerilogLoggerFactory _loggerFactory = new(Serilog.Log.Logger, dispose: false);
 
     private static ExtractionResult? _lastExtractionResult;
+
+    private static NavigationGraph? _lastNavigationGraph;
 
     public static int Main() => Execute<Build>(x => x.BuildWebsite);
 
@@ -51,17 +66,20 @@ internal sealed class Build : NukeBuild
 
     private static AbsolutePath ApiPath => WebRootPath / ApiFolder;
 
-    private static AbsolutePath ApiLibDirectory => ApiPath / "lib";
-
-    private static AbsolutePath ApiRefsDirectory => ApiPath / "refs";
+    /// <summary>
+    /// Where <see cref="NuGetAssemblySource"/> writes its lib/ + refs/ +
+    /// cache/ trees. Lives outside <c>docs/</c> so the assets don't end
+    /// up in the rendered site.
+    /// </summary>
+    private static AbsolutePath ApiCachePath => RootDirectory / ApiCacheFolder;
 
     private static AbsolutePath SiteOutputPath => RootDirectory / SiteFolder;
 
     private static AbsolutePath VenvPath => RootDirectory / VenvFolder;
 
-    private static AbsolutePath MkdocsExecutable => OperatingSystem.IsWindows()
-        ? VenvPath / "Scripts" / "mkdocs.exe"
-        : VenvPath / "bin" / "mkdocs";
+    private static AbsolutePath ZensicalExecutable => OperatingSystem.IsWindows()
+        ? VenvPath / "Scripts" / "zensical.exe"
+        : VenvPath / "bin" / "zensical";
 
     private static AbsolutePath VenvPipExecutable => OperatingSystem.IsWindows()
         ? VenvPath / "Scripts" / "pip.exe"
@@ -71,11 +89,7 @@ internal sealed class Build : NukeBuild
         .Before(ExtractMetadata)
         .Executes(() =>
         {
-            ApiLibDirectory.DeleteDirectory();
-            ApiRefsDirectory.DeleteDirectory();
-            // Delete only the per-namespace dirs the Zensical emitter
-            // creates; preserve the hand-curated docs/api/index.md and
-            // any sibling .pages file at the api/ root.
+            ApiCachePath.DeleteDirectory();
             foreach (var dir in ApiPath.GlobDirectories("*"))
             {
                 dir.DeleteDirectory();
@@ -84,57 +98,27 @@ internal sealed class Build : NukeBuild
         });
 
     /// <summary>
-    /// Walks each NuGet package's public API into mkdocs Material markdown.
-    /// NuGetAssemblySource handles the fetch + extract internally and is
-    /// idempotent against the package cache, so there's no separate fetch
-    /// target — invoking ExtractMetadata gets you both. Re-emit to docs/api/
-    /// directly so mkdocs picks the tree up without a copy step. Also
-    /// regenerates docs/api/index.md from the discovered namespace dirs
-    /// so the API landing page stays in sync with whatever the emitter
-    /// actually produced.
+    /// Walks each NuGet package's public API into Zensical Markdown,
+    /// captures the navigation graph the emitter just produced, and
+    /// regenerates docs/api/index.md from the discovered namespace dirs.
     /// </summary>
     private Target ExtractMetadata => _ => _
         .Executes(async () =>
         {
-            var source = new NuGetAssemblySource(RootDirectory, ApiPath, _loggerFactory.CreateLogger(nameof(NuGetAssemblySource)));
-            var emitter = new ZensicalDocumentationEmitter();
+            // The source's path receives lib/, refs/, cache/ and the
+            // .primary-packages sidecar; the emitter's outputRoot
+            // receives the rendered Markdown. Keep them separate so
+            // binary artefacts stay out of docs/.
+            Directory.CreateDirectory(ApiCachePath);
+            var source = new NuGetAssemblySource(RootDirectory, ApiCachePath, _loggerFactory.CreateLogger(nameof(NuGetAssemblySource)));
+            var emitterOptions = ZensicalEmitterOptions.Default;
+            var inner = new ZensicalDocumentationEmitter(emitterOptions);
+            var emitter = new NavigationCapturingEmitter(inner, emitterOptions);
             _lastExtractionResult = await new MetadataExtractor().RunAsync(source, ApiPath, emitter, _loggerFactory.CreateLogger(nameof(MetadataExtractor)));
-            WriteApiIndex();
+            _lastNavigationGraph = emitter.NavigationGraph;
+            var nsCount = ApiIndexWriter.Write(ApiPath);
+            Serilog.Log.Information("Wrote API index for {Count} namespace(s)", nsCount);
         });
-
-    private static void WriteApiIndex()
-    {
-        // Skip the well-known scaffold dirs Zensical / NuGetFetcher create
-        // alongside the per-namespace API trees.
-        var skip = new HashSet<string>(StringComparer.OrdinalIgnoreCase) { "lib", "refs", "cache", "_global" };
-        var namespaces = ApiPath.GlobDirectories("*")
-            .Select(p => p.Name)
-            .Where(name => !skip.Contains(name))
-            .OrderBy(name => name, StringComparer.OrdinalIgnoreCase)
-            .ToList();
-
-        var sb = new StringBuilder();
-        sb.AppendLine("# API Reference");
-        sb.AppendLine();
-        sb.AppendLine("The API reference is generated from the latest stable NuGet packages — types, members, signatures, XML docs, and source-link locations are walked directly out of the published `.dll` + `.xml` triples by `SourceDocParser`.");
-        sb.AppendLine();
-        sb.AppendLine("Use the navigation on the left to browse by namespace. Cross-references between members resolve through `mkdocs-autorefs`, so you can jump from any signature into the type it returns.");
-        sb.AppendLine();
-        sb.AppendLine("## Namespaces");
-        sb.AppendLine();
-        foreach (var ns in namespaces)
-        {
-            sb.AppendLine($"- [`{ns}`]({ns}/)");
-        }
-
-        sb.AppendLine();
-        sb.AppendLine("!!! info \"Tracked packages\"");
-        sb.AppendLine();
-        sb.AppendLine("    The exact list and resolved versions are pinned in [`nuget-packages.json`](https://github.com/reactiveui/website/blob/main/nuget-packages.json) and rebuilt on every site deploy.");
-
-        File.WriteAllText(ApiPath / "index.md", sb.ToString());
-        Serilog.Log.Information("Wrote API index for {Count} namespace(s)", namespaces.Count);
-    }
 
     private Target ValidateSourceLinks => _ => _
         .DependsOn(ExtractMetadata)
@@ -155,9 +139,7 @@ internal sealed class Build : NukeBuild
 
     /// <summary>
     /// Bootstraps the project-local Python venv if missing, then makes
-    /// sure requirements.txt is installed. Idempotent and cheap once the
-    /// venv exists. Cross-platform: picks the right interpreter / script
-    /// dir for Windows vs Linux/macOS.
+    /// sure requirements.txt is installed.
     /// </summary>
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
         "Performance",
@@ -167,7 +149,7 @@ internal sealed class Build : NukeBuild
         .Executes(() =>
         {
             var freshlyCreated = false;
-            if (!File.Exists(MkdocsExecutable))
+            if (!File.Exists(ZensicalExecutable))
             {
                 Serilog.Log.Information("Bootstrapping Python venv at {VenvPath}", VenvPath);
                 var python = OperatingSystem.IsWindows() ? "python" : "python3";
@@ -176,9 +158,6 @@ internal sealed class Build : NukeBuild
                 freshlyCreated = true;
             }
 
-            // Only pip-install when bootstrapping the venv or when requirements.txt
-            // is newer than the last install. Avoids a network round trip on every
-            // local build.
             var requirements = RootDirectory / RequirementsFile;
             var stamp = VenvPath / ".requirements.stamp";
             if (freshlyCreated || !File.Exists(stamp) || File.GetLastWriteTimeUtc(requirements) > File.GetLastWriteTimeUtc(stamp))
@@ -189,24 +168,101 @@ internal sealed class Build : NukeBuild
             }
         });
 
+    /// <summary>
+    /// Concatenates mkdocs.base.yml with a generated <c>nav:</c> block,
+    /// writing the result to mkdocs.yml. The generated block walks the
+    /// docs tree to fix top-level ordering, then splices in the API tree
+    /// captured from the Zensical emitter under <c>API</c>.
+    /// </summary>
+    private Target WriteMkdocsConfig => _ => _
+        .DependsOn(ExtractMetadata)
+        .Executes(() =>
+        {
+            var basePath = RootDirectory / MkdocsBaseFile;
+            var outPath = RootDirectory / MkdocsFile;
+            var baseYaml = File.ReadAllText(basePath);
+            var nav = NavBuilder.Build(WebRootPath, _lastNavigationGraph);
+            var sb = new StringBuilder();
+            sb.AppendLine("# DO NOT EDIT. Generated by `nuke WriteMkdocsConfig` from mkdocs.base.yml.");
+            sb.Append(baseYaml.TrimEnd());
+            sb.AppendLine();
+            sb.AppendLine();
+            sb.Append(nav);
+            File.WriteAllText(outPath, sb.ToString());
+            Serilog.Log.Information("Wrote {OutPath}", outPath);
+        });
+
     private Target BuildWebsite => _ => _
         .DependsOn(ExtractMetadata)
+        .DependsOn(WriteMkdocsConfig)
         .DependsOn(EnsurePythonEnv)
         .Produces(SiteOutputPath)
         .Executes(() =>
         {
-            var strictFlag = Strict ? "--strict " : string.Empty;
-            ProcessTasks.StartProcess(MkdocsExecutable, $"build {strictFlag}--site-dir \"{SiteOutputPath}\"", workingDirectory: RootDirectory)
-                .AssertZeroExitCode();
+            // zensical reads the output dir from `site_dir` in the YAML
+            // (set in mkdocs.base.yml) -- there is no `--site-dir` flag.
+            var strictFlag = Strict ? " --strict" : string.Empty;
+            RunZensicalStreamed($"build{strictFlag}");
             Serilog.Log.Information("Site built at {SiteOutputPath}", SiteOutputPath);
         });
 
     private Target Serve => _ => _
+        .DependsOn(ExtractMetadata)
+        .DependsOn(WriteMkdocsConfig)
         .DependsOn(EnsurePythonEnv)
         .Executes(() =>
         {
             Serilog.Log.Information("Serving site at http://127.0.0.1:{Port}", Port);
-            ProcessTasks.StartProcess(MkdocsExecutable, $"serve --dev-addr 127.0.0.1:{Port}", workingDirectory: RootDirectory)
-                .AssertZeroExitCode();
+            RunZensicalStreamed($"serve --dev-addr 127.0.0.1:{Port}");
         });
+
+    /// <summary>
+    /// Runs zensical with stdout + stderr streamed straight to the
+    /// console as each line arrives. Nuke's <see cref="ProcessTasks.StartProcess(string, string, string, IReadOnlyDictionary{string, string}, int?, bool?, bool?, Func{string, string})"/>
+    /// routes the child's stdout through Debug, which the default
+    /// Information filter swallows -- so a multi-minute zensical run
+    /// looks frozen until the process exits. Going direct via
+    /// <see cref="System.Diagnostics.Process"/> gives us live output
+    /// at the cost of losing the Nuke timer banner, which the wrapping
+    /// target already prints.
+    /// </summary>
+    private static void RunZensicalStreamed(string arguments)
+    {
+        var psi = new System.Diagnostics.ProcessStartInfo
+        {
+            FileName = ZensicalExecutable,
+            Arguments = arguments,
+            WorkingDirectory = RootDirectory,
+            RedirectStandardOutput = true,
+            RedirectStandardError = true,
+            UseShellExecute = false,
+        };
+
+        using var process = new System.Diagnostics.Process { StartInfo = psi };
+        process.OutputDataReceived += (_, e) =>
+        {
+            if (e.Data is { } line)
+            {
+                Console.Out.WriteLine(line);
+            }
+        };
+        process.ErrorDataReceived += (_, e) =>
+        {
+            if (e.Data is { } line)
+            {
+                Console.Error.WriteLine(line);
+            }
+        };
+
+        process.Start();
+        process.BeginOutputReadLine();
+        process.BeginErrorReadLine();
+        process.WaitForExit();
+
+        if (process.ExitCode != 0)
+        {
+            throw new InvalidOperationException($"zensical {arguments.Split(' ')[0]} exited with code {process.ExitCode}.");
+        }
+    }
 }
+

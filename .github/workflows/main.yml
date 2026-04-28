@@ -36,19 +36,31 @@ jobs:
         with:
           node-version: '22'
 
-      - name: Cache fetched packages
+      - name: Cache fetched packages and Python venv
         uses: actions/cache@v5
         with:
           path: |
             ~/.nuget/packages
-            docs/api/cache
-          key: ${{ runner.os }}-website-api-${{ hashFiles('nuget-packages.json', 'build/_build.csproj') }}
+            .api-cache
+            .venv
+          # The .api-cache key buckets fetched NuGet assemblies + their
+          # extracted lib/refs trees; bust whenever the package list or
+          # SourceDocParser version moves. The .venv bucket buys back
+          # the ~30s pip install of zensical / autorefs each run.
+          key: ${{ runner.os }}-website-${{ hashFiles('nuget-packages.json', 'build/_build.csproj', 'Directory.Packages.props', 'requirements.txt') }}
 
       - name: Build website
         run: ./build.sh BuildWebsite --strict
 
       - name: 'Deploy netlify'
         if: ${{ github.event_name != 'pull_request' }}
+        # Pipe secrets through env vars rather than expanding into the
+        # shell command line so they don't surface in process listings
+        # or in CI logs. site/ is the directory zensical writes to (set
+        # via site_dir: in mkdocs.base.yml).
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_DEPLOY_KEY }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
         run: |
           npm install -g netlify-cli
-          netlify deploy --auth=${{ secrets.NETLIFY_DEPLOY_KEY }} --site=${{ secrets.NETLIFY_SITE_ID }} --prod --dir=site
+          netlify deploy --prod --dir=site
