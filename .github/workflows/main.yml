@@ -52,8 +52,27 @@ jobs:
           # the ~30s pip install of zensical / autorefs each run.
           key: ${{ runner.os }}-website-${{ hashFiles('nuget-packages.json', 'build/_build.csproj', 'Directory.Packages.props', 'requirements.txt') }}
 
-      - name: Build website
-        run: ./build.sh BuildWebsite --strict
+      # Run the .NET pipeline (NuGet fetch + Roslyn walk + nav graph
+      # + mkdocs.yml generation) and zensical itself in *separate*
+      # process trees. When zensical was a child of the Nuke .NET
+      # process its OOM ceiling included Roslyn's residual heap +
+      # every loaded SourceDocParser dll, easily eating 500 MB+
+      # before zensical itself started. Splitting the steps lets
+      # zensical see the full runner budget when it actually needs it.
+      - name: Generate API Markdown + mkdocs.yml
+        run: ./build.sh GenerateApi
+
+      - name: Bootstrap Python venv
+        run: |
+          python3 -m venv .venv
+          .venv/bin/pip install --quiet --upgrade pip
+          .venv/bin/pip install --quiet --upgrade --requirement requirements.txt
+
+      - name: Render site with zensical
+        # `--strict` is currently a no-op upstream but harmless; keep
+        # the flag so we pick the gate up automatically once Zensical
+        # implements it.
+        run: PYTHONUNBUFFERED=1 .venv/bin/zensical build --strict
 
       # Runs even when the previous step is cancelled or fails so we
       # capture kernel-level evidence of an OOM kill -- a "cancelled"

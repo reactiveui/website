@@ -222,9 +222,22 @@ internal sealed class Build : NukeBuild
             Serilog.Log.Information("Wrote {OutPath}", outPath);
         });
 
-    private Target BuildWebsite => _ => _
+    /// <summary>
+    /// Generates everything zensical needs to build the site -- the
+    /// API Markdown tree under <c>docs/api/</c> and the explicit
+    /// <c>mkdocs.yml</c> -- but stops short of invoking zensical
+    /// itself. Lets CI run zensical in a separate process tree where
+    /// the .NET runtime + Roslyn + loaded SourceDocParser packages
+    /// aren't squatting on the runner's memory budget. Locally the
+    /// <see cref="BuildWebsite"/> target still chains through to
+    /// zensical for one-command builds.
+    /// </summary>
+    private Target GenerateApi => _ => _
         .DependsOn(ExtractMetadata)
-        .DependsOn(WriteMkdocsConfig)
+        .DependsOn(WriteMkdocsConfig);
+
+    private Target BuildWebsite => _ => _
+        .DependsOn(GenerateApi)
         .DependsOn(EnsurePythonEnv)
         .Before(Serve)
         .Produces(SiteOutputPath)
