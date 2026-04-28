@@ -203,9 +203,19 @@ internal static class NavBuilder
         foreach (var package in packages)
         {
             sb.Append("    - ").Append(EscapeYamlKey(package.Name)).AppendLine(":");
+
+            // Splice the section landing page as the first entry --
+            // with navigation.indexes enabled in mkdocs.base.yml that
+            // turns the section header itself into a clickable link
+            // to the package landing, so deep-linked readers can
+            // navigate up.
+            EmitLanding(sb, package.LandingPagePath, indent: "      ");
+
             foreach (var ns in package.Namespaces)
             {
                 sb.Append("      - ").Append(EscapeYamlKey(ns.Name)).AppendLine(":");
+                EmitLanding(sb, ns.LandingPagePath, indent: "        ");
+
                 foreach (var type in ns.Types)
                 {
                     var path = $"api/{type.Path}";
@@ -218,6 +228,24 @@ internal static class NavBuilder
                 }
             }
         }
+    }
+
+    /// <summary>
+    /// Emits a leading <c>- api/.../index.md</c> entry inside a
+    /// section. <paramref name="landingPath"/> is the
+    /// <c>NavigationPackage.LandingPagePath</c> /
+    /// <c>NavigationNamespace.LandingPagePath</c> field -- null
+    /// when no landing page was emitted (e.g. routing rule stripped
+    /// the section), in which case we just skip.
+    /// </summary>
+    private static void EmitLanding(StringBuilder sb, string? landingPath, string indent)
+    {
+        if (landingPath is null)
+        {
+            return;
+        }
+
+        sb.Append(indent).Append("- api/").Append(landingPath).AppendLine();
     }
 
     /// <summary>

@@ -2,7 +2,7 @@
   <PropertyGroup>
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
     <CentralPackageTransitivePinningEnabled>true</CentralPackageTransitivePinningEnabled>
-    <SourceDocParserVersion>1.2.1</SourceDocParserVersion>
+    <SourceDocParserVersion>1.3.1</SourceDocParserVersion>
   </PropertyGroup>
 
   <!-- Analyzers (referenced from Directory.Build.props). -->

@@ -111,7 +111,14 @@ internal sealed class Build : NukeBuild
             // binary artefacts stay out of docs/.
             Directory.CreateDirectory(ApiCachePath);
             var source = new NuGetAssemblySource(RootDirectory, ApiCachePath, _loggerFactory.CreateLogger(nameof(NuGetAssemblySource)));
-            var emitterOptions = ZensicalEmitterOptions.Default;
+
+            // Hide the 13k+ API pages from the Zensical client-side
+            // search index. The emitter writes `search.exclude: true`
+            // into each type/member page's frontmatter, which keeps
+            // the search corpus focused on hand-authored prose under
+            // docs/ and saves a large chunk of build memory at index
+            // time. Symbol cross-references via UID anchors still work.
+            var emitterOptions = ZensicalEmitterOptions.Default with { IncludeInSearch = false };
             var inner = new ZensicalDocumentationEmitter(emitterOptions);
             var emitter = new NavigationCapturingEmitter(inner, emitterOptions);
             _lastExtractionResult = await new MetadataExtractor().RunAsync(source, ApiPath, emitter, _loggerFactory.CreateLogger(nameof(MetadataExtractor)));
