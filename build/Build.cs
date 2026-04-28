@@ -122,6 +122,13 @@ internal sealed class Build : NukeBuild
 
     private Target ValidateSourceLinks => _ => _
         .DependsOn(ExtractMetadata)
+        // Pin a deterministic order vs the other ExtractMetadata
+        // children. Nuke 10's TargetDefinitionOrderChecker fails the
+        // run if siblings sharing a dependency have no relative order;
+        // these `.Before()` hints don't run BuildWebsite/Serve (they
+        // aren't `.Triggers()`), they just give Nuke a topological sort.
+        .Before(BuildWebsite)
+        .Before(Serve)
         .Executes(async () =>
         {
             if (_lastExtractionResult is not { SourceLinks: { } links })
@@ -196,6 +203,7 @@ internal sealed class Build : NukeBuild
         .DependsOn(ExtractMetadata)
         .DependsOn(WriteMkdocsConfig)
         .DependsOn(EnsurePythonEnv)
+        .Before(Serve)
         .Produces(SiteOutputPath)
         .Executes(() =>
         {
