@@ -55,6 +55,26 @@ jobs:
       - name: Build website
         run: ./build.sh BuildWebsite --strict
 
+      # Runs even when the previous step is cancelled or fails so we
+      # capture kernel-level evidence of an OOM kill -- a "cancelled"
+      # status with no exit code in GH Actions usually means the
+      # runner agent saw its own process group disappear after the
+      # OOM killer fired. dmesg will show the "Out of memory: Killed
+      # process ..." line with the offending RSS, telling us whether
+      # to keep trimming or jump to a bigger runner.
+      - name: Post-mortem
+        if: always()
+        run: |
+          echo '=== last 200 lines of dmesg ==='
+          sudo dmesg | tail -200 || true
+          echo
+          echo '=== OOM events from journal ==='
+          sudo journalctl -k --since "30 minutes ago" \
+            | grep -iE 'killed process|out of memory|oom-killer' || true
+          echo
+          echo '=== mem at end of run ==='
+          free -m
+
       - name: 'Deploy netlify'
         if: ${{ github.event_name != 'pull_request' }}
         # Pipe secrets through env vars rather than expanding into the
