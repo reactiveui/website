@@ -153,6 +153,12 @@ internal sealed class Build : NukeBuild
         "CA1822:Mark members as static",
         Justification = "Nuke Target properties are bound to the build instance by convention and must remain instance members.")]
     private Target EnsurePythonEnv => _ => _
+        // Soft ordering hint: when more than one BuildWebsite-sibling
+        // is invoked, run after WriteMkdocsConfig so Nuke's
+        // TargetDefinitionOrderChecker has a total order across
+        // ValidateSourceLinks -> WriteMkdocsConfig -> EnsurePythonEnv.
+        // Doesn't actually drag in WriteMkdocsConfig (no .Triggers()).
+        .After(WriteMkdocsConfig)
         .Executes(() =>
         {
             var freshlyCreated = false;
@@ -183,6 +189,10 @@ internal sealed class Build : NukeBuild
     /// </summary>
     private Target WriteMkdocsConfig => _ => _
         .DependsOn(ExtractMetadata)
+        // See EnsurePythonEnv.After(WriteMkdocsConfig) -- this hint
+        // closes the order on the other side: ValidateSourceLinks
+        // first, then WriteMkdocsConfig, then EnsurePythonEnv.
+        .After(ValidateSourceLinks)
         .Executes(() =>
         {
             var basePath = RootDirectory / MkdocsBaseFile;
