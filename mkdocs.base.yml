@@ -11,6 +11,13 @@ edit_uri: https://github.com/reactiveui/website/edit/main/docs/
 docs_dir: docs
 site_dir: site
 
+# Skip the historical release-note articles for now; they pull in
+# `pymdownx.magiclink` for `#123` / `@user` shortrefs and don't appear
+# in nav anyway. Bring them back as a second pass once we've decided
+# how to host them (e.g. a separate published archive).
+exclude_docs: |
+  /articles/
+
 theme:
   name: material
   custom_dir: overrides
@@ -84,6 +91,18 @@ plugins:
   # URLs while autorefs is off.
 
 markdown_extensions:
+  # Lean baseline. Each entry runs once per page, and the API tree has
+  # 13k+ pages, so per-extension cost compounds. Removed:
+  #
+  # * pymdownx.magiclink   -- only used by `docs/articles/**`, which we
+  #                         now exclude from the build entirely.
+  # * pymdownx.smartsymbols -- (tm)/(c)/--> substitutions; only one real
+  #                         use (in articles, now excluded).
+  # * pymdownx.snippets    -- no `--8<--` directives anywhere in docs.
+  # * pymdownx.keys        -- no `++ctrl+c++` shortcuts anywhere.
+  #
+  # Re-enable per-page via front-matter `markdown_extensions:` if a
+  # specific page actually needs one of them.
   - abbr
   - admonition
   - attr_list
@@ -101,11 +120,7 @@ markdown_extensions:
       line_spans: __span
       pygments_lang_class: true
   - pymdownx.inlinehilite
-  - pymdownx.keys
-  - pymdownx.magiclink
   - pymdownx.mark
-  - pymdownx.smartsymbols
-  - pymdownx.snippets
   - pymdownx.emoji:
       emoji_index: !!python/name:material.extensions.emoji.twemoji
       emoji_generator: !!python/name:material.extensions.emoji.to_svg
