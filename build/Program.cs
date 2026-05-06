@@ -5,6 +5,7 @@
 using System;
 using System.CommandLine;
 using System.IO;
+using System.IO.Compression;
 using System.Threading;
 using System.Threading.Tasks;
 using NuStreamDocs.Autorefs;
@@ -223,6 +224,10 @@ internal static class Program
             .UseSearch()
             .UseSitemap()
             .UseWyamBlog(new WyamBlogOptions((PathSegment)"Announcements", "Announcements"u8.ToArray()))
-            .UseWyamBlog(new WyamBlogOptions((PathSegment)"articles", "Release Notes"u8.ToArray()));
-            ////UseOptimize();
+            .UseWyamBlog(new WyamBlogOptions((PathSegment)"articles", "Release Notes"u8.ToArray()))
+            .UseOptimize(OptimizeOptions.Default with
+            {
+                GzipLevel = CompressionLevel.Optimal,
+                BrotliLevel = CompressionLevel.Optimal,
+            });
 }
