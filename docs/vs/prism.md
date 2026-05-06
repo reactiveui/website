@@ -1,6 +1,7 @@
 ---
 NoTitle: true
 Title: PRISM
+Order: 2
 ---
 ## Prism vs. ReactiveUI: Choosing the Right MVVM Framework
 

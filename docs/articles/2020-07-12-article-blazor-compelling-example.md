@@ -42,55 +42,59 @@ Because I needed an HttpClient calling an MVC WebApi, I put Refit on both the Bl
   
 This did require some wrangling of Splat, shown here in the App.xaml.cs of the WPF project:  
 
-    public partial class App
+```csharp
+public partial class App
+{
+    public App()
     {
-        public App()
-        {
-            AppLocator.CurrentMutable.Register(() => new MainWindow(), typeof(IViewFor<AppViewModel>));
-            AppLocator.CurrentMutable.Register(() => new NugetDetailsView(), typeof(IViewFor<NugetDetailsViewModel>));
-            
-            AppLocator.CurrentMutable.RegisterLazySingleton(() =>
-                RestService.For<INugetService>("https://localhost:44394/api"), typeof(INugetService));
-            
-        }
+        AppLocator.CurrentMutable.Register(() => new MainWindow(), typeof(IViewFor<AppViewModel>));
+        AppLocator.CurrentMutable.Register(() => new NugetDetailsView(), typeof(IViewFor<NugetDetailsViewModel>));
+        
+        AppLocator.CurrentMutable.RegisterLazySingleton(() =>
+            RestService.For<INugetService>("https://localhost:44394/api"), typeof(INugetService));
+        
     }
+}
+```
 
 3. Wrangle Splat into Blazor
 
 Here's my Program.cs.  As you can see, I'm using [Blazorise](https://blazorise.com) mostly because I suck at CSS and styling things, and I think `<div>` is ugly.  You don't have to, obviously.  
   
-     public static async Task Main(string[] args)
+```csharp
+public static async Task Main(string[] args)
+{
+    var builder = WebAssemblyHostBuilder.CreateDefault(args);
+    
+    builder.Services
+        .AddBlazorise( options =>
         {
-            var builder = WebAssemblyHostBuilder.CreateDefault(args);
-            
-            builder.Services
-                .AddBlazorise( options =>
-                {
-                    options.ChangeTextOnKeyPress = false;
-                } )
-                .AddBootstrapProviders()
-                .AddFontAwesomeIcons();
+            options.ChangeTextOnKeyPress = false;
+        } )
+        .AddBootstrapProviders()
+        .AddFontAwesomeIcons();
 
-            builder.Services.UseMicrosoftDependencyResolver(); //Splat config
-            var resolver = AppLocator.CurrentMutable;
-            resolver.InitializeSplat();
-            resolver.InitializeReactiveUI();
+    builder.Services.UseMicrosoftDependencyResolver(); //Splat config
+    var resolver = AppLocator.CurrentMutable;
+    resolver.InitializeSplat();
+    resolver.InitializeReactiveUI();
 
-            AppLocator.CurrentMutable.Register(() => new IndexView(), typeof(IViewFor<AppViewModel //Splat!
-            AppLocator.CurrentMutable.Register(() => new NugetDetailsView(), typeof(IViewFor<NugetDetailsViewModel>)); //Splat!
+    AppLocator.CurrentMutable.Register(() => new IndexView(), typeof(IViewFor<AppViewModel>)); //Splat!
+    AppLocator.CurrentMutable.Register(() => new NugetDetailsView(), typeof(IViewFor<NugetDetailsViewModel>)); //Splat!
 
-            AppLocator.CurrentMutable.RegisterLazySingleton(() =>
-                RestService.For<INugetService>("https://localhost:44394/api", new RefitSettings{ ContentSerializer = new JsonContentSerializer()}), typeof(INugetService)); //Annoying bit of Splat that I kicked myself for forgetting!
+    AppLocator.CurrentMutable.RegisterLazySingleton(() =>
+        RestService.For<INugetService>("https://localhost:44394/api", new RefitSettings{ ContentSerializer = new JsonContentSerializer()}), typeof(INugetService)); //Annoying bit of Splat that I kicked myself for forgetting!
 
-            builder.RootComponents.Add<App>("app");
-            var host = builder.Build();
+    builder.RootComponents.Add<App>("app");
+    var host = builder.Build();
 
-            host.Services
-                .UseBootstrapProviders()
-                .UseFontAwesomeIcons();
+    host.Services
+        .UseBootstrapProviders()
+        .UseFontAwesomeIcons();
 
-            await host.RunAsync();
-        }
+    await host.RunAsync();
+}
+```
     
     
 Other than that, you don't need much.  
@@ -99,105 +103,113 @@ Other than that, you don't need much.
   
 Here's the IndexView.razor  
   
-    @page "/"
-    @inherits ReactiveComponentBase<AppViewModel>
+```xml
+@page "/"
+@inherits ReactiveComponentBase<AppViewModel>
 
-    <Container class="mainContent">
-        <header>
-            <Addons>
-                <Addon AddonType="AddonType.Body">
-                    <TextEdit @bind-Text="ViewModel.SearchTerm" Placeholder="Search nuget.org..." />
-                </Addon>
-                <Addon AddonType="AddonType.End">
-                    <Button Color="Color.Secondary" Clicked="@SearchTextChanged">Search</Button>
-                </Addon>
-            </Addons>
-        </header>
-        <main>
-        @if (ShowResults)
-        {
-            <Table>
-                @foreach (var result in ViewModel.SearchResults)
-                {
-                    <NugetDetailsView NugetViewModel="@result"/>
-                }
-            </Table>
-        }
-        </main>
-    </Container>
+<Container class="mainContent">
+    <header>
+        <Addons>
+            <Addon AddonType="AddonType.Body">
+                <TextEdit @bind-Text="ViewModel.SearchTerm" Placeholder="Search nuget.org..." />
+            </Addon>
+            <Addon AddonType="AddonType.End">
+                <Button Color="Color.Secondary" Clicked="@SearchTextChanged">Search</Button>
+            </Addon>
+        </Addons>
+    </header>
+    <main>
+    @if (ShowResults)
+    {
+        <Table>
+            @foreach (var result in ViewModel.SearchResults)
+            {
+                <NugetDetailsView NugetViewModel="@result"/>
+            }
+        </Table>
+    }
+    </main>
+</Container>
+```
     
 and here's its codebehind.  
   
-    public partial class IndexView 
+```csharp
+public partial class IndexView 
+{
+    private bool _showResults;
+    public bool ShowResults
     {
-        private bool _showResults;
-        public bool ShowResults
+        get => _showResults;
+        set
         {
-            get => _showResults;
-            set
-            {
-                _showResults = value;
-                StateHasChanged();
-            } 
-        }
-
-        public IndexView()
-        {
-            ViewModel = new AppViewModel();
-
-            this.WhenActivated(disposableRegistration =>
-            {
-                this.OneWayBind(ViewModel, 
-                        viewModel => viewModel.IsAvailable, 
-                        view => view.ShowResults)
-                    .DisposeWith(disposableRegistration); 
-                
-            });
-        }
-
-        private void SearchTextChanged()
-        {
-            //This is really just here for sanity chacking and to make the textbox lose focus.
-            Console.WriteLine(ViewModel.SearchTerm);
-            Console.WriteLine($"SearchResults is {ViewModel.SearchResults.Count()}");
-        }
+            _showResults = value;
+            StateHasChanged();
+        } 
     }
+
+    public IndexView()
+    {
+        ViewModel = new AppViewModel();
+
+        this.WhenActivated(disposableRegistration =>
+        {
+            this.OneWayBind(ViewModel, 
+                    viewModel => viewModel.IsAvailable, 
+                    view => view.ShowResults)
+                .DisposeWith(disposableRegistration); 
+            
+        });
+    }
+
+    private void SearchTextChanged()
+    {
+        //This is really just here for sanity chacking and to make the textbox lose focus.
+        Console.WriteLine(ViewModel.SearchTerm);
+        Console.WriteLine($"SearchResults is {ViewModel.SearchResults.Count()}");
+    }
+}
+```
 
 and now the NugetDetailsView  
   
-    @inherits ReactiveComponentBase<NugetDetailsViewModel>
-    <TableRow>
-        <TableRowCell>
-            <Figure Size="FigureSize.Is64x64">
-                <FigureImage Source="@ViewModel.IconUrl.ToString()" AlternateText="@ViewModel.Title"/>
-            </Figure>
-        </TableRowCell>
-        <TableRowCell Class="boxContent">
-            <header>
-                <h3>@ViewModel.Title</h3>
-            </header>
-            <main>@ViewModel.Description</main>
-            <footer>
-                <Blazorise.Link To="@ViewModel.ProjectUrl.ToString()">
-                    open
-                </Blazorise.Link>
-            </footer>
-        </TableRowCell>
-    </TableRow>
+```xml
+@inherits ReactiveComponentBase<NugetDetailsViewModel>
+<TableRow>
+    <TableRowCell>
+        <Figure Size="FigureSize.Is64x64">
+            <FigureImage Source="@ViewModel.IconUrl.ToString()" AlternateText="@ViewModel.Title"/>
+        </Figure>
+    </TableRowCell>
+    <TableRowCell Class="boxContent">
+        <header>
+            <h3>@ViewModel.Title</h3>
+        </header>
+        <main>@ViewModel.Description</main>
+        <footer>
+            <Blazorise.Link To="@ViewModel.ProjectUrl.ToString()">
+                open
+            </Blazorise.Link>
+        </footer>
+    </TableRowCell>
+</TableRow>
+```
 
 and its codebehind:  
   
-    public partial class NugetDetailsView
-    {
-        [Parameter] 
-        public NugetDetailsViewModel NugetViewModel { get; set; }
+```csharp
+public partial class NugetDetailsView
+{
+    [Parameter] 
+    public NugetDetailsViewModel NugetViewModel { get; set; }
 
-        protected override Task OnParametersSetAsync()
-        {
-            ViewModel = NugetViewModel;
-            return base.OnParametersSetAsync();
-        }
+    protected override Task OnParametersSetAsync()
+    {
+        ViewModel = NugetViewModel;
+        return base.OnParametersSetAsync();
     }
+}
+```
 
 Basic stuff.
 
@@ -207,80 +219,88 @@ You could run this now and provided you've got your controllers wired up properl
   
 Have a look at this controller.  Yuck .  
   
-    [Route("api/[controller]")]
-    [ApiController]
-    public class NugetController : ControllerBase
+```csharp
+[Route("api/[controller]")]
+[ApiController]
+public class NugetController : ControllerBase
+{
+    private readonly INugetService _nugetService;
+
+    public NugetController(INugetService nugetService)
     {
-        private readonly INugetService _nugetService;
+        _nugetService = nugetService;
+    }
 
-        public NugetController(INugetService nugetService)
+    [HttpGet("{term}")]
+    public async Task<IActionResult> GetNugetResults(string term)
+    {
+        try
         {
-            _nugetService = nugetService;
+            var result = await _nugetService.GetNugetPackages(term);
+            return Ok(result);
         }
-
-        [HttpGet("{term}")]
-        public async Task<IActionResult> GetNugetResults(string term)
+        catch (Exception ex)
         {
-            try
-            {
-                var result = await _nugetService.GetNugetPackages(term);
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex);
-            }
+            return BadRequest(ex);
         }
     }
+}
+```
 
 It might just be me, but I find Try/Catch personally offensive, especially in an async method.  That **had** to go.  And it wasn't just that, either.  Take a look at the code to actually get package details, straight from the original CompellingExample.  
   
-    public class NugetService : INugetService
+```csharp
+public class NugetService : INugetService
+{
+    public async Task<IEnumerable<NugetPackageDto>> GetNugetPackages(string term)
     {
-        public async Task<IEnumerable<NugetPackageDto>> GetNugetPackages(string term)
-        {
-            var providers = new List<Lazy<INuGetResourceProvider>>();
-            providers.AddRange(Repository.Provider.GetCoreV3());
-            var packageSource = new PackageSource("https://api.nuget.org/v3/index.json");
-            var source = new SourceRepository(packageSource, providers);
+        var providers = new List<Lazy<INuGetResourceProvider>>();
+        providers.AddRange(Repository.Provider.GetCoreV3());
+        var packageSource = new PackageSource("https://api.nuget.org/v3/index.json");
+        var source = new SourceRepository(packageSource, providers);
 
-            var filter = new SearchFilter(false);
-            var resource = await source.GetResourceAsync<PackageSearchResource>().ConfigureAwait(false);
-            var metadata = await resource.SearchAsync(term, filter, 0, 10, null, new CancellationToken())
-                .ConfigureAwait(false);
-            return metadata.Select(x => new NugetPackageDto(x));
-        }
+        var filter = new SearchFilter(false);
+        var resource = await source.GetResourceAsync<PackageSearchResource>().ConfigureAwait(false);
+        var metadata = await resource.SearchAsync(term, filter, 0, 10, null, new CancellationToken())
+            .ConfigureAwait(false);
+        return metadata.Select(x => new NugetPackageDto(x));
     }
+}
+```
     
 ### Beautiful Functional C#
 
 Wow.  Imagine having to unit test that.  Horrible.  Imagine _debugging_ it.  No, it wouldn't do.  Luckily, I have another tool in my toolbox especially for horrible things like these.  It's called Functional Programming and ReactiveUI is pretty religious about it, except here for some reason.  I don't know why.  So I added a few static methods.    
   
-        public static SourceRepository NuGetLocalRepository()
-            => new SourceRepository(new PackageSource("https://api.nuget.org/v3/index.json"),
-                new List<Lazy<INuGetResourceProvider>>(Repository.Provider.GetCoreV3()));
+```csharp
+public static SourceRepository NuGetLocalRepository()
+    => new SourceRepository(new PackageSource("https://api.nuget.org/v3/index.json"),
+        new List<Lazy<INuGetResourceProvider>>(Repository.Provider.GetCoreV3()));
 
-        public static IEnumerable<NugetPackageDto> AsDtos(this IEnumerable<IPackageSearchMetadata> list)
-            => list.Select(x => x.AsDto());
+public static IEnumerable<NugetPackageDto> AsDtos(this IEnumerable<IPackageSearchMetadata> list)
+    => list.Select(x => x.AsDto());
 
-        public static NugetPackageDto AsDto(this IPackageSearchMetadata nuget)
-            => new NugetPackageDto(nuget);
+public static NugetPackageDto AsDto(this IPackageSearchMetadata nuget)
+    => new NugetPackageDto(nuget);
 
-        public static async Task<PackageSearchResource> GetResource(this SourceRepository repo)
-            => await repo.GetResourceAsync<PackageSearchResource>().ConfigureAwait(false);
+public static async Task<PackageSearchResource> GetResource(this SourceRepository repo)
+    => await repo.GetResourceAsync<PackageSearchResource>().ConfigureAwait(false);
 
-        public static async Task<IEnumerable<IPackageSearchMetadata>> GetMetadata(PackageSearchResource source, string term)
-            => await source.SearchAsync(term, new SearchFilter(false), 0, 10, null, new CancellationToken());
+public static async Task<IEnumerable<IPackageSearchMetadata>> GetMetadata(PackageSearchResource source, string term)
+    => await source.SearchAsync(term, new SearchFilter(false), 0, 10, null, new CancellationToken());
+```
 
 each one atomic, each one easy to test.  And I added also my second favourite library ever, [Language-Ext](https://github.com/louthy/language-ext) to get some nice helper methods and structs.  
   
 And here's that `GetNugetPackages` method now.  
   
-    public async Task<IEnumerable<NugetPackageDto>> GetNugetPackages(string term) =>
-            await NugetFunctions.NuGetLocalRepository()
-                .GetResource()
-                .Bind(x => NugetFunctions.GetMetadata(x, term))
-                .Map(x => x.AsDtos());
+```csharp
+public async Task<IEnumerable<NugetPackageDto>> GetNugetPackages(string term) =>
+        await NugetFunctions.NuGetLocalRepository()
+            .GetResource()
+            .Bind(x => NugetFunctions.GetMetadata(x, term))
+            .Map(x => x.AsDtos());
+```
 
 Oh look, a Functional pipeline!  Tell me you don't prefer that.
 
@@ -288,25 +308,29 @@ But I still had that nasty TryCatch in the controller.  Luckily for me, along wi
   
 So I did this.  
   
-    public TryAsync<IEnumerable<NugetPackageDto>> TryGetNugetPackagesAsync(string term)
-            => TryAsync(GetNugetPackages(term));
+```csharp
+public TryAsync<IEnumerable<NugetPackageDto>> TryGetNugetPackagesAsync(string term)
+        => TryAsync(GetNugetPackages(term));
+```
 
 And I still didn't want an exception in my controller method, so I put in some MVC helper statics, [which you can find here if you care](https://github.com/richbryant/ReactiveUI.CompellingExample/blob/main/CompellingExample.Blazor/Server/Extensions/ExtensionsForMvc.cs).  And that left my controller as this  
   
-    [Route("api/[controller]")]
-    [ApiController]
-    public class NugetController : ControllerBase
-    {
-        private readonly INugetService _nugetService;
+```csharp
+[Route("api/[controller]")]
+[ApiController]
+public class NugetController : ControllerBase
+{
+    private readonly INugetService _nugetService;
 
-        public NugetController(INugetService nugetService) => _nugetService = nugetService;
+    public NugetController(INugetService nugetService) => _nugetService = nugetService;
 
 
-        [HttpGet("{term}")]
-        public async Task<IActionResult> GetNugetResults(string term) =>
-            await _nugetService.TryGetNugetPackagesAsync(term)
-                .ToActionResult();
-    }
+    [HttpGet("{term}")]
+    public async Task<IActionResult> GetNugetResults(string term) =>
+        await _nugetService.TryGetNugetPackagesAsync(term)
+            .ToActionResult();
+}
+```
     
 Not only easy but also easy to throw in a few Functional C# improvements at the same time.  
   

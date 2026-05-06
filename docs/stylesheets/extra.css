@@ -1,8 +1,22 @@
+/* RXUI palette + mkdocs-material-style visual treatment for the NuStreamDocs Material 3 theme.
+   The MD3 theme uses Google's --md-sys-color-* tokens (not mkdocs-material's
+   --md-primary-fg-color), so we override the M3 tokens that drive the header / tab strip /
+   active links to give the site the same blue-header, white-text feel mkdocs-material renders. */
+
 :root {
   --rxui-blue: #319af3;
   --rxui-blue-light: #5cb0f6;
   --rxui-blue-dark: #1f6fb8;
 
+  /* Header + tabs run on the same blue-on-white treatment mkdocs-material uses for an
+     opinionated primary palette — drive the M3 surface roles directly. */
+  --md-sys-color-primary: var(--rxui-blue);
+  --md-sys-color-on-primary: #ffffff;
+  --md-sys-color-primary-container: var(--rxui-blue-dark);
+  --md-sys-color-on-primary-container: #ffffff;
+
+  /* Keep the legacy mkdocs-material variables wired up in case any inherited markup or
+     plugin still reads them (e.g. an older snippet that includes a literal style block). */
   --md-primary-fg-color: var(--rxui-blue);
   --md-primary-fg-color--light: var(--rxui-blue-light);
   --md-primary-fg-color--dark: var(--rxui-blue-dark);
@@ -11,76 +25,96 @@
 }
 
 [data-md-color-scheme="slate"] {
+  --md-sys-color-primary: var(--rxui-blue-light);
   --md-primary-fg-color: var(--rxui-blue-light);
   --md-accent-fg-color: var(--rxui-blue-light);
 }
 
-/* Site title ("ReactiveUI") in rxui blue to match reactiveui.net.
-   Zensical's modern theme leaves the header neutral, so we only need
-   to recolour the title and active tab — no header-chrome plumbing. */
+/* ---- Header bar: solid rxui blue with white chrome on top, mirroring the mkdocs-material
+       look that previously shipped at reactiveui.net. ---- */
+.md-header {
+  background: var(--rxui-blue);
+  color: #ffffff;
+  border-bottom: 0;
+}
+
+.md-header__title,
+.md-header__button,
+.md-header__option,
+.md-header__source,
+.md-search__trigger {
+  color: #ffffff;
+}
+
 .md-header__title {
-  color: var(--rxui-blue);
   font-weight: 700;
 }
 
-.md-tabs__link--active,
-.md-tabs__item--active > .md-tabs__link {
-  color: var(--rxui-blue);
-  font-weight: 600;
+.md-header__button:hover,
+.md-header__option:hover,
+.md-header__source:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.12);
 }
 
-/* Compact full-bleed banner that hosts the hero pitch and a code sample
-   side-by-side on wide viewports, stacked on narrow ones. Negative
-   horizontal margin breaks out of the .md-content padding so the gradient
-   reaches the rail edges. */
+.md-search__trigger {
+  border-color: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.md-search__trigger:hover {
+  background: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+}
+
+/* ---- Tab strip: continues the blue header with a slightly darker shade so it reads as a
+       distinct row, but keeps the same on-primary white text. ---- */
+.md-tabs {
+  background: var(--rxui-blue-dark);
+  border-bottom: 0;
+}
+
+.md-tabs__link {
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.md-tabs__link:hover {
+  color: #ffffff;
+}
+
+.md-tabs__item--active > .md-tabs__link {
+  color: #ffffff;
+  border-bottom-color: #ffffff;
+}
+
+/* ---- Sidebar links + body links use the rxui blue accent. ---- */
+.md-typeset a {
+  color: var(--rxui-blue);
+}
+
+.md-typeset a:hover {
+  color: var(--rxui-blue-dark);
+}
+
+.md-nav__link--active {
+  color: var(--rxui-blue);
+}
+
+/* ---- Landing-page hero banner (unchanged from the zensical version). ---- */
 .rxui-landing {
   background: linear-gradient(135deg, var(--rxui-blue-dark) 0%, var(--rxui-blue) 100%);
   color: #fff;
-  /* Keep the side bleed but leave a top gap so the Material header
-     (which is also blue) reads as its own bar instead of blending
-     into the gradient. The bottom rounding + drop shadow give the
-     landing card a clear footprint. */
-  margin: 0 -1.5rem 1.5rem;
-  padding: 1.75rem 1.5rem;
-  border-radius: 0.4rem;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1.5rem;
-  align-items: center;
-}
-
-/* Side-by-side layout only kicks in on genuinely wide viewports — at
-   the previous 60em breakpoint the code column squeezed each line of
-   the example, hiding part of it behind a horizontal scrollbar. The
-   code sample now also gets the larger share of the row (1.6fr vs
-   1fr) so the longest pipeline line renders without clipping. */
-@media screen and (min-width: 80em) {
-  .rxui-landing {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr);
-    padding: 2.25rem 2rem;
-    gap: 2.25rem;
-  }
 }
 
 .rxui-hero h1 {
   color: #fff;
-  font-size: 2.1rem;
-  font-weight: 600;
-  line-height: 1.15;
-  margin: 0 0 0.4rem;
 }
 
 .rxui-hero p.tagline {
-  font-size: 1rem;
-  line-height: 1.45;
   opacity: 0.92;
-  margin: 0 0 1rem;
-  max-width: 32rem;
 }
 
 .rxui-hero .md-button {
-  margin: 0.25rem 0.5rem 0.25rem 0;
   color: #fff;
   border-color: rgba(255, 255, 255, 0.7);
 }
@@ -102,19 +136,7 @@
   color: var(--rxui-blue-dark);
 }
 
-/* Code sample sits inside the gradient panel — drop the outer chrome
-   mkdocs Material adds so the tabs read as part of the hero. */
-.rxui-sample {
-  min-width: 0;
-}
-
-.rxui-sample .tabbed-set {
-  margin: 0;
-}
-
-/* Tab labels sit on the blue gradient — Material's default dark slate
-   text is unreadable. Use translucent white that lifts on hover and
-   becomes solid for the active tab. */
+/* Code-sample tabs sit on the blue gradient — Material's default dark text would be unreadable. */
 .rxui-sample .tabbed-labels > label {
   color: rgba(255, 255, 255, 0.72);
 }
@@ -132,29 +154,7 @@
   background-color: #fff;
 }
 
-.rxui-sample .highlight pre > code {
-  font-size: 0.78rem;
-  line-height: 1.45;
-}
-
-/* Tighten the feature grid — Material's default cards have generous
-   padding that compounds with six items. */
-.md-typeset .grid.cards {
-  grid-gap: 0.6rem;
-  margin-top: 1rem;
-}
-
-.md-typeset .grid.cards > :is(ul, ol) > li,
-.md-typeset .grid.cards > * {
-  padding: 0.85rem 1rem;
-}
-
-.md-typeset .grid.cards p {
-  margin: 0.35rem 0;
-  font-size: 0.78rem;
-  line-height: 1.5;
-}
-
-.md-typeset .grid.cards hr {
-  margin: 0.4rem 0;
-}
+/* Tighten the feature grid — Material's default cards have generous padding that
+   compounds with six items. */
+.md-typeset .grid.cards p { font-size: 0.78rem; line-height: 1.5; }
+.md-typeset .grid.cards hr { margin: 0.4rem 0; }

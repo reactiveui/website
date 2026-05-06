@@ -1,6 +1,7 @@
 ---
 NoTitle: true
 Title: FreshMVVM
+Order: 4
 ---
 ## Comparing freshMvvm and ReactiveUI: Choosing the Right MVVM Framework
 

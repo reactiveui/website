@@ -1,3 +1,6 @@
+---
+Order: 3
+---
 # Contributing to ReactiveUI
 
 ReactiveUI is a collection of around 15 actively maintained projects under the [reactiveui](https://github.com/reactiveui) GitHub organisation. We welcome contributions of all kinds — bug fixes, features, documentation, and test coverage.

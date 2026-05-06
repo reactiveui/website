@@ -1,3 +1,6 @@
+---
+Order: 6
+---
 # CI & Shared Tooling
 
 ReactiveUI maintains consistent build infrastructure across all repositories through shared configurations and reusable GitHub Actions.

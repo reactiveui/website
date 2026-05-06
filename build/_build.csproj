@@ -1,33 +1,45 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
         <OutputType>Exe</OutputType>
         <TargetFramework>net10.0</TargetFramework>
-        <RootNamespace></RootNamespace>
-        <NukeRootDirectory>..</NukeRootDirectory>
-        <NukeScriptDirectory>..</NukeScriptDirectory>
-        <NukeTelemetryVersion>1</NukeTelemetryVersion>
+        <RootNamespace>ReactiveUI.Web</RootNamespace>
+        <Nullable>enable</Nullable>
         <IsPackable>false</IsPackable>
-        <!-- CS0649: Nuke parameter fields (e.g. FailOnBrokenSourceLinks) are
-             assigned by reflection from the matching command-line argument,
-             so the compiler can't see the assignment. -->
-        <NoWarn>$(NoWarn);CS0649</NoWarn>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
     </PropertyGroup>
 
     <ItemGroup>
       <None Include="..\docs\**\*.*" LinkBase="docs" Exclude="..\docs\api\lib\**\*.*;..\docs\api\refs\**\*.*;..\docs\api\cache\**\*.*" />
-      <None Include="..\mkdocs.yml" />
-      <None Include="..\requirements.txt" />
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Nuke.Common" />
-        <PackageReference Include="Serilog.Extensions.Logging" />
+        <PackageReference Include="System.CommandLine" />
+        <PackageReference Include="Microsoft.Extensions.Logging.Console" />
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="SourceDocParser" />
-        <PackageReference Include="SourceDocParser.NuGet" />
-        <PackageReference Include="SourceDocParser.Zensical" />
+        <PackageReference Include="NuStreamDocs" />
+        <PackageReference Include="NuStreamDocs.Autorefs" />
+        <PackageReference Include="NuStreamDocs.Blog" />
+        <PackageReference Include="NuStreamDocs.Blog.Common" />
+        <PackageReference Include="NuStreamDocs.CSharpApiGenerator" />
+        <PackageReference Include="NuStreamDocs.Emoji" />
+        <PackageReference Include="NuStreamDocs.Highlight" />
+        <PackageReference Include="NuStreamDocs.Icons.FontAwesome" />
+        <PackageReference Include="NuStreamDocs.Icons.Material" />
+        <PackageReference Include="NuStreamDocs.Icons.MaterialDesign" />
+        <PackageReference Include="NuStreamDocs.Lightbox" />
+        <PackageReference Include="NuStreamDocs.MagicLink" />
+        <PackageReference Include="NuStreamDocs.MarkdownExtensions" />
+        <PackageReference Include="NuStreamDocs.Nav" />
+        <PackageReference Include="NuStreamDocs.Optimize" />
+        <PackageReference Include="NuStreamDocs.Privacy" />
+        <PackageReference Include="NuStreamDocs.Search" />
+        <PackageReference Include="NuStreamDocs.Serve" />
+        <PackageReference Include="NuStreamDocs.Sitemap" />
+        <PackageReference Include="NuStreamDocs.SuperFences" />
+        <PackageReference Include="NuStreamDocs.Theme.Material3" />
+        <PackageReference Include="NuStreamDocs.Toc" />
     </ItemGroup>
 </Project>

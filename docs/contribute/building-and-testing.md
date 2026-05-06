@@ -1,3 +1,6 @@
+---
+Order: 2
+---
 # Building & Testing
 
 All ReactiveUI repositories follow the same build conventions. If you can build one, you can build any of them.

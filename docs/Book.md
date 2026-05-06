@@ -1,5 +1,6 @@
 ---
 title: Book
+Order: 6
 ---
 
 # You, I, and ReactiveUI

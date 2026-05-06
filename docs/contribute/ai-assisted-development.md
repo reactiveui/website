@@ -1,3 +1,6 @@
+---
+Order: 5
+---
 # AI-Assisted Development
 
 We actively use AI coding tools across ReactiveUI and encourage contributors to do the same. Claude Code and GitHub Copilot are both used by maintainers day-to-day.

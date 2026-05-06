@@ -12,7 +12,7 @@
             "documentInterfaces": true,
             "documentPrivateFields": true,
             "documentationCulture": "en-US",
-            "companyName": "ReactiveUI Association Incorporated",
+            "companyName": "ReactiveUI Association Incorporated and contributors",
             "copyrightText": "Copyright (c) 2019-2026 {companyName}. All rights reserved.\n{companyName} licenses this file to you under the {licenseName} license.\nSee the {licenseFile} file in the project root for full license information.",
             "variables": {
                 "licenseName": "MIT",

@@ -1,0 +1,19 @@
+nav:
+  - index.md
+  - 2021-01-04-reactiveui-association.md
+  - 2019-01-20-reactiveui-rebranding.md
+  - 2018-11-07-reactive-command-abstract.md
+  - 2018-08-28-reactiveui-succession-update.md
+  - 2018-08-13-deprecated-reactive-list.md
+  - 2018-05-15-memory-leak-detection.md
+  - 2018-05-14-reactiveui-succession.md
+  - 2018-05-07-dotnet-core-3-and-reactiveui.md
+  - 2018-05-04-delisting-of-versions-before-8-0-0-from-nuget.md
+  - 2018-05-03-system-reactive-has-a-new-home-on-github.md
+  - 2018-05-02-moving-towards-vsts-and-continuous-deployment.md
+  - 2018-04-30-the-future-of-system-reactive.md
+  - 2018-04-22-you-i-and-reactiveui.md
+  - 2017-09-13-run-a-meetup-are-you-looking-for-presenters.md
+  - 2017-09-07-the-public-api-surface-of-reactiveui-is-now-protected-by-approval-tests.md
+  - 2017-09-05-assemblies-are-now-code-signed-with-the-dotnet-foundation-certificate.md
+  - 2017-08-25-automatic-closure-of-stale-github-issues.md

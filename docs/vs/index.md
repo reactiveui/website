@@ -2,7 +2,7 @@
 NoTitle: true
 ShowInSidebar: false
 Title: ReactiveUI vs.
-Order: 2
+Order: 5
 ---
 
 ## Chosing an MVVM Framework

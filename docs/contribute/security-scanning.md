@@ -1,3 +1,6 @@
+---
+Order: 8
+---
 # Security & Code Scanning
 
 ReactiveUI uses GitHub's built-in security features across the organisation to catch vulnerabilities in code and dependencies. This is relatively new work — not all repos have been onboarded yet, but the pattern below is what we are rolling out.

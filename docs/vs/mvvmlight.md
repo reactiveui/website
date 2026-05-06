@@ -1,5 +1,6 @@
 ---
 NoTitle: true
+Order: 5
 ---
 ## A Comparison of MvvmLight and ReactiveUI: Selecting the Ideal MVVM Framework
 

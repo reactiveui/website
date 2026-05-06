@@ -1,3 +1,6 @@
+---
+Order: 7
+---
 # Renovate & Dependency Management
 
 All ReactiveUI repositories use [Renovate](https://docs.renovatebot.com/) to keep dependencies up to date automatically. The configuration is centralised so every repo behaves the same way.

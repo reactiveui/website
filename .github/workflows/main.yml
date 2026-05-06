@@ -22,12 +22,6 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Setup Python
-        uses: actions/setup-python@v6
-        with:
-          python-version: '3.14'
-          cache: pip
-
       - name: Setup .NET
         uses: actions/setup-dotnet@v5
         with:
@@ -39,40 +33,19 @@ jobs:
         with:
           node-version: '22'
 
-      - name: Cache fetched packages and Python venv
+      - name: Cache fetched packages
         uses: actions/cache@v5
         with:
           path: |
             ~/.nuget/packages
             .api-cache
-            .venv
           # The .api-cache key buckets fetched NuGet assemblies + their
           # extracted lib/refs trees; bust whenever the package list or
-          # SourceDocParser version moves. The .venv bucket buys back
-          # the ~30s pip install of zensical / autorefs each run.
-          key: ${{ runner.os }}-website-${{ hashFiles('nuget-packages.json', 'build/_build.csproj', 'Directory.Packages.props', 'requirements.txt') }}
+          # SourceDocParser version moves.
+          key: ${{ runner.os }}-website-${{ hashFiles('nuget-packages.json', 'build/_build.csproj', 'Directory.Packages.props') }}
 
-      # Run the .NET pipeline (NuGet fetch + Roslyn walk + nav graph
-      # + mkdocs.yml generation) and zensical itself in *separate*
-      # process trees. When zensical was a child of the Nuke .NET
-      # process its OOM ceiling included Roslyn's residual heap +
-      # every loaded SourceDocParser dll, easily eating 500 MB+
-      # before zensical itself started. Splitting the steps lets
-      # zensical see the full runner budget when it actually needs it.
-      - name: Generate API Markdown + mkdocs.yml
-        run: ./build.sh GenerateApi
-
-      - name: Bootstrap Python venv
-        run: |
-          python3 -m venv .venv
-          .venv/bin/pip install --quiet --upgrade pip
-          .venv/bin/pip install --quiet --upgrade --requirement requirements.txt
-
-      - name: Render site with zensical
-        # `--strict` is currently a no-op upstream but harmless; keep
-        # the flag so we pick the gate up automatically once Zensical
-        # implements it.
-        run: PYTHONUNBUFFERED=1 .venv/bin/zensical build --strict
+      - name: Build website
+        run: ./build.sh build
 
       # Runs even when the previous step is cancelled or fails so we
       # capture kernel-level evidence of an OOM kill -- a "cancelled"
@@ -98,8 +71,8 @@ jobs:
         if: ${{ github.event_name != 'pull_request' }}
         # Pipe secrets through env vars rather than expanding into the
         # shell command line so they don't surface in process listings
-        # or in CI logs. site/ is the directory zensical writes to (set
-        # via site_dir: in mkdocs.base.yml).
+        # or in CI logs. site/ is the directory the .NET pipeline writes
+        # to (set via WithOutput in build/Build.cs).
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_DEPLOY_KEY }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}

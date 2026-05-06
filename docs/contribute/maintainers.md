@@ -1,3 +1,6 @@
+---
+Order: 9
+---
 # Maintainers Guide
 
 This page covers the day-to-day processes for ReactiveUI maintainers.

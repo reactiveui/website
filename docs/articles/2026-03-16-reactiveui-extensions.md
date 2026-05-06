@@ -5,6 +5,7 @@ Title: Mastering ReactiveUI.Extensions
 Tags: Article
 Author: Chris Pulman
 Published: 2026-03-16
+Order: 6
 ---
 # Mastering ReactiveUI.Extensions: A Comprehensive Guide to Async Reactive Programming in .NET
 
