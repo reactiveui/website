@@ -13,7 +13,7 @@ hide:
 
 <p class="tagline">An advanced, composable, functional reactive model-view-viewmodel framework for all .NET platforms.</p>
 
-[:material-rocket-launch: Get started](docs/getting-started/index.md){ .md-button .md-button--primary }
+[:material-rocket-launch: Get started](documentation/getting-started/index.md){ .md-button .md-button--primary }
 [:fontawesome-brands-github: Star on GitHub](https://github.com/reactiveui/ReactiveUI){ .md-button }
 
 </div>
@@ -60,13 +60,13 @@ hide:
 
     ---
 
-    Build re-usable chunks of functionality that slot into your reactive pipelines. Write and [test code](docs/handbook/testing.md) once, leverage it many times.
+    Build re-usable chunks of functionality that slot into your reactive pipelines. Write and [test code](documentation/handbook/testing.md) once, leverage it many times.
 
 -   :material-monitor-cellphone:{ .lg .middle } **Cross-platform**
 
     ---
 
-    Share business logic between mobile and desktop. First-class support for [.NET (WPF, WinForms, WinUI), MAUI, Avalonia, and Uno](docs/getting-started/installation/index.md). Xamarin remains supported for legacy apps.
+    Share business logic between mobile and desktop. First-class support for [.NET (WPF, WinForms, WinUI), MAUI, Avalonia, and Uno](documentation/getting-started/installation/index.md). Xamarin remains supported for legacy apps.
 
 -   :material-test-tube:{ .lg .middle } **Scalable & Testable**
 

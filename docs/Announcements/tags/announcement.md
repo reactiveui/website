@@ -177,7 +177,7 @@ hide:
   <div class="md-post__meta">
     <time datetime="2017-09-05">September 5, 2017</time><span class="md-post__author"> — Geoffrey Huntley</span>
   </div>
-  <p class="md-post__excerpt">Thanks to a legendary contribution from Oren Novotny, all ReactiveUI assemblies from `v8.0.0-alpha73` and onwards are code signed with the .NET Foundation certificate. Identity signing of the assemblies means that you can [verify the authenticity of the binaries](../docs/security/index.md)  used in your application and ensure they have not been tampered with as only assemblies compiled via the .NET Foundation CI infrastructure are signed with this certificate.</p>
+  <p class="md-post__excerpt">Thanks to a legendary contribution from Oren Novotny, all ReactiveUI assemblies from `v8.0.0-alpha73` and onwards are code signed with the .NET Foundation certificate. Identity signing of the assemblies means that you can [verify the authenticity of the binaries](../documentation/security/index.md)  used in your application and ensure they have not been tampered with as only assemblies compiled via the .NET Foundation CI infrastructure are signed with this certificate.</p>
   <div class="md-post__tags"><span class="md-tag">Announcement</span></div>
 </article>
 

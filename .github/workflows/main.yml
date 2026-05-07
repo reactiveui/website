@@ -72,7 +72,7 @@ jobs:
         # Pipe secrets through env vars rather than expanding into the
         # shell command line so they don't surface in process listings
         # or in CI logs. site/ is the directory the .NET pipeline writes
-        # to (set via WithOutput in build/Build.cs).
+        # to (set via WithOutput in build/Program.cs).
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_DEPLOY_KEY }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}

@@ -17,7 +17,7 @@ produced end-to-end by **[NuStreamDocs](https://github.com/glennawatson/NuStream
 (MIT), a zero-dependency .NET static-site generator. No Python, no Node, no
 external Markdown processor runs at build time.
 
-API reference pages under [`/api`](api/) are produced by NuStreamDocs in
+API reference pages under [`/api`](/api/) are produced by NuStreamDocs in
 combination with **[SourceDocParser](https://github.com/glennawatson/SourceDocParserLib)**
 (MIT), a sibling library that walks the published NuGet `.dll` + `.xml`
 triples and emits the portable doc model NuStreamDocs renders.

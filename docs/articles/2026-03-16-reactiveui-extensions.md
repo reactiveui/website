@@ -41,7 +41,7 @@ This article provides an extensive, in-depth technical exploration of ReactiveUI
 
 ---
 
-## 1. Introduction to ReactiveUI.Extensions <a name="introduction"></a>
+## 1. Introduction to ReactiveUI.Extensions { #introduction }
 
 ### Why ReactiveUI.Extensions?
 
@@ -70,7 +70,7 @@ dotnet add package ReactiveUI.Extensions
 
 ---
 
-## 2. Understanding IObservableAsync<T> vs IObservable<T> <a name="observable-comparison"></a>
+## 2. Understanding IObservableAsync<T> vs IObservable<T> { #observable-comparison }
 
 ### IObservable<T> (Traditional Rx.NET)
 
@@ -136,7 +136,7 @@ public interface IObservableAsync<T>
 
 ---
 
-## 3. Understanding IObserverAsync<T> vs IObserver<T> <a name="observer-comparison"></a>
+## 3. Understanding IObserverAsync<T> vs IObserver<T> { #observer-comparison }
 
 ### IObserver<T> (Traditional)
 
@@ -272,7 +272,7 @@ public class ResilientObserver : ObserverAsync<int>
 
 ---
 
-## 4. Core Async Interfaces and Types <a name="core-interfaces"></a>
+## 4. Core Async Interfaces and Types { #core-interfaces }
 
 ### IObservableAsync<T>
 
@@ -416,7 +416,7 @@ public readonly struct Result
 
 ---
 
-## 5. Factory Methods and Observable Creation <a name="factory-methods"></a>
+## 5. Factory Methods and Observable Creation { #factory-methods }
 
 ### ObservableAsync.Create
 
@@ -635,7 +635,7 @@ var asyncVersion = classic.ToObservableAsync();
 
 ---
 
-## 6. Transformation Operators <a name="transformation-operators"></a>
+## 6. Transformation Operators { #transformation-operators }
 
 ### Select (Sync)
 
@@ -759,7 +759,7 @@ var grouped = source.GroupBy(x => x % 2 == 0 ? "even" : "odd");
 
 ---
 
-## 7. Filtering Operators <a name="filtering-operators"></a>
+## 7. Filtering Operators { #filtering-operators }
 
 ### Where (Sync)
 
@@ -919,7 +919,7 @@ var noConsecDups = items.DistinctUntilChanged(); // 1, 2, 3, 1, 3
 
 ---
 
-## 8. Combining and Merging Operators <a name="combining-operators"></a>
+## 8. Combining and Merging Operators { #combining-operators }
 
 ### Merge
 
@@ -1044,7 +1044,7 @@ var withMany = a.StartWith(-2, -1, 0); // -2, -1, 0, 1, 2, 3
 
 ---
 
-## 9. Error Handling and Resilience <a name="error-handling"></a>
+## 9. Error Handling and Resilience { #error-handling }
 
 ### Catch
 
@@ -1108,7 +1108,7 @@ public static IObservableAsync<T> OnErrorResumeAsFailure<T>(
 
 ---
 
-## 10. Timing and Scheduling <a name="timing-scheduling"></a>
+## 10. Timing and Scheduling { #timing-scheduling }
 
 ### Throttle
 
@@ -1205,7 +1205,7 @@ public static IObservableAsync<T> Yield<T>(
 
 ---
 
-## 11. Aggregation and Terminal Operators <a name="aggregation-operators"></a>
+## 11. Aggregation and Terminal Operators { #aggregation-operators }
 
 ### AggregateAsync
 
@@ -1388,7 +1388,7 @@ public static ValueTask WaitCompletionAsync<T>(
 
 ---
 
-## 12. Async Disposables and Resource Management <a name="async-disposables"></a>
+## 12. Async Disposables and Resource Management { #async-disposables }
 
 ### DisposableAsync
 
@@ -1484,7 +1484,7 @@ public sealed class SingleAssignmentDisposableAsync : IAsyncDisposable
 
 ---
 
-## 13. Subjects and Multicasting <a name="subjects-multicasting"></a>
+## 13. Subjects and Multicasting { #subjects-multicasting }
 
 ### SubjectAsync
 
@@ -1579,7 +1579,7 @@ var replayed = source.ReplayLatest().RefCount();
 
 ---
 
-## 14. Bridging Classic and Async Observables <a name="bridging"></a>
+## 14. Bridging Classic and Async Observables { #bridging }
 
 ### ObservableBridgeExtensions
 
@@ -1628,7 +1628,7 @@ var fromAsyncEnum = GenerateAsync().ToObservableAsync();
 
 ---
 
-## 15. Classic Reactive Extensions Operators <a name="classic-operators"></a>
+## 15. Classic Reactive Extensions Operators { #classic-operators }
 
 ReactiveUI.Extensions also provides valuable operators for traditional `IObservable<T>` that don't ship with System.Reactive.
 
@@ -1934,7 +1934,7 @@ public static IObservable<TProperty> ToPropertyObservable<TSource, TProperty>(
 
 ---
 
-## 16. Advanced Multi-Threading Examples <a name="advanced-examples"></a>
+## 16. Advanced Multi-Threading Examples { #advanced-examples }
 
 ### Example 1: Parallel Data Processing Pipeline
 
@@ -2229,7 +2229,7 @@ public class BackpressureHandler
 
 ---
 
-## 17. Performance Considerations <a name="performance"></a>
+## 17. Performance Considerations { #performance }
 
 ### ValueTask vs Task
 
@@ -2292,7 +2292,7 @@ await composite.DisposeAsync();
 
 ---
 
-## 18. Best Practices <a name="best-practices"></a>
+## 18. Best Practices { #best-practices }
 
 ### 1. Always Pass CancellationToken
 
