@@ -72,7 +72,7 @@ hide:
 
     ---
 
-    Built on System.Reactive, ReactiveUI [copes gracefully as your application grows](https://ericsink.com/entries/dont_use_rxui.html). Control time in tests — no more 3-second waits.
+    Built on System.Reactive, ReactiveUI [copes gracefully as your application grows](articles/2026-05-07-why-reactiveui-earns-its-keep.md). Control time in tests — no more 3-second waits.
 
 -   :material-book-open-page-variant-outline:{ .lg .middle } **Reactive Extensions**
 

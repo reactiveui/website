@@ -7,6 +7,17 @@ hide:
 
 <article class="md-post">
   <header class="md-post__header">
+    <h3 class="md-post__title"><a href="2026-05-07-why-reactiveui-earns-its-keep.md">Why ReactiveUI Earns Its Keep</a></h3>
+  </header>
+  <div class="md-post__meta">
+    <time datetime="2026-05-07">May 7, 2026</time><span class="md-post__author"> — Glenn Watson</span>
+  </div>
+  <p class="md-post__excerpt">In 2017 Eric Sink wrote a piece with the deliberately sardonic title [*"I have become a huge fan of ReactiveUI"*](https://ericsink.com/entries/dont_use_rxui.html) — and the thesis still holds nine years later:</p>
+  <div class="md-post__tags"><span class="md-tag">Article</span></div>
+</article>
+
+<article class="md-post">
+  <header class="md-post__header">
     <h3 class="md-post__title"><a href="2026-03-16-reactiveui-extensions.md">Mastering ReactiveUI.Extensions</a></h3>
   </header>
   <div class="md-post__meta">
@@ -183,23 +194,23 @@ hide:
 
 <article class="md-post">
   <header class="md-post__header">
-    <h3 class="md-post__title"><a href="2018-08-17-reactiveui-v8.6.3-released.md">ReactiveUI v8.6.3 released</a></h3>
-  </header>
-  <div class="md-post__meta">
-    <time datetime="2018-08-17">August 17, 2018</time><span class="md-post__author"> — Glenn Watson</span>
-  </div>
-  <p class="md-post__excerpt">Release 8.6.3 of ReactiveUI is available!</p>
-  <div class="md-post__tags"><span class="md-tag">Release Notes</span></div>
-</article>
-
-<article class="md-post">
-  <header class="md-post__header">
     <h3 class="md-post__title"><a href="2018-08-17-reactiveui-v8.7.1-released.md">ReactiveUI v8.7.1 released</a></h3>
   </header>
   <div class="md-post__meta">
     <time datetime="2018-08-17">August 17, 2018</time><span class="md-post__author"> — Rodney Littles, II</span>
   </div>
   <p class="md-post__excerpt">Release 8.7.1 of ReactiveUI is available!</p>
+  <div class="md-post__tags"><span class="md-tag">Release Notes</span></div>
+</article>
+
+<article class="md-post">
+  <header class="md-post__header">
+    <h3 class="md-post__title"><a href="2018-08-17-reactiveui-v8.6.3-released.md">ReactiveUI v8.6.3 released</a></h3>
+  </header>
+  <div class="md-post__meta">
+    <time datetime="2018-08-17">August 17, 2018</time><span class="md-post__author"> — Glenn Watson</span>
+  </div>
+  <p class="md-post__excerpt">Release 8.6.3 of ReactiveUI is available!</p>
   <div class="md-post__tags"><span class="md-tag">Release Notes</span></div>
 </article>
 

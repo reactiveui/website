@@ -106,23 +106,23 @@ hide:
 
 <article class="md-post">
   <header class="md-post__header">
-    <h3 class="md-post__title"><a href="../2018-08-17-reactiveui-v8.6.3-released.md">ReactiveUI v8.6.3 released</a></h3>
-  </header>
-  <div class="md-post__meta">
-    <time datetime="2018-08-17">August 17, 2018</time><span class="md-post__author"> — Glenn Watson</span>
-  </div>
-  <p class="md-post__excerpt">Release 8.6.3 of ReactiveUI is available!</p>
-  <div class="md-post__tags"><span class="md-tag">Release Notes</span></div>
-</article>
-
-<article class="md-post">
-  <header class="md-post__header">
     <h3 class="md-post__title"><a href="../2018-08-17-reactiveui-v8.7.1-released.md">ReactiveUI v8.7.1 released</a></h3>
   </header>
   <div class="md-post__meta">
     <time datetime="2018-08-17">August 17, 2018</time><span class="md-post__author"> — Rodney Littles, II</span>
   </div>
   <p class="md-post__excerpt">Release 8.7.1 of ReactiveUI is available!</p>
+  <div class="md-post__tags"><span class="md-tag">Release Notes</span></div>
+</article>
+
+<article class="md-post">
+  <header class="md-post__header">
+    <h3 class="md-post__title"><a href="../2018-08-17-reactiveui-v8.6.3-released.md">ReactiveUI v8.6.3 released</a></h3>
+  </header>
+  <div class="md-post__meta">
+    <time datetime="2018-08-17">August 17, 2018</time><span class="md-post__author"> — Glenn Watson</span>
+  </div>
+  <p class="md-post__excerpt">Release 8.6.3 of ReactiveUI is available!</p>
   <div class="md-post__tags"><span class="md-tag">Release Notes</span></div>
 </article>
 

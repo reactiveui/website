@@ -1,5 +1,6 @@
 nav:
   - index.md
+  - 2026-05-07-why-reactiveui-earns-its-keep.md
   - 2026-03-16-reactiveui-extensions.md
   - 2025-08-25-akavache_refreshed-V11.md
   - 2025-02-01-article-on-ReactiveUI-With-Wpf.md
@@ -16,8 +17,8 @@ nav:
   - 2018-11-11-reactiveui-v9.2.2-released.md
   - 2018-10-28-reactiveui-v9.1.1-released.md
   - 2018-10-05-reactiveui-v9.0.1-released.md
-  - 2018-08-17-reactiveui-v8.6.3-released.md
   - 2018-08-17-reactiveui-v8.7.1-released.md
+  - 2018-08-17-reactiveui-v8.6.3-released.md
   - 2018-08-14-reactiveui-v8.6.1-released.md
   - 2018-08-10-reactiveui-v8.5.1-released.md
   - 2018-08-07-reactiveui-v8.4.4-released.md

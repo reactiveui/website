@@ -30,6 +30,7 @@
         <PackageReference Include="NuStreamDocs.Icons.Material" />
         <PackageReference Include="NuStreamDocs.Icons.MaterialDesign" />
         <PackageReference Include="NuStreamDocs.Lightbox" />
+        <PackageReference Include="NuStreamDocs.LinkValidator" />
         <PackageReference Include="NuStreamDocs.MagicLink" />
         <PackageReference Include="NuStreamDocs.MarkdownExtensions" />
         <PackageReference Include="NuStreamDocs.Nav" />
@@ -42,4 +43,39 @@
         <PackageReference Include="NuStreamDocs.Theme.Material3" />
         <PackageReference Include="NuStreamDocs.Toc" />
     </ItemGroup>
+
+    <!-- Local-iteration: ProjectReference into the SourceMkDoc checkout so unpublished
+         changes in the sibling repo flow into the website build with no NuGet pack/publish
+         cycle. Uncomment this block (and comment out the PackageReference block above)
+         to switch from the published 1.x packages to the live source tree.
+    <PropertyGroup>
+        <NuStreamDocsSrc>$(MSBuildThisFileDirectory)..\..\..\glennawatson\SourceMkDoc\src</NuStreamDocsSrc>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="$(NuStreamDocsSrc)\NuStreamDocs\NuStreamDocs.csproj" />
+        <ProjectReference Include="$(NuStreamDocsSrc)\NuStreamDocs.Autorefs\NuStreamDocs.Autorefs.csproj" />
+        <ProjectReference Include="$(NuStreamDocsSrc)\NuStreamDocs.Blog\NuStreamDocs.Blog.csproj" />
+        <ProjectReference Include="$(NuStreamDocsSrc)\NuStreamDocs.Blog.Common\NuStreamDocs.Blog.Common.csproj" />
+        <ProjectReference Include="$(NuStreamDocsSrc)\NuStreamDocs.CSharpApiGenerator\NuStreamDocs.CSharpApiGenerator.csproj" />
+        <ProjectReference Include="$(NuStreamDocsSrc)\NuStreamDocs.Emoji\NuStreamDocs.Emoji.csproj" />
+        <ProjectReference Include="$(NuStreamDocsSrc)\NuStreamDocs.Highlight\NuStreamDocs.Highlight.csproj" />
+        <ProjectReference Include="$(NuStreamDocsSrc)\NuStreamDocs.Icons.FontAwesome\NuStreamDocs.Icons.FontAwesome.csproj" />
+        <ProjectReference Include="$(NuStreamDocsSrc)\NuStreamDocs.Icons.Material\NuStreamDocs.Icons.Material.csproj" />
+        <ProjectReference Include="$(NuStreamDocsSrc)\NuStreamDocs.Icons.MaterialDesign\NuStreamDocs.Icons.MaterialDesign.csproj" />
+        <ProjectReference Include="$(NuStreamDocsSrc)\NuStreamDocs.Lightbox\NuStreamDocs.Lightbox.csproj" />
+        <ProjectReference Include="$(NuStreamDocsSrc)\NuStreamDocs.LinkValidator\NuStreamDocs.LinkValidator.csproj" />
+        <ProjectReference Include="$(NuStreamDocsSrc)\NuStreamDocs.MagicLink\NuStreamDocs.MagicLink.csproj" />
+        <ProjectReference Include="$(NuStreamDocsSrc)\NuStreamDocs.MarkdownExtensions\NuStreamDocs.MarkdownExtensions.csproj" />
+        <ProjectReference Include="$(NuStreamDocsSrc)\NuStreamDocs.Nav\NuStreamDocs.Nav.csproj" />
+        <ProjectReference Include="$(NuStreamDocsSrc)\NuStreamDocs.Optimize\NuStreamDocs.Optimize.csproj" />
+        <ProjectReference Include="$(NuStreamDocsSrc)\NuStreamDocs.Privacy\NuStreamDocs.Privacy.csproj" />
+        <ProjectReference Include="$(NuStreamDocsSrc)\NuStreamDocs.Search\NuStreamDocs.Search.csproj" />
+        <ProjectReference Include="$(NuStreamDocsSrc)\NuStreamDocs.Serve\NuStreamDocs.Serve.csproj" />
+        <ProjectReference Include="$(NuStreamDocsSrc)\NuStreamDocs.Sitemap\NuStreamDocs.Sitemap.csproj" />
+        <ProjectReference Include="$(NuStreamDocsSrc)\NuStreamDocs.SuperFences\NuStreamDocs.SuperFences.csproj" />
+        <ProjectReference Include="$(NuStreamDocsSrc)\NuStreamDocs.Theme.Material3\NuStreamDocs.Theme.Material3.csproj" />
+        <ProjectReference Include="$(NuStreamDocsSrc)\NuStreamDocs.Toc\NuStreamDocs.Toc.csproj" />
+    </ItemGroup>
+    -->
 </Project>

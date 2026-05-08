@@ -2,7 +2,7 @@
   <PropertyGroup>
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
     <CentralPackageTransitivePinningEnabled>true</CentralPackageTransitivePinningEnabled>
-    <NuStreamDocsVersion>1.0.0</NuStreamDocsVersion>
+    <NuStreamDocsVersion>1.0.2</NuStreamDocsVersion>
   </PropertyGroup>
 
   <ItemGroup>
@@ -31,6 +31,7 @@
     <PackageVersion Include="NuStreamDocs.Icons.Material" Version="$(NuStreamDocsVersion)" />
     <PackageVersion Include="NuStreamDocs.Icons.MaterialDesign" Version="$(NuStreamDocsVersion)" />
     <PackageVersion Include="NuStreamDocs.Lightbox" Version="$(NuStreamDocsVersion)" />
+    <PackageVersion Include="NuStreamDocs.LinkValidator" Version="$(NuStreamDocsVersion)" />
     <PackageVersion Include="NuStreamDocs.MagicLink" Version="$(NuStreamDocsVersion)" />
     <PackageVersion Include="NuStreamDocs.MarkdownExtensions" Version="$(NuStreamDocsVersion)" />
     <PackageVersion Include="NuStreamDocs.Nav" Version="$(NuStreamDocsVersion)" />

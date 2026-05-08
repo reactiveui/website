@@ -20,6 +20,7 @@ using NuStreamDocs.Icons.Material;
 using NuStreamDocs.Icons.MaterialDesign;
 using NuStreamDocs.Lightbox;
 using NuStreamDocs.Links;
+using NuStreamDocs.LinkValidator;
 using NuStreamDocs.MagicLink;
 using NuStreamDocs.MarkdownExtensions;
 using NuStreamDocs.Nav;
@@ -47,6 +48,9 @@ internal static class Program
 
     /// <summary>Out-of-tree cache for the NuGet fetcher (lib/, refs/, cache/).</summary>
     private const string ApiCacheFolder = ".api-cache";
+
+    /// <summary>Build-script intermediate folder — holds <c>api-md/</c>, <c>api-yml/</c>, and <c>metadata-configs/</c> staged outputs.</summary>
+    private const string IntermediateFolder = "build/_intermediate";
 
     /// <summary>Default port for the preview server.</summary>
     private const int DefaultPort = 8000;
@@ -79,6 +83,9 @@ internal static class Program
     /// <summary>Gets the absolute site output directory.</summary>
     private static DirectoryPath SiteOutputPath => RootDirectory / SiteFolder;
 
+    /// <summary>Gets the absolute build-intermediate directory.</summary>
+    private static DirectoryPath IntermediatePath => RootDirectory / IntermediateFolder;
+
     /// <summary>Entry point: parses verbs and dispatches to the matching async handler.</summary>
     /// <param name="args">Process arguments.</param>
     /// <returns>Process exit code.</returns>
@@ -90,14 +97,24 @@ internal static class Program
             DefaultValueFactory = _ => DefaultPort,
         };
 
-        var build = new Command("build", "Build the full site (api walk + render + emit) into site/.");
-        build.SetAction((_, ct) => RunBuildAsync(ct));
+        var strictOption = new Option<bool>("--strict")
+        {
+            Description = "Fail the build on broken internal links and other validation diagnostics. Pass --strict false to downgrade to warnings.",
+            DefaultValueFactory = _ => true,
+        };
+
+        var build = new Command("build", "Build the full site (api walk + render + emit) into site/.")
+        {
+            strictOption,
+        };
+        build.SetAction((parseResult, ct) => RunBuildAsync(parseResult.GetValue(strictOption), ct));
 
         var serve = new Command("serve", "Run the watch + serve loop for local development.")
         {
             portOption,
+            strictOption,
         };
-        serve.SetAction((parseResult, ct) => RunServeAsync(parseResult.GetValue(portOption), ct));
+        serve.SetAction((parseResult, ct) => RunServeAsync(parseResult.GetValue(portOption), parseResult.GetValue(strictOption), ct));
 
         var clean = new Command("clean", "Wipe the API cache, generated namespace dirs, and prior site output.");
         clean.SetAction(_ => RunClean());
@@ -113,11 +130,12 @@ internal static class Program
     }
 
     /// <summary>Runs the full site build.</summary>
+    /// <param name="strict">When true, internal-link validation diagnostics fail the build.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>Process exit code.</returns>
-    private static async Task<int> RunBuildAsync(CancellationToken cancellationToken)
+    private static async Task<int> RunBuildAsync(bool strict, CancellationToken cancellationToken)
     {
-        var builder = ConfigureBuilder();
+        var builder = ConfigureBuilder(strict);
         await builder.BuildAsync(cancellationToken).ConfigureAwait(false);
         _logging.SiteBuilt(SiteOutputPath.Value);
         return 0;
@@ -125,12 +143,13 @@ internal static class Program
 
     /// <summary>Runs the watch + serve loop for local development.</summary>
     /// <param name="port">Port the dev server listens on.</param>
+    /// <param name="strict">When true, internal-link validation diagnostics fail each rebuild.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>Process exit code.</returns>
-    private static async Task<int> RunServeAsync(int port, CancellationToken cancellationToken)
+    private static async Task<int> RunServeAsync(int port, bool strict, CancellationToken cancellationToken)
     {
         _logging.Serving(port);
-        var builder = ConfigureBuilder();
+        var builder = ConfigureBuilder(strict);
         await builder
             .WatchAndServeAsync(
                 opts => opts with { Port = port },
@@ -140,15 +159,14 @@ internal static class Program
         return 0;
     }
 
-    /// <summary>Wipes the API cache, generated namespace dirs, and prior site output.</summary>
+    /// <summary>Wipes every caches and generated-output folder so the next build is fully cold.</summary>
     /// <returns>Process exit code.</returns>
     private static int RunClean()
     {
-        if (Directory.Exists(ApiCachePath.Value))
-        {
-            Directory.Delete(ApiCachePath.Value, recursive: true);
-        }
+        // NuGet-fetcher cache (.api-cache/) — lib + refs + per-package metadata.
+        DeleteDirectoryIfExists(ApiCachePath.Value);
 
+        // Generated namespace dirs under docs/api/ — keep author files (api/index.md etc.) intact.
         if (Directory.Exists(ApiPath.Value))
         {
             foreach (var dir in Directory.EnumerateDirectories(ApiPath.Value))
@@ -157,17 +175,32 @@ internal static class Program
             }
         }
 
-        if (Directory.Exists(SiteOutputPath.Value))
-        {
-            Directory.Delete(SiteOutputPath.Value, recursive: true);
-        }
+        // Build-script intermediate (api-md/, api-yml/, metadata-configs/).
+        DeleteDirectoryIfExists(IntermediatePath.Value);
+
+        // Rendered site output (site/) — also drops the .nustreamdocs.manifest.json
+        // incremental-cache file so the next build re-renders every page.
+        DeleteDirectoryIfExists(SiteOutputPath.Value);
 
         return 0;
     }
 
+    /// <summary>Deletes <paramref name="path"/> and its descendants when the directory exists.</summary>
+    /// <param name="path">Absolute directory path.</param>
+    private static void DeleteDirectoryIfExists(string path)
+    {
+        if (!Directory.Exists(path))
+        {
+            return;
+        }
+
+        Directory.Delete(path, recursive: true);
+    }
+
     /// <summary>Builds the configured <see cref="DocBuilder"/> shared between the build and serve verbs.</summary>
+    /// <param name="strict">When true, internal-link validation diagnostics fail the build.</param>
     /// <returns>The configured builder.</returns>
-    private static DocBuilder ConfigureBuilder() =>
+    private static DocBuilder ConfigureBuilder(bool strict) =>
         new DocBuilder()
             .WithInput(WebRootPath.Value)
             .WithOutput(SiteOutputPath.Value)
@@ -221,8 +254,9 @@ internal static class Program
             })
             .UseCommonMarkdownExtensions()
             .UseMarkdownLinks()
-            .UseSearch()
+            .UseSearch(static opts => opts.WithSectionPriorities("documentation/:80,articles/:40,Announcements/:40,api/:-200"u8))
             .UseSitemap()
+            .UseLinkValidator(LinkValidatorOptions.Default with { StrictInternal = strict }, _logging.For<LinkValidatorPlugin>())
             .UseWyamBlog(new WyamBlogOptions((PathSegment)"Announcements", "Announcements"u8.ToArray()))
             .UseWyamBlog(new WyamBlogOptions((PathSegment)"articles", "Release Notes"u8.ToArray()))
             .UseOptimize(OptimizeOptions.Default with
