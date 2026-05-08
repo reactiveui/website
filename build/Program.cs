@@ -6,6 +6,7 @@ using System;
 using System.CommandLine;
 using System.IO;
 using System.IO.Compression;
+using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 using NuStreamDocs.Autorefs;
@@ -68,8 +69,12 @@ internal static class Program
         "packages on every site deploy; pick a namespace to dive in."u8;
 
     /// <summary>Gets the absolute repository root.</summary>
-    private static DirectoryPath RootDirectory =>
-        (DirectoryPath)Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "..", "..", "..", ".."));
+    /// <remarks>
+    /// Anchored at compile time via <see cref="CallerFilePathAttribute"/> on the <c>ResolveRoot</c> helper so the
+    /// path is stable regardless of binary output layout (configuration, target framework, RID, single-file
+    /// publish all change <see cref="AppContext.BaseDirectory"/>; the source-file path is a constant).
+    /// </remarks>
+    private static DirectoryPath RootDirectory { get; } = ResolveRoot();
 
     /// <summary>Gets the absolute docs root.</summary>
     private static DirectoryPath WebRootPath => RootDirectory / DocsFolder;
@@ -128,6 +133,12 @@ internal static class Program
 
         return root.Parse(args).InvokeAsync();
     }
+
+    /// <summary>Resolves the repository root from <c>build/Program.cs</c> by walking one directory up.</summary>
+    /// <param name="programPath">Compile-time-injected absolute path of this source file; do not pass.</param>
+    /// <returns>Absolute path of the repository root.</returns>
+    private static DirectoryPath ResolveRoot([CallerFilePath] string programPath = "") =>
+        (DirectoryPath)Path.GetFullPath("..", Path.GetDirectoryName(programPath)!);
 
     /// <summary>Runs the full site build.</summary>
     /// <param name="strict">When true, internal-link validation diagnostics fail the build.</param>
