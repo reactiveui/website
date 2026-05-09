@@ -15,23 +15,30 @@ using NuStreamDocs.Building;
 using NuStreamDocs.Common;
 using NuStreamDocs.CSharpApiGenerator;
 using NuStreamDocs.Emoji;
+using NuStreamDocs.Feed;
 using NuStreamDocs.Highlight;
 using NuStreamDocs.Icons.FontAwesome;
 using NuStreamDocs.Icons.Material;
 using NuStreamDocs.Icons.MaterialDesign;
+using NuStreamDocs.Keys;
 using NuStreamDocs.Lightbox;
 using NuStreamDocs.Links;
 using NuStreamDocs.LinkValidator;
 using NuStreamDocs.MagicLink;
 using NuStreamDocs.MarkdownExtensions;
+using NuStreamDocs.Mermaid;
 using NuStreamDocs.Nav;
 using NuStreamDocs.Optimize;
-using NuStreamDocs.Search;
+using NuStreamDocs.Search.Pagefind;
 using NuStreamDocs.Serve;
 using NuStreamDocs.Sitemap;
+using NuStreamDocs.SmartSymbols;
+using NuStreamDocs.Snippets;
 using NuStreamDocs.SuperFences;
+using NuStreamDocs.Tags;
 using NuStreamDocs.Theme.Material3;
 using NuStreamDocs.Toc;
+using NuStreamDocs.Xrefs;
 
 namespace ReactiveUI.Web;
 
@@ -240,6 +247,7 @@ internal static class Program
             .UseMaterialIcons()
             .UseNav(static opts => (opts with { Tabs = true, Prune = true }).AddExcludes((GlobPattern)"404.md"))
             .UseAutorefs()
+            .UseXrefs()
             .UseToc()
             .UseHighlight(HighlightOptions.Default with
             {
@@ -256,8 +264,13 @@ internal static class Program
                 ],
             })
             .UseSuperFences()
+            .UseMermaid()
             .UseEmoji()
             .UseLightbox()
+            .UseKeys()
+            .UseSmartSymbols()
+            .UseSnippets()
+            .UseTags()
             .UseMagicLink(new MagicLinkOptions
             {
                 DefaultRepo = "reactiveui/ReactiveUI"u8.ToArray(),
@@ -265,11 +278,22 @@ internal static class Program
             })
             .UseCommonMarkdownExtensions()
             .UseMarkdownLinks()
-            .UseSearch(static opts => opts.WithSectionPriorities("documentation/:80,articles/:40,Announcements/:40,api/:-200"u8))
+            .UsePagefindSearch(static opts =>
+                opts.WithSectionPriorities("documentation/:80,articles/:40,Announcements/:40,api/:-200"u8))
             .UseSitemap()
             .UseLinkValidator(LinkValidatorOptions.Default with { StrictInternal = strict }, _logging.For<LinkValidatorPlugin>())
             .UseWyamBlog(new WyamBlogOptions((PathSegment)"Announcements", "Announcements"u8.ToArray()))
             .UseWyamBlog(new WyamBlogOptions((PathSegment)"articles", "Release Notes"u8.ToArray()))
+            .UseFeed(new FeedOptions(
+                [.. "https://reactiveui.net"u8],
+                [.. "ReactiveUI Announcements"u8],
+                [.. "Latest announcements from the ReactiveUI team."u8],
+                (PathSegment)"Announcements"))
+            .UseFeed(new FeedOptions(
+                [.. "https://reactiveui.net"u8],
+                [.. "ReactiveUI Release Notes"u8],
+                [.. "Release notes for ReactiveUI and ecosystem packages."u8],
+                (PathSegment)"articles"))
             .UseOptimize(OptimizeOptions.Default with
             {
                 GzipLevel = CompressionLevel.Optimal,

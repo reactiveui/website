@@ -2,7 +2,7 @@
   <PropertyGroup>
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
     <CentralPackageTransitivePinningEnabled>true</CentralPackageTransitivePinningEnabled>
-    <NuStreamDocsVersion>1.0.2</NuStreamDocsVersion>
+    <NuStreamDocsVersion>1.2.0</NuStreamDocsVersion>
   </PropertyGroup>
 
   <ItemGroup>
@@ -26,23 +26,31 @@
     <PackageVersion Include="NuStreamDocs.Blog.Common" Version="$(NuStreamDocsVersion)" />
     <PackageVersion Include="NuStreamDocs.CSharpApiGenerator" Version="$(NuStreamDocsVersion)" />
     <PackageVersion Include="NuStreamDocs.Emoji" Version="$(NuStreamDocsVersion)" />
+    <PackageVersion Include="NuStreamDocs.Feed" Version="$(NuStreamDocsVersion)" />
     <PackageVersion Include="NuStreamDocs.Highlight" Version="$(NuStreamDocsVersion)" />
     <PackageVersion Include="NuStreamDocs.Icons.FontAwesome" Version="$(NuStreamDocsVersion)" />
     <PackageVersion Include="NuStreamDocs.Icons.Material" Version="$(NuStreamDocsVersion)" />
     <PackageVersion Include="NuStreamDocs.Icons.MaterialDesign" Version="$(NuStreamDocsVersion)" />
+    <PackageVersion Include="NuStreamDocs.Keys" Version="$(NuStreamDocsVersion)" />
     <PackageVersion Include="NuStreamDocs.Lightbox" Version="$(NuStreamDocsVersion)" />
     <PackageVersion Include="NuStreamDocs.LinkValidator" Version="$(NuStreamDocsVersion)" />
     <PackageVersion Include="NuStreamDocs.MagicLink" Version="$(NuStreamDocsVersion)" />
     <PackageVersion Include="NuStreamDocs.MarkdownExtensions" Version="$(NuStreamDocsVersion)" />
+    <PackageVersion Include="NuStreamDocs.Mermaid" Version="$(NuStreamDocsVersion)" />
     <PackageVersion Include="NuStreamDocs.Nav" Version="$(NuStreamDocsVersion)" />
     <PackageVersion Include="NuStreamDocs.Optimize" Version="$(NuStreamDocsVersion)" />
     <PackageVersion Include="NuStreamDocs.Privacy" Version="$(NuStreamDocsVersion)" />
     <PackageVersion Include="NuStreamDocs.Search" Version="$(NuStreamDocsVersion)" />
+    <PackageVersion Include="NuStreamDocs.Search.Pagefind" Version="$(NuStreamDocsVersion)" />
     <PackageVersion Include="NuStreamDocs.Serve" Version="$(NuStreamDocsVersion)" />
     <PackageVersion Include="NuStreamDocs.Sitemap" Version="$(NuStreamDocsVersion)" />
+    <PackageVersion Include="NuStreamDocs.SmartSymbols" Version="$(NuStreamDocsVersion)" />
+    <PackageVersion Include="NuStreamDocs.Snippets" Version="$(NuStreamDocsVersion)" />
     <PackageVersion Include="NuStreamDocs.SuperFences" Version="$(NuStreamDocsVersion)" />
+    <PackageVersion Include="NuStreamDocs.Tags" Version="$(NuStreamDocsVersion)" />
     <PackageVersion Include="NuStreamDocs.Theme.Material3" Version="$(NuStreamDocsVersion)" />
     <PackageVersion Include="NuStreamDocs.Toc" Version="$(NuStreamDocsVersion)" />
+    <PackageVersion Include="NuStreamDocs.Xrefs" Version="$(NuStreamDocsVersion)" />
   </ItemGroup>
 
   <!-- Transitive vulnerability pins. Both come in via Azure.Identity /
