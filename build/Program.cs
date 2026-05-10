@@ -237,7 +237,7 @@ internal static class Program
                 opts => opts
                     .WithSiteName("ReactiveUI"u8)
                     .WithLogo("images/logo.png"u8)
-                    .WithSiteUrl("https://reactiveui.net"u8)
+                    .WithSiteUrl("https://www.reactiveui.net"u8)
                     .WithCopyright("Copyright © ReactiveUI Association and Contributors"u8)
                     .WithRepoUrl("https://github.com/reactiveui/ReactiveUI"u8)
                     .WithEditUri("https://github.com/reactiveui/website/edit/main/docs/"u8)
@@ -285,12 +285,12 @@ internal static class Program
             .UseWyamBlog(new WyamBlogOptions((PathSegment)"Announcements", "Announcements"u8.ToArray()))
             .UseWyamBlog(new WyamBlogOptions((PathSegment)"articles", "Release Notes"u8.ToArray()))
             .UseFeed(new FeedOptions(
-                [.. "https://reactiveui.net"u8],
+                [.. "https://www.reactiveui.net"u8],
                 [.. "ReactiveUI Announcements"u8],
                 [.. "Latest announcements from the ReactiveUI team."u8],
                 (PathSegment)"Announcements"))
             .UseFeed(new FeedOptions(
-                [.. "https://reactiveui.net"u8],
+                [.. "https://www.reactiveui.net"u8],
                 [.. "ReactiveUI Release Notes"u8],
                 [.. "Release notes for ReactiveUI and ecosystem packages."u8],
                 (PathSegment)"articles"))
