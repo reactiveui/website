@@ -7,8 +7,6 @@ Author: Rich Bryant
 Published: 2020-07-12
 ---
 
-<img src="https://avatars0.githubusercontent.com/u/2327577?s=200&v=4" align="right" style="height:8em" alt="img"/>
-
 ## ReactiveUI On The Web With Blazor!  
 ## It really works, honest.  
   

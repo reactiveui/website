@@ -7,8 +7,6 @@ Author: Rich Bryant
 Published: 2020-07-16
 ---
 
-<img src="https://i.imgur.com/i9ngTbc.png" align="right" style="height: 8em" alt="img"/>
-
 ## In Praise of Elevated Values
 ## Always Wear Protection
   
