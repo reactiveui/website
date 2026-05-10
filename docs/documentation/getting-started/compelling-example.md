@@ -352,10 +352,16 @@ public partial class NugetDetailsView
 
 This view will automatically get displayed in the ListBox in the MainWindow. When using Reactive Binding on XAML platforms, if no ItemTemplate has been set, it will look for a `IViewFor<T>` inside our Dependency Injection and display the Item using that control. Notice we convert our URI above into a BitmapImage just for the OneWayBind. ReactiveUI allows us to quickly convert types which is much easier syntax than the XAML Value Converters.
 
-Now you can search repositories on NuGet using your own app!
-
-<img src="../../images/demo-app.jpg" width="600" alt="demo app"/>
-<br />
+Now you can search repositories on NuGet using your own app! When you launch
+it the search box wires straight through the throttled `WhenAnyValue` pipeline
+into `SearchNuGetPackages`, results stream back through the
+`ObservableAsPropertyHelper`, and the list re-renders without a single explicit
+`PropertyChanged.Invoke` call. Ready-to-build per-platform variants live next
+to the framework source under
+[`reactiveui/reactiveui/src/examples`](https://github.com/reactiveui/reactiveui/tree/main/src/examples)
+— pick `ReactiveUI.Samples.Wpf` for this walkthrough's WPF shape, or
+`ReactiveUI.Samples.Maui` / `ReactiveUI.Samples.Winforms` for the matching
+runners on the other heads.
 
 </details>
 <details><summary>Create Views using traditional XAML markup bindings</summary>
@@ -483,11 +489,18 @@ Finally, we need to create XAML markup for our app.
 </Window>
 ```
 
-Now you can search repositories on NuGet using your own app!
-
-<img src="../../images/demo-app.jpg" width="600" alt="demo app"/>
-<br />
+Now you can search repositories on NuGet using your own app! When you launch
+it the search box wires straight through the throttled `WhenAnyValue` pipeline
+into `SearchNuGetPackages`, results stream back through the
+`ObservableAsPropertyHelper`, and the list re-renders without a single explicit
+`PropertyChanged.Invoke` call. Ready-to-build per-platform variants live next
+to the framework source under
+[`reactiveui/reactiveui/src/examples`](https://github.com/reactiveui/reactiveui/tree/main/src/examples)
+— pick `ReactiveUI.Samples.Wpf` for this walkthrough's WPF shape, or
+`ReactiveUI.Samples.Maui` / `ReactiveUI.Samples.Winforms` for the matching
+runners on the other heads.
 
 </details>
 
-Source code of the application described in this guide can be found on [GitHub](https://github.com/reactiveui/ReactiveUI.Samples/tree/main/wpf/getting-started).
+Source code of the application described in this guide can be found on
+[GitHub under `reactiveui/reactiveui/src/examples/ReactiveUI.Samples.Wpf`](https://github.com/reactiveui/reactiveui/tree/main/src/examples/ReactiveUI.Samples.Wpf).

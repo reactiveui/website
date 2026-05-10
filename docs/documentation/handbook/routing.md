@@ -8,14 +8,17 @@ Routing enables an application to coordinate navigation through multiple views a
 ReactiveUI supports routing for the following platforms:
 
 - Avalonia
+- Blazor (Server / WebAssembly)
+- .NET MAUI
 - Uno Platform
 - Windows Forms
 - Windows Presentation Foundation (WPF)
 - WinUI
-- MAUI
-- Xamarin Forms
 
-Routing also works on iOS and Android without Xamarin.Forms, but it isn't always easy to use. If view model routing turns out hard to implement on those platforms, you can use view-first routing and customize most aspects of it.
+Routing also works on the per-platform .NET MAUI / native iOS and Android
+heads, but isn't always easy to use directly. If view-model-first routing
+turns out hard to implement on those platforms, you can use view-first
+routing and customize most aspects of it.
 
 ## About ReactiveUI Routing
 
@@ -32,15 +35,17 @@ The following elements participate in routing:
 
 > **Note:** The example below is adapted for WPF, but ReactiveUI's routing supports more platforms.
 >
-> Samples:
-> - [Xamarin Forms](https://github.com/reactiveui/ReactiveUI.Samples/tree/main/xamarin-forms) 
-> - [Windows Forms](https://github.com/Asesjix/ReactiveUI.Winforms.Samples).
+> Samples (in-repo, alongside the framework source under
+> [`reactiveui/reactiveui/src/examples`](https://github.com/reactiveui/reactiveui/tree/main/src/examples)):
+> - [`ReactiveUI.Samples.Wpf`](https://github.com/reactiveui/reactiveui/tree/main/src/examples/ReactiveUI.Samples.Wpf)
+> - [`ReactiveUI.Samples.Maui`](https://github.com/reactiveui/reactiveui/tree/main/src/examples/ReactiveUI.Samples.Maui)
+> - [`ReactiveUI.Samples.Winforms`](https://github.com/reactiveui/reactiveui/tree/main/src/examples/ReactiveUI.Samples.Winforms)
+> - [`ReactiveUI.Builder.BlazorServer`](https://github.com/reactiveui/reactiveui/tree/main/src/examples/ReactiveUI.Builder.BlazorServer) — Blazor Server fluent-builder shape
+> - [`ReactiveUI.Builder.WpfApp`](https://github.com/reactiveui/reactiveui/tree/main/src/examples/ReactiveUI.Builder.WpfApp) — WPF fluent-builder shape
 >
-> Other resources: 
-> - [ViewModel Routing with ReactiveUI and Xamarin.Forms](https://jamilgeor.com/viewmodel-routing-with-reactiveui-and-xamarin-forms/), by Jamil Geor
-> - [Sextant](https://github.com/reactiveui/sextant) library for advanced XF routing
+> Other resources:
+> - [Sextant](https://github.com/reactiveui/sextant) library for advanced .NET MAUI routing
 > - [AvaloniaUI routing guide](https://docs.avaloniaui.net/guides/deep-dives/reactiveui/routing)
-> - [Universal Windows Platform routing samples](https://github.com/reactiveui/ReactiveUI.Samples/tree/main/ReactiveUI.UwpRouting).
 
 Using Visual Studio, create a new WPF project and name it 'ReactiveRouting'. Install the `ReactiveUI.WPF` NuGet package into the project. Now create a view model named `FirstViewModel` that implements the `IRoutableViewModel` interface. The `IRoutableViewModel.UrlPathSegment` property is a string token representing the current view model, such as 'login' or 'user'. You are free to choose any string. In this example, we use 'first'. The `HostScreen` property typically contains the instance of the host screen used by an application.
 
@@ -192,7 +197,7 @@ Here is the code-behind for the `MainWindow` declared above. Here we use `Reacti
 ```cs
 // We use ReactiveWindow here for WPF, but could actually use
 // ReactiveUserControl or a custom IViewFor implementation. For
-// Xamarin.Forms, use ReactiveMasterDetailPage.
+// .NET MAUI, use ReactiveContentPage / ReactiveFlyoutPage.
 public partial class MainWindow : ReactiveWindow<MainViewModel>
 {
     public MainWindow()
@@ -213,9 +218,20 @@ public partial class MainWindow : ReactiveWindow<MainViewModel>
 }
 ```
 
-<img src="../../images/routing.gif" width="60%" alt="routing"/>
+When you run the app, the **Go to first** button pushes a `FirstViewModel` onto
+the `Router.NavigationStack`; `RoutedViewHost` reacts to the change and renders
+the matching `FirstView` inline. **Go back** pops the stack and the previous
+view comes back. Routes are cumulative — keep clicking **Go to first** and the
+stack grows, with each pop returning to the prior entry. The full runnable
+shape is in
+[`ReactiveUI.Samples.Wpf`](https://github.com/reactiveui/reactiveui/tree/main/src/examples/ReactiveUI.Samples.Wpf)
+and the equivalent .NET MAUI variant is in
+[`ReactiveUI.Samples.Maui`](https://github.com/reactiveui/reactiveui/tree/main/src/examples/ReactiveUI.Samples.Maui).
 
-Now ReactiveUI's view model-first routing should work as expected. `IScreen`s and `RoutedViewHost`s can be nested any number of levels without impacting routing. However, this only works for XAML pages; for modal and pop-up dialogs [Interactions](interactions/index.md) are a better choice. 
+Now ReactiveUI's view model-first routing should work as expected. `IScreen`s
+and `RoutedViewHost`s can be nested any number of levels without impacting
+routing. However, this only works for XAML pages; for modal and pop-up dialogs
+[Interactions](interactions/index.md) are a better choice. 
 
 > **Note:** If you experience any difficulties with this tutorial, you can join the [ReactiveUI Slack](https://join.slack.com/t/reactivex/shared_invite/zt-lt48skpz-G5WDYOAuzA80_MByZrLT0g) channel and ask for help. We are always ready to give a hand.
 

@@ -6,8 +6,12 @@ Matthew Podwysocki at AngularConf
 
 ## Duality
 
-<img src="../../images/general-theory.jpg" width="50%" alt="general theory">
+Erik Meijer's keynote argues that `IObservable<T>` and `IEnumerable<T>` are
+mathematical duals — push-based and pull-based collections that share the same
+shape with the arrows reversed. That single insight is what lets ReactiveUI use
+LINQ operators (`Select`, `Where`, `GroupBy`) over event streams, and is the
+reason `WhenAnyValue(...).Select(...)` reads like LINQ-to-Objects.
 
-[Meijer.duality.pdf](https://csl.stanford.edu/~christos/pldi2010.fit/meijer.duality.pdf)
+The full write-up: [Meijer.duality.pdf](https://csl.stanford.edu/~christos/pldi2010.fit/meijer.duality.pdf).
 
 <div class="youtube-video-container"><iframe src="https://www.youtube.com/embed/looJcaeboBY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
