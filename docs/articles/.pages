@@ -1,0 +1,4 @@
+# The article files are date-prefixed (YYYY-MM-DD-*.md), so the default filename
+# ordering lists them oldest-first; flip it so the newest article is at the top —
+# matching the listing page and the RSS feed.
+order: desc
