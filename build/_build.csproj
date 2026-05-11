@@ -52,12 +52,12 @@
         <PackageReference Include="NuStreamDocs.Xrefs" />
     </ItemGroup>
 
-    <!-- Local-iteration: ProjectReference into the SourceMkDoc checkout so unpublished
+    <!-- Local-iteration: ProjectReference into the NuStreamDocs checkout so unpublished
          changes in the sibling repo flow into the website build with no NuGet pack/publish
          cycle. Uncomment this block (and comment out the PackageReference block above)
          to switch from the published 1.x packages to the live source tree.
     <PropertyGroup>
-        <NuStreamDocsSrc>$(MSBuildThisFileDirectory)..\..\..\glennawatson\SourceMkDoc\src</NuStreamDocsSrc>
+        <NuStreamDocsSrc>$(MSBuildThisFileDirectory)..\..\..\glennawatson\NuSourceDocs\src</NuStreamDocsSrc>
     </PropertyGroup>
 
     <ItemGroup>
