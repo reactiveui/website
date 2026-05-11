@@ -7,7 +7,7 @@ Please ensure that you are targeting at least windows10.0.19041.0
 
 i.e `<TargetFramework>net8.0-windows10.0.19041.0</TargetFramework>` in your csproj file.
 
-Your viewmodels should inherit from `ReactiveObject`
+Your ViewModels should inherit from `ReactiveObject`
 
 - `ReactiveObject`
 
