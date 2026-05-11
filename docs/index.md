@@ -80,6 +80,18 @@ hide:
 
     Powered by Rx — a [proven foundation](https://reactivex.io/intro.html) for expressing the relationship between things that change over time.
 
+-   :material-lightning-bolt-outline:{ .lg .middle } **Async-aware commands**
+
+    ---
+
+    [`ReactiveCommand`](documentation/handbook/commands/index.md) runs your async work, surfaces `CanExecute`, funnels errors to one handler, and cancels on demand — bind it to a button and forget the plumbing.
+
+-   :material-auto-fix:{ .lg .middle } **Less boilerplate**
+
+    ---
+
+    Decorate fields and methods with `[Reactive]`, `[ObservableAsProperty]`, and `[ReactiveCommand]`; [source generators](documentation/handbook/view-models/boilerplate-code.md) write the property and command code for you.
+
 -   :material-account-group-outline:{ .lg .middle } **Open-source community**
 
     ---
