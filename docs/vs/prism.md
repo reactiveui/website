@@ -3,25 +3,88 @@ NoTitle: true
 Title: PRISM
 Order: 2
 ---
-## Prism vs. ReactiveUI: Choosing the Right MVVM Framework
+## Prism vs. (and alongside) ReactiveUI
 
-### Introduction:
-When it comes to building modern and scalable cross-platform applications following the Model-View-ViewModel (MVVM) architectural pattern, developers have a range of frameworks at their disposal. Two prominent frameworks in this space are Prism and ReactiveUI. In this blog post, we will explore the differences between Prism and ReactiveUI to help you make an informed decision when selecting the most suitable framework for your project.
+[Prism](https://github.com/PrismLibrary/Prism) is a mature MVVM framework focused on **navigation, modularity, and region management**. It supports WPF, MAUI, Uno, and Avalonia (via community packages), and ships its own container abstraction (DryIoc by default, with adapters for Unity, MSDI, etc.).
 
-### Philosophy and Approach:
-Prism is a mature and feature-rich MVVM framework that focuses on providing a comprehensive set of tools and patterns for building modular and maintainable applications. It emphasizes convention-based programming and promotes loose coupling between components. Prism offers features such as dependency injection, commanding, navigation, and modularity, enabling developers to build complex applications with ease. ReactiveUI, on the other hand, is a reactive MVVM framework that leverages the Reactive Extensions (Rx) library. It places a strong emphasis on reactive programming and provides tools for handling complex data flows, asynchronous operations, and event-driven architectures.
+This is not an either/or comparison: **Prism and ReactiveUI are commonly used together**. The interesting question is "which library owns which concern", not "which library wins".
 
-### Data Binding:
-Data binding is a crucial aspect of MVVM frameworks, enabling developers to establish a connection between the view and the underlying data. Prism offers a powerful data binding infrastructure that supports both convention-based and explicit binding approaches. It provides a flexible binding syntax and supports two-way data binding out of the box. ReactiveUI, being a reactive framework, embraces a more explicit and reactive approach to data binding. It utilizes Reactive Extensions to create observable streams that can be easily bound to UI elements, facilitating a reactive and flexible data flow management.
+### What Prism is good at
 
-### Reactive Programming:
-Reactive programming is a central feature of ReactiveUI, enabling developers to handle asynchronous operations, events, and complex data flows in a declarative and concise manner. ReactiveUI integrates seamlessly with the Reactive Extensions (Rx) library, providing a wide range of reactive operators and abstractions. It allows developers to compose and manipulate data using reactive streams and observables. While Prism does not inherently incorporate reactive programming concepts like ReactiveUI does, it still supports event aggregation and enables loose coupling between components, promoting modularity and extensibility.
+- **Region navigation**: declarative `RegionManager`, named regions in XAML, navigation journals, and `INavigationAware` for parameter passing. Especially strong on WPF where region-based composition is the dominant pattern.
+- **`DelegateCommand` / `AsyncDelegateCommand`** with `ObservesProperty` and `ObservesCanExecute` for declarative re-evaluation against `INotifyPropertyChanged`.
+- **Modularity**: `IModule` discovery, loading, and lifecycle.
+- **`IEventAggregator`** for decoupled pub/sub between modules.
+- **Container abstraction** (`IContainerProvider` / `IContainerRegistry`) so module code stays container-agnostic.
+- **Prism.Maui** for navigation that's more flexible than raw Shell (modal stacks, complex back-stack manipulation).
 
-### Community and Ecosystem:
-Prism has a large and active community with extensive documentation, tutorials, and samples available. It is widely adopted and benefits from a diverse range of contributors and community-driven resources. Prism offers a well-established ecosystem with integration support for various platforms and frameworks, including Xamarin.Forms and WPF. ReactiveUI, although not as widely adopted as Prism, also has an active community that focuses on reactive programming. It provides comprehensive documentation, forums, and open-source projects that support developers in learning and using the framework effectively.
+### What ReactiveUI is good at
 
-### Platform Support:
-Both Prism and ReactiveUI are cross-platform frameworks that support multiple platforms, making them suitable for building applications across different devices and environments. Prism has particularly strong support for Xamarin.Forms, allowing developers to create cross-platform mobile applications with ease. It also supports WPF and UWP for desktop application development. ReactiveUI offers broader platform compatibility and can be integrated with various UI frameworks such as MAUI, Xamarin, WPF, Blazor, UNO Platform, and more.
+- **Reactive composition** built on Rx — `WhenAnyValue`, `Throttle`, `CombineLatest`, async coordination.
+- **`ReactiveCommand`** with `IsExecuting`, `ThrownExceptions`, `CanExecute` exposed as observables (not just an `ICommand`).
+- **View-model activation** (`WhenActivated`) to set up and tear down per-view subscriptions cleanly.
+- **Strongly-typed bindings** (`this.Bind`, `BindCommand`) that survive renames.
+- **Optional view-model-first router** (`IScreen` + `RoutingState`, or [Sextant](../documentation/handbook/sextant/index.md)).
 
-### Conclusion:
-Choosing the right MVVM framework depends on various factors, including the complexity of your project, the need for reactive programming, community support, and platform compatibility. Prism is a mature and feature-rich framework that focuses on modularity and maintainability, while ReactiveUI emphasizes reactive programming and enables handling complex data flows. Assess your project requirements and consider the strengths of each framework to make an informed decision that aligns with your development goals and preferences.
+### Using them together
+
+A very common combination is **Prism for navigation + ReactiveUI for view-model logic**. Prism's `INavigationAware` / `IRegionManager` / `IDestructible` lifecycle plays nicely with `ReactiveObject` view-models:
+
+- Inherit your view-models from `ReactiveObject` (or use `ReactiveUI.SourceGenerators`' `[Reactive]` / `[ReactiveCommand]`) and **also** implement Prism's `INavigationAware` if the view-model needs navigation parameters.
+- Use Prism's `IRegionManager.RequestNavigate(...)` (or `Prism.Maui`'s `INavigationService.NavigateAsync(...)`) for moving between views. ReactiveUI's `RoutingState` / Sextant is only needed if you want view-model-first routing on top of a non-Prism stack.
+- Use `ReactiveCommand` where you want async-aware commanding with `IsExecuting` / `ThrownExceptions`; use `DelegateCommand` where Prism's `ObservesProperty` ergonomics are more convenient.
+- Use ReactiveUI's `WhenAnyValue` / `Throttle` / `CombineLatest` for derived state, validation flows, and async coordination inside the view-models; Prism stays out of that layer.
+
+```csharp
+public partial class MainViewModel : ReactiveObject, INavigationAware
+{
+    private readonly INavigationService _nav;
+
+    public MainViewModel(INavigationService nav)
+    {
+        _nav = nav;
+
+        // ReactiveUI for command + reactive composition
+        GoToDetails = ReactiveCommand.CreateFromTask<string>(id =>
+            _nav.NavigateAsync($"DetailsView?id={id}").ToTask());
+
+        // Reactive validation
+        _isValidHelper = this.WhenAnyValue(x => x.Name, name => !string.IsNullOrWhiteSpace(name))
+            .ToProperty(this, nameof(IsValid));
+    }
+
+    [Reactive] private string _name = string.Empty;
+
+    private readonly ObservableAsPropertyHelper<bool> _isValidHelper;
+    public bool IsValid => _isValidHelper.Value;
+
+    public ReactiveCommand<string, Unit> GoToDetails { get; }
+
+    public void OnNavigatedTo(INavigationParameters parameters)
+    {
+        if (parameters.TryGetValue("name", out string n)) Name = n;
+    }
+
+    public void OnNavigatedFrom(INavigationParameters parameters) { }
+    public bool IsNavigationTarget(INavigationParameters parameters) => true;
+}
+```
+
+### When you might pick one without the other
+
+- **Prism only** — if you want a fully prescribed application shell (regions, modules, region adapters) and your view-models are simple enough that you don't miss reactive composition.
+- **ReactiveUI only** — if you want minimal opinions about app structure, want Rx-based view-model logic, and either don't need navigation or are happy with `RoutingState` / Sextant.
+- **Both** — if you want Prism's navigation/modularity story and ReactiveUI's reactive composition + async commands. This is the most common combination on serious WPF apps.
+
+### Overlap to watch for
+
+Prism and ReactiveUI both have opinions about a few things — pick one as the owner per row:
+
+| Concern | If Prism owns | If ReactiveUI owns |
+|---------|---------------|---------------------|
+| Container | `IContainerProvider` / `IContainerRegistry` | Splat (`AppLocator`) + adapter packages |
+| Commands | `DelegateCommand` / `AsyncDelegateCommand` | `ReactiveCommand<TParam, TResult>` |
+| Navigation | `IRegionManager` / Prism.Maui `INavigationService` | `RoutingState` / Sextant |
+| Pub/sub | `IEventAggregator` | `MessageBus` / `Interaction<TInput,TOutput>` |
+
+You don't have to pick the same owner across every row — many teams use Prism for navigation/container and ReactiveUI for commands and view-model composition.
