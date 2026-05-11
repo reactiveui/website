@@ -226,7 +226,7 @@ internal static class Program
             .UseCSharpApiGenerator(
                 CSharpApiGeneratorOptions.FromManifest(RootDirectory.Value, ApiCachePath.Value) with
                 {
-                    IndexTitle = "ReactiveUI API Reference"u8.ToArray(),
+                    IndexTitle = "API Reference"u8.ToArray(),
                     IndexIntroduction = ApiIndexIntroduction.ToArray(),
                     IndexOrder = ApiSectionNavOrder,
                 },
@@ -286,7 +286,7 @@ internal static class Program
             .UseSitemap()
             .UseLinkValidator(LinkValidatorOptions.Default with { StrictInternal = strict }, _logging.For<LinkValidatorPlugin>())
             .UseWyamBlog(new WyamBlogOptions((PathSegment)"Announcements", "Announcements"u8.ToArray()))
-            .UseWyamBlog(new WyamBlogOptions((PathSegment)"articles", "Release Notes"u8.ToArray()))
+            .UseWyamBlog(new WyamBlogOptions((PathSegment)"articles", "Articles"u8.ToArray()))
             .UseFeed(new FeedOptions(
                 [.. "https://www.reactiveui.net"u8],
                 [.. "ReactiveUI Announcements"u8],
@@ -294,8 +294,8 @@ internal static class Program
                 (PathSegment)"Announcements"))
             .UseFeed(new FeedOptions(
                 [.. "https://www.reactiveui.net"u8],
-                [.. "ReactiveUI Release Notes"u8],
-                [.. "Release notes for ReactiveUI and ecosystem packages."u8],
+                [.. "ReactiveUI Articles"u8],
+                [.. "Articles about ReactiveUI and the ecosystem."u8],
                 (PathSegment)"articles"));
 
         // Pre-compression (UseOptimize) intentionally omitted: both Cloudflare
