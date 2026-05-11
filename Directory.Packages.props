@@ -38,7 +38,6 @@
     <PackageVersion Include="NuStreamDocs.MarkdownExtensions" Version="$(NuStreamDocsVersion)" />
     <PackageVersion Include="NuStreamDocs.Mermaid" Version="$(NuStreamDocsVersion)" />
     <PackageVersion Include="NuStreamDocs.Nav" Version="$(NuStreamDocsVersion)" />
-    <PackageVersion Include="NuStreamDocs.Optimize" Version="$(NuStreamDocsVersion)" />
     <PackageVersion Include="NuStreamDocs.Privacy" Version="$(NuStreamDocsVersion)" />
     <PackageVersion Include="NuStreamDocs.Search" Version="$(NuStreamDocsVersion)" />
     <PackageVersion Include="NuStreamDocs.Search.Pagefind" Version="$(NuStreamDocsVersion)" />

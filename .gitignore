@@ -456,6 +456,11 @@ test_results/
 
 # Claude Settings
 .claude/
+
+# Wrangler (Cloudflare CLI) — local OAuth tokens, deploy state and cache
+# created by `wrangler login` / `wrangler pages deploy`. Holds credentials,
+# never commit.
+.wrangler/
 # Generated mkdocs config (built by `nuke WriteMkdocsConfig` from mkdocs.base.yml).
 mkdocs.yml
 # mkdocs/zensical output and Nuke build artifacts
