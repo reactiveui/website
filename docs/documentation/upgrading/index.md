@@ -9,7 +9,7 @@ Here are some guides on how to upgrade to newer features.
 
 ## Supported Target Frameworks
 
-ReactiveUI targets **.NET 8.0, .NET 9.0, .NET 10.0** and **.NET Framework 4.6.2, 4.7.2, 4.8, 4.8.1**. Support for .NET Standard (and other older targets) has been dropped — utility libraries that depend on ReactiveUI should multi-target the supported moniker(s) they need.
+ReactiveUI targets **.NET 8.0, .NET 9.0, .NET 10.0** on every supported platform, and **.NET Framework 4.6.2 – 4.8.1** on Windows. The .NET Framework binaries are published as `net462`, `net472`, and `net481` and run on every release in that range — i.e. `net462`, `net47`, `net471`, `net472`, `net48`, and `net481` apps all work (NuGet picks the closest matching TFM at restore time, and .NET Framework's runtime forward-compat does the rest). Support for .NET Standard (and other older targets) has been dropped — utility libraries that depend on ReactiveUI should multi-target the supported moniker(s) they need.
 
 ```xml
 <PropertyGroup>

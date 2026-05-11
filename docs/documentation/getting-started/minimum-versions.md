@@ -11,7 +11,7 @@ ReactiveUI has the following minimum platform requirements:
 
 | Platform | Minimum |
 |----------|---------|
-| .NET Framework | 4.6.2 (also 4.7.2, 4.8, 4.8.1) |
+| .NET Framework | 4.6.2 (any 4.6.2 – 4.8.1; binaries published as `net462`/`net472`/`net481`) |
 | .NET | 8.0 (also 9.0, 10.0) |
 | Windows | 10.0.19041.0 |
 | Android (core / MAUI) | API 24 (Android 7.0) |

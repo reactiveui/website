@@ -15,7 +15,7 @@ ReactiveUI is an MVVM library built on top of **System.Reactive** (Rx.NET). It d
 - **Uno Platform**
 - **Blazor** (Server and WebAssembly)
 - **.NET for Android / iOS / Mac Catalyst / Tizen**
-- **.NET Framework 4.6.2 – 4.8.1** (WPF / WinForms)
+- **.NET Framework 4.6.2 – 4.8.1** — any release in this range (`net462`, `net47`, `net471`, `net472`, `net48`, `net481`); used by WPF / WinForms apps
 
 You don't have to take ReactiveUI as an all-or-nothing dependency. It's a buffet, not a framework lock-in: bring in only `ReactiveObject` for property change notification, add `ReactiveCommand` where you want async-aware commands, layer in `WhenAnyValue` / `WhenActivated` when you need reactive composition, opt into `RoutingState` only if you want view-model-first navigation, and so on. Every piece is designed to coexist with the host platform's own APIs (DataTemplates, dependency injection, Shell routing, Avalonia bindings, Blazor parameters, etc.).
 
