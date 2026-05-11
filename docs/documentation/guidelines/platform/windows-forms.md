@@ -3,7 +3,7 @@
 Ensure that you install `ReactiveUI.WinForms` into your application.
 
 
-Please ensure that you are targeting at least Windows10.0.19041.0
+Please ensure that you are targeting at least windows10.0.19041.0
 
 i.e `<TargetFramework>net8.0-windows10.0.19041.0</TargetFramework>` in your csproj file.
 
