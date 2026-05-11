@@ -1,0 +1,81 @@
+name: Deploy website
+
+# Deploys are isolated from the build-verification workflow so that
+# credentials are never reachable from PR-triggered runs. Trusted
+# triggers only:
+#   * push to main         — ship every merged change
+#   * nightly schedule     — refresh upstream NuGet API docs without a commit
+#   * workflow_dispatch    — manual escape hatch
+on:
+  push:
+    branches: [ main ]
+  schedule:
+    # 03:00 UTC daily — off-peak for shared runners and quiet across the
+    # main contributor timezones.
+    - cron: '0 3 * * *'
+  workflow_dispatch:
+
+# Read-only on the repo; the deploy talks to Cloudflare via its own
+# API token (CLOUDFLARE_API_TOKEN), not GITHUB_TOKEN.
+permissions:
+  contents: read
+
+# Serialise deploys so a cron run and a push-triggered run can never
+# overlap on the same Pages project. cancel-in-progress: false lets
+# whichever is already running finish — losing the cron deploy to a
+# push that arrives mid-run would be fine; the inverse less so.
+concurrency:
+  group: deploy-website-production
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    # Bind the Cloudflare credentials to a GitHub Environment so they
+    # only resolve for jobs that opt in by name. Required-reviewer or
+    # branch protection can be layered on later via repo settings
+    # without touching the workflow.
+    environment: production
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+
+      - name: Cache fetched packages
+        uses: actions/cache@v5
+        with:
+          path: |
+            ~/.nuget/packages
+            .api-cache
+            build/_intermediate
+          # Same cache surface as the build workflow; sharing the key
+          # means a PR build warm-up benefits the production deploy.
+          key: ${{ runner.os }}-website-${{ hashFiles('nuget-packages.json', 'build/_build.csproj', 'Directory.Packages.props') }}
+
+      - name: Build website
+        run: ./build.sh build
+
+      - name: Deploy to Cloudflare Pages
+        # Secrets travel via env vars rather than command-line expansion
+        # so they never surface in process listings or CI logs. site/
+        # is the output WithOutput() in build/Program.cs writes to.
+        # --branch=main marks the upload as a production deploy; any
+        # other value would land as a preview.
+        # WRANGLER_SEND_METRICS=false opts out of Wrangler's telemetry
+        # for this invocation (no global config state on the runner).
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          WRANGLER_SEND_METRICS: 'false'
+        run: npx wrangler@latest pages deploy site --project-name=rxui --branch=main

@@ -6,10 +6,10 @@ on:
   pull_request:
     branches: [ main ]
 
-# Minimal token scope. The build only reads source; the netlify deploy
-# step authenticates against Netlify via NETLIFY_AUTH_TOKEN, not the
-# GITHUB_TOKEN, so no `contents: write` / `actions: write` etc are
-# required here.
+# Build verification only. No secrets are referenced here, so PRs from
+# forks cannot exfiltrate deploy credentials via this workflow. Deploys
+# live in deploy.yml, which is gated to trusted triggers (push to main,
+# schedule, workflow_dispatch).
 permissions:
   contents: read
 
@@ -26,12 +26,6 @@ jobs:
         uses: actions/setup-dotnet@v5
         with:
           dotnet-version: 10.0.x
-
-      - name: Setup Node.js
-        if: github.event_name != 'pull_request'
-        uses: actions/setup-node@v6
-        with:
-          node-version: '24'
 
       - name: Cache fetched packages
         uses: actions/cache@v5
@@ -50,16 +44,3 @@ jobs:
 
       - name: Build website
         run: ./build.sh build
-
-      - name: 'Deploy netlify'
-        if: ${{ github.event_name != 'pull_request' }}
-        # Pipe secrets through env vars rather than expanding into the
-        # shell command line so they don't surface in process listings
-        # or in CI logs. site/ is the directory the .NET pipeline writes
-        # to (set via WithOutput in build/Program.cs).
-        env:
-          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_DEPLOY_KEY }}
-          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-        run: |
-          npm install -g netlify-cli
-          netlify deploy --prod --dir=site

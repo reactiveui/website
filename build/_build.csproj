@@ -37,7 +37,6 @@
         <PackageReference Include="NuStreamDocs.MarkdownExtensions" />
         <PackageReference Include="NuStreamDocs.Mermaid" />
         <PackageReference Include="NuStreamDocs.Nav" />
-        <PackageReference Include="NuStreamDocs.Optimize" />
         <PackageReference Include="NuStreamDocs.Privacy" />
         <PackageReference Include="NuStreamDocs.Search" />
         <PackageReference Include="NuStreamDocs.Search.Pagefind" />
@@ -79,7 +78,6 @@
         <ProjectReference Include="$(NuStreamDocsSrc)\NuStreamDocs.MarkdownExtensions\NuStreamDocs.MarkdownExtensions.csproj" />
         <ProjectReference Include="$(NuStreamDocsSrc)\NuStreamDocs.Mermaid\NuStreamDocs.Mermaid.csproj" />
         <ProjectReference Include="$(NuStreamDocsSrc)\NuStreamDocs.Nav\NuStreamDocs.Nav.csproj" />
-        <ProjectReference Include="$(NuStreamDocsSrc)\NuStreamDocs.Optimize\NuStreamDocs.Optimize.csproj" />
         <ProjectReference Include="$(NuStreamDocsSrc)\NuStreamDocs.Privacy\NuStreamDocs.Privacy.csproj" />
         <ProjectReference Include="$(NuStreamDocsSrc)\NuStreamDocs.Search\NuStreamDocs.Search.csproj" />
         <ProjectReference Include="$(NuStreamDocsSrc)\NuStreamDocs.Search.Pagefind\NuStreamDocs.Search.Pagefind.csproj" />

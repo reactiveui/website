@@ -5,7 +5,6 @@
 using System;
 using System.CommandLine;
 using System.IO;
-using System.IO.Compression;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
@@ -28,7 +27,6 @@ using NuStreamDocs.MagicLink;
 using NuStreamDocs.MarkdownExtensions;
 using NuStreamDocs.Mermaid;
 using NuStreamDocs.Nav;
-using NuStreamDocs.Optimize;
 using NuStreamDocs.Search.Pagefind;
 using NuStreamDocs.Serve;
 using NuStreamDocs.Sitemap;
@@ -293,10 +291,10 @@ internal static class Program
                 [.. "https://www.reactiveui.net"u8],
                 [.. "ReactiveUI Release Notes"u8],
                 [.. "Release notes for ReactiveUI and ecosystem packages."u8],
-                (PathSegment)"articles"))
-            .UseOptimize(OptimizeOptions.Default with
-            {
-                GzipLevel = CompressionLevel.Optimal,
-                BrotliLevel = CompressionLevel.Optimal,
-            });
+                (PathSegment)"articles"));
+
+        // Pre-compression (UseOptimize) intentionally omitted: both Cloudflare
+        // Pages and Netlify auto-compress static responses at the edge, so
+        // shipping .gz/.br sidecars just inflates deploy size and file count
+        // without any runtime benefit.
 }
