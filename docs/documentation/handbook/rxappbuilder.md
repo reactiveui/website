@@ -31,7 +31,7 @@ var taskpoolScheduler = rxuiInstance.TaskpoolScheduler;
 ```
 
 ## Platform Support
-The `RxAppBuilder` class supports various platforms, including WPF, Xamarin.Forms, and others. You can use platform-specific methods to ensure that ReactiveUI is properly configured for the target environment.
+The `RxAppBuilder` class supports various platforms, including WPF, MAUI, Avalonia, and others. You can use platform-specific methods to ensure that ReactiveUI is properly configured for the target environment.
 
 ReactiveUI.AndroidX - `WithAndroidX()`
 ReactiveUI.WPF - `WithWpf()`
@@ -65,8 +65,8 @@ You can configure the main thread and task pool schedulers used by ReactiveUI us
 .WithTaskPoolScheduler(TaskPoolScheduler.Default)
 ```
 
-The default scheduler extensions register the RxSchedulers.MainThreadScheduler and RxSchedulers.TaskpoolScheduler to use the appropriate schedulers for the platform.
-This can be overridden by calling the above methods with `setRxApp = false` to prevent setting the RxApp static properties.
+The default scheduler extensions register `RxSchedulers.MainThreadScheduler` and `RxSchedulers.TaskpoolScheduler` to use the appropriate schedulers for the platform.
+This can be overridden by calling the above methods with `setRxApp: false` to leave those globals alone (handy for tests that bring their own scheduler).
 
 ```csharp
 .WithMainThreadScheduler(DispatcherScheduler.Current, setRxApp: false)
@@ -112,6 +112,38 @@ var rxuiInstance = rxAppBuilder.BuildApp();
 var mainUIThreadScheduler = rxuiInstance.MainThreadScheduler;
 var taskpoolScheduler = rxuiInstance.TaskpoolScheduler;
 ```
+
+You do **not** have to capture the `BuildApp()` return value — it is optional. If you don't need direct access to the configured schedulers or `WithInstance<T>(...)`, this is perfectly valid:
+
+```csharp
+RxAppBuilder.CreateReactiveUIBuilder()
+    .WithBlazor()
+    .BuildApp();
+```
+
+Capture the return value only when you need to read `MainThreadScheduler` / `TaskpoolScheduler` or pull registered services out via `WithInstance`.
+
+## Plugging RxAppBuilder into an existing DI container
+
+If your app already has its own DI container (Autofac, DryIoc, `Microsoft.Extensions.DependencyInjection`, etc.), use the corresponding Splat adapter as the resolver and call `CreateReactiveUIBuilder()` on it. The builder will register into your container instead of the default Splat one:
+
+```csharp
+// Example: Microsoft.Extensions.DependencyInjection via Splat.Microsoft.Extensions.DependencyInjection
+var services = new ServiceCollection();
+services.UseMicrosoftDependencyResolver();          // makes AppLocator forward to the ServiceCollection
+var resolver = (IMutableDependencyResolver)Locator.CurrentMutable;
+
+resolver.CreateReactiveUIBuilder()
+    .WithWpf()
+    .WithViewsFromAssembly(typeof(App).Assembly)
+    .WithRegistration(r => r.RegisterLazySingleton<IScreen>(() => new AppBootstrapper()))
+    .BuildApp();
+
+var provider = services.BuildServiceProvider();
+provider.UseMicrosoftDependencyResolver();          // resolve through the built provider from now on
+```
+
+The same pattern works for any container that ships a Splat adapter — substitute the matching `UseXyzDependencyResolver()` extension. For a fully custom platform setup (your own scheduler, your own resolver, no platform-shipped module) use `ForCustomPlatform(scheduler, configure)`.
 
 ## WithInstance usage
 This allows you to get instances from the underlying Splat service locator.

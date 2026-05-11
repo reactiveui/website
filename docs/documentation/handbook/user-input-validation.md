@@ -19,13 +19,12 @@ This definitely works for simple scenarios, but for larger forms and more comple
 
 ## ReactiveUI.Validation
 
-This is the primary way we make validations. The package contains validation helpers for ReactiveUI-based solutions, functioning in a reactive way. [ReactiveUI.Validation sources](https://github.com/reactiveui/ReactiveUI.Validation) are available on GitHub. The package supports all platforms, including .NET Framework, .NET Standard, MonoAndroid, Tizen, UAP, Xamarin.iOS, Xamarin.Mac, Xamarin.TVOS. Install the following package into you class library and into a platform-specific project.
+This is the primary way we make validations. The package contains validation helpers for ReactiveUI-based solutions, functioning in a reactive way. [ReactiveUI.Validation sources](https://github.com/reactiveui/ReactiveUI.Validation) are available on GitHub. The package supports all ReactiveUI platforms — .NET 8/9/10 (including the Windows, Android, iOS, MacCatalyst, and Tizen flavours) and .NET Framework 4.6.2–4.8.1. Install the following package into you class library and into a platform-specific project.
 
 | Platform           | ReactiveUI Package                               | NuGet                |
 | ------------------ | ------------------------------------------------ | -------------------- |
 | Any Platform       | [ReactiveUI.Validation][CoreDoc]                 | [![CoreBadge]][Core] |
-| AndroidX (Xamarin) | [ReactiveUI.Validation.AndroidX][DroDoc]         | [![DroXBadge]][DroX] |
-| Xamarin.Android    | [ReactiveUI.Validation.AndroidSupport][DroDoc]   | [![DroBadge]][Dro]   |
+| Android (AndroidX) | [ReactiveUI.Validation.AndroidX][DroDoc]         | [![DroXBadge]][DroX] |
 
 [Core]: https://www.nuget.org/packages/ReactiveUI.Validation/
 [CoreBadge]: https://img.shields.io/nuget/v/ReactiveUI.Validation.svg
@@ -138,11 +137,11 @@ public class SampleView : ReactiveContentPage<SampleViewModel>
 }
 ```
 
-> **Note** `Name` is an `<Entry />`, `NameError` is a `<Label />`, and `FormErrors` is a `<Label />` as well. All these controls are from the [Xamarin.Forms](https://docs.microsoft.com/en-us/xamarin/xamarin-forms/) library.
+> **Note** `Name` is an `<Entry />`, `NameError` is a `<Label />`, and `FormErrors` is a `<Label />` as well. All these controls are from [.NET MAUI](https://learn.microsoft.com/dotnet/maui/).
 
 ## Extended ReactiveUI.Validation Usage
 
-[ReactiveUI.Validation](https://github.com/reactiveui/ReactiveUI.Validation/) also supports `INotifyDataErrorInfo` validations used by XAML platforms, including WPF and Avalonia; binding to `TextInputLayout` controls from Xamarin.Android and AndroidX, custom formatters that could be used for localization. Head over to [ReactiveUI.Validation GitHub page](https://github.com/reactiveui/ReactiveUI.Validation/) to learn more about extended usage of this ReactiveUI library:
+[ReactiveUI.Validation](https://github.com/reactiveui/ReactiveUI.Validation/) also supports `INotifyDataErrorInfo` validations used by XAML platforms (including WPF and Avalonia), binding to `TextInputLayout` controls on Android via AndroidX, and custom formatters that can be used for localization. Head over to [ReactiveUI.Validation GitHub page](https://github.com/reactiveui/ReactiveUI.Validation/) to learn more about extended usage of this ReactiveUI library:
 
 - [Example with Android Extensions](https://github.com/reactiveui/ReactiveUI.Validation/#example-with-android-extensions)
 - [INotifyDataErrorInfo Support](https://github.com/reactiveui/ReactiveUI.Validation/#inotifydataerrorinfo-support)
@@ -150,4 +149,4 @@ public class SampleView : ReactiveContentPage<SampleViewModel>
 
 ## Alternatives
 
-You can also use Xamarin validations as explained in the [David Britch's article](https://devblogs.microsoft.com/xamarin/validation-xamarin-forms-enterprise-apps/). Other great tools for user input validation are [FluentValidation](https://github.com/JeremySkinner/FluentValidation) and [Sprache](https://github.com/sprache/Sprache).
+Other great tools for user input validation are [FluentValidation](https://github.com/JeremySkinner/FluentValidation) and [Sprache](https://github.com/sprache/Sprache).

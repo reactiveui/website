@@ -51,25 +51,25 @@ The `AutoSuspendHelper` class can help you in persisting your `AppState`. In the
 
 ## 1. Create the Suspension Driver
 
-Create a class that implements the `ISuspensionDriver` interface. There are several production-ready implementations below, especially the Akavache suspension driver that works on any platform supported by ReactiveUI. We highly recommend using [Akavache](https://github.com/reactiveui/akavache) suspension driver. Xamarin.iOS and Universal Windows Platform will replicate [Akavache](https://github.com/reactiveui/akavache) data to the cloud and synchronize it to all user devices on which the app is installed!
+Create a class that implements the `ISuspensionDriver` interface. There are several production-ready implementations below, especially the Akavache suspension driver that works on any platform supported by ReactiveUI. We highly recommend using [Akavache](https://github.com/reactiveui/akavache) suspension driver. On iOS and Universal Windows Platform, [Akavache](https://github.com/reactiveui/akavache) data is replicated to the cloud and synchronized to every user device on which the app is installed!
 
 <details><summary>Akavache Platform Independent Suspension Driver</summary>
 <p>
 
 Here is an implementation that uses [Akavache](https://github.com/reactiveui/Akavache) for its persistense. The `SuspensionDriver` is platform independent, tested on iOS, Android, WPF, UWP, etc. 
 
+In Akavache v11 the static `BlobCache.*` entry-points are replaced by `CacheDatabase.*` (the runtime-resolved `IAkavacheInstance`). Call `CacheDatabase.Initialize<TSerializer>("Your Application Name")` once at startup before constructing the driver.
+
 ```cs
 public class AkavacheSuspensionDriver<TAppState> : ISuspensionDriver where TAppState : class
 {
     private const string AppStateKey = "appState";
-  
-    public AkavacheSuspensionDriver() => BlobCache.ApplicationName = "Your Application Name";
 
-    public IObservable<Unit> InvalidateState() => BlobCache.UserAccount.InvalidateObject<TAppState>(AppStateKey);
-  
-    public IObservable<object> LoadState() => BlobCache.UserAccount.GetObject<TAppState>(AppStateKey);
+    public IObservable<Unit> InvalidateState() => CacheDatabase.UserAccount.InvalidateObject<TAppState>(AppStateKey);
 
-    public IObservable<Unit> SaveState(object state) => BlobCache.UserAccount.InsertObject(AppStateKey, (TAppState)state);
+    public IObservable<object> LoadState() => CacheDatabase.UserAccount.GetObject<TAppState>(AppStateKey);
+
+    public IObservable<Unit> SaveState(object state) => CacheDatabase.UserAccount.InsertObject(AppStateKey, (TAppState)state);
 }
 ```
 
@@ -79,7 +79,7 @@ public class AkavacheSuspensionDriver<TAppState> : ISuspensionDriver where TAppS
 <details><summary>Newtonsoft.JSON Suspension Driver</summary>
 <p>
 
-Here is an implementation that uses [Newtonsoft.Json](https://github.com/JamesNK/Newtonsoft.Json) with `TypeNameHandling.All` json serialization setting for its persistense. The type information is included into the serialized JSON file, which means that `RoutingState` navigation stack consisting of `IRoutableViewModel`s could be restored. However, this driver isn't compatible with UWP. If you'd like to persist UWP state to a file, use `StorageFile` APIs instead of `System.IO.File`. You can also use [Xamarin.Essentials SecureStorage APIs](https://docs.microsoft.com/en-us/xamarin/essentials/secure-storage?tabs=android) to read and write serialized JSON objects, `SecureStorage.SetAsync` and  `SecureStorage.GetAsync`. 
+Here is an implementation that uses [Newtonsoft.Json](https://github.com/JamesNK/Newtonsoft.Json) with `TypeNameHandling.All` json serialization setting for its persistense. The type information is included into the serialized JSON file, which means that `RoutingState` navigation stack consisting of `IRoutableViewModel`s could be restored. However, this driver isn't compatible with UWP. If you'd like to persist UWP state to a file, use `StorageFile` APIs instead of `System.IO.File`. You can also use [MAUI Essentials `SecureStorage`](https://learn.microsoft.com/dotnet/maui/platform-integration/storage/secure-storage) to read and write serialized JSON objects via `SecureStorage.SetAsync` and `SecureStorage.GetAsync`. 
 
 ```cs
 public class NewtonsoftJsonSuspensionDriver : ISuspensionDriver
@@ -151,8 +151,8 @@ public class MainActivity : Activity
     {
         // Initialize the suspension driver after AutoSuspendHelper. 
         this.autoSuspendHelper = new AutoSuspendHelper(this.Application);
-        RxApp.SuspensionHost.CreateNewAppState = () => new AppState();
-        RxApp.SuspensionHost.SetupDefaultSuspendResume(new AkavacheSuspensionDriver<AppState>());
+        RxSuspension.SuspensionHost.CreateNewAppState = () => new AppState();
+        RxSuspension.SuspensionHost.SetupDefaultSuspendResume(new AkavacheSuspensionDriver<AppState>());
         base.OnCreate(bundle);
     }
 }
@@ -173,8 +173,8 @@ public class AppDelegate : UIApplicationDelegate
     public override bool FinishedLaunching(UIApplication application, NSDictionary launchOptions)
     {
         // Initialize the suspension driver after AutoSuspendHelper.
-        RxApp.SuspensionHost.CreateNewAppState = () => new AppState();
-        RxApp.SuspensionHost.SetupDefaultSuspendResume(new AkavacheSuspensionDriver<AppState>());
+        RxSuspension.SuspensionHost.CreateNewAppState = () => new AppState();
+        RxSuspension.SuspensionHost.SetupDefaultSuspendResume(new AkavacheSuspensionDriver<AppState>());
         autoSuspendHelper.FinishedLaunching(application, launchOptions);
         return true;
     }
@@ -204,8 +204,8 @@ sealed partial class App : Application
     {
         // Initialize the suspension driver after AutoSuspendHelper.
         autoSuspendHelper = new AutoSuspendHelper(this);
-        RxApp.SuspensionHost.CreateNewAppState = () => new AppState();
-        RxApp.SuspensionHost.SetupDefaultSuspendResume(new AkavacheSuspensionDriver<AppState>());
+        RxSuspension.SuspensionHost.CreateNewAppState = () => new AppState();
+        RxSuspension.SuspensionHost.SetupDefaultSuspendResume(new AkavacheSuspensionDriver<AppState>());
         InitializeComponent();
     }
 
@@ -242,15 +242,15 @@ public partial class App : Application
     {
         // Initialize the suspension driver after AutoSuspendHelper.
         this.autoSuspendHelper = new AutoSuspendHelper(this);
-        RxApp.SuspensionHost.CreateNewAppState = () => new AppState();
-        RxApp.SuspensionHost.SetupDefaultSuspendResume(new AkavacheSuspensionDriver<AppState>());
+        RxSuspension.SuspensionHost.CreateNewAppState = () => new AppState();
+        RxSuspension.SuspensionHost.SetupDefaultSuspendResume(new AkavacheSuspensionDriver<AppState>());
     }
 }
 ```
 
-### Xamarin.Forms
+### MAUI
 
-We also ship a `AutoSuspendHelper` implementation for Xamarin.Forms. If you decide to set up `AutoSuspendHelper` inside your Xamarin.Forms project, then you won't need to set up auto suspension in your Android and iOS projects that are platform-specific parts of your Xamarin.Forms app. Add the following to your Xamarin.Forms `App.xaml.cs` file:
+We also ship an `AutoSuspendHelper` implementation for .NET MAUI. If you set up `AutoSuspendHelper` inside the shared MAUI project, you won't need to wire up auto suspension separately for each platform head. Add the following to your MAUI `App.xaml.cs` file:
 
 ```cs
 public partial class App : Application
@@ -260,8 +260,8 @@ public partial class App : Application
    public App()
    {
      _autoSuspendHelper = new AutoSuspendHelper();
-     RxApp.SuspensionHost.CreateNewAppState = () => new MainState();
-     RxApp.SuspensionHost.SetupDefaultSuspendResume(new CustomSuspensionDriver());
+     RxSuspension.SuspensionHost.CreateNewAppState = () => new MainState();
+     RxSuspension.SuspensionHost.SetupDefaultSuspendResume(new CustomSuspensionDriver());
      _autoSuspendHelper.OnCreate();
 
      InitializeComponent();
@@ -285,7 +285,7 @@ public partial class App : Application
 The application state will be serialized and persisted using the `ISuspensionDriver` once the application gets closed, suspended or deactivated, depending on the platform. When you want to update data or retrieve data you can get the `AppState` object with the following code:
 
 ```cs
-var appState = RxApp.SuspensionHost.GetAppState<AppState>();
+var appState = RxSuspension.SuspensionHost.GetAppState<AppState>();
 ```
 
 If you use your root view model as the app state object, then most likely you need to call the `GetAppState` method once in your composition root and assign the result to your root `DataContext` or `BindingContext`. When your application gets closed or suspended, the root view model state will be saved to the disc.

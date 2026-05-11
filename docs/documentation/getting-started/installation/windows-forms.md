@@ -13,7 +13,7 @@ Install the following packages for ReactiveUI with Windows Forms:
 <PackageReference Include="ReactiveUI.SourceGenerators" Version="*" PrivateAssets="all" />
 <PackageReference Include="ReactiveMarbles.ObservableEvents.SourceGenerator" Version="*" PrivateAssets="all" />
 
-<!-- In your shared .NET Standard library -->
+<!-- In your shared library -->
 <PackageReference Include="ReactiveUI" Version="*" />
 <PackageReference Include="ReactiveUI.SourceGenerators" Version="*" PrivateAssets="all" />
 
@@ -24,7 +24,7 @@ Install the following packages for ReactiveUI with Windows Forms:
 ### Recommended Project Structure
 
 ```
-- MyCoolApp (netstandard/net10.0 library - shared code)
+- MyCoolApp (net10.0 library - shared code)
 - MyCoolApp.WinForms (Windows Forms application)
 - MyCoolApp.UnitTests (test project)
 ```
@@ -253,8 +253,18 @@ using Splat;
 
 namespace MyCoolApp.WinForms;
 
-public partial class MainForm : ReactiveForm<MainViewModel>
+// WinForms has no ReactiveForm base class — implement IViewFor<T> directly on Form.
+// (Use ReactiveUserControl<TViewModel> for user controls — it provides this plumbing.)
+public partial class MainForm : Form, IViewFor<MainViewModel>
 {
+    public MainViewModel? ViewModel { get; set; }
+
+    object? IViewFor.ViewModel
+    {
+        get => ViewModel;
+        set => ViewModel = (MainViewModel?)value;
+    }
+
     public MainForm()
     {
         InitializeComponent();
@@ -441,7 +451,7 @@ public MainViewModel()
 
 ## Key Points
 
-- **Use ReactiveForm<TViewModel>** or **ReactiveUserControl<TViewModel>** base classes
+- **Use `ReactiveUserControl<TViewModel>` for user controls**; for forms, inherit `Form` and implement `IViewFor<TViewModel>` directly (there is no `ReactiveForm` base class)
 - **Use ReactiveUI.SourceGenerators** for cleaner property and command declarations
 - **Use RxAppBuilder** for modern dependency injection and platform setup
 - **Always call DisposeWith(disposables)** inside WhenActivated to prevent memory leaks

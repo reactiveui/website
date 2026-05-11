@@ -25,26 +25,39 @@ Or via Package Manager:
 
 ## How It Works
 
-ObservableEvents is a **source generator** that runs at compile-time. It analyzes your project's referenced assemblies and generates extension methods for all public events. These extension methods are named `Events()` and return an `IObservable<EventPattern<TEventArgs>>`.
+ObservableEvents is a **source generator** that runs at compile-time. It analyzes your project's referenced assemblies and generates an `Events()` extension method that returns a strongly-typed aggregator object with one `IObservable<T>` property per public event on the source type.
 
 ### Generated Code Pattern
 
-For any event like:
+For a type with an event like:
 
 ```csharp
 public event EventHandler<MouseEventArgs> MouseMove;
 ```
 
-The generator creates:
+the generator produces an `Events()` aggregator roughly equivalent to:
 
 ```csharp
-public static IObservable<EventPattern<MouseEventArgs>> MouseMoveEvent(this YourClass source)
+public static class YourClassEventsExtensions
 {
-    return Observable.FromEventPattern<MouseEventArgs>(
-        h => source.MouseMove += h,
-        h => source.MouseMove -= h);
+    public static YourClassEvents Events(this YourClass @this) => new(@this);
+}
+
+public sealed class YourClassEvents
+{
+    public YourClassEvents(YourClass source) => _source = source;
+    private readonly YourClass _source;
+
+    public IObservable<EventPattern<MouseEventArgs>> MouseMove =>
+        Observable.FromEventPattern<MouseEventArgs>(
+            h => _source.MouseMove += h,
+            h => _source.MouseMove -= h);
+
+    // ...one property per public event on YourClass
 }
 ```
+
+At the call site you therefore write `obj.Events().MouseMove`, not `obj.MouseMoveEvent()`.
 
 ## Basic Usage
 

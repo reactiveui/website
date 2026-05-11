@@ -8,13 +8,13 @@ There will be times where you need to extend the power of ReactiveUI view types 
 Below are a few ReactiveUI base implementations that are provided for various platforms, this is not an extensive list.
 
 - [ReactiveUserControl](https://github.com/reactiveui/ReactiveUI/blob/main/src/ReactiveUI/Platforms/windows-common/ReactiveUserControl.cs) (Windows Platform)
-- [ReactiveContentPage](https://github.com/reactiveui/ReactiveUI/blob/main/src/ReactiveUI.XamForms/ReactiveContentPage.cs) (Xamarin Forms)
+- [ReactiveContentPage](https://github.com/reactiveui/ReactiveUI/blob/main/src/ReactiveUI.Maui/ReactiveContentPage.cs) (MAUI)
 
 #### **Note: As of writting this C# does not support inheritance from multiple classes.**
 
-## Xamarin Forms Example
+## MAUI Example
 
-For this example we will use [Rg.Plugins.Popup](https://github.com/rotorgames/Rg.Plugins.Popup) a library that displays popup style modal pages for Xamarin.Forms.  This scenario expects that you are extending for a base implementation.  Another option is to explicitly extend each page from `IViewFor<T>`.  Chose the path that is right for you.
+For this example we will use [Maui.Plugins.Popup](https://github.com/reactiveui/Maui.Plugins.Popup), a library that displays popup-style modal pages for .NET MAUI.  This scenario expects that you are extending for a base implementation.  Another option is to explicitly extend each page from `IViewFor<T>`.  Choose the path that is right for you.
 
 ### The implementation
 
@@ -85,9 +85,9 @@ In our XAML we need to make sure that we inherit from the same page so that the 
 ``` xml
 <ui:BasePopupPage
     x:TypeArguments="ui:ExtendingPopupViewModel"
-    xmlns="https://xamarin.com/schemas/2014/forms"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="https://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+    xmlns:pages="clr-namespace:Mopups.Pages;assembly=Mopups"
     xmlns:ui="clr-namespace:MyApplication;assembly=MyApplication"
     x:Class="MyApplication.ExtendingPopupPage">
 

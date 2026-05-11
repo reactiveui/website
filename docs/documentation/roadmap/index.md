@@ -5,7 +5,7 @@ Want to see something done sooner? Speak with one of the maintainers and ask how
 
 ## Now
 - Improve quality of website documentation.
-- Improve the FODY experience
+- Grow and polish [ReactiveUI.SourceGenerators](https://github.com/reactiveui/ReactiveUI.SourceGenerators) (the modern replacement for the Fody weaver).
 - Document the release process, finalize it.
 - Focus on getting our bug count down.
 - Focusing on our new incubator project ReactiveMarbles and deciding what functionality comes across as modules.

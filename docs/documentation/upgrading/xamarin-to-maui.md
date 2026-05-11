@@ -30,7 +30,7 @@ This comprehensive guide helps you migrate your ReactiveUI Xamarin.Forms applica
 - Visual Studio 2022 17.8+ or VS Code with .NET MAUI extension
 - .NET 8.0 SDK or later
 - MAUI workload installed: `dotnet workload install maui`
-- ReactiveUI 19.5.31+
+- ReactiveUI 22.x or 23.x (current)
 
 ## Migration Overview
 

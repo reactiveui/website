@@ -1,11 +1,11 @@
-# Data Binding in Xamarin.iOS
+# Data Binding in .NET for iOS
 
 In order to use bindings in the View, you must first implement
 `IViewFor<TViewModel>` on your View. Depending on the platform, you must
 implement it differently:
 
 * **iOS** - change your base class to one of the Reactive UIKit classes (i.e.
-  ReactiveUIViewController) and implement `ViewModel` using
+  `ReactiveViewController`) and implement `ViewModel` using
   RaiseAndSetIfChanged, *or* implement `INotifyPropertyChanged` on your View and
   ensure that ViewModel signals changes.
 

@@ -1,26 +1,51 @@
 ---
 NoTitle: true
+Title: MvvmCross
 Order: 3
 ---
-## Understanding the Differences between MvvmCross and ReactiveUI
+## MvvmCross vs. ReactiveUI
 
-### Introduction:
-When it comes to developing robust and scalable cross-platform applications, frameworks like MvvmCross and ReactiveUI provide developers with powerful tools. Both MvvmCross and ReactiveUI follow the Model-View-ViewModel (MVVM) architectural pattern and aim to simplify the development process. However, there are some notable differences between the two frameworks. In this blog post, we will explore these differences and help you understand which framework might be the best fit for your project.
+[MvvmCross](https://www.mvvmcross.com/) is a long-running cross-platform MVVM framework, historically the dominant choice for Xamarin native (iOS/Android/macOS/Windows) before MAUI. It's still maintained today and supports MAUI + WPF + Avalonia in addition to the platforms it grew up on.
 
-### Philosophy and Approach:
-MvvmCross is a mature and widely-used framework that focuses on providing a comprehensive set of features for building native mobile applications. It emphasizes code-sharing across multiple platforms and provides a consistent API for UI development. On the other hand, ReactiveUI is built on top of the Reactive Extensions (Rx) library and places a strong emphasis on reactive programming. It leverages the power of observables and streams to handle complex asynchronous operations and data flow within an application.
+### Approach
 
-### Platforms and Compatibility:
-MvvmCross primarily targets the development of native mobile applications for platforms like iOS, Android, and Windows. It provides extensive support for UI development on each platform and encourages code reusability through shared ViewModel logic. In contrast, ReactiveUI is a cross-platform framework that can be used to develop applications for various platforms, including mobile, desktop, and web. It provides a more flexible approach to UI development and can be integrated with different UI frameworks, such as MAUI, Xamarin.Forms, WPF, UNO Platform, and Blazor.
+MvvmCross is **opinionated and prescriptive**: it owns the app's bootstrap (`MvxApplication`, `MvxSetup`), the navigation model (view-model-first via `IMvxNavigationService`), and the container (its own `Mvx.IoCProvider`). View bindings use MvvmCross's own fluent binding DSL or a convention-based tag syntax in XAML/AXML.
 
-### Data Binding:
-Data binding is a crucial aspect of MVVM frameworks, allowing developers to establish a connection between the UI and the underlying data. MvvmCross utilizes a convention-based data binding approach, where properties and commands in the ViewModel are automatically bound to the corresponding views. ReactiveUI, on the other hand, employs a more reactive and explicit approach to data binding. It utilizes Reactive Extensions to create observable streams that can be easily bound to UI elements.
+ReactiveUI, by contrast, is unopinionated about app structure. It plugs into whatever host you already have (MAUI's `MauiAppBuilder`, Avalonia's `AppBuilder`, WPF's `App.OnStartup`) and gives you reactive composition + commands on top.
 
-### Reactive Programming:
-While both frameworks support reactive programming to some extent, ReactiveUI places a stronger emphasis on it. ReactiveUI integrates with the Reactive Extensions (Rx) library and allows developers to leverage the power of reactive programming to handle events, asynchronous operations, and complex data flows. This makes ReactiveUI particularly suitable for applications that require advanced asynchronous programming patterns and event-driven architectures.
+### Differences at a glance
 
-### Learning Curve and Community:
-MvvmCross has been around for quite some time and has a large and active community of developers. It has extensive documentation, tutorials, and sample projects available, making it relatively easy to get started and find support. ReactiveUI, although not as widely adopted as MvvmCross, also has a dedicated community and offers comprehensive documentation. However, due to the emphasis on reactive programming, ReactiveUI may have a steeper learning curve for developers new to reactive concepts, but has an excellent team of people more than willing to assist you on this learning journey.
+| Aspect | MvvmCross | ReactiveUI |
+|--------|-----------|------------|
+| Scope | Full app shell + navigation + container + binding | MVVM building blocks on top of the host platform |
+| Container | Built-in `Mvx.IoCProvider` | Splat by default; adapters for Autofac / DryIoc / MSDI / Ninject / SimpleInjector |
+| Navigation | `IMvxNavigationService` (view-model-first) | `IScreen` + `RoutingState`, or [Sextant](../documentation/handbook/sextant/index.md); or use the host's native navigation |
+| Binding | Fluent / convention-based MvvmCross bindings | `this.Bind`, `BindCommand`, `OneWayBind` (strongly-typed Expressions); plus the host platform's bindings |
+| Reactive composition | Not first-class (some Rx hooks exist) | First-class via Rx.NET |
+| Commands | `MvxCommand` / `MvxAsyncCommand` | `ReactiveCommand<TParam, TResult>` with `IsExecuting` / `ThrownExceptions` |
+| Activity / lifecycle | `IMvxViewModel`'s `Start`, `ViewAppearing`, etc. | `WhenActivated` + `IActivatableViewModel` |
+| Native platforms | Strong (Xamarin native heritage) | Strong via `ReactiveUI` + `ReactiveUI.AndroidX` + native iOS/MacCatalyst support |
 
-### Conclusion:
-MvvmCross and ReactiveUI are both powerful MVVM frameworks that facilitate cross-platform development. While MvvmCross provides a comprehensive set of features for building native mobile applications, ReactiveUI's focus on reactive programming makes it an attractive choice for applications with complex asynchronous operations and event-driven architectures. Ultimately, the choice between the two frameworks depends on the specific requirements of your project and your familiarity with reactive programming concepts.
+### Using them together
+
+MvvmCross is "all the way down" — it owns navigation, container, and bindings. Mixing it with ReactiveUI is possible but rarely worth the impedance mismatch, because both libraries want to own commands and (optionally) navigation.
+
+If a team has an existing MvvmCross codebase and wants reactive composition, the lightest-touch combination is:
+
+- Keep MvvmCross for bootstrap / navigation / container / bindings.
+- Use `System.Reactive` directly inside view-models for derived state, throttling, async coordination.
+- Skip `ReactiveCommand` and `RoutingState` to avoid two parallel command/navigation stacks.
+
+For greenfield projects today, the more common pairings are **ReactiveUI on raw MAUI/Avalonia** or **ReactiveUI + Prism** rather than ReactiveUI + MvvmCross.
+
+### When to pick MvvmCross
+
+- You have an existing MvvmCross codebase that works well.
+- You want a single framework that prescribes app structure end-to-end (bootstrap, navigation, container, bindings).
+- You're targeting native Xamarin-iOS / Xamarin-Android (now .NET for iOS / .NET for Android) without a cross-platform UI layer and want a battle-tested navigation story.
+
+### When to pick ReactiveUI
+
+- You want to keep the host platform's own bootstrap, container, and navigation, and only add an MVVM layer for reactive composition and async commands.
+- You're using MAUI, Avalonia, WPF, WinUI, Blazor, or Uno and either don't need a custom router or are happy with `RoutingState` / Sextant.
+- You want reactive composition (`WhenAnyValue`, `Throttle`, `CombineLatest`) as a first-class citizen.

@@ -31,11 +31,11 @@ In order to use bindings in the View, you must first implement `IViewFor<TViewMo
 
 For a detailed overview of the bindings on each platform, see the following sections:
 
-* [Xamarin.Forms](xamarin-forms.md)
+* [Android](android/index.md)
 
-* [Xamarin.Android](xamarin-android/index.md)
+* [iOS](ios.md)
 
-* [Xamarin.iOS](xamarin-ios.md)
+* [MAUI](../../getting-started/installation/maui.md)
 
 * [Windows Presentation Foundation](windows-presentation-foundation.md)
 

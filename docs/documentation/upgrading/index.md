@@ -7,18 +7,16 @@ ReactiveUI has been going through rapid changes since version 7.
 
 Here are some guides on how to upgrade to newer features.
 
-## Net Standard 2.0
+## Supported Target Frameworks
 
-As of version 8.0 of ReactiveUI, support for [.NET Standard](https://docs.microsoft.com/en-us/dotnet/standard/net-standard) will be included. We recommend using .Net Standard in any utility libraries you develop that are meant to be cross platform.
-
-Edit your .Net Standard project file and locate the following:
+ReactiveUI targets **.NET 8.0, .NET 9.0, .NET 10.0** on every supported platform, and **.NET Framework 4.6.2 – 4.8.1** on Windows. The .NET Framework binaries are published as `net462`, `net472`, and `net481` and run on every release in that range — i.e. `net462`, `net47`, `net471`, `net472`, `net48`, and `net481` apps all work (NuGet picks the closest matching TFM at restore time, and .NET Framework's runtime forward-compat does the rest). Support for .NET Standard (and other older targets) has been dropped — utility libraries that depend on ReactiveUI should multi-target the supported moniker(s) they need.
 
 ```xml
 <PropertyGroup>
-  <TargetFramework>netstandard2.0</TargetFramework>
+  <TargetFrameworks>net8.0;net9.0;net10.0;net462;net472;net481</TargetFrameworks>
 </PropertyGroup>
 <ItemGroup>
-  <PackageReference Include="ReactiveUI" Version="9.9.1" />
+  <PackageReference Include="ReactiveUI" Version="*" />
 </ItemGroup>
 ```
 
@@ -34,7 +32,7 @@ A tip in the new PackageReference you no longer have to include dependencies suc
 
 TIP: if the upgrade option does not show when right clicking on the `packages.config` file, make sure that PackageReference are your default choice under Tools -> Options -> NuGet Package Manager -> General, You can change the "Default package management format" to "PackageReference".
 
-## Use the platform ReactiveUI NuGet packages for Xamarin Forms, WinForms, WPF, MAUI, Uno Platform, etc
+## Use the platform ReactiveUI NuGet packages for WinForms, WPF, WinUI, MAUI, Avalonia, Uno Platform, etc
 
 We had to introduce a number of new NuGet packages for various platforms. This is because Visual Studio for Mac would be looking for Windows only symbols if we didn't exclude them from the main package.
 

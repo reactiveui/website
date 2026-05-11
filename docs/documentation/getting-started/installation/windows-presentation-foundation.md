@@ -13,7 +13,7 @@ Install the following packages for ReactiveUI with WPF:
 <PackageReference Include="ReactiveUI.SourceGenerators" Version="*" PrivateAssets="all" />
 <PackageReference Include="ReactiveMarbles.ObservableEvents.SourceGenerator" Version="*" PrivateAssets="all" />
 
-<!-- In your shared .NET Standard library -->
+<!-- In your shared library -->
 <PackageReference Include="ReactiveUI" Version="*" />
 <PackageReference Include="ReactiveUI.SourceGenerators" Version="*" PrivateAssets="all" />
 
@@ -24,7 +24,7 @@ Install the following packages for ReactiveUI with WPF:
 ### Recommended Project Structure
 
 ```
-- MyCoolApp (netstandard/net8.0 library - shared code)
+- MyCoolApp (net10.0 library - shared code)
 - MyCoolApp.WPF (WPF application)
 - MyCoolApp.UnitTests (test project)
 ```

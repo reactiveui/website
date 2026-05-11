@@ -27,7 +27,7 @@ This guide helps you migrate from legacy ReactiveUI initialization patterns to t
 ## Prerequisites
 
 - ReactiveUI 22.2.1+
-- .NET 8.0+ or .NET Standard 2.0+
+- .NET 8.0–10.0 or .NET Framework 4.6.2–4.8.1
 - Splat 17.1.1+ (included with ReactiveUI)
 
 ## Migration Patterns
@@ -217,8 +217,8 @@ RxApp.TaskpoolScheduler = CustomTaskScheduler.Instance;
 ```csharp
 var app = RxAppBuilder.CreateReactiveUIBuilder()
     .WithWpf()
-    .WithCustomScheduler(mainThreadScheduler: CustomScheduler.Instance)
-    .WithCustomScheduler(taskpoolScheduler: CustomTaskScheduler.Instance)
+    .WithMainThreadScheduler(CustomScheduler.Instance)
+    .WithTaskPoolScheduler(CustomTaskScheduler.Instance)
     .BuildApp();
 
 // Access configured schedulers
@@ -412,8 +412,8 @@ public class TestFixture : IDisposable
         var scheduler = new TestScheduler();
         
         var app = RxAppBuilder.CreateReactiveUIBuilder()
-            .WithCustomScheduler(mainThreadScheduler: scheduler)
-            .WithCustomScheduler(taskpoolScheduler: scheduler)
+            .WithMainThreadScheduler(scheduler)
+            .WithTaskPoolScheduler(scheduler)
             .WithRegistration(locator =>
             {
                 locator.RegisterLazySingleton<IDataService>(() => mockService);
@@ -496,7 +496,72 @@ void RegisterUIServices(IMutableDependencyResolver locator)
 }
 ```
 
-### Scenario 3: Dynamic Configuration
+### Scenario 3: Hybrid Bootstrap (existing DI container + existing host)
+
+The most common real-world case: your app already builds an `IServiceProvider` (or Autofac container, or DryIoc container) via its own host/bootstrap. You want RxAppBuilder to register *into* that container instead of standing up a parallel one.
+
+The flow is:
+
+1. Hook the Splat adapter for your container so `AppLocator` forwards into it.
+2. Drive `RxAppBuilder` through the resolver-bound extension: `resolver.CreateReactiveUIBuilder()`.
+3. Re-bind `AppLocator` once the container is built (only matters for containers that distinguish "configure" from "built", e.g. MSDI / Autofac / SimpleInjector).
+
+#### Generic Host + Microsoft.Extensions.DependencyInjection
+
+```csharp
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using ReactiveUI.Builder;
+using Splat;
+using Splat.Microsoft.Extensions.DependencyInjection;
+
+var hostBuilder = Host.CreateApplicationBuilder(args);
+
+// Your existing service registrations
+hostBuilder.Services.AddSingleton<IDataService, DataService>();
+hostBuilder.Services.AddTransient<MainViewModel>();
+hostBuilder.Services.AddTransient<IViewFor<MainViewModel>, MainView>();
+
+// Bind Splat's AppLocator to the IServiceCollection.
+hostBuilder.Services.UseMicrosoftDependencyResolver();
+
+// Drive ReactiveUI through the same container.
+((IMutableDependencyResolver)AppLocator.CurrentMutable)
+    .CreateReactiveUIBuilder()
+    .WithWpf()
+    .WithViewsFromAssembly(typeof(App).Assembly)
+    .BuildApp();
+
+var host = hostBuilder.Build();
+
+// Re-bind AppLocator to the built IServiceProvider.
+host.Services.UseMicrosoftDependencyResolver();
+
+host.Run();
+```
+
+#### Existing Autofac bootstrap
+
+```csharp
+var builder = new ContainerBuilder();
+builder.RegisterModule<MyExistingAutofacModule>();           // your existing modules
+builder.RegisterType<MainViewModel>();
+builder.RegisterType<MainView>().As<IViewFor<MainViewModel>>();
+
+var autofacResolver = builder.UseAutofacDependencyResolver();
+
+autofacResolver.CreateReactiveUIBuilder()
+    .WithWpf()
+    .WithViewsFromAssembly(typeof(App).Assembly)
+    .BuildApp();
+
+var container = builder.Build();
+autofacResolver.SetLifetimeScope(container);                 // Autofac v5+ requires this
+```
+
+> See [custom-dependency-inversion](../handbook/dependency-inversion/custom-dependency-inversion.md) for the same pattern against DryIoc and the bare `IMutableDependencyResolver` route, plus a verification checklist.
+
+### Scenario 4: Dynamic Configuration
 
 ```csharp
 var app = RxAppBuilder.CreateReactiveUIBuilder()

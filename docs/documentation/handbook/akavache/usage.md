@@ -15,10 +15,9 @@ var user2 = await ak.LocalMachine.GetObject<User>("user");
 
 // GetOrFetch with expiration (throttles dup requests)
 var posts = await ak.LocalMachine.GetOrFetchObject("posts",
-    () => api.GetPostsAsync(), TimeSpan.FromMinutes(5));
+    () => api.GetPostsAsync(), DateTimeOffset.Now.AddMinutes(5));
 
-// exists/invalidate
-bool exists = await ak.LocalMachine.Exists("user");
+// invalidate
 await ak.LocalMachine.Invalidate("user");
 await ak.LocalMachine.InvalidateAll();
 ```

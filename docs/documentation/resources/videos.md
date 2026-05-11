@@ -77,11 +77,11 @@ Mobile developers have some unique constraints that we have to solve for.  We de
 ## 2018
 
 ## ReactiveUI - A new way of thinking by Kent Boogaart
-Xamarin Expert Day 2018 - ReactiveUI - A new way of thinking by Kent Boogaart
+
 <div class="youtube-video-container"><iframe src="https://www.youtube.com/watch?v=A_qmik32Kos" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
 
-## Lifting App State with Geoffrey Huntley | The Xamarin Show
-This week, James is joined by friend of the show and Microsoft MVP Geoffrey Huntley to discuss lifting app state with Reactive Extensions (RX). Geoffrey gives a full overview of RX and Reactive UI and how it can help developers compose their application logic easier. He walks through full concepts and how to convert some MVVM code over.
+## Lifting App State with Geoffrey Huntley
+Geoffrey Huntley discusses lifting app state with Reactive Extensions (RX). Geoffrey gives a full overview of RX and ReactiveUI and how it can help developers compose their application logic more easily, walking through full concepts and converting some MVVM code over.
 
 <div class="youtube-video-container"><iframe src="https://www.youtube.com/embed/3HwEytvngXk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
 
@@ -93,22 +93,21 @@ There is a better way - Geoffrey Huntley at NDC Sydney
 
 <div class="youtube-video-container"><iframe src="https://www.youtube.com/embed/4inY7TFEVT0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
 
-## The Xamarin Show: Episode 17
-ReactiveUI with Michael Stonis
+## ReactiveUI with Michael Stonis
 
 <div class="youtube-video-container"><iframe src="https://www.youtube.com/embed/GSKFk-A4omo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
 
 ## 2016
 
-## ReactiveUI with Xamarin - Xamarin University Guest Lecture
+## ReactiveUI guest lecture
 
-Michael Stonis & Geoffrey Huntley at Xamarin University
+Michael Stonis & Geoffrey Huntley
 
 <div class="youtube-video-container"><iframe src="https://www.youtube.com/embed/vydDJ9CaIug" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
 
 ## Why You Should Be Building Better Mobile Apps with Reactive Programming 
 
-Michael Stonis at Xamarin Evolve 2016
+Michael Stonis
 
 <div class="youtube-video-container"><iframe src="https://www.youtube.com/embed/DYEbUF4xs1Q" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
 
@@ -129,7 +128,7 @@ By Brendan Forster
 
 ## Awaiting for Rx: A Play in Four Acts
 
-Anaïs Betts at Xamarin Evolve 2014
+Anaïs Betts
 
 <div class="youtube-video-container"><iframe src="https://www.youtube.com/embed/5DZ8nC0ENdg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
 

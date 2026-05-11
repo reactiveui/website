@@ -5,18 +5,44 @@ Title: ReactiveUI vs.
 Order: 5
 ---
 
-## Chosing an MVVM Framework
+## Where ReactiveUI fits
 
-The choice of a MVVM Framework can have implications on your development life cycle.  When choosing an MVVM Framework should be based on the features that are provided and whether your technology decisions align with the framework.  Most frameworks (this one included) can be opinionated.  When making a selection the opinions of the framework match the direction you want to take the technology of the application you are working on.
+ReactiveUI is an MVVM library built on top of **System.Reactive** (Rx.NET). It deliberately does *not* ship its own UI toolkit and is not a host or bootstrapper. Instead, it slots **alongside** the UI stack you already use:
 
-Below is a short list of features commong to Mvvm Frameworks and which frameworks have.  Each framework may support these features to varying degrees.  So making sure the feature meets your concerns is important in your decision.
+- **WPF**, **WinUI 3**, **Windows Forms**, **UWP**
+- **.NET MAUI** (including MAUI Shell)
+- **Avalonia**
+- **Uno Platform**
+- **Blazor** (Server and WebAssembly)
+- **.NET for Android / iOS / Mac Catalyst / Tizen**
+- **.NET Framework 4.6.2 – 4.8.1** — any release in this range (`net462`, `net47`, `net471`, `net472`, `net48`, `net481`); used by WPF / WinForms apps
 
-|Framework|View Model Navigation|Binding Extensions|Dependency Inversion|Application State LifeCycle|
-|:--:|:--:|:--:|:--:|:--:|:--:|
-|[ReactiveUI]()|&#x2714;|&#x2714;|&#x2714;|&#x2714;|
-|[Prism](prism.md)|&#x2714;|-|&#x2714;|-|
-|[Mvvm Cross](mvvmcross.md)|&#x2714;|&#x2714;|&#x2714;|-|
-|[Fresh Mvvm](freshmvvm.md)|&#x2714;|-|&#x2714;|-|
-|[Mvvm Light](mvvmlight.md)|&#x2714;|-|&#x2714;|-|
-|[Xamarin.Forms](xamarin-forms.md)|-|-|&#x2714;|-|
+You don't have to take ReactiveUI as an all-or-nothing dependency. It's a buffet, not a framework lock-in: bring in only `ReactiveObject` for property change notification, add `ReactiveCommand` where you want async-aware commands, layer in `WhenAnyValue` / `WhenActivated` when you need reactive composition, opt into `RoutingState` only if you want view-model-first navigation, and so on. Every piece is designed to coexist with the host platform's own APIs (DataTemplates, dependency injection, Shell routing, Avalonia bindings, Blazor parameters, etc.).
 
+This section compares ReactiveUI against two things that often come up:
+
+1. **Other MVVM libraries** that you would weigh against ReactiveUI when picking *an MVVM layer*. ReactiveUI is genuinely a peer of these.
+2. **Raw platform stacks (MAUI Shell, Avalonia)** that already include MVVM-ish primitives. ReactiveUI is *not* a competitor to these — it runs on top of them — but the comparison is useful when deciding whether to add ReactiveUI on top of what the platform already gives you.
+
+## MVVM library comparison
+
+| Library | Reactive composition | View-model navigation | DI integration | Commands | Source generators | Active development |
+|---------|:--:|:--:|:--:|:--:|:--:|:--:|
+| [ReactiveUI](https://github.com/reactiveui/ReactiveUI) | First-class (Rx-based) | `IScreen` + `RoutingState`, optional [Sextant](../documentation/handbook/sextant/index.md) | Splat (built-in) + adapters for Autofac, DryIoc, MSDI, Ninject, SimpleInjector | `ReactiveCommand<TParam, TResult>` (async-aware, exposes `IsExecuting`, `ThrownExceptions`, `CanExecute`) | [`ReactiveUI.SourceGenerators`](https://github.com/reactiveui/ReactiveUI.SourceGenerators) (`[Reactive]`, `[ObservableAsProperty]`, `[ReactiveCommand]`, `[IViewFor]`) | Yes |
+| [CommunityToolkit.Mvvm](community-toolkit-mvvm.md) | Manual (no Rx integration) | None built in | None built in (works with MSDI) | `RelayCommand` / `AsyncRelayCommand` | Built in (`[ObservableProperty]`, `[RelayCommand]`) | Yes |
+| [Prism](prism.md) | Limited (event aggregator) | Region navigation (XAML-region-based) | Container abstraction (Unity / DryIoc) | `DelegateCommand` / `AsyncDelegateCommand` | Some via Prism.SourceGenerators | Yes |
+| [MvvmCross](mvvmcross.md) | Limited (Mvx.Messenger) | View-model-first | Built-in Mvx IoC | `MvxCommand` / `MvxAsyncCommand` | No | Maintenance mode |
+| [Caliburn.Micro](caliburn-micro.md) | None built in | Conductors / Screens / Coroutines | Bootstrapper-driven | `ICommand` via convention or `Task` methods | No | Yes |
+
+> The table is meant to surface differences, not declare a winner. Real projects often mix-and-match — e.g. Prism for region navigation and ReactiveUI for reactive property composition; CommunityToolkit.Mvvm for code-gen and ReactiveUI's `WhenAnyValue` only where you need it.
+
+## ReactiveUI alongside platform stacks
+
+The platform stacks below already give you bindings, navigation, and DI. They are not MVVM libraries you'd pick *instead of* ReactiveUI — they are the host. Each page below explains what the platform provides on its own and what adding ReactiveUI on top gains you.
+
+- [.NET MAUI (with Shell)](maui.md)
+- [Avalonia](avalonia.md)
+
+## Conclusion
+
+Pick whichever combination matches the shape of your problem. If you mostly need property-change boilerplate gone and a couple of commands, `CommunityToolkit.Mvvm` is usually enough. If you have multiple async data sources, derived state, throttling/debouncing, validation, or any non-trivial coordination — that's where ReactiveUI starts to pay for itself. And in either case, the host platform's own primitives (Shell routing, Avalonia bindings, MSDI, MAUI Essentials) sit underneath; ReactiveUI is additive.

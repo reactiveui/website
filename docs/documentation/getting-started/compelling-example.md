@@ -7,7 +7,7 @@ Let's create a simple application demonstrating a number of ReactiveUI functiona
 
 ## 1. Create the project
 
-In [Visual Studio](https://visualstudio.microsoft.com/), create a new WPF application (.NET 4.6.2 or above), use `ReactiveDemo` app name. Our view has been already created for us, the `MainWindow`, so we will proceed with creating our ViewModel.
+In [Visual Studio](https://visualstudio.microsoft.com/), create a new WPF application (.NET 8.0 or above, or .NET Framework 4.6.2–4.8.1), use `ReactiveDemo` app name. Our view has been already created for us, the `MainWindow`, so we will proceed with creating our ViewModel.
 
 ## 2. Add NuGet packages
 
@@ -15,7 +15,7 @@ In [Visual Studio](https://visualstudio.microsoft.com/), create a new WPF applic
 Install-Package ReactiveUI.WPF
 ```
 
-The complete list containing NuGet packages for all supported platforms [can be found here](installation/index.md). [ReactiveUI](https://www.nuget.org/packages/reactiveui/) main package should normally be installed into you .NET Standard class libraries containing platform-agnostic code (repositories, services, DTOs, view-models), and `ReactiveUI.XXX` packages are platform-specific, so we use [ReactiveUI.WPF](https://www.nuget.org/packages/ReactiveUI.WPF/) in this tutorial as we are developing a tiny WPF application that doesn't need code sharing.
+The complete list containing NuGet packages for all supported platforms [can be found here](installation/index.md). [ReactiveUI](https://www.nuget.org/packages/reactiveui/) main package should normally be installed into your shared class libraries containing platform-agnostic code (repositories, services, DTOs, view-models), and `ReactiveUI.XXX` packages are platform-specific, so we use [ReactiveUI.WPF](https://www.nuget.org/packages/ReactiveUI.WPF/) in this tutorial as we are developing a tiny WPF application that doesn't need code sharing.
 
 ```powershell
 Install-Package NuGet.Protocol
