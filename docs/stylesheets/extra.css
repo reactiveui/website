@@ -1,0 +1,160 @@
+/* RXUI palette + mkdocs-material-style visual treatment for the NuStreamDocs Material 3 theme.
+   The MD3 theme uses Google's --md-sys-color-* tokens (not mkdocs-material's
+   --md-primary-fg-color), so we override the M3 tokens that drive the header / tab strip /
+   active links to give the site the same blue-header, white-text feel mkdocs-material renders. */
+
+:root {
+  --rxui-blue: #319af3;
+  --rxui-blue-light: #5cb0f6;
+  --rxui-blue-dark: #1f6fb8;
+
+  /* Header + tabs run on the same blue-on-white treatment mkdocs-material uses for an
+     opinionated primary palette — drive the M3 surface roles directly. */
+  --md-sys-color-primary: var(--rxui-blue);
+  --md-sys-color-on-primary: #ffffff;
+  --md-sys-color-primary-container: var(--rxui-blue-dark);
+  --md-sys-color-on-primary-container: #ffffff;
+
+  /* Keep the legacy mkdocs-material variables wired up in case any inherited markup or
+     plugin still reads them (e.g. an older snippet that includes a literal style block). */
+  --md-primary-fg-color: var(--rxui-blue);
+  --md-primary-fg-color--light: var(--rxui-blue-light);
+  --md-primary-fg-color--dark: var(--rxui-blue-dark);
+  --md-accent-fg-color: var(--rxui-blue);
+  --md-accent-fg-color--transparent: rgba(49, 154, 243, 0.1);
+}
+
+[data-md-color-scheme="slate"] {
+  --md-sys-color-primary: var(--rxui-blue-light);
+  --md-primary-fg-color: var(--rxui-blue-light);
+  --md-accent-fg-color: var(--rxui-blue-light);
+}
+
+/* ---- Header bar: solid rxui blue with white chrome on top, mirroring the mkdocs-material
+       look that previously shipped at reactiveui.net. ---- */
+.md-header {
+  background: var(--rxui-blue);
+  color: #ffffff;
+  border-bottom: 0;
+}
+
+.md-header__title,
+.md-header__button,
+.md-header__option,
+.md-header__source,
+.md-search__trigger {
+  color: #ffffff;
+}
+
+.md-header__title {
+  font-weight: 700;
+}
+
+.md-header__button:hover,
+.md-header__option:hover,
+.md-header__source:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.md-search__trigger {
+  border-color: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.md-search__trigger:hover {
+  background: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+}
+
+/* ---- Tab strip: continues the blue header with a slightly darker shade so it reads as a
+       distinct row, but keeps the same on-primary white text. ---- */
+.md-tabs {
+  background: var(--rxui-blue-dark);
+  border-bottom: 0;
+}
+
+.md-tabs__link {
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.md-tabs__link:hover {
+  color: #ffffff;
+}
+
+.md-tabs__item--active > .md-tabs__link {
+  color: #ffffff;
+  border-bottom-color: #ffffff;
+}
+
+/* ---- Sidebar links + body links use the rxui blue accent. ---- */
+.md-typeset a {
+  color: var(--rxui-blue);
+}
+
+.md-typeset a:hover {
+  color: var(--rxui-blue-dark);
+}
+
+.md-nav__link--active {
+  color: var(--rxui-blue);
+}
+
+/* ---- Landing-page hero banner (unchanged from the zensical version). ---- */
+.rxui-landing {
+  background: linear-gradient(135deg, var(--rxui-blue-dark) 0%, var(--rxui-blue) 100%);
+  color: #fff;
+}
+
+.rxui-hero h1 {
+  color: #fff;
+}
+
+.rxui-hero p.tagline {
+  opacity: 0.92;
+}
+
+.rxui-hero .md-button {
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.7);
+}
+
+.rxui-hero .md-button--primary {
+  background-color: #fff;
+  color: var(--rxui-blue-dark);
+  border-color: #fff;
+}
+
+.rxui-hero .md-button:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+  color: #fff;
+  border-color: #fff;
+}
+
+.rxui-hero .md-button--primary:hover {
+  background-color: rgba(255, 255, 255, 0.92);
+  color: var(--rxui-blue-dark);
+}
+
+/* Code-sample tabs sit on the blue gradient — Material's default dark text would be unreadable. */
+.rxui-sample .tabbed-labels > label {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.rxui-sample .tabbed-labels > label:hover {
+  color: #fff;
+}
+
+.rxui-sample .tabbed-set > input:checked + label {
+  color: #fff;
+}
+
+.rxui-sample .tabbed-labels::before,
+.rxui-sample .tabbed-labels > label > [for] {
+  background-color: #fff;
+}
+
+/* Tighten the feature grid — Material's default cards have generous padding that
+   compounds with six items. */
+.md-typeset .grid.cards p { font-size: 0.78rem; line-height: 1.5; }
+.md-typeset .grid.cards hr { margin: 0.4rem 0; }

@@ -1,0 +1,60 @@
+<Project>
+  <PropertyGroup>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+    <CentralPackageTransitivePinningEnabled>true</CentralPackageTransitivePinningEnabled>
+    <NuStreamDocsVersion>1.3.0</NuStreamDocsVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageVersion Include="stylecop.analyzers" Version="1.2.0-beta.556" />
+    <PackageVersion Include="Roslynator.Analyzers" Version="4.15.0" />
+    <PackageVersion Include="Blazor.Common.Analyzers" Version="1.0.28" />
+    <PackageVersion Include="SonarAnalyzer.CSharp" Version="10.25.0.139117" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <PackageVersion Include="System.CommandLine" Version="3.0.0-preview.3.26207.106" />
+    <PackageVersion Include="Microsoft.Extensions.Logging.Console" Version="10.0.0" />
+  </ItemGroup>
+
+  <!-- NuStreamDocs libraries (published from glennawatson/SourceMkDoc). -->
+  <ItemGroup>
+    <PackageVersion Include="NuStreamDocs" Version="$(NuStreamDocsVersion)" />
+    <PackageVersion Include="NuStreamDocs.Autorefs" Version="$(NuStreamDocsVersion)" />
+    <PackageVersion Include="NuStreamDocs.Blog" Version="$(NuStreamDocsVersion)" />
+    <PackageVersion Include="NuStreamDocs.Blog.Common" Version="$(NuStreamDocsVersion)" />
+    <PackageVersion Include="NuStreamDocs.CSharpApiGenerator" Version="$(NuStreamDocsVersion)" />
+    <PackageVersion Include="NuStreamDocs.Emoji" Version="$(NuStreamDocsVersion)" />
+    <PackageVersion Include="NuStreamDocs.Feed" Version="$(NuStreamDocsVersion)" />
+    <PackageVersion Include="NuStreamDocs.Highlight" Version="$(NuStreamDocsVersion)" />
+    <PackageVersion Include="NuStreamDocs.Icons.FontAwesome" Version="$(NuStreamDocsVersion)" />
+    <PackageVersion Include="NuStreamDocs.Icons.Material" Version="$(NuStreamDocsVersion)" />
+    <PackageVersion Include="NuStreamDocs.Icons.MaterialDesign" Version="$(NuStreamDocsVersion)" />
+    <PackageVersion Include="NuStreamDocs.Keys" Version="$(NuStreamDocsVersion)" />
+    <PackageVersion Include="NuStreamDocs.Lightbox" Version="$(NuStreamDocsVersion)" />
+    <PackageVersion Include="NuStreamDocs.LinkValidator" Version="$(NuStreamDocsVersion)" />
+    <PackageVersion Include="NuStreamDocs.MagicLink" Version="$(NuStreamDocsVersion)" />
+    <PackageVersion Include="NuStreamDocs.MarkdownExtensions" Version="$(NuStreamDocsVersion)" />
+    <PackageVersion Include="NuStreamDocs.Mermaid" Version="$(NuStreamDocsVersion)" />
+    <PackageVersion Include="NuStreamDocs.Nav" Version="$(NuStreamDocsVersion)" />
+    <PackageVersion Include="NuStreamDocs.Optimize" Version="$(NuStreamDocsVersion)" />
+    <PackageVersion Include="NuStreamDocs.Privacy" Version="$(NuStreamDocsVersion)" />
+    <PackageVersion Include="NuStreamDocs.Search" Version="$(NuStreamDocsVersion)" />
+    <PackageVersion Include="NuStreamDocs.Search.Pagefind" Version="$(NuStreamDocsVersion)" />
+    <PackageVersion Include="NuStreamDocs.Serve" Version="$(NuStreamDocsVersion)" />
+    <PackageVersion Include="NuStreamDocs.Sitemap" Version="$(NuStreamDocsVersion)" />
+    <PackageVersion Include="NuStreamDocs.SmartSymbols" Version="$(NuStreamDocsVersion)" />
+    <PackageVersion Include="NuStreamDocs.Snippets" Version="$(NuStreamDocsVersion)" />
+    <PackageVersion Include="NuStreamDocs.SuperFences" Version="$(NuStreamDocsVersion)" />
+    <PackageVersion Include="NuStreamDocs.Tags" Version="$(NuStreamDocsVersion)" />
+    <PackageVersion Include="NuStreamDocs.Theme.Material3" Version="$(NuStreamDocsVersion)" />
+    <PackageVersion Include="NuStreamDocs.Toc" Version="$(NuStreamDocsVersion)" />
+    <PackageVersion Include="NuStreamDocs.Xrefs" Version="$(NuStreamDocsVersion)" />
+  </ItemGroup>
+
+  <!-- Transitive vulnerability pins. Both come in via Azure.Identity /
+       NuGet.Configuration chains; bumping them here keeps the build
+       free of NU1901 / NU1903 advisories. Drop once upstream chains
+       resolve to safe versions on their own. -->
+</Project>

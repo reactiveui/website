@@ -1,22 +1,97 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
         <OutputType>Exe</OutputType>
         <TargetFramework>net10.0</TargetFramework>
-        <RootNamespace></RootNamespace>
-        <NoWarn>CS0649;CS0169;CA1050;CA1822;CA2211;IDE1006</NoWarn>
-        <NukeRootDirectory>..</NukeRootDirectory>
-        <NukeScriptDirectory>..</NukeScriptDirectory>
-        <NukeTelemetryVersion>1</NukeTelemetryVersion>
+        <RootNamespace>ReactiveUI.Web</RootNamespace>
+        <Nullable>enable</Nullable>
         <IsPackable>false</IsPackable>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
     </PropertyGroup>
 
     <ItemGroup>
-      <None Include="..\reactiveui\**\*.*" LinkBase="WebSite" Exclude="..\reactiveui\_site\**\*.*;..\reactiveui\**\*.gitignore;..\reactiveui\api\*.yml;..\reactiveui\api\*.manifest;..\reactiveui\api\reactiveui\**\*.*;..\reactiveui\api\reactivemarbles\**\*.*" />
+      <None Include="..\docs\**\*.*" LinkBase="docs" Exclude="..\docs\api\lib\**\*.*;..\docs\api\refs\**\*.*;..\docs\api\cache\**\*.*" />
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Nuke.Common" Version="10.1.0" />
-        <PackageReference Include="Polly" Version="8.6.6" />
+        <PackageReference Include="System.CommandLine" />
+        <PackageReference Include="Microsoft.Extensions.Logging.Console" />
     </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="NuStreamDocs" />
+        <PackageReference Include="NuStreamDocs.Autorefs" />
+        <PackageReference Include="NuStreamDocs.Blog" />
+        <PackageReference Include="NuStreamDocs.Blog.Common" />
+        <PackageReference Include="NuStreamDocs.CSharpApiGenerator" />
+        <PackageReference Include="NuStreamDocs.Emoji" />
+        <PackageReference Include="NuStreamDocs.Feed" />
+        <PackageReference Include="NuStreamDocs.Highlight" />
+        <PackageReference Include="NuStreamDocs.Icons.FontAwesome" />
+        <PackageReference Include="NuStreamDocs.Icons.Material" />
+        <PackageReference Include="NuStreamDocs.Icons.MaterialDesign" />
+        <PackageReference Include="NuStreamDocs.Keys" />
+        <PackageReference Include="NuStreamDocs.Lightbox" />
+        <PackageReference Include="NuStreamDocs.LinkValidator" />
+        <PackageReference Include="NuStreamDocs.MagicLink" />
+        <PackageReference Include="NuStreamDocs.MarkdownExtensions" />
+        <PackageReference Include="NuStreamDocs.Mermaid" />
+        <PackageReference Include="NuStreamDocs.Nav" />
+        <PackageReference Include="NuStreamDocs.Optimize" />
+        <PackageReference Include="NuStreamDocs.Privacy" />
+        <PackageReference Include="NuStreamDocs.Search" />
+        <PackageReference Include="NuStreamDocs.Search.Pagefind" />
+        <PackageReference Include="NuStreamDocs.Serve" />
+        <PackageReference Include="NuStreamDocs.Sitemap" />
+        <PackageReference Include="NuStreamDocs.SmartSymbols" />
+        <PackageReference Include="NuStreamDocs.Snippets" />
+        <PackageReference Include="NuStreamDocs.SuperFences" />
+        <PackageReference Include="NuStreamDocs.Tags" />
+        <PackageReference Include="NuStreamDocs.Theme.Material3" />
+        <PackageReference Include="NuStreamDocs.Toc" />
+        <PackageReference Include="NuStreamDocs.Xrefs" />
+    </ItemGroup>
+
+    <!-- Local-iteration: ProjectReference into the NuStreamDocs checkout so unpublished
+         changes in the sibling repo flow into the website build with no NuGet pack/publish
+         cycle. Uncomment this block (and comment out the PackageReference block above)
+         to switch from the published 1.x packages to the live source tree.
+    <PropertyGroup>
+        <NuStreamDocsSrc>$(MSBuildThisFileDirectory)..\..\..\glennawatson\NuSourceDocs\src</NuStreamDocsSrc>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="$(NuStreamDocsSrc)\NuStreamDocs\NuStreamDocs.csproj" />
+        <ProjectReference Include="$(NuStreamDocsSrc)\NuStreamDocs.Autorefs\NuStreamDocs.Autorefs.csproj" />
+        <ProjectReference Include="$(NuStreamDocsSrc)\NuStreamDocs.Blog\NuStreamDocs.Blog.csproj" />
+        <ProjectReference Include="$(NuStreamDocsSrc)\NuStreamDocs.Blog.Common\NuStreamDocs.Blog.Common.csproj" />
+        <ProjectReference Include="$(NuStreamDocsSrc)\NuStreamDocs.CSharpApiGenerator\NuStreamDocs.CSharpApiGenerator.csproj" />
+        <ProjectReference Include="$(NuStreamDocsSrc)\NuStreamDocs.Emoji\NuStreamDocs.Emoji.csproj" />
+        <ProjectReference Include="$(NuStreamDocsSrc)\NuStreamDocs.Feed\NuStreamDocs.Feed.csproj" />
+        <ProjectReference Include="$(NuStreamDocsSrc)\NuStreamDocs.Highlight\NuStreamDocs.Highlight.csproj" />
+        <ProjectReference Include="$(NuStreamDocsSrc)\NuStreamDocs.Icons.FontAwesome\NuStreamDocs.Icons.FontAwesome.csproj" />
+        <ProjectReference Include="$(NuStreamDocsSrc)\NuStreamDocs.Icons.Material\NuStreamDocs.Icons.Material.csproj" />
+        <ProjectReference Include="$(NuStreamDocsSrc)\NuStreamDocs.Icons.MaterialDesign\NuStreamDocs.Icons.MaterialDesign.csproj" />
+        <ProjectReference Include="$(NuStreamDocsSrc)\NuStreamDocs.Keys\NuStreamDocs.Keys.csproj" />
+        <ProjectReference Include="$(NuStreamDocsSrc)\NuStreamDocs.Lightbox\NuStreamDocs.Lightbox.csproj" />
+        <ProjectReference Include="$(NuStreamDocsSrc)\NuStreamDocs.LinkValidator\NuStreamDocs.LinkValidator.csproj" />
+        <ProjectReference Include="$(NuStreamDocsSrc)\NuStreamDocs.MagicLink\NuStreamDocs.MagicLink.csproj" />
+        <ProjectReference Include="$(NuStreamDocsSrc)\NuStreamDocs.MarkdownExtensions\NuStreamDocs.MarkdownExtensions.csproj" />
+        <ProjectReference Include="$(NuStreamDocsSrc)\NuStreamDocs.Mermaid\NuStreamDocs.Mermaid.csproj" />
+        <ProjectReference Include="$(NuStreamDocsSrc)\NuStreamDocs.Nav\NuStreamDocs.Nav.csproj" />
+        <ProjectReference Include="$(NuStreamDocsSrc)\NuStreamDocs.Optimize\NuStreamDocs.Optimize.csproj" />
+        <ProjectReference Include="$(NuStreamDocsSrc)\NuStreamDocs.Privacy\NuStreamDocs.Privacy.csproj" />
+        <ProjectReference Include="$(NuStreamDocsSrc)\NuStreamDocs.Search\NuStreamDocs.Search.csproj" />
+        <ProjectReference Include="$(NuStreamDocsSrc)\NuStreamDocs.Search.Pagefind\NuStreamDocs.Search.Pagefind.csproj" />
+        <ProjectReference Include="$(NuStreamDocsSrc)\NuStreamDocs.Serve\NuStreamDocs.Serve.csproj" />
+        <ProjectReference Include="$(NuStreamDocsSrc)\NuStreamDocs.Sitemap\NuStreamDocs.Sitemap.csproj" />
+        <ProjectReference Include="$(NuStreamDocsSrc)\NuStreamDocs.SmartSymbols\NuStreamDocs.SmartSymbols.csproj" />
+        <ProjectReference Include="$(NuStreamDocsSrc)\NuStreamDocs.Snippets\NuStreamDocs.Snippets.csproj" />
+        <ProjectReference Include="$(NuStreamDocsSrc)\NuStreamDocs.SuperFences\NuStreamDocs.SuperFences.csproj" />
+        <ProjectReference Include="$(NuStreamDocsSrc)\NuStreamDocs.Tags\NuStreamDocs.Tags.csproj" />
+        <ProjectReference Include="$(NuStreamDocsSrc)\NuStreamDocs.Theme.Material3\NuStreamDocs.Theme.Material3.csproj" />
+        <ProjectReference Include="$(NuStreamDocsSrc)\NuStreamDocs.Toc\NuStreamDocs.Toc.csproj" />
+        <ProjectReference Include="$(NuStreamDocsSrc)\NuStreamDocs.Xrefs\NuStreamDocs.Xrefs.csproj" />
+    </ItemGroup>
+    -->
 </Project>

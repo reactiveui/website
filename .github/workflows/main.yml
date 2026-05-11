@@ -6,56 +6,60 @@ on:
   pull_request:
     branches: [ main ]
 
+# Minimal token scope. The build only reads source; the netlify deploy
+# step authenticates against Netlify via NETLIFY_AUTH_TOKEN, not the
+# GITHUB_TOKEN, so no `contents: write` / `actions: write` etc are
+# required here.
+permissions:
+  contents: read
+
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     steps:
-      - name: Setup .NET (With cache)
-        uses: actions/setup-dotnet@v5.2.0
-        with:
-         dotnet-version: |
-            8.0.x
-            9.0.x
-            10.0.x
-         dotnet-quality: 'preview'
-
-      - name: 'Setup Java JDK 11'
-        uses: actions/setup-java@v5.2.0
-        with:
-          distribution: 'microsoft'
-          java-version: '11'
-        
-      - name: 'Add MSBuild to PATH'
-        uses: microsoft/setup-msbuild@v3.0.0
-        with:
-          vs-prerelease: true
-
-      - name: 'Install DotNet workloads'
-        shell: bash
-        run: |
-          dotnet workload install android ios tvos macos maui maccatalyst
-
-      - name: Checkout 
+      - name: Checkout
         uses: actions/checkout@v6
         with:
           fetch-depth: 0
 
-      - name: 'Cache: .nuke/temp, ~/.nuget/packages'
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Setup Node.js
+        if: github.event_name != 'pull_request'
+        uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+
+      - name: Cache fetched packages
         uses: actions/cache@v5
         with:
           path: |
-            .nuke/temp
             ~/.nuget/packages
-          key: ${{ runner.os }}-${{ hashFiles('**/global.json', '**/*.csproj', '**/Directory.Packages.props') }}
+            .api-cache
+            build/_intermediate
+          # ~/.nuget/packages: NuGet hydration cache.
+          # .api-cache: fetched NuGet assemblies + their extracted lib/refs
+          # trees (read by the API-doc fetcher).
+          # build/_intermediate: regenerated API markdown / yml / metadata
+          # configs — derived from .api-cache so they share an invalidation key.
+          # Bust on any package-list or NuStreamDocs version move.
+          key: ${{ runner.os }}-website-${{ hashFiles('nuget-packages.json', 'build/_build.csproj', 'Directory.Packages.props') }}
 
-      - name: 'Restore and Compile ReactiveUI Projects'
-        run: ./build.cmd Compile
-        
-      - name: 'Build Website'
-        run: ./build.cmd BuildWebsite
+      - name: Build website
+        run: ./build.sh build
 
       - name: 'Deploy netlify'
         if: ${{ github.event_name != 'pull_request' }}
+        # Pipe secrets through env vars rather than expanding into the
+        # shell command line so they don't surface in process listings
+        # or in CI logs. site/ is the directory the .NET pipeline writes
+        # to (set via WithOutput in build/Program.cs).
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_DEPLOY_KEY }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
         run: |
-            npm install -g netlify-cli
-            netlify deploy --auth=${{ secrets.NETLIFY_DEPLOY_KEY }} --site=${{ secrets.NETLIFY_SITE_ID }} --prod --dir=reactiveui/_site
+          npm install -g netlify-cli
+          netlify deploy --prod --dir=site
