@@ -25,7 +25,7 @@ Or via Package Manager:
 
 ## How It Works
 
-ObservableEvents is a **source generator** that runs at compile-time. It analyses your project's referenced assemblies and generates an `Events()` extension method that returns a strongly-typed aggregator object with one `IObservable<T>` property per public event on the source type.
+ObservableEvents is a **source generator** that runs at compile-time. It analyzes your project's referenced assemblies and generates an `Events()` extension method that returns a strongly-typed aggregator object with one `IObservable<T>` property per public event on the source type.
 
 ### Generated Code Pattern
 

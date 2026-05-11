@@ -450,7 +450,7 @@ public class EditViewModel : ReactiveObject, INavigable
             var confirmed = await ShowDiscardConfirmationAsync();
             if (!confirmed)
             {
-                throw new OperationCanceledException("Navigation cancelled by user");
+                throw new OperationCanceledException("Navigation canceled by user");
             }
         });
     }

@@ -14,7 +14,7 @@ Order: 6
 - **Bindings** based on `BindingContext` and `INotifyPropertyChanged` — including string-path bindings, value converters, and compiled XAML bindings.
 - **Dependency injection** through `MauiAppBuilder.Services` (Microsoft.Extensions.DependencyInjection).
 - **Essentials** (`Preferences`, `SecureStorage`, `Connectivity`, etc.).
-- **CommunityToolkit.Mvvm / Maui** packages from Microsoft that fill in `[ObservableProperty]`, `[RelayCommand]`, behaviours, and converters.
+- **CommunityToolkit.Mvvm / Maui** packages from Microsoft that fill in `[ObservableProperty]`, `[RelayCommand]`, behaviors, and converters.
 
 If your view-models are mostly `T Property { get; set; }` with a few `[RelayCommand]` methods, and your navigation fits Shell's URI model, you do not need ReactiveUI at all. Plain MAUI + `CommunityToolkit.Mvvm` is a perfectly good stack.
 

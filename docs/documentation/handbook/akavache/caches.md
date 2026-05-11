@@ -21,6 +21,6 @@ Expiration and bulk ops:
 ```csharp
 await ak.LocalMachine.InsertObject("weather", data, DateTimeOffset.Now.AddMinutes(10));
 await ak.LocalMachine.InsertObjects(items.Select(i => new KeyValuePair<string, T>(i.Key, i.Value)));
-// GetObjects emits one KeyValuePair per key — materialise it before using.
+// GetObjects emits one KeyValuePair per key — materialize it before using.
 var many = await ak.LocalMachine.GetObjects<string>(keys).ToList();
 ```

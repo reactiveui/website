@@ -166,7 +166,7 @@ Either way, the goal is the same: route `AppLocator` through your container so R
 
 Call the `Use<Container>DependencyResolver()` extension during your existing bootstrap, *before* the first ReactiveUI type is resolved. For a Generic Host app that means inside `ConfigureServices`; for a plain `App.xaml.cs` it means before `MainWindow`'s constructor runs.
 
-### 3. Drive ReactiveUI initialisation through the builder
+### 3. Drive ReactiveUI initialization through the builder
 
 Pick the platform method that matches your UI stack and let `RxAppBuilder` perform the platform registrations. `WithRegistration(r => ...)` runs immediately against your container, and `WithRegistrationOnBuild(r => ...)` defers registration until `BuildApp()` — handy if the registration depends on something else the builder is about to add.
 

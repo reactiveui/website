@@ -39,7 +39,7 @@ public class RepositoryViewModel : PropertyChangedBase
 ## Why?
 
 * ReactiveCommand exposes the `CanExecute` property of the command to 
-  enable applications to introduce additional behaviour.
+  enable applications to introduce additional behavior.
 * It handles marshaling the result back to the UI thread.
 * It tracks in-flight items.
 

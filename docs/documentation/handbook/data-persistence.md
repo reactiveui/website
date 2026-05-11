@@ -51,7 +51,7 @@ The `AutoSuspendHelper` class can help you in persisting your `AppState`. In the
 
 ## 1. Create the Suspension Driver
 
-Create a class that implements the `ISuspensionDriver` interface. There are several production-ready implementations below, especially the Akavache suspension driver that works on any platform supported by ReactiveUI. We highly recommend using [Akavache](https://github.com/reactiveui/akavache) suspension driver. On iOS and Universal Windows Platform, [Akavache](https://github.com/reactiveui/akavache) data is replicated to the cloud and synchronised to every user device on which the app is installed!
+Create a class that implements the `ISuspensionDriver` interface. There are several production-ready implementations below, especially the Akavache suspension driver that works on any platform supported by ReactiveUI. We highly recommend using [Akavache](https://github.com/reactiveui/akavache) suspension driver. On iOS and Universal Windows Platform, [Akavache](https://github.com/reactiveui/akavache) data is replicated to the cloud and synchronized to every user device on which the app is installed!
 
 <details><summary>Akavache Platform Independent Suspension Driver</summary>
 <p>
