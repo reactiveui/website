@@ -277,7 +277,12 @@ internal static class Program
             .UseCommonMarkdownExtensions()
             .UseMarkdownLinks()
             .UsePagefindSearch(static opts =>
-                opts.WithSectionPriorities("documentation/:80,articles/:40,Announcements/:40,api/:-200"u8))
+
+                // Skip the api/ tree from the search index — its ~13k pages would explode
+                // pagefind fragment count past Cloudflare Pages' 20k file/deploy ceiling,
+                // and api/ is ranked at -200 anyway so it essentially never surfaces.
+                opts.WithSectionPriorities("documentation/:80,articles/:40,Announcements/:40,api/:-200"u8)
+                    .AddExcludePathPrefixes("api/"u8))
             .UseSitemap()
             .UseLinkValidator(LinkValidatorOptions.Default with { StrictInternal = strict }, _logging.For<LinkValidatorPlugin>())
             .UseWyamBlog(new WyamBlogOptions((PathSegment)"Announcements", "Announcements"u8.ToArray()))
