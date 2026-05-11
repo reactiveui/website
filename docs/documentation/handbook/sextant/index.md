@@ -11,7 +11,7 @@ Sextant focuses on:
 - **ViewModel-First Navigation**: Navigate using view models, not views
 - **Reactive APIs**: All navigation operations return `IObservable<Unit>`
 - **Lifecycle Hooks**: Parameterized navigation with `INavigable` interface
-- **Cross-Platform**: Uniform abstractions across MAUI, Avalonia, and legacy Xamarin.Forms
+- **Cross-Platform**: Uniform abstractions across MAUI and Avalonia
 - **Testable**: Full unit testing support for navigation logic
 
 ## Packages
@@ -44,9 +44,8 @@ dotnet add package Sextant.Plugins.Popup
 Sextant follows ReactiveUI platform minimums:
 - **.NET MAUI**: .NET 8.0+
 - **Avalonia**: .NET 8.0+
-- **Xamarin.Forms**: Legacy support (use Sextant 3.x or migrate to MAUI)
 
-> **Migration Note**: For Xamarin.Forms projects, consider migrating to .NET MAUI. See our [Xamarin to MAUI Migration Guide](../../upgrading/xamarin-to-maui.md).
+> **Migration Note**: Coming from a legacy Xamarin.Forms codebase? See the [Xamarin to MAUI Migration Guide](../../upgrading/xamarin-to-maui.md).
 
 ## Getting Started
 
@@ -451,7 +450,7 @@ public class EditViewModel : ReactiveObject, INavigable
             var confirmed = await ShowDiscardConfirmationAsync();
             if (!confirmed)
             {
-                throw new NavigationException("Navigation cancelled by user");
+                throw new OperationCanceledException("Navigation cancelled by user");
             }
         });
     }

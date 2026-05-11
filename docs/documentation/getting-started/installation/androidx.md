@@ -1,21 +1,21 @@
 ---
 Order: 9
 ---
-# AndroidX (Xamarin.Android)
+# AndroidX (.NET for Android)
 
-> **Note** AndroidX support is for Xamarin.Android applications. For new Android development, consider using [.NET MAUI](maui.md) which provides a modern cross-platform approach with full ReactiveUI support.
+> **Note** AndroidX support targets native .NET Android applications. If you'd prefer a cross-platform UI stack, [.NET MAUI](maui.md) also provides full ReactiveUI support.
 
 ## Package Installation
 
 Install the following packages for ReactiveUI with AndroidX:
 
 ```xml
-<!-- In your Xamarin.Android application project -->
+<!-- In your .NET Android application project -->
 <PackageReference Include="ReactiveUI.AndroidX" Version="*" />
 <PackageReference Include="ReactiveUI.SourceGenerators" Version="*" PrivateAssets="all" />
 <PackageReference Include="ReactiveMarbles.ObservableEvents.SourceGenerator" Version="*" PrivateAssets="all" />
 
-<!-- In your shared .NET Standard library -->
+<!-- In your shared library -->
 <PackageReference Include="ReactiveUI" Version="*" />
 <PackageReference Include="ReactiveUI.SourceGenerators" Version="*" PrivateAssets="all" />
 
@@ -26,8 +26,8 @@ Install the following packages for ReactiveUI with AndroidX:
 ### Recommended Project Structure
 
 ```
-- MyCoolApp.Core (netstandard2.0/netstandard2.1 library - shared code)
-- MyCoolApp.Android (Xamarin.Android application)
+- MyCoolApp.Core (net10.0 library - shared code)
+- MyCoolApp.Android (.NET for Android application)
 - MyCoolApp.UnitTests (test project)
 ```
 
@@ -36,13 +36,13 @@ Install the following packages for ReactiveUI with AndroidX:
 Ensure your Android project targets at least Android 14.0 (API Level 34):
 
 ```xml
-<TargetFramework>net9.0-android</TargetFramework>
+<TargetFramework>net10.0-android</TargetFramework>
 <SupportedOSPlatformVersion>34</SupportedOSPlatformVersion>
 ```
 
 ## Getting Started with RxAppBuilder (Recommended)
 
-The modern way to initialize ReactiveUI in Xamarin.Android uses **RxAppBuilder** for dependency injection and platform setup.
+The modern way to initialize ReactiveUI on .NET Android uses **RxAppBuilder** for dependency injection and platform setup.
 
 ### 1. Configure Application Class with RxAppBuilder
 
@@ -413,14 +413,17 @@ public class SearchResultViewHolder : ReactiveRecyclerViewViewHolder<SearchResul
     }
 }
 
-public class SearchResultsAdapter : ReactiveRecyclerViewAdapter<SearchResult, SearchResultViewHolder>
+// ReactiveRecyclerViewAdapter<TViewModel> takes an IObservable<IChangeSet<TViewModel>>;
+// the two-generic overload ReactiveRecyclerViewAdapter<TViewModel, TCollection> takes
+// a backing collection. View-holder construction is handled by the base class.
+public class SearchResultsAdapter : ReactiveRecyclerViewAdapter<SearchResult>
 {
     public SearchResultsAdapter(IObservable<IChangeSet<SearchResult>> changeSet)
         : base(changeSet)
     {
     }
 
-    public override SearchResultViewHolder OnCreateViewHolder(ViewGroup parent, int viewType)
+    public override RecyclerView.ViewHolder OnCreateViewHolder(ViewGroup parent, int viewType)
     {
         var view = LayoutInflater.From(parent.Context)!
             .Inflate(Resource.Layout.item_search_result, parent, false)!;
@@ -605,18 +608,17 @@ public partial class MainViewModel : ReactiveObject
 4. **Use Throttle/Debounce** for search and user input to reduce unnecessary operations
 5. **Load data on background threads** and observe on MainThreadScheduler
 
-## Migration from Xamarin to MAUI
+## Considering MAUI?
 
-If you're considering migrating from Xamarin.Android to .NET MAUI:
+If you'd rather share UI across platforms instead of writing a native Android app:
 
 1. Review the [MAUI Installation Guide](maui.md)
-2. MAUI provides better performance and modern API support
-3. Share more code across platforms
-4. Access to the latest .NET features
+2. MAUI lets you share much more code across iOS/Android/Windows/macOS
+3. See [Xamarin to MAUI Migration](../../upgrading/xamarin-to-maui.md) if you are coming from a legacy Xamarin codebase
 
 ## Additional Resources
 
-- [Xamarin.Android Documentation](https://learn.microsoft.com/xamarin/android/)
+- [.NET for Android Documentation](https://learn.microsoft.com/dotnet/android/)
 - [AndroidX Documentation](https://developer.android.com/jetpack/androidx)
 - [ReactiveUI Handbook](../../handbook/index.md)
 - [RxAppBuilder Guide](../../handbook/rxappbuilder.md)

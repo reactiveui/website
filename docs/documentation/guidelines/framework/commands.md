@@ -10,15 +10,15 @@ this.BindCommand(ViewModel, vm => vm.DeleteCommand, v => v.deleteButton);
 
 public class RepositoryViewModel : ReactiveObject
 {
-  public RepositoryViewModel() 
+  public RepositoryViewModel()
   {
-    Delete = ReactiveCommand.CreateFromObservable(x => DeleteImpl());
-    Delete.ThrownExceptions.Subscribe(ex => /*...*/);
+    DeleteCommand = ReactiveCommand.CreateFromObservable(DeleteImpl);
+    DeleteCommand.ThrownExceptions.Subscribe(ex => /*...*/);
   }
 
-  public ReactiveAsyncCommand DeleteCommand { get; private set; }
+  public ReactiveCommand<Unit, Unit> DeleteCommand { get; }
 
-  public IObservable<Unit> DeleteImpl() {...}
+  private IObservable<Unit> DeleteImpl() {...}
 }
 ```
 

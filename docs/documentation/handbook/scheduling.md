@@ -18,8 +18,7 @@ this.WhenAnyValue(x => x.MyImportantProperty).ObserveOn(RxSchedulers.MainThreadS
 To control where a `ReactiveControl` runs the `Subscribe` you can pass in a scheduler. By default it will use whatever the current thread's scheduler is, so if you initialize from the UI thread it will use that thread.
 
 ```cs
-MyCommand = ReactiveCommand.Create<Unit, string>(_ => ...do stuff..., outputScheduler: RxApp.
-MainThreadScheduler);
+MyCommand = ReactiveCommand.Create<Unit, string>(_ => ...do stuff..., outputScheduler: RxSchedulers.MainThreadScheduler);
 ```
 
 To control where a `ObservableAsPropertyHelper` triggers the `INotifyPropertyChanged` events from pass in a scheduler. By default it will use whatever the current thread's scheduler is, so if you initialize from the UI thread it will use that thread.
@@ -43,7 +42,7 @@ public class MyVm : ReactiveObject
 
 ## When should I care about scheduling
 
-You should try to attempt to remove all sources of concurrency other than scheduling via RxApp. This isn't always possible, but threads created via `new Thread()` or `Task.Run` can't be controlled in a unit test. The most straightforward way to fix these is by replacing them with `Observable.Start`:
+You should try to attempt to remove all sources of concurrency other than scheduling via the framework schedulers (`RxSchedulers.MainThreadScheduler` / `RxSchedulers.TaskpoolScheduler`). This isn't always possible, but threads created via `new Thread()` or `Task.Run` can't be controlled in a unit test. The most straightforward way to fix these is by replacing them with `Observable.Start`:
 
 ### Old
 

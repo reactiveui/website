@@ -11,11 +11,11 @@ Install the following packages for ReactiveUI with Avalonia:
 
 ```xml
 <!-- In your Avalonia application project -->
-<PackageReference Include="ReactiveUI.Avalonia" Version="11.3.8" />
+<PackageReference Include="ReactiveUI.Avalonia" Version="*" />
 <PackageReference Include="ReactiveUI.SourceGenerators" Version="*" PrivateAssets="all" />
 <PackageReference Include="ReactiveMarbles.ObservableEvents.SourceGenerator" Version="*" PrivateAssets="all" />
 
-<!-- In your shared .NET Standard library -->
+<!-- In your shared library -->
 <PackageReference Include="ReactiveUI" Version="*" />
 <PackageReference Include="ReactiveUI.SourceGenerators" Version="*" PrivateAssets="all" />
 
@@ -26,7 +26,7 @@ Install the following packages for ReactiveUI with Avalonia:
 ### Recommended Project Structure
 
 ```
-- MyCoolApp (netstandard/net10.0 library - shared code)
+- MyCoolApp (net10.0 library - shared code)
 - MyCoolApp.Avalonia (Avalonia application)
 - MyCoolApp.UnitTests (test project)
 ```
@@ -339,7 +339,7 @@ public class MainViewModel : ReactiveObject, IScreen
 
 In your AXAML:
 ```xml
-<rxui:RoutedViewHost Router="{Binding Router"
+<rxui:RoutedViewHost Router="{Binding Router}"
                       HorizontalAlignment="Stretch"
                       VerticalAlignment="Stretch"
                       xmlns:rxui="http://reactiveui.net"/>

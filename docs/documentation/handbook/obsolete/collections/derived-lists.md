@@ -2,6 +2,9 @@
 NoTitle: true
 Order: 2
 ---
+
+> **Obsolete:** `ReactiveList.CreateDerivedCollection` was removed in ReactiveUI 9. The same projections are available on DynamicData source lists/caches — see [DynamicData operators](../../collections.md).
+
 ## CreateDerivedCollection and derived lists
 
 `ReactiveList.CreateDerivedCollection` is an extremely powerful method in MVVM

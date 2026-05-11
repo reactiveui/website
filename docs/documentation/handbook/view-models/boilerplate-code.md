@@ -232,7 +232,7 @@ public partial class MyReactiveClass : ReactiveObject
         InitializeOAPH();
     }
 
-    [ObservableAsProperty(PropertyName = TestValueProperty)]
+    [ObservableAsProperty(PropertyName = "TestValueProperty")]
     IObservable<string> MyObservable => Observable.Return("Test Value");
 }
 ```
@@ -289,7 +289,7 @@ public partial class MyReactiveClass : ReactiveObject
         InitializeOAPH();
     }
 
-    [ObservableAsProperty(PropertyName = TestValueProperty)]
+    [ObservableAsProperty(PropertyName = "TestValueProperty")]
     IObservable<string> MyObservable() => Observable.Return("Test Value");
 }
 ```

@@ -3,149 +3,203 @@ Order: 2
 ---
 # Custom Dependency Inversion Container
 
-## Override Default Depenedency Inversion Container
+ReactiveUI uses [Splat](https://github.com/reactiveui/splat) for service location. Splat ships ready-made adapter packages that bridge popular DI containers to ReactiveUI's `IMutableDependencyResolver`, and the modern entry point for wiring everything together is `RxAppBuilder`. The same builder works against every adapter — the only thing that changes is which `Use<Container>DependencyResolver()` extension you call first.
 
-We understand that some developers would prefer to use their favorite dependency inversion container. ReactiveUI allows for this by implementing `IMutableDependencyResolver`. Once this class has been implemented you simply need to assign it to `Locator` via `Locator.SetLocator()`. 
+## The recipe
 
-## Use a Dependency Resolver Package
+For any of the supported containers the flow is the same:
 
-ReactiveUI uses [Splat](https://github.com/reactiveui/splat) for service location, and Splat can be thought of as a ReactiveUI utility extracted into a separate package. Splat includes ready to use [packages containing dependency resolver implementations](https://github.com/reactiveui/splat#dependency-resolver-packages) for `Autofac`, `DryIoc`, `Microsoft.Extensions.DependencyInjection`, `Ninject`, and `SimpleInjector`, see [the documentation page](https://github.com/reactiveui/splat#dependency-resolver-packages) for more info.
-
-Now let's consider a simple example. Assume we wish to use `Splat.Autofac` dependency resolver package. We are going to replace the default container used by ReactiveUI with `Autofac`. To get started, we install the `Splat.Autofac` package via NuGet package manager or via .NET Core CLI:
-
-```sh
-dotnet add package Splat.Autofac
-```
-
-Next, we build a new `Autofac` container and register all the required dependencies into it. Next, we add a call to `UseAutofacDependencyResolver` which is an extension method inside the `Splat.Autofac` namespace. This method becomes available once we install the `Splat.Autofac` package into our project. We write the following code:
-
-```cs
-// Create a new Autofac container builder.
-var builder = new ContainerBuilder();
-builder.RegisterType<MainPage>().As<IViewFor<MainViewModel>>();
-builder.RegisterType<MainViewModel>();
-// etc.
-
-// Register the Adapter to Splat.
-// Creates and sets the Autofac resolver as the Locator.
-var autofacResolver = builder.UseAutofacDependencyResolver();
-
-// Register the resolver in Autofac so it can be later resolved.
-builder.RegisterInstance(autofacResolver);
-
-// Initialize ReactiveUI components.
-autofacResolver.InitializeReactiveUI();
-
-// If you need to override any service (such as the ViewLocator), register it after InitializeReactiveUI.
-// https://autofaccn.readthedocs.io/en/latest/register/registration.html#default-registrations
-// builder.RegisterType<MyCustomViewLocator>().As<IViewLocator>().SingleInstance();
-```
-
-> **Note** Call `AppLocator.CurrentMutable.InitializeReactiveUI()` *only if you are going to override* the default Splat locator. Otherwise *you don't need to explicitly call the method*, as ReactiveUI calls the method implicitly for you.
-
-Set Autofac Locator's lifetime after the ContainerBuilder has been built:
-
-```cs
-var autofacResolver = container.Resolve<AutofacDependencyResolver>();
-
-// Set a lifetime scope (either the root or any of the child ones) to Autofac resolver.
-// This is needed because Autofac became immutable since version 5+.
-// https://github.com/autofac/Autofac/issues/811
-autofacResolver.SetLifetimeScope(container);`
-```
-
-## Implement a Custom `IMutableDependencyResolver`
-
-If you are going to write a custom dependency resolver for Splat, then implement the `IMutableDependencyResolver` interface and add a call to `Locator.SetLocator`. This will replace the default locator implementation with your own.
-
-<details><summary>IMutableDependencyResolver implementation against Autofac (example)</summary>
+1. Build the container as you normally would.
+2. Call `Use<Container>DependencyResolver(...)` so `AppLocator` forwards through it.
+3. Pass the resulting `IMutableDependencyResolver` to `CreateReactiveUIBuilder()` and chain your platform / view / registration steps.
+4. Call `BuildApp()`.
 
 ```csharp
-public class AutofacDependencyResolver : IMutableDependencyResolver
+resolver.CreateReactiveUIBuilder()
+    .WithWpf()                                  // or WithMaui / WithBlazor / WithWinUI / WithWinForms / WithAndroidX / ForCustomPlatform
+    .WithViewsFromAssembly(typeof(App).Assembly)
+    .WithRegistration(r =>
+    {
+        r.RegisterLazySingleton<IScreen>(() => new AppBootstrapper());
+        // ...your own services
+    })
+    .BuildApp();
+```
+
+The container is the source of truth — every `WithRegistration(r => ...)` callback writes into the resolver you passed in, so resolutions through your container, through `AppLocator.Current`, and through `IViewLocator` all see the same registrations.
+
+## Splat adapter packages
+
+| Container | Package | Adapter extension |
+|-----------|---------|--------------------|
+| Autofac | `Splat.Autofac` | `ContainerBuilder.UseAutofacDependencyResolver()` |
+| DryIoc | `Splat.DryIoc` | `IContainer.UseDryIocDependencyResolver()` |
+| Microsoft.Extensions.DependencyInjection | `Splat.Microsoft.Extensions.DependencyInjection` | `IServiceCollection.UseMicrosoftDependencyResolver()` / `IServiceProvider.UseMicrosoftDependencyResolver()` |
+| Ninject | `Splat.Ninject` | `IKernel.UseNinjectDependencyResolver()` |
+| SimpleInjector | `Splat.SimpleInjector` | `Container.UseSimpleInjectorDependencyResolver()` |
+
+Install the matching package, then follow the per-container example below.
+
+### Autofac
+
+`Splat.Autofac` exposes `UseAutofacDependencyResolver()` on `ContainerBuilder`. Build your registrations first, swap the resolver in, then hand it to `RxAppBuilder`:
+
+```csharp
+using Autofac;
+using ReactiveUI.Builder;
+using Splat;
+using Splat.Autofac;
+
+var builder = new ContainerBuilder();
+builder.RegisterType<MainViewModel>();
+builder.RegisterType<MainView>().As<IViewFor<MainViewModel>>();
+// ...your other registrations
+
+// Swap Splat's AppLocator over to Autofac.
+var autofacResolver = builder.UseAutofacDependencyResolver();
+
+// Drive ReactiveUI registration through Autofac.
+autofacResolver.CreateReactiveUIBuilder()
+    .WithWpf()
+    .WithViewsFromAssembly(typeof(App).Assembly)
+    .BuildApp();
+
+// Autofac is immutable from v5+; the adapter needs the built container's lifetime scope.
+var container = builder.Build();
+autofacResolver.SetLifetimeScope(container);
+```
+
+### DryIoc
+
+```csharp
+using DryIoc;
+using ReactiveUI.Builder;
+using Splat;
+using Splat.DryIoc;
+
+var container = new Container();
+container.Register<MainViewModel>();
+container.Register<IViewFor<MainViewModel>, MainView>();
+
+container.UseDryIocDependencyResolver();
+
+((IMutableDependencyResolver)AppLocator.CurrentMutable)
+    .CreateReactiveUIBuilder()
+    .WithWpf()
+    .WithViewsFromAssembly(typeof(App).Assembly)
+    .BuildApp();
+```
+
+### Microsoft.Extensions.DependencyInjection
+
+`Splat.Microsoft.Extensions.DependencyInjection` ships two overloads: one for `IServiceCollection` (used while configuring) and one for `IServiceProvider` (used once you've built the provider — important when something else, like the Generic Host, owns the build step).
+
+```csharp
+using Microsoft.Extensions.DependencyInjection;
+using ReactiveUI.Builder;
+using Splat;
+using Splat.Microsoft.Extensions.DependencyInjection;
+
+var services = new ServiceCollection();
+services.AddSingleton<MainViewModel>();
+services.AddTransient<IViewFor<MainViewModel>, MainView>();
+
+// Make AppLocator forward into the ServiceCollection while we configure.
+services.UseMicrosoftDependencyResolver();
+
+((IMutableDependencyResolver)AppLocator.CurrentMutable)
+    .CreateReactiveUIBuilder()
+    .WithWpf()
+    .WithViewsFromAssembly(typeof(App).Assembly)
+    .BuildApp();
+
+// Build the provider and re-bind AppLocator to it.
+var provider = services.BuildServiceProvider();
+provider.UseMicrosoftDependencyResolver();
+```
+
+Re-binding via the `IServiceProvider` overload is mandatory after `BuildServiceProvider()` — otherwise resolutions go through the old `IServiceCollection`-backed resolver and miss anything the provider configured.
+
+## Implementing your own `IMutableDependencyResolver`
+
+If no adapter exists for your container, implement `IMutableDependencyResolver` yourself and call `AppLocator.SetLocator(...)` to install it. Then drive ReactiveUI through `RxAppBuilder` exactly like the adapter examples.
+
+<details><summary>Skeleton (Autofac-flavoured, illustrative)</summary>
+
+```csharp
+public class MyResolver : IMutableDependencyResolver
 {
-    private readonly IContainer _container;
-
-    public AutofacDependencyResolver(IContainer container)
-    {
-        _container = container;
-    }
-
-    public object GetService(Type serviceType, string contract = null)
-    {
-        try
-        {
-            return string.IsNullOrEmpty(contract)
-                ? _container.Resolve(serviceType)
-                : _container.ResolveNamed(contract, serviceType);
-        }
-        catch (DependencyResolutionException)
-        {
-            return null;
-        }
-    }
-
-    public IEnumerable<object> GetServices(Type serviceType, string contract = null)
-    {
-        try
-        {
-            var enumerableType = typeof(IEnumerable<>).MakeGenericType(serviceType);
-            object instance = string.IsNullOrEmpty(contract)
-                ? _container.Resolve(enumerableType)
-                : _container.ResolveNamed(contract, enumerableType);
-            return ((IEnumerable)instance).Cast<object>();
-        }
-        catch (DependencyResolutionException)
-        {
-            return null;
-        }
-    }
-
-    public void Register(Func<object> factory, Type serviceType, string contract = null)
-    {
-        var builder = new ContainerBuilder();
-        if (string.IsNullOrEmpty(contract))
-        {
-            builder.Register(x => factory()).As(serviceType).AsImplementedInterfaces();
-        }
-        else
-        {
-            builder.Register(x => factory()).Named(contract, serviceType).AsImplementedInterfaces();
-        }
-
-        builder.Update(_container);
-    }
-
-    public IDisposable ServiceRegistrationCallback(Type serviceType, string contract, Action<IDisposable> callback)
-    {
-        // this method is not used by RxUI
-        throw new NotImplementedException();
-    }
-
-    public void Dispose()
-    {
-        _container.Dispose();
-    }
+    public object? GetService(Type serviceType, string? contract = null) { /* ... */ }
+    public IEnumerable<object> GetServices(Type serviceType, string? contract = null) { /* ... */ }
+    public void Register(Func<object> factory, Type serviceType, string? contract = null) { /* ... */ }
+    public IDisposable ServiceRegistrationCallback(Type serviceType, string? contract, Action<IDisposable> callback)
+        => throw new NotImplementedException(); // not used by ReactiveUI
+    public void Dispose() { /* ... */ }
 }
 ```
+
 </details>
 
 ```csharp
-// Build a new Autofac container.
-var containerBuilder = new ContainerBuilder();
-containerBuilder.RegisterType<MainPage>().As<IViewFor<MainViewModel>>();
+AppLocator.SetLocator(new MyResolver(myContainer));
 
-// Use your own IMutableDependencyResolver implementation.
-Locator.SetLocator(new AutofacDependencyResolver(containerBuilder.Build()));
+((IMutableDependencyResolver)AppLocator.CurrentMutable)
+    .CreateReactiveUIBuilder()
+    .WithWpf()
+    .BuildApp();
+```
 
-// These InitializeX() methods will add ReactiveUI platform 
-// registrations to your container. They MUST be present if
-// you override the default Locator.
-AppLocator.CurrentMutable.InitializeSplat();
-AppLocator.CurrentMutable.InitializeReactiveUI();
-``` 
+## Integrating into an existing application
 
-From this point on calls `AppLocator.Current` will go against your custom implementation!
+If your app already has its own bootstrap (its own host builder, its own DI container, its own scheduler setup), you do **not** need to rip any of it out. The pattern is to fit `RxAppBuilder` into the seams you already have.
 
-> **Note** Some DI engines get locked away after they're being built and become immutable. For such services, the `Use<MatchingService>DependencyResolver` extension method (`UseAutofacDependencyResolver` in Autofac) must be called again on the locked container. See AutoFac [docs](https://github.com/reactiveui/splat/tree/main/src/Splat.Autofac).
+### 1. Identify the resolver you already have
 
-> **Note** In Microsoft DI, the built container is a completely different type. You should recall `UseMicrosoftDependencyResolver` on the `IServiceProvider` once it's ready, in case you are using an external framework to manage DI (i.e. [Generic Host](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/host/generic-host?view=aspnetcore-2.2#configureservices)), see the dedicated MS DI [docs](https://github.com/reactiveui/splat/tree/main/src/Splat.Microsoft.Extensions.DependencyInjection).
+Most existing apps fall into one of two camps:
+
+- **You have an `IServiceCollection` / `IServiceProvider`** (ASP.NET Core, Generic Host, MAUI, .NET 8 hosted apps). Use `Splat.Microsoft.Extensions.DependencyInjection`.
+- **You have a third-party container** (Autofac / DryIoc / Ninject / SimpleInjector). Use the matching Splat adapter.
+
+Either way, the goal is the same: route `AppLocator` through your container so ReactiveUI's view-location, view-model registration, and platform services land in the container you already trust.
+
+### 2. Hook the resolver as early as practical
+
+Call the `Use<Container>DependencyResolver()` extension during your existing bootstrap, *before* the first ReactiveUI type is resolved. For a Generic Host app that means inside `ConfigureServices`; for a plain `App.xaml.cs` it means before `MainWindow`'s constructor runs.
+
+### 3. Drive ReactiveUI initialisation through the builder
+
+Pick the platform method that matches your UI stack and let `RxAppBuilder` perform the platform registrations. `WithRegistration(r => ...)` runs immediately against your container, and `WithRegistrationOnBuild(r => ...)` defers registration until `BuildApp()` — handy if the registration depends on something else the builder is about to add.
+
+```csharp
+((IMutableDependencyResolver)AppLocator.CurrentMutable)
+    .CreateReactiveUIBuilder()
+    .WithMaui()                                  // pick the platform extension your app uses
+    .WithViewsFromAssembly(typeof(App).Assembly) // optional but recommended
+    .WithRegistration(r =>
+    {
+        // Register IScreen / IRoutableViewModel / your services here if not already in the container.
+    })
+    .BuildApp();
+```
+
+### 4. (If applicable) re-bind after the container is built
+
+This step only matters for containers that distinguish "configuration" from "built" (`Microsoft.Extensions.DependencyInjection`, Autofac, SimpleInjector). After the build step, call the adapter's `Use...DependencyResolver` overload that takes the built form so subsequent resolutions hit the live container.
+
+### 5. Verify
+
+In an existing app it is worth proving the wiring with a one-liner during startup:
+
+```csharp
+var screen = AppLocator.Current.GetService<IScreen>();
+Debug.Assert(screen is not null, "IScreen should resolve through the application's container.");
+```
+
+If that returns `null` but works when you resolve `IScreen` directly through your container, the `Use...DependencyResolver` call hasn't been re-bound after the container was built (step 4).
+
+### Tips
+
+- Don't call `RxAppBuilder.CreateReactiveUIBuilder()` (the parameter-less overload) in an existing app — that one points at Splat's default `AppLocator`, not your container. Use the `IMutableDependencyResolver.CreateReactiveUIBuilder()` extension instead.
+- Splat modules you already use (`UsingSplatModule<T>(...)`) continue to work; the builder will register them through your container.
+- For platforms that aren't covered by a `With<Platform>()` extension (a custom widget toolkit, server-side runtime, etc.), use `ForCustomPlatform(scheduler, configure)` and register the platform pieces yourself.
+- You can still inspect the schedulers ReactiveUI ended up with via the value returned by `BuildApp()` (`app.MainThreadScheduler`, `app.TaskpoolScheduler`) — capture the return only if you need it.

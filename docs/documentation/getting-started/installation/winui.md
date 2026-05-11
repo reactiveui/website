@@ -13,7 +13,7 @@ Install the following packages for ReactiveUI with WinUI 3:
 <PackageReference Include="ReactiveUI.SourceGenerators" Version="*" PrivateAssets="all" />
 <PackageReference Include="ReactiveMarbles.ObservableEvents.SourceGenerator" Version="*" PrivateAssets="all" />
 
-<!-- In your shared .NET Standard library -->
+<!-- In your shared library -->
 <PackageReference Include="ReactiveUI" Version="*" />
 <PackageReference Include="ReactiveUI.SourceGenerators" Version="*" PrivateAssets="all" />
 
@@ -24,7 +24,7 @@ Install the following packages for ReactiveUI with WinUI 3:
 ### Recommended Project Structure
 
 ```
-- MyCoolApp (netstandard/net8.0 library - shared code)
+- MyCoolApp (net10.0 library - shared code)
 - MyCoolApp.WinUI (WinUI 3 application)
 - MyCoolApp.UnitTests (test project)
 ```
@@ -38,7 +38,6 @@ The modern way to initialize ReactiveUI in WinUI 3 uses **RxAppBuilder** for dep
 ```csharp
 using Microsoft.UI.Xaml;
 using ReactiveUI;
-using ReactiveUI.WinUI;
 using Splat;
 using System.Reflection;
 
@@ -71,7 +70,7 @@ public partial class App : Application
 
     protected override void OnLaunched(LaunchActivatedEventArgs args)
     {
-        _mainWindow = new MainWindow();
+        _mainWindow = new Window { Content = new MainPage() };
         _mainWindow.Activate();
     }
 }
@@ -131,17 +130,18 @@ public partial class MainViewModel : ReactiveObject
 
 ### 3. Create Views that Implement IViewFor
 
-**MainWindow.xaml:**
+WinUI does not ship a `ReactiveWindow<T>` (WinUI's `Window` is not a `DependencyObject`). For windows, host a `ReactivePage<TViewModel>` (or `ReactiveUserControl<TViewModel>`) inside a plain `Window` and put the bindings on the page.
+
+**MainPage.xaml:**
 ```xml
-<rxui:ReactiveWindow
-    x:Class="MyCoolApp.WinUI.MainWindow"
+<rxui:ReactivePage
+    x:Class="MyCoolApp.WinUI.MainPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:rxui="using:ReactiveUI.WinUI"
+    xmlns:rxui="using:ReactiveUI"
     xmlns:vm="using:MyCoolApp.ViewModels"
-    x:TypeArguments="vm:MainViewModel"
-    Title="My Cool App">
-    
+    x:TypeArguments="vm:MainViewModel">
+
     <Grid Padding="20">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -162,24 +162,23 @@ public partial class MainViewModel : ReactiveObject
                    Grid.Row="2"
                    TextWrapping="Wrap"/>
     </Grid>
-</rxui:ReactiveWindow>
+</rxui:ReactivePage>
 ```
 
-**MainWindow.xaml.cs:**
+**MainPage.xaml.cs:**
 ```csharp
 using Microsoft.UI.Xaml;
 using ReactiveUI;
-using ReactiveUI.WinUI;
 using Splat;
 
 namespace MyCoolApp.WinUI;
 
-public sealed partial class MainWindow : ReactiveWindow<MainViewModel>
+public sealed partial class MainPage : ReactivePage<MainViewModel>
 {
-    public MainWindow()
+    public MainPage()
     {
         InitializeComponent();
-        
+
         // Resolve ViewModel from DI container or create directly
         ViewModel = AppLocator.Current.GetService<MainViewModel>() ?? new MainViewModel();
 
@@ -237,7 +236,7 @@ For reusable components, use `ReactiveUserControl<TViewModel>`:
     x:Class="MyCoolApp.WinUI.Controls.MyControl"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:rxui="using:ReactiveUI.WinUI"
+    xmlns:rxui="using:ReactiveUI"
     xmlns:vm="using:MyCoolApp.ViewModels"
     x:TypeArguments="vm:MyControlViewModel">
     
@@ -251,7 +250,6 @@ For reusable components, use `ReactiveUserControl<TViewModel>`:
 **MyControl.xaml.cs:**
 ```csharp
 using ReactiveUI;
-using ReactiveUI.WinUI;
 
 namespace MyCoolApp.WinUI.Controls;
 
@@ -310,7 +308,7 @@ public MainViewModel()
 
 ## Key Points
 
-- **Use ReactiveWindow<TViewModel>** or **ReactiveUserControl<TViewModel>** base classes
+- **Use `ReactivePage<TViewModel>` or `ReactiveUserControl<TViewModel>`** as the view base class (WinUI has no `ReactiveWindow`; host pages inside a plain `Window`)
 - **Use ReactiveUI.SourceGenerators** for cleaner property and command declarations
 - **Use RxAppBuilder** for modern dependency injection and platform setup
 - **Always call DisposeWith(disposables)** inside WhenActivated to prevent memory leaks

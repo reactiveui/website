@@ -63,7 +63,7 @@ this.BindCommand(
     vm => vm.SomeProperty);
 ```
 
-|Platform Feature Description|WPF|Window Forms|Xamarin Android|Xamarin iOS|UWP|Xamarin Forms|
+|Platform Feature Description|WPF|Windows Forms|Android|iOS|WinUI|MAUI|
 |:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|
 |CommandParameter binding|&#x2714;|-|-|-|&#x2714;|&#x2714;|
 

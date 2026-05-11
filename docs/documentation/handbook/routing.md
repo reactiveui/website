@@ -192,7 +192,7 @@ Now we need to place the `RoutedViewHost` XAML control to our view that will con
 
 **MainWindow.xaml.cs**
 
-Here is the code-behind for the `MainWindow` declared above. Here we use `ReactiveWindow<TViewModel>` for WPF. For Xamarin.Forms it should typically be `ReactiveMasterDetailPage<TViewModel>`. The main goal on this step is to bind the `MainViewModel.Router` property to the `RoutedViewHost.Router` property, so the `RoutedViewHost` control will display the appropriate view.
+Here is the code-behind for the `MainWindow` declared above. Here we use `ReactiveWindow<TViewModel>` for WPF. For MAUI you would typically use `ReactiveContentPage<TViewModel>` (or `ReactiveFlyoutPage<TViewModel>` for a flyout-style shell). The main goal on this step is to bind the `MainViewModel.Router` property to the `RoutedViewHost.Router` property, so the `RoutedViewHost` control will display the appropriate view.
 
 ```cs
 // We use ReactiveWindow here for WPF, but could actually use

@@ -50,7 +50,7 @@ public interface IAboutViewModel : INotifyPropertyChanged
 {
     IEnumerable<AboutSection> AboutSections { get; set; }
 
-    ReactiveCommand<AboutFeed> RefreshCommand { get; set; }
+    ReactiveCommand<Unit, AboutFeed> RefreshCommand { get; set; }
 }
 ```
 
@@ -67,7 +67,7 @@ public class DesignTimeAboutViewModel : IAboutViewModel
           new AboutSection {Title = "Title 2", Body = "Lorum Ipsum"},
           new AboutSection {Title = "Title 3", Body = "Lorum Ipsum"}
       });
-      RefreshCommand = ReactiveCommand.CreateFromTask(o => Task.FromResult(new AboutFeed()));
+      RefreshCommand = ReactiveCommand.CreateFromTask(() => Task.FromResult(new AboutFeed()));
   }
   
   /* Properties and commands are deliberately omitted */

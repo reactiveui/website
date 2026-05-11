@@ -13,7 +13,7 @@ ReactiveUI packages are signed by the .NET Foundation. Install platform-specific
 | WinUI             | [ReactiveUI.WinUI][WinUiDoc]        | [![WinUiBadge]][WinUi] |
 | MAUI              | [ReactiveUI.Maui][MauiDoc]          | [![MauiBadge]][Maui]   |
 | Windows Forms     | [ReactiveUI.WinForms][WinDoc]       | [![WinBadge]][Win]     |
-| AndroidX (Xamarin) | [ReactiveUI.AndroidX][DroDoc]      | [![DroXBadge]][DroX]   |
+| Android (AndroidX) | [ReactiveUI.AndroidX][DroDoc]      | [![DroXBadge]][DroX]   |
 | Blazor            | [ReactiveUI.Blazor][BlazDoc]        | [![BlazBadge]][Blaz]   |
 | Uno               | [ReactiveUI.Uno][UnoDoc]            | [![UnoBadge]][Uno]     |
 | Uno WinUI         | [ReactiveUI.Uno.WinUI][UnoWinUiDoc] | [![UnoWinUiBadge]][UnoWinUi] |
@@ -67,7 +67,7 @@ ReactiveUI packages are signed by the .NET Foundation. Install platform-specific
 [ValBadge]: https://img.shields.io/nuget/v/ReactiveUI.Validation.svg
 [ValDocs]: ../../handbook/user-input-validation.md
 
-> Note: Xamarin platforms are considered legacy. For new applications, prefer .NET (WPF/WinForms/WinUI), MAUI, Avalonia, or Uno. Fody-based packages are legacy; prefer ReactiveUI.SourceGenerators for code generation.
+> Note: Fody-based packages are legacy; prefer [ReactiveUI.SourceGenerators](https://github.com/reactiveui/ReactiveUI.SourceGenerators) for code generation. Xamarin is no longer supported — migrate to MAUI (see [Xamarin to MAUI](../../upgrading/xamarin-to-maui.md)).
 
 ## Example
 

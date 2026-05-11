@@ -3,7 +3,7 @@ Order: 1
 ---
 # ReactiveUI Handbook
 
-Welcome to the ReactiveUI Handbook. This section provides comprehensive documentation for using ReactiveUI with .NET 8 and the latest best practices. Explore the topics below to learn about core concepts, advanced features, platform-specific guidance, and related projects.
+Welcome to the ReactiveUI Handbook. This section provides comprehensive documentation for using ReactiveUI with .NET 8–10 (and .NET Framework 4.6.2–4.8.1) and the latest best practices. Explore the topics below to learn about core concepts, advanced features, platform-specific guidance, and related projects.
 
 ## Core Topics
 - [RxAppBuilder](rxappbuilder.md)
@@ -21,7 +21,8 @@ Welcome to the ReactiveUI Handbook. This section provides comprehensive document
 - [Akavache (v11)](akavache/index.md)
 
 ## Platform Guides
-- [Xamarin.Android](data-binding/xamarin-android/index.md)
+- [Android](data-binding/android/index.md)
+- [iOS](data-binding/ios.md)
 - [Windows Presentation Foundation (WPF)](../getting-started/installation/windows-presentation-foundation.md)
 - [WinUI](../getting-started/installation/winui.md)
 - [MAUI](../getting-started/installation/maui.md)

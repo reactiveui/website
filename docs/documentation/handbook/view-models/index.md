@@ -60,7 +60,7 @@ Properties that are only initialized in the constructor and don't ever change, d
 ```cs
 // Since Commands should almost always be initialized in the constructor and
 // never change, they are good candidates for this pattern.
-public ReactiveCommand<Object> PostTweet { get; }
+public ReactiveCommand<Unit, Unit> PostTweet { get; }
 
 public PostViewModel()
 {

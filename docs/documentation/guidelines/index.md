@@ -529,19 +529,22 @@ public partial class CounterComponent : ReactiveComponentBase<CounterViewModel>
 
 ## Common Anti-Patterns to Avoid
 
-### ❌ Don't Use Static RxApp
+### ❌ Don't reach for the legacy static `RxApp` API
+
+The static `RxApp` class has been removed. Configure schedulers and the default exception handler through `RxAppBuilder`:
 
 ```csharp
-// Bad ❌
-RxApp.MainThreadScheduler = _myCustomScheduler;
-RxApp.DefaultExceptionHandler = /* ... */;
-
 // Good ✅
-// Use RxAppBuilder to configure schedulers
 var app = RxAppBuilder.CreateReactiveUIBuilder()
-    .WithCustomScheduler(/* ... */)
-    .WithDefaultExceptionHandler(/* ... */)
+    .WithMainThreadScheduler(/* IScheduler */)
+    .WithTaskPoolScheduler(/* IScheduler */)
+    .WithExceptionHandler(/* IObserver<Exception> */)
     .BuildApp();
+
+// Read-only access at runtime:
+var ui = RxSchedulers.MainThreadScheduler;
+var bg = RxSchedulers.TaskpoolScheduler;
+var handler = RxState.DefaultExceptionHandler;
 ```
 
 ### ❌ Don't Forget to Dispose

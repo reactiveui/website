@@ -9,7 +9,7 @@ NoTitle: true
    up Debug level tracing - by checking all of the Trace events, you will pick
    up Debug level messages.
 
-* Make sure you have the `reactiveui-nlog` package installed to your unit test
+* Make sure you have the [`Splat.NLog`](https://www.nuget.org/packages/Splat.NLog) package installed to your unit test
    assembly (unfortunately, you are out of luck if you are using a Windows
    Store Test Library, but a "normal" unit test library works fine)
 
@@ -35,11 +35,10 @@ NoTitle: true
 </nlog>
 ```
 
-* Register NLogger at the start of your unit test with:
+* Register NLog at the start of your unit test with:
 
 ``` cs
-var logManager = AppLocator.Current.GetService<ILogManager>();
-AppLocator.CurrentMutable.RegisterConstant(logManager.GetLogger<NLogLogger>(),typeof(IFullLogger));   
+AppLocator.CurrentMutable.UseNLogWithWrappingFullLogger();
 ```
 
 *Hint: An easy way to filter the IntelliTrace view to only show ReactiveUI

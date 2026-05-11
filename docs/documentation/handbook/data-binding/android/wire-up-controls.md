@@ -1,7 +1,7 @@
 ---
 NoTitle: true
 ---
-Since Xamarin Android doesn't provide some method to automatically generate properties for subviews in your layout, ReactiveUI provides a helper method to do this for you.
+Since .NET for Android doesn't provide a built-in way to automatically generate properties for subviews in your layout, ReactiveUI provides a helper method to do this for you.
 Every `Activity`, `Fragment`, `View` or class implementing `ILayoutViewHost` can call the extensions method `WireUpControls` with one of three ways to resolve properties to their respective element in the layout.
 
 It works in a similar fashion to [Butterknife](https://jakewharton.github.io/butterknife/) for Android.

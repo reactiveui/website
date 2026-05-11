@@ -26,7 +26,7 @@ configured that just uses `ViewModelViewHost`.
 this.OneWayBind(ViewModel, vm => vm.ToasterList, v => v.ToasterList.ItemsSource);
 ```
 
-**This is not supported by Xamarin.Forms! You have to use a DataTemplate there and specify your view class.**
+**This is not supported by MAUI! You have to use a `DataTemplate` there and specify your view class.**
 
 ### Registering new Views
 

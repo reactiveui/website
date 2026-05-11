@@ -17,7 +17,7 @@ public LoginViewModel(IScheduler customMainThreadScheduler = null)
 {
   // If custom main thread scheduler isn't initialized, fallback to default one.
   // For current thread scheduler, use CurrentThreadScheduler.Instance;
-  // For task pool scheduler, use RxSchedulers.TaskPoolScheduler.
+  // For task pool scheduler, use RxSchedulers.TaskpoolScheduler.
   customMainThreadScheduler = customMainThreadScheduler ?? RxSchedulers.MainThreadScheduler;
 
   // Initialize a reactive command with a custom output scheduler.
@@ -62,7 +62,7 @@ new TestScheduler().With(scheduler =>
 
 ## Replacing Schedulers Without Injecting Them
 
-The `With` method also replaces the schedulers ReactiveUI is using. This means, that both `RxSchedulers.MainThreadScheduler` and `RxSchedulers.TaskPoolScheduler` will stay replaced with `TestScheduler` until the `With` method returns. 
+The `With` method also replaces the schedulers ReactiveUI is using. This means, that both `RxSchedulers.MainThreadScheduler` and `RxSchedulers.TaskpoolScheduler` will stay replaced with `TestScheduler` until the `With` method returns. 
 
 `ReactiveCommand`s use `RxSchedulers.MainThreadScheduler` as an output scheduler by default, but OAPHs don't. OAPHs use `CurrentThreadScheduler.Instance`, which won't get replaced during test execution. 
 

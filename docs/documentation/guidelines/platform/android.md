@@ -8,7 +8,7 @@ Your viewmodels should inherit from `ReactiveObject`
 
 Use `WireUpControls`
 
-- [Wire Up Controls](../../handbook/data-binding/xamarin-android/wire-up-controls.md)
+- [Wire Up Controls](../../handbook/data-binding/android/wire-up-controls.md)
 
 Use `IActivatableViewModel` and `WhenActivated` for lifecycle
 

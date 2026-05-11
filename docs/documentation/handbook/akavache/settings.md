@@ -12,11 +12,15 @@ public class AppSettings : SettingsBase
     public string Theme { get => GetOrCreate("Light"); set => SetOrCreate(value); }
 }
 
+AppSettings? settings = null;
+
 AppBuilder.CreateSplatBuilder()
     .WithAkavache<SystemJsonSerializer>("MyApp",
         b => b.WithSqliteDefaults()
-              .WithSecureSettingsStore<AppSettings>(out var settings));
+              .WithSettingsStore<AppSettings>(s => settings = s));
+              // Or, for an encrypted store:
+              // .WithSecureSettingsStore<AppSettings>("password", s => settings = s));
 
-var enabled = settings.EnableNotifications;
+var enabled = settings!.EnableNotifications;
 settings.Theme = "Dark";
 ```

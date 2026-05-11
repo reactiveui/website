@@ -19,7 +19,8 @@ var t = await ak.Secure.GetObject<Token>("token");
 
 Expiration and bulk ops:
 ```csharp
-await ak.LocalMachine.InsertObject("weather", data, TimeSpan.FromMinutes(10));
-await ak.LocalMachine.InsertObjects(items.Select(i => (i.Key, i.Value)));
-var many = await ak.LocalMachine.GetObjects<string>(keys);
+await ak.LocalMachine.InsertObject("weather", data, DateTimeOffset.Now.AddMinutes(10));
+await ak.LocalMachine.InsertObjects(items.Select(i => new KeyValuePair<string, T>(i.Key, i.Value)));
+// GetObjects emits one KeyValuePair per key — materialise it before using.
+var many = await ak.LocalMachine.GetObjects<string>(keys).ToList();
 ```

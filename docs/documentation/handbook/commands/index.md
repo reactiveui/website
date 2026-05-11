@@ -137,13 +137,13 @@ To address this dilemma, `ReactiveCommand` includes a `ThrownExceptions` observa
 LoadCommand.ThrownExceptions.Subscribe(error => { });
 ```
 
-Use <a href="../default-exception-handler.md">RxApp.DefaultExceptionHandler</a> if you'd like to override the default `ThrownExceptions` behaviour. This may be useful if you have crash analytics plugins installed and would like to handle all exceptions. 
+Use <a href="../default-exception-handler.md">the default exception handler</a> if you'd like to override the default `ThrownExceptions` behaviour. This may be useful if you have crash analytics plugins installed and would like to handle all exceptions. 
 
 It can be tempting to *always* add a subscription to `ThrownExceptions`, even if the only recourse is to just log the problem. However, it is advisable to treat this like any other exception handling and only handle problems you can redress. If, for example, your command merely updates a property in your view model and it should never fail, any subscription to `ThrownExceptions` will serve only to obscure implementation problems. That said, be aware of the potential for intermittent problems, such as network and I/O errors. As always, a strong suite of tests will help you identify where a subscription to `ThrownExceptions` makes sense.
 
 > **Note** Your `canExecute` pipeline also has the potential to produce an error. Such cases are almost certainly a programmer error because you never want your `canExecute` pipeline to end in error. Even so, these errors will also tick through `ThrownExceptions`.
 
-Unfortunately you can't filter exceptions from `ThrownExceptions`. It's an "all-or-nothing affair" as Kent Boogaart says in <a href="https://kent-boogaart.com/you-i-and-reactiveui/">his book</a>. You have to do it manually by handling the exceptions you can and forwarding all the others somewhere else like the `RxApp.DefaultExceptionHandler`. Use `RxApp.DefaultExceptionHandler.OnNext(exceptionICantHandle)`.
+Unfortunately you can't filter exceptions from `ThrownExceptions`. It's an "all-or-nothing affair" as Kent Boogaart says in <a href="https://kent-boogaart.com/you-i-and-reactiveui/">his book</a>. You have to do it manually by handling the exceptions you can and forwarding all the others somewhere else like the default exception handler. Use `RxState.DefaultExceptionHandler.OnNext(exceptionICantHandle)`.
 
 Assume your command calls another command that might throw an exception. Likely, you would like to handle that exception only once, but ReactiveUI will propagate it to `ThrownExceptions` observables for both commands. See an example:
 

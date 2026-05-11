@@ -13,7 +13,7 @@ Install the following packages for ReactiveUI with Blazor:
 <PackageReference Include="ReactiveUI.SourceGenerators" Version="*" PrivateAssets="all" />
 <PackageReference Include="ReactiveMarbles.ObservableEvents.SourceGenerator" Version="*" PrivateAssets="all" />
 
-<!-- In your shared .NET Standard library -->
+<!-- In your shared library -->
 <PackageReference Include="ReactiveUI" Version="*" />
 <PackageReference Include="ReactiveUI.SourceGenerators" Version="*" PrivateAssets="all" />
 
@@ -24,7 +24,7 @@ Install the following packages for ReactiveUI with Blazor:
 ### Recommended Project Structure
 
 ```
-- MyCoolApp (netstandard/net10.0 library - shared code)
+- MyCoolApp (net10.0 library - shared code)
 - MyCoolApp.Blazor (Blazor application - Server or WebAssembly)
 - MyCoolApp.UnitTests (test project)
 ```

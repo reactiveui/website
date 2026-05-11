@@ -23,19 +23,13 @@ You can find a number of samples over in our [sample repository](https://github.
 
 * [Camelotia](https://github.com/worldbeater/Camelotia) — file manager for cloud storages, contains `x:Bind` and activation examples.
 
-## Xamarin Forms
+## MAUI
 
-* [WorkoutWotch](https://github.com/kentcb/WorkoutWotch) — a mobile application that allows users to have their exercise programs dictated to them. The vast majority of the application was built as part of a [video series "Building an iOS app with C#"](https://github.com/kentcb/WorkoutWotch#where-are-the-videos).
+> Send in a pull-request linking to the source code of something you have built.
 
-* [MasterDetail](https://github.com/reactiveui/ReactiveUI.Samples/tree/main/Xamarin/MasterDetail) — ReactiveUI MasterDetail and Routing sample for Xamarin.Forms.
-
-* [RoutingSimpleSample](https://github.com/GiusepeCasagrande/RoutingSimpleSample) — ReactiveUI simple Routing sample.
-
-## Xamarin iOS
+## iOS
 
 * [CodeHub](https://github.com/CodeHubApp/CodeHub) — the most complete, unofficial, client for GitHub on the iOS platform.
-
-* [CodeBucket](https://github.com/thedillonb/CodeBucket) — Bitbucket client app built with Xamarin.iOS and ReactiveUI.
 
 ## AvaloniaUI
 
@@ -48,11 +42,11 @@ You can find a number of samples over in our [sample repository](https://github.
 
 * [Egram](https://github.com/egramtel/egram.tel) — an unofficial crossplatform Telegram client written in C#, .NET Core and Avalonia.
 
-## Xamarin Android
+## Android
 
 > Send in a pull-request linking to the source code of something you have built.
 
-## Xamarin Mac
+## macOS
 
 > Send in a pull-request linking to the source code of something you have built.
 

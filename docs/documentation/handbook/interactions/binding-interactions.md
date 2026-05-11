@@ -9,14 +9,14 @@ In addition to registering `Interaction` handlers manually, we also provide a se
 IDisposable BindInteraction<TViewModel, TView, TInput, TOutput>(
     this TView view,
     TViewModel? viewModel,
-    Expression<Func<TViewModel, Interaction<TInput, TOutput>>> propertyName,
-    Func<InteractionContext<TInput, TOutput>, Task> handler);
+    Expression<Func<TViewModel, IInteraction<TInput, TOutput>>> propertyName,
+    Func<IInteractionContext<TInput, TOutput>, Task> handler);
 
 IDisposable BindInteraction<TViewModel, TView, TInput, TOutput, TDontCare>(
     this TView view,
     TViewModel? viewModel,
-    Expression<Func<TViewModel, Interaction<TInput, TOutput>>> propertyName,
-    Func<InteractionContext<TInput, TOutput>, IObservable<TDontCare>> handler);
+    Expression<Func<TViewModel, IInteraction<TInput, TOutput>>> propertyName,
+    Func<IInteractionContext<TInput, TOutput>, IObservable<TDontCare>> handler);
 ```
 
 Registering handlers manually is fine for simple scenarios. But if, for example, you expect your `Interaction` or one of its ancestors to change, the complexity starts increasing because of the need to dispose of the old and subscribe to the latest:

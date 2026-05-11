@@ -66,7 +66,7 @@ ReactiveUI is much more than just a MVVM helper. Take a look at the following pr
 
 - **[ReactiveUI.SourceGenerators](https://github.com/reactiveui/ReactiveUI.SourceGenerators)** - C# source generators for ReactiveUI
 - **[Maui.Plugins.Popup](https://github.com/reactiveui/Maui.Plugins.Popup)** - MAUI popup plugin with ReactiveUI support
-- **[Sextant](https://github.com/reactiveui/Sextant)** - Navigation library for Xamarin.Forms using ReactiveUI
+- **[Sextant](https://github.com/reactiveui/Sextant)** - ViewModel-first navigation library for MAUI and Avalonia using ReactiveUI
 
 ### Additional Tools
 
