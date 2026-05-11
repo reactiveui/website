@@ -1,0 +1,25 @@
+# Cloudflare Pages (and Netlify) honor this file. Syntax: a path pattern on
+# its own line, followed by indented "Header: value" lines that apply to
+# every response under that path. https://developers.cloudflare.com/pages/configuration/headers/
+
+/*
+  # Don't let browsers MIME-sniff a response into something executable.
+  X-Content-Type-Options: nosniff
+  # This is a docs site — it should never be framed by anyone.
+  X-Frame-Options: DENY
+  # Send the origin (not the full path) on cross-origin navigations; full
+  # referrer same-origin.
+  Referrer-Policy: strict-origin-when-cross-origin
+  # We don't use any of these powerful APIs; deny them site-wide.
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), browsing-topics=()
+  # Belt to X-Frame-Options' suspenders for browsers that prefer CSP.
+  Content-Security-Policy: frame-ancestors 'none'; base-uri 'self'; object-src 'none'
+
+# A full Content-Security-Policy is intentionally left commented out: this
+# site loads inline theme scripts, an inline pagefind module loader,
+# cdn.jsdelivr.net assets, and YouTube embeds, so a strict policy needs
+# verification against an actual preview deploy before going live. Starting
+# point if/when you want it — test on a *.rxui.pages.dev preview first, then
+# move it into the /* block above:
+#
+#   Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; img-src 'self' data: https:; font-src 'self' data: https://cdn.jsdelivr.net; connect-src 'self'; worker-src 'self' blob:; frame-src https://www.youtube.com https://www.youtube-nocookie.com; base-uri 'self'; form-action 'self'; object-src 'none'; frame-ancestors 'none'
