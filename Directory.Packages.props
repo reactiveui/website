@@ -2,13 +2,13 @@
   <PropertyGroup>
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
     <CentralPackageTransitivePinningEnabled>true</CentralPackageTransitivePinningEnabled>
-    <NuStreamDocsVersion>1.5.1</NuStreamDocsVersion>
+    <NuStreamDocsVersion>1.6.0</NuStreamDocsVersion>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageVersion Include="stylecop.analyzers" Version="1.2.0-beta.556" />
     <PackageVersion Include="Roslynator.Analyzers" Version="4.15.0" />
-    <PackageVersion Include="Blazor.Common.Analyzers" Version="2.0.0" />
+    <PackageVersion Include="Blazor.Common.Analyzers" Version="2.1.0" />
     <PackageVersion Include="SonarAnalyzer.CSharp" Version="10.27.0.140913" />
   </ItemGroup>
 
