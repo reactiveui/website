@@ -2,7 +2,7 @@
   <PropertyGroup>
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
     <CentralPackageTransitivePinningEnabled>true</CentralPackageTransitivePinningEnabled>
-    <NuStreamDocsVersion>1.6.0</NuStreamDocsVersion>
+    <NuStreamDocsVersion>1.6.1</NuStreamDocsVersion>
   </PropertyGroup>
 
   <ItemGroup>
