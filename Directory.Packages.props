@@ -9,7 +9,7 @@
     <PackageVersion Include="stylecop.analyzers" Version="1.2.0-beta.556" />
     <PackageVersion Include="Roslynator.Analyzers" Version="4.15.0" />
     <PackageVersion Include="Blazor.Common.Analyzers" Version="2.1.0" />
-    <PackageVersion Include="SonarAnalyzer.CSharp" Version="10.28.0.143324" />
+    <PackageVersion Include="SonarAnalyzer.CSharp" Version="10.29.0.143774" />
   </ItemGroup>
 
 
