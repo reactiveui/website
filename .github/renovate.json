@@ -1,4 +1,31 @@
 {
     "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-    "extends": ["local>reactiveui/.github:renovate"]
+    "extends": [
+        "local>reactiveui/.github:renovate"
+    ],
+    "packageRules": [
+        {
+            "description": "The documentation site pulls in more than thirty NuStreamDocs.* packages that are released in lockstep. Without this they arrive as thirty separate PRs that cannot be merged independently.",
+            "matchManagers": [
+                "nuget"
+            ],
+            "groupName": "NuStreamDocs",
+            "matchPackageNames": [
+                "/^NuStreamDocs(\\.|$)/"
+            ]
+        },
+        {
+            "description": "Analyzer packages all gate the build through the same warnings-as-errors pass, so landing them separately just means several red CI runs in a row. Move them in one PR.",
+            "matchManagers": [
+                "nuget"
+            ],
+            "groupName": "analyzers",
+            "matchPackageNames": [
+                "/^Roslynator\\./",
+                "/^SonarAnalyzer\\./",
+                "/^stylecop\\.analyzers$/i",
+                "/^Blazor\\.Common\\.Analyzers$/"
+            ]
+        }
+    ]
 }
