@@ -60,7 +60,7 @@ Properties that are only initialized in the constructor and don't ever change, d
 ```cs
 // Since Commands should almost always be initialized in the constructor and
 // never change, they are good candidates for this pattern.
-public ReactiveCommand<Unit, Unit> PostTweet { get; }
+public ReactiveCommand<RxVoid, RxVoid> PostTweet { get; }
 
 public PostViewModel()
 {
@@ -103,6 +103,6 @@ As a result, almost all of the interesting code in a well-written ReactiveUI Vie
 * "The DirectMessageToSend object consists of the target user and the message
    to send"
 
-All of these statements are concise descriptions of parts of how your UI should work, and these statements can all be directly translated into Rx expressions in your ViewModel constructor.
+All of these statements are concise descriptions of parts of how your UI should work, and these statements can all be directly translated into stream expressions in your ViewModel constructor.
 
 > **Note** With the [ReactiveUI.Fody](boilerplate-code.md) package, you can implement the described patterns by annotating properties with either the `[Reactive]` or `[ObservableAsProperty]` attribute. The code responsible for sending property change notifications will be injected into getters or setters automatically at compile time.

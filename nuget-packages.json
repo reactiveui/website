@@ -1,5 +1,5 @@
 {
-  "nugetPackageOwners": ["reactiveui", "reactivemarbles"],
+  "nugetPackageOwners": ["reactiveui"],
   "tfmPreference": [
     "net10.0",
     "net9.0",
@@ -22,7 +22,7 @@
     { "id": "System.Reactive" },
     { "id": "DynamicData" }
   ],
-  "excludePackages": [],
+  "excludePackages": ["Akavache.Core"],
   "excludePackagePrefixes": [
     "Cake.PinNuGetDependency",
     "ConsoleSampleUsingLocalApi",
@@ -35,8 +35,12 @@
     "ReactiveMarbles.SourceGenerator.TestNuGetHelper",
     "ReactiveUI.Binding.Analyzer",
     "ReactiveUI.Binding.SourceGenerators",
+    "ReactiveUI.Disposables",
+    "ReactiveUI.Extensions",
+    "ReactiveUI.Primitives",
     "ReactiveUI.SourceGenerators",
     "SextantSample.",
+    "System.Reactive.Wasm",
     "Splat.DependencyInjection."
   ],
   "referencePackages": [

@@ -17,14 +17,14 @@ public class RepositoryViewModel : ReactiveObject
     Delete.ThrownExceptions.Subscribe(ex => this.Log().ErrorException("Something went wrong", ex));
   }
 
-  public ReactiveCommand<Unit, Unit> Delete { get; private set; }
+  public ReactiveCommand<RxVoid, RxVoid> Delete { get; private set; }
 
   readonly ObservableAsPropertyHelper<bool> _isDeleting;
   public bool IsDeleting { get { return _isDeleting.Value; } }
 
-  public IObservable<Unit> DeleteImpl()
+  public IObservable<RxVoid> DeleteImpl()
   {
-    return Observable.Start(() => /* ... */);
+    return Signal.Start(() => /* ... */);
   }
 }
 ```
@@ -47,14 +47,14 @@ public class RepositoryViewModel : ReactiveObject
     Delete.ThrownExceptions.Subscribe(ex => this.Log().ErrorException("Something went wrong", ex));
   }
 
-  public ReactiveCommand<Unit, Unit> Delete { get; private set; }
+  public ReactiveCommand<RxVoid, RxVoid> Delete { get; private set; }
 
   readonly ObservableAsPropertyHelper<bool> _isDeleting;
   public bool IsDeleting { get { return _isDeleting.Value; } }
 
-  public IObservable<Unit> DeleteImpl()
+  public IObservable<RxVoid> DeleteImpl()
   {
-    return Observable.Start(() => /* ... */);
+    return Signal.Start(() => /* ... */);
   }
 }
 ```

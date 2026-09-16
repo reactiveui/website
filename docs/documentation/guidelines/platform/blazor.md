@@ -18,11 +18,11 @@ Use `IActivatableViewModel` and `WhenActivated` for lifecycle
 
 Keep references to your subscriptions
 
-- [Reactive programming#lifecycle](../../reactive-programming/index.md#lifecycle)
+- [Cleaning up subscriptions](../../reactive-programming/observables.md#cleaning-up)
 
 Use disposables to manage lifetime, scope and resources:
 
-- [Reactive programming#disposables](../../reactive-programming/index.md#disposables)
+- [Disposables](../../primitives/disposables.md)
 
 ## View
 

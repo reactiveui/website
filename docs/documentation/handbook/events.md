@@ -3,74 +3,75 @@ Order: 10
 ---
 # Events
 
-Install the `ReactiveMarbles.ObservableEvents.SourceGenerator` package into your application. See <a href="../getting-started/installation/index.md">installation guide</a> for more info. You can use this events package standalone, without any reference to ReactiveUI. `ReactiveMarbles.ObservableEvents.SourceGenerator` will always be a separate package that has no dependancy on the `ReactiveUI` package.
+A view raises events: a button is clicked, a key is released, a page loads. To use them in a view model pipeline, you
+turn each event into a stream. Then you can filter it, combine it with other streams, and feed it to a command.
 
-This package uses SourceGenerator to generate the observables for events within the platform.  `ReactiveMarbles.ObservableEvents.SourceGenerator` has now replaced the `ReactiveUI.Events.*` packages. Don't use `EventHandlers` ever, use the generated `Observable.FromEventPattern` versions. Combine multiple `Observable.FromEventPattern`together to get amazing composition. Remember to [dispose of your subscriptions](../reactive-programming/index.md#lifecycle) using the features provided by the Reactive Extensions.
+The `ReactiveUI.Primitives.ObservableEvents` package does that for you. It is a **source generator**: a part of the
+compiler that writes extra C# code into your project when it builds. For every public event on a type, it writes a
+strongly typed stream, so your IDE suggests the events and the compiler checks their names.
 
-```csharp
-var codes = new[]
-{
-    Key.Up,
-    Key.Up,
-    Key.Down,
-    Key.Down,
-    Key.Left,
-    Key.Right,
-    Key.Left,
-    Key.Right,
-    Key.A,
-    Key.B
-};
+## Your first event stream
 
-// convert the array into an sequence
-var koanmi = codes.ToObservable();
+**1. Add the package** to the project that holds your views:
 
-this.Events().KeyUp
-
-    // we want the keycode
-    .Select(x => x.Key)
-    .Do(key => Debug.WriteLine($"{key} was pressed."))
-
-    // get the last ten keys
-    .Window(10)
-
-    // compare to known konami code sequence
-    .SelectMany(x => x.SequenceEqual(koanmi))
-    .Do(isMatch => Debug.WriteLine(isMatch))
-
-    // where we match
-    .Where(x => x)
-    .Do(x => Debug.WriteLine("Konami sequence"))
-    .Subscribe(y => { });
+```xml
+<PackageReference Include="ReactiveUI.Primitives.ObservableEvents" Version="*" PrivateAssets="all" />
 ```
 
-<div class="youtube-video-container"><iframe src="https://www.youtube.com/embed/tNn-7fen3DA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+**2. Call `Events()`** on the object that raises the event, and pick the event:
 
-## Using events with WhenActivated
+```csharp
+using ReactiveUI.Primitives.ObservableEvents;
 
-If you are reacting to events emitted by the view and referencing the view model in your observable sequence, remember to dispose your subscriptions. If your view model outlives your view or vice versa, there is a potential for a memory leak, and `WhenActivated` helps you to avoid that. See [WhenActivated documentation](when-activated.md) for more info.
+IObservable<RoutedEventArgs> clicks = RefreshButton.Events().Click;
+```
 
-```cs
-InitializeComponent();
+**3. Shape the stream and use it.** This view runs the view model's `Refresh` command on every click:
+
+```csharp
 this.WhenActivated(disposables =>
 {
     RefreshButton
-      // observe button click events
-      // namespace: System.Windows.Controls.Primitives
-      .Events().Click
-      // transform arguments
-      .Select(args => Unit.Default)
-      // invoke command when button is clicked
-      .InvokeCommand(this, x => x.ViewModel.Refresh)
-      // dispose subscription when the view
-      // gets deactivated.
-      .DisposeWith(disposables);
+        .Events().Click
+        .Select(args => RxVoid.Default)
+        .InvokeCommand(this, x => x.ViewModel.Refresh)
+        .DisposeWith(disposables);
 });
 ```
 
-## Prefer ObservableEvents over XAML behaviors
+`RxVoid` is a value that carries no data: the command only needs to know that a click happened. Dispose the
+subscription when the view deactivates. A view model that outlives its view, or the other way round, otherwise keeps
+the other alive. See [WhenActivated](when-activated.md).
 
-Although XAML behaviors is a nice technique which allows you to bind to any event exposed by a control, it has several drawbacks. First, its syntax is quite verbose. Second, you lose intellisense when typing the event name. Third, if you'd like to modify the way how your view model reacts to an event, you need to write a new action and/or behavior. Consider the following example which uses UWP XAML behaviors:
+The generator works with ReactiveUI.Primitives, ReactiveUI.Primitives.Reactive, or System.Reactive. It uses whichever
+your project references. For how it maps each event's delegate to a value type, and for static events, see
+[observable events](observable-events/index.md).
+
+## Composing events
+
+Because each event is a stream, operators can do what would take fields and flags with a plain event handler. This
+view watches for the Konami code: ten keys in a row.
+
+```csharp
+var codes = new[] { Key.Up, Key.Up, Key.Down, Key.Down, Key.Left, Key.Right, Key.Left, Key.Right, Key.A, Key.B };
+
+this.Events().KeyUp
+    .Select(args => args.Key)
+    .Buffer(10, 1)
+    .Where(keys => keys.SequenceEqual(codes))
+    .Subscribe(_ => Debug.WriteLine("Konami sequence"));
+```
+
+- `Select` takes the key from each event.
+- `Buffer(10, 1)` sends the last ten keys each time a key is released.
+- `Where` keeps the lists that match the code.
+
+See [time](../primitives/time.md) for `Buffer`, and the other [operator pages](../primitives/index.md#the-operator-pages).
+
+## Events instead of XAML behaviors
+
+XAML behaviors can bind any event to a command, but the markup is long, the IDE cannot check the event name, and
+changing how the view model reacts means writing a new behavior:
 
 ```xml
 <interactivity:Interaction.Behaviors>
@@ -80,41 +81,42 @@ Although XAML behaviors is a nice technique which allows you to bind to any even
 </interactivity:Interaction.Behaviors>
 ```
 
-With `ReactiveUI.Events` all events are strongly typed. This means your IDE will help you by suggesting available events.
+The same thing as a stream is checked by the compiler, and any operator can sit in the middle:
 
-```cs
+```csharp
 this.Events().Tapped
-    // Use any of reactive extensions operators here!
-    .Select(args => Unit.Default)
+    .Select(args => RxVoid.Default)
     .InvokeCommand(this, x => x.ViewModel.Refresh);
 ```
 
-## How do I convert my own C# events into Observables?
+## Turning an event into a stream yourself
 
-[Reactive Extensions for .NET](https://github.com/dotnet/reactive) provide three approaches how you can do this. The first one is using `Observable.FromEventPattern`.
+Without the generator, `Signal` has two methods that do the same job. Each takes a lambda that attaches the handler
+and one that removes it.
 
-```cs
-Observable.FromEventPattern<RoutedEventHandler, RoutedEventArgs>(
-  handler => PasswordBox.PasswordChanged += handler,
-  handler => PasswordBox.PasswordChanged -= handler) // Got IObservable here!
+`Signal.FromEventPattern` works with events whose delegate takes a sender and an `EventArgs`. It sends an
+`EventPattern<TEventArgs>`, with `Sender` and `EventArgs` properties:
+
+```csharp
+using ReactiveUI.Primitives.Core;
+using ReactiveUI.Primitives.Signals;
+
+IObservable<EventPattern<RoutedEventArgs>> passwordChanged =
+    Signal.FromEventPattern<RoutedEventHandler, RoutedEventArgs>(
+        handler => PasswordBox.PasswordChanged += handler,
+        handler => PasswordBox.PasswordChanged -= handler);
 ```
 
-Another option is to use an overload which accepts a string.
+`Signal.FromEvent` works with any delegate type. The first lambda builds a handler of the event's delegate type that
+passes the value on:
 
-```cs
-Observable.FromEventPattern(PasswordBox, nameof(PasswordBox.PasswordChanged))
+```csharp
+IObservable<KeyPressEventArgs> keyPresses =
+    Signal.FromEvent<KeyPressEventHandler, KeyPressEventArgs>(
+        handler => (sender, e) => handler(e),
+        handler => KeyPress += handler,
+        handler => KeyPress -= handler);
 ```
 
-The last option is `Observable.FromEvent` which works with any event delegate type.
-
-```cs
-Observable.FromEvent<KeyPressEventHandler, KeyPressEventArgs>(
-  handler => {
-    KeyPressEventHandler press = (sender, e) => handler(e);
-    return press;
-  }, 
-  handler => KeyPress += handler,
-  handler => KeyPress -= handler)
-```
-
-See [Reactive Extensions documentation](https://reactivex.io/documentation/operators/from.html) for more info.
+Neither method looks events up by name, so both work with trimming and Native AOT. See
+[from an event](../primitives/creation-factories.md#from-an-event).

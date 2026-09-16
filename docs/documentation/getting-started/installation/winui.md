@@ -11,7 +11,7 @@ Install the following packages for ReactiveUI with WinUI 3:
 <!-- In your WinUI 3 application project -->
 <PackageReference Include="ReactiveUI.WinUI" Version="*" />
 <PackageReference Include="ReactiveUI.SourceGenerators" Version="*" PrivateAssets="all" />
-<PackageReference Include="ReactiveMarbles.ObservableEvents.SourceGenerator" Version="*" PrivateAssets="all" />
+<PackageReference Include="ReactiveUI.Primitives.ObservableEvents" Version="*" PrivateAssets="all" />
 
 <!-- In your shared library -->
 <PackageReference Include="ReactiveUI" Version="*" />
@@ -83,7 +83,7 @@ Use ReactiveUI.SourceGenerators for cleaner, compile-time generated reactive pro
 ```csharp
 using ReactiveUI;
 using ReactiveUI.SourceGenerators;
-using System.Reactive.Linq;
+using ReactiveUI.Primitives;
 
 namespace MyCoolApp.ViewModels;
 
@@ -111,7 +111,7 @@ public partial class MainViewModel : ReactiveObject
 
         // React to search text changes
         this.WhenAnyValue(x => x.SearchText)
-            .Throttle(TimeSpan.FromMilliseconds(500))
+            .Calm(TimeSpan.FromMilliseconds(500))
             .Where(text => !string.IsNullOrWhiteSpace(text))
             .InvokeCommand(SearchCommand);
     }
@@ -124,7 +124,7 @@ public partial class MainViewModel : ReactiveObject
         StatusMessage = $"Found results for: {SearchText}";
     }
 
-    public ReactiveCommand<Unit, Unit> SearchCommand { get; }
+    public ReactiveCommand<RxVoid, RxVoid> SearchCommand { get; }
 }
 ```
 
@@ -312,7 +312,7 @@ public MainViewModel()
 - **Use ReactiveUI.SourceGenerators** for cleaner property and command declarations
 - **Use RxAppBuilder** for modern dependency injection and platform setup
 - **Always call DisposeWith(disposables)** inside WhenActivated to prevent memory leaks
-- **Use ReactiveMarbles.ObservableEvents.SourceGenerator** for converting WinUI events to observables
+- **Use ReactiveUI.Primitives.ObservableEvents** for converting WinUI events to observables
 
 ## Common Patterns
 

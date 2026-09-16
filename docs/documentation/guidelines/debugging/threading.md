@@ -21,7 +21,7 @@ If the crash occurs in a View's setter, it usually means the ViewModel was updat
 ## Troubleshooting Strategies
 
 ### The "Shotgun" Approach (Not Recommended)
-A common instinct is to add `.ObserveOn(RxSchedulers.MainThreadScheduler)` to every observable pipeline until the crash stops. While this works, it adds unnecessary overhead and makes the code harder to read. It's better to be surgical.
+A common instinct is to add `.WitnessOn(RxSchedulers.MainThreadScheduler)` to every observable pipeline until the crash stops. While this works, it adds unnecessary overhead and makes the code harder to read. It's better to be surgical.
 
 ### Surgical Precision
 Identify the boundary where your data transitions from a background operation (like a network request or database query) to a UI update.
@@ -36,9 +36,9 @@ SomeCommand = ReactiveCommand.CreateFromTask(async () => {
 // DO: Use RxSchedulers.MainThreadScheduler at the boundary
 _searchResults = this
     .WhenAnyValue(x => x.SearchTerm)
-    .Throttle(TimeSpan.FromMilliseconds(800))
+    .Calm(TimeSpan.FromMilliseconds(800))
     .SelectMany(FetchDataAsync)
-    .ObserveOn(RxSchedulers.MainThreadScheduler) // Transition to UI thread here
+    .WitnessOn(RxSchedulers.MainThreadScheduler) // Transition to UI thread here
     .ToProperty(this, x => x.SearchResults);
 ```
 

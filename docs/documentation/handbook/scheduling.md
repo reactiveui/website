@@ -3,51 +3,72 @@ Order: 17
 ---
 # Scheduling in ReactiveUI
 
-Scheduling is a core part of writing any app that uses the Reactive Extensions, as all operations are deferred (i.e. run on other threads or on the UI thread). Schedulers allow apps to control what context code runs in, and it is important that libraries that run code on other threads are scheduler-aware. ReactiveUI provides two app-wide schedulers that should be used in-place of other schedulers such as the built-in Rx schedulers:
+A view model does work in the background, but the screen can only change on the UI thread. A **sequencer** decides
+which thread, and when, a piece of work runs. ReactiveUI gives your app two, so all your code agrees on where work
+goes:
 
-* **RxSchedulers.MainThreadScheduler** - This scheduler executes on the UI thread. On XAML-based platforms, this is equivalent to Dispatcher.BeginInvoke.
+- **`RxSchedulers.MainThreadScheduler`** runs work on the UI thread. On WPF it posts to the `Dispatcher`.
+- **`RxSchedulers.TaskpoolScheduler`** runs work on the thread pool, as `Task.Run` does.
 
-* **RxSchedulers.TaskpoolScheduler** - This scheduler executes code via the TPL taskpool. This is equivalent to Task.Run.
-
-To use these two inbuilt schedulers use the `ObserveOn` operator in your Observable chain:
-
-```cs
-this.WhenAnyValue(x => x.MyImportantProperty).ObserveOn(RxSchedulers.MainThreadScheduler).Subscribe(x => ...);
-```
-
-To control where a `ReactiveControl` runs the `Subscribe` you can pass in a scheduler. By default it will use whatever the current thread's scheduler is, so if you initialize from the UI thread it will use that thread.
-
-```cs
-MyCommand = ReactiveCommand.Create<Unit, string>(_ => ...do stuff..., outputScheduler: RxSchedulers.MainThreadScheduler);
-```
-
-To control where a `ObservableAsPropertyHelper` triggers the `INotifyPropertyChanged` events from pass in a scheduler. By default it will use whatever the current thread's scheduler is, so if you initialize from the UI thread it will use that thread.
-
-```cs
-public class MyVm : ReactiveObject
-{
-  private readonly ObservableAsPropertyHelper<bool> _isRunning;
-
-  public MyVm()
-  {
-    MyCommand = ReactiveCommand.Create<Unit, string>(_ => ...do stuff..., outputScheduler: RxSchedulers.MainThreadScheduler);
-    _isRunning = MyCommand.IsExecuting.ToProperty(this, nameof(IsRunning), scheduler: RxSchedulers.MainThreadScheduler);  
-  }
-
-  public ReactiveCommand<Unit, string> MyCommand { get; }
-  public bool IsRunning => _isRunning.Value;
-```
-
-**Note**: Often on the iOS platform you need to pass in the main thread scheduler, since the default scheduler may not be the correct one.
-
-## When should I care about scheduling
-
-You should try to attempt to remove all sources of concurrency other than scheduling via the framework schedulers (`RxSchedulers.MainThreadScheduler` / `RxSchedulers.TaskpoolScheduler`). This isn't always possible, but threads created via `new Thread()` or `Task.Run` can't be controlled in a unit test. The most straightforward way to fix these is by replacing them with `Observable.Start`:
-
-### Old
+Both are `ISequencer` values from [ReactiveUI.Primitives](../primitives/scheduling.md). Use them instead of creating
+threads or picking sequencers yourself. Code that goes through them can be tested without waiting.
 
 ```csharp
-var result = await Task.Run(() => {
+using ReactiveUI;
+using ReactiveUI.Primitives;
+using ReactiveUI.Primitives.Concurrency;
+using ReactiveUI.Primitives.Signals;
+```
+
+## Moving a stream to the UI thread
+
+Put `WitnessOn(RxSchedulers.MainThreadScheduler)` before the callback that touches the screen:
+
+```csharp
+this.WhenAnyValue(x => x.MyImportantProperty)
+    .WitnessOn(RxSchedulers.MainThreadScheduler)
+    .Subscribe(x => StatusText = x);
+```
+
+`WitnessOn` hands each value to the sequencer, and your callback runs where the sequencer runs it. See
+[UI platforms](../primitives/platforms.md) for the sequencer behind `MainThreadScheduler` on each platform.
+
+## Commands and property helpers
+
+A `ReactiveCommand` sends its results through its `outputScheduler`, which is `RxSchedulers.MainThreadScheduler` when
+you give none. An `ObservableAsPropertyHelper` raises `PropertyChanged` through its `scheduler`. With none, it raises
+it on the thread the value arrived on, so a value from a background thread raises `PropertyChanged` there. Pass
+`RxSchedulers.MainThreadScheduler` when the source may send from another thread:
+
+```csharp
+public class MyVm : ReactiveObject
+{
+    private readonly ObservableAsPropertyHelper<bool> _isRunning;
+
+    public MyVm()
+    {
+        MyCommand = ReactiveCommand.Create<RxVoid, string>(_ => "done", outputScheduler: RxSchedulers.MainThreadScheduler);
+        _isRunning = MyCommand.IsExecuting.ToProperty(this, nameof(IsRunning), scheduler: RxSchedulers.MainThreadScheduler);
+    }
+
+    public ReactiveCommand<RxVoid, string> MyCommand { get; }
+
+    public bool IsRunning => _isRunning.Value;
+}
+```
+
+`RxVoid` is a value that carries no data. Use it for a command that takes no parameter.
+
+## Replacing threads and dispatcher calls
+
+Work started with `new Thread()`, `Task.Run` or `Dispatcher.BeginInvoke` runs where ReactiveUI cannot see it, so a
+test cannot control it. Send the work through the two sequencers instead.
+
+This code starts its own work:
+
+```csharp
+var result = await Task.Run(() =>
+{
     int number = ThisCalculationTakesALongTime();
     return number;
 });
@@ -55,10 +76,11 @@ var result = await Task.Run(() => {
 Dispatcher.BeginInvoke(new Action(() => DoAThing()));
 ```
 
-### New
+This code sends the same work through the sequencers:
 
 ```csharp
-var result = await Observable.Start(() => {
+var result = await Signal.Start(() =>
+{
     int number = ThisCalculationTakesALongTime();
     return number;
 }, RxSchedulers.TaskpoolScheduler);
@@ -66,16 +88,35 @@ var result = await Observable.Start(() => {
 RxSchedulers.MainThreadScheduler.Schedule(() => DoAThing());
 ```
 
-If you create a shared component, you should also consider allowing the scheduler being specified as an optional constructor parameter.
+`Signal.Start` runs the lambda on the sequencer you give, and sends its result. You can `await` the stream for that
+result. See [creation factories](../primitives/creation-factories.md).
 
-## Testing schedulers
+If you write a shared component, take an `ISequencer` as an optional constructor parameter, so the app or a test can
+choose.
 
-In a unit test runner, by default, the `MainThreadScheduler` runs code immediately instead of on the (non-existent) UI thread. The `TaskpoolScheduler` is left unchanged by default. The best way to run under an alternate scheduler is via the `With` method, most often used with `TestScheduler`. This replaces both schedulers with the specified scheduler:
+## Testing
+
+In a test run, `MainThreadScheduler` runs work straight away, because there is no UI thread. `TaskpoolScheduler` is
+left unchanged.
+
+To control time, use `With` from `ReactiveUI.Testing` with a `VirtualClock`: a sequencer whose time moves only when
+you move it. Inside the block, both `RxSchedulers.MainThreadScheduler` and `RxSchedulers.TaskpoolScheduler` are the
+clock. They go back to what they were when the block ends.
 
 ```csharp
-new TestScheduler().With(sheduler => 
+using ReactiveUI.Testing;
+
+new VirtualClock().With(clock =>
 {
-    // Code run in this block will have both RxSchedulers.MainThreadScheduler
-    // and RxSchedulers.TaskpoolScheduler assigned to the new TestScheduler.
+    RxSchedulers.MainThreadScheduler.Schedule(TimeSpan.FromSeconds(5), () => Console.WriteLine("five virtual seconds"));
+    clock.AdvanceBy(TimeSpan.FromSeconds(5));
 });
 ```
+
+Output, with no real wait:
+
+```text
+five virtual seconds
+```
+
+See [testing with a virtual clock](../primitives/scheduling.md#testing-with-a-virtual-clock) and [testing](testing.md).

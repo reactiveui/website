@@ -50,7 +50,7 @@ public interface IAboutViewModel : INotifyPropertyChanged
 {
     IEnumerable<AboutSection> AboutSections { get; set; }
 
-    ReactiveCommand<Unit, AboutFeed> RefreshCommand { get; set; }
+    ReactiveCommand<RxVoid, AboutFeed> RefreshCommand { get; set; }
 }
 ```
 

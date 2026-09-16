@@ -5,7 +5,7 @@ Always make sure to update the UI on the `RxSchedulers.MainThreadScheduler` to e
 ## Do
 ```csharp
 FetchStuffAsync()
-  .ObserveOn(RxSchedulers.MainThreadScheduler)
+  .WitnessOn(RxSchedulers.MainThreadScheduler)
   .Subscribe(x => this.SomeViewModelProperty = x);
 ```
 

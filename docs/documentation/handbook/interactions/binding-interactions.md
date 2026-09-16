@@ -22,12 +22,12 @@ IDisposable BindInteraction<TViewModel, TView, TInput, TOutput, TDontCare>(
 Registering handlers manually is fine for simple scenarios. But if, for example, you expect your `Interaction` or one of its ancestors to change, the complexity starts increasing because of the need to dispose of the old and subscribe to the latest:
 
 ```cs
-var interactionDisposable = new SerialDisposable();
+var interactionDisposable = new SingleReplaceableDisposable();
 
 this
     .WhenAnyValue(x => x.ViewModel.MyInteraction)
     .Where(x => x != null)
-    .Do(x => interactionDisposable.Disposable = x.RegisterHandler(context => /*Do Something*/))
+    .Tap(x => interactionDisposable.Create(x.RegisterHandler(context => /*Do Something*/)))
     .Finally(() => interactionDisposable?.Dispose())
     .Subscribe();
 ```

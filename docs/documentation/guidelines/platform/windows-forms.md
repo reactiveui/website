@@ -18,13 +18,13 @@ Use `IActivatableViewModel` and `WhenActivated` for lifecycle
 
 Keep references to your subscriptions
 
-- [Reactive Programming#lifecycle](../../reactive-programming/index.md#lifecycle)
+- [Cleaning up subscriptions](../../reactive-programming/observables.md#cleaning-up)
 
 Use disposables to manage lifetime, scope and resources:
 
-- [Reactive Programming#disposables](../../reactive-programming/index.md#disposables)
+- [Disposables](../../primitives/disposables.md)
 
-Don't use eventhandlers, use the extension methods shipped in `ReactiveMarbles.ObservableEvents.SourceGenerator` instead
+Don't use eventhandlers, use the extension methods shipped in `ReactiveUI.Primitives.ObservableEvents` instead
 
 - [Events](../../handbook/events.md)
 

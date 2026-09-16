@@ -46,7 +46,7 @@ This guide helps you migrate from **ReactiveUI.Fody** to **ReactiveUI.SourceGene
 ```xml
 <!-- Add these -->
 <PackageReference Include="ReactiveUI.SourceGenerators" Version="*" PrivateAssets="all" />
-<PackageReference Include="ReactiveMarbles.ObservableEvents.SourceGenerator" Version="*" PrivateAssets="all" />
+<PackageReference Include="ReactiveUI.Primitives.ObservableEvents" Version="*" PrivateAssets="all" />
 ```
 
 ### Remove FodyWeavers.xml

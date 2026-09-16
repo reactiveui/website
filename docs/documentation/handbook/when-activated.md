@@ -123,7 +123,7 @@ public MyViewModel()
 public MyView()
 {
     this.WhenAnyValue(x => x.ViewModel)
-        .Do(PopulateFromViewModel)
+        .Tap(PopulateFromViewModel)
         .Subscribe();
 }
 ```
@@ -160,7 +160,7 @@ Pipelines modeling asynchrony can be relied upon to complete, and thus the subsc
 public MyView()
 {
     this.WhenAnyValue(x => x.ViewModel.SomeProperty)
-        .Do(AssignValueToViewControl)
+        .Tap(AssignValueToViewControl)
         .Subscribe();
 }
 ```
@@ -178,7 +178,7 @@ public MyView()
         {
             this.WhenAnyValue(x => x.ViewModel)
                 .Where(x => x != null)
-                .Do(PopulateFromViewModel)
+                .Tap(PopulateFromViewModel)
                 .Subscribe()
                 .DisposeWith(disposables);
         });
@@ -186,7 +186,7 @@ public MyView()
         // For other platforms it can be simplified to the following
         this.WhenAnyValue(x => x.ViewModel)
             .Where(x => x != null)
-            .Do(PopulateFromViewModel)
+            .Tap(PopulateFromViewModel)
             .Subscribe()
 }
 

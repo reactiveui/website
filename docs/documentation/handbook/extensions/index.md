@@ -1,119 +1,32 @@
 ---
 Order: 29
 ---
-# ReactiveUI Extensions
+# Extension helpers
 
-The [**ReactiveUI.Extensions**](https://github.com/reactiveui/Extensions) package is a single-assembly collection of reactive helper operators that complement ReactiveUI and `System.Reactive`. It is a regular NuGet package and does not pull in any UI dependencies.
+View model code keeps needing the same few helpers: drop `null` values, retry with a delay, notice a stream that has
+gone quiet, or block a test until a value arrives. These helpers ship in the `ReactiveUI.Primitives` package that
+ReactiveUI is built on, so there is nothing extra to install.
 
-## Installation
-
-```xml
-<PackageReference Include="ReactiveUI.Extensions" Version="*" />
-```
+Add the namespace:
 
 ```csharp
-using ReactiveUI.Extensions;
+using ReactiveUI.Primitives.Extensions;
 ```
 
-## What's in the box
+The helpers are documented, each with an example, in the Primitives section:
 
-The package surfaces a handful of static classes — `ReactiveExtensions`, `ObservableSubscriptionExtensions`, `ObserverExtensions`, the `Async` operator family, and `ScheduleSafe`/`Continuation` helpers. Below is a tour of the most commonly used members; see [the source](https://github.com/reactiveui/Extensions/tree/main/src/ReactiveUI.Extensions) for the full list.
+| You want to | Helpers | Page |
+|---|---|---|
+| Filter or reshape values, such as dropping `null` or combining `bool` streams | `WhereIsNotNull`, `SkipWhileNull`, `WhereTrue`, `WhereFalse`, `AsSignal`, `LatestOrDefault`, `CombineLatestValuesAreAllTrue` | [Values](../../primitives/extensions/values.md) |
+| Batch values, wait for a pause, or spot a quiet stream | `BufferUntil`, `BufferUntilIdle`, `ThrottleDistinct`, `DetectStale`, `Heartbeat` | [Timing](../../primitives/extensions/timing.md) |
+| Retry and recover | `RetryWithDelay`, `CatchAndReturn` | [Errors](../../primitives/extensions/errors.md) |
+| Run async work for each value, or turn a stream into a task | `SelectAsync`, `SelectLatestAsync`, `SubscribeAsync`, `ToHotTask` | [Tasks](../../primitives/extensions/tasks.md) |
+| Hold state, or block a test until a value arrives | `WaitForValue`, `WaitForError`, `WaitForCompletion`, `SubscribeGetValue` | [State and testing](../../primitives/extensions/state-and-testing.md) |
 
-### Filtering & shaping observables
+The overview, [extension helpers](../../primitives/extensions/index.md), walks through a first helper.
 
-```csharp
-// Drop nulls
-source.WhereIsNotNull();
+Streams where the sender waits for each subscriber, `IObservableAsync<T>`, have their own operators in the
+`ReactiveUI.Primitives.Async` package. See [async streams](../../primitives/async/index.md).
 
-// Drop until the first non-null value, then forward everything after
-source.SkipWhileNull();
-
-// Coerce any observable into IObservable<Unit>
-source.AsSignal();
-
-// Convenience filters for bool streams
-source.WhereTrue();
-source.WhereFalse();
-```
-
-### Combining booleans
-
-```csharp
-// True when every source is true / false right now
-new[] { obsA, obsB, obsC }.CombineLatestValuesAreAllTrue();
-new[] { obsA, obsB, obsC }.CombineLatestValuesAreAllFalse();
-```
-
-### Buffering & throttling
-
-```csharp
-// Buffer characters between two delimiters into a string
-charStream.BufferUntil('<', '>');
-
-// Buffer values until the source has been idle for the given window
-source.BufferUntilIdle(TimeSpan.FromMilliseconds(200));
-
-// Emit the latest value, or a default, when the source has been quiet
-source.LatestOrDefault(TimeSpan.FromSeconds(1), defaultValue);
-```
-
-### Detect stale data / heartbeats
-
-```csharp
-// Wrap values so subscribers can tell when the latest value is "stale"
-source.DetectStale(TimeSpan.FromSeconds(5));
-
-// Periodic heartbeat carrying the most recent value
-source.Heartbeat(TimeSpan.FromSeconds(1));
-```
-
-### Conditional scheduling
-
-```csharp
-// Hop to a scheduler only when a predicate is true
-source.ObserveOnIf(condition, scheduler);
-```
-
-### Retry with delay
-
-```csharp
-source.RetryWithDelay(TimeSpan.FromSeconds(2));
-source.RetryWithDelay(TimeSpan.FromSeconds(2), retryCount: 3);
-```
-
-### Synchronous helpers (handy in tests / scripts)
-
-`ObservableSubscriptionExtensions` adds blocking convenience extensions for testing scenarios:
-
-```csharp
-T? value     = source.WaitForValue();
-T? value     = source.WaitForValue(TimeSpan.FromSeconds(1));
-Exception? e = source.WaitForError();
-source.WaitForCompletion();
-
-// Subscribe-and-collect helpers
-var v = source.SubscribeGetValue();
-var ex = source.SubscribeGetError();
-```
-
-> These methods block the calling thread — use them in tests or one-off scripts, not on the UI thread.
-
-### Async operator family
-
-The `Async` namespace contains an alternative set of operators implemented on top of `IAsyncObservable<T>` (e.g. `CombineLatest`, `Catch`, custom factories, error-handling). See [`Async`](https://github.com/reactiveui/Extensions/tree/main/src/ReactiveUI.Extensions/Async) in source for the full surface.
-
-### Other helpers
-
-- `ScheduleSafe(this IScheduler?, Action)` — schedule that no-ops on a null scheduler.
-- `FastForEach<T>(this IObserver<T>, IEnumerable<T>)` — push a collection through an observer.
-- `Continuation` — fluent chaining helpers for `IObservable<Unit>` work.
-
-## When to reach for it
-
-ReactiveUI.Extensions is intentionally a grab-bag — pull it in when one of these operators saves you a custom implementation, but you don't need it just to use ReactiveUI. The core `System.Reactive` operators cover most everyday work; this package fills in the gaps that come up repeatedly in reactive view-model code.
-
-## Additional Resources
-
-- [ReactiveUI.Extensions repository](https://github.com/reactiveui/Extensions)
-- [ReactiveUI Handbook](../index.md)
-- [System.Reactive (Rx.NET) documentation](https://github.com/dotnet/reactive)
+Code that uses System.Reactive's types gets the same helpers from the `ReactiveUI.Primitives.Reactive` package. See
+[the `.Reactive` packages](../../primitives/system-reactive.md#the-reactive-packages).

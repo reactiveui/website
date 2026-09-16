@@ -17,7 +17,7 @@ public class TheViewModel : ReactiveObject
         set => this.RaiseAndSetIfChanged(ref this.theText, value);
     }
     
-    public ReactiveCommand<Unit,Unit> TheTextCommand { get; }
+    public ReactiveCommand<RxVoid,RxVoid> TheTextCommand { get; }
 
     public TheViewModel()
     {
@@ -25,10 +25,10 @@ public class TheViewModel : ReactiveObject
             .CreateFromObservable(ExecuteTextCommand);
     }
 
-    private IObservable<Unit> ExecuteTextCommand()
+    private IObservable<RxVoid> ExecuteTextCommand()
     {
         TheText = "Hello ReactiveUI";
-        return Observable.Return(Unit.Default);
+        return Signal.Emit(RxVoid.Default);
     }
 }
 ```

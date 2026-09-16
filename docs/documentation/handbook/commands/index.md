@@ -3,7 +3,7 @@ Order: 4
 ---
 # Commands
 
-`ReactiveCommand` is a Reactive Extensions and asynchronous aware implementation of the [`ICommand`](https://msdn.microsoft.com/en-us/library/system.windows.input.icommand.aspx) interface. `ICommand` is often used in the [MVVM design pattern](https://docs.microsoft.com/en-us/dotnet/framework/wpf/advanced/commanding-overview) to allow the View to trigger business logic defined in the ViewModel. This allows for easier maintenance, unit testing, and the ability to reuse ViewModels across different UI frameworks. Examples of where a View might invoke a command include clicking a *Save* menu item, tapping a phone icon, or stretching an image. In these cases, the ViewModel will then invoke the business logic of saving outstanding changes, performing a phone call, or zooming into an image.
+`ReactiveCommand` is a stream-based, asynchronous-aware implementation of the [`ICommand`](https://msdn.microsoft.com/en-us/library/system.windows.input.icommand.aspx) interface. `ICommand` is often used in the [MVVM design pattern](https://docs.microsoft.com/en-us/dotnet/framework/wpf/advanced/commanding-overview) to allow the View to trigger business logic defined in the ViewModel. This allows for easier maintenance, unit testing, and the ability to reuse ViewModels across different UI frameworks. Examples of where a View might invoke a command include clicking a *Save* menu item, tapping a phone icon, or stretching an image. In these cases, the ViewModel will then invoke the business logic of saving outstanding changes, performing a phone call, or zooming into an image.
 
 ## Creating commands
 
@@ -14,13 +14,13 @@ A `ReactiveCommand` is created using static factory methods which allows you to 
 * `Create()` - Execute a synchronous Func or Action.
 * `CreateCombined()` - Execute one or more commands. Read more on combining commands [here](#combining-commands).
 
-`ReactiveCommand<TInput, TOutput>` adds the concept of Input and Output generic types. The *Input* is often passed in by the View and it's type is captured as `TInput`, and the *Output* is the result of executing the command which type is captured as `TOutput`. `ReactiveCommand<TInput, TOutput>` is `IObservable<TOutput>` which can be used like any other `IObservable`. For example, since the `ReactiveCommand` is `IObservable` you can `Subscribe()` to it like any other observable, and add the output to a List on your view model. The `Unit` type is a functional programming construct analogous to void and can be used in cases where you don't care about either the input and/or output value.
+`ReactiveCommand<TInput, TOutput>` adds the concept of Input and Output generic types. The *Input* is often passed in by the View and it's type is captured as `TInput`, and the *Output* is the result of executing the command which type is captured as `TOutput`. `ReactiveCommand<TInput, TOutput>` is `IObservable<TOutput>` which can be used like any other `IObservable`. For example, since the `ReactiveCommand` is `IObservable` you can `Subscribe()` to it like any other observable, and add the output to a List on your view model. `RxVoid` is a value that carries no data, analogous to `void`. Use it when you don't care about the input or the output value.
 
 ```cs
 // A synchronous command taking a parameter and returning nothing.
-// The Unit type is often used to denote the successfull completion
+// The RxVoid type is often used to denote the successful completion
 // of a void-returning method (C#) or a sub procedure (VB).
-ReactiveCommand<int,Unit> command = ReactiveCommand.Create<int>(
+ReactiveCommand<int,RxVoid> command = ReactiveCommand.Create<int>(
     integer => Console.WriteLine(integer));
 
 // This outputs: 42
@@ -32,12 +32,12 @@ All of the static factory methods that the `ReactiveCommand` class has will para
 ```cs
 // An asynchronous command created from IObservable<int> that 
 // waits 2 seconds and then returns 42 integer.
-var command = ReactiveCommand.CreateFromObservable<Unit, int>(
-    _ => Observable.Return(42).Delay(TimeSpan.FromSeconds(2)));
+var command = ReactiveCommand.CreateFromObservable<RxVoid, int>(
+    _ => Signal.Emit(42).Shift(TimeSpan.FromSeconds(2)));
 
 // Subscribing to the observable returned by `Execute()` will 
 // tick through the value `42` with a 2-second delay.
-command.Execute(Unit.Default).Subscribe();
+command.Execute(RxVoid.Default).Subscribe();
 
 // We can also subscribe to _all_ values that a command
 // emits by using the `Subscribe()` method on the
@@ -59,7 +59,7 @@ var command = ReactiveCommand.Create(
 
 ## Asynchronous commands
 
-One of the most important features of `ReactiveCommand` is its built-in facilities for orchestrating asynchronous operations, commands will block re-execution while executing. `ReactiveCommand`s are fully integrated into the Reactive Extensions framework, providing an `.IsExecuting` property (of type `IObservable<bool>`) which tells you whether the command is currently executing. This is often useful if you want to trigger activity animations or you want to prevent other commands from executing while the command is executing.
+One of the most important features of `ReactiveCommand` is its built-in facilities for orchestrating asynchronous operations, commands will block re-execution while executing. A `ReactiveCommand` is itself a stream, and provides an `.IsExecuting` property (of type `IObservable<bool>`) which tells you whether the command is currently executing. This is often useful if you want to trigger activity animations or you want to prevent other commands from executing while the command is executing.
 
 It is important to know, that ReactiveCommand itself as an `IObservable` will never complete or OnError - errors that happen in the async method will instead show up on the `ThrownExceptions` property. If it is possible that your async method can throw an exception, you should subscribe to `ThrownExceptions` or the exception will be rethrown on the UI thread.
 
@@ -72,7 +72,7 @@ Three methods are provided for creating asynchronous commands:
 ```cs
 // Here we declare a ReactiveCommand, an OAPH and a property.
 private readonly ObservableAsPropertyHelper<List<User>> _users;
-public ReactiveCommand<Unit, List<User>> LoadUsers { get; }
+public ReactiveCommand<RxVoid, List<User>> LoadUsers { get; }
 public List<User> Users => _users.Value;
 
 // Create a command with asynchronous execution logic. The 
@@ -124,7 +124,7 @@ var command = ReactiveCommand.CreateFromTask(LogOnAsync, canExecute);
 
 Parameters, unlike in other frameworks, are typically *not used* in the canExecute conditions, instead, binding View properties to ViewModel properties and then using the `WhenAnyValue()` is far more common.
 
-> **Warning** For performance reasons, `ReactiveCommand` does not marshal your `canExecute` observable to the main scheduler. You almost certainly want your `canExecute` observable to be ticking on the main thread, so be sure to add a call to `ObserveOn` if necessary.
+> **Warning** For performance reasons, `ReactiveCommand` does not marshal your `canExecute` observable to the main scheduler. You almost certainly want your `canExecute` observable to be ticking on the main thread, so be sure to add a call to `WitnessOn(RxSchedulers.MainThreadScheduler)` if necessary.
 
 ## Handling exceptions
 
@@ -167,12 +167,12 @@ var commandB = ReactiveCommand.CreateFromTask(async () =>
 commandB.ThrownExceptions.Subscribe(ex => ErrorInteraction.Handle("Error in B!"));
 ```
 
-The easiest way of resolving this issue is using `Throttle()` operator over merged `ThrownExceptions` from both commands. See [StackOverflow](https://stackoverflow.com/questions/26219105/what-is-the-reactiveui-way-to-handle-exceptions-when-executing-inferior-reactive). Read more on handling Interactions [here](../interactions/index.md).
+The easiest way of resolving this issue is using the [`Calm`](../../primitives/time.md) operator over the `ThrownExceptions` of both commands, joined with `Blend`. See [StackOverflow](https://stackoverflow.com/questions/26219105/what-is-the-reactiveui-way-to-handle-exceptions-when-executing-inferior-reactive). Read more on handling Interactions [here](../interactions/index.md).
 
 ```cs
 // Now our ErrorInteraction will be handled only once if command A throws!
-commandA.ThrownExceptions.Merge(commandB.ThrownExceptions)
-    .Throttle(TimeSpan.FromMilliseconds(250), RxSchedulers.MainThreadScheduler)
+commandA.ThrownExceptions.Blend(commandB.ThrownExceptions)
+    .Calm(TimeSpan.FromMilliseconds(250), RxSchedulers.MainThreadScheduler)
     .Subscribe(error => ErrorInteraction.Handle("Error in B!"));
 ```
 
@@ -192,7 +192,7 @@ Console.WriteLine("You've got {0} users!", users.Count());
 
 Regardless of whether your command is synchronous or asynchronous in nature, you execute it via the `Execute` method. You get back an observable that will tick the command's result value when execution completes. Synchronous commands will execute immediately, so the observable you get back will already have completed. The returned observable is behavioral though, so subscribing after the fact will still tick through the result value.
 
-> **Warning** As is often the case with idiomatic Rx, the observable returned by `Execute` is cold. That is, nothing will happen unless something subscribes to it or `await`s it. In those cases where you're calling `Execute` directly, it's very important to remember that it's lazy.
+> **Warning** As with most streams, the observable returned by `Execute` is cold. That is, nothing will happen unless something subscribes to it or `await`s it. In those cases where you're calling `Execute` directly, it's very important to remember that it's lazy.
 
 `ReactiveCommand` implements the `ICommand` for UI framework compatibility and backwards compatibility only. It is recommended you don't use the `ICommand` interface directly in your code. `ReactiveCommand` is explicitly derived from the `ICommand` interface to avoid users accidentally calling the non-reactive style methods. The `ICommand` methods do not lend well to long-running and also asynchronous commands, such as those that perform I/O operations. The `ICommand` also focuses on an imperative style of execution over the reactive style.`ReactiveCommand` provides methods and observable properties that are the equivalent of the `ICommand` interface. `Execute()` provides an Observable which you can `Subscribe()` to execute the logic of the `ReactiveCommand` and `CanExecute` is also exposed through a read-only property. Additionally `ReactiveCommand` provides the `IsExecuting` observable which is functionally not provided by the `ICommand` interface.
 
@@ -204,11 +204,11 @@ At times it can be convenient to execute a command in response to some `Observab
 
 ```cs
 // Creates a hot Observable<T> that emits a new value every 5 
-// minutes and invokes the SaveCommand<Unit, Unit>. Don't forget
+// minutes and invokes the SaveCommand<RxVoid, RxVoid>. Don't forget
 // to dispose the subscription produced by InvokeCommand().
 var interval = TimeSpan.FromMinutes(5);
-Observable.Timer(interval, interval)
-    .Select(time => Unit.Default)
+Signal.Every(interval)
+    .Select(tick => RxVoid.Default)
     .InvokeCommand(this, x => x.SaveCommand);
 ```
 
@@ -251,7 +251,7 @@ var clearAll = ReactiveCommand.CreateCombined(
     canClearAll);
 ```
 
-All child commands provided to the `CreateCombined` method must be of the same type. You cannot combine, say, a `ReactiveCommand<Unit, Unit>` with a `ReactiveCommand<int, Unit>`. Nor can you combine, say, a `ReactiveCommand<Unit, Unit>` with a `ReactiveCommand<Unit, int>`. This is because all child commands will receive the parameter provided to the combined command, and the result of executing the combined command is a list of all child results.
+All child commands provided to the `CreateCombined` method must be of the same type. You cannot combine, say, a `ReactiveCommand<RxVoid, RxVoid>` with a `ReactiveCommand<int, RxVoid>`. Nor can you combine, say, a `ReactiveCommand<RxVoid, RxVoid>` with a `ReactiveCommand<RxVoid, int>`. This is because all child commands will receive the parameter provided to the combined command, and the result of executing the combined command is a list of all child results.
 
 ## Controlling scheduling
 

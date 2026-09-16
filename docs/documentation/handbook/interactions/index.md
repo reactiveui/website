@@ -150,7 +150,7 @@ public class RootView
 }
 ```
 
-> **Note** For the sake of clarity, the example code here mixes TPL and Rx code. Production code would normally stick with one or the other.
+> **Note** For the sake of clarity, the example code here mixes task-based and stream-based code. Production code would normally stick with one or the other.
 
 > **Warning** The observable returned by `Handle` is cold. You must subscribe to it for handlers to be invoked.
 

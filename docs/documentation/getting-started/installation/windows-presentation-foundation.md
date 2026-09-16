@@ -11,7 +11,7 @@ Install the following packages for ReactiveUI with WPF:
 <!-- In your WPF application project -->
 <PackageReference Include="ReactiveUI.WPF" Version="*" />
 <PackageReference Include="ReactiveUI.SourceGenerators" Version="*" PrivateAssets="all" />
-<PackageReference Include="ReactiveMarbles.ObservableEvents.SourceGenerator" Version="*" PrivateAssets="all" />
+<PackageReference Include="ReactiveUI.Primitives.ObservableEvents" Version="*" PrivateAssets="all" />
 
 <!-- In your shared library -->
 <PackageReference Include="ReactiveUI" Version="*" />
@@ -90,7 +90,7 @@ Use ReactiveUI.SourceGenerators for cleaner, compile-time generated reactive pro
 ```csharp
 using ReactiveUI;
 using ReactiveUI.SourceGenerators;
-using System.Reactive.Linq;
+using ReactiveUI.Primitives;
 
 namespace MyCoolApp.ViewModels;
 
@@ -116,7 +116,7 @@ public partial class MainViewModel : ReactiveObject
             this.WhenAnyValue(x => x.SearchText, text => !string.IsNullOrWhiteSpace(text)));
 
         ClearCommand = ReactiveCommand.Create(
-            () => SearchText = string.Empty);
+            () => { SearchText = string.Empty; });
 
         // Wire up IsBusy from command execution
         SearchCommand.IsExecuting
@@ -128,7 +128,7 @@ public partial class MainViewModel : ReactiveObject
 
         // React to search text changes with debouncing
         this.WhenAnyValue(x => x.SearchText)
-            .Throttle(TimeSpan.FromMilliseconds(500))
+            .Calm(TimeSpan.FromMilliseconds(500))
             .Where(text => !string.IsNullOrWhiteSpace(text))
             .InvokeCommand(SearchCommand);
 
@@ -154,8 +154,8 @@ public partial class MainViewModel : ReactiveObject
         return results;
     }
 
-    public ReactiveCommand<Unit, List<SearchResult>> SearchCommand { get; }
-    public ReactiveCommand<Unit, Unit> ClearCommand { get; }
+    public ReactiveCommand<RxVoid, List<SearchResult>> SearchCommand { get; }
+    public ReactiveCommand<RxVoid, RxVoid> ClearCommand { get; }
 }
 ```
 
@@ -218,7 +218,7 @@ public partial class MainViewModel : ReactiveObject
 ```csharp
 using ReactiveUI;
 using Splat;
-using System.Reactive.Disposables;
+using ReactiveUI.Primitives;
 
 namespace MyCoolApp.WPF;
 
@@ -407,7 +407,7 @@ See the [Routing Guide](../../handbook/routing.md) for more details.
 - **Use ReactiveUI.SourceGenerators** for cleaner property and command declarations
 - **Use RxAppBuilder** for modern dependency injection and platform setup
 - **Always call DisposeWith(disposables)** inside WhenActivated to prevent memory leaks
-- **Use ReactiveMarbles.ObservableEvents.SourceGenerator** for converting WPF events to observables
+- **Use ReactiveUI.Primitives.ObservableEvents** for converting WPF events to observables
 
 ## Common Patterns
 

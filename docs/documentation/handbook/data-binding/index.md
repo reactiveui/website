@@ -192,8 +192,8 @@ Similarly to property bindings, you can also add custom Hack bindings for comman
 //
 
 // Invoke a command whenever the Escape key is pressed
-this.Events().KeyUpObs
-    .Where(x => x.EventArgs.Key == Key.Escape)
+this.Events().KeyUp
+    .Where(x => x.Key == Key.Escape)
     .InvokeCommand(this, x => x.ViewModel.Cancel);
 
 // Subscribe to Cancel, and close the Window when it happens

@@ -37,7 +37,7 @@ MessageBus.Current.Listen<KeyUpEventArgs>()
 Now, connect an IObservable to the bus via `RegisterMessageSource`:
 
 ```cs
-MessageBus.Current.RegisterMessageSource(RootVisual.Events().KeyUpObs);
+MessageBus.Current.RegisterMessageSource(RootVisual.Events().KeyUp);
 ```
 
 Or, if you're feeling very imperative and not very Functional:
@@ -69,78 +69,78 @@ Document ViewModels - each Document containing a `Close` command. Many
 traditional implementations of MVVM would struggle with implementing this
 command, either keeping a reference to the list, or via the MessageBus.
 
-However, instead of doing this, we can use Rx's operators to solve this in a
-more elegant way.
+Instead, stream operators solve it with no message bus at all:
 
 ```cs
-using System;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Reactive;
-using System.Reactive.Linq;
-using DynamicData;
-using DynamicData.Binding;
+using System.Collections.Specialized;
 using ReactiveUI;
+using ReactiveUI.Primitives;
+using ReactiveUI.Primitives.Signals;
 
 public class DocumentViewModel : ReactiveObject
 {
-    public ReactiveCommand<Unit, Unit> Close { get; set; }
-
-    public DocumentViewModel() 
+    public DocumentViewModel(string name)
     {
+        Name = name;
+
         // Note that we don't actually *subscribe* to Close here or implement
         // anything in DocumentViewModel, because Closing is a responsibility
         // of the document list.
         Close = ReactiveCommand.Create(() => { });
     }
+
+    public string Name { get; }
+
+    public ReactiveCommand<RxVoid, RxVoid> Close { get; }
 }
 
 public class MainViewModel : ReactiveObject
 {
-    public ObservableCollection<DocumentViewModel> OpenDocuments { get; protected set; }
+    public ObservableCollection<DocumentViewModel> OpenDocuments { get; } = [];
 
     public MainViewModel()
     {
-        OpenDocuments = new ObservableCollection<DocumentViewModel>();
-
-        // Whenever the list of documents change, calculate a new Observable
-        // to represent whenever any of the *current* documents have been
-        // requested to close, then Switch to that. When we get something
-        // to close, remove it from the list.
-        OpenDocuments
-            .ToObservableChangeSet()
-            .AutoRefreshOnObservable(document => document.Close)
+        // Whenever the list of documents changes, build a new stream that
+        // sends a document when it asks to close, then switch to that stream.
+        // When a document arrives, remove it from the list.
+        Signal.FromEventPattern<NotifyCollectionChangedEventHandler, NotifyCollectionChangedEventArgs>(
+                handler => OpenDocuments.CollectionChanged += handler,
+                handler => OpenDocuments.CollectionChanged -= handler)
             .Select(_ => WhenAnyDocumentClosed())
-            .Switch()
-            .Subscribe(x => OpenDocuments.Remove(x));
+            .SwitchTo()
+            .Subscribe(document => OpenDocuments.Remove(document));
     }
 
-    IObservable<DocumentViewModel> WhenAnyDocumentClosed()
-    {
-        // Select the documents into a list of Observables
-        // who return the Document to close when signaled,
-        // then flatten them all together.
-        return OpenDocuments
-            .Select(x => x.Close.Select(_ => x))
-            .Merge();
-    }
+    // Turn each document's Close command into a stream that sends the
+    // document, then blend them all into one stream.
+    private IObservable<DocumentViewModel> WhenAnyDocumentClosed() =>
+        OpenDocuments
+            .Select(document => document.Close.Select(_ => document))
+            .ToList()
+            .Blend();
 }
 ```
 
+`SwitchTo` follows only the newest stream, so the documents closed are always
+the ones in the list right now. `Blend` sends a value from any of the streams
+it joins. See [transformation](../primitives/transformation.md) and
+[combination](../primitives/combination.md).
+
 ```csharp
-class Program
-{
-    static void Main(string[] args)
-    {
-        var mainViewModel = new MainViewModel();
-        mainViewModel.OpenDocuments.Add(new DocumentViewModel());
-        mainViewModel.OpenDocuments.Add(new DocumentViewModel());
-        mainViewModel.OpenDocuments.Add(new DocumentViewModel());
-        mainViewModel.OpenDocuments.Add(new DocumentViewModel());
+var main = new MainViewModel();
+var first = new DocumentViewModel("first");
+var second = new DocumentViewModel("second");
 
-        mainViewModel.OpenDocuments.First().Close.Execute().Subscribe();
+main.OpenDocuments.Add(first);
+main.OpenDocuments.Add(second);
 
-        Console.WriteLine("Hello World!");
-    }
-}
+first.Close.Execute().Subscribe();
+Console.WriteLine(string.Join(", ", main.OpenDocuments.Select(d => d.Name)));
+```
+
+Output:
+
+```text
+second
 ```

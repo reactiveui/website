@@ -11,7 +11,7 @@ Install the following packages for ReactiveUI with Blazor:
 <!-- In your Blazor application project -->
 <PackageReference Include="ReactiveUI.Blazor" Version="*" />
 <PackageReference Include="ReactiveUI.SourceGenerators" Version="*" PrivateAssets="all" />
-<PackageReference Include="ReactiveMarbles.ObservableEvents.SourceGenerator" Version="*" PrivateAssets="all" />
+<PackageReference Include="ReactiveUI.Primitives.ObservableEvents" Version="*" PrivateAssets="all" />
 
 <!-- In your shared library -->
 <PackageReference Include="ReactiveUI" Version="*" />
@@ -106,7 +106,7 @@ Use ReactiveUI.SourceGenerators for cleaner, compile-time generated reactive pro
 ```csharp
 using ReactiveUI;
 using ReactiveUI.SourceGenerators;
-using System.Reactive.Linq;
+using ReactiveUI.Primitives;
 
 namespace MyCoolApp.ViewModels;
 
@@ -140,7 +140,7 @@ public partial class CounterViewModel : ReactiveObject
         CurrentCount++;
     }
 
-    public ReactiveCommand<Unit, Unit> IncrementCommand { get; }
+    public ReactiveCommand<RxVoid, RxVoid> IncrementCommand { get; }
 }
 ```
 
@@ -207,7 +207,7 @@ else
 ```csharp
 using ReactiveUI;
 using ReactiveUI.SourceGenerators;
-using System.Reactive.Linq;
+using ReactiveUI.Primitives;
 
 namespace MyCoolApp.ViewModels;
 
@@ -238,14 +238,14 @@ public partial class FetchDataViewModel : ReactiveObject
             .ToProperty(this, x => x.IsLoading);
 
         LoadDataCommand
-            .Do(_ => StatusMessage = "Data loaded successfully")
+            .Tap(_ => StatusMessage = "Data loaded successfully")
             .ToProperty(this, x => x.Forecasts);
 
         LoadDataCommand.ThrownExceptions
             .Subscribe(ex => StatusMessage = $"Error: {ex.Message}");
     }
 
-    public ReactiveCommand<Unit, List<WeatherForecast>> LoadDataCommand { get; }
+    public ReactiveCommand<RxVoid, List<WeatherForecast>> LoadDataCommand { get; }
 }
 ```
 

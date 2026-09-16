@@ -13,7 +13,7 @@ Install the following packages for ReactiveUI with AndroidX:
 <!-- In your .NET Android application project -->
 <PackageReference Include="ReactiveUI.AndroidX" Version="*" />
 <PackageReference Include="ReactiveUI.SourceGenerators" Version="*" PrivateAssets="all" />
-<PackageReference Include="ReactiveMarbles.ObservableEvents.SourceGenerator" Version="*" PrivateAssets="all" />
+<PackageReference Include="ReactiveUI.Primitives.ObservableEvents" Version="*" PrivateAssets="all" />
 
 <!-- In your shared library -->
 <PackageReference Include="ReactiveUI" Version="*" />
@@ -104,7 +104,7 @@ Use ReactiveUI.SourceGenerators for cleaner, compile-time generated reactive pro
 ```csharp
 using ReactiveUI;
 using ReactiveUI.SourceGenerators;
-using System.Reactive.Linq;
+using ReactiveUI.Primitives;
 
 namespace MyCoolApp.ViewModels;
 
@@ -130,7 +130,7 @@ public partial class MainViewModel : ReactiveObject
             this.WhenAnyValue(x => x.SearchText, text => !string.IsNullOrWhiteSpace(text)));
 
         ClearCommand = ReactiveCommand.Create(
-            () => SearchText = string.Empty);
+            () => { SearchText = string.Empty; });
 
         // Wire up IsBusy from command execution
         SearchCommand.IsExecuting
@@ -142,7 +142,7 @@ public partial class MainViewModel : ReactiveObject
 
         // React to search text changes with debouncing
         this.WhenAnyValue(x => x.SearchText)
-            .Throttle(TimeSpan.FromMilliseconds(500))
+            .Calm(TimeSpan.FromMilliseconds(500))
             .Where(text => !string.IsNullOrWhiteSpace(text))
             .InvokeCommand(SearchCommand);
 
@@ -160,8 +160,8 @@ public partial class MainViewModel : ReactiveObject
         return new List<SearchResult>();
     }
 
-    public ReactiveCommand<Unit, List<SearchResult>> SearchCommand { get; }
-    public ReactiveCommand<Unit, Unit> ClearCommand { get; }
+    public ReactiveCommand<RxVoid, List<SearchResult>> SearchCommand { get; }
+    public ReactiveCommand<RxVoid, RxVoid> ClearCommand { get; }
 }
 ```
 
@@ -175,7 +175,7 @@ using Android.Widget;
 using AndroidX.AppCompat.App;
 using ReactiveUI;
 using Splat;
-using System.Reactive.Disposables;
+using ReactiveUI.Primitives;
 
 namespace MyCoolApp.Android;
 
@@ -340,7 +340,7 @@ using Android.OS;
 using Android.Views;
 using Android.Widget;
 using ReactiveUI;
-using System.Reactive.Disposables;
+using ReactiveUI.Primitives;
 
 namespace MyCoolApp.Android.Fragments;
 
@@ -384,7 +384,7 @@ For lists with RecyclerView, use `ReactiveRecyclerViewAdapter`:
 using Android.Views;
 using AndroidX.RecyclerView.Widget;
 using ReactiveUI;
-using System.Reactive.Disposables;
+using ReactiveUI.Primitives;
 
 namespace MyCoolApp.Android.Adapters;
 
@@ -486,7 +486,7 @@ public MainViewModel()
 - **Use RxAppBuilder** for modern dependency injection and platform setup
 - **Always call DisposeWith(disposables)** inside WhenActivated to prevent memory leaks
 - **Use ReactiveRecyclerViewAdapter** for efficient list handling with RecyclerView
-- **Use ReactiveMarbles.ObservableEvents.SourceGenerator** for converting Android events to observables
+- **Use ReactiveUI.Primitives.ObservableEvents** for converting Android events to observables
 
 ## Common Patterns
 
@@ -605,8 +605,8 @@ public partial class MainViewModel : ReactiveObject
 1. **Use RecyclerView over ListView** for better performance with large lists
 2. **Use ViewHolder pattern** with ReactiveRecyclerViewViewHolder
 3. **Dispose subscriptions properly** using WhenActivated and DisposeWith
-4. **Use Throttle/Debounce** for search and user input to reduce unnecessary operations
-5. **Load data on background threads** and observe on MainThreadScheduler
+4. **Use [Calm](../../primitives/time.md)** for search and user input to reduce unnecessary operations
+5. **Load data on background threads** and use `WitnessOn(RxSchedulers.MainThreadScheduler)` to update the UI
 
 ## Considering MAUI?
 
