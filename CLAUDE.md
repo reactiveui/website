@@ -2,7 +2,7 @@
 
 This file is the single source of truth for AI/agent assistance in this repository.
 
-If another agent entrypoint file exists, it defers to this file.
+`AGENTS.md` is a compatibility pointer only. This file is authoritative.
 
 ## Repository Orientation
 

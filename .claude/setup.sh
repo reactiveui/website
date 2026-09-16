@@ -72,24 +72,53 @@ install_sdk() {
 install_sdk "10.0" "GA"
 install_sdk "11.0" "preview"
 
-# Put dotnet on PATH for this process and for later shells.
+# Put dotnet on PATH for this process.
 export DOTNET_ROOT
 export PATH="$DOTNET_ROOT:$DOTNET_ROOT/tools:$PATH"
 export DOTNET_NOLOGO=1
 export DOTNET_CLI_TELEMETRY_OPTOUT=1
 export DOTNET_SKIP_FIRST_TIME_EXPERIENCE=1
 
+# Put dotnet on PATH for every later shell.
+#
+# A symlink in /usr/local/bin is the only one of these that always works. An agent
+# runs its commands in a shell that is neither a login shell nor an interactive one,
+# and such a shell reads no profile at all: /etc/profile.d is for login shells, and
+# bash skips ~/.bashrc when it is not interactive. /usr/local/bin is on the default
+# PATH whatever the shell, and the SDK finds its own root from the resolved path.
+link_dotnet() {
+    local target="$DOTNET_ROOT/dotnet"
+
+    [ -x "$target" ] || return 1
+
+    for dir in /usr/local/bin /usr/bin; do
+        if [ -d "$dir" ] && [ -w "$dir" ]; then
+            ln -sf "$target" "$dir/dotnet" && log "Linked $dir/dotnet -> $target" && return 0
+        fi
+    done
+
+    warn "Could not link dotnet into a directory on the default PATH."
+    return 1
+}
+
+link_dotnet
+
+# The profile drops are for a human opening a login or interactive shell. They are
+# not what puts dotnet on an agent's PATH.
 PROFILE_SNIPPET="export DOTNET_ROOT=\"$DOTNET_ROOT\"
 export PATH=\"\$DOTNET_ROOT:\$DOTNET_ROOT/tools:\$PATH\"
 export DOTNET_NOLOGO=1
 export DOTNET_CLI_TELEMETRY_OPTOUT=1"
 
-if [ -w /etc/profile.d ] 2>/dev/null; then
+if [ -d /etc/profile.d ] && [ -w /etc/profile.d ]; then
     printf '%s\n' "$PROFILE_SNIPPET" > /etc/profile.d/dotnet.sh
-    log "Wrote /etc/profile.d/dotnet.sh"
-elif ! grep -q 'DOTNET_ROOT' "$HOME/.bashrc" 2>/dev/null; then
-    printf '\n%s\n' "$PROFILE_SNIPPET" >> "$HOME/.bashrc"
-    log "Appended the dotnet PATH to ~/.bashrc"
+fi
+
+if [ -f "$HOME/.bashrc" ]; then
+    case "$(cat "$HOME/.bashrc" 2>/dev/null)" in
+        *DOTNET_ROOT*) ;;
+        *) printf '\n%s\n' "$PROFILE_SNIPPET" >> "$HOME/.bashrc" ;;
+    esac
 fi
 
 # ---------------------------------------------------------------------------
