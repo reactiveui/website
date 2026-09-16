@@ -62,8 +62,8 @@ each one.
 | Group | What it covers |
 |---|---|
 | [Creation factories](creation-factories.md) | Building a stream from a value, a collection, a task, an event or a timer. |
-| Transformation | Changing each value, or flattening a stream of streams. |
-| Filtering | Dropping values you do not want. |
+| [Transformation](transformation.md) | Changing each value, or flattening a stream of streams. |
+| [Filtering](filtering.md) | Dropping values you do not want. |
 | Combination | Joining two or more streams into one. |
 | Time | Delaying, batching, sampling and timing out. |
 | Error handling | Recovering from a failure, retrying, and cleaning up. |
