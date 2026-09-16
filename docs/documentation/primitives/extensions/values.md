@@ -21,13 +21,13 @@ The examples push values by hand into a `Signal<T>`, a stream you send values in
 `WhereIsNotNull` drops `null` values and passes the rest through.
 
 ```csharp
-var names = new Signal<string>();
+var names = new Signal<string?>();
 
 names.WhereIsNotNull()
      .Subscribe(static name => Console.WriteLine(name));
 
 names.OnNext("Ada");
-names.OnNext(null!);
+names.OnNext(null);
 names.OnNext("Grace");
 ```
 
@@ -39,8 +39,15 @@ Grace
 ```
 
 The element type stays the same: on an `IObservable<string?>` you get an `IObservable<string?>` back, even though no
-`null` reaches your callback. So the compiler may still warn about `null` in the callback.
-[The async `WhereIsNotNull`](../async/filtering.md) hands back a stream whose type cannot be `null`.
+`null` reaches your callback. So the compiler may still warn about `null` where you use the value. When you want an
+`IObservable<string>`, add a `Select` with the null-forgiving operator after it:
+
+```csharp
+IObservable<string> knownNames = names.WhereIsNotNull().Select(static name => name!);
+```
+
+[The async `WhereIsNotNull`](../async/filtering.md) hands back a stream whose type cannot be `null`, with no extra
+step.
 
 ### `SkipWhileNull`
 
