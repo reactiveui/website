@@ -46,7 +46,7 @@ odds.Subscribe(x => Console.WriteLine(x));   // 10, 30, 50
 This library gives some operators a second name. `Map` is also `Select`, and `Keep` is also `Where`. Both
 names build the same thing, so pick the one that reads better to you and use it consistently.
 
-| This library | LINQ and Rx name | What it does |
+| Name | Other name | What it does |
 |---|---|---|
 | `Map` | `Select` | Runs a function on each value. |
 | `Keep` | `Where` | Passes through the values a test accepts. |
@@ -61,7 +61,7 @@ each one.
 
 | Group | What it covers |
 |---|---|
-| Creation factories | Building a stream from a value, a collection, a task, an event or a timer. |
+| [Creation factories](creation-factories.md) | Building a stream from a value, a collection, a task, an event or a timer. |
 | Transformation | Changing each value, or flattening a stream of streams. |
 | Filtering | Dropping values you do not want. |
 | Combination | Joining two or more streams into one. |
