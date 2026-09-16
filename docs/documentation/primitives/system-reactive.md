@@ -334,6 +334,9 @@ their speed and allocations reach every app. The same choice shows in the public
 ## Getting the most from Primitives
 
 - **Send from many threads through `SerializedSignal<T>`**, rather than a subject followed by `Synchronize`.
+- **Let subscribers set the pace with an async signal.** `Signal.Create<T>()` in `ReactiveUI.Primitives.Async.Signals`
+  builds a `SerialSignalAsync<T>`, which waits for each subscriber in turn before `OnNextAsync` returns. System.Reactive
+  has nothing like it. See [async signals](async/signals.md).
 - **Hold changing state in `StateSignal<T>`.** Set `Value` to send, and read `Value` at any time.
 - **Use the `With` operators with `static` lambdas** on paths that run often. See
   [best practices](best-practices.md#mark-lambdas-static).

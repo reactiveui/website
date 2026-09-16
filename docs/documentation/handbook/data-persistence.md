@@ -30,7 +30,7 @@ public class SearchViewModel : ReactiveObject, ISearchViewModel
 
     public IEnumerable<SearchResults> SearchResults => _searchResults.Value;
      
-    public ReactiveCommand<Unit, IEnumerable<SearchResults>> Search { get; }
+    public ReactiveCommand<RxVoid, IEnumerable<SearchResults>> Search { get; }
     
     [DataMember]
     public string SearchQuery 
@@ -65,11 +65,11 @@ public class AkavacheSuspensionDriver<TAppState> : ISuspensionDriver where TAppS
 {
     private const string AppStateKey = "appState";
 
-    public IObservable<Unit> InvalidateState() => CacheDatabase.UserAccount.InvalidateObject<TAppState>(AppStateKey);
+    public IObservable<RxVoid> InvalidateState() => CacheDatabase.UserAccount.InvalidateObject<TAppState>(AppStateKey);
 
     public IObservable<object> LoadState() => CacheDatabase.UserAccount.GetObject<TAppState>(AppStateKey);
 
-    public IObservable<Unit> SaveState(object state) => CacheDatabase.UserAccount.InsertObject(AppStateKey, (TAppState)state);
+    public IObservable<RxVoid> SaveState(object state) => CacheDatabase.UserAccount.InsertObject(AppStateKey, (TAppState)state);
 }
 ```
 
@@ -92,27 +92,27 @@ public class NewtonsoftJsonSuspensionDriver : ISuspensionDriver
 
     public NewtonsoftJsonSuspensionDriver(string stateFilePath) => _stateFilePath = stateFilePath;
 
-    public IObservable<Unit> InvalidateState()
+    public IObservable<RxVoid> InvalidateState()
     {
         if (File.Exists(_stateFilePath)) 
             File.Delete(_stateFilePath);
-        return Observable.Return(Unit.Default);
+        return Signal.Emit(RxVoid.Default);
     }
 
     public IObservable<object> LoadState()
     {
         if (!File.Exists(_stateFilePath))
-            return Observable.Throw<object>(new FileNotFoundException(_stateFilePath));
+            return Signal.Fail<object>(new FileNotFoundException(_stateFilePath));
         var lines = File.ReadAllText(_stateFilePath);
         var state = JsonConvert.DeserializeObject<object>(lines, _settings);
-        return Observable.Return(state);
+        return Signal.Emit(state);
     }
 
-    public IObservable<Unit> SaveState(object state)
+    public IObservable<RxVoid> SaveState(object state)
     {
         var lines = JsonConvert.SerializeObject(state, Formatting.Indented, _settings);
         File.WriteAllText(_stateFilePath, lines);
-        return Observable.Return(Unit.Default);
+        return Signal.Emit(RxVoid.Default);
     }
 }
 ```

@@ -1,5 +1,5 @@
 ---
-Order: 15
+Order: 16
 ---
 # Writing your own operator
 
@@ -532,6 +532,157 @@ delivered 2000, most at once 1
 
 `Signal` waits up to `DeliveryGate.DefaultWaitBudget`, 20 ms, for the other thread before it hands its work over. An
 overload takes a different budget.
+
+#### A delivery inside a delivery
+
+Delivering a value can cause another delivery on the same thread, such as a subscriber that writes back to the
+stream. `TryEnter` hands back `false` for it, so the nested value is queued and delivered after the outer one ends.
+`TryEnterReentrant` hands back `true`, so the nested value is delivered at once, inside the outer one. Either way,
+call `Exit` once for each successful enter.
+
+```csharp
+var queued = new NestedLog(reentrant: false);
+queued.Write("outer");
+Console.WriteLine(string.Join(", ", queued.Lines));
+
+var nested = new NestedLog(reentrant: true);
+nested.Write("outer");
+Console.WriteLine(string.Join(", ", nested.Lines));
+
+public sealed class NestedLog(bool reentrant)
+{
+    private readonly System.Collections.Concurrent.ConcurrentQueue<string> _queue = new();
+    private DeliveryGateState _gate;
+
+    public List<string> Lines { get; } = [];
+
+    public void Write(string line)
+    {
+        var entered = reentrant ? DeliveryGate.TryEnterReentrant(ref _gate) : DeliveryGate.TryEnter(ref _gate);
+
+        if (!entered)
+        {
+            _queue.Enqueue(line);
+            DeliveryGate.Signal(ref _gate, new QueueDrain(this));
+            return;
+        }
+
+        Lines.Add($"start {line}");
+        if (line == "outer")
+        {
+            Write("inner");
+        }
+
+        Lines.Add($"end {line}");
+        DeliveryGate.Exit(ref _gate, new QueueDrain(this));
+    }
+
+    private void DeliverQueued()
+    {
+        while (_queue.TryDequeue(out var line))
+        {
+            Lines.Add($"start {line}");
+            Lines.Add($"end {line}");
+        }
+    }
+
+    private readonly struct QueueDrain(NestedLog owner) : IDrainTarget
+    {
+        public void Drain() => owner.DeliverQueued();
+    }
+}
+```
+
+Output:
+
+```text
+start outer, end outer, start inner, end inner
+start outer, start inner, end inner, end outer
+```
+
+#### When a delivery throws
+
+A delivery that throws must still release the gate, or no thread could deliver again. Call `Reset` instead of `Exit`.
+`Reset` hands back `true` when other threads queued work while the delivery ran. Call `Signal` then, so that work is
+not stranded.
+
+```csharp
+var log = new FailingLog();
+
+try
+{
+    log.Write("bad");
+}
+catch (InvalidOperationException error)
+{
+    Console.WriteLine($"caught: {error.Message}");
+}
+
+log.Write("good");
+Console.WriteLine(string.Join(", ", log.Lines));
+
+public sealed class FailingLog
+{
+    private readonly System.Collections.Concurrent.ConcurrentQueue<string> _queue = new();
+    private DeliveryGateState _gate;
+
+    public List<string> Lines { get; } = [];
+
+    public void Write(string line)
+    {
+        _queue.Enqueue(line);
+
+        if (!DeliveryGate.TryEnter(ref _gate))
+        {
+            DeliveryGate.Signal(ref _gate, new QueueDrain(this));
+            return;
+        }
+
+        try
+        {
+            DeliverQueued();
+        }
+        catch
+        {
+            if (DeliveryGate.Reset(ref _gate))
+            {
+                DeliveryGate.Signal(ref _gate, new QueueDrain(this));
+            }
+
+            throw;
+        }
+
+        DeliveryGate.Exit(ref _gate, new QueueDrain(this));
+    }
+
+    private void DeliverQueued()
+    {
+        while (_queue.TryDequeue(out var line))
+        {
+            if (line == "bad")
+            {
+                throw new InvalidOperationException("the disk is full");
+            }
+
+            Lines.Add(line);
+        }
+    }
+
+    private readonly struct QueueDrain(FailingLog owner) : IDrainTarget
+    {
+        public void Drain() => owner.DeliverQueued();
+    }
+}
+```
+
+Output:
+
+```text
+caught: the disk is full
+good
+```
+
+The second `Write` gets the gate, so the first failure left nothing locked.
 
 ## Constructing operator types directly
 

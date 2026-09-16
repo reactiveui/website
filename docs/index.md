@@ -24,11 +24,11 @@ hide:
 
     ```csharp
     this.WhenAnyValue(x => x.SearchQuery)
-        .Throttle(TimeSpan.FromSeconds(0.8), RxApp.TaskpoolScheduler)
+        .Calm(TimeSpan.FromSeconds(0.8), RxSchedulers.TaskpoolScheduler)
         .Select(query => query?.Trim())
-        .DistinctUntilChanged()
+        .Unique()
         .Where(query => !string.IsNullOrWhiteSpace(query))
-        .ObserveOn(RxApp.MainThreadScheduler)
+        .WitnessOn(RxSchedulers.MainThreadScheduler)
         .InvokeCommand(this, x => x.ExecuteSearch);
     ```
 
@@ -36,12 +36,12 @@ hide:
 
     ```fsharp
     this.WhenAnyValue(fun x -> x.SearchQuery)
-        .Throttle(TimeSpan.FromSeconds(0.8), RxApp.TaskpoolScheduler)
-        .Select(fun query -> query |> Option.ofObj |> Option.map (fun s -> s.Trim()))
-        .DistinctUntilChanged()
+        .Calm(TimeSpan.FromSeconds(0.8), RxSchedulers.TaskpoolScheduler)
+        .Select(fun (query: string) -> if isNull query then null else query.Trim())
+        .Unique()
         .Where(fun query -> not (String.IsNullOrWhiteSpace(query)))
-        .ObserveOn(RxApp.MainThreadScheduler)
-        .InvokeCommand(this, fun x -> x.ExecuteSearch)
+        .WitnessOn(RxSchedulers.MainThreadScheduler)
+        .InvokeCommand(this.ExecuteSearch)
     ```
 
 </div>
@@ -72,13 +72,13 @@ hide:
 
     ---
 
-    Built on System.Reactive, ReactiveUI [copes gracefully as your application grows](articles/2026-05-07-why-reactiveui-earns-its-keep.md). Control time in tests — no more 3-second waits.
+    ReactiveUI [copes gracefully as your application grows](articles/2026-05-07-why-reactiveui-earns-its-keep.md). Control time in tests — no more 3-second waits.
 
--   :material-book-open-page-variant-outline:{ .lg .middle } **Reactive Extensions**
+-   :material-book-open-page-variant-outline:{ .lg .middle } **Built on ReactiveUI.Primitives**
 
     ---
 
-    Powered by Rx — a [proven foundation](https://reactivex.io/intro.html) for expressing the relationship between things that change over time.
+    Streams are LINQ for events. [ReactiveUI.Primitives](documentation/primitives/why-primitives.md) makes them fast, small and ready for Native AOT, and [works alongside System.Reactive](documentation/primitives/system-reactive.md) when a library still needs it.
 
 -   :material-lightning-bolt-outline:{ .lg .middle } **Async-aware commands**
 

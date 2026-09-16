@@ -39,7 +39,7 @@ public class MyViewModel(IDependency dependency)
 
 ## Caveat: still dispose your subscriptions
 
-Using `this` on the left-hand side avoids the singleton-holds-the-view-model leak, but it does **not** remove the need to manage subscription lifetime. If you `Subscribe` / `BindTo` / `InvokeCommand` against an observable rooted in a longer-lived dependency, the dependency's `PropertyChanged` handler still holds a reference to your subscription's closure. Tie those subscriptions to a `CompositeDisposable` and dispose them when the view model goes away — typically via `WhenActivated` and `DisposeWith`:
+Using `this` on the left-hand side avoids the singleton-holds-the-view-model leak, but it does **not** remove the need to manage subscription lifetime. If you `Subscribe` / `BindTo` / `InvokeCommand` against an observable rooted in a longer-lived dependency, the dependency's `PropertyChanged` handler still holds a reference to your subscription's closure. Tie those subscriptions to a `MultipleDisposable` and dispose them when the view model goes away — typically via `WhenActivated` and `DisposeWith`:
 
 ```csharp
 this.WhenActivated(disposables =>

@@ -214,64 +214,8 @@ WasmSequencer.Default.Schedule(() => Console.WriteLine("ran"));
 | Work to happen inline, now | `Sequencer.Immediate` |
 | Work on the calling thread, in order, without deep call stacks | `Sequencer.CurrentThread` |
 | Work off the calling thread | `Sequencer.Default` |
-| Work on the UI thread | The UI sequencer for your framework, below |
+| Work on the UI thread | The UI sequencer for your platform. See [UI platforms](platforms.md). |
 | Tests that control time | `VirtualClock`, below |
-
-## UI thread sequencers
-
-Each UI framework has its own package with a sequencer that runs work on its UI thread. Pass it to `WitnessOn`
-to update the screen from a background stream.
-
-| Framework | Package | Sequencer |
-|---|---|---|
-| WPF | `ReactiveUI.Primitives.Wpf` | `new DispatcherSequencer(dispatcher)` or `new DispatcherSequencer(dispatcher, priority)` |
-| WinForms | `ReactiveUI.Primitives.WinForms` | `new ControlSequencer(control)` |
-| WinUI | `ReactiveUI.Primitives.WinUI` | `new DispatcherQueueSequencer(queue)`, `new DispatcherQueueSequencer(queue, priority)`, or `queue.ToSequencer()` |
-| Avalonia | `ReactiveUI.Primitives.Avalonia` | `AvaloniaScheduler.Instance`, `new AvaloniaScheduler(dispatcher)`, or `new AvaloniaScheduler(dispatcher, priority)` |
-| MAUI | `ReactiveUI.Primitives.Maui` | `new MauiDispatcherSequencer(dispatcher)` or `dispatcher.ToSequencer()` |
-| Blazor | `ReactiveUI.Primitives.Blazor` | `new BlazorRendererSequencer(dispatcher)`, `new BlazorRendererSequencer(invokeAsync)`, or `dispatcher.ToSequencer()` |
-| Android | `ReactiveUI.Primitives` (`net10.0-android`) | `HandlerSequencer.Main` or `new HandlerSequencer(handler)` |
-| iOS, macOS, Mac Catalyst | `ReactiveUI.Primitives` (Apple targets) | `NSRunloopSequencer.Main` |
-
-Every one of these is in the `ReactiveUI.Primitives.Concurrency` namespace, except `BlazorRendererSequencer`,
-which is in `ReactiveUI.Primitives.Blazor.Concurrency`.
-
-The constructor arguments hold what you passed in: `Dispatcher` and `Priority` on the WPF and Avalonia
-sequencers, `Control` on WinForms, `DispatcherQueue` and `Priority` on WinUI, `Dispatcher` on MAUI, and
-`Handler` on Android.
-
-### WPF
-
-```csharp
-using ReactiveUI.Primitives.Concurrency;
-
-var ui = new DispatcherSequencer(Application.Current.Dispatcher);
-
-prices.WitnessOn(ui)
-      .Subscribe(price => PriceText.Text = price.ToString("C"));
-```
-
-### Blazor
-
-A Blazor component renders through its own dispatcher. `BlazorRendererSequencer` runs work there, so the
-component can call `StateHasChanged` safely. An exception from your work goes to `UnhandledExceptionHandler`, if
-you set one.
-
-```csharp
-using ReactiveUI.Primitives.Blazor.Concurrency;
-
-var ui = new BlazorRendererSequencer(InvokeAsync);
-
-prices.WitnessOn(ui)
-      .Subscribe(price =>
-      {
-          _price = price;
-          StateHasChanged();
-      });
-```
-
-In a ReactiveUI app, `RxApp.MainThreadScheduler` already points at the right UI thread. See
-[scheduling](../handbook/scheduling.md).
 
 ## Scheduling work yourself
 
@@ -609,7 +553,7 @@ It has the same members as `VirtualClock`: `Clock`, `AdvanceBy`, `AdvanceTo`, `S
 | `ThreadPoolSequencer.Instance` | Queues work straight onto the thread pool. |
 | `SynchronizationContextSequencer` | Posts work through a `SynchronizationContext`. |
 | `WasmSequencer.Default` | Runs work in a WebAssembly app. |
-| UI sequencers | Run work on a framework's UI thread. |
+| UI sequencers | Run work on a platform's UI thread. See [UI platforms](platforms.md). |
 | `Schedule(action)` | Runs work as soon as possible. |
 | `Schedule(TimeSpan, action)` | Runs work after a delay. |
 | `Schedule(DateTimeOffset, action)` | Runs work at a set time. |

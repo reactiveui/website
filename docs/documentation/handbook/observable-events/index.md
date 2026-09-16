@@ -3,459 +3,187 @@ Order: 26
 ---
 # ObservableEvents
 
-**ReactiveMarbles.ObservableEvents** is a source generator that converts .NET events into observable sequences, making them easier to compose, filter, and combine with other reactive operations.
+Handling a .NET event means writing a handler, attaching it with `+=`, and remembering the matching `-=`. A handler
+cannot be filtered, delayed or combined with another event, and a forgotten `-=` leaks.
 
-## Overview
+`ReactiveUI.Primitives.ObservableEvents` turns events into streams instead. It is a **source generator**: a part of
+the compiler that writes extra C# code into your project when it builds. For each public event, it writes a strongly
+typed `IObservable<T>`. Subscribing attaches the handler, and disposing the subscription removes it.
 
-Instead of manually subscribing to events and managing event handlers, ObservableEvents automatically generates extension methods that convert events to `IObservable<T>` sequences. This allows you to use the full power of Rx operators with any .NET event.
+## Your first generated event
 
-## Installation
-
-Install the package via NuGet:
-
-```bash
-dotnet add package ReactiveMarbles.ObservableEvents.SourceGenerator
-```
-
-Or via Package Manager:
+**1. Add the package.** It generates code only, so mark it `PrivateAssets="all"`:
 
 ```xml
-<PackageReference Include="ReactiveMarbles.ObservableEvents.SourceGenerator" Version="*" />
+<PackageReference Include="ReactiveUI.Primitives.ObservableEvents" Version="*" PrivateAssets="all" />
 ```
 
-## How It Works
-
-ObservableEvents is a **source generator** that runs at compile-time. It analyzes your project's referenced assemblies and generates an `Events()` extension method that returns a strongly-typed aggregator object with one `IObservable<T>` property per public event on the source type.
-
-### Generated Code Pattern
-
-For a type with an event like:
+**2. Call `Events()`** on the object that declares the event. The generator writes a wrapper with one property per
+public event:
 
 ```csharp
-public event EventHandler<MouseEventArgs> MouseMove;
-```
+using ReactiveUI.Primitives.ObservableEvents;
 
-the generator produces an `Events()` aggregator roughly equivalent to:
-
-```csharp
-public static class YourClassEventsExtensions
+public sealed class ChangedEventArgs(int length) : EventArgs
 {
-    public static YourClassEvents Events(this YourClass @this) => new(@this);
+    public int Length { get; } = length;
 }
 
-public sealed class YourClassEvents
+public sealed class Editor
 {
-    public YourClassEvents(YourClass source) => _source = source;
-    private readonly YourClass _source;
+    public event EventHandler<ChangedEventArgs>? Changed;
 
-    public IObservable<EventPattern<MouseEventArgs>> MouseMove =>
-        Observable.FromEventPattern<MouseEventArgs>(
-            h => _source.MouseMove += h,
-            h => _source.MouseMove -= h);
-
-    // ...one property per public event on YourClass
+    public void Type(int length) => Changed?.Invoke(this, new ChangedEventArgs(length));
 }
 ```
 
-At the call site you therefore write `obj.Events().MouseMove`, not `obj.MouseMoveEvent()`.
+```csharp
+var editor = new Editor();
 
-## Basic Usage
+using IDisposable subscription = editor.Events().Changed
+    .Subscribe(args => Console.WriteLine($"changed: {args.Length}"));
 
-### Converting Events to Observables
+editor.Type(42);
+```
+
+Output:
+
+```text
+changed: 42
+```
+
+**3. Dispose the subscription** when you no longer need it. In a view, subscribe inside `WhenActivated` and add each
+subscription to its disposables with `DisposeWith`. See [WhenActivated](../when-activated.md).
+
+The generator works out which stream library your project uses, and writes code for the first it finds:
+
+| Your project references | Streams are built with | A delegate with no parameters sends |
+|---|---|---|
+| `ReactiveUI.Primitives` | `ReactiveUI.Primitives.Signals.Signal` | `RxVoid` |
+| `ReactiveUI.Primitives.Reactive` | `ReactiveUI.Primitives.Reactive.Signals.Signal` | `System.Reactive.Unit` |
+| System.Reactive only | `System.Reactive.Linq.Observable` | `System.Reactive.Unit` |
+
+## What each stream sends
+
+The value a stream sends depends on the event's delegate:
+
+| Delegate | The stream sends |
+|---|---|
+| No parameters, such as `Action` | `RxVoid`, a value that carries no data |
+| One parameter, such as `Action<string>` | That parameter |
+| `(object sender, TEventArgs args)`, such as `EventHandler<T>` | The `args` |
+| Any other set of parameters | A named tuple of the parameters |
+
+Delegates that return `void`, `Task` or `ValueTask` all work.
 
 ```csharp
-using ReactiveMarbles.ObservableEvents;
+public delegate void MovedHandler(int line, int column);
 
-public partial class MainViewModel : ReactiveObject
+public sealed class Document
 {
-    public MainViewModel()
+    public event Action? Saved;
+    public event Action<string>? Renamed;
+    public event MovedHandler? Moved;
+
+    public void Raise()
     {
-        // Subscribe to button click events
-        var button = new Button();
-        
-        button.Events().Click
-            .Subscribe(_ => Console.WriteLine("Button clicked!"));
+        Saved?.Invoke();
+        Renamed?.Invoke("notes.txt");
+        Moved?.Invoke(3, 7);
     }
 }
 ```
 
-### With Reactive Extensions Operators
-
-The real power comes from composing with Rx operators:
-
 ```csharp
-// Throttle rapid clicks
-button.Events().Click
-    .Throttle(TimeSpan.FromMilliseconds(500))
-    .Subscribe(_ => PerformAction());
+var document = new Document();
 
-// Take only the first 3 clicks
-button.Events().Click
-    .Take(3)
-    .Subscribe(_ => Console.WriteLine("Click counted"));
+document.Events().Saved.Subscribe(_ => Console.WriteLine("saved"));
+document.Events().Renamed.Subscribe(name => Console.WriteLine($"renamed to {name}"));
+document.Events().Moved.Subscribe(position => Console.WriteLine($"moved to {position.line}:{position.column}"));
 
-// Filter based on event args
-textBox.Events().TextChanged
-    .Select(e => e.Sender as TextBox)
-    .Where(tb => tb?.Text.Length > 3)
-    .Subscribe(tb => ValidateInput(tb.Text));
+document.Raise();
 ```
 
-## Platform-Specific Examples
+Output:
 
-### WPF
+```text
+saved
+renamed to notes.txt
+moved to 3:7
+```
+
+## Static events
+
+A static event has no object to call `Events()` on. Name the type in an assembly attribute instead:
 
 ```csharp
-using ReactiveMarbles.ObservableEvents;
+[assembly: GenerateStaticEventObservables(typeof(AppEvents))]
 
-public partial class MainWindow : ReactiveWindow<MainViewModel>
+public static class AppEvents
 {
-    public MainWindow()
-    {
-        InitializeComponent();
-        
-        this.WhenActivated(disposables =>
-        {
-            // Window events
-            this.Events().Loaded
-                .Subscribe(_ => Console.WriteLine("Window loaded"))
-                .DisposeWith(disposables);
-            
-            this.Events().Closing
-                .Subscribe(e => 
-                {
-                    var result = MessageBox.Show("Are you sure?", "Confirm", MessageBoxButton.YesNo);
-                    e.EventArgs.Cancel = result == MessageBoxResult.No;
-                })
-                .DisposeWith(disposables);
-            
-            // Mouse events with throttling
-            SearchTextBox.Events().KeyUp
-                .Throttle(TimeSpan.FromMilliseconds(300))
-                .Select(e => (e.Sender as TextBox)?.Text)
-                .Where(text => !string.IsNullOrWhiteSpace(text))
-                .Subscribe(text => ViewModel.Search(text))
-                .DisposeWith(disposables);
-        });
-    }
+    public static event Action<string>? Message;
+
+    public static void Send(string text) => Message?.Invoke(text);
 }
 ```
 
-### MAUI
+The generator adds static properties to a class named `RxEvents`, in the namespace of the type that declares the
+events. Each property name puts the length of each name in front of it: `T9AppEvents` for the type `AppEvents`, then
+`7Message` for the event `Message`. That way two different types and events can never produce the same name.
 
 ```csharp
-using ReactiveMarbles.ObservableEvents;
+RxEvents.T9AppEvents7Message.Subscribe(message => Console.WriteLine($"static: {message}"));
+AppEvents.Send("hello");
+```
 
-public partial class MainPage : ReactiveContentPage<MainViewModel>
+Output:
+
+```text
+static: hello
+```
+
+## Composing events
+
+Each event is a stream, so any operator can shape it. Wait for typing to stop, then search:
+
+```csharp
+this.WhenActivated(disposables =>
 {
-    public MainPage()
-    {
-        InitializeComponent();
-        
-        this.WhenActivated(disposables =>
-        {
-            // Entry text changes
-            SearchEntry.Events().TextChanged
-                .Throttle(TimeSpan.FromMilliseconds(500))
-                .Select(e => e.EventArgs.NewTextValue)
-                .Subscribe(text => ViewModel.SearchText = text)
-                .DisposeWith(disposables);
-            
-            // Button taps with debounce
-            SubmitButton.Events().Clicked
-                .Throttle(TimeSpan.FromSeconds(1))
-                .Subscribe(_ => ViewModel.SubmitCommand.Execute().Subscribe())
-                .DisposeWith(disposables);
-        });
-    }
-}
+    SearchBox.Events().TextChanged
+        .Calm(TimeSpan.FromMilliseconds(300))
+        .Select(_ => SearchBox.Text)
+        .Unique()
+        .InvokeCommand(this, x => x.ViewModel.Search)
+        .DisposeWith(disposables);
+});
 ```
 
-### Avalonia
+Track a drag, from the pointer going down until it comes up:
 
 ```csharp
-using ReactiveMarbles.ObservableEvents;
-
-public partial class MainWindow : ReactiveWindow<MainViewModel>
-{
-    public MainWindow()
-    {
-        InitializeComponent();
-        
-        this.WhenActivated(disposables =>
-        {
-            // Pointer events
-            this.Events().PointerPressed
-                .Subscribe(e => Console.WriteLine($"Clicked at: {e.EventArgs.GetPosition(this)}"))
-                .DisposeWith(disposables);
-            
-            // Text input with validation
-            UsernameTextBox.Events().TextChanged
-                .Select(e => e.EventArgs.Text)
-                .DistinctUntilChanged()
-                .Subscribe(text => ViewModel.Username = text)
-                .DisposeWith(disposables);
-        });
-    }
-}
+IObservable<Point> drag =
+    from down in canvas.Events().MouseDown
+    from move in canvas.Events().MouseMove.TakeUntil(canvas.Events().MouseUp)
+    select move.GetPosition(canvas);
 ```
 
-### Blazor
+See the [operator pages](../../primitives/index.md#the-operator-pages) and [events](../events.md) for more.
 
-```csharp
-using ReactiveMarbles.ObservableEvents;
+## When the generator reports a problem
 
-public partial class CounterComponent : ReactiveComponentBase<CounterViewModel>
-{
-    protected override void OnInitialized()
-    {
-        ViewModel = new CounterViewModel();
-        
-        this.WhenActivated(disposables =>
-        {
-            // For Blazor, you typically use @onclick in markup
-            // But you can still use ObservableEvents for custom components
-            
-            // Example with a custom component that has events
-            CustomComponent.Events().ValueChanged
-                .Subscribe(e => ViewModel.Value = e.EventArgs.NewValue)
-                .DisposeWith(disposables);
-        });
-        
-        base.OnInitialized();
-    }
-}
-```
+| Diagnostic | Cause |
+|---|---|
+| `RXOE001` | The project references none of the three stream libraries. |
+| `RXOE002` | `Events()` or `GenerateStaticEventObservables` names a type with no public events the generator supports. |
+| `RXOE003` | An event cannot be a stream: its delegate takes a `ref` or `out` parameter, a pointer or a `ref struct`, returns something other than `void`, `Task` or `ValueTask`, or belongs to a generic type with static events. |
 
-## Advanced Patterns
+If `Events()` does not show up, build the project once: the generator runs as part of the build. Only public events
+are generated. To see the generated code in Visual Studio, expand **Dependencies**, **Analyzers**,
+**ReactiveUI.Primitives.ObservableEvents** in Solution Explorer.
 
-### Combining Multiple Events
+## Related topics
 
-```csharp
-// Wait for both events before proceeding
-var loaded = window.Events().Loaded;
-var dataReady = dataService.Events().DataLoaded;
-
-loaded.Zip(dataReady, (l, d) => Unit.Default)
-    .Subscribe(_ => InitializeUI());
-```
-
-### Event Sequences with State
-
-```csharp
-// Track double-clicks
-button.Events().Click
-    .Buffer(TimeSpan.FromMilliseconds(300))
-    .Where(clicks => clicks.Count == 2)
-    .Subscribe(_ => HandleDoubleClick());
-```
-
-### Mouse Drag Pattern
-
-```csharp
-var mouseDown = canvas.Events().MouseDown;
-var mouseMove = canvas.Events().MouseMove;
-var mouseUp = canvas.Events().MouseUp;
-
-var drag = from down in mouseDown
-           from move in mouseMove.TakeUntil(mouseUp)
-           select move.EventArgs.GetPosition(canvas);
-
-drag.Subscribe(pos => UpdateDragPosition(pos));
-```
-
-### Keyboard Shortcuts
-
-```csharp
-this.Events().KeyDown
-    .Where(e => e.EventArgs.Key == Key.S && 
-                (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control)
-    .Subscribe(_ => SaveDocument());
-```
-
-## Integration with ReactiveUI Bindings
-
-ObservableEvents works seamlessly with ReactiveUI's binding system:
-
-```csharp
-public partial class MainWindow : ReactiveWindow<MainViewModel>
-{
-    public MainWindow()
-    {
-        InitializeComponent();
-        
-        this.WhenActivated(disposables =>
-        {
-            // Convert event to property
-            SearchBox.Events().TextChanged
-                .Select(e => (e.Sender as TextBox)?.Text)
-                .BindTo(this, x => x.ViewModel.SearchText)
-                .DisposeWith(disposables);
-            
-            // Use event with command
-            SaveButton.Events().Click
-                .InvokeCommand(ViewModel.SaveCommand)
-                .DisposeWith(disposables);
-        });
-    }
-}
-```
-
-## Performance Considerations
-
-1. **Memory Management**: Always use `DisposeWith(disposables)` inside `WhenActivated` to prevent memory leaks
-2. **Throttling**: Use `Throttle` or `Debounce` for high-frequency events like mouse moves or text changes
-3. **Unsubscription**: The generator handles proper event unsubscription when you dispose the observable
-
-## Common Patterns
-
-### Form Validation
-
-```csharp
-var usernameValid = UsernameTextBox.Events().TextChanged
-    .Select(e => e.EventArgs.Text)
-    .Select(text => !string.IsNullOrWhiteSpace(text) && text.Length >= 3);
-
-var passwordValid = PasswordTextBox.Events().TextChanged
-    .Select(e => e.EventArgs.Text)
-    .Select(text => text?.Length >= 6);
-
-usernameValid.CombineLatest(passwordValid, (u, p) => u && p)
-    .Subscribe(valid => SubmitButton.IsEnabled = valid);
-```
-
-### Search with Cancellation
-
-```csharp
-SearchBox.Events().TextChanged
-    .Throttle(TimeSpan.FromMilliseconds(500))
-    .Select(e => (e.Sender as TextBox)?.Text)
-    .DistinctUntilChanged()
-    .SelectMany(async text => await SearchAsync(text))
-    .ObserveOn(RxSchedulers.MainThreadScheduler)
-    .Subscribe(results => DisplayResults(results));
-```
-
-### Focus Management
-
-```csharp
-// Auto-focus next field
-FirstNameTextBox.Events().KeyDown
-    .Where(e => e.EventArgs.Key == Key.Enter)
-    .Subscribe(_ => LastNameTextBox.Focus());
-```
-
-## Configuration
-
-ObservableEvents can be configured via MSBuild properties in your project file:
-
-```xml
-<PropertyGroup>
-    <!-- Generate events for specific assemblies only -->
-    <ObservableEventsAssemblies>MyCustomControls</ObservableEventsAssemblies>
-    
-    <!-- Exclude specific types -->
-    <ObservableEventsExclude>ObsoleteControl</ObservableEventsExclude>
-</PropertyGroup>
-```
-
-## Troubleshooting
-
-### Events Not Generated
-
-If you don't see generated events:
-
-1. **Rebuild the project** - Source generators run during compilation
-2. **Check the assembly is referenced** - ObservableEvents only generates for referenced assemblies
-3. **Verify event visibility** - Only public events are generated
-4. **Update packages** - Ensure you have the latest version
-
-### IDE Support
-
-- **Visual Studio 2022+**: Full support with IntelliSense
-- **Visual Studio Code**: Install C# Dev Kit for full support
-- **Rider**: Supported in recent versions
-
-### Viewing Generated Code
-
-To see generated code:
-
-1. In Solution Explorer, expand Dependencies ? Analyzers ? ReactiveMarbles.ObservableEvents.SourceGenerator
-2. Look for generated files under the generator node
-
-## Comparison with Manual Event Handling
-
-### Traditional Approach
-
-```csharp
-public MainWindow()
-{
-    InitializeComponent();
-    
-    button.Click += Button_Click;
-    textBox.TextChanged += TextBox_TextChanged;
-}
-
-private void Button_Click(object sender, EventArgs e)
-{
-    // Handle click
-}
-
-private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
-{
-    // Handle text change
-}
-
-protected override void OnClosed(EventArgs e)
-{
-    // Must manually unsubscribe
-    button.Click -= Button_Click;
-    textBox.TextChanged -= TextBox_TextChanged;
-    base.OnClosed(e);
-}
-```
-
-### ObservableEvents Approach
-
-```csharp
-public MainWindow()
-{
-    InitializeComponent();
-    
-    this.WhenActivated(disposables =>
-    {
-        button.Events().Click
-            .Subscribe(_ => HandleClick())
-            .DisposeWith(disposables);
-        
-        textBox.Events().TextChanged
-            .Throttle(TimeSpan.FromMilliseconds(300))
-            .Subscribe(e => HandleTextChange(e.EventArgs))
-            .DisposeWith(disposables);
-        
-        // Automatic cleanup when disposed
-    });
-}
-```
-
-## Best Practices
-
-1. **Always Dispose**: Use `WhenActivated` and `DisposeWith` to ensure proper cleanup
-2. **Throttle High-Frequency Events**: Use `Throttle` or `Debounce` for events that fire frequently
-3. **Use Strong Typing**: Leverage the typed `EventPattern<T>` for better IntelliSense
-4. **Combine with Commands**: Use `InvokeCommand` to integrate with ReactiveCommand
-5. **Handle Errors**: Use `Catch` or `OnErrorResumeNext` for resilient event handling
-
-## Additional Resources
-
-- [ObservableEvents GitHub Repository](https://github.com/reactivemarbles/ObservableEvents)
-- [ReactiveUI Documentation](../../index.md)
-- [Reactive Extensions Documentation](http://reactivex.io/)
-- [Sample Applications](../../resources/samples.md)
-
-## Related Topics
-
-- [Data Binding](../data-binding/index.md)
+- [Events](../events.md)
 - [WhenActivated](../when-activated.md)
-- [Reactive Extensions](../../reactive-programming/index.md)
 - [Commands](../commands/index.md)
+- [Streams in ReactiveUI](../../reactive-programming/observables.md)

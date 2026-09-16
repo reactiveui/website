@@ -1,4 +1,4 @@
-﻿# Guidelines
+# Guidelines
 
 ## Overview
 
@@ -94,7 +94,7 @@ public partial class MyViewModel : ReactiveObject
 public partial class MyViewModel : ReactiveObject
 {
     // Old way (manual)
-    public ReactiveCommand<Unit, Unit> SaveCommand { get; }
+    public ReactiveCommand<RxVoid, RxVoid> SaveCommand { get; }
     
     public MyViewModel()
     {
@@ -121,7 +121,7 @@ public partial class MyViewModel : ReactiveObject
 
 ### Use ObservableEvents for Event Handling
 
-Instead of manually subscribing to events, use **ReactiveMarbles.ObservableEvents.SourceGenerator** to convert events to observables.
+Instead of manually subscribing to events, use **ReactiveUI.Primitives.ObservableEvents** to convert events to observables.
 
 ```csharp
 // Old way ❌
@@ -135,7 +135,7 @@ protected override void OnClosed(EventArgs e)
 this.WhenActivated(disposables =>
 {
     button.Events().Click
-        .Throttle(TimeSpan.FromMilliseconds(500))
+        .Calm(TimeSpan.FromMilliseconds(500))
         .Subscribe(_ => HandleClick())
         .DisposeWith(disposables);
 });
@@ -216,8 +216,8 @@ public class MainViewModel
     private readonly IDataService _dataService;
     private readonly INavigationService _navigation;
     
-    public ReactiveCommand<Unit, Unit> LoadDataCommand { get; }
-    public ReactiveCommand<Unit, Unit> NavigateToSettingsCommand { get; }
+    public ReactiveCommand<RxVoid, RxVoid> LoadDataCommand { get; }
+    public ReactiveCommand<RxVoid, RxVoid> NavigateToSettingsCommand { get; }
 }
 ```
 
@@ -249,7 +249,7 @@ public partial class SearchViewModel : ReactiveObject
             .ToProperty(this, x => x.Results);
     }
     
-    public ReactiveCommand<Unit, List<SearchResult>> SearchCommand { get; }
+    public ReactiveCommand<RxVoid, List<SearchResult>> SearchCommand { get; }
 }
 ```
 
@@ -309,11 +309,11 @@ Prevent excessive operations on high-frequency events.
 ```csharp
 // Search as user types
 this.WhenAnyValue(x => x.SearchText)
-    .Throttle(TimeSpan.FromMilliseconds(500))
-    .DistinctUntilChanged()
+    .Calm(TimeSpan.FromMilliseconds(500))
+    .Unique()
     .Where(text => !string.IsNullOrWhiteSpace(text))
     .SelectMany(async text => await SearchAsync(text))
-    .ObserveOn(RxSchedulers.MainThreadScheduler)
+    .WitnessOn(RxSchedulers.MainThreadScheduler)
     .Subscribe(results => Results = results);
 ```
 
@@ -337,7 +337,7 @@ public partial class ItemListViewModel : ReactiveObject
             .Transform(item => new ItemViewModel(item))
             .Filter(vm => vm.IsVisible)
             .Sort(SortExpressionComparer<ItemViewModel>.Ascending(x => x.Name))
-            .ObserveOn(RxSchedulers.MainThreadScheduler)
+            .WitnessOn(RxSchedulers.MainThreadScheduler)
             .Bind(out _items)
             .Subscribe();
     }
@@ -354,8 +354,7 @@ this.WhenAnyValue(x => x.Property1).Subscribe(/* ... */);
 
 // Good - shared observable ✅
 var sharedObservable = this.WhenAnyValue(x => x.Property1)
-    .Publish()
-    .RefCount();
+    .ShareLatest();
 
 sharedObservable.Subscribe(/* ... */);
 sharedObservable.Subscribe(/* ... */);
@@ -371,16 +370,16 @@ sharedObservable.Subscribe(/* ... */);
 public void ViewModel_LoadsData_WhenCommandExecuted()
 {
     // Arrange
-    new TestScheduler().With(scheduler =>
+    new VirtualClock().With(clock =>
     {
         var mockService = Substitute.For<IDataService>();
-        mockService.GetDataAsync().Returns(Observable.Return(testData));
+        mockService.GetDataAsync().Returns(Signal.Emit(testData));
         
         var vm = new MainViewModel(mockService);
         
         // Act
         vm.LoadDataCommand.Execute().Subscribe();
-        scheduler.AdvanceBy(TimeSpan.FromSeconds(1).Ticks);
+        clock.AdvanceBy(TimeSpan.FromSeconds(1));
         
         // Assert
         vm.Data.Should().NotBeNull();
@@ -536,8 +535,8 @@ The static `RxApp` class has been removed. Configure schedulers and the default 
 ```csharp
 // Good ✅
 var app = RxAppBuilder.CreateReactiveUIBuilder()
-    .WithMainThreadScheduler(/* IScheduler */)
-    .WithTaskPoolScheduler(/* IScheduler */)
+    .WithMainThreadScheduler(/* ISequencer */)
+    .WithTaskPoolScheduler(/* ISequencer */)
     .WithExceptionHandler(/* IObserver<Exception> */)
     .BuildApp();
 

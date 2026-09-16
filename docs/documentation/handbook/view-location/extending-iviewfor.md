@@ -24,7 +24,7 @@ The first thing we need to do is bridge the `PopupPage`, which is a concrete imp
  public abstract class BasePopupPage<TViewModel> : PopupPage, IViewFor<TViewModel>
         where TViewModel : class
     {
-        protected readonly CompositeDisposable SubscriptionDisposables = new CompositeDisposable();
+        protected readonly MultipleDisposable SubscriptionDisposables = new MultipleDisposable();
 
         public static readonly BindableProperty ViewModelProperty =
             BindableProperty.Create(nameof(ViewModel),

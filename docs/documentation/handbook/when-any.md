@@ -5,12 +5,12 @@ Order: 24
 
 [![YouTube](https://img.shields.io/badge/YouTube-ReactiveUI-red?logo=youtube)](https://www.youtube.com/watch?v=IH2yx7b9DNY)
 
-In interactive UI applications, state is continually changing in response to user actions and application events. ReactiveUI enables you to express changes to application state as streams of values and combine and manipulate them using the powerful Reactive Extensions library.
+In interactive UI applications, state is continually changing in response to user actions and application events. ReactiveUI enables you to express changes to application state as streams of values and combine and manipulate them using the operators of [ReactiveUI.Primitives](../primitives/index.md).
 
-The motivation is intuitive enough when you think about it. It's not hard to imagine that changes to a property can be considered events - that's how `INotifyPropertyChanged` works. From there, the same argument for using Rx over events applies. In the context of MVVM application design specifically, modelling property changes as observables leads to several advantages:
+The motivation is intuitive enough when you think about it. It's not hard to imagine that changes to a property can be considered events - that's how `INotifyPropertyChanged` works. From there, the same argument for using streams over events applies. In the context of MVVM application design specifically, modelling property changes as observables leads to several advantages:
 
 - The logic of an application can be defined in terms of changes to properties
-- This logic can be composed and expressed declaratively, using the power of Rx operators
+- This logic can be composed and expressed declaratively, using the power of stream operators
 - Concepts like time and asynchronicity become easier to reason about, due to their first-class treatment in an Observable context.
 
 ReactiveUI provides several variants of `WhenAny` to help you work with properties as an observable stream.
@@ -25,9 +25,9 @@ You can think of the `WhenAny` as a set of extension methods notifying you when 
 
 It will check the property for support for each of those property types, and when you `Subscribe()` it will subscribe to the events offered by the applicable property notification mechanism.
 
-`WhenAny` by default is just a wrapper around these property notification events, and won't store any values before a `Subscribe`. You can use techniques such as `Publish`, `Replay()` to get it to store these values.
+`WhenAny` by default is just a wrapper around these property notification events, and won't store any values before a `Subscribe`. You can use [sharing operators](../primitives/sharing.md) such as `ShareLive` and `ReplayLive` to get it to store these values.
 
-You can also wrap the `WhenAny` in a `Observable.Defer` to avoid the value being calculated until a `Subscribe` has happened. This is useful for `ObservableAsPropertyHelper` when you're using the defer feature.
+You can also wrap the `WhenAny` in a `Signal.Lazy` to avoid the value being calculated until a `Subscribe` has happened. This is useful for `ObservableAsPropertyHelper` when you're using the defer feature.
 
 ## Basic syntax
 
@@ -110,7 +110,7 @@ var canCreateUser = this.WhenAnyValue(
         !string.IsNullOrWhiteSpace(pass) && 
         user.Length >= 3 && 
         pass.Length >= 8)
-    .DistinctUntilChanged();
+    .Unique();
 
 CreateUserCommand = ReactiveCommand.CreateFromTask(CreateUser, canCreateUser); 
 ```
@@ -125,7 +125,7 @@ Commands are often bound to buttons or controls in the view that can be triggere
 // In the ViewModel.
 this.WhenAnyValue(x => x.SearchText)
     .Where(x => !String.IsNullOrWhiteSpace(x))
-    .Throttle(TimeSpan.FromSeconds(.25))
+    .Calm(TimeSpan.FromSeconds(.25))
     .InvokeCommand(SearchCommand);
 
 // In the View.

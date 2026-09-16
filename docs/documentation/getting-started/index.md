@@ -42,7 +42,7 @@ ReactiveUI makes it easy to combine the MVVM pattern with Reactive Programming b
 - **[Data Binding](../handbook/data-binding/index.md)** - Type-safe, reactive data binding
 - **[User Input Validation](../handbook/user-input-validation.md)** - Declarative validation with ReactiveUI.Validation
 
-The [Compelling Example](compelling-example.md) walks through creating a more complete application, demonstrating the power of ReactiveUI and Reactive Extensions.
+The [Compelling Example](compelling-example.md) walks through creating a more complete application, demonstrating the power of ReactiveUI and [ReactiveUI.Primitives](../primitives/index.md).
 
 ## Why MVVM?
 

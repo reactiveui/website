@@ -61,8 +61,8 @@ ReactiveUI automatically uses the Dispatcher:
 
 ```csharp
 // Automatically marshals to UI thread
-Observable.Timer(TimeSpan.FromSeconds(1))
-    .ObserveOn(RxSchedulers.MainThreadScheduler)
+Signal.After(TimeSpan.FromSeconds(1))
+    .WitnessOn(RxSchedulers.MainThreadScheduler)
     .Subscribe(_ => UpdateUI());
 ```
 
@@ -109,13 +109,13 @@ public partial class SearchControl : ReactiveUserControl<SearchViewModel>
 Convert WPF events to observables:
 
 ```csharp
-using ReactiveMarbles.ObservableEvents;
+using ReactiveUI.Primitives.ObservableEvents;
 
 this.WhenActivated(disposables =>
 {
     // Mouse events
     this.Events().MouseMove
-        .Throttle(TimeSpan.FromMilliseconds(100))
+        .Calm(TimeSpan.FromMilliseconds(100))
         .Subscribe(e => UpdateMousePosition(e.GetPosition(this)))
         .DisposeWith(disposables);
     
@@ -295,7 +295,7 @@ public partial class ItemListViewModel : ReactiveObject
             .Transform(item => new ItemViewModel(item))
             .Filter(vm => vm.IsVisible)
             .Sort(SortExpressionComparer<ItemViewModel>.Ascending(x => x.Name))
-            .ObserveOn(RxSchedulers.MainThreadScheduler)
+            .WitnessOn(RxSchedulers.MainThreadScheduler)
             .Bind(out _items)
             .Subscribe();
     }
@@ -361,7 +361,7 @@ public async Task MainWindow_LoadsData()
 
 ```csharp
 backgroundOperation
-    .ObserveOn(RxSchedulers.MainThreadScheduler)
+    .WitnessOn(RxSchedulers.MainThreadScheduler)
     .Subscribe(result => UpdateUI(result));
 ```
 

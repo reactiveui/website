@@ -16,9 +16,9 @@ public class RepositoryViewModel : ReactiveObject
     DeleteCommand.ThrownExceptions.Subscribe(ex => /*...*/);
   }
 
-  public ReactiveCommand<Unit, Unit> DeleteCommand { get; }
+  public ReactiveCommand<RxVoid, RxVoid> DeleteCommand { get; }
 
-  private IObservable<Unit> DeleteImpl() {...}
+  private IObservable<RxVoid> DeleteImpl() {...}
 }
 ```
 

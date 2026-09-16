@@ -69,7 +69,7 @@ this.BindCommand(
 
 <details><summary>Command Execution using CommandParameter binding</summary>
 
-CommandParameter binds automatically to `TInput` in `ReactiveCommand<TInput, Unit>`
+CommandParameter binds automatically to `TInput` in `ReactiveCommand<TInput, RxVoid>`
 
 ```xml
 //In the view
@@ -92,7 +92,7 @@ CommandParameter binds automatically to `TInput` in `ReactiveCommand<TInput, Uni
  //In the ViewModel
  public class MyViewModel
  {
-    public ReactiveCommand<string, Unit> ProcessFeed { get; }
+    public ReactiveCommand<string, RxVoid> ProcessFeed { get; }
    
     public MyViewModel()
     {
@@ -131,7 +131,7 @@ CommandParameter binds automatically to `TInput` in `ReactiveCommand<TInput, Uni
  //In the ViewModel
  public class MyViewModel
  {
-    public ReactiveCommand<Unit, Unit> ProcessFeed { get; }
+    public ReactiveCommand<RxVoid, RxVoid> ProcessFeed { get; }
 
     private string _feedType;
     public string FeedType

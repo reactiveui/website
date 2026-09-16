@@ -1,496 +1,139 @@
-# Reactive Operators
+# Operators in ReactiveUI
 
-## Overview
+An **operator** is a method that makes a new stream from an existing one: it filters values, changes them, combines
+streams, or waits. You chain operators the way you chain LINQ methods. ReactiveUI adds a few of its own that connect
+streams to properties and commands.
 
-Reactive operators are methods that transform, filter, combine, and manipulate observable streams. They are the building blocks of reactive programming and allow you to compose complex asynchronous operations declaratively.
-
-## Transformation Operators
-
-### Select (Map)
-
-Transforms each element in the stream:
+The examples use these namespaces:
 
 ```csharp
-// Transform numbers to strings
-Observable.Range(1, 5)
-    .Select(x => $"Number: {x}")
-    .Subscribe(s => Console.WriteLine(s));
-
-// Transform events
-textBox.Events().TextChanged
-    .Select(e => e.EventArgs.Text)
-    .Select(text => text.ToUpper())
-    .Subscribe(upper => label.Text = upper);
+using ReactiveUI;
+using ReactiveUI.Primitives;
+using ReactiveUI.Primitives.Signals;
 ```
 
-### SelectMany (FlatMap)
+## Your first pipeline
 
-Projects each element to an observable and flattens the result:
-
-```csharp
-// Async operations
-searchBox.Events().TextChanged
-    .Select(e => e.EventArgs.Text)
-    .SelectMany(text => SearchAsync(text))
-    .Subscribe(results => DisplayResults(results));
-
-// Nested sequences
-Observable.Range(1, 3)
-    .SelectMany(x => Observable.Range(x, 3))
-    .Subscribe(n => Console.WriteLine(n));
-```
-
-### Scan
-
-Accumulates values over time:
+A search box should run a search once the user stops typing, and only for two characters or more.
 
 ```csharp
-// Running total
-Observable.Range(1, 5)
-    .Scan((acc, x) => acc + x)
-    .Subscribe(total => Console.WriteLine($"Total: {total}"));
-// Output: 1, 3, 6, 10, 15
+public sealed class SearchViewModel : ReactiveObject
+{
+    private string _searchText = "";
 
-// State machine
-clicks.Scan(0, (count, _) => count + 1)
-    .Subscribe(count => label.Text = $"Clicks: {count}");
-```
-
-## Filtering Operators
-
-### Where (Filter)
-
-Filters elements based on a predicate:
-
-```csharp
-// Only even numbers
-Observable.Range(1, 10)
-    .Where(x => x % 2 == 0)
-    .Subscribe(x => Console.WriteLine(x));
-
-// Valid input
-searchBox.Events().TextChanged
-    .Select(e => e.EventArgs.Text)
-    .Where(text => !string.IsNullOrWhiteSpace(text))
-    .Where(text => text.Length >= 3)
-    .Subscribe(text => PerformSearch(text));
-```
-
-### DistinctUntilChanged
-
-Only emits when the value changes:
-
-```csharp
-// Avoid duplicate searches
-searchBox.Events().TextChanged
-    .Select(e => e.EventArgs.Text)
-    .DistinctUntilChanged()
-    .Subscribe(text => PerformSearch(text));
-```
-
-### Take / TakeUntil
-
-Limits the number of emissions:
-
-```csharp
-// First 5 items
-observable.Take(5)
-    .Subscribe(x => Console.WriteLine(x));
-
-// Until a condition
-clicks.TakeUntil(stopButton.Events().Click)
-    .Subscribe(_ => Console.WriteLine("Click"));
-```
-
-### Skip
-
-Skips specified number of items:
-
-```csharp
-// Skip first (ignore initial value)
-this.WhenAnyValue(x => x.Property)
-    .Skip(1)
-    .Subscribe(value => HandleChange(value));
-```
-
-## Combining Operators
-
-### CombineLatest
-
-Combines latest values from multiple streams:
-
-```csharp
-// Form validation
-var usernameValid = this.WhenAnyValue(x => x.Username)
-    .Select(u => !string.IsNullOrWhiteSpace(u));
-
-var passwordValid = this.WhenAnyValue(x => x.Password)
-    .Select(p => p?.Length >= 6);
-
-usernameValid.CombineLatest(passwordValid, (u, p) => u && p)
-    .Subscribe(valid => submitButton.IsEnabled = valid);
-```
-
-### Merge
-
-Merges multiple streams into one:
-
-```csharp
-// Multiple button clicks
-var button1Clicks = button1.Events().Click;
-var button2Clicks = button2.Events().Click;
-
-button1Clicks.Merge(button2Clicks)
-    .Subscribe(_ => HandleClick());
-```
-
-### Zip
-
-Pairs elements from multiple streams:
-
-```csharp
-// Wait for both
-var loaded = window.Events().Loaded;
-var dataReady = dataService.Events().DataLoaded;
-
-loaded.Zip(dataReady, (l, d) => Unit.Default)
-    .Subscribe(_ => Initialize());
-```
-
-### Concat
-
-Concatenates streams sequentially:
-
-```csharp
-// Sequential operations
-firstOperation
-    .Concat(secondOperation)
-    .Concat(thirdOperation)
-    .Subscribe(result => HandleResult(result));
-```
-
-## Time-Based Operators
-
-### Throttle
-
-Emits latest value after a period of inactivity:
-
-```csharp
-// Throttle search input
-searchBox.Events().TextChanged
-    .Throttle(TimeSpan.FromMilliseconds(300))
-    .Select(e => e.EventArgs.Text)
-    .Subscribe(text => PerformSearch(text));
-```
-
-### Debounce
-
-Same as Throttle (alias):
-
-```csharp
-textBox.Events().TextChanged
-    .Debounce(TimeSpan.FromMilliseconds(500))
-    .Subscribe(e => HandleTextChange(e));
-```
-
-### Sample
-
-Samples the stream at intervals:
-
-```csharp
-// Sample every second
-mouseMove.Sample(TimeSpan.FromSeconds(1))
-    .Subscribe(pos => UpdatePosition(pos));
-```
-
-### Delay
-
-Delays emission by specified time:
-
-```csharp
-// Delayed notification
-errorOccurred
-    .Delay(TimeSpan.FromSeconds(3))
-    .Subscribe(_ => HideErrorMessage());
-```
-
-### Timeout
-
-Throws if no value within timespan:
-
-```csharp
-// Timeout after 5 seconds
-longRunningOperation
-    .Timeout(TimeSpan.FromSeconds(5))
-    .Catch(Observable.Return(defaultValue))
-    .Subscribe(result => HandleResult(result));
-```
-
-## Error Handling Operators
-
-### Catch
-
-Handles errors gracefully:
-
-```csharp
-// Provide fallback
-observable
-    .Catch<Data, Exception>(ex => 
+    public SearchViewModel()
     {
-        LogError(ex);
-        return Observable.Return(defaultData);
-    })
-    .Subscribe(data => DisplayData(data));
+        Search = ReactiveCommand.Create<string>(text => Console.WriteLine($"searching for {text}"));
+
+        this.WhenAnyValue(x => x.SearchText)
+            .Calm(TimeSpan.FromMilliseconds(300))
+            .Where(text => text.Length >= 2)
+            .InvokeCommand(Search);
+    }
+
+    public string SearchText { get => _searchText; set => this.RaiseAndSetIfChanged(ref _searchText, value); }
+
+    public ReactiveCommand<string, RxVoid> Search { get; }
+}
 ```
 
-### Retry
+**1. Start from a property.** `WhenAnyValue` sends `SearchText` each time it changes.
 
-Retries on error:
+**2. Wait for a pause.** `Calm` sends a value only after 300 ms pass with no newer one.
+
+**3. Filter.** `Where` drops text shorter than two characters.
+
+**4. Run the command.** `InvokeCommand` executes `Search` with each value, when the command can run.
 
 ```csharp
-// Retry 3 times
-networkRequest
-    .Retry(3)
-    .Subscribe(
-        data => ProcessData(data),
-        error => ShowError(error));
+var search = new SearchViewModel();
 
-// Retry with delay
-networkRequest
-    .RetryWhen(errors => errors
-        .SelectMany((ex, attempt) => 
-            Observable.Timer(TimeSpan.FromSeconds(attempt + 1))))
-    .Subscribe(data => ProcessData(data));
+search.SearchText = "rx";
+search.SearchText = "reactiveui";
 ```
 
-### OnErrorResumeNext
+Output, 300 ms later:
 
-Continues with another stream on error:
+```text
+searching for reactiveui
+```
+
+`rx` never reached the command: `reactiveui` replaced it within 300 ms.
+
+## ReactiveUI's operators
+
+### `ToProperty`
+
+`ToProperty` turns a stream into a read-only property. It stores the latest value in an
+`ObservableAsPropertyHelper<T>` and raises `PropertyChanged` for the property each time the value changes.
 
 ```csharp
-primarySource
-    .OnErrorResumeNext(fallbackSource)
-    .Subscribe(data => ProcessData(data));
+public sealed class NameViewModel : ReactiveObject
+{
+    private readonly ObservableAsPropertyHelper<string> _fullName;
+    private string _firstName = "";
+    private string _lastName = "";
+
+    public NameViewModel() =>
+        _fullName = this.WhenAnyValue(x => x.FirstName, x => x.LastName, (first, last) => $"{first} {last}")
+                        .ToProperty(this, x => x.FullName);
+
+    public string FirstName { get => _firstName; set => this.RaiseAndSetIfChanged(ref _firstName, value); }
+
+    public string LastName { get => _lastName; set => this.RaiseAndSetIfChanged(ref _lastName, value); }
+
+    public string FullName => _fullName.Value;
+}
 ```
-
-## Utility Operators
-
-### Do
-
-Side effects without altering the stream:
 
 ```csharp
-observable
-    .Do(x => Console.WriteLine($"Value: {x}"))
-    .Do(x => LogValue(x))
-    .Subscribe(x => ProcessValue(x));
+var named = new NameViewModel();
+named.FirstName = "Grace";
+named.LastName = "Hopper";
+
+Console.WriteLine(named.FullName);
 ```
 
-### Materialize / Dematerialize
+Output:
 
-Wraps/unwraps notifications:
-
-```csharp
-observable
-    .Materialize()
-    .Subscribe(notification => 
-    {
-        if (notification.Kind == NotificationKind.OnNext)
-            Console.WriteLine($"Value: {notification.Value}");
-        else if (notification.Kind == NotificationKind.OnError)
-            Console.WriteLine($"Error: {notification.Exception}");
-    });
+```text
+Grace Hopper
 ```
 
-### ObserveOn
+The source generators can write this for you with `[ObservableAsProperty]`. See
+[ObservableAsPropertyHelper](../handbook/observable-as-property-helper.md).
 
-Specifies where to observe values:
+### `InvokeCommand`
 
-```csharp
-// Background work, UI updates
-Observable.Start(() => ExpensiveOperation())
-    .ObserveOn(RxSchedulers.MainThreadScheduler)
-    .Subscribe(result => UpdateUI(result));
-```
+`InvokeCommand` executes a command with each value from a stream, and skips values that arrive while the command
+cannot run. [Your first pipeline](#your-first-pipeline) shows it. See [commands](../handbook/commands/index.md).
 
-### SubscribeOn
+### `WhenAnyValue` and `WhenAnyObservable`
 
-Specifies where subscription occurs:
+`WhenAnyValue` makes a stream from properties. `WhenAnyObservable` follows a property that itself holds a stream, such
+as a command on a child view model. See [WhenAny](../handbook/when-any.md).
 
-```csharp
-observable
-    .SubscribeOn(RxSchedulers.TaskpoolScheduler)
-    .ObserveOn(RxSchedulers.MainThreadScheduler)
-    .Subscribe(value => UpdateUI(value));
-```
+## Every other operator
 
-## Aggregation Operators
+The rest come from ReactiveUI.Primitives. Each page covers every operator in its group, with an example.
 
-### Count
+| You want to | Operators | Page |
+|---|---|---|
+| Change each value, or flatten a stream of streams | `Select`, `SelectMany`, `Fold`, `SwitchTo` | [Transformation](../primitives/transformation.md) |
+| Drop values you do not want | `Where`, `Unique`, `Take`, `Skip`, `TakeUntil` | [Filtering](../primitives/filtering.md) |
+| Join streams | `SyncLatest`, `Blend`, `Zip`, `Concat`, `Race` | [Combination](../primitives/combination.md) |
+| Wait, batch, sample or time out | `Calm`, `Shift`, `Buffer`, `Probe`, `Expire` | [Time](../primitives/time.md) |
+| Recover from a failure | `Recover`, `Retry`, `Reattempt`, `Finally` | [Error handling](../primitives/error-handling.md) |
+| Reduce a stream to one answer | `Aggregate`, `Count`, `Any`, `ToList` | [Aggregation and results](../primitives/aggregation.md) |
+| Peek at values, or choose a thread | `Tap`, `WitnessOn`, `Serialize` | [Utility](../primitives/utility.md) |
+| Share one run between subscribers | `Publish`, `Replay` | [Sharing one subscription](../primitives/sharing.md) |
 
-Counts elements:
+For a search that also cancels a stale request, see
+[a search box, two ways](../primitives/why-primitives.md#a-search-box-two-ways).
 
-```csharp
-observable.Count()
-    .Subscribe(count => Console.WriteLine($"Count: {count}"));
-```
+## Related topics
 
-### Sum / Average / Min / Max
-
-Aggregate operations:
-
-```csharp
-Observable.Range(1, 10)
-    .Sum()
-    .Subscribe(sum => Console.WriteLine($"Sum: {sum}"));
-
-Observable.Range(1, 10)
-    .Average()
-    .Subscribe(avg => Console.WriteLine($"Average: {avg}"));
-```
-
-### Reduce / Aggregate
-
-Custom aggregation:
-
-```csharp
-Observable.Range(1, 5)
-    .Aggregate((acc, x) => acc * x)
-    .Subscribe(product => Console.WriteLine($"Product: {product}"));
-```
-
-## Conditional Operators
-
-### All / Any
-
-Check conditions:
-
-```csharp
-// All elements positive
-Observable.Range(1, 10)
-    .All(x => x > 0)
-    .Subscribe(allPositive => Console.WriteLine(allPositive));
-
-// Any element even
-Observable.Range(1, 10)
-    .Any(x => x % 2 == 0)
-    .Subscribe(anyEven => Console.WriteLine(anyEven));
-```
-
-### Contains
-
-Checks for specific value:
-
-```csharp
-observable.Contains(42)
-    .Subscribe(contains => Console.WriteLine($"Contains 42: {contains}"));
-```
-
-## Buffer and Window Operators
-
-### Buffer
-
-Collects elements into lists:
-
-```csharp
-// Buffer every 5 items
-observable.Buffer(5)
-    .Subscribe(batch => ProcessBatch(batch));
-
-// Buffer by time
-observable.Buffer(TimeSpan.FromSeconds(1))
-    .Subscribe(batch => ProcessBatch(batch));
-```
-
-### Window
-
-Projects into nested observables:
-
-```csharp
-observable.Window(TimeSpan.FromSeconds(1))
-    .Subscribe(window => 
-        window.Subscribe(x => Console.WriteLine(x)));
-```
-
-## ReactiveUI-Specific Operators
-
-### ToProperty
-
-Creates an ObservableAsPropertyHelper:
-
-```csharp
-this.WhenAnyValue(x => x.FirstName, x => x.LastName,
-        (f, l) => $"{f} {l}")
-    .ToProperty(this, x => x.FullName, out _fullName);
-```
-
-### InvokeCommand
-
-Invokes a ReactiveCommand:
-
-```csharp
-searchBox.Events().TextChanged
-    .Throttle(TimeSpan.FromMilliseconds(300))
-    .InvokeCommand(SearchCommand);
-```
-
-### WhenAnyValue
-
-Observes property changes:
-
-```csharp
-this.WhenAnyValue(x => x.SearchText)
-    .Where(text => !string.IsNullOrEmpty(text))
-    .Subscribe(text => PerformSearch(text));
-```
-
-## Composition Example
-
-Combining multiple operators:
-
-```csharp
-searchBox.Events().TextChanged
-    .Select(e => e.EventArgs.Text)           // Extract text
-    .DistinctUntilChanged()                   // Ignore duplicates
-    .Throttle(TimeSpan.FromMilliseconds(300)) // Wait for pause
-    .Where(text => text.Length >= 3)          // Minimum length
-    .SelectMany(text => SearchAsync(text))    // Async search
-    .Catch(Observable.Return(emptyResults))   // Error handling
-    .ObserveOn(RxSchedulers.MainThreadScheduler)     // UI thread
-    .Subscribe(results => DisplayResults(results));
-```
-
-## Best Practices
-
-1. **Chain Operators**: Build complex logic by chaining simple operators
-2. **Error Handling**: Always include error handling operators
-3. **Thread Management**: Use ObserveOn/SubscribeOn appropriately
-4. **Performance**: Use appropriate operators (Throttle vs Sample)
-5. **Readability**: Break complex chains into named intermediates
-
-## Operator Categories Quick Reference
-
-| Category | Operators |
-|----------|-----------|
-| **Transform** | Select, SelectMany, Scan |
-| **Filter** | Where, DistinctUntilChanged, Take, Skip |
-| **Combine** | CombineLatest, Merge, Zip, Concat |
-| **Time** | Throttle, Debounce, Sample, Delay, Timeout |
-| **Error** | Catch, Retry, OnErrorResumeNext |
-| **Utility** | Do, ObserveOn, SubscribeOn |
-| **Aggregate** | Count, Sum, Average, Min, Max, Reduce |
-| **Conditional** | All, Any, Contains |
-| **Buffer** | Buffer, Window |
-
-## Resources
-
-- [ReactiveX Operators](http://reactivex.io/documentation/operators.html)
-- [RxMarbles (Visual Guide)](https://rxmarbles.com/)
-- [Intro to Rx](http://introtorx.com/)
-- [ReactiveUI Documentation](../index.md)
-
-## Related Topics
-
-- [Observables](observables.md)
-- [Testing](../handbook/testing.md)
-- [Scheduling](../handbook/scheduling.md)
+- [Streams in ReactiveUI](observables.md)
+- [Best practices](../primitives/best-practices.md)
+- [ReactiveUI.Primitives and System.Reactive](../primitives/system-reactive.md), for the System.Reactive names of these
+  operators.

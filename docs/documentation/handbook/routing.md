@@ -116,10 +116,10 @@ public class MainViewModel : ReactiveObject, IScreen
     public RoutingState Router { get; }
         
     // The command that navigates a user to first view model.
-    public ReactiveCommand<Unit, IRoutableViewModel> GoNext { get; }
+    public ReactiveCommand<RxVoid, IRoutableViewModel> GoNext { get; }
 
     // The command that navigates a user back.
-    public ReactiveCommand<Unit, IRoutableViewModel> GoBack { get; }
+    public ReactiveCommand<RxVoid, IRoutableViewModel> GoBack { get; }
 
     public MainViewModel()
     {
@@ -153,7 +153,7 @@ public class MainViewModel : ReactiveObject, IScreen
             .WhenAnyValue(x => x.Router.NavigationStack.Count)
             .Select(count => count > 0);
         GoBack = ReactiveCommand.CreateFromObservable(
-            () => Router.NavigateBack.Execute(Unit.Default),
+            () => Router.NavigateBack.Execute(RxVoid.Default),
             canGoBack);
     }
 }

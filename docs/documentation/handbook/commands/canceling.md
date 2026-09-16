@@ -20,22 +20,22 @@ However, this requires you to obtain, and keep a hold of the subscription. If yo
 
 ## Canceling via Another Observable
 
-Rx itself has intrinsic support for canceling one observable when another observable ticks. It provides this via the `TakeUntil` operator:
+ReactiveUI.Primitives can cancel one stream when another stream sends a value. It does this with the [`TakeUntil`](../../primitives/filtering.md) operator:
 
 ```cs
-var cancel = new Subject<Unit>();
+var cancel = new Signal<RxVoid>();
 var command = ReactiveCommand
     .CreateFromObservable(
-        () => Observable
-            .Return(Unit.Default)
-            .Delay(TimeSpan.FromSeconds(3))
+        () => Signal
+            .Emit(RxVoid.Default)
+            .Shift(TimeSpan.FromSeconds(3))
             .TakeUntil(cancel));
 
 // Somewhere else.
 command.Execute().Subscribe();
 
 // This cancels the above execution.
-cancel.OnNext(Unit.Default);
+cancel.OnNext(RxVoid.Default);
 ```
 
 Of course, you wouldn't normally create a subject specifically for cancelation. Normally you already have some other observable that you want to use as a cancelation signal. An obvious example is having one command cancel another:
@@ -47,18 +47,18 @@ public class SomeViewModel : ReactiveObject
     {
         this.CancelableCommand = ReactiveCommand
             .CreateFromObservable(
-                () => Observable
-                    .Return(Unit.Default)
-                    .Delay(TimeSpan.FromSeconds(3))
+                () => Signal
+                    .Emit(RxVoid.Default)
+                    .Shift(TimeSpan.FromSeconds(3))
                     .TakeUntil(this.CancelCommand));
         this.CancelCommand = ReactiveCommand.Create(
             () => { },
             this.CancelableCommand.IsExecuting);
     }
 
-    public ReactiveCommand<Unit, Unit> CancelableCommand { get; }
+    public ReactiveCommand<RxVoid, RxVoid> CancelableCommand { get; }
 
-    public ReactiveCommand<Unit, Unit> CancelCommand { get; }
+    public ReactiveCommand<RxVoid, RxVoid> CancelCommand { get; }
 }
 ```
 
@@ -68,7 +68,7 @@ Here we have a view model with a command, `CancelableCommand`, that can be cance
 
 ## Cancelation with the Task Parallel Library
 
-Cancelation in the TPL is handled with `CancellationToken` and `CancellationTokenSource`. Rx operators that provide TPL integration will normally have overloads that will pass you a `CancellationToken` with which to create your `Task`. The idea of these overloads is that the `CancellationToken` you receive will be canceled if the subscription is disposed. So you should pass the token through to all relevant asynchronous operations. `ReactiveCommand` provides similar overloads for `CreateFromTask`.
+Cancelation in the TPL is handled with `CancellationToken` and `CancellationTokenSource`. Operators that work with tasks will normally have overloads that will pass you a `CancellationToken` with which to create your `Task`. The idea of these overloads is that the `CancellationToken` you receive will be canceled if the subscription is disposed. So you should pass the token through to all relevant asynchronous operations. `ReactiveCommand` provides similar overloads for `CreateFromTask`.
 
 Consider the following example:
 
@@ -82,7 +82,7 @@ public class SomeViewModel : ReactiveObject
                 ct => this.DoSomethingAsync(ct));
     }
 
-    public ReactiveCommand<Unit, Unit> CancelableCommand { get; }
+    public ReactiveCommand<RxVoid, RxVoid> CancelableCommand { get; }
 
     private async Task DoSomethingAsync(CancellationToken ct)
     {
@@ -113,7 +113,7 @@ But what if we want to cancel the execution based on an external factor, just as
 
 Besides forgoing TPL completely \(which is recommended if possible, but not always practical\), there are actually quite a few ways to achieve this. Perhaps the easiest is to use `CreateFromObservable` instead:
 
-Ideally avoid using `Observable.FromAsync` with a cancelation token as Exceptions do not bubble as expected, Replace any calls that use this with a ReactiveCommand and initialise it with the `ReactiveCommand.CreateFromTask(async (ct) =>{});` method.
+Ideally avoid using `Signal.FromAsync` with a cancelation token as Exceptions do not bubble as expected, Replace any calls that use this with a ReactiveCommand and initialise it with the `ReactiveCommand.CreateFromTask(async (ct) =>{});` method.
 
 ```cs
 public class SomeViewModel : ReactiveObject
@@ -149,11 +149,11 @@ public class SomeViewModel : ReactiveObject
             .Subscribe(ex => Console.Out.WriteLine("DoSomethingCommand threw:" + ex.Message));
     }
 
-    public ReactiveCommand<Unit, Unit> CancelableCommand { get; }
+    public ReactiveCommand<RxVoid, RxVoid> CancelableCommand { get; }
 
-    public ReactiveCommand<Unit, Unit> DoSomethingCommand { get; }
+    public ReactiveCommand<RxVoid, RxVoid> DoSomethingCommand { get; }
 
-    public ReactiveCommand<Unit, Unit> CancelCommand { get; }
+    public ReactiveCommand<RxVoid, RxVoid> CancelCommand { get; }
 
     private async Task DoSomethingAsync(CancellationToken ct)
     {
@@ -162,4 +162,4 @@ public class SomeViewModel : ReactiveObject
 }
 ```
 
-This approach allows us to use exactly the same technique as with the pure Rx solution discussed above. The difference is that our observable pipeline includes execution of TPL-based asychronous code.
+This approach allows us to use exactly the same technique as with the stream-only solution discussed above. The difference is that our observable pipeline includes execution of TPL-based asychronous code.

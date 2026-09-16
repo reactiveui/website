@@ -18,6 +18,7 @@ ReactiveUI is a collection of around 15 actively maintained projects under the [
 | Repository | Description |
 |---|---|
 | [ReactiveUI](https://github.com/reactiveui/ReactiveUI) | Core framework — ReactiveObject, ReactiveCommand, bindings |
+| [Primitives](https://github.com/reactiveui/Primitives) | Streams, operators, sequencers and extension helpers that ReactiveUI is built on |
 | [splat](https://github.com/reactiveui/splat) | Cross-platform utilities and service location |
 | [DynamicData](https://github.com/reactivemarbles/DynamicData) | Reactive collections |
 | [ReactiveUI.Validation](https://github.com/reactiveui/ReactiveUI.Validation) | Validation helpers |
@@ -26,7 +27,6 @@ ReactiveUI is a collection of around 15 actively maintained projects under the [
 | [refit](https://github.com/reactiveui/refit) | Type-safe REST client |
 | [Sextant](https://github.com/reactiveui/Sextant) | View-model first navigation |
 | [Fusillade](https://github.com/reactiveui/Fusillade) | HTTP request prioritisation for mobile |
-| [Extensions](https://github.com/reactiveui/Extensions) | High-value Rx operators |
 | [actions-common](https://github.com/reactiveui/actions-common) | Shared CI workflows and GitHub Actions |
 
 ## Where to ask questions

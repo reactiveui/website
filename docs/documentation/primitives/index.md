@@ -70,7 +70,8 @@ each one.
 | [Utility](utility.md) | Subscribing, choosing where code runs, peeking at values, and cleaning up. |
 | [Sharing one subscription](sharing.md) | Letting several subscribers share one run of a stream, and keeping a current value. |
 | [Signals you push values into](signals.md) | `Signal<T>` and the other signals: remembering values, many threads, commands and cancellable work. |
-| [Sequencers and scheduling](scheduling.md) | Choosing where and when work runs, UI thread sequencers, and testing with a virtual clock. |
+| [Sequencers and scheduling](scheduling.md) | Choosing where and when work runs, and testing with a virtual clock. |
+| [UI platforms](platforms.md) | Updating the screen from a stream on WPF, WinForms, WinUI, Avalonia, MAUI, Blazor, Android and Apple. |
 | [Disposables](disposables.md) | Grouping subscriptions, swapping the latest one, and disposing each exactly once. |
 | [ReactiveUI.Primitives and System.Reactive](system-reactive.md) | Names, types and behaviour that differ, AOT and speed, and using both together. |
 | [Best practices](best-practices.md) | Habits that avoid leaks, frozen screens and slow tests. |

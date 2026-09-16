@@ -89,7 +89,7 @@ Or use Visual Studio:
 <PackageReference Include="Microsoft.Maui.Controls" Version="*" />
 <PackageReference Include="ReactiveUI.Maui" Version="*" />
 <PackageReference Include="ReactiveUI.SourceGenerators" Version="*" PrivateAssets="all" />
-<PackageReference Include="ReactiveMarbles.ObservableEvents.SourceGenerator" Version="*" PrivateAssets="all" />
+<PackageReference Include="ReactiveUI.Primitives.ObservableEvents" Version="*" PrivateAssets="all" />
 ```
 
 ### Step 3: Migrate Application Setup

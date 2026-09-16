@@ -53,7 +53,7 @@ Access platform-specific APIs reactively:
 
 ```csharp
 // Geolocation
-Observable.FromAsync(() => Geolocation.GetLocationAsync())
+Signal.FromAsync(() => Geolocation.GetLocationAsync())
     .Subscribe(location => CurrentLocation = location);
 
 // Connectivity

@@ -35,6 +35,9 @@
     "ReactiveMarbles.SourceGenerator.TestNuGetHelper",
     "ReactiveUI.Binding.Analyzer",
     "ReactiveUI.Binding.SourceGenerators",
+    "ReactiveUI.Disposables",
+    "ReactiveUI.Extensions",
+    "ReactiveUI.Primitives",
     "ReactiveUI.SourceGenerators",
     "SextantSample.",
     "Splat.DependencyInjection."

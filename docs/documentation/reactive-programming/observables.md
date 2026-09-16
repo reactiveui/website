@@ -1,277 +1,233 @@
-# Observables Introduction
+# Streams in ReactiveUI
 
-## What are Observables?
+A ReactiveUI app mostly works with streams it did not build by hand: a property that changes, a command that runs, a
+task that finishes. This page shows where those streams come from, what they send, and how to clean them up. For
+streams in general, see the [Primitives overview](../primitives/index.md).
 
-An **Observable** is a stream of data that can emit multiple values over time. Think of it as a promise that can return multiple values instead of just one. Observables are the foundation of reactive programming and ReactiveUI.
-
-## Key Concepts
-
-### Observable Streams
-
-An observable stream represents a sequence of values that arrive over time:
+The examples use these namespaces:
 
 ```csharp
-// A stream of button clicks
-button.Events().Click
-    .Subscribe(click => Console.WriteLine("Button clicked!"));
-
-// A stream of text changes
-textBox.Events().TextChanged
-    .Select(e => e.EventArgs.Text)
-    .Subscribe(text => Console.WriteLine($"Text: {text}"));
+using ReactiveUI;
+using ReactiveUI.Primitives;
+using ReactiveUI.Primitives.Signals;
 ```
 
-### Push vs Pull
+## Your first stream from a property
 
-Traditional collections are **pull-based** - you request data when you need it:
+A `ReactiveObject` raises `PropertyChanged` whenever a property set with `RaiseAndSetIfChanged` changes.
+`WhenAnyValue` turns that into a stream of the property's values.
 
 ```csharp
-// Pull-based (traditional)
-var items = GetItems();
-foreach (var item in items)
+public sealed class PersonViewModel : ReactiveObject
 {
-    Process(item);
+    private string _firstName = "";
+    private string _lastName = "";
+
+    public string FirstName { get => _firstName; set => this.RaiseAndSetIfChanged(ref _firstName, value); }
+
+    public string LastName { get => _lastName; set => this.RaiseAndSetIfChanged(ref _lastName, value); }
 }
 ```
 
-Observables are **push-based** - data is pushed to you when available:
+**1. Ask for the properties you care about.** Give `WhenAnyValue` one lambda per property, and a last lambda that
+combines their values.
+
+**2. Subscribe.** Your callback runs with the current value straight away, then again after every change.
 
 ```csharp
-// Push-based (reactive)
-GetItemsAsync()
-    .Subscribe(item => Process(item));
+var person = new PersonViewModel();
+
+person.WhenAnyValue(x => x.FirstName, x => x.LastName, (first, last) => $"{first} {last}")
+      .Subscribe(fullName => Console.WriteLine(fullName));
+
+person.FirstName = "Ada";
+person.LastName = "Lovelace";
 ```
 
-## Creating Observables
+Output, where the first line is a single space:
 
-### From Events
-
-```csharp
-using ReactiveMarbles.ObservableEvents;
-
-// Convert events to observables
-var clicks = button.Events().Click;
-var textChanges = textBox.Events().TextChanged;
+```text
+ 
+Ada 
+Ada Lovelace
 ```
 
-### From Property Changes
+## Other places streams come from
+
+| Source | Stream |
+|---|---|
+| A property | `WhenAnyValue`. See [WhenAny](../handbook/when-any.md). |
+| A command | `ReactiveCommand` is a stream of its results, and `IsExecuting` and `ThrownExceptions` are streams too. See [commands](../handbook/commands/index.md). |
+| An event | `Events()` from the [observable events generator](../handbook/observable-events/index.md), or [`Signal.FromEvent`](../primitives/creation-factories.md#from-an-event). |
+| A task | [`Signal.FromAsync`](../primitives/creation-factories.md). |
+| A value you push yourself | [`Signal<T>`](../primitives/signals.md) and the other signals. |
+| A rule or a timer | [Creation factories](../primitives/creation-factories.md) such as `Signal.Range`, `Signal.Every` and `Signal.Create`. |
+
+`Signal.FromAsync` runs a task when you subscribe, and hands it a `CancellationToken` that cancels when you dispose:
 
 ```csharp
-// Watch a property
-this.WhenAnyValue(x => x.SearchText)
-    .Subscribe(text => Console.WriteLine($"Search: {text}"));
+Signal.FromAsync(token => LoadGreetingAsync(token))
+      .Subscribe(greeting => Console.WriteLine(greeting));
 
-// Watch multiple properties
-this.WhenAnyValue(
-        x => x.FirstName,
-        x => x.LastName,
-        (first, last) => $"{first} {last}")
-    .Subscribe(fullName => Console.WriteLine(fullName));
-```
-
-### From Tasks
-
-```csharp
-// Convert async operations to observables
-Observable.FromAsync(() => LoadDataAsync())
-    .Subscribe(data => DisplayData(data));
-```
-
-### From Collections
-
-```csharp
-// Create from enumerable
-Observable.Range(1, 10)
-    .Subscribe(n => Console.WriteLine(n));
-
-// Create from values
-Observable.Return(42)
-    .Subscribe(value => Console.WriteLine(value));
-
-// Create from multiple values
-Observable.Create<int>(observer =>
+static async Task<string> LoadGreetingAsync(CancellationToken token)
 {
-    observer.OnNext(1);
-    observer.OnNext(2);
-    observer.OnNext(3);
-    observer.OnCompleted();
-    return Disposable.Empty;
-});
-```
-
-## Observable Lifecycle
-
-### OnNext
-
-Emits a value in the stream:
-
-```csharp
-observable.Subscribe(
-    value => Console.WriteLine($"Next: {value}"));
-```
-
-### OnError
-
-Signals an error has occurred:
-
-```csharp
-observable.Subscribe(
-    value => Console.WriteLine($"Next: {value}"),
-    error => Console.WriteLine($"Error: {error.Message}"));
-```
-
-### OnCompleted
-
-Signals the stream has finished:
-
-```csharp
-observable.Subscribe(
-    value => Console.WriteLine($"Next: {value}"),
-    error => Console.WriteLine($"Error: {error.Message}"),
-    () => Console.WriteLine("Completed"));
-```
-
-## Hot vs Cold Observables
-
-### Cold Observables
-
-Start producing values when subscribed to:
-
-```csharp
-// Each subscription gets its own sequence
-var cold = Observable.Range(1, 5);
-
-cold.Subscribe(x => Console.WriteLine($"Sub1: {x}"));
-cold.Subscribe(x => Console.WriteLine($"Sub2: {x}"));
-
-// Output:
-// Sub1: 1, Sub1: 2, Sub1: 3, Sub1: 4, Sub1: 5
-// Sub2: 1, Sub2: 2, Sub2: 3, Sub2: 4, Sub2: 5
-```
-
-### Hot Observables
-
-Share a single execution among all subscribers:
-
-```csharp
-// All subscribers share the same sequence
-var hot = Observable.Interval(TimeSpan.FromSeconds(1))
-    .Publish();
-
-hot.Subscribe(x => Console.WriteLine($"Sub1: {x}"));
-Thread.Sleep(2000);
-hot.Subscribe(x => Console.WriteLine($"Sub2: {x}"));
-
-hot.Connect(); // Start emitting
-```
-
-## Subscription and Disposal
-
-### Basic Subscription
-
-```csharp
-var subscription = observable.Subscribe(
-    value => Console.WriteLine(value));
-
-// Cleanup
-subscription.Dispose();
-```
-
-### Using WhenActivated
-
-In ReactiveUI, always use `WhenActivated` for automatic disposal:
-
-```csharp
-this.WhenActivated(disposables =>
-{
-    this.WhenAnyValue(x => x.SearchText)
-        .Subscribe(text => UpdateResults(text))
-        .DisposeWith(disposables);
-});
-```
-
-## Common Patterns
-
-### Throttling User Input
-
-```csharp
-searchBox.Events().TextChanged
-    .Throttle(TimeSpan.FromMilliseconds(300))
-    .Select(e => e.EventArgs.Text)
-    .DistinctUntilChanged()
-    .Subscribe(text => PerformSearch(text));
-```
-
-### Combining Streams
-
-```csharp
-var firstName = this.WhenAnyValue(x => x.FirstName);
-var lastName = this.WhenAnyValue(x => x.LastName);
-
-firstName.CombineLatest(lastName, (f, l) => $"{f} {l}")
-    .Subscribe(fullName => DisplayName = fullName);
-```
-
-### Handling Errors
-
-```csharp
-observable
-    .Catch<int, Exception>(ex => Observable.Return(-1))
-    .Subscribe(value => Console.WriteLine(value));
-```
-
-## Best Practices
-
-1. **Always Dispose**: Prevent memory leaks by disposing subscriptions
-2. **Use WhenActivated**: Let ReactiveUI manage lifecycle
-3. **Avoid Blocking**: Don't use `.Wait()` or `.Result` on observables
-4. **Handle Errors**: Always provide error handlers
-5. **Be Mindful of Threads**: Use schedulers for thread management
-
-## Schedulers
-
-Control where work happens:
-
-```csharp
-// Background work
-Observable.Start(() => ExpensiveOperation(), RxSchedulers.TaskpoolScheduler)
-    .ObserveOn(RxSchedulers.MainThreadScheduler)
-    .Subscribe(result => UpdateUI(result));
-```
-
-## Testing Observables
-
-```csharp
-[Fact]
-public void TestObservableSequence()
-{
-    var scheduler = new TestScheduler();
-    
-    var source = scheduler.CreateHotObservable(
-        OnNext(100, 1),
-        OnNext(200, 2),
-        OnNext(300, 3),
-        OnCompleted<int>(400));
-    
-    var results = scheduler.Start(() => source, 0, 0, 500);
-    
-    results.Messages.AssertEqual(
-        OnNext(100, 1),
-        OnNext(200, 2),
-        OnNext(300, 3),
-        OnCompleted<int>(400));
+    await Task.Delay(10, token);
+    return "hello from a task";
 }
 ```
 
-## Resources
+Output:
 
-- [ReactiveX Documentation](http://reactivex.io/)
-- [Intro to Rx](http://introtorx.com/)
-- [ReactiveUI Documentation](../index.md)
-- [Operators Guide](operators.md)
+```text
+hello from a task
+```
 
-## Related Topics
+## Values, completion and failure
 
-- [Operators](operators.md)
-- [Testing](../handbook/testing.md)
-- [Scheduling](../handbook/scheduling.md)
+`Subscribe` takes up to three lambdas: one for each value, one for a failure, and one for completion. A stream that
+fails or completes sends nothing after that.
+
+```csharp
+Signal.Range(1, 2).Subscribe(
+    value => Console.WriteLine($"value: {value}"),
+    error => Console.WriteLine($"failed: {error.Message}"),
+    () => Console.WriteLine("completed"));
+
+Signal.Fail<int>(new InvalidOperationException("no network")).Subscribe(
+    value => Console.WriteLine($"value: {value}"),
+    error => Console.WriteLine($"failed: {error.Message}"));
+```
+
+Output:
+
+```text
+value: 1
+value: 2
+completed
+failed: no network
+```
+
+Always handle failure for a stream that can fail. With no failure lambda, the exception is thrown on whatever thread
+sent it. For a command, subscribe to `ThrownExceptions` instead. See [error handling](../primitives/error-handling.md).
+
+## Cold and hot streams
+
+A **cold** stream starts again for each subscriber. `Signal.Range` is cold, so each subscriber gets every value:
+
+```csharp
+IObservable<int> cold = Signal.Range(1, 2);
+
+cold.Subscribe(x => Console.WriteLine($"first: {x}"));
+cold.Subscribe(x => Console.WriteLine($"second: {x}"));
+```
+
+Output:
+
+```text
+first: 1
+first: 2
+second: 1
+second: 2
+```
+
+A **hot** stream runs whether or not anyone listens. A subscriber only sees what happens after it subscribes.
+Property changes, events and a `Signal<T>` are hot:
+
+```csharp
+var hot = new Signal<int>();
+
+hot.Subscribe(x => Console.WriteLine($"early: {x}"));
+hot.OnNext(1);
+
+hot.Subscribe(x => Console.WriteLine($"late: {x}"));
+hot.OnNext(2);
+```
+
+Output:
+
+```text
+early: 1
+early: 2
+late: 2
+```
+
+To let several subscribers share one run of a cold stream, see [sharing one subscription](../primitives/sharing.md).
+
+## Cleaning up
+
+Every subscription holds on to its callback until you dispose it. A view model that subscribes to a longer-lived
+object, and never disposes, is never freed.
+
+In a view model, implement `IActivatableViewModel` and subscribe inside `WhenActivated`. Add each subscription to the
+`MultipleDisposable` it hands you with `DisposeWith`. ReactiveUI disposes them all when the view deactivates.
+
+```csharp
+public sealed class DashboardViewModel : ReactiveObject, IActivatableViewModel
+{
+    public DashboardViewModel()
+    {
+        this.WhenActivated(disposables =>
+        {
+            Refreshes.Subscribe(_ => Console.WriteLine("refreshing"))
+                     .DisposeWith(disposables);
+        });
+    }
+
+    public ViewModelActivator Activator { get; } = new();
+
+    public Signal<RxVoid> Refreshes { get; } = new();
+}
+```
+
+```csharp
+var dashboard = new DashboardViewModel();
+
+dashboard.Activator.Activate();
+dashboard.Refreshes.OnNext(RxVoid.Default);
+
+dashboard.Activator.Deactivate();
+dashboard.Refreshes.OnNext(RxVoid.Default);
+```
+
+Output:
+
+```text
+refreshing
+```
+
+The second value arrives after deactivation, so nothing prints. `RxVoid` is a value that carries no data, for a stream
+where only the fact that something happened matters. See [WhenActivated](../handbook/when-activated.md) and
+[disposables](../primitives/disposables.md).
+
+## Threads
+
+Work can move off the UI thread, but the screen can only change on it. Run slow work on
+`RxSchedulers.TaskpoolScheduler`, then use `WitnessOn(RxSchedulers.MainThreadScheduler)` before the callback that
+touches the screen:
+
+```csharp
+Signal.Start(() => 6 * 7, RxSchedulers.TaskpoolScheduler)
+      .WitnessOn(RxSchedulers.MainThreadScheduler)
+      .Subscribe(result => Console.WriteLine($"result: {result}"));
+```
+
+Output:
+
+```text
+result: 42
+```
+
+See [scheduling](../handbook/scheduling.md) and [UI platforms](../primitives/platforms.md).
+
+## Testing
+
+Streams that wait, such as a search that waits for typing to stop, are slow to test in real time. Pass a
+`VirtualClock` to the operators that wait, and move time forward yourself. See
+[testing with a virtual clock](../primitives/scheduling.md#testing-with-a-virtual-clock) and
+[testing](../handbook/testing.md).
+
+## Related topics
+
+- [Operators in ReactiveUI](operators.md)
+- [Why Primitives](../primitives/why-primitives.md)
+- [Best practices](../primitives/best-practices.md)

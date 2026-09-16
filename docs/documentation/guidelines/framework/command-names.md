@@ -45,12 +45,12 @@ When creating commands manually (without source generators), **suffix command pr
 
 ```csharp
 using ReactiveUI;
-using System.Reactive;
+using ReactiveUI.Primitives;
 
 public class MyViewModel : ReactiveObject
 {
     // Property name includes 'Command' suffix
-    public ReactiveCommand<Unit, Unit> SynchronizeCommand { get; }
+    public ReactiveCommand<RxVoid, RxVoid> SynchronizeCommand { get; }
     
     public MyViewModel()
     {
@@ -76,14 +76,14 @@ Use verbs that describe the command's action, with `Command` suffix:
 
 ```csharp
 // Good ?
-public ReactiveCommand<Unit, Unit> SaveCommand { get; }
-public ReactiveCommand<Unit, Unit> DeleteCommand { get; }
-public ReactiveCommand<Unit, Unit> RefreshCommand { get; }
-public ReactiveCommand<string, Unit> SearchCommand { get; }
+public ReactiveCommand<RxVoid, RxVoid> SaveCommand { get; }
+public ReactiveCommand<RxVoid, RxVoid> DeleteCommand { get; }
+public ReactiveCommand<RxVoid, RxVoid> RefreshCommand { get; }
+public ReactiveCommand<string, RxVoid> SearchCommand { get; }
 
 // Avoid ?
-public ReactiveCommand<Unit, Unit> Save { get; }  // Missing 'Command' suffix
-public ReactiveCommand<Unit, Unit> PerformSave { get; }  // Unclear naming
+public ReactiveCommand<RxVoid, RxVoid> Save { get; }  // Missing 'Command' suffix
+public ReactiveCommand<RxVoid, RxVoid> PerformSave { get; }  // Unclear naming
 ```
 
 ### Using Legacy Implementation Method Names
@@ -121,7 +121,7 @@ public partial class MainViewModel : ReactiveObject
     [Reactive]
     private string _searchText = string.Empty;
     
-    // Generates: public ReactiveCommand<Unit, Unit> SearchCommand { get; }
+    // Generates: public ReactiveCommand<RxVoid, RxVoid> SearchCommand { get; }
     [ReactiveCommand]
     private async Task Search()
     {
@@ -136,7 +136,7 @@ public partial class MainViewModel : ReactiveObject
 ```csharp
 public partial class ItemViewModel : ReactiveObject
 {
-    // Generates: public ReactiveCommand<Item, Unit> DeleteItemCommand { get; }
+    // Generates: public ReactiveCommand<Item, RxVoid> DeleteItemCommand { get; }
     [ReactiveCommand]
     private async Task DeleteItem(Item item)
     {
@@ -160,7 +160,7 @@ public partial class EditViewModel : ReactiveObject
         _canSave = this.WhenAnyValue(x => x.IsValid);
     }
     
-    // Generates: public ReactiveCommand<Unit, Unit> SaveCommand { get; }
+    // Generates: public ReactiveCommand<RxVoid, RxVoid> SaveCommand { get; }
     [ReactiveCommand(CanExecute = nameof(_canSave))]
     private async Task Save()
     {
@@ -175,9 +175,9 @@ public partial class EditViewModel : ReactiveObject
 public class LegacyViewModel : ReactiveObject
 {
     // When not using source generators, explicitly include 'Command' suffix
-    public ReactiveCommand<Unit, Unit> LoadDataCommand { get; }
-    public ReactiveCommand<string, Unit> FilterCommand { get; }
-    public ReactiveCommand<Unit, Unit> ClearCommand { get; }
+    public ReactiveCommand<RxVoid, RxVoid> LoadDataCommand { get; }
+    public ReactiveCommand<string, RxVoid> FilterCommand { get; }
+    public ReactiveCommand<RxVoid, RxVoid> ClearCommand { get; }
     
     public LegacyViewModel()
     {

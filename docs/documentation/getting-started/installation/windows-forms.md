@@ -11,7 +11,7 @@ Install the following packages for ReactiveUI with Windows Forms:
 <!-- In your Windows Forms application project -->
 <PackageReference Include="ReactiveUI.WinForms" Version="*" />
 <PackageReference Include="ReactiveUI.SourceGenerators" Version="*" PrivateAssets="all" />
-<PackageReference Include="ReactiveMarbles.ObservableEvents.SourceGenerator" Version="*" PrivateAssets="all" />
+<PackageReference Include="ReactiveUI.Primitives.ObservableEvents" Version="*" PrivateAssets="all" />
 
 <!-- In your shared library -->
 <PackageReference Include="ReactiveUI" Version="*" />
@@ -87,7 +87,7 @@ Use ReactiveUI.SourceGenerators for cleaner, compile-time generated reactive pro
 ```csharp
 using ReactiveUI;
 using ReactiveUI.SourceGenerators;
-using System.Reactive.Linq;
+using ReactiveUI.Primitives;
 
 namespace MyCoolApp.ViewModels;
 
@@ -113,7 +113,7 @@ public partial class MainViewModel : ReactiveObject
             this.WhenAnyValue(x => x.SearchText, text => !string.IsNullOrWhiteSpace(text)));
 
         ClearCommand = ReactiveCommand.Create(
-            () => SearchText = string.Empty);
+            () => { SearchText = string.Empty; });
 
         // Wire up IsBusy from command execution
         SearchCommand.IsExecuting
@@ -125,7 +125,7 @@ public partial class MainViewModel : ReactiveObject
 
         // React to search text changes with debouncing
         this.WhenAnyValue(x => x.SearchText)
-            .Throttle(TimeSpan.FromMilliseconds(500))
+            .Calm(TimeSpan.FromMilliseconds(500))
             .Where(text => !string.IsNullOrWhiteSpace(text))
             .InvokeCommand(SearchCommand);
 
@@ -143,8 +143,8 @@ public partial class MainViewModel : ReactiveObject
         return new List<SearchResult>();
     }
 
-    public ReactiveCommand<Unit, List<SearchResult>> SearchCommand { get; }
-    public ReactiveCommand<Unit, Unit> ClearCommand { get; }
+    public ReactiveCommand<RxVoid, List<SearchResult>> SearchCommand { get; }
+    public ReactiveCommand<RxVoid, RxVoid> ClearCommand { get; }
 }
 ```
 
@@ -455,7 +455,7 @@ public MainViewModel()
 - **Use ReactiveUI.SourceGenerators** for cleaner property and command declarations
 - **Use RxAppBuilder** for modern dependency injection and platform setup
 - **Always call DisposeWith(disposables)** inside WhenActivated to prevent memory leaks
-- **Use ReactiveMarbles.ObservableEvents.SourceGenerator** for converting Windows Forms events to observables
+- **Use ReactiveUI.Primitives.ObservableEvents** for converting Windows Forms events to observables
 
 ## Common Patterns
 
@@ -529,7 +529,7 @@ public MainForm()
 this.WhenActivated(disposables =>
 {
     // Convert FormClosing event to observable
-    Observable.FromEventPattern<FormClosingEventHandler, FormClosingEventArgs>(
+    Signal.FromEventPattern<FormClosingEventHandler, FormClosingEventArgs>(
         h => this.FormClosing += h,
         h => this.FormClosing -= h)
         .Subscribe(e =>

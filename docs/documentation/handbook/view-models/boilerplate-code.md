@@ -191,7 +191,7 @@ public partial class MyReactiveClass : ReactiveObject
             .ToProperty(this, x => x.MyProperty);
     }
 
-    IObservable<string> MyPropertyObservable() => Observable.Return("Test Value");
+    IObservable<string> MyPropertyObservable() => Signal.Emit("Test Value");
 }
 ```
 
@@ -212,7 +212,7 @@ public partial class MyReactiveClass : ReactiveObject
     }
 
     [ObservableAsProperty]
-    IObservable<string> MyObservable => Observable.Return("Test Value");
+    IObservable<string> MyObservable => Signal.Emit("Test Value");
 }
 ```
 
@@ -233,7 +233,7 @@ public partial class MyReactiveClass : ReactiveObject
     }
 
     [ObservableAsProperty(PropertyName = "TestValueProperty")]
-    IObservable<string> MyObservable => Observable.Return("Test Value");
+    IObservable<string> MyObservable => Signal.Emit("Test Value");
 }
 ```
 
@@ -252,7 +252,7 @@ public partial class MyReactiveClass : ReactiveObject
             .ToProperty(this, x => x.MyProperty);
     }
 
-    IObservable<string> MyPropertyObservable() => Observable.Return("Test Value");
+    IObservable<string> MyPropertyObservable() => Signal.Emit("Test Value");
 }
 ```
 
@@ -272,7 +272,7 @@ public partial class MyReactiveClass : ReactiveObject
     }
 
     [ObservableAsProperty]
-    IObservable<string> MyObservable() => Observable.Return("Test Value");
+    IObservable<string> MyObservable() => Signal.Emit("Test Value");
 }
 ```
 
@@ -290,7 +290,7 @@ public partial class MyReactiveClass : ReactiveObject
     }
 
     [ObservableAsProperty(PropertyName = "TestValueProperty")]
-    IObservable<string> MyObservable() => Observable.Return("Test Value");
+    IObservable<string> MyObservable() => Signal.Emit("Test Value");
 }
 ```
 
@@ -318,7 +318,7 @@ public partial class MyReactiveClass : ReactiveObject
     [ObservableAsProperty(InitialValue = "Default Value")]
     public string MyProperty { get; }
 
-    public IObservable<string> MyPropertyObservable() => Observable.Return("Test Value");
+    public IObservable<string> MyPropertyObservable() => Signal.Emit("Test Value");
 }
 ```
 
@@ -377,7 +377,7 @@ using ReactiveUI.SourceGenerators;
 public partial class MyReactiveClass
 {
     [ReactiveCommand]
-    private IObservable<string> Execute(string parameter) => Observable.Return(parameter);
+    private IObservable<string> Execute(string parameter) => Signal.Emit(parameter);
 }
 ```
 

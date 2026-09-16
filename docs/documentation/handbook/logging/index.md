@@ -169,7 +169,7 @@ ReactiveUI has several helpers for debugging IObservables. The most
 straightforward one is `Log`, which logs events that happen to an Observable:
 
 ```cs
-// Note: Since Log acts like another Rx operator like Select or Where,
+// Note: Since Log acts like another operator like Select or Where,
 // it won't do anything by itself unless someone Subscribes to it.
 this.WhenAnyValue(x => x.Name)
     .SelectMany(async x => GoogleForTheName(x))
@@ -178,12 +178,12 @@ this.WhenAnyValue(x => x.Name)
 ```
 
 Another useful method to debug Observables is `LoggedCatch`. This method works
-identically to Rx's `Catch` operator, except that it also logs the exception
+identically to the [`Recover`](../../primitives/error-handling.md) operator, except that it also logs the exception
 to the Logger. For example:
 
 ```cs
 var userAvatar = await FetchUserAvatar()
-    .LoggedCatch(this, Observable.Return(default(Avatar)));
+    .LoggedCatch(this, Signal.Emit(default(Avatar)));
 ```
 
 ## Static Logging

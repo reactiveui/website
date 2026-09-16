@@ -35,7 +35,7 @@ public static ObservableAsPropertyHelper<TRet> ToProperty<TObj, TRet>(
     Expression<Func<TObj, TRet>> property,
     TRet initialValue = default,
     bool deferSubscription = false,
-    IScheduler? scheduler = null)
+    ISequencer? scheduler = null)
 ```
 - `initialValue`: Used before the first tick (or when deferring, until subscribed).
 - `deferSubscription`: Subscribe on first property access (lazy).
@@ -51,9 +51,9 @@ _firstName = this
 ```
 
 ## Deferred Subscription
-Delay work until the property is first read. Consider buffering the last value with `Replay(1)` if the source is hot.
+Delay work until the property is first read. Consider buffering the last value with [`ReplayLive(1)`](../primitives/sharing.md) if the source is hot.
 ```csharp
-var status = GetStatus().Replay(1).RefCount();
+var status = GetStatus().ReplayLive(1).AutoShare();
 _status = status.ToProperty(this, nameof(Status), deferSubscription: true);
 ```
 
@@ -75,7 +75,7 @@ public partial class StatusViewModel : ReactiveObject
         _statusHelper = StatusObservable().ToProperty(this, x => x.Status);
     }
 
-    IObservable<string> StatusObservable() => Observable.Return("Ready");
+    IObservable<string> StatusObservable() => Signal.Emit("Ready");
 }
 ```
 

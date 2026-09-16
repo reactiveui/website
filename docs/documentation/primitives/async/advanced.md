@@ -82,18 +82,176 @@ Output:
 2, 4, 6
 ```
 
-`WitnessAsync.DisposeFromNotificationAsync` disposes a witness from inside one of its own callbacks, for an operator
-such as `Take` that ends the stream early.
-
 When two threads call the same witness at the same time, `WitnessAsync` drops the second call and reports a
 `ConcurrentWitnessCallsException` to the [global handler](#unhandledexceptionhandler). A call from the thread already
 inside the witness runs.
 
-### `WitnessAsyncExtensions`
+### Ending the stream early
 
+An operator such as `Take` stops the source before the source is done. Three helpers do that, and let you subscribe
+the witness yourself instead of through `WitnessSubscription`:
+
+- `LinkUpstreamCancellation(token)` cancels the witness when the `CancellationToken` passed to `SubscribeAsync`
+  cancels.
 - `AssignSourceSubscriptionAsync(subscription)` stores the source subscription in the witness state, so disposing the
   witness disposes the subscription too.
-- `LinkUpstreamCancellation(token)` cancels the witness when an outer `CancellationToken` cancels.
+- `WitnessAsync.DisposeFromNotificationAsync` disposes the witness from inside one of its own callbacks.
+
+This operator sends the first two values, completes, and stops the source:
+
+```csharp
+List<int> firstTwo = await new FirstTwoSignal(SignalAsync.Range(1, 10).OnDispose(static () => Console.WriteLine("source stopped")))
+    .ToListAsync();
+
+Console.WriteLine(string.Join(", ", firstTwo));
+
+public sealed class FirstTwoSignal(IObservableAsync<int> source) : IObservableAsync<int>
+{
+    public async ValueTask<IAsyncDisposable> SubscribeAsync(IObserverAsync<int> witness, CancellationToken cancellationToken)
+    {
+        var firstTwo = new FirstTwoWitness(witness);
+        firstTwo.LinkUpstreamCancellation(cancellationToken);
+        await firstTwo.AssignSourceSubscriptionAsync(await source.SubscribeAsync(firstTwo, cancellationToken));
+        return firstTwo;
+    }
+}
+
+public sealed class FirstTwoWitness(IObserverAsync<int> downstream) : IWitnessAsync<int>
+{
+    private WitnessAsyncState _witness;
+    private int _count;
+
+    ref WitnessAsyncState IWitnessState.Witness => ref _witness;
+
+    public ValueTask OnNextAsync(int value, CancellationToken cancellationToken) =>
+        WitnessAsync.OnNextAsync(this, value, cancellationToken);
+
+    public ValueTask OnErrorResumeAsync(Exception error, CancellationToken cancellationToken) =>
+        WitnessAsync.OnErrorResumeAsync(this, error, cancellationToken);
+
+    public ValueTask OnCompletedAsync(Result result) => WitnessAsync.OnCompletedAsync(this, result);
+
+    public ValueTask DisposeAsync() => WitnessAsync.DisposeStateAsync(this);
+
+    async ValueTask IWitnessAsync<int>.OnNextAsyncCore(int value, CancellationToken cancellationToken)
+    {
+        await downstream.OnNextAsync(value, cancellationToken);
+
+        if (++_count == 2)
+        {
+            await downstream.OnCompletedAsync(Result.Success);
+            await WitnessAsync.DisposeFromNotificationAsync(this);
+        }
+    }
+
+    ValueTask IWitnessAsync<int>.OnErrorResumeAsyncCore(Exception error, CancellationToken cancellationToken) =>
+        downstream.OnErrorResumeAsync(error, cancellationToken);
+
+    ValueTask IWitnessAsync<int>.OnCompletedAsyncCore(Result result) => downstream.OnCompletedAsync(result);
+}
+```
+
+Output:
+
+```text
+source stopped
+1, 2
+```
+
+The source would have sent ten values. It stopped after two.
+
+## Combining the latest values yourself
+
+[`SyncLatest`](combination.md) sends a result built from the latest value of each source, once every source has sent
+one. It runs on a **coordinator**: an `ISyncLatestCoordinator<TResult>` that holds one **slot** per source, and builds
+the result when asked. The built-in coordinators take up to ten sources of different types. Write your own to combine
+any number of sources.
+
+A coordinator has three parts:
+
+- `Lifecycle`, a `SyncLatestLifecycle<TResult>`. It holds the subscriptions, sends results on, and completes the stream
+  when every source has completed.
+- `SubscribeAtAsync(index, token)`, which subscribes the source for one slot. `SubscribeToSlotAsync` does the work:
+  it records each value with your lambda, and asks the coordinator for a result after each one.
+- `EmitLatestAsync`, which builds the result and passes it to `Lifecycle.EmitDownstreamAsync`. Return without sending
+  while any slot is still empty.
+
+`SubscribeSourcesAsync` subscribes every slot in order. If it throws, dispose the coordinator, so the sources already
+subscribed stop.
+
+This operator sends the sum of the latest value from any number of `int` streams:
+
+```csharp
+var morning = Signal.CreateBehavior(2);
+var afternoon = Signal.CreateBehavior(5);
+var evening = Signal.CreateBehavior(1);
+
+await using (await new SumLatestSignal([morning, afternoon, evening])
+                 .SubscribeAsync(static total => Console.WriteLine($"total: {total}")))
+{
+    await afternoon.OnNextAsync(7, CancellationToken.None);
+}
+
+public sealed class SumLatestSignal(IObservableAsync<int>[] sources) : IObservableAsync<int>
+{
+    public async ValueTask<IAsyncDisposable> SubscribeAsync(IObserverAsync<int> witness, CancellationToken cancellationToken)
+    {
+        var coordinator = new SumLatestCoordinator(witness, sources);
+        coordinator.Lifecycle.LinkExternalCancellation(cancellationToken);
+
+        try
+        {
+            await coordinator.SubscribeSourcesAsync(cancellationToken);
+        }
+        catch
+        {
+            await coordinator.DisposeAsync();
+            throw;
+        }
+
+        return coordinator;
+    }
+}
+
+public sealed class SumLatestCoordinator(IObserverAsync<int> witness, IObservableAsync<int>[] sources) : ISyncLatestCoordinator<int>
+{
+    private readonly Optional<int>[] _latest = new Optional<int>[sources.Length];
+
+    public SyncLatestLifecycle<int> Lifecycle { get; } = new(witness, sources.Length);
+
+    public ValueTask<IAsyncDisposable> SubscribeAtAsync(int index, CancellationToken cancellationToken) =>
+        sources[index].SubscribeToSlotAsync(this, index, value => _latest[index] = Optional.Some(value), cancellationToken);
+
+    public ValueTask EmitLatestAsync()
+    {
+        var total = 0;
+        foreach (var slot in _latest)
+        {
+            if (!slot.TryGetValue(out var value))
+            {
+                return default;
+            }
+
+            total += value;
+        }
+
+        return Lifecycle.EmitDownstreamAsync(total);
+    }
+
+    public ValueTask DisposeAsync() => Lifecycle.DisposeAsync();
+}
+```
+
+Output:
+
+```text
+total: 8
+total: 10
+```
+
+`SubscribeToSlotAsync` subscribes the witness that `SyncLatestSlot.CreateWitness` builds. Call `CreateWitness` yourself
+when you need to hold the witness before you subscribe it. A slot index outside the coordinator's sources throws
+`ArgumentOutOfRangeException`.
 
 ### Other building blocks
 
@@ -101,7 +259,6 @@ inside the witness runs.
 |---|---|
 | `TaskSignalSubscription<T>` and `TaskSignalSubscription.StartNew` | Runs an async job that sends to a witness, and cancels the job when disposed. The type behind `CreateAsBackgroundJob`. |
 | `TaskResultCompletionSource<T>` | Completes the `ValueTask<T>` of a terminal operator such as `FirstAsync`, and disposes the subscription as it does. |
-| `ISyncLatestCoordinator<TResult>`, `SyncLatestSlot`, `SyncLatestCoordinatorExtensions` | The coordinator behind `SyncLatest`: one slot per source, and a method that sends when every slot has a value. |
 | `Result` | How a stream ended. `IsSuccess`, `IsFailure`, `Exception`, `Result.Success`, `Result.Failure(exception)`, and `TryThrow()`. |
 
 `TaskSignalSubscription.StartNew` in action:
@@ -302,10 +459,13 @@ Output:
 | `IWitnessAsync<T>`, `WitnessAsyncState`, `IWitnessState` | The contract for a witness of your own. |
 | `WitnessAsync.OnNextAsync` / `OnErrorResumeAsync` / `OnCompletedAsync` / `DisposeStateAsync` / `DisposeFromNotificationAsync` | Safe forwarding for a witness. |
 | `WitnessAsyncExtensions.AssignSourceSubscriptionAsync` / `LinkUpstreamCancellation` | Links a witness to its source and to outer cancellation. |
+| `ISyncLatestCoordinator<TResult>`, `SyncLatestLifecycle<TResult>` | A coordinator that combines the latest value of each source. |
+| `SubscribeSourcesAsync` | Subscribes every slot of a coordinator. |
+| `SubscribeToSlotAsync` | Subscribes one source to a coordinator's slot. |
+| `SyncLatestSlot.CreateWitness` | Builds the witness for one slot. |
 | `WitnessSubscription.SubscribeAsync` | Subscribes a witness and hands it back as the handle. |
 | `TaskSignalSubscription.StartNew` | Runs a job that sends to a witness. |
 | `TaskResultCompletionSource<T>` | Completes a terminal operator's result. |
-| `SyncLatestSlot.CreateWitness`, `SyncLatestCoordinatorExtensions` | Parts of `SyncLatest`. |
 | `DisposableAsync.Create` | An `IAsyncDisposable` from a method. |
 | `DisposableAsyncSlot` | A field holding an `IAsyncDisposable`. |
 | `ToDisposableAsync` | An `IDisposable` as an `IAsyncDisposable`. |
