@@ -84,5 +84,3 @@ Every type ships twice. `ReactiveUI.Primitives` is the lean build with no depend
 `ReactiveUI.Primitives.Reactive` is the same source compiled against System.Reactive, and its types sit
 under `ReactiveUI.Primitives.Reactive`. Pick the lean package unless your app must share System.Reactive types
 with other code. See [using both libraries together](system-reactive.md#using-both-libraries-together).
-
-The full type list is in the [API reference](../../api/index.md).

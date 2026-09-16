@@ -177,5 +177,6 @@ subjects and stateful signals, sequencers and scheduling, disposables, and the a
 - All eight async TFM baselines are identical, so the async pages need no per-framework notes.
 - Eight platform sequencers ship: WPF, WinForms, WinUI, Avalonia, MAUI, Blazor, Android (`HandlerSequencer`)
   and Apple (`NSRunloopSequencer`). The Android and Apple ones appear only in their own TFM baselines.
-- `ReactiveUI.Primitives` is published to NuGet and `nuget-packages.json` already fetches it, so the API
-  reference covers it. Link into `/api/` rather than restating a signature list.
+- `nuget-packages.json` excludes the `ReactiveUI.Primitives*`, `ReactiveUI.Disposables` and `ReactiveUI.Extensions`
+  packages from the API reference, to keep the site under the hosting page limit. The pages under
+  `docs/documentation/primitives/` are the reference for them, so never link into `/api/` for a Primitives type.
