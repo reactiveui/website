@@ -55,8 +55,24 @@ scope. A page you do rewrite follows these rules in full.
 
 ### Who you write for
 
-Write for a reader at a grade 8 level who knows basic C#. They know what a class, a property and an event
-are. They do not know this library.
+Write prose a grade 8 reader can follow, for a reader with junior to mid-level C# skills. They know the
+language: types such as `int`, `bool`, `string`, `DateTimeOffset` and `TimeSpan`; classes, interfaces, generics,
+properties and events; lambdas and delegates; exceptions; `IDisposable` and `using`; `Task`, `async` and
+`await`; and `CancellationToken`. They know what a thread and a `lock` are, but not much more about
+concurrency. They do not know this library, and they may not know reactive programming.
+
+- **Use C# terms as they are.** Write "give it an `int`", not "give it a number". Write "method" or "lambda",
+  not "function". Never paraphrase a language basic into everyday words; it reads as talking down and is less
+  precise.
+- **Explain the library and its ideas, not the language.** Define reactive and library concepts the first time
+  they appear: stream, subscribe, observer, complete, fail, operator, signal, sequencer, hot and cold, and any
+  operator name. Do not define `Task`, lambda, `IEqualityComparer<T>` or other things a C# developer already
+  knows.
+- **Explain threading past the basics.** Thread and `lock` need no definition. Deadlocks, race conditions,
+  thread-pool starvation, `SynchronizationContext` and semaphores do, briefly, where a page relies on them.
+- **Recommend good practice.** Say what to do, not only what is possible: mark a lambda `static` when it
+  captures nothing, dispose every subscription, keep blocking calls off the UI thread. Link to the best
+  practice page for the reasoning rather than repeating it.
 
 ### Sentences
 
@@ -70,7 +86,8 @@ are. They do not know this library.
 
 ### Words
 
-- Use everyday words. When you need a technical term, define it the first time you use it.
+- Use everyday words for everything that is not a C# term. When you need a library or reactive term, define it
+  the first time you use it.
 - Define each term once. After that, use it without explaining it again.
 - Use the same word for the same thing every time. Do not swap in a synonym for variety.
 - Use "you" for the reader.
@@ -115,14 +132,32 @@ subjects and stateful signals, sequencers and scheduling, disposables, and the a
 
 ### Facts that will bite
 
+- **The audience is C# developers, not Rx users.** Examples use the LINQ name when `System.Linq.Enumerable` has
+  the operator (`Select`, `Where`, `SelectMany`, `Aggregate`, `Concat`, `Zip`, `Take`, `Distinct`, `OfType`,
+  `Cast`, `Prepend`, `Append`, `ToList`, `Range`, `Repeat`, `Empty`). For every other operator they use the
+  Primitives name (`Calm`, `Unique`, `Fold`, `Tap`, `Blend`, `Race`, `SyncLatest`, `Latch`, `Probe`, `Shift`,
+  `Expire`, `Recover`, `Emit`, `Fail`, `Lazy`, `After`, `Every`), never the Rx name. Where an overload exists only
+  under the Rx name, such as `Delay(DateTimeOffset)` or `CombineLatest` on a collection, use that name for that
+  overload. A non-reflection Rx operator with no Primitives equivalent is likely a gap; report it to the
+  Primitives repository.
+- **Types keep BCL names where the API uses a BCL type**: write `IObservable<T>` and `IObserver<T>`, since the
+  operators return them. Name the variables with Primitives words: a stream is a signal (or a descriptive name),
+  an `IObserver<T>` is a `witness`. Never `observable` or `observer`.
+- **The library's own types and containers keep the Primitives names**, to set the library apart from Rx:
+  `Signal` and its factories (`Signal.Emit`, never `Observable.Return`), `ISignal<T>`, `ToSignal`, `Witness`,
+  `Sequencer`, `Spark`, `Moment`, `RxVoid`.
+- Both names are supported and neither is wrong; the second names match other reactive libraries such as RxJS.
+  Pages never tell readers which to use. The rule above is only this site's convention.
+- Second names never appear in page prose. Each page lists them once, in the Second name column of its
+  at-a-glance table at the bottom.
+- Pages describe ReactiveUI as built on ReactiveUI.Primitives. Change operator names only under the rule above.
 - `Fold` and `Scan` both build a running accumulation, so **`Fold` = `Scan`**. `Reduce` and `Aggregate` both
   emit a single final value, so **`Reduce` = `Aggregate`**. `Map` = `Select`, `Keep` = `Where`,
   `Spark` = `Materialize`.
-- Most operator types are internal: `PrependSignal<T>`, `StartWithEnumerableSignal<T>`, `FoldSignal`,
-  `ReduceSignal`, `UniqueSignal`, `ZipSignal`, `CombineLatestSignal`, `CalmSignal`, `ShiftSignal`,
-  `ProbeSignal`, `LatchSignal`, `KeepNotNullSignal`, `KeepTypeSignal`, `ReattemptSignal` and
-  `AbsoluteExpireSignal`. Never tell a reader to construct one. `LeadSignal<T>` is the public type for one
-  leading value.
+- The operator types are public, in `ReactiveUI.Primitives.Advanced`: `KeepSignal<T>`, `UniqueSignal<T>`,
+  `FoldSignal<TSource, TAccumulate>`, `ZipSignal<TLeft, TRight, TResult>`, `LeadSignal<T>` and the rest. Each
+  takes its source through the constructor. Present the operator as the normal path, and the type as what you
+  construct when writing an operator of your own. Check a constructor against the baseline before showing it.
 - `DeliveryGateState`, `SerializedDelivery<T>`, `SerializedBroadcaster<T>`, `CurrentValueDelivery<T>`,
   `WitnessAsyncState`, `DisposableSet` and `DispatchSequencerState` are record structs meant to be held as a
   mutable field and called in place. A copy is a separate gate, queue or set. Every sample using one shows a
