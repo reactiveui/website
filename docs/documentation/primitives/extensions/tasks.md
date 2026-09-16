@@ -231,7 +231,9 @@ Output:
 job 1
 ```
 
-Values reach your subscriber as they arrive, whether or not you have disposed the handle for the value before.
+Each handle belongs to its own value. The code sending values never waits for a handle, so the helper does not slow the
+sender down. Values reach your subscriber as they arrive, whether or not you have disposed the handle for the value
+before. A subscriber that never disposes a handle still gets every value and the end of the stream.
 
 ## Turning a stream into a task
 
@@ -275,7 +277,7 @@ Call either before the value is sent. A value sent before the call is gone, and 
 | `DropIfBusy` | — | Runs an async method, and drops values that arrive while it runs. |
 | `WithLimitedConcurrency` | — | Runs a collection of tasks, up to a limit at once. |
 | `SubscribeAsync` | `SubscribeSynchronous` | Subscribes with an async lambda that runs on one value at a time. |
-| `SynchronizeAsync` | `SynchronizeSynchronous` | Sends each value with a handle to dispose when you finish. |
+| `SynchronizeAsync` | `SynchronizeSynchronous` | Sends each value with its own handle to dispose when you finish. The sender never waits. |
 | `ToHotTask` | — | Subscribes now and gives a `Task<T>` for the first value. |
 | `ToHotValueTask` | — | The same, as a `ValueTask<T>`. |
 
