@@ -9,7 +9,15 @@
 
 set -uo pipefail
 
-DOTNET_ROOT="${DOTNET_ROOT:-$HOME/.dotnet}"
+# A cloud setup script runs as root, and the session may then run as another user.
+# So install somewhere every user can read rather than into root's home.
+if [ -z "${DOTNET_ROOT:-}" ]; then
+    if [ "$(id -u)" -eq 0 ]; then
+        DOTNET_ROOT="/usr/share/dotnet"
+    else
+        DOTNET_ROOT="$HOME/.dotnet"
+    fi
+fi
 INSTALL_SCRIPT="/tmp/dotnet-install.sh"
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 SIBLING_ROOT="$(dirname "$REPO_ROOT")"
@@ -105,9 +113,12 @@ fi
 # from memory: the Primitives pages read that repository's PublicAPI baselines, and
 # any other page can check the type it describes.
 #
-# Clones carry full history. Nerdbank.GitVersioning reads it, so a shallow clone
-# cannot build. Set RXUI_CLONE_DEPTH=1 for a read-only environment that only needs
-# to read source, and accept that nothing in it builds.
+# Clones are shallow and run in parallel, because a cloud setup script has about
+# five minutes before it loses its filesystem snapshot. Shallow is enough to read
+# source, which is what writing a page needs.
+#
+# Set RXUI_CLONE_FULL=1 for full history. Nerdbank.GitVersioning reads it, so any
+# environment that has to *build* one of these repositories needs it.
 # ---------------------------------------------------------------------------
 
 RXUI_REPOS=(
@@ -134,37 +145,39 @@ RXUI_REPOS=(
 clone_sibling() {
     local name="$1" dest="$SIBLING_ROOT/$1"
     local url="https://github.com/reactiveui/$1.git"
-    local depth_args=()
+    local depth_args=(--depth 1)
 
     if [ -d "$dest/.git" ]; then
-        log "$name already cloned"
         return 0
     fi
 
-    if [ -n "${RXUI_CLONE_DEPTH:-}" ]; then
-        depth_args=(--depth "$RXUI_CLONE_DEPTH")
+    if [ -n "${RXUI_CLONE_FULL:-}" ]; then
+        depth_args=()
     fi
 
-    log "Cloning $name"
-    if ! git clone --quiet "${depth_args[@]}" "$url" "$dest"; then
-        warn "Could not clone $name from $url."
-        return 1
-    fi
+    git clone --quiet "${depth_args[@]}" "$url" "$dest" 2>/dev/null
 }
 
-cloned=0
-failed=0
+log "Cloning ${#RXUI_REPOS[@]} repositories into $SIBLING_ROOT"
 for repo in "${RXUI_REPOS[@]}"; do
-    if clone_sibling "$repo"; then
+    clone_sibling "$repo" &
+done
+wait
+
+cloned=0
+missing=""
+for repo in "${RXUI_REPOS[@]}"; do
+    if [ -d "$SIBLING_ROOT/$repo/.git" ]; then
         cloned=$((cloned + 1))
     else
-        failed=$((failed + 1))
+        missing="$missing $repo"
     fi
 done
 
-log "$cloned of ${#RXUI_REPOS[@]} repositories ready in $SIBLING_ROOT"
-if [ "$failed" -gt 0 ]; then
-    warn "$failed could not be cloned. The environment needs access to github.com."
+log "$cloned of ${#RXUI_REPOS[@]} repositories ready"
+if [ -n "$missing" ]; then
+    warn "Not cloned:$missing"
+    warn "The environment needs access to github.com."
 fi
 
 # ---------------------------------------------------------------------------
