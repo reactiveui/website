@@ -196,7 +196,7 @@ Output:
 
 | Stop | Overload |
 |---|---|
-| A value that passes a test | `TakeUntil(predicate)`, plain or async. The matching value is **not** sent. |
+| A value that passes a test | `TakeUntil(predicate)`, plain or async. The matching value is sent, then the stream completes. |
 | Another stream sending a value | `TakeUntil(other)` |
 | A `CancellationToken` cancelling | `TakeUntil(cancellationToken)` |
 | A `Task` finishing | `TakeUntil(task)` |
@@ -221,7 +221,7 @@ Console.WriteLine(string.Join(", ", await collected));
 Output:
 
 ```text
-1, 2
+1, 2, 3
 draft 1, draft 2
 ```
 

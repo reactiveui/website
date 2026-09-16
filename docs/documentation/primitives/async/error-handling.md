@@ -197,8 +197,8 @@ completed
 
 ### `LogErrors`
 
-`LogErrors` runs your action with each resumable error as it passes, and changes nothing. A failure that ends the
-stream is not passed to the action.
+`LogErrors` runs your action with each error as it passes, and changes nothing. That covers resumable errors and a
+failure that ends the stream.
 
 ```csharp
 await ShowAsync(readings.LogErrors(static error => Console.WriteLine($"log: {error.Message}")));
@@ -226,4 +226,4 @@ completed
 | `Reattempt` | — | Subscribes again after a failure, up to a number of extra tries. |
 | `OnErrorResumeAsFailure` | — | Turns resumable errors into a failure. |
 | `CatchAndIgnoreErrorResume` | — | `Recover`, sending resumable errors to the global handler. |
-| `LogErrors` | — | Runs an action with each resumable error. |
+| `LogErrors` | — | Runs an action with each resumable error and failure. |

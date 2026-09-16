@@ -341,7 +341,8 @@ Output:
 
 ### `Interval`
 
-`Interval` also ticks once per period, forever, but its counter starts at `1`.
+`Interval` also ticks once per period, forever, with a counter from `0`. Unlike `Every`, it takes an optional
+`TimeProvider`.
 
 ```csharp
 Console.WriteLine(string.Join(", ", await SignalAsync.Interval(TimeSpan.FromMilliseconds(20)).Take(3).ToListAsync()));
@@ -350,7 +351,7 @@ Console.WriteLine(string.Join(", ", await SignalAsync.Interval(TimeSpan.FromMill
 Output:
 
 ```text
-1, 2, 3
+0, 1, 2
 ```
 
 ## Many streams at once
@@ -414,7 +415,7 @@ Output:
 | `SignalAsync.CreateAsBackgroundJob` | — | A stream fed by a background job. |
 | `SignalAsync.After` | `Timer` | `0` after a wait, then optionally once per period. |
 | `SignalAsync.Every` | `Pulse` | A counter from `0`, once per period. |
-| `SignalAsync.Interval` | — | A counter from `1`, once per period. |
+| `SignalAsync.Interval` | — | A counter from `0`, once per period, with an optional `TimeProvider`. |
 | `SignalAsync.Blend` | — | All streams at once. |
 | `SignalAsync.Chain` | — | Streams one after another. |
 | `SignalAsyncReactiveExtensions.EmitRxVoid` | — | One `RxVoid`, then completes. |

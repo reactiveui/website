@@ -222,8 +222,8 @@ attempt 3
 downloaded
 ```
 
-The action runs for the last failure too, when the retries run out. A failure of another exception type skips the
-action, and is still retried.
+The action runs for the last failure too, when the retries run out. A failure of another exception type is not
+retried: it goes straight to your subscriber.
 
 ### `RetryWithFixedDelay`
 
