@@ -285,6 +285,32 @@ Call either before the value is sent. A value sent before the call is gone, and 
 `SelectLatestAsyncObservable<T, TResult>`, `DropIfBusyObservable<T>`, `SubscribeAsyncObservable<T>` and
 `SynchronizeAsyncObservable<T>` are public classes in `ReactiveUI.Primitives.Extensions.Operators`.
 
+`SelectAsyncSequentialObservable<T, TResult>` has a constructor for each form of `SelectAsync`: one takes a lambda that
+returns a `Task<TResult>`, and one takes a lambda that also gets a `CancellationToken`.
+
+```csharp
+using ReactiveUI.Primitives.Extensions.Operators;
+
+using (new SelectAsyncSequentialObservable<int, string>(
+        Signal.Range(1, 2),
+        static async (id, cancellationToken) =>
+        {
+            await Task.Delay(10, cancellationToken);
+            return $"item {id}";
+        })
+    .Subscribe(static item => Console.WriteLine(item)))
+{
+    await Task.Delay(300);
+}
+```
+
+Output:
+
+```text
+item 1
+item 2
+```
+
 In `ReactiveUI.Primitives.Extensions`:
 
 - `ConcurrencyLimiter<T>` is the stream behind `WithLimitedConcurrency`. Its constructor takes the tasks and the limit.

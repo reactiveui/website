@@ -698,6 +698,55 @@ IObservable<int> viaType = new KeepSignal<int>(numbers, static x => x > 0);
 Call the operator in normal code. Construct the type when you place one inside an operator of your own and want to skip
 the extension call.
 
+The factories and error operators have types you can construct the same way:
+
+| Type | Behind | Constructor |
+|---|---|---|
+| `CreateSignal<T>` | `Signal.Create` | A subscribe lambda. |
+| `CreateSignal<T, TState>` | `Signal.CreateWithState` | A state value and a subscribe lambda that gets it. |
+| `CreateSafeSignal<T>` | `Signal.CreateSafe` | A subscribe lambda. |
+| `DeferSignal<T>` | `Signal.Lazy` | A lambda that builds the stream on each subscription. |
+| `WitnessOnSignal<T>` | `WitnessOn` | The source and a sequencer. |
+| `CatchSignal<T>` | `Recover` and `Signal.Recover` | The streams to try, in order. |
+
+The create types also have a constructor that takes a `bool`, which says whether the signal must be subscribed on the
+calling thread. See [marker interfaces](#marker-interfaces).
+
+```csharp
+new CreateSignal<int>(static witness => { witness.OnNext(1); witness.OnCompleted(); return EmptyDisposable.Instance; })
+    .Subscribe(static x => Console.WriteLine($"create {x}"));
+
+new CreateSignal<int, int>(42, static (state, witness) => { witness.OnNext(state); witness.OnCompleted(); return EmptyDisposable.Instance; })
+    .Subscribe(static x => Console.WriteLine($"create with state {x}"));
+
+new CreateSafeSignal<int>(static witness => { witness.OnNext(2); witness.OnCompleted(); return EmptyDisposable.Instance; })
+    .Subscribe(static x => Console.WriteLine($"create safe {x}"));
+
+new DeferSignal<int>(static () => Signal.Emit(3))
+    .Subscribe(static x => Console.WriteLine($"lazy {x}"));
+
+new WitnessOnSignal<int>(Signal.Emit(4), Sequencer.Immediate)
+    .Subscribe(static x => Console.WriteLine($"witness on {x}"));
+
+new CatchSignal<int>([Signal.Fail<int>(new TimeoutException("primary down")), Signal.Emit(5)])
+    .Subscribe(static x => Console.WriteLine($"recovered {x}"));
+```
+
+Output:
+
+```text
+create 1
+create with state 42
+create safe 2
+lazy 3
+witness on 4
+recovered 5
+```
+
+`LatchCoordinator<TLeft, TRight, TResult>`, `CombineLatestCoordinator<TLeft, TRight, TResult>`,
+`ReattemptCoordinator<T>` and `CalmCoordinator<T>` are the coordinators behind `Latch`, two-stream `SyncLatest`,
+`Reattempt` and `Calm`. Each operator creates one for every subscription.
+
 ## Marker interfaces
 
 Implement these on your own signal to let the operators take a faster path.

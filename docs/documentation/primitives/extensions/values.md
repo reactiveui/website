@@ -671,5 +671,37 @@ Most helpers here have a public class in `ReactiveUI.Primitives.Extensions.Opera
 `ScanWithInitialObservable<T, TAccumulate>` is in `ReactiveUI.Primitives.Extensions`. Each takes its source through
 the constructor. Call the helper in normal code, and construct the class when you write an operator of your own.
 
+`SelectManyThenCoordinator<TSource, TMid, TResult>`, in `ReactiveUI.Primitives.Extensions.Operators`, is the witness
+behind `SelectManyThen`. It takes the downstream witness and both steps. Subscribe it to the source, and hand it back
+as the subscription:
+
+```csharp
+using ReactiveUI.Primitives.Extensions.Operators;
+
+new InvoiceLookup(Signal.Emit(1))
+    .Subscribe(static x => Console.WriteLine(x), static () => Console.WriteLine("completed"));
+
+public sealed class InvoiceLookup(IObservable<int> orderIds) : IObservable<int>
+{
+    public IDisposable Subscribe(IObserver<int> witness)
+    {
+        var coordinator = new SelectManyThenCoordinator<int, int, int>(
+            witness,
+            static id => Signal.Emit(id * 10),
+            static order => Signal.Emit(order + 1));
+
+        orderIds.Subscribe(coordinator);
+        return coordinator;
+    }
+}
+```
+
+Output:
+
+```text
+11
+completed
+```
+
 `Observables.Return(value)` and `SingleValueSignal<T>` in `ReactiveUI.Primitives.Extensions` build a stream that
 sends one value and completes, like [`Signal.Emit`](../creation-factories.md).

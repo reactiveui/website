@@ -160,6 +160,68 @@ source stopped
 
 The source would have sent ten values. It stopped after two.
 
+### `CallbackSignalAsync<T>`
+
+`CallbackSignalAsync<T>` is a signal made from one lambda. The lambda runs for each subscriber, gets the witness and a
+`CancellationToken`, and hands back the subscription. It is the type behind `SignalAsync.Create`.
+
+```csharp
+var callback = new CallbackSignalAsync<int>(static async (witness, cancellationToken) =>
+{
+    await witness.OnNextAsync(7, cancellationToken);
+    await witness.OnCompletedAsync(Result.Success);
+    return DisposableAsync.Create(static () => default);
+});
+
+Console.WriteLine(string.Join(", ", await callback.ToListAsync()));
+```
+
+Output:
+
+```text
+7
+```
+
+### `TakeUntilLifecycle<T>`
+
+`TakeUntilLifecycle<T>` is the part of [`TakeUntil`](filtering.md#takeuntil) that sends to the downstream witness. It
+sends one notification at a time, and completes the stream when told to stop.
+
+- `RelayNextAsync`, `RelayErrorAsync` and `RelayCompletionAsync` send a value, a resumable error, or the end of the
+  stream.
+- `CompleteWhenCancelled(token)` completes the stream when a `CancellationToken` cancels. Dispose the registration it
+  hands back along with the subscription.
+- `LinkExternalCancellation(token)` cancels `DisposeToken` when the token passed to `SubscribeAsync` cancels.
+- `DisposeAsync` cancels `DisposeToken` and releases the lifecycle.
+
+`TakeUntilSourceWitness<T>` is the witness that relays the source's notifications through a lifecycle.
+
+```csharp
+var downstream = Signal.Create<int>();
+
+await using IAsyncDisposable printing = await downstream.SubscribeAsync(
+    static (x, _) => { Console.WriteLine($"value {x}"); return default; },
+    static (_, _) => default,
+    static result => { Console.WriteLine($"completed: {result.IsSuccess}"); return default; });
+
+await using (var lifecycle = new TakeUntilLifecycle<int>(downstream.AsObserverAsync()))
+{
+    using var stop = new CancellationTokenSource();
+    using CancellationTokenRegistration registration = lifecycle.CompleteWhenCancelled(stop.Token);
+
+    await lifecycle.RelayNextAsync(1);
+    stop.Cancel();
+    await Task.Delay(100);
+}
+```
+
+Output:
+
+```text
+value 1
+completed: True
+```
+
 ## Combining the latest values yourself
 
 [`SyncLatest`](combination.md) sends a result built from the latest value of each source, once every source has sent
@@ -483,6 +545,8 @@ Output:
 | `IWitnessAsync<T>`, `WitnessAsyncState`, `IWitnessState` | The contract for a witness of your own. |
 | `WitnessAsync.OnNextAsync` / `OnErrorResumeAsync` / `OnCompletedAsync` / `DisposeStateAsync` / `DisposeFromNotificationAsync` | Safe forwarding for a witness. |
 | `WitnessAsyncExtensions.AssignSourceSubscriptionAsync` / `LinkUpstreamCancellation` | Links a witness to its source and to outer cancellation. |
+| `CallbackSignalAsync<T>` | A signal made from one subscribe lambda. |
+| `TakeUntilLifecycle<T>` / `TakeUntilSourceWitness<T>` | Sends to a witness one notification at a time, and completes it on a stop. |
 | `ISyncLatestCoordinator<TResult>`, `SyncLatestLifecycle<TResult>` | A coordinator that combines the latest value of each source. |
 | `SubscribeSourcesAsync` | Subscribes every slot of a coordinator. |
 | `SubscribeToSlotAsync` | Subscribes one source to a coordinator's slot. |
