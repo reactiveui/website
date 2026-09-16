@@ -129,6 +129,7 @@ The terminal operators, such as `ToListAsync`, throw the failure's exception whe
 | [Utility and sharing](utility.md) | Side effects, sharing one subscription, and choosing where callbacks run. |
 | [Async signals](signals.md) | The signals you send values into, and their options. |
 | [Writing your own operator](advanced.md) | Witness contracts, async disposables and the global error handler. |
+| [Async type reference](types.md) | Every public async type not shown on another page, and the operator it belongs to. |
 
 ## Sync or async?
 

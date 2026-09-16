@@ -44,23 +44,30 @@ For a value you set through a property, see [`StateSignal<T>`](../signals.md).
 
 ### `ReplayLastOnSubscribe`
 
-`ReplayLastOnSubscribe` sends a starting value to each new subscriber at once, then the source's values.
+`ReplayLastOnSubscribe` sends a starting value to each new subscriber at once, then the source's values. Each
+subscriber gets its own subscription and its own starting value, so a subscriber that arrives later gets the starting
+value too, not the newest value.
 
 ```csharp
 var temperature = new Signal<int>();
+IObservable<int> readings = temperature.ReplayLastOnSubscribe(20);
 
-temperature.ReplayLastOnSubscribe(20)
-           .Subscribe(static t => Console.WriteLine(t));
-
+readings.Subscribe(static t => Console.WriteLine($"early {t}"));
 temperature.OnNext(22);
+readings.Subscribe(static t => Console.WriteLine($"late {t}"));
 ```
 
 Output:
 
 ```text
-20
-22
+early 20
+early 22
+late 20
 ```
+
+The [async `ReplayLastOnSubscribe`](../async/utility.md#replaylastonsubscribe) behaves differently: it shares one
+subscription, and a late subscriber gets the newest value. To share the newest value on a synchronous stream, use
+[`ReplayLive(1)`](../sharing.md).
 
 ## Property changes
 

@@ -479,8 +479,8 @@ before it gets that far. See [the default exception handler](../handbook/default
 
 ## The types behind these operators
 
-`RecoverSignal<T, TException>`, `ResumeSignal<T>`, `ReattemptSignal<T>`, `RepeatSourceSignal<T>` and
-`FinallySignal<T>` are public classes in `ReactiveUI.Primitives.Advanced`. Each takes its source through the
+`RecoverSignal<T, TException>`, `ResumeSignal<T>`, `ReattemptSignal<T>`, `RepeatSourceSignal<T>`,
+`OnErrorResumeNextSignal<T>` and `FinallySignal<T>` are public classes in `ReactiveUI.Primitives.Advanced`. Each takes its source through the
 constructor. `RepeatSourceSignal<T>` takes the number of runs as an `int?`, where `null` means repeat for ever.
 
 ```csharp
@@ -491,6 +491,22 @@ IObservable<string> a = request.Reattempt(2);
 
 // the same thing, built directly
 IObservable<string> b = new ReattemptSignal<string>(request, 2);
+```
+
+`OnErrorResumeNextSignal<T>` takes its streams as a collection, and runs them one after another however each one ends:
+
+```csharp
+new OnErrorResumeNextSignal<int>([
+        Signal.Emit(1).Concat(Signal.Fail<int>(new TimeoutException("cache timed out"))),
+        Signal.Emit(2),
+        Signal.Emit(3)])
+    .Subscribe(static x => Console.Write($"{x} "), static () => Console.WriteLine("done"));
+```
+
+Output:
+
+```text
+1 2 3 done
 ```
 
 Calling the operator is the normal path. Construct the type when you are writing an operator of your own and

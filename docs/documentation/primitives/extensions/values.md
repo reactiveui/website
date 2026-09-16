@@ -21,13 +21,13 @@ The examples push values by hand into a `Signal<T>`, a stream you send values in
 `WhereIsNotNull` drops `null` values and passes the rest through.
 
 ```csharp
-var names = new Signal<string>();
+var names = new Signal<string?>();
 
 names.WhereIsNotNull()
      .Subscribe(static name => Console.WriteLine(name));
 
 names.OnNext("Ada");
-names.OnNext(null!);
+names.OnNext(null);
 names.OnNext("Grace");
 ```
 
@@ -37,6 +37,17 @@ Output:
 Ada
 Grace
 ```
+
+The element type stays the same: on an `IObservable<string?>` you get an `IObservable<string?>` back, even though no
+`null` reaches your callback. So the compiler may still warn about `null` where you use the value. When you want an
+`IObservable<string>`, add a `Select` with the null-forgiving operator after it:
+
+```csharp
+IObservable<string> knownNames = names.WhereIsNotNull().Select(static name => name!);
+```
+
+[The async `WhereIsNotNull`](../async/filtering.md) hands back a stream whose type cannot be `null`, with no extra
+step.
 
 ### `SkipWhileNull`
 
@@ -410,9 +421,40 @@ even 2
 odd 3
 ```
 
-Give `Partition` a **hot** stream: one that sends values whether or not anyone is listening, such as a signal.
-For a **cold** stream, one that starts its work when you subscribe, such as `Signal.Range`, share it first with
-[`ShareLive`](../sharing.md).
+Both halves share one subscription to the source. A **hot** stream, one that sends values whether or not anyone is
+listening, such as a signal, works as above.
+
+A **cold** stream starts its work when you subscribe, such as `Signal.FromEnumerable`. It can run to completion the
+moment the first half subscribes, so only that half gets values. Share it first with [`ShareLive`](../sharing.md),
+subscribe to both halves, then call `Connect`:
+
+```csharp
+var cold = Signal.FromEnumerable([1, 2, 3, 4, 5]);
+
+var (coldEvens, coldOdds) = cold.Partition(static x => x % 2 == 0);
+coldEvens.Subscribe(static x => Console.WriteLine($"cold even {x}"));
+coldOdds.Subscribe(static x => Console.WriteLine($"cold odd {x}"));
+
+var shared = cold.ShareLive();
+var (sharedEvens, sharedOdds) = shared.Partition(static x => x % 2 == 0);
+sharedEvens.Subscribe(static x => Console.WriteLine($"shared even {x}"));
+sharedOdds.Subscribe(static x => Console.WriteLine($"shared odd {x}"));
+shared.Connect();
+```
+
+Output:
+
+```text
+cold even 2
+cold even 4
+shared odd 1
+shared even 2
+shared odd 3
+shared even 4
+shared odd 5
+```
+
+Without sharing, the odd half got nothing: the even half had already used up the stream.
 
 ### `TakeUntil` with a test
 
@@ -670,6 +712,38 @@ Most helpers here have a public class in `ReactiveUI.Primitives.Extensions.Opera
 `WhereIsNotNullObservable<T>`, `PairwiseObservable<T>`, `PartitionObservable<T>` and `TrySelectObservable<T, TOut>`.
 `ScanWithInitialObservable<T, TAccumulate>` is in `ReactiveUI.Primitives.Extensions`. Each takes its source through
 the constructor. Call the helper in normal code, and construct the class when you write an operator of your own.
+
+`SelectManyThenCoordinator<TSource, TMid, TResult>`, in `ReactiveUI.Primitives.Extensions.Operators`, is the witness
+behind `SelectManyThen`. It takes the downstream witness and both steps. Subscribe it to the source, and hand it back
+as the subscription:
+
+```csharp
+using ReactiveUI.Primitives.Extensions.Operators;
+
+new InvoiceLookup(Signal.Emit(1))
+    .Subscribe(static x => Console.WriteLine(x), static () => Console.WriteLine("completed"));
+
+public sealed class InvoiceLookup(IObservable<int> orderIds) : IObservable<int>
+{
+    public IDisposable Subscribe(IObserver<int> witness)
+    {
+        var coordinator = new SelectManyThenCoordinator<int, int, int>(
+            witness,
+            static id => Signal.Emit(id * 10),
+            static order => Signal.Emit(order + 1));
+
+        orderIds.Subscribe(coordinator);
+        return coordinator;
+    }
+}
+```
+
+Output:
+
+```text
+11
+completed
+```
 
 `Observables.Return(value)` and `SingleValueSignal<T>` in `ReactiveUI.Primitives.Extensions` build a stream that
 sends one value and completes, like [`Signal.Emit`](../creation-factories.md).

@@ -265,6 +265,23 @@ int result = await Signal.Range(5, 3).ToTask();   // 7
 
 `Signal.ToTask(source)` does the same, taking the stream as an argument.
 
+`Signal.ToTaskOrDefault(source, defaultValue, cancellationToken)` gives you the default value on an empty stream
+instead of throwing. It is what `LastOrDefaultAsync` runs on.
+
+```csharp
+using var timeout = new CancellationTokenSource(TimeSpan.FromSeconds(5));
+
+Console.WriteLine(await Signal.ToTaskOrDefault(Signal.Empty<int>(), -1, timeout.Token));
+Console.WriteLine(await Signal.ToTaskOrDefault(Signal.Range(1, 3), -1, timeout.Token));
+```
+
+Output:
+
+```text
+-1
+3
+```
+
 ### `await` a stream directly
 
 You can put `await` straight in front of a stream. It behaves like `ToTask`, and gives you the last value.
@@ -458,6 +475,7 @@ its result in ordinary code, for example `await command.Execute().FirstAsync()`.
 | `FirstAsync` / `LastAsync` | — | A task of the first or last value. |
 | `FirstOrDefaultAsync` / `LastOrDefaultAsync` | — | The same, with a fallback on an empty stream. |
 | `ToTask` | `Signal.ToTask` | A task of the last value. |
+| `Signal.ToTaskOrDefault` | — | A task of the last value, or a default on an empty stream. |
 | `await stream` | `GetAwaiter` | The last value. |
 | `RunAsync` | — | Subscribes now, and gives you the last value later. |
 | `CountAsync`, `AnyAsync`, `ToListAsync`, `ToArrayAsync` | `CollectListAsync`, `CollectArrayAsync` | Tasks of the same answers. |

@@ -698,6 +698,233 @@ IObservable<int> viaType = new KeepSignal<int>(numbers, static x => x > 0);
 Call the operator in normal code. Construct the type when you place one inside an operator of your own and want to skip
 the extension call.
 
+The factories and error operators have types you can construct the same way:
+
+| Type | Behind | Constructor |
+|---|---|---|
+| `CreateSignal<T>` | `Signal.Create` | A subscribe lambda. |
+| `CreateSignal<T, TState>` | `Signal.CreateWithState` | A state value and a subscribe lambda that gets it. |
+| `CreateSafeSignal<T>` | `Signal.CreateSafe` | A subscribe lambda. |
+| `DeferSignal<T>` | `Signal.Lazy` | A lambda that builds the stream on each subscription. |
+| `WitnessOnSignal<T>` | `WitnessOn` | The source and a sequencer. |
+| `CatchSignal<T>` | `Recover` and `Signal.Recover` | The streams to try, in order. |
+
+The create types also have a constructor that takes a `bool`, which says whether the signal must be subscribed on the
+calling thread. See [marker interfaces](#marker-interfaces).
+
+```csharp
+new CreateSignal<int>(static witness => { witness.OnNext(1); witness.OnCompleted(); return EmptyDisposable.Instance; })
+    .Subscribe(static x => Console.WriteLine($"create {x}"));
+
+new CreateSignal<int, int>(42, static (state, witness) => { witness.OnNext(state); witness.OnCompleted(); return EmptyDisposable.Instance; })
+    .Subscribe(static x => Console.WriteLine($"create with state {x}"));
+
+new CreateSafeSignal<int>(static witness => { witness.OnNext(2); witness.OnCompleted(); return EmptyDisposable.Instance; })
+    .Subscribe(static x => Console.WriteLine($"create safe {x}"));
+
+new DeferSignal<int>(static () => Signal.Emit(3))
+    .Subscribe(static x => Console.WriteLine($"lazy {x}"));
+
+new WitnessOnSignal<int>(Signal.Emit(4), Sequencer.Immediate)
+    .Subscribe(static x => Console.WriteLine($"witness on {x}"));
+
+new CatchSignal<int>([Signal.Fail<int>(new TimeoutException("primary down")), Signal.Emit(5)])
+    .Subscribe(static x => Console.WriteLine($"recovered {x}"));
+```
+
+Output:
+
+```text
+create 1
+create with state 42
+create safe 2
+lazy 3
+witness on 4
+recovered 5
+```
+
+Operators that watch more than one thing at once run on a **coordinator**: an object that holds the operator's state
+for one subscription. Build it with the downstream witness, then call `Run` to subscribe it. `Run` hands back the
+subscription to dispose.
+
+| Coordinator | Behind | `Run` takes | `Run` hands back |
+|---|---|---|---|
+| `LatchCoordinator<TLeft, TRight, TResult>` | `Latch` | Both streams | A `MultipleDisposable` |
+| `CombineLatestCoordinator<TLeft, TRight, TResult>` | `SyncLatest` on two streams | Both streams | A `MultipleDisposable` |
+| `ReattemptCoordinator<T>` | `Reattempt` | Nothing: the source and count go to the constructor | The coordinator |
+| `CalmCoordinator<T>` | `Calm` | The witness: the source, quiet time and sequencer go to the constructor | The coordinator |
+
+```csharp
+IObserver<string> Printer(string name) =>
+    Witness.Create<string>(x => Console.WriteLine($"{name}: {x}"), static _ => { }, static () => { });
+
+var clicks = new Signal<int>();
+var user = new BehaviorSignal<string>("ada");
+using (new LatchCoordinator<int, string, string>(Printer("latch"), static (click, name) => $"{name} clicked {click}").Run(clicks, user))
+{
+    clicks.OnNext(1);
+    user.OnNext("grace");
+    clicks.OnNext(2);
+}
+
+var firstName = new BehaviorSignal<string>("Ada");
+var lastName = new BehaviorSignal<string>("Lovelace");
+using (new CombineLatestCoordinator<string, string, string>(Printer("latest"), static (f, l) => $"{f} {l}").Run(firstName, lastName))
+{
+    lastName.OnNext("King");
+}
+
+var attempts = 0;
+IObservable<string> flaky = Signal.Lazy(() => ++attempts < 3
+    ? Signal.Fail<string>(new TimeoutException($"attempt {attempts} timed out"))
+    : Signal.Emit($"worked on attempt {attempts}"));
+using (new ReattemptCoordinator<string>(flaky, 2, Printer("reattempt")).Run())
+{
+}
+
+var quietClock = new VirtualClock();
+var typing = new Signal<string>();
+using (new CalmCoordinator<string>(typing, TimeSpan.FromMilliseconds(300), quietClock).Run(Printer("calm")))
+{
+    typing.OnNext("r");
+    typing.OnNext("rx");
+    quietClock.AdvanceBy(TimeSpan.FromMilliseconds(300));
+}
+```
+
+Output:
+
+```text
+latch: ada clicked 1
+latch: grace clicked 2
+latest: Ada Lovelace
+latest: Ada King
+reattempt: worked on attempt 3
+calm: rx
+```
+
+A retry count of 2 on `ReattemptCoordinator<T>` allows two extra tries, three runs in all, the same as `Reattempt(2)`.
+
+`SyncLatest` on three or more streams, or on a collection, has a different shape. You never construct its coordinator,
+`CombineLatestCoordinator<TResult>`. Instead you build a `CombineLatestSignal<TResult>` and give it a lambda. The
+signal creates the coordinator for each subscription and passes it to your lambda, which does two things:
+
+1. Calls `Attach` once for each source. `Attach` hands back a `CombineLatestSlot<TResult, T>`, whose `Value` is that
+   source's latest value.
+2. Hands back a `Func<TResult>` that builds the result from the slots. The signal calls it each time any source
+   sends, once every source has sent a value.
+
+```csharp
+var profileName = new BehaviorSignal<string>("Ada");
+var profileAge = new BehaviorSignal<int>(36);
+var profileCity = new BehaviorSignal<string>("London");
+
+var profile = new CombineLatestSignal<string>(coordinator =>
+{
+    CombineLatestSlot<string, string> nameSlot = coordinator.Attach(profileName);
+    CombineLatestSlot<string, int> ageSlot = coordinator.Attach(profileAge);
+    CombineLatestSlot<string, string> citySlot = coordinator.Attach(profileCity);
+
+    return () => $"{nameSlot.Value}, {ageSlot.Value}, {citySlot.Value}";
+});
+
+using (profile.Subscribe(static summary => Console.WriteLine(summary)))
+{
+    profileCity.OnNext("Paris");
+}
+```
+
+Output:
+
+```text
+Ada, 36, London
+Ada, 36, Paris
+```
+
+The other operators with a coordinator work the same way:
+
+| Coordinator | Behind | Constructor | `Run` takes |
+|---|---|---|---|
+| `ExpireCoordinator<T>` | `Expire` | The source, the time allowed, a sequencer and the witness | Nothing |
+| `MergeCoordinator<T>` | `Blend` | The witness | Two streams, or a collection |
+| `MaxConcurrentBlendCoordinator<T>` | `Blend(maxConcurrent)` on a collection | The witness | The streams and the limit |
+| `RepeatSourceCoordinator<T>` | `Repeat` on a stream | The source, a count or `null` for forever, and the witness | Nothing |
+| `SelectManyCoordinator<TSource, TResult>` | `SelectMany` | The witness, and the lambda or the inner stream | The source |
+| `SelectManyResultCoordinator<TSource, TCollection, TResult>` | `SelectMany` with a result lambda | The witness and both lambdas | The source |
+| `TaskChainCoordinator<T>` | `Concat` on a stream of tasks | The witness | The stream of tasks |
+
+Each `Run` hands back the coordinator, which is also the subscription to dispose.
+
+```csharp
+IObserver<string> Reporter(string name) =>
+    Witness.Create<string>(
+        x => Console.WriteLine($"{name}: {x}"),
+        error => Console.WriteLine($"{name} failed: {error.GetType().Name}"),
+        () => Console.WriteLine($"{name}: done"));
+
+var deadlineClock = new VirtualClock();
+var replies = new Signal<string>();
+using (new ExpireCoordinator<string>(replies, TimeSpan.FromSeconds(1), deadlineClock, Reporter("expire")).Run())
+{
+    deadlineClock.AdvanceBy(TimeSpan.FromSeconds(2));
+}
+
+using (new MergeCoordinator<string>(Reporter("blend")).Run(Signal.Emit("a"), Signal.Emit("b")))
+{
+}
+
+using (new MaxConcurrentBlendCoordinator<string>(Reporter("one at a time")).Run([Signal.Emit("x"), Signal.Emit("y")], 1))
+{
+}
+
+using (new RepeatSourceCoordinator<string>(Signal.Emit("again"), 2, Reporter("repeat")).Run())
+{
+}
+
+using (new SelectManyCoordinator<int, string>(Reporter("select many"), static id => Signal.Emit($"order {id}")).Run(Signal.Range(1, 2)))
+{
+}
+
+using (new SelectManyResultCoordinator<int, string, string>(
+           Reporter("with result"),
+           static id => Signal.Emit("invoice"),
+           static (id, document) => $"{document} for {id}").Run(Signal.Emit(7)))
+{
+}
+
+var saves = new Signal<Task<string>>();
+using (new TaskChainCoordinator<string>(Reporter("tasks")).Run(saves))
+{
+    saves.OnNext(Task.FromResult("saved"));
+    saves.OnNext(Task.FromResult("sent"));
+    saves.OnCompleted();
+    await Task.Delay(100);
+}
+```
+
+Output:
+
+```text
+expire failed: TimeoutException
+blend: a
+blend: b
+blend: done
+one at a time: x
+one at a time: y
+one at a time: done
+repeat: again
+repeat: again
+repeat: done
+select many: order 1
+select many: order 2
+select many: done
+with result: invoice for 7
+with result: done
+tasks: saved
+tasks: sent
+tasks: done
+```
+
 ## Marker interfaces
 
 Implement these on your own signal to let the operators take a faster path.

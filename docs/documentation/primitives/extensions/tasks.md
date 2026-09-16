@@ -231,7 +231,9 @@ Output:
 job 1
 ```
 
-Values reach your subscriber as they arrive, whether or not you have disposed the handle for the value before.
+Each handle belongs to its own value. The code sending values never waits for a handle, so the helper does not slow the
+sender down. Values reach your subscriber as they arrive, whether or not you have disposed the handle for the value
+before. A subscriber that never disposes a handle still gets every value and the end of the stream.
 
 ## Turning a stream into a task
 
@@ -275,7 +277,7 @@ Call either before the value is sent. A value sent before the call is gone, and 
 | `DropIfBusy` | — | Runs an async method, and drops values that arrive while it runs. |
 | `WithLimitedConcurrency` | — | Runs a collection of tasks, up to a limit at once. |
 | `SubscribeAsync` | `SubscribeSynchronous` | Subscribes with an async lambda that runs on one value at a time. |
-| `SynchronizeAsync` | `SynchronizeSynchronous` | Sends each value with a handle to dispose when you finish. |
+| `SynchronizeAsync` | `SynchronizeSynchronous` | Sends each value with its own handle to dispose when you finish. The sender never waits. |
 | `ToHotTask` | — | Subscribes now and gives a `Task<T>` for the first value. |
 | `ToHotValueTask` | — | The same, as a `ValueTask<T>`. |
 
@@ -284,6 +286,32 @@ Call either before the value is sent. A value sent before the call is gone, and 
 `SelectAsyncSequentialObservable<T, TResult>`, `SelectAsyncConcurrentObservable<T, TResult>`,
 `SelectLatestAsyncObservable<T, TResult>`, `DropIfBusyObservable<T>`, `SubscribeAsyncObservable<T>` and
 `SynchronizeAsyncObservable<T>` are public classes in `ReactiveUI.Primitives.Extensions.Operators`.
+
+`SelectAsyncSequentialObservable<T, TResult>` has a constructor for each form of `SelectAsync`: one takes a lambda that
+returns a `Task<TResult>`, and one takes a lambda that also gets a `CancellationToken`.
+
+```csharp
+using ReactiveUI.Primitives.Extensions.Operators;
+
+using (new SelectAsyncSequentialObservable<int, string>(
+        Signal.Range(1, 2),
+        static async (id, cancellationToken) =>
+        {
+            await Task.Delay(10, cancellationToken);
+            return $"item {id}";
+        })
+    .Subscribe(static item => Console.WriteLine(item)))
+{
+    await Task.Delay(300);
+}
+```
+
+Output:
+
+```text
+item 1
+item 2
+```
 
 In `ReactiveUI.Primitives.Extensions`:
 
