@@ -77,6 +77,7 @@ each one.
 | [Best practices](best-practices.md) | Habits that avoid leaks, frozen screens and slow tests. |
 | [Extension helpers](extensions/index.md) | Ready-made helpers: retries with delays, async work per value, spotting a quiet stream, and waiting in tests. |
 | [Async streams](async/index.md) | `IObservableAsync<T>`, where the sender waits for each subscriber, with its own operator pages. |
+| [Type reference](types.md) | Every public type not shown on an operator page, and the operator it belongs to. |
 
 ## The two package flavours
 
