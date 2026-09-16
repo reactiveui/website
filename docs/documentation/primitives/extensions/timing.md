@@ -300,8 +300,8 @@ With no messages, the output is:
 ### `SyncTimer`
 
 `SyncTimer` is an extension on `TimeSpan`. It builds a timer that sends the current `DateTime` every period. Every
-call with the same period and sequencer returns the **same** timer, so a hundred rows on screen that each show a
-clock share one timer instead of running a hundred.
+call with the same period and sequencer returns the **same** timer. A hundred rows on screen that each show a clock
+share one timer, instead of running a hundred.
 
 ```csharp
 IObservable<DateTime> first = TimeSpan.FromSeconds(1).SyncTimer();

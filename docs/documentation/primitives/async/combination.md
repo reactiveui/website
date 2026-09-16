@@ -60,11 +60,15 @@ values are `true`, or all `false`.
 ```csharp
 IObservableAsync<bool>[] checks = [SignalAsync.Emit(true), SignalAsync.Emit(true)];
 Console.WriteLine(await checks.CombineLatestValuesAreAllTrue().FirstAsync());
+
+IObservableAsync<bool>[] failures = [SignalAsync.Emit(false), SignalAsync.Emit(false)];
+Console.WriteLine(await failures.CombineLatestValuesAreAllFalse().FirstAsync());
 ```
 
 Output:
 
 ```text
+True
 True
 ```
 
@@ -172,8 +176,12 @@ as a new one arrives. A search box that starts a new search on each key press is
 
 ```csharp
 IObservableAsync<IObservableAsync<string>> searches = SignalAsync
-    .FromEnumerable(["ca", "cat"])
-    .Select(static q => SignalAsync.Emit($"results for {q}"));
+    .FromEnumerable(["c", "ca", "cat"])
+    .Select(static q => SignalAsync.FromAsync(async cancellationToken =>
+    {
+        await Task.Delay(q == "cat" ? 10 : 200, cancellationToken);   // stands in for a search
+        return $"results for {q}";
+    }));
 
 Console.WriteLine(string.Join(", ", await searches.SwitchTo().ToListAsync()));
 ```
@@ -181,11 +189,11 @@ Console.WriteLine(string.Join(", ", await searches.SwitchTo().ToListAsync()));
 Output:
 
 ```text
-results for ca, results for cat
+results for cat
 ```
 
-Here each search finishes before the next arrives, so both results go out. When an inner stream is still running as a
-new one arrives, `SwitchTo` cancels it, and its result never goes out.
+The searches for `c` and `ca` were still running when the next one arrived. `SwitchTo` cancelled them through their
+`CancellationToken`, so their results never went out.
 
 ## Every operator on this page at a glance
 

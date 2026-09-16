@@ -567,6 +567,29 @@ can save: False
 can save: True
 ```
 
+`CombineLatestValuesAreAllFalse` answers the opposite question: whether every latest value is `false`. Use it, for
+example, to show a hint while no field is valid yet.
+
+```csharp
+var firstValid = new Signal<bool>();
+var secondValid = new Signal<bool>();
+
+new[] { firstValid, secondValid }
+    .CombineLatestValuesAreAllFalse()
+    .Subscribe(static nothingValid => Console.WriteLine($"nothing valid: {nothingValid}"));
+
+firstValid.OnNext(false);
+secondValid.OnNext(false);
+secondValid.OnNext(true);
+```
+
+Output:
+
+```text
+nothing valid: True
+nothing valid: False
+```
+
 ### `SelectManyThen`
 
 `SelectManyThen` runs two steps that each return a stream, one after the other, for each value. It is

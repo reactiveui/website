@@ -253,6 +253,30 @@ total: 10
 when you need to hold the witness before you subscribe it. A slot index outside the coordinator's sources throws
 `ArgumentOutOfRangeException`.
 
+```csharp
+var coordinator = new SumLatestCoordinator(Signal.Create<int>().AsObserverAsync(), [SignalAsync.Emit(4)]);
+
+SyncLatestIndexedWitness<int, int> slot = SyncLatestSlot.CreateWitness<int, int>(
+    coordinator, 0, static value => Console.WriteLine($"slot 0 got {value}"));
+await using IAsyncDisposable slotSubscription = await SignalAsync.Emit(4).SubscribeAsync(slot, CancellationToken.None);
+
+try
+{
+    SyncLatestSlot.CreateWitness<int, int>(coordinator, 5, static _ => { });
+}
+catch (ArgumentOutOfRangeException)
+{
+    Console.WriteLine("slot 5 does not exist");
+}
+```
+
+Output:
+
+```text
+slot 0 got 4
+slot 5 does not exist
+```
+
 ### Other building blocks
 
 | Type | What it is for |

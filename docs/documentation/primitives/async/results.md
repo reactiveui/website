@@ -85,8 +85,7 @@ more than one value
 
 ### `AnyAsync` and `AllAsync`
 
-`AnyAsync` answers whether any value arrived, or any passed a test. It stops at the first match. The form with a test
-also takes a `CancellationToken`. `AllAsync` answers
+`AnyAsync` answers whether any value arrived, or any passed a test. It stops at the first match. `AllAsync` answers
 whether every value passes a test, and stops at the first that fails.
 
 ### `ContainsAsync`
@@ -98,7 +97,7 @@ IObservableAsync<int> scores = SignalAsync.FromEnumerable([70, 85, 92]);
 
 Console.WriteLine(await scores.CountAsync(static s => s >= 80));
 Console.WriteLine(await scores.LongCountAsync());
-Console.WriteLine(await scores.AnyAsync(static s => s > 90, CancellationToken.None));
+Console.WriteLine(await scores.AnyAsync(static s => s > 90));
 Console.WriteLine(await scores.AllAsync(static s => s >= 50));
 Console.WriteLine(await scores.ContainsAsync(85));
 ```

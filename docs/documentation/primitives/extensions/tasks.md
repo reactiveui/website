@@ -58,8 +58,8 @@ Output:
 
 `item 2` was quicker to load, but it still waited for `item 1`.
 
-An overload takes a lambda with a `CancellationToken`, so you can pass it to methods that ask for one. That token
-never cancels: disposing the subscription does not stop a call that is running.
+An overload takes a lambda with a `CancellationToken`, so you can pass it to methods that ask for one. The token
+cancels when you dispose the subscription, which stops a call that is still running.
 
 ### `SelectAsyncConcurrent`
 

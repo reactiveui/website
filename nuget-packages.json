@@ -22,7 +22,7 @@
     { "id": "System.Reactive" },
     { "id": "DynamicData" }
   ],
-  "excludePackages": ["Akavache.Core"],
+  "excludePackages": ["Akavache.Core", "CrissCross.XamForms", "ReactiveUI.XamForms", "Sextant.XamForms"],
   "excludePackagePrefixes": [
     "Cake.PinNuGetDependency",
     "ConsoleSampleUsingLocalApi",

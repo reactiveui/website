@@ -209,6 +209,37 @@ left got 4
 right got 4
 ```
 
+The other two send a resumable error and the end of the stream the same way:
+
+```csharp
+using System.Collections.Immutable;
+
+ISignalAsync<int> first = Signal.Create<int>();
+ISignalAsync<int> second = Signal.Create<int>();
+
+await using IAsyncDisposable f = await first.SubscribeAsync(
+    static (x, _) => default,
+    static (error, _) => { Console.WriteLine($"first saw {error.Message}"); return default; },
+    static result => { Console.WriteLine($"first ended: {result.IsSuccess}"); return default; });
+await using IAsyncDisposable s = await second.SubscribeAsync(
+    static (x, _) => default,
+    static (error, _) => { Console.WriteLine($"second saw {error.Message}"); return default; },
+    static result => { Console.WriteLine($"second ended: {result.IsSuccess}"); return default; });
+
+ImmutableArray<IObserverAsync<int>> both = [first.AsObserverAsync(), second.AsObserverAsync()];
+await Concurrent.ForwardOnErrorResumeConcurrently(both, new TimeoutException("slow"), CancellationToken.None);
+await Concurrent.ForwardOnCompletedConcurrently(both, Result.Success);
+```
+
+Output, with the two witnesses in either order for each notification:
+
+```text
+first saw slow
+second saw slow
+first ended: True
+second ended: True
+```
+
 ## At a glance
 
 | Member | What it does |
