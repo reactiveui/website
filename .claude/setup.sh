@@ -50,8 +50,17 @@ fetch_install_script() {
     return 1
 }
 
+# Install one SDK, trying each way of naming it until one resolves.
+#
+# A channel resolves through more than one route, and they do not all work
+# everywhere. Quality-based lookup asks aka.ms for a link such as
+# /dotnet/11.0/preview/dotnet-sdk-linux-x64.tar.gz, and that link does not resolve
+# in every environment. Channel-only lookup reads the channel's release metadata
+# instead and reaches the same build. So try the plain channel first and keep the
+# quality forms as fallbacks.
 install_sdk() {
-    local channel="$1" quality="$2" major="${1%%.*}"
+    local channel="$1" major="${1%%.*}"
+    shift
 
     if have_sdk "$major"; then
         log ".NET $channel SDK already present"
@@ -60,17 +69,25 @@ install_sdk() {
 
     fetch_install_script || return 1
 
-    log "Installing .NET $channel SDK ($quality)"
-    if "$INSTALL_SCRIPT" --channel "$channel" --quality "$quality" --install-dir "$DOTNET_ROOT"; then
-        return 0
-    fi
+    local attempt
+    for attempt in "$@"; do
+        log "Installing .NET $channel SDK ($attempt)"
 
-    warn "Install of .NET $channel failed."
+        # shellcheck disable=SC2086
+        if "$INSTALL_SCRIPT" --channel "$channel" $attempt --install-dir "$DOTNET_ROOT"; then
+            log ".NET $channel SDK installed"
+            return 0
+        fi
+
+        warn "That did not resolve. Trying the next form."
+    done
+
+    warn "Could not install .NET $channel by any route."
     return 1
 }
 
-install_sdk "10.0" "GA"
-install_sdk "11.0" "preview"
+install_sdk "10.0" "" "--quality GA"
+install_sdk "11.0" "" "--quality preview" "--quality daily"
 
 # Put dotnet on PATH for this process.
 export DOTNET_ROOT
