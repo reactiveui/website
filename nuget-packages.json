@@ -22,7 +22,7 @@
     { "id": "System.Reactive" },
     { "id": "DynamicData" }
   ],
-  "excludePackages": [],
+  "excludePackages": ["Akavache.Core"],
   "excludePackagePrefixes": [
     "Cake.PinNuGetDependency",
     "ConsoleSampleUsingLocalApi",
