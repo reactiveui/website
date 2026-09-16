@@ -114,12 +114,13 @@ if [ -d /etc/profile.d ] && [ -w /etc/profile.d ]; then
     printf '%s\n' "$PROFILE_SNIPPET" > /etc/profile.d/dotnet.sh
 fi
 
-if [ -f "$HOME/.bashrc" ]; then
-    case "$(cat "$HOME/.bashrc" 2>/dev/null)" in
-        *DOTNET_ROOT*) ;;
-        *) printf '\n%s\n' "$PROFILE_SNIPPET" >> "$HOME/.bashrc" ;;
-    esac
-fi
+# ~/.bashrc is written even when it does not exist yet. A Codex setup script runs in
+# its own Bash session, so an export does not reach the agent; ~/.bashrc is the
+# documented way to carry a variable across, and DOTNET_ROOT rides along with it.
+case "$(cat "$HOME/.bashrc" 2>/dev/null)" in
+    *DOTNET_ROOT*) ;;
+    *) printf '\n%s\n' "$PROFILE_SNIPPET" >> "$HOME/.bashrc" ;;
+esac
 
 # ---------------------------------------------------------------------------
 # NuGet

@@ -39,8 +39,29 @@ Three constraints that script has to meet, and this one does:
 
 - It exits 0. A non-zero exit stops the session from starting.
 - It finishes in a few minutes. Clones are shallow and run in parallel for that reason.
-- It puts `dotnet` on `PATH` with a symlink, not a profile file. An agent's shell is neither a login shell
-  nor an interactive one, so it reads no profile.
+- It puts `dotnet` on `PATH` two ways. A symlink in `/usr/local/bin` resolves in any shell. A line in
+  `~/.bashrc` carries `DOTNET_ROOT` across, which is what Codex documents, because its setup script runs in
+  its own Bash session and an `export` there does not reach the agent.
+
+### Where each provider keeps these settings
+
+|                  | Claude Code                                                | Codex                                       |
+|------------------|------------------------------------------------------------|---------------------------------------------|
+| Where to set it  | The environment selector at `claude.ai/code`, above the message box. There is no settings page or URL. | **Codex settings → Environments**           |
+| Network setting  | Access level: Trusted, Custom, or None                      | Agent internet access: Off, or On with an allowlist |
+| Allowlist preset | Trusted list, optionally kept when you pick Custom          | None, Common dependencies, or All           |
+| Setup script net | Follows the environment's access level                      | Always on, whatever the agent setting is    |
+| Cache            | Filesystem snapshot, rebuilt when the script or hosts change, expires in about seven days | Container state for up to 12 hours, with a **Reset cache** button |
+
+The difference in the "Setup script net" row matters. On Codex the SDK install works even with agent
+internet off, because setup scripts always have access. The allowlist only governs what the agent itself
+reaches later, so it is `api.nuget.org` that has to be on it for a restore during a session.
+
+On Claude Code the setup script runs under the environment's access level, so the SDK hosts have to be
+allowed or the install fails. `dot.net` is on the default list; `builds.dotnet.microsoft.com` is not,
+because the default entry `dotnet.microsoft.com` carries no wildcard. Add `*.dotnet.microsoft.com`.
+
+Codex's **Common dependencies** preset already covers `dot.net`, `dotnet.microsoft.com` and `nuget.org`.
 
 ## Build the site
 
