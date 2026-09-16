@@ -168,8 +168,10 @@ timers started: 1
 
 ### `ReplayLastOnSubscribe`
 
-`ReplayLastOnSubscribe` shares the source in one call. Each new subscriber gets the latest value at once, or the
-starting value you give if nothing has arrived yet.
+`ReplayLastOnSubscribe` shares the source in one call. Every subscriber shares one subscription. Each new subscriber
+gets the latest value at once, or the starting value you give if nothing has arrived yet. The
+[synchronous `ReplayLastOnSubscribe`](../extensions/state-and-testing.md#replaylastonsubscribe) works differently: it
+gives every subscriber its own subscription and the starting value.
 
 ```csharp
 ISignalAsync<int> source = Signal.Create<int>();

@@ -38,6 +38,10 @@ Ada
 Grace
 ```
 
+The element type stays the same: on an `IObservable<string?>` you get an `IObservable<string?>` back, even though no
+`null` reaches your callback. So the compiler may still warn about `null` in the callback.
+[The async `WhereIsNotNull`](../async/filtering.md) hands back a stream whose type cannot be `null`.
+
 ### `SkipWhileNull`
 
 `SkipWhileNull` drops `null` values only until the first value that is not `null`. After that, it passes everything
@@ -410,9 +414,40 @@ even 2
 odd 3
 ```
 
-Give `Partition` a **hot** stream: one that sends values whether or not anyone is listening, such as a signal.
-For a **cold** stream, one that starts its work when you subscribe, such as `Signal.Range`, share it first with
-[`ShareLive`](../sharing.md).
+Both halves share one subscription to the source. A **hot** stream, one that sends values whether or not anyone is
+listening, such as a signal, works as above.
+
+A **cold** stream starts its work when you subscribe, such as `Signal.FromEnumerable`. It can run to completion the
+moment the first half subscribes, so only that half gets values. Share it first with [`ShareLive`](../sharing.md),
+subscribe to both halves, then call `Connect`:
+
+```csharp
+var cold = Signal.FromEnumerable([1, 2, 3, 4, 5]);
+
+var (coldEvens, coldOdds) = cold.Partition(static x => x % 2 == 0);
+coldEvens.Subscribe(static x => Console.WriteLine($"cold even {x}"));
+coldOdds.Subscribe(static x => Console.WriteLine($"cold odd {x}"));
+
+var shared = cold.ShareLive();
+var (sharedEvens, sharedOdds) = shared.Partition(static x => x % 2 == 0);
+sharedEvens.Subscribe(static x => Console.WriteLine($"shared even {x}"));
+sharedOdds.Subscribe(static x => Console.WriteLine($"shared odd {x}"));
+shared.Connect();
+```
+
+Output:
+
+```text
+cold even 2
+cold even 4
+shared odd 1
+shared even 2
+shared odd 3
+shared even 4
+shared odd 5
+```
+
+Without sharing, the odd half got nothing: the even half had already used up the stream.
 
 ### `TakeUntil` with a test
 
