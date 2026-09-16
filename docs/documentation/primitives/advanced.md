@@ -743,9 +743,151 @@ witness on 4
 recovered 5
 ```
 
-`LatchCoordinator<TLeft, TRight, TResult>`, `CombineLatestCoordinator<TLeft, TRight, TResult>`,
-`ReattemptCoordinator<T>` and `CalmCoordinator<T>` are the coordinators behind `Latch`, two-stream `SyncLatest`,
-`Reattempt` and `Calm`. Each operator creates one for every subscription.
+Operators that watch more than one thing at once run on a **coordinator**: an object that holds the operator's state
+for one subscription. Build it with the downstream witness, then call `Run` to subscribe it. `Run` hands back the
+subscription to dispose.
+
+| Coordinator | Behind | `Run` takes | `Run` hands back |
+|---|---|---|---|
+| `LatchCoordinator<TLeft, TRight, TResult>` | `Latch` | Both streams | A `MultipleDisposable` |
+| `CombineLatestCoordinator<TLeft, TRight, TResult>` | `SyncLatest` on two streams | Both streams | A `MultipleDisposable` |
+| `ReattemptCoordinator<T>` | `Reattempt` | Nothing: the source and count go to the constructor | The coordinator |
+| `CalmCoordinator<T>` | `Calm` | The witness: the source, quiet time and sequencer go to the constructor | The coordinator |
+
+```csharp
+IObserver<string> Printer(string name) =>
+    Witness.Create<string>(x => Console.WriteLine($"{name}: {x}"), static _ => { }, static () => { });
+
+var clicks = new Signal<int>();
+var user = new BehaviorSignal<string>("ada");
+using (new LatchCoordinator<int, string, string>(Printer("latch"), static (click, name) => $"{name} clicked {click}").Run(clicks, user))
+{
+    clicks.OnNext(1);
+    user.OnNext("grace");
+    clicks.OnNext(2);
+}
+
+var firstName = new BehaviorSignal<string>("Ada");
+var lastName = new BehaviorSignal<string>("Lovelace");
+using (new CombineLatestCoordinator<string, string, string>(Printer("latest"), static (f, l) => $"{f} {l}").Run(firstName, lastName))
+{
+    lastName.OnNext("King");
+}
+
+var attempts = 0;
+IObservable<string> flaky = Signal.Lazy(() => ++attempts < 3
+    ? Signal.Fail<string>(new TimeoutException($"attempt {attempts} timed out"))
+    : Signal.Emit($"worked on attempt {attempts}"));
+using (new ReattemptCoordinator<string>(flaky, 2, Printer("reattempt")).Run())
+{
+}
+
+var quietClock = new VirtualClock();
+var typing = new Signal<string>();
+using (new CalmCoordinator<string>(typing, TimeSpan.FromMilliseconds(300), quietClock).Run(Printer("calm")))
+{
+    typing.OnNext("r");
+    typing.OnNext("rx");
+    quietClock.AdvanceBy(TimeSpan.FromMilliseconds(300));
+}
+```
+
+Output:
+
+```text
+latch: ada clicked 1
+latch: grace clicked 2
+latest: Ada Lovelace
+latest: Ada King
+reattempt: worked on attempt 3
+calm: rx
+```
+
+A retry count of 2 on `ReattemptCoordinator<T>` allows two extra tries, three runs in all, the same as `Reattempt(2)`.
+
+The other operators with a coordinator work the same way:
+
+| Coordinator | Behind | Constructor | `Run` takes |
+|---|---|---|---|
+| `ExpireCoordinator<T>` | `Expire` | The source, the time allowed, a sequencer and the witness | Nothing |
+| `MergeCoordinator<T>` | `Blend` | The witness | Two streams, or a collection |
+| `MaxConcurrentBlendCoordinator<T>` | `Blend(maxConcurrent)` on a collection | The witness | The streams and the limit |
+| `RepeatSourceCoordinator<T>` | `Repeat` on a stream | The source, a count or `null` for forever, and the witness | Nothing |
+| `SelectManyCoordinator<TSource, TResult>` | `SelectMany` | The witness, and the lambda or the inner stream | The source |
+| `SelectManyResultCoordinator<TSource, TCollection, TResult>` | `SelectMany` with a result lambda | The witness and both lambdas | The source |
+| `TaskChainCoordinator<T>` | `Concat` on a stream of tasks | The witness | The stream of tasks |
+
+Each `Run` hands back the coordinator, which is also the subscription to dispose.
+
+```csharp
+IObserver<string> Reporter(string name) =>
+    Witness.Create<string>(
+        x => Console.WriteLine($"{name}: {x}"),
+        error => Console.WriteLine($"{name} failed: {error.GetType().Name}"),
+        () => Console.WriteLine($"{name}: done"));
+
+var deadlineClock = new VirtualClock();
+var replies = new Signal<string>();
+using (new ExpireCoordinator<string>(replies, TimeSpan.FromSeconds(1), deadlineClock, Reporter("expire")).Run())
+{
+    deadlineClock.AdvanceBy(TimeSpan.FromSeconds(2));
+}
+
+using (new MergeCoordinator<string>(Reporter("blend")).Run(Signal.Emit("a"), Signal.Emit("b")))
+{
+}
+
+using (new MaxConcurrentBlendCoordinator<string>(Reporter("one at a time")).Run([Signal.Emit("x"), Signal.Emit("y")], 1))
+{
+}
+
+using (new RepeatSourceCoordinator<string>(Signal.Emit("again"), 2, Reporter("repeat")).Run())
+{
+}
+
+using (new SelectManyCoordinator<int, string>(Reporter("select many"), static id => Signal.Emit($"order {id}")).Run(Signal.Range(1, 2)))
+{
+}
+
+using (new SelectManyResultCoordinator<int, string, string>(
+           Reporter("with result"),
+           static id => Signal.Emit("invoice"),
+           static (id, document) => $"{document} for {id}").Run(Signal.Emit(7)))
+{
+}
+
+var saves = new Signal<Task<string>>();
+using (new TaskChainCoordinator<string>(Reporter("tasks")).Run(saves))
+{
+    saves.OnNext(Task.FromResult("saved"));
+    saves.OnNext(Task.FromResult("sent"));
+    saves.OnCompleted();
+    await Task.Delay(100);
+}
+```
+
+Output:
+
+```text
+expire failed: TimeoutException
+blend: a
+blend: b
+blend: done
+one at a time: x
+one at a time: y
+one at a time: done
+repeat: again
+repeat: again
+repeat: done
+select many: order 1
+select many: order 2
+select many: done
+with result: invoice for 7
+with result: done
+tasks: saved
+tasks: sent
+tasks: done
+```
 
 ## Marker interfaces
 
