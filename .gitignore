@@ -454,8 +454,11 @@ src/Tools/
 # Test results and coverage reports
 test_results/
 
-# Claude Settings
+# Claude Settings — local state stays out, the shared setup script goes in.
 .claude/
+!.claude/
+.claude/*
+!.claude/setup.sh
 
 # Wrangler (Cloudflare CLI) — local OAuth tokens, deploy state and cache
 # created by `wrangler login` / `wrangler pages deploy`. Holds credentials,

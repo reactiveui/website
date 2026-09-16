@@ -13,7 +13,30 @@ This repository holds the source of [reactiveui.net](https://www.reactiveui.net/
 - **API reference package list:** `nuget-packages.json`
 - **Renderer version:** the `NuStreamDocsVersion` property in `Directory.Packages.props`
 
-The .NET 10 SDK is the only prerequisite. `README.md` covers the layout and the workflows.
+`README.md` covers the layout and the workflows.
+
+## Environment Setup
+
+Run this first in a fresh environment, such as a cloud container:
+
+```bash
+./.claude/setup.sh
+```
+
+It installs the .NET 10 SDK and the .NET 11 SDK, puts `dotnet` on `PATH`, checks that `api.nuget.org`
+answers, and clones all 18 active ReactiveUI repositories beside this one. Every step checks before it acts,
+so running it again is cheap.
+
+The site documents the whole ecosystem, so a page gets written from the real source rather than from memory.
+The Primitives pages read that repository's PublicAPI baselines. Any other page can check the type it
+describes.
+
+Clones carry full history, because Nerdbank.GitVersioning reads it and a shallow clone cannot build. Set
+`RXUI_CLONE_DEPTH=1` for an environment that only reads source and builds nothing.
+
+The script exits 0 even when a download is blocked. It prints what is missing instead. An environment that
+cannot install .NET needs outbound access to `dot.net` and `builds.dotnet.microsoft.com`; one that cannot
+restore needs `api.nuget.org`.
 
 ## Build Commands
 
