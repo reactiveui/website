@@ -50,17 +50,22 @@ fetch_install_script() {
     return 1
 }
 
-# Install one SDK, trying each way of naming it until one resolves.
+# Install one SDK, asking for the channel alone.
 #
-# A channel resolves through more than one route, and they do not all work
-# everywhere. Quality-based lookup asks aka.ms for a link such as
-# /dotnet/11.0/preview/dotnet-sdk-linux-x64.tar.gz, and that link does not resolve
-# in every environment. Channel-only lookup reads the channel's release metadata
-# instead and reaches the same build. So try the plain channel first and keep the
-# quality forms as fallbacks.
+# Naming only the channel is what makes this survive a release. The installer reads
+# the channel's release metadata and takes whatever that channel currently points
+# at, so one call covers preview, RC and GA. Channel 11.0 resolves to an RC build
+# today and to the GA build the day it ships, with no change here.
+#
+# Do not ask for a quality band. Quality lookup resolves through an aka.ms redirect,
+# which a restricted network refuses, and the installer then fails outright rather
+# than falling back. The band would also have to be corrected by hand every time the
+# channel moves: 11.0 is at "go-live", so "preview" no longer matches it.
+#
+# The feed is pinned so a lookup does not spend its retries on ci.dot.net, which some
+# networks refuse. An unpinned retry follows, for a network that refuses the pin.
 install_sdk() {
     local channel="$1" major="${1%%.*}"
-    shift
 
     if have_sdk "$major"; then
         log ".NET $channel SDK already present"
@@ -69,25 +74,25 @@ install_sdk() {
 
     fetch_install_script || return 1
 
-    local attempt
-    for attempt in "$@"; do
-        log "Installing .NET $channel SDK ($attempt)"
+    log "Installing .NET $channel SDK"
+    if "$INSTALL_SCRIPT" --channel "$channel" --install-dir "$DOTNET_ROOT" \
+        --azure-feed "https://builds.dotnet.microsoft.com/dotnet"; then
+        log ".NET $channel SDK installed"
+        return 0
+    fi
 
-        # shellcheck disable=SC2086
-        if "$INSTALL_SCRIPT" --channel "$channel" $attempt --install-dir "$DOTNET_ROOT"; then
-            log ".NET $channel SDK installed"
-            return 0
-        fi
+    warn "The pinned feed did not answer. Retrying without it."
+    if "$INSTALL_SCRIPT" --channel "$channel" --install-dir "$DOTNET_ROOT"; then
+        log ".NET $channel SDK installed"
+        return 0
+    fi
 
-        warn "That did not resolve. Trying the next form."
-    done
-
-    warn "Could not install .NET $channel by any route."
+    warn "Could not install .NET $channel."
     return 1
 }
 
-install_sdk "10.0" "" "--quality GA"
-install_sdk "11.0" "" "--quality preview" "--quality daily"
+install_sdk "10.0"
+install_sdk "11.0"
 
 # Put dotnet on PATH for this process.
 export DOTNET_ROOT
