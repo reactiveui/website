@@ -98,8 +98,11 @@ When you do want one result, `await` works on a stream too. See [getting a resul
 
 ## A search box, two ways
 
-A search box should wait until the user stops typing for 300 ms, skip a search for the text it just searched
-for, and cancel a search that is still running when a newer one starts.
+A search box has three rules:
+
+- Wait until the user stops typing for 300 ms.
+- Skip a search for the text it just searched for.
+- Cancel a search that is still running when a newer one starts.
 
 ### With an event, a task and a field
 
@@ -235,8 +238,8 @@ and in small container images. See [Native AOT](system-reactive.md#native-aot).
 
 ### A signal for each job
 
-Beyond the plain `Signal<T>`, there are signals that hold a settable state, order values from many threads, run
-a command, or let only a set number of values through at a time. See [signals](signals.md).
+Beyond the plain `Signal<T>`, there is a signal for each common job. Signals can hold a settable state, order
+values from many threads, run a command, or let only a set number of values through at a time. See [signals](signals.md).
 
 ### Building blocks you can reach
 
