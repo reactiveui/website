@@ -60,11 +60,15 @@ values are `true`, or all `false`.
 ```csharp
 IObservableAsync<bool>[] checks = [SignalAsync.Emit(true), SignalAsync.Emit(true)];
 Console.WriteLine(await checks.CombineLatestValuesAreAllTrue().FirstAsync());
+
+IObservableAsync<bool>[] failures = [SignalAsync.Emit(false), SignalAsync.Emit(false)];
+Console.WriteLine(await failures.CombineLatestValuesAreAllFalse().FirstAsync());
 ```
 
 Output:
 
 ```text
+True
 True
 ```
 
