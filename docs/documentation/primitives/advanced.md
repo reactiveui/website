@@ -805,6 +805,42 @@ calm: rx
 
 A retry count of 2 on `ReattemptCoordinator<T>` allows two extra tries, three runs in all, the same as `Reattempt(2)`.
 
+`SyncLatest` on three or more streams, or on a collection, has a different shape. You never construct its coordinator,
+`CombineLatestCoordinator<TResult>`. Instead you build a `CombineLatestSignal<TResult>` and give it a lambda. The
+signal creates the coordinator for each subscription and passes it to your lambda, which does two things:
+
+1. Calls `Attach` once for each source. `Attach` hands back a `CombineLatestSlot<TResult, T>`, whose `Value` is that
+   source's latest value.
+2. Hands back a `Func<TResult>` that builds the result from the slots. The signal calls it each time any source
+   sends, once every source has sent a value.
+
+```csharp
+var profileName = new BehaviorSignal<string>("Ada");
+var profileAge = new BehaviorSignal<int>(36);
+var profileCity = new BehaviorSignal<string>("London");
+
+var profile = new CombineLatestSignal<string>(coordinator =>
+{
+    CombineLatestSlot<string, string> nameSlot = coordinator.Attach(profileName);
+    CombineLatestSlot<string, int> ageSlot = coordinator.Attach(profileAge);
+    CombineLatestSlot<string, string> citySlot = coordinator.Attach(profileCity);
+
+    return () => $"{nameSlot.Value}, {ageSlot.Value}, {citySlot.Value}";
+});
+
+using (profile.Subscribe(static summary => Console.WriteLine(summary)))
+{
+    profileCity.OnNext("Paris");
+}
+```
+
+Output:
+
+```text
+Ada, 36, London
+Ada, 36, Paris
+```
+
 The other operators with a coordinator work the same way:
 
 | Coordinator | Behind | Constructor | `Run` takes |
