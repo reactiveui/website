@@ -214,7 +214,7 @@ Output:
 | 700 ms | `4` |
 | 1000 ms | `5` |
 
-The first value is also held for the full gap.
+The first value is also held for the full gap, because the gap is timed from when you subscribe.
 
 ### `SampleLatest`
 
@@ -321,37 +321,38 @@ True
 
 Then both rows update together, once a second, starting straight away.
 
-### `Schedule` on a value
+### `ScheduleValue` and `Schedule`
 
-`Schedule` on a plain value builds a stream that sends that value later, through a sequencer, then completes. Give it
-a `TimeSpan` to wait, or a `DateTimeOffset` to send at a set time. You can also pass an `Action<T>` to run on the value
-as it goes out, or a `Func<T, T>` to change it.
+These two send later, through a sequencer. `ScheduleValue` works on a plain value. `Schedule` works on a stream.
+
+`ScheduleValue` builds a stream that sends one value later, then completes. Give it a `TimeSpan` to wait, or a
+`DateTimeOffset` to send at a set time. You can also pass an `Action<T>` to run on the value as it goes out, or a
+`Func<T, T>` to change it.
 
 ```csharp
-42.Schedule(TimeSpan.FromMilliseconds(200), Sequencer.Default)
+42.ScheduleValue(TimeSpan.FromMilliseconds(200), Sequencer.Default)
   .Subscribe(static x => Console.WriteLine(x));   // 42, at 200 ms
 
-"ready".Schedule(TimeSpan.FromMilliseconds(100), Sequencer.Default, static s => Console.WriteLine($"about to send {s}"))
+"ready".ScheduleValue(TimeSpan.FromMilliseconds(100), Sequencer.Default, static s => Console.WriteLine($"about to send {s}"))
        .Subscribe(static s => Console.WriteLine(s));
 
-3.Schedule(Sequencer.Default, static x => x * 2)
+3.ScheduleValue(Sequencer.Default, static x => x * 2)
  .Subscribe(static x => Console.WriteLine(x));    // 6
 ```
 
-### `Schedule` on a stream
-
-The same overloads exist on `IObservable<T>`. They send each value of the stream through the sequencer, after the
-wait if you give one.
+`Schedule` takes the same arguments, and sends each value of a stream through the sequencer, after the wait if you
+give one. It works on any stream variable, including a concrete signal:
 
 ```csharp
-IObservable<int> numbers = Signal.Range(1, 2);
+var prices = new Signal<int>();
 
-numbers.Schedule(TimeSpan.FromMilliseconds(200), Sequencer.Default)
-       .Subscribe(static x => Console.WriteLine(x));   // 1 and 2, at 200 ms
+prices.Schedule(TimeSpan.FromMilliseconds(200), Sequencer.Default)
+      .Subscribe(static x => Console.WriteLine(x));   // each price, 200 ms after it arrives
+
+prices.OnNext(10);
 ```
 
-Call these on a variable typed as `IObservable<T>`, as above. On a variable typed as a concrete signal such as
-`Signal<int>`, C# picks the value overload and schedules the signal object itself.
+The two names keep the cases apart: a signal is a value too, so one name for both could not tell which you meant.
 
 ### `While`
 
@@ -505,7 +506,8 @@ Output:
 | `DetectStale` | — | Marks the stream stale after a quiet period. |
 | `Heartbeat` | — | Sends a heartbeat every period while the source is quiet. |
 | `SyncTimer` | — | A timer shared by every caller with the same period. |
-| `Schedule` | — | Sends a value, or each value of a stream, later through a sequencer. |
+| `ScheduleValue` | — | Sends one value later through a sequencer. |
+| `Schedule` | — | Sends each value of a stream later through a sequencer. |
 | `While` | — | Runs an action while a condition holds. |
 | `Start` | — | Runs a method through a sequencer and sends its result. |
 | `Using` | — | Runs a lambda with a disposable object, then disposes it. |
