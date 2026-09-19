@@ -3,6 +3,8 @@ Order: 2
 ---
 # Clients and settings
 
+[Run the complete page example](https://github.com/reactiveui/refit/blob/main/src/examples/Documentation/Pages/clients-index/clients-index.csproj).
+
 After defining your API interface, you need to connect it to the service your app will use.
 These pages show how to create that client, share request settings and make the client
 available to the rest of your app. They also explain who should dispose the HTTP client.

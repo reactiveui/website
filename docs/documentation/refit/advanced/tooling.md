@@ -13,7 +13,7 @@ It starts by running the generator through Roslyn, the .NET library for working 
 
 ## Run a generator yourself
 
-**1. Use a compiler host.** The [complete sample project](https://github.com/reactiveui/refit/tree/main/src/examples/Documentation/Tooling)
+**1. Use a compiler host.** The [complete sample project](https://github.com/reactiveui/refit/blob/main/src/examples/Documentation/Tooling/Tooling.csproj)
 targets .NET 10 and C# 14. It references local Refit source and Roslyn 5.0.0.
 The shipping Refit compiler assemblies target .NET Standard 2.0 and compile against Roslyn 4.8.
 The sample host's Roslyn version lets it read C# 14.

@@ -82,8 +82,11 @@ Console.WriteLine(restored?.Name); // Ada
 ```
 
 Refit's serializer uses metadata through `JsonSerializerOptions.TypeInfoResolver`.
-It does not expose a public overload taking `JsonTypeInfo<T>` directly.
-Use the options setup above for Refit; use the typed BCL overloads when you serialize JSON yourself.
+Its public methods remain generic: the `T` in `ToHttpContent<T>` or
+`FromHttpContentAsync<T>` selects the requested `JsonTypeInfo<T>` from that resolver.
+You do not pass `JsonTypeInfo<T>` as a separate Refit argument. Use the typed BCL overloads when
+you serialize JSON yourself. Use the resolver setup above when Refit serializes request bodies or
+reads responses.
 
 ## Serializer capabilities
 
@@ -213,7 +216,8 @@ Trimming removes code that appears unused. Reflection can need a member the trim
 Generated metadata makes the required model contract visible to the build.
 Register all request and reply roots, collection shapes, closed generic wrappers and possible runtime types.
 In a trimmed or Native AOT app, do not depend on System.Text.Json's reflection fallback. Missing generated
-metadata causes JSON operations to fail with `InvalidOperationException`; register the type in a context instead.
+metadata causes JSON operations to fail (the unregistered `Page<Person>` example throws `NotSupportedException`);
+register the type in a context instead.
 
 ## Combine contexts from separate modules
 

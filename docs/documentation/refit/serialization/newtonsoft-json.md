@@ -81,7 +81,7 @@ Set serializer settings before sharing the serializer between requests.
 
 ## Run the example
 
-The [complete optional serializer project](https://github.com/reactiveui/refit/tree/main/src/examples/Documentation/Serialization/Other)
+The complete [optional serializer project](https://github.com/reactiveui/refit/blob/main/src/examples/Documentation/Serialization/Other/Other.csproj)
 targets .NET 10 and C# 14. It references local Refit source and checks both JSON and XML round trips.
 Run from the Refit checkout's `src` folder:
 

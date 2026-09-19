@@ -3,6 +3,8 @@ Order: 8
 ---
 # Advanced Refit APIs
 
+[Run the complete page example](https://github.com/reactiveui/refit/blob/main/src/examples/Documentation/Pages/advanced-index/advanced-index.csproj).
+
 Most apps can describe an API on an interface and let Refit handle the request. If you are
 building a client generator, an editor tool or a custom integration, you may need access
 to the pieces underneath that interface.

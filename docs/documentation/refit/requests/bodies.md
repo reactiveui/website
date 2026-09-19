@@ -107,7 +107,7 @@ Console.WriteLine(saved.Name); // Ada
 The source example checks the actual bytes received by each local route.
 It also decompresses the gzip body and checks the restored JSON.
 JSON Lines puts a newline between the two items. Refit does not add a trailing newline.
-See: [the runnable body examples](https://github.com/reactiveui/refit/tree/main/src/examples/Documentation/Bodies).
+See: the complete [body example](https://github.com/reactiveui/refit/blob/main/src/examples/Documentation/Bodies/Bodies.cs).
 
 ## Choose a serialization method
 
@@ -274,7 +274,7 @@ Person result = await api.PutAsync(new(1, "Ada"));
 Console.WriteLine(result.Name); // Ada
 ```
 
-Run the [separate .NET 11 project](https://github.com/reactiveui/refit/tree/main/src/examples/Documentation/Bodies/Compression)
+Run the separate [.NET 11 project](https://github.com/reactiveui/refit/blob/main/src/examples/Documentation/Bodies/Compression/Compression.csproj)
 when using Zstandard; the main .NET 10 examples verify that requesting it fails.
 
 ## URI and per-call deadline policies

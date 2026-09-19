@@ -3,6 +3,8 @@ Order: 7
 ---
 # Refit
 
+[Run the complete page example](https://github.com/reactiveui/refit/blob/main/src/examples/Documentation/Pages/index/index.csproj).
+
 When your app needs data from a web service, you want the call to be easy to read and use.
 Refit lets you describe that call on a C# interface. You specify the service's route and the
 values it needs, then call the interface method to make the request.

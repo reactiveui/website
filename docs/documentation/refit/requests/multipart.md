@@ -14,7 +14,7 @@ and custom parts, including which streams your app must keep open.
 
 ## Send a file and text together
 
-The [complete local examples](https://github.com/reactiveui/refit/tree/main/src/examples/Documentation/Multipart)
+The complete local [multipart project](https://github.com/reactiveui/refit/blob/main/src/examples/Documentation/Multipart/Multipart.csproj)
 build and run on .NET 10 with C# 14. Their handler inspects the real generated requests without contacting a server.
 `SampleCheck.Equal` throws when a value differs from the expected result.
 The source files include imports, the handler and the runner.
@@ -291,7 +291,7 @@ Null fields are omitted unless their query configuration requests null serializa
 An emitted null value becomes empty text; unnamed or whitespace-only fields are skipped.
 
 The current generator deliberately sends `[FormObject]` methods to the reflection request builder.
-The [separate JIT-only example](https://github.com/reactiveui/refit/tree/main/src/examples/Documentation/Multipart/Legacy)
+The separate [JIT-only project](https://github.com/reactiveui/refit/blob/main/src/examples/Documentation/Multipart/Legacy/Legacy.csproj)
 references `Refit.Reflection` and calls `RestService.For` explicitly.
 It is excluded from the main project and native publication.
 That project's `RefitGeneratedRequestBuilding=false` selects reflection request construction for every method deliberately.

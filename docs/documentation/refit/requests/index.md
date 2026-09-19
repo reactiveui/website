@@ -3,6 +3,8 @@ Order: 2
 ---
 # Requests
 
+[Run the complete page example](https://github.com/reactiveui/refit/blob/main/src/examples/Documentation/Pages/requests-index/requests-index.csproj).
+
 To call a web service, your app needs to describe what it wants and supply the data the service
 expects. With Refit, you put that description on an interface method. Its attributes tell Refit
 where the call goes and how to turn the arguments into a request.

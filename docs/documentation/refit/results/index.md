@@ -3,6 +3,8 @@ Order: 3
 ---
 # Results
 
+[Run the complete page example](https://github.com/reactiveui/refit/blob/main/src/examples/Documentation/Pages/results-index/results-index.csproj).
+
 After sending a request, your app needs to decide what to do with the reply. Sometimes you
 only need a person or a list of records. Other calls need the status and headers, an explanation
 of a failure, or a way to process items as they arrive.

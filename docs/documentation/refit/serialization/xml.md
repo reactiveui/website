@@ -168,7 +168,7 @@ interface. Use the default request serialization mode for it.
 
 ## Run the example
 
-The [complete optional serializer project](https://github.com/reactiveui/refit/tree/main/src/examples/Documentation/Serialization/Other)
+The complete [optional serializer project](https://github.com/reactiveui/refit/blob/main/src/examples/Documentation/Serialization/Other/Other.csproj)
 targets .NET 10 and C# 14. Run from the Refit checkout's `src` folder:
 
 ```bash

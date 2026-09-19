@@ -61,7 +61,7 @@ Each call needs its own route, argument mapping and reply handling.
 You can build shared helpers for a handwritten client. With Refit, the generator writes the glue
 and the compiler checks and compiles it for you.
 
-The [runnable comparison](https://github.com/reactiveui/refit/tree/main/src/examples/Documentation/Rationale)
+The runnable [comparison](https://github.com/reactiveui/refit/blob/main/src/examples/Documentation/Rationale/Rationale.cs)
 uses the same shared `HttpClient` and local JSON reply for both methods.
 It checks that both return the same person.
 

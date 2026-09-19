@@ -87,7 +87,7 @@ Person person = await api.GetPersonAsync(1, CancellationToken.None);
 Console.WriteLine(person.Name); // Ada
 ```
 
-The [complete native example](https://github.com/reactiveui/refit/tree/main/src/examples/Documentation/Aot/NativeClient)
+The complete [native example](https://github.com/reactiveui/refit/blob/main/src/examples/Documentation/Aot/NativeClient/NativeClient.csproj)
 publishes a small console app. From the Refit checkout's `src` folder, publish and run it on Linux x64:
 
 ```bash

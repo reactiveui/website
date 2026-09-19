@@ -14,7 +14,7 @@ builds the request, so the test can catch mistakes in its route, headers and bod
 
 ## Make your first test
 
-**1. Reference `Refit.Testing` and Refit.** The [runnable .NET 10 examples](https://github.com/reactiveui/refit/tree/main/src/examples/Documentation/Testing)
+**1. Reference `Refit.Testing` and Refit.** The complete [runnable .NET 10 example](https://github.com/reactiveui/refit/blob/main/src/examples/Documentation/Testing/Testing.cs)
 use the packages' source projects. An app can reference the corresponding NuGet packages.
 The sample needs no server and no internet connection when it runs.
 
