@@ -39,11 +39,17 @@
     "ReactiveUI.Extensions",
     "ReactiveUI.Primitives",
     "ReactiveUI.SourceGenerators",
+    "Refit",
     "SextantSample.",
     "System.Reactive.Wasm",
     "Splat.DependencyInjection."
   ],
   "referencePackages": [
+    { "id": "ReactiveUI.Primitives", "version": "7.4.0", "targetTfm": "net10.0", "pathPrefix": "lib/net10.0" },
+    { "id": "ReactiveUI.Primitives.Core", "version": "7.4.0", "targetTfm": "net10.0", "pathPrefix": "lib/net10.0" },
+    { "id": "ReactiveUI.Primitives.Reactive", "version": "7.4.0", "targetTfm": "net10.0", "pathPrefix": "lib/net10.0" },
+    { "id": "ReactiveUI.Primitives.Avalonia.Reactive", "version": "7.4.0", "targetTfm": "net10.0", "pathPrefix": "lib/net10.0" },
+    { "id": "ReactiveUI.Disposables", "version": "7.4.0", "targetTfm": "net10.0", "pathPrefix": "lib/net10.0" },
     { "id": "Microsoft.NETCore.App.Ref", "version": "10.0.0", "targetTfm": "net10.0", "pathPrefix": "ref/net10.0" },
     { "id": "Microsoft.NETCore.App.Ref", "version": "9.0.0",  "targetTfm": "net9.0",  "pathPrefix": "ref/net9.0" },
     { "id": "Microsoft.NETCore.App.Ref", "version": "8.0.0",  "targetTfm": "net8.0",  "pathPrefix": "ref/net8.0" },
