@@ -90,6 +90,7 @@ The example uses `CancellationToken.None` because its short local request has no
 
 | Page | What you can do |
 | --- | --- |
+| [API reference](api-reference.md) | Find types, overloads, parameters and return values across all topics on one page. |
 | [Why use Refit?](why-refit.md) | Compare an interface contract with a raw HTTP implementation. |
 | [Client creation and settings](clients/index.md) | Create generated clients, configure settings and register clients with dependency injection. |
 | [Routes and HTTP methods](requests/routes.md) | Choose a method, fill a route, and inspect a request before sending it. |
