@@ -169,6 +169,44 @@ Console.WriteLine(unescaped.RequestUri?.OriginalString); // /people?q=Ada Lovela
 
 For shared naming and value rules, see [query formatters](query-formatters.md).
 
+The complete query API reference is:
+
+| Member | Description | Parameters | Returns or value |
+| --- | --- | --- | --- |
+| `CollectionFormat` | Selects how a collection becomes query or form text. | None. | [enum](https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/enum) with the values listed above. |
+| `CollectionFormat.RefitParameterFormatter` | Delegates collection rendering to the configured URL or form formatter. | None. | [int](https://learn.microsoft.com/dotnet/api/system.int32) value `0`; the default enum value. |
+| `CollectionFormat.Csv` | Joins values with a comma. | None. | [int](https://learn.microsoft.com/dotnet/api/system.int32) value `1`. |
+| `CollectionFormat.Ssv` | Joins values with a space. | None. | [int](https://learn.microsoft.com/dotnet/api/system.int32) value `2`. |
+| `CollectionFormat.Tsv` | Joins values with a tab. | None. | [int](https://learn.microsoft.com/dotnet/api/system.int32) value `3`. |
+| `CollectionFormat.Pipes` | Joins values with a pipe character. | None. | [int](https://learn.microsoft.com/dotnet/api/system.int32) value `4`. |
+| `CollectionFormat.Multi` | Emits one key-value pair for each collection value. | None. | [int](https://learn.microsoft.com/dotnet/api/system.int32) value `5`. |
+| `CollectionFormat.Indexed` | Expands each object element under an indexed key such as `items[0].Name`. | None. | [int](https://learn.microsoft.com/dotnet/api/system.int32) value `6`; scalar elements use comma-separated values. |
+| `AliasAsAttribute` | An attribute that replaces a query parameter or property name with a service-specific name. | Applied to a parameter or property. | Sealed [Attribute](https://learn.microsoft.com/dotnet/api/system.attribute) type. |
+| `AliasAsAttribute(string name)` | Marks a parameter or property with the exact name Refit sends on the wire. | [string](https://learn.microsoft.com/dotnet/api/system.string) `name`: wire name. | An attribute whose [Name](https://learn.microsoft.com/dotnet/api/system.string) replaces the CLR name. |
+| `AliasAsAttribute.Name` | Returns the alias supplied to the constructor. | None. Read-only. | [string](https://learn.microsoft.com/dotnet/api/system.string) wire name. |
+| `EncodedAttribute` | An attribute that tells generated request building to preserve a caller-encoded parameter. | Applied to a parameter. | Sealed [Attribute](https://learn.microsoft.com/dotnet/api/system.attribute) type. |
+| `EncodedAttribute()` | Marks a parameter value as URL-encoded text that Refit appends verbatim. | None. | Attribute for path segments, query values, and `QueryName` flags. |
+| `QueryAttribute` | An attribute that controls query or form field names, scalar formats, and collection formats. | Applied to a parameter or property. | Sealed [Attribute](https://learn.microsoft.com/dotnet/api/system.attribute) type. |
+| `QueryAttribute()` | Uses `.` as the nested-name delimiter and leaves the collection format to client settings. | None. | Attribute with no prefix or value format. |
+| `QueryAttribute(CollectionFormat collectionFormat)` | Selects a collection format for this parameter or property. | [CollectionFormat](https://github.com/reactiveui/refit/blob/main/src/Refit/CollectionFormat.cs) `collectionFormat`: explicit collection mode. | Attribute for which `IsCollectionFormatSpecified` is `true`. |
+| `QueryAttribute(string delimiter)` | Changes the separator between names when Refit flattens a complex value. | [string](https://learn.microsoft.com/dotnet/api/system.string) `delimiter`: nested-name separator. | Attribute with the supplied delimiter. |
+| `QueryAttribute(string delimiter, string prefix)` | Changes flattened names to `prefix + delimiter + propertyName`. | [string](https://learn.microsoft.com/dotnet/api/system.string) `delimiter`: nested-name separator; [string](https://learn.microsoft.com/dotnet/api/system.string) `prefix`: name before flattened properties. | Attribute with the supplied delimiter and prefix. |
+| `QueryAttribute(string delimiter, string prefix, string format)` | Also stores a value format for a scalar query value. It does not apply that format to flattened properties. | [string](https://learn.microsoft.com/dotnet/api/system.string) `delimiter`: nested-name separator; [string](https://learn.microsoft.com/dotnet/api/system.string) `prefix`: name before flattened properties; [string](https://learn.microsoft.com/dotnet/api/system.string) `format`: value format string. | Attribute with the supplied delimiter, prefix, and format. |
+| `QueryAttribute.CollectionFormat` | Gets the selected format, or sets an explicit format that overrides client settings. | None. | [CollectionFormat](https://github.com/reactiveui/refit/blob/main/src/Refit/CollectionFormat.cs); reads as `RefitParameterFormatter` until set, while `IsCollectionFormatSpecified` distinguishes that unset state. |
+| `QueryAttribute.Delimiter` | Returns the separator that joins the prefix and flattened property name. | None. Read-only. | [string](https://learn.microsoft.com/dotnet/api/system.string), default `"."`. |
+| `QueryAttribute.Format` | Gets or sets the format string for a scalar query value. | None. | [string](https://learn.microsoft.com/dotnet/api/system.string) or `null`; default `null`. |
+| `QueryAttribute.IsCollectionFormatSpecified` | Reports whether code assigned `CollectionFormat`, including through the collection-format constructor. | None. Read-only. | [bool](https://learn.microsoft.com/dotnet/api/system.boolean), default `false`. |
+| `QueryAttribute.Prefix` | Returns the name prepended to each flattened property. | None. Read-only. | [string](https://learn.microsoft.com/dotnet/api/system.string) or `null`; default `null`. |
+| `QueryAttribute.SerializeNull` | Controls whether a null property is written as an empty value instead of omitted. | None. | [bool](https://learn.microsoft.com/dotnet/api/system.boolean), default `false`. |
+| `QueryAttribute.TreatAsString` | Controls whether Refit uses an object's `ToString()` result instead of flattening its properties. | None. | [bool](https://learn.microsoft.com/en-us/dotnet/api/system.boolean), default `false`. |
+| `QueryNameAttribute` | An attribute that creates a presence-style query flag from a parameter value. | Applied to a parameter. | Sealed [Attribute](https://learn.microsoft.com/dotnet/api/system.attribute) type. |
+| `QueryNameAttribute()` | Marks a parameter whose formatted value becomes a bare query flag without `=value`. | None. | Attribute that omits null values and renders collection elements as separate flags. |
+| `QueryUriFormatAttribute` | An attribute that controls how .NET renders a method's final request URI. | Applied to a method. | Sealed [Attribute](https://learn.microsoft.com/dotnet/api/system.attribute) type. |
+| `QueryUriFormatAttribute(UriFormat uriFormat)` | Sets the .NET URI rendering mode for the method's complete path and query. | [UriFormat](https://learn.microsoft.com/dotnet/api/system.uriformat) `uriFormat`: final URI rendering mode. | Attribute applied to a method. |
+| `QueryUriFormatAttribute.UriFormat` | Returns the URI rendering mode supplied to the constructor. | None. Read-only. | [UriFormat](https://learn.microsoft.com/dotnet/api/system.uriformat). |
+
+Production source: [AliasAsAttribute.cs](https://github.com/reactiveui/refit/blob/main/src/Refit/AliasAsAttribute.cs), [CollectionFormat.cs](https://github.com/reactiveui/refit/blob/main/src/Refit/CollectionFormat.cs), [EncodedAttribute.cs](https://github.com/reactiveui/refit/blob/main/src/Refit/EncodedAttribute.cs), [QueryAttribute.cs](https://github.com/reactiveui/refit/blob/main/src/Refit/QueryAttribute.cs), [QueryNameAttribute.cs](https://github.com/reactiveui/refit/blob/main/src/Refit/QueryNameAttribute.cs), and [QueryUriFormatAttribute.cs](https://github.com/reactiveui/refit/blob/main/src/Refit/QueryUriFormatAttribute.cs).
+
 ## Compare constructor and format choices
 
 The five constructors store the delimiter, prefix, value format or explicit collection format.

@@ -55,6 +55,36 @@ the original content successfully, but typed inspection of the captured body thr
 For a standalone typed test, repeat the JSON context registration for the request model and set
 `TypeInfoResolver` before creating the generated client. Raw request inspection needs no JSON context.
 
+## Verification API reference
+
+These members belong to [`StubHttp`](https://github.com/reactiveui/refit/blob/main/src/Refit.Testing/StubHttp.cs),
+a declarative [`HttpMessageHandler`](https://learn.microsoft.com/dotnet/api/system.net.http.httpmessagehandler)
+that records requests and consumes one-shot route expectations. None accepts a cancellation token.
+`T` is the model type to read using the adopted serializer.
+
+| Overload | Description | Parameters | Returns |
+| --- | --- | --- | --- |
+| [`VerifyAllCalled()`](https://github.com/reactiveui/refit/blob/main/src/Refit.Testing/StubHttp.cs) | Checks immediately that every one-shot route has been consumed. | None. | `void`; throws [`InvalidOperationException`][invalid-operation] immediately if a one-shot expectation is missing. |
+| [`VerifyAllCalledAsync()`](https://github.com/reactiveui/refit/blob/main/src/Refit.Testing/StubHttp.cs) | Waits for one-shot routes using the handler's default one-second timeout. | None. | [Task]: completes when all expectations are consumed, or faults with the missing-route error after one second. |
+| [`VerifyAllCalledAsync(TimeSpan timeout)`](https://github.com/reactiveui/refit/blob/main/src/Refit.Testing/StubHttp.cs) | Waits for one-shot routes using a caller-selected timeout. | [TimeSpan] `timeout`: maximum wait; zero checks immediately. | [Task]: completes when expectations are consumed, or faults with the missing-route error after the timeout. See the completed-verification limitation below. |
+| [`LastRequestBodyAsync<T>()`](https://github.com/reactiveui/refit/blob/main/src/Refit.Testing/StubHttp.cs) | Deserializes the most recently captured request body as `T` with the adopted serializer. | None. | [`Task<T?>`][task-result]: latest captured body deserialized as `T`, or `default` for absent or unbufferable content. Throws [`InvalidOperationException`][invalid-operation] if there are no requests. |
+| [`RequestBodyAsync<T>(int index)`](https://github.com/reactiveui/refit/blob/main/src/Refit.Testing/StubHttp.cs) | Deserializes the captured body at a recorded request position with the adopted serializer. | [int] `index`: zero-based request position. | [`Task<T?>`][task-result]: selected captured body deserialized as `T`, or `default` for absent or unbufferable content. Throws [`ArgumentOutOfRangeException`][argument-out-of-range] for an invalid index. |
+
+| Property | Type | Value |
+| --- | --- | --- |
+| [`Requests`](https://github.com/reactiveui/refit/blob/main/src/Refit.Testing/StubHttp.cs) | [`IReadOnlyList<HttpRequestMessage>`][requests] | Get-only live list of recorded [HttpRequestMessage] objects in arrival order, including unmatched requests and failed sends. |
+
+Source: [StubHttp.cs](https://github.com/reactiveui/refit/blob/main/src/Refit.Testing/StubHttp.cs).
+
+[Task]: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task
+[task-result]: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+[TimeSpan]: https://learn.microsoft.com/dotnet/api/system.timespan
+[int]: https://learn.microsoft.com/dotnet/api/system.int32
+[requests]: https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1
+[HttpRequestMessage]: https://learn.microsoft.com/dotnet/api/system.net.http.httprequestmessage
+[invalid-operation]: https://learn.microsoft.com/dotnet/api/system.invalidoperationexception
+[argument-out-of-range]: https://learn.microsoft.com/dotnet/api/system.argumentoutofrangeexception
+
 ## Adding routes after completed verification
 
 Expected behavior: adding a one-shot route makes asynchronous verification wait for that request.

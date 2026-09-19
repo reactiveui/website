@@ -93,10 +93,10 @@ Content headers belong to the request content. A request without a body cannot c
 
 | Attribute or property | Use |
 | --- | --- |
-| `Headers(params string[] headers)` / `Headers` | Shared interface or method headers. |
-| `Header(string header)` / `Header` | One header value from a method argument. |
-| `HeaderCollection()` | A header dictionary from a method argument. |
-| `Authorize(string scheme = "Bearer")` / `Scheme` | An authorization token from a method argument. |
+| [`Headers(params string[] headers)`](https://github.com/reactiveui/refit/blob/main/src/Refit/HeadersAttribute.cs) / [`Headers`](https://github.com/reactiveui/refit/blob/main/src/Refit/HeadersAttribute.cs) | Shared interface or method headers. |
+| [`Header(string header)`](https://github.com/reactiveui/refit/blob/main/src/Refit/HeaderAttribute.cs) / [`Header`](https://github.com/reactiveui/refit/blob/main/src/Refit/HeaderAttribute.cs) | One header value from a method argument. |
+| [`HeaderCollection()`](https://github.com/reactiveui/refit/blob/main/src/Refit/HeaderCollectionAttribute.cs) | A header dictionary from a method argument. |
+| [`Authorize(string scheme = "Bearer")`](https://github.com/reactiveui/refit/blob/main/src/Refit/AuthorizeAttribute.cs) / [`Scheme`](https://github.com/reactiveui/refit/blob/main/src/Refit/AuthorizeAttribute.cs) | An authorization token from a method argument. |
 | `RefitSettings.AuthorizationHeaderValueGetter` | Obtains a missing token before a declared authorized request is sent. |
 | `RefitSettings.ValidateHeaders` | Chooses whether .NET validates header values. |
 
@@ -136,6 +136,20 @@ Console.WriteLine(built.Headers.Contains("X-App")); // False
 _ = built.Options.TryGetValue(new(TenantKey), out string? clientTenant);
 Console.WriteLine(clientTenant); // client-tenant
 ```
+
+## Header attribute reference
+
+| Member | Description | Parameters | Returns or value |
+| --- | --- | --- | --- |
+| [`AuthorizeAttribute(string scheme = "Bearer")`](https://github.com/reactiveui/refit/blob/main/src/Refit/AuthorizeAttribute.cs) | Declares that a method parameter supplies the token for an authorization header. | [string](https://learn.microsoft.com/dotnet/api/system.string) `scheme`: authorization scheme; default `"Bearer"`. | Creates an attribute that applies the scheme to a token parameter. |
+| [`AuthorizeAttribute.Scheme`](https://github.com/reactiveui/refit/blob/main/src/Refit/AuthorizeAttribute.cs) | Gets the authorization scheme that Refit places before the token, such as `Bearer` or `Basic`. | None. Read-only. | [string](https://learn.microsoft.com/dotnet/api/system.string) scheme supplied to the constructor. |
+| [`HeaderAttribute(string header)`](https://github.com/reactiveui/refit/blob/main/src/Refit/HeaderAttribute.cs) | Maps one method argument to a named request header. | [string](https://learn.microsoft.com/dotnet/api/system.string) `header`: header declaration. | Creates an attribute that maps one method argument to the named request header. |
+| [`HeaderAttribute.Header`](https://github.com/reactiveui/refit/blob/main/src/Refit/HeaderAttribute.cs) | Gets the HTTP header name that receives the method argument value. | None. Read-only. | [string](https://learn.microsoft.com/dotnet/api/system.string) header declaration. |
+| [`HeaderCollectionAttribute()`](https://github.com/reactiveui/refit/blob/main/src/Refit/HeaderCollectionAttribute.cs) | Marks an argument whose dictionary supplies multiple request headers. | None. | Marker attribute for a header dictionary parameter. |
+| [`HeadersAttribute(params string[] headers)`](https://github.com/reactiveui/refit/blob/main/src/Refit/HeadersAttribute.cs) | Declares fixed headers that Refit adds to an interface or method request. | `params` [string[]](https://learn.microsoft.com/dotnet/api/system.string) `headers`: declarations; null becomes an empty array. | Creates shared interface or method headers from the supplied declarations. |
+| [`HeadersAttribute.Headers`](https://github.com/reactiveui/refit/blob/main/src/Refit/HeadersAttribute.cs) | Gets the header declarations Refit applies to interface or method requests. | None. Read-only. | [string[]](https://learn.microsoft.com/dotnet/api/system.string) declarations supplied to the constructor. |
+
+Production source: [AuthorizeAttribute.cs](https://github.com/reactiveui/refit/blob/main/src/Refit/AuthorizeAttribute.cs), [HeaderAttribute.cs](https://github.com/reactiveui/refit/blob/main/src/Refit/HeaderAttribute.cs), [HeaderCollectionAttribute.cs](https://github.com/reactiveui/refit/blob/main/src/Refit/HeaderCollectionAttribute.cs), and [HeadersAttribute.cs](https://github.com/reactiveui/refit/blob/main/src/Refit/HeadersAttribute.cs).
 
 `HeadersAttribute.Headers` returns the supplied array, rather than a copy; a null array becomes an empty array.
 `HeaderAttribute.Header` and `AuthorizeAttribute.Scheme` store their constructor strings without validation.

@@ -15,7 +15,7 @@ rules that the generator normally chooses from your interface.
 
 ## Build a path
 
-The [complete .NET 10 / C# 14 sample](https://github.com/reactiveui/refit/tree/main/src/examples/Documentation/RuntimeHelpers)
+The [complete .NET 10 / C# 14 sample](https://github.com/reactiveui/refit/blob/main/src/examples/Documentation/Pages/advanced-request-helpers/Program.cs)
 references local Refit source and runs against a local HTTP handler. It uses generated JSON
 metadata and direct form getters. It also includes a separate reflected metadata example;
 the combined sample project does not claim Native AOT support.
@@ -26,7 +26,7 @@ non-overlapping, and include the braces in each range. The string-value span ove
 escapes each replacement. Its overload with a `PreEncoded` flag appends flagged values
 verbatim. A null replacement for an optional `{name?}` removes its preceding `/`;
 a plain `{name}` with a null value leaves an empty segment.
-The parameterless overload checks a template without replacements. Any unresolved
+The two-argument overload checks a template without replacements. Any unresolved
 placeholder throws `ArgumentException` unless `allowUnmatchedParameter` is true.
 
 The generic overload without a format appends an invariant formatted span without escaping
@@ -288,6 +288,135 @@ The local handler returns `[1,2]`, so the sum is `3`. The complete sample also c
 individual values and order, cold observable dispatch, raw response/content/stream results,
 request options, and decompressed GZip and Brotli payloads.
 [Method metadata](method-metadata.md) describes the reflected information objects.
+
+## Path and formatting overloads
+
+All methods below are static members of `GeneratedRequestRunner`. Arguments are required
+unless the signature shows a default. `settings` is the client's [RefitSettings].
+A range is a [value tuple][tuple] of two [int] positions: inclusive start and exclusive end.
+
+| Overload | Description | Parameters | Returns |
+| --- | --- | --- | --- |
+| `BuildRequestPath(string relativePathTemplate, bool allowUnmatchedParameter)` | Validates a parameterless route template before using it as a request path. | [string] `relativePathTemplate`: route; [bool] `allowUnmatchedParameter`: whether unresolved placeholders are allowed. | [string]: unchanged template, or throws for unresolved placeholders when the flag is false. |
+| `BuildRequestPath(string relativePathTemplate, bool allowUnmatchedParameter, ReadOnlySpan<((int StartIdx, int EndIdx) Range, string? Value)> uriParams)` | Replaces several path placeholders using default escaping. | [string] template and [bool] unmatched flag; [ReadOnlySpan][span] `uriParams`: ordered placeholder ranges and replacement strings. | [string]: path with escaped replacements and optional null segments removed. |
+| `BuildRequestPath(string relativePathTemplate, bool allowUnmatchedParameter, ReadOnlySpan<((int StartIdx, int EndIdx) Range, string? Value, bool PreEncoded)> uriParams)` | Replaces several placeholders while allowing selected values to bypass escaping. | [string] template and [bool] unmatched flag; [ReadOnlySpan][span] `uriParams`: ordered ranges, values, and per-value encoding flags. | [string]: path with replacements escaped unless their `PreEncoded` flag is true. |
+| `BuildRequestPath<T>(string relativePathTemplate, bool allowUnmatchedParameter, (int StartIdx, int EndIdx) range, T value)` | Replaces one placeholder with an invariant unformatted numeric value. | [string] template; [bool] unmatched flag; [tuple] `range`: one placeholder; `value`: an [ISpanFormattable]. Requires `T : ISpanFormattable`. | [string]: path with an invariant formatted value. Use this overload only for unformatted integers, as explained above. |
+| `BuildRequestPath<T>(string relativePathTemplate, bool allowUnmatchedParameter, (int StartIdx, int EndIdx) range, T value, string? format)` | Replaces one placeholder with an invariant value using a format string. | [string] template; [bool] unmatched flag; [tuple] `range`: placeholder; [ISpanFormattable] `value`; [string] `format`: format or `null`. Requires `T : ISpanFormattable`. | [string]: path with an escaped invariant formatted replacement. |
+| `BuildRelativeUri(HttpClient client, string relativePath, UrlResolutionMode urlResolution)` | Combines a route with the client base path under the selected resolution rule. | [HttpClient] `client`: supplies the base path; [string] `relativePath`: route; [UrlResolutionMode] `urlResolution`: resolution rule. | [Uri]: relative URI for [`HttpClient`](https://learn.microsoft.com/dotnet/api/system.net.http.httpclient) to resolve. |
+| `BuildRelativeUri(HttpClient client, string relativePath, UrlResolutionMode urlResolution, UriFormat queryUriFormat)` | Builds a relative URI and applies the legacy query rendering mode when relevant. | [HttpClient] `client`; [string] `relativePath`; [UrlResolutionMode] `urlResolution`; [UriFormat] `queryUriFormat`: legacy path/query escaping rule. | [Uri]: relative URI. RFC resolution ignores `queryUriFormat`. |
+| `RequireAbsoluteUrl(object? url)` | Rejects a URL value that is absent or not absolute. | [object] `url`: a [string] or [Uri] with an absolute address. | [string]: original URL text. Throws `ArgumentException` if it cannot be parsed as absolute. This does not enforce HTTP/HTTPS. |
+| `RoundTripEscapePath(string? value, RefitSettings settings, ICustomAttributeProvider attributeProvider, Type type)` | Formats and escapes a catch-all path without escaping its separators. | [string] `value`: catch-all path or `null`; [RefitSettings] `settings`; [ICustomAttributeProvider] `attributeProvider`: formatting attributes; [Type] `type`: declared value type. | [string]: formatted and escaped path sections with `/` separators retained. |
+| `FormatUrlParameter(RefitSettings settings, object? value, ICustomAttributeProvider attributeProvider, Type type)` | Formats one value through the registered or default URL formatter. | [RefitSettings] `settings`; [object] `value`: value or `null`; [ICustomAttributeProvider] `attributeProvider`: attributes; [Type] `type`: declared type. | [string], nullable: result from the selected URL formatter. |
+| `FormatInvariant<T>(T value, string? format)` | Renders an `IFormattable` using invariant culture without URL escaping. | `value`: an [IFormattable]; [string] `format`: format or `null`. Requires `T : IFormattable`. | [string]: invariant formatted value without URL escaping. |
+| `BuildQueryKey(RefitSettings settings, string clrName, string? explicitName, string? prefixSegment)` | Builds the final query key from an alias or formatted CLR name and optional prefix. | [RefitSettings] `settings`; [string] `clrName`: declared name; [string] `explicitName`: alias or `null`; [string] `prefixSegment`: prefix including delimiter, or `null`. | [string]: explicit or formatted name with the prefix prepended. |
+| `UsesDefaultUrlParameterFormatting(RefitSettings settings)` | Checks whether URL values can use the built-in formatter fast path. | [RefitSettings] `settings`: formatters to inspect. | [bool]: whether inline URL formatting matches the pristine default formatter and the formatter map is empty. |
+| `UsesDefaultFormUrlEncodedParameterFormatting(RefitSettings settings)` | Checks whether form values use the exact built-in formatter type. | [RefitSettings] `settings`: formatter to inspect. | [bool]: whether the form formatter has the exact built-in default type. |
+| `UsesDefaultUrlParameterKeyFormatting(RefitSettings settings)` | Checks whether query keys use the exact built-in key formatter type. | [RefitSettings] `settings`: formatter to inspect. | [bool]: whether the key formatter has the exact built-in default type. |
+| `AddFormattedCollectionProperty(ref GeneratedQueryStringBuilder builder, RefitSettings settings, IEnumerable? values, string key, CollectionFormat collectionFormat, bool preEncoded, (Type ElementProviderType, ICustomAttributeProvider JoinedProvider, Type JoinedType) formatting)` | Formats and appends a collection-valued query property using the configured collection rule. | [GeneratedQueryStringBuilder] `builder`: updated by reference; [RefitSettings] `settings`; [IEnumerable] `values`: collection or `null`; [string] `key`; [CollectionFormat] `collectionFormat`; [bool] `preEncoded`; [tuple] `formatting`: element [Type], joined-value [ICustomAttributeProvider], and joined [Type]. | `void`; appends values using the two formatting passes described in [query building](query-builder.md). Null appends nothing. |
+
+## Header and option overloads
+
+| Overload | Description | Parameters | Returns |
+| --- | --- | --- |
+| `SetHeader(HttpRequestMessage request, string name, string? value, bool validateHeaders)` | Replaces one request header and optionally validates its syntax. | [HttpRequestMessage] `request`; [string] `name`: header name; [string] `value`: replacement or `null`; [bool] `validateHeaders`: whether to validate header syntax. | `void`; replaces the header, or removes it for `null`. |
+| `AddHeaderCollection(HttpRequestMessage request, IDictionary<string, string>? headers, bool validateHeaders)` | Applies a collection of header replacements to the request. | [HttpRequestMessage] `request`; [`IDictionary<string, string>`][dictionary] `headers`: replacements or `null`; [bool] `validateHeaders`: whether to validate syntax. | `void`; applies `SetHeader` to each entry. Null does nothing. |
+| `AddConfiguredRequestOptions(HttpRequestMessage request, RefitSettings settings, Type interfaceType)` | Copies configured request options and HTTP version settings onto a request. | [HttpRequestMessage] `request`; [RefitSettings] `settings`: options and version rules; [Type] `interfaceType`: Refit interface. | `void`; stores request options and interface type, plus HTTP version settings on modern .NET. |
+| `AddRequestProperty<TValue>(HttpRequestMessage request, string key, TValue value)` | Stores one typed request option for later request execution. | [HttpRequestMessage] `request`; [string] `key`: option key; `value`: option value. | `void`; sets a typed option, or a dictionary entry on .NET Framework. |
+| `SetRequestTimeout(HttpRequestMessage request, int timeoutMilliseconds)` | Records the per-request timeout for the send helper to apply. | [HttpRequestMessage] `request`; [int] `timeoutMilliseconds`: timeout in milliseconds. | `void`; stores a timeout for dispatch to apply. |
+
+## Body helper overloads
+
+`TBody` is the declared body type. The URL-encoded overloads require its public properties
+to survive trimming when they use reflection. Read [AOT guidance](../aot.md) before using them in a native app.
+
+| Overload | Description | Parameters | Returns |
+| --- | --- | --- |
+| `CreateBodyContent<TBody>(RefitSettings settings, TBody body, BodySerializationMethod serializationMethod, bool streamBody)` | Serializes a request body according to the selected body mode, preserving supplied content and streams. | [RefitSettings] `settings`; `body`: value to send; [BodySerializationMethod] `serializationMethod`; [bool] `streamBody`: whether serialized content streams. | [HttpContent]: existing content, protected stream content, raw text, or serialized body as described above. |
+| `CreateJsonLinesBodyContent<TBody>(RefitSettings settings, TBody body)` | Creates newline-delimited JSON content from one value or an enumerable body. | [RefitSettings] `settings`; `body`: one value or a sequence of values. | [HttpContent]: JSON Lines content, or existing content/stream handling. |
+| `CreateStreamContent(Stream stream)` | Wraps a caller-owned stream without taking ownership of that stream. | [Stream] `stream`: caller-owned body stream. | [HttpContent]: wrapper that leaves the stream open when disposed. |
+| `CreateUrlEncodedBodyContent<TBody>(RefitSettings settings, TBody body)` | Converts a body to URL-encoded form content, with special handling for existing content, streams and strings. | [RefitSettings] `settings`; `body`: form object, dictionary, string, content or stream. | [HttpContent]: URL-encoded form or existing content/stream handling. Object flattening uses reflection. |
+| `CreateUrlEncodedBodyContent<TBody>(RefitSettings settings, TBody body, FormField<TBody>[] fields)` | Converts a body to URL-encoded form content using generated field descriptors when supported. | [RefitSettings] `settings`; `body`: form value; `fields`: [form descriptors](#form-field-reference) with direct getters. | [HttpContent]: form content using eligible descriptors, otherwise the reflection path described above. |
+| `CanUnrollForm(object? body)` | Checks whether a body can use the generated property-by-property form path. | [object] `body`: candidate form value, or `null`. | [bool]: `true` for non-null values other than strings, streams, HTTP content and dictionaries. |
+| `SerializeMultipartPart<T>(RefitSettings settings, T value, string fieldName)` | Serializes one multipart value with the configured content serializer. | [RefitSettings] `settings`; `value`: one part; [string] `fieldName`: name used in an error. | [HttpContent]: serialized part. Serializer failures become `ArgumentException`. |
+| `CompressBodyContent(HttpContent content, RefitSettings settings, RequestCompression compression, CompressionLevel level)` | Applies the resolved request compression setting to HTTP content. | [HttpContent] `content`: input; [RefitSettings] `settings`: defaults/options; [RequestCompression] `compression`: coding; [CompressionLevel] `level`: effort for explicit coding. | [HttpContent]: owning compression wrapper, or the same content when no coding applies. |
+
+## Dispatch overloads
+
+`T` is the caller's result type. `TBody` is the body type inside an API response wrapper.
+For each dispatch, supply an [HttpClient] with `BaseAddress` set and the client's [RefitSettings].
+The shared flags have these meanings:
+
+| Parameter | Type | Value |
+| --- | --- | --- |
+| `isApiResponse` | [bool] | `true` when `T` is a supported [response wrapper](../results/responses.md). |
+| `shouldDisposeResponse` | [bool] | `true` for a fully consumed result. Use `false` when returning a live response owner. |
+| `bufferBody` | [bool] | Whether to buffer request content before sending. |
+
+| Overload | Description | Parameters | Returns |
+| --- | --- | --- |
+| `SendVoidAsync(HttpClient client, HttpRequestMessage request, RefitSettings settings, bool bufferBody, CancellationToken cancellationToken)` | Sends a request whose successful result has no response body. | [HttpClient] `client`; [HttpRequestMessage] `request`: message to send; [RefitSettings] `settings`; [bool] `bufferBody`: flag above; [CancellationToken] `cancellationToken`: request cancellation. | [Task]: completion without a result. Disposes the request and response. |
+| `SendAsync<T, TBody>(HttpClient client, HttpRequestMessage request, RefitSettings settings, bool isApiResponse, bool shouldDisposeResponse, bool bufferBody, CancellationToken cancellationToken)` | Sends a request and processes its response as a deserialized value or API response wrapper. | [HttpClient] `client`; [HttpRequestMessage] `request`; [RefitSettings] `settings`; three [bool] flags above; [CancellationToken] `cancellationToken`: request cancellation. | [`Task<T?>`][task-result]: deserialized, raw, or wrapped result. Disposes the request. Response ownership follows the flag. |
+| `SendObservable<T, TBody>(HttpClient client, Func<HttpRequestMessage> requestFactory, RefitSettings settings, bool isApiResponse, bool shouldDisposeResponse, bool bufferBody, CancellationToken methodCancellationToken)` | Creates a cold observable that builds and sends a fresh request for each subscription. | [HttpClient] `client`; [`Func<HttpRequestMessage>`][factory] `requestFactory`: creates a fresh message per subscription; [RefitSettings] `settings`; three [bool] flags above; [CancellationToken] `methodCancellationToken`: caller cancellation. | [`IObservable<T?>`][observable]: sends one request per subscription and delivers its result or error. See [observable replies](../results/return-types.md#querying-a-reply). |
+| `StreamAsync<T>(HttpClient client, HttpRequestMessage request, RefitSettings settings, CancellationToken methodCancellationToken, CancellationToken cancellationToken = default)` | Sends a request and exposes the response body as an asynchronous stream. | [HttpClient] `client`; [HttpRequestMessage] `request`: one message; [RefitSettings] `settings`; [CancellationToken] `methodCancellationToken`: caller token; [CancellationToken] `cancellationToken`: enumeration token, default non-cancelable. | [`IAsyncEnumerable<T?>`][async-enumerable]: one streaming response. Enumeration/disposal releases its request, response and stream. |
+
+## Form field reference
+
+`FormField<TBody>` stores a getter and formatting rules for one field. Its properties are
+read-only and retain the constructor arguments. None of the arguments has a default.
+
+| Overload | Description | Parameters | Returns |
+| --- | --- | --- |
+| `FormField(Func<TBody, object?> getter, string clrName, string? explicitName, string? prefixSegment, string? format, CollectionFormat? collectionFormat, bool serializeNull)` | Creates a descriptor that reads and formats one URL-encoded form field. | [`Func<TBody, object?>`][getter] `getter`: reads a field; [string] `clrName`: declared name; nullable [string] arguments: explicit name, prefix with delimiter and value format; nullable [CollectionFormat] `collectionFormat`: override or settings default; [bool] `serializeNull`: whether null emits an empty field. | A [`FormField<TBody>`](https://github.com/reactiveui/refit/blob/main/src/Refit/FormField.cs) descriptor. |
+| `ResolveFieldName(IUrlParameterKeyFormatter urlParameterKeyFormatter)` | Resolves the final form key from the explicit name or configured key formatter. | [IUrlParameterKeyFormatter] `urlParameterKeyFormatter`: formats `ClrName` when no explicit name is set. | [string], nullable: resolved name with the prefix prepended. |
+
+| Property | Type | Value |
+| --- | --- | --- |
+| `Getter` | [`Func<TBody, object?>`][getter] | Reads the field value from a body instance. |
+| `ClrName` | [string] | Declared property name. |
+| `ExplicitName` | [string], nullable | Alias or serializer name; `null` uses the key formatter. |
+| `PrefixSegment` | [string], nullable | Prefix including delimiter; `null` adds none. |
+| `Format` | [string], nullable | Value format; `null` uses default formatting. |
+| `CollectionFormat` | [CollectionFormat], nullable | Explicit collection rule; `null` uses settings. |
+| `SerializeNull` | [bool] | `true` emits an empty field for null; `false` omits it. |
+
+| `UrlResolutionMode` value | Numeric value | Meaning |
+| --- | --- | --- |
+| `RefitLegacy` | `0` | Prefix the base-address path and require a leading slash. |
+| `Rfc3986` | `1` | Use standard URI resolution. See [URL settings](../clients/settings.md#url-resolution). |
+
+[string]: https://learn.microsoft.com/dotnet/api/system.string
+[bool]: https://learn.microsoft.com/dotnet/api/system.boolean
+[int]: https://learn.microsoft.com/dotnet/api/system.int32
+[object]: https://learn.microsoft.com/dotnet/api/system.object
+[Type]: https://learn.microsoft.com/dotnet/api/system.type
+[tuple]: https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/value-tuples
+[span]: https://learn.microsoft.com/dotnet/api/system.readonlyspan-1
+[ISpanFormattable]: https://learn.microsoft.com/dotnet/api/system.ispanformattable
+[IFormattable]: https://learn.microsoft.com/dotnet/api/system.iformattable
+[ICustomAttributeProvider]: https://learn.microsoft.com/dotnet/api/system.reflection.icustomattributeprovider
+[IEnumerable]: https://learn.microsoft.com/dotnet/api/system.collections.ienumerable
+[dictionary]: https://learn.microsoft.com/dotnet/api/system.collections.generic.idictionary-2
+[Uri]: https://learn.microsoft.com/dotnet/api/system.uri
+[UriFormat]: https://learn.microsoft.com/dotnet/api/system.uriformat
+[HttpClient]: https://learn.microsoft.com/dotnet/api/system.net.http.httpclient
+[HttpRequestMessage]: https://learn.microsoft.com/dotnet/api/system.net.http.httprequestmessage
+[HttpContent]: https://learn.microsoft.com/dotnet/api/system.net.http.httpcontent
+[Stream]: https://learn.microsoft.com/dotnet/api/system.io.stream
+[CompressionLevel]: https://learn.microsoft.com/dotnet/api/system.io.compression.compressionlevel
+[CancellationToken]: https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken
+[Task]: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task
+[task-result]: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+[factory]: https://learn.microsoft.com/dotnet/api/system.func-1
+[getter]: https://learn.microsoft.com/dotnet/api/system.func-2
+[observable]: https://learn.microsoft.com/dotnet/api/system.iobservable-1
+[async-enumerable]: https://learn.microsoft.com/dotnet/api/system.collections.generic.iasyncenumerable-1
+[RefitSettings]: ../clients/settings.md
+[UrlResolutionMode]: ../clients/settings.md#url-resolution
+[GeneratedQueryStringBuilder]: query-builder.md
+[CollectionFormat]: ../requests/queries.md
+[BodySerializationMethod]: ../requests/bodies.md
+[RequestCompression]: ../requests/bodies.md
+[IUrlParameterKeyFormatter]: ../requests/query-formatters.md
 
 Source: [path/header helpers](https://github.com/reactiveui/refit/blob/main/src/Refit/GeneratedRequestRunner.cs),
 [body helpers](https://github.com/reactiveui/refit/blob/main/src/Refit/GeneratedRequestRunner.BodyContent.cs),

@@ -28,20 +28,39 @@ See [error handling](../results/errors.md).
 
 ## Defaults and calculation methods
 
-| Member | Behavior |
-| --- | --- |
-| `NetworkBehavior()` | Seed 0. |
-| `NetworkBehavior(seed)` | Seeded random sequence. The same calls in the same order repeat within a runtime. |
-| `Delay` | Base delay. Default two seconds. |
-| `Variance` | Fraction above and below the delay. Default 0.4 gives about 60%–140% of the base. Zero fixes the delay. |
-| `FailurePercent` | Connection-failure probability. Default 0.03. |
-| `ErrorPercent` | HTTP-error probability when no connection failure occurs. Default zero. |
-| `ErrorStatusCode` | Injected reply status. Default 500. |
-| `FailureFactory` | Exception-producing lambda. Default creates `HttpRequestException`. |
-| `NextDelay()` | Draw the next varied delay. The calculated multiplier is clamped at zero. |
-| `NextIsFailure()` / `NextIsError()` | Draw a probability trial. |
-| `CreateFailure()` | Invoke your exception factory. |
-| `CreateErrorResponse()` | Create a fresh response with configured status and an empty text body. Dispose it. |
+| Overload | Description | Parameters | Returns |
+| --- | --- | --- | --- |
+| `NetworkBehavior()` | Creates deterministic fault simulation with the standard seed and defaults. | None. | A behavior with random seed `0` and the defaults below. |
+| `NetworkBehavior(int seed)` | Creates fault simulation whose random sequence starts from your chosen seed. | [int] `seed`: random sequence seed. | A behavior with the supplied seed and the defaults below. The same ordered calls repeat within a runtime. |
+| `NextDelay()` | Draws the delay that the next simulated request would use. | None. | [TimeSpan]: next varied delay. The multiplier is clamped at zero. |
+| `NextIsFailure()` | Draws whether the next simulation produces a connection failure. | None. | [bool]: next trial against `FailurePercent`. |
+| `NextIsError()` | Draws whether the next simulation produces an HTTP error response. | None. | [bool]: next trial against `ErrorPercent`. |
+| `CreateFailure()` | Builds the configured connection exception without throwing it. | None. | [Exception]: result of `FailureFactory()`. Creates the exception without throwing it. |
+| `CreateErrorResponse()` | Builds a disposable HTTP error reply from the configured status code. | None. | [HttpResponseMessage]: fresh response with the configured status and an empty text body. The caller must dispose it. |
+
+| Property | Type | Default and behavior |
+| --- | --- | --- |
+| `Delay` | [TimeSpan] | Two seconds. Base delay for simulation. |
+| `Variance` | [double] | `0.4`. Fraction above and below the delay. Zero fixes the delay. |
+| `FailurePercent` | [double] | `0.03`. Connection-failure probability. |
+| `ErrorPercent` | [double] | `0`. HTTP-error probability when no connection failure occurs. |
+| `ErrorStatusCode` | [HttpStatusCode] | `InternalServerError` (`500`). Injected response status. |
+| `FailureFactory` | [`Func<Exception>`][failure-factory] | Creates an [HttpRequestException] with message `Refit.Testing simulated network failure.` |
+| `StubHttp.Behavior` | [NetworkBehavior][network-behavior], nullable | Constructor-supplied behavior, or `null` to disable simulation. See [handler construction](index.md). |
+
+Source: [NetworkBehavior.cs](https://github.com/reactiveui/refit/blob/main/src/Refit.Testing/NetworkBehavior.cs)
+and [StubHttp.cs](https://github.com/reactiveui/refit/blob/main/src/Refit.Testing/StubHttp.cs).
+
+[int]: https://learn.microsoft.com/dotnet/api/system.int32
+[bool]: https://learn.microsoft.com/dotnet/api/system.boolean
+[double]: https://learn.microsoft.com/dotnet/api/system.double
+[TimeSpan]: https://learn.microsoft.com/dotnet/api/system.timespan
+[Exception]: https://learn.microsoft.com/dotnet/api/system.exception
+[HttpResponseMessage]: https://learn.microsoft.com/dotnet/api/system.net.http.httpresponsemessage
+[HttpStatusCode]: https://learn.microsoft.com/dotnet/api/system.net.httpstatuscode
+[HttpRequestException]: https://learn.microsoft.com/dotnet/api/system.net.http.httprequestexception
+[failure-factory]: https://learn.microsoft.com/dotnet/api/system.func-1
+[network-behavior]: https://github.com/reactiveui/refit/blob/main/src/Refit.Testing/NetworkBehavior.cs
 
 All properties are settable. Values are not validated.
 Use nonnegative delays, sensible variance and probabilities from zero through one.

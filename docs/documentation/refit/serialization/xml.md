@@ -13,7 +13,7 @@ starts with a simple person model, then covers namespaces and settings for servi
 
 ## Configure an XML request and reply
 
-`XmlContentSerializer` uses .NET's `XmlSerializer`, including runtime reflection and code generation.
+[`XmlContentSerializer`](https://github.com/reactiveui/refit/blob/main/src/Refit.Xml/XmlContentSerializer.cs) uses .NET's [`XmlSerializer`](https://learn.microsoft.com/en-us/dotnet/api/system.xml.serialization.xmlserializer), including runtime reflection and code generation.
 These examples do not establish trimming or Native AOT compatibility.
 
 **1. Use a model the XML serializer can construct.** The example has a public class with
@@ -76,8 +76,9 @@ Console.WriteLine(person?.Name); // Ada
 ## Buffered parsing and field names
 
 `DeserializeFromString<T>` reads an already buffered XML string synchronously.
-`GetFieldNameForProperty` returns an explicit `[XmlElement]` name, then an `[XmlAttribute]`
-name when no element attribute exists. It returns null without either attribute.
+`GetFieldNameForProperty` returns the `ElementName` from `[XmlElement]`, then the
+`AttributeName` from `[XmlAttribute]` when no element attribute exists. It returns `null`
+without either attribute.
 
 ```csharp
 WirePerson? person = serializer.DeserializeFromString<WirePerson>("<person><Id>1</Id><display_name>Ada</display_name></person>");
@@ -91,13 +92,13 @@ Console.WriteLine(name); // display_name
 Configure settings before you use a serializer. It caches an `XmlSerializer` for each type.
 Changing model overrides or namespaces later does not rebuild an existing cache entry.
 
-| `XmlContentSerializerSettings` member | Default and purpose |
-| --- | --- |
-| Constructor | Creates reader/writer settings, an empty default namespace mapping and empty attribute overrides. |
-| `XmlDefaultNamespace` | Null. Supplies the default namespace when constructing a serializer for deserialization. |
-| `XmlReaderWriterSettings` | New settings wrapper. Controls XML readers and writers; keep it non-null. |
-| `XmlNamespaces` | One empty-prefix/empty-namespace mapping. Supplies namespace declarations when writing. |
-| `XmlAttributeOverrides` | Empty overrides. Changes a model's XML mapping when its cached serializer is first created. |
+| `XmlContentSerializerSettings` member | Description | Default and purpose |
+| --- | --- | --- |
+| [`XmlContentSerializerSettings()`](https://github.com/reactiveui/refit/blob/main/src/Refit.Xml/XmlContentSerializerSettings.cs) | Creates settings for XML request and response serialization. | `XmlDefaultNamespace` is `null`; reader/writer settings are new; namespaces contain one empty-prefix/empty-namespace mapping; attribute overrides are empty. |
+| [`XmlDefaultNamespace`](https://github.com/reactiveui/refit/blob/main/src/Refit.Xml/XmlContentSerializerSettings.cs) | [`string?`](https://learn.microsoft.com/en-us/dotnet/api/system.string); the default XML namespace passed when constructing a serializer for deserialization. | `null` means no default namespace. The value is used when the type's serializer is first cached for reading. |
+| [`XmlReaderWriterSettings`](https://github.com/reactiveui/refit/blob/main/src/Refit.Xml/XmlContentSerializerSettings.cs) | [`XmlReaderWriterSettings`](xml.md); the paired reader and writer configuration. | Defaults to a new instance. Accessing its reader or writer applies asynchronous operation and safe DTD settings. |
+| [`XmlNamespaces`](https://github.com/reactiveui/refit/blob/main/src/Refit.Xml/XmlContentSerializerSettings.cs) | [`XmlSerializerNamespaces`](https://learn.microsoft.com/en-us/dotnet/api/system.xml.serialization.xmlserializernamespaces); namespace prefixes and URIs supplied to `XmlSerializer.Serialize`. | Defaults to one empty-prefix/empty-namespace mapping. |
+| [`XmlAttributeOverrides`](https://github.com/reactiveui/refit/blob/main/src/Refit.Xml/XmlContentSerializerSettings.cs) | [`XmlAttributeOverrides`](https://learn.microsoft.com/en-us/dotnet/api/system.xml.serialization.xmlattributeoverrides); alternate XML mappings for model types. | Defaults to an empty collection. Overrides are read when a type's cached `XmlSerializer` is created. |
 
 The write path creates its cached serializer from the item's runtime type and overrides.
 The read path uses the requested `T`, overrides and default namespace. Both use the same
@@ -120,12 +121,15 @@ WirePerson? person = namespaceReader.DeserializeFromString<WirePerson>(namespace
 When the same model needs one namespace for both reading and writing, set an explicit root
 mapping in `XmlAttributeOverrides`. The complete example verifies that round trip too.
 
-| `XmlReaderWriterSettings` member | Behavior |
-| --- | --- |
-| Four constructors | Accept no settings, a non-null reader, a non-null writer, or both. Missing components get defaults. |
-| `ReaderSettings` | Gets or replaces the reader object. A null replacement throws. Reading the property applies Refit's required settings. |
-| `WriterSettings` | Gets or replaces the writer object. A null replacement throws. Reading the property applies Refit's required settings. |
-| `AllowDtdProcessing` | False by default; obsolete security opt-out. Leave it false for service responses. |
+| `XmlReaderWriterSettings` member | Description | Behavior |
+| --- | --- | --- |
+| [`XmlReaderWriterSettings()`](https://github.com/reactiveui/refit/blob/main/src/Refit.Xml/XmlReaderWriterSettings.cs) | Creates paired XML reader and writer settings. | Both settings are new defaults. |
+| [`XmlReaderWriterSettings(XmlReaderSettings readerSettings)`](https://github.com/reactiveui/refit/blob/main/src/Refit.Xml/XmlReaderWriterSettings.cs) | Takes reader settings and creates the writer settings. | Retains `readerSettings`; the writer settings are new defaults. A null argument throws `ArgumentNullException`. |
+| [`XmlReaderWriterSettings(XmlWriterSettings writerSettings)`](https://github.com/reactiveui/refit/blob/main/src/Refit.Xml/XmlReaderWriterSettings.cs) | Takes writer settings and creates the reader settings. | Retains `writerSettings`; the reader settings are new defaults. A null argument throws `ArgumentNullException`. |
+| [`XmlReaderWriterSettings(XmlReaderSettings readerSettings, XmlWriterSettings writerSettings)`](https://github.com/reactiveui/refit/blob/main/src/Refit.Xml/XmlReaderWriterSettings.cs) | Takes both caller-supplied settings. | Retains both objects. Either null argument throws `ArgumentNullException`. |
+| [`ReaderSettings`](https://github.com/reactiveui/refit/blob/main/src/Refit.Xml/XmlReaderWriterSettings.cs) | [`XmlReaderSettings`](https://learn.microsoft.com/en-us/dotnet/api/system.xml.xmlreadersettings); gets or replaces the reader settings. | Assignment rejects `null`. Getting the value sets `Async = true`; unless `AllowDtdProcessing` is enabled, it also sets `DtdProcessing.Prohibit` and clears `XmlResolver`. |
+| [`WriterSettings`](https://github.com/reactiveui/refit/blob/main/src/Refit.Xml/XmlReaderWriterSettings.cs) | [`XmlWriterSettings`](https://learn.microsoft.com/en-us/dotnet/api/system.xml.xmlwritersettings); gets or replaces the writer settings. | Assignment rejects `null`. Getting the value sets `Async = true`. |
+| [`AllowDtdProcessing`](https://github.com/reactiveui/refit/blob/main/src/Refit.Xml/XmlReaderWriterSettings.cs) | [`bool`](https://learn.microsoft.com/en-us/dotnet/api/system.boolean); compatibility opt-out from Refit's DTD hardening. | Defaults to `false` and is obsolete. Setting it to `true` leaves caller-configured DTD processing and resolver settings in place. |
 
 Each reader/writer property access sets both objects' `Async` properties to true.
 By default it also sets `DtdProcessing.Prohibit` and clears the XML resolver. A DTD can
@@ -154,13 +158,14 @@ ToolingCompilation.RequireNoErrors(compilation);
 
 ## Method reference
 
-| `XmlContentSerializer` member | Behavior |
-| --- | --- |
-| Two constructors | Use defaults or supplied non-null XML settings. |
-| `ToHttpContent<T>(T)` | Rejects null. Writes the item's runtime type into a memory buffer and returns byte content. |
-| `FromHttpContentAsync<T>(HttpContent, CancellationToken)` | Reads the body string with cancellation, then parses it synchronously as `T`. Invalid or incompatible XML can throw. |
-| `DeserializeFromString<T>(string)` | Parses a buffered XML string as `T` with the configured reader. |
-| `GetFieldNameForProperty(PropertyInfo)` | Returns an explicit element/attribute name; rejects null property metadata. |
+| `XmlContentSerializer` member | Description | Parameters | Returns and behavior |
+| --- | --- | --- | --- |
+| [`XmlContentSerializer()`](https://github.com/reactiveui/refit/blob/main/src/Refit.Xml/XmlContentSerializer.cs) | Creates an XML content serializer with default settings. | None | Uses a new [`XmlContentSerializerSettings`](xml.md). |
+| [`XmlContentSerializer(XmlContentSerializerSettings settings)`](https://github.com/reactiveui/refit/blob/main/src/Refit.Xml/XmlContentSerializer.cs) | Creates an XML content serializer with caller-supplied settings. | `settings`: non-null [`XmlContentSerializerSettings`](xml.md) | Stores the settings; `null` throws [`ArgumentNullException`](https://learn.microsoft.com/en-us/dotnet/api/system.argumentnullexception). |
+| [`ToHttpContent<T>(T item)`](https://github.com/reactiveui/refit/blob/main/src/Refit.Xml/XmlContentSerializer.cs) | Serializes a value for an XML HTTP request. | `item`: value to serialize | Returns [`HttpContent`](https://learn.microsoft.com/en-us/dotnet/api/system.net.http.httpcontent) with media type `application/xml` and the configured writer charset. `null` throws [`ArgumentNullException`](https://learn.microsoft.com/en-us/dotnet/api/system.argumentnullexception). The runtime type selects the cached `XmlSerializer`. |
+| [`FromHttpContentAsync<T>(HttpContent content, CancellationToken cancellationToken = default)`](https://github.com/reactiveui/refit/blob/main/src/Refit.Xml/XmlContentSerializer.cs) | Reads and deserializes an XML HTTP response. | `content`: [`HttpContent`](https://learn.microsoft.com/en-us/dotnet/api/system.net.http.httpcontent) to read; `cancellationToken`: [`CancellationToken`](https://learn.microsoft.com/en-us/dotnet/api/system.threading.cancellationtoken), default `default` | Returns [`Task<T?>`](https://learn.microsoft.com/en-us/dotnet/api/system.threading.tasks.task-1). It buffers the content as a string, then parses it synchronously with the serializer for `T`; cancellation applies while reading the content. |
+| [`DeserializeFromString<T>(string content)`](https://github.com/reactiveui/refit/blob/main/src/Refit.Xml/XmlContentSerializer.cs) | Deserializes buffered XML text. | `content`: [`string`](https://learn.microsoft.com/en-us/dotnet/api/system.string) containing XML | Returns `T?` parsed with the configured reader, default namespace, and attribute overrides. |
+| [`GetFieldNameForProperty(PropertyInfo propertyInfo)`](https://github.com/reactiveui/refit/blob/main/src/Refit.Xml/XmlContentSerializer.cs) | Finds the XML field name declared on a property. | `propertyInfo`: [`PropertyInfo`](https://learn.microsoft.com/en-us/dotnet/api/system.reflection.propertyinfo) to inspect | Returns the `ElementName` from an [`XmlElementAttribute`](https://learn.microsoft.com/en-us/dotnet/api/system.xml.serialization.xmlelementattribute), otherwise the `AttributeName` from an [`XmlAttributeAttribute`](https://learn.microsoft.com/en-us/dotnet/api/system.xml.serialization.xmlattributeattribute), otherwise `null`. A null property throws [`ArgumentNullException`](https://learn.microsoft.com/en-us/dotnet/api/system.argumentnullexception). |
 
 These APIs do not stream a sequence of models through `IAsyncEnumerable<T>`.
 The configured XML serializer also does not implement Refit's synchronous request-writing

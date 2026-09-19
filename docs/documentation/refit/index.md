@@ -98,7 +98,6 @@ The example uses `CancellationToken.None` because its short local request has no
 | [JSON and generated metadata](serialization/json.md) | Configure serializers, combine contexts and check missing registrations. |
 | [AOT and generated clients](aot.md) | Generate request and JSON code for apps that compile ahead of time. |
 | [Testing clients](testing/index.md) | Supply local replies, inspect requests and check which routes were called. |
-| [Compiler tooling](advanced/tooling.md) | Understand the shipped generator, analyzer and code-fix APIs. |
 
 Refit uses [ReactiveUI.Primitives](../primitives/index.md) inside its runtime.
 Your API methods expose C# types such as `ValueTask<T>` and `IObservable<T>`.

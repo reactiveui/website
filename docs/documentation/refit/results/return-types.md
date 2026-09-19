@@ -53,9 +53,11 @@ Console.WriteLine(fromValueTask.Name); // Ada
 await api.PingAsync(CancellationToken.None);
 ```
 
-Await a `ValueTask<T>` once. If you need to share it among several callers, convert it to a `Task<T>`
-with `AsTask()` and share that task. A `ValueTask<T>` return type does not make the network reply faster.
-The generated client wraps the asynchronous send operation in that return type.
+As a general rule, await a `ValueTask<T>` once. If several callers need the same operation,
+convert it to a `Task<T>` with `AsTask()` and share that task.
+Refit backs its `ValueTask<T>` result with a `Task<T>`, so repeated awaits work for its returned values.
+A `ValueTask<T>` return type does not make the network reply faster. The generated client wraps the
+asynchronous send operation in that return type.
 
 The [return-type examples](https://github.com/reactiveui/refit/tree/main/src/examples/Documentation/ReturnTypes)
 exercise each shape against local replies. They also check that two subscriptions send two requests.
@@ -95,6 +97,9 @@ The `using` declaration keeps this subscription alive until the example finishes
 Disposing a live subscription cancels its request.
 The `TaskCompletionSource` lets this console example wait for completion or failure before it exits.
 
+Refit does not move these callbacks to your UI thread. The request may complete on a worker thread.
+Dispatch any UI update to your framework's UI dispatcher.
+
 Refit uses [Primitives](../../primitives/index.md) inside the runtime to build its streams.
 You do not need a Primitives-specific interface to declare a Refit method.
 For more operators, read [filtering](../../primitives/filtering.md),
@@ -131,19 +136,26 @@ runs each shape against local replies, including the two observable subscription
 
 | Return type | What happens |
 | --- | --- |
-| `Task` | Sends the request and completes without a result value. |
-| `Task<T>` | Sends the request and gives you one result to await. |
-| `ValueTask<T>` | Sends the request and gives you one result to await once. |
-| `IObservable<T>` | Sends a fresh request per subscription and pushes one result. |
-| `Task<ApiResponse<T>>` | Gives you a result wrapper with status, headers and a captured error. |
-| `Task<IApiResponse<T>>` | Gives you the typed response wrapper through its interface. |
-| `Task<IApiResponse>` | Gives you response details without a typed reply body. |
-| `Task<HttpRequestMessage>` | Builds a request and returns it without sending it. |
-| `IAsyncEnumerable<T>` | Reads items from one [streaming reply](streaming.md). |
+| [`Task`](https://learn.microsoft.com/dotnet/api/system.threading.tasks.task) | Sends the request and completes without a result value. See [reading one reply](#read-one-reply). |
+| [`Task<T>`](https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1) | Sends the request and gives you one result to await. See [reading one reply](#read-one-reply). |
+| [`ValueTask<T>`](https://learn.microsoft.com/dotnet/api/system.threading.tasks.valuetask-1) | Sends the request and gives you one task-backed result to await. See [reading one reply](#read-one-reply). |
+| [`IObservable<T>`](https://learn.microsoft.com/dotnet/api/system.iobservable-1) | Sends a fresh request per subscription and pushes one result. See [querying a reply](#querying-a-reply). |
+| [`Task<ApiResponse<T>>`](responses.md) | Gives you a result wrapper with status, headers and a captured error. See [keeping status and error details](#keep-status-and-error-details). |
+| [`Task<IApiResponse<T>>`](responses.md) | Gives you the typed response wrapper through its interface. See [response details](responses.md). |
+| [`Task<IApiResponse>`](responses.md) | Gives you response details without a typed reply body; the wrapper owns live response content. See [response details](responses.md). |
+| [`Task<HttpRequestMessage>`](https://learn.microsoft.com/dotnet/api/system.net.http.httprequestmessage) | Builds a request and returns it without sending it; the caller owns and must dispose it. |
+| [`Task<HttpResponseMessage>`](https://learn.microsoft.com/dotnet/api/system.net.http.httpresponsemessage) | Returns the live HTTP response; the caller owns and must dispose it. |
+| [`Task<HttpContent>`](https://learn.microsoft.com/dotnet/api/system.net.http.httpcontent) | Returns the live response content; the caller owns and must dispose it. |
+| [`Task<Stream>`](https://learn.microsoft.com/dotnet/api/system.io.stream) | Returns the live response body stream; the caller owns and must dispose it. |
+| [`Task<ApiResponse<HttpResponseMessage>>`](responses.md) | Wraps the live HTTP response; the caller owns and must dispose it. |
+| [`Task<ApiResponse<HttpContent>>`](responses.md) | Wraps the live response content; the caller owns and must dispose it. |
+| [`Task<ApiResponse<Stream>>`](responses.md) | Wraps the live response body stream; the caller owns and must dispose it. |
+| [`IAsyncEnumerable<T>`](https://learn.microsoft.com/dotnet/api/system.collections.generic.iasyncenumerable-1) | Reads items from one [streaming reply](streaming.md); the enumeration owns the live response until it ends. |
 
-For raw reply content, `Task<string>` reads text, `Task<Stream>` gives you a body stream,
-and `Task<HttpResponseMessage>` gives you the HTTP reply itself.
-Dispose a returned stream or response message when you finish with it.
+For buffered raw reply content, `Task<string>` reads text. The `HttpResponseMessage`, `HttpContent` and `Stream`
+return types, including their `ApiResponse<T>` and `IApiResponse<T>` wrappers, expose live response resources instead;
+dispose the returned value when you finish with it. The non-generic `IApiResponse` also owns live response content.
+The `IAsyncEnumerable<T>` streaming shape likewise keeps the response live while it is enumerated.
 A raw `HttpResponseMessage` lets you check the status yourself.
 
 Read [response details](responses.md) for all wrapper properties and guards.

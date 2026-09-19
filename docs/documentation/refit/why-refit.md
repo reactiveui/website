@@ -15,8 +15,9 @@ You can spend more of your client code on how the app uses the result.
 This page compares that approach with a handwritten HTTP call and explains the choices
 you still control, including the HTTP client and JSON settings.
 
-That matters beyond the amount of code you write. Runtime lookup and compilation use CPU time and memory.
-Those costs add up across server instances and matter when a mobile app starts.
+That matters beyond the amount of code you write. Runtime reflection, metadata lookup, argument boxing and
+delegate construction use CPU time and memory. Those costs add up across server instances and can matter when
+a mobile app starts.
 The [AOT page](aot.md#where-this-helps-in-real-apps) shows how this helps containers, ARM servers and phones.
 
 ## Let Refit write the HTTP glue
@@ -71,7 +72,7 @@ It checks that both return the same person.
 | --- | --- | --- |
 | Add an endpoint | Declare a method with its route and argument roles. | Implement the request and reply handling, using your own helpers where needed. |
 | Change a route or query name | Update the attribute on the method or parameter. | Update the code that builds the URL. |
-| Send a body | Mark the body parameter. Refit uses the configured serializer to turn it into request data. | Connect the body writer to each request. |
+| Send a body | Mark the parameter with `[Body]`. Refit uses the configured serializer to turn it into request data. | Connect the body writer to each request. |
 | Choose how to receive a reply | Declare a supported return type. | Implement the reading and lifetime rules for that type. |
 
 C# checks your method arguments and return types at build time. Refit's generator also checks

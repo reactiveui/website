@@ -105,7 +105,7 @@ when assembling the standalone code in your app.
 | [Replies](replies.md) | Supply typed JSON, text, bytes or a custom response. |
 | [Verification](verification.md) | Inspect requests and check every expectation arrived. |
 | [Network faults](faults.md) | Check delays, HTTP failures and connection failures. |
-| [Response stubs](response-stubs.md) | Test code that accepts `IApiResponse<T>` directly. |
+| [Response stubs](response-stubs.md) | Test code that accepts [`IApiResponse<T>`](../results/responses.md) directly. |
 
 Use handler tests for an app service that wraps a Refit interface.
 Use a response stub when your code only consumes a reply wrapper.
@@ -164,3 +164,21 @@ http.Add(Route.Get("/people/1"), Reply.Json("{\"id\":1,\"name\":\"Ada\"}"));
 ITestingApi configured = http.CreateClient<ITestingApi>("https://people.example", settings);
 TestingPerson second = await configured!.GetAsync(1);
 ```
+
+## API reference
+
+| API | Description | Parameters | Returns and behavior |
+| --- | --- | --- | --- |
+| [`StubHttp`](https://github.com/reactiveui/refit/blob/main/src/Refit.Testing/StubHttp.cs) | Declarative `HttpMessageHandler` for Refit tests; stores route matchers and their replies, records requests, and supports one-shot, reusable and fallback routes. | None | Handler type implementing [`IEnumerable<RouteMatcher>`](https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1). |
+| [`StubHttp()`](https://github.com/reactiveui/refit/blob/main/src/Refit.Testing/StubHttp.cs) | Starts a handler with no expected routes. | None | Creates an empty route table using the default JSON content serializer. |
+| [`StubHttp(NetworkBehavior behavior)`](https://github.com/reactiveui/refit/blob/main/src/Refit.Testing/StubHttp.cs) | Starts an empty handler and enables network-fault simulation. | `behavior`: [`NetworkBehavior`](faults.md) applied to each matched request | Creates an empty route table with the supplied behavior. |
+| [`StubHttp.Requests`](https://github.com/reactiveui/refit/blob/main/src/Refit.Testing/StubHttp.cs) | Exposes requests received by the handler in arrival order. | Get-only [`IReadOnlyList<HttpRequestMessage>`](https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1) | Returns a live read-only view, including unmatched and failed requests. |
+| [`StubHttp.Behavior`](https://github.com/reactiveui/refit/blob/main/src/Refit.Testing/StubHttp.cs) | Enables, replaces or disables simulated network conditions. | Nullable [`NetworkBehavior`](faults.md), get/set; default `null` | Gets or sets behavior; `null` skips simulation. |
+| [`StubHttp.Add(RouteMatcher route, StubResponse response)`](https://github.com/reactiveui/refit/blob/main/src/Refit.Testing/StubHttp.cs) | Adds a route and the reply returned when it matches; collection initializers call this method. | `route`: [`RouteMatcher`](routes.md); `response`: [`StubResponse`](replies.md) | Returns [`void`](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/void); rejects null arguments and tracks one-shot expectations. |
+| [`StubHttp.ToSettings()`](https://github.com/reactiveui/refit/blob/main/src/Refit.Testing/StubHttp.cs) | Creates settings that route a Refit client through this handler. | None | Returns new [`RefitSettings`](../clients/settings.md) whose handler factory returns this handler. |
+| [`StubHttp.ToSettings(RefitSettings baseSettings)`](https://github.com/reactiveui/refit/blob/main/src/Refit.Testing/StubHttp.cs) | Reuses supplied settings and points them at this handler. | `baseSettings`: [`RefitSettings`](../clients/settings.md) to update | Returns the same settings after replacing its handler factory and adopting its serializer. |
+| [`StubHttp.CreateClient<T>(string hostUrl)`](https://github.com/reactiveui/refit/blob/main/src/Refit.Testing/StubHttp.cs) | Creates a reflection-based Refit client using default settings. | `hostUrl`: base address | Returns `T` from `RestService.For<T>`; carries runtime reflection/trimming requirements. |
+| [`StubHttp.CreateClient<T>(string hostUrl, RefitSettings baseSettings)`](https://github.com/reactiveui/refit/blob/main/src/Refit.Testing/StubHttp.cs) | Creates a reflection-based client while retaining supplied serializer and URL settings. | `hostUrl`: base address; `baseSettings`: [`RefitSettings`](../clients/settings.md) to route through this handler | Returns `T` from `RestService.For<T>` after rewiring the supplied settings. |
+| [`StubHttp.CreateGeneratedClient<T>(string hostUrl)`](https://github.com/reactiveui/refit/blob/main/src/Refit.Testing/StubHttp.cs) | Creates a source-generated Refit client using default settings. | `hostUrl`: base address | Returns generated client `T`; throws [`InvalidOperationException`](https://learn.microsoft.com/dotnet/api/system.invalidoperationexception) when no generated implementation is registered. |
+| [`StubHttp.CreateGeneratedClient<T>(string hostUrl, RefitSettings baseSettings)`](https://github.com/reactiveui/refit/blob/main/src/Refit.Testing/StubHttp.cs) | Creates a source-generated client while retaining supplied settings. | `hostUrl`: base address; `baseSettings`: [`RefitSettings`](../clients/settings.md) to route through this handler | Returns generated client `T`; throws [`InvalidOperationException`](https://learn.microsoft.com/dotnet/api/system.invalidoperationexception) when no generated implementation is registered. |
+| [`StubHttp.SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)`](https://github.com/reactiveui/refit/blob/main/src/Refit.Testing/StubHttp.cs) *(protected override)* | Records, matches and consumes an incoming request, applies network behavior, then builds its configured reply. | `request`: [`HttpRequestMessage`](https://learn.microsoft.com/dotnet/api/system.net.http.httprequestmessage); `cancellationToken`: [`CancellationToken`](https://learn.microsoft.com/dotnet/api/system.threading.cancellationtoken) | Returns [`Task<HttpResponseMessage>`](https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1); throws when no route matches or cancellation is requested. |

@@ -10,6 +10,7 @@ the response at all. Streaming lets your app start processing those items as the
 
 Refit exposes this through `IAsyncEnumerable<T>`, which you read with `await foreach`.
 Each item comes from the same HTTP reply; the loop does not send a new request for every item.
+Refit sends that request when the loop starts enumerating the sequence.
 
 ## Read your first stream
 
@@ -46,7 +47,7 @@ Breaking out of `await foreach` closes the response and its body stream.
 Refit also disposes the request when enumeration ends or fails.
 Call the API method again when you need a new request.
 
-The [streaming example](https://github.com/reactiveui/refit/tree/main/src/examples/Documentation/Streaming)
+The [streaming example](https://github.com/reactiveui/refit/blob/main/src/examples/Documentation/Pages/results-streaming/results-streaming.csproj)
 checks all three formats below through the same generated method.
 
 ## Reply formats
@@ -60,17 +61,14 @@ Refit chooses the format from the response's `Content-Type` header.
 | `JsonLines` | `application/jsonl`, `application/x-ndjson`, or `application/x-jsonlines` | Each line holds a separate JSON value. |
 | `ServerSentEvents` | `text/event-stream` | Each event's `data:` field holds a JSON value. |
 
-The [complete streaming example](https://github.com/reactiveui/refit/tree/main/src/examples/Documentation/Streaming)
-runs the same generated method against all three formats.
-
 **JSON Lines** separates items with newlines instead of enclosing them in one array.
 **Server-sent events**, often shortened to SSE, let a server send named events through a reply that stays open.
 Refit's default serializer reads the JSON from each event's data field.
 It gives you the deserialized value. It does not expose the event name, ID or retry field.
 It does not reconnect when the connection ends.
 
-The server must send each event's data as JSON that matches `T`.
-Plain text in an SSE data field is not a JSON object and will fail when read as `Person`.
+The server must send each event's data as JSON that the serializer can deserialize as `T`.
+For example, an unquoted text value cannot be read as `Person`.
 
 ## Cancellation and errors
 
@@ -78,7 +76,7 @@ The method's cancellation token stops the request and body reading.
 You can also supply an enumeration token with `WithCancellation`.
 Refit combines both tokens when both can cancel.
 
-An unsuccessful HTTP status throws the exception chosen by `RefitSettings.ExceptionFactory`.
+An unsuccessful HTTP status throws when `RefitSettings.ExceptionFactory` returns an exception.
 A bad item throws while the loop reads it. Handle errors around the whole `await foreach` loop.
 Use cancellation to end an endless reply when the screen or operation no longer needs it.
 

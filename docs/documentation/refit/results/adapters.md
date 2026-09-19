@@ -115,3 +115,13 @@ SampleCheck.Equal(before + 1, host.Http.Requests.Count);
 The contracts are in [IReturnTypeAdapter.cs](https://github.com/reactiveui/refit/blob/main/src/Refit/IReturnTypeAdapter.cs).
 Discovery and generic matching are in [Parser.Adapters.cs](https://github.com/reactiveui/refit/blob/main/src/InterfaceStubGenerator.Shared/Parser.Adapters.cs);
 runtime matching is in [ReturnTypeAdapterResolver.cs](https://github.com/reactiveui/refit/blob/main/src/Refit.Reflection/ReturnTypeAdapterResolver.cs).
+
+## Adapter reference
+
+| Member | Description | Parameters | Returns or value |
+| --- | --- | --- | --- |
+| [`TReturn IReturnTypeAdapter<TReturn, TResult>.Adapt(Func<CancellationToken, Task<TResult>> invoke)`](https://github.com/reactiveui/refit/blob/main/src/Refit/IReturnTypeAdapter.cs) | Converts the deferred HTTP operation into the custom return shape. | [`Func<CancellationToken, Task<TResult>>`](https://learn.microsoft.com/dotnet/api/system.func-2) `invoke`: deferred HTTP invocation. | `TReturn`: the wrapper value surfaced by the interface method. |
+| [`RefitSettings.ReturnTypeAdapters`](../clients/settings.md) | Exposes the adapter types that the opt-in reflection request builder uses to create custom return shapes. | None. Read-only [`IList<Type>`](https://learn.microsoft.com/dotnet/api/system.collections.generic.ilist-1) property; add a closed adapter type or supported open generic definition. Each entry is a [`Type`](https://learn.microsoft.com/dotnet/api/system.type). | Mutable adapter registry, initialized empty. Reflection builds consult it; source generation discovers adapters at compile time. |
+| [`IReturnTypeAdapter<TReturn, TResult>`](https://github.com/reactiveui/refit/blob/main/src/Refit/IReturnTypeAdapter.cs) | Defines the contract for converting a deferred HTTP call into the return type exposed by a Refit interface method. | `TReturn`: surfaced wrapper type. `TResult`: deserialized response body type. | Implement [`Adapt`](https://github.com/reactiveui/refit/blob/main/src/Refit/IReturnTypeAdapter.cs) to return the wrapper. |
+
+Production source: [IReturnTypeAdapter.cs](https://github.com/reactiveui/refit/blob/main/src/Refit/IReturnTypeAdapter.cs) and [RefitSettings.cs](https://github.com/reactiveui/refit/blob/main/src/Refit/RefitSettings.cs).

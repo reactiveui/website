@@ -43,7 +43,7 @@ Both the parameterless and explicit-key `PropertyAttribute` constructors support
 ## Context for all calls
 
 `RefitSettings.HttpRequestMessageOptions` adds a dictionary of local values to each request.
-The sample adds `trace-category` with the value `delivery`.
+For example, the [headers walkthrough](headers.md) adds `trace-category` with the value `delivery`.
 Configure shared settings before you start making calls.
 
 `CaptureMethodArguments` also attaches an `object?[]` under the method-arguments key.
@@ -99,3 +99,21 @@ The generated method supplies `InterfaceType`, method name and route template wi
 It does not add `RestMethodInfo`. Body capture reads the serialized content before sending and stores
 that text under `RequestContent`. An unsent `Task<HttpRequestMessage>` result has not run this send-time
 capture step. Requests with no body do not get that option.
+
+## Request context reference
+
+| Member | Description | Parameters | Returns or value |
+| --- | --- | --- | --- |
+| [`PropertyAttribute`](https://github.com/reactiveui/refit/blob/main/src/Refit/PropertyAttribute.cs) | Marks an interface property or method parameter whose value Refit copies to the request's local options or properties. | None. | Attribute type. |
+| `PropertyAttribute()` | Uses the marked property or parameter name as the request option key. | None. | A `PropertyAttribute` instance. The request value is stored under the inferred name. |
+| `PropertyAttribute(string key)` | Uses an explicit request option key instead of the marked property or parameter name. | [string](https://learn.microsoft.com/dotnet/api/system.string) `key`: key stored in `Key`. | A `PropertyAttribute` instance. |
+| `PropertyAttribute.Key` | Gets the explicit key selected for the marked property or parameter. | None. Read-only. | Nullable [string](https://learn.microsoft.com/dotnet/api/system.string): the supplied key, or `null` when Refit infers the name. |
+| [`HttpRequestMessageOptions`](https://github.com/reactiveui/refit/blob/main/src/Refit/HttpRequestMessageOptions.cs) | Provides the string keys that Refit uses for built-in request metadata and optional captured values. | None. Static class. | Static class. Its members return keys for [`HttpRequestMessage.Options`](https://learn.microsoft.com/dotnet/api/system.net.http.httprequestmessage.options) or the older `Properties` dictionary. |
+| `HttpRequestMessageOptions.InterfaceType` | Identifies the option that stores the top-level Refit interface type used for the request. | None. Static read-only property. | [string](https://learn.microsoft.com/dotnet/api/system.string) `"Refit.InterfaceType"`. The value stored under this key is a [`Type`](https://learn.microsoft.com/dotnet/api/system.type). |
+| `HttpRequestMessageOptions.RestMethodInfo` | Identifies the option that stores reflected method details when the reflection request builder supplies them. | None. Static read-only property. | [string](https://learn.microsoft.com/dotnet/api/system.string) `"Refit.RestMethodInfo"`. |
+| `HttpRequestMessageOptions.MethodName` | Identifies the option that stores the declared Refit interface method name. | None. Static read-only property. | [string](https://learn.microsoft.com/dotnet/api/system.string) `"Refit.MethodName"`. |
+| `HttpRequestMessageOptions.RelativePathTemplate` | Identifies the option that stores the unfilled route template for logging, metrics, and tracing. | None. Static read-only property. | [string](https://learn.microsoft.com/dotnet/api/system.string) `"Refit.RelativePathTemplate"`. |
+| `HttpRequestMessageOptions.RequestContent` | Identifies the option that stores a captured request body string when `CaptureRequestContent` is enabled. | None. Static read-only property. | [string](https://learn.microsoft.com/dotnet/api/system.string) `"Refit.RequestContent"`. |
+| `HttpRequestMessageOptions.MethodArguments` | Identifies the option that stores declared method arguments when `CaptureMethodArguments` is enabled. | None. Static read-only property. | [string](https://learn.microsoft.com/dotnet/api/system.string) `"Refit.MethodArguments"`. The value stored under this key is an `object?[]`. |
+
+Production source: [PropertyAttribute.cs](https://github.com/reactiveui/refit/blob/main/src/Refit/PropertyAttribute.cs) and [HttpRequestMessageOptions.cs](https://github.com/reactiveui/refit/blob/main/src/Refit/HttpRequestMessageOptions.cs).

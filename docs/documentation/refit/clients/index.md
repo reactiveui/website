@@ -6,19 +6,21 @@ Order: 2
 [Run the complete page example](https://github.com/reactiveui/refit/blob/main/src/examples/Documentation/Pages/clients-index/clients-index.csproj).
 
 After defining your API interface, you need to connect it to the service your app will use.
-These pages show how to create that client, share request settings and make the client
-available to the rest of your app. They also explain who should dispose the HTTP client.
+These pages show how to create that client, apply request settings and make the client
+available to the rest of your app. Generated clients are the normal path. The creation and
+request-builder pages explain when runtime reflection is needed and how it affects trimming
+and Native AOT. They also explain who should dispose the HTTP client.
 
 | Page | What you can do |
 | --- | --- |
-| [Create a client](creation.md) | Reuse an HTTP client, create one from a URL, or select an interface through `Type`. |
+| [Create a client](creation.md) | Create a generated client over a shared or new `HttpClient`, select an interface through `Type`, or use the reflection path when needed. |
 | [Settings](settings.md) | Set naming, serialization, request options and failure handling. |
 | [Dependency injection](dependency-injection.md) | Register generated clients, named transports and keyed clients. |
-| [Request builders](request-builders.md) | Select reflected methods or integrate another client generator. |
+| [Request builders](request-builders.md) | Select reflected methods by name and parameter types, or supply a request builder to client creation. |
 
-The [client examples](https://github.com/reactiveui/refit/tree/main/src/examples/Documentation/Clients)
-use .NET 10, generated JSON metadata and local replies. `Clients.RunAsync` exercises generated clients.
-The separate [reflection executable](https://github.com/reactiveui/refit/tree/main/src/examples/Documentation/Clients/Reflection)
+The [client example project](https://github.com/reactiveui/refit/blob/main/src/examples/Documentation/Pages/clients-index/clients-index.csproj)
+uses .NET 10, generated JSON metadata and local replies. `Clients.RunAsync` exercises generated clients.
+The separate [reflection project](https://github.com/reactiveui/refit/blob/main/src/examples/Documentation/Clients/Reflection/Reflection.csproj)
 exercises APIs that need runtime metadata and runtime compilation.
 
 From the Refit checkout's `src` folder, run the reflection executable with:

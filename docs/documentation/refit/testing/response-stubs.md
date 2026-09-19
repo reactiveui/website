@@ -28,18 +28,21 @@ The [response-stub example](https://github.com/reactiveui/refit/blob/main/src/ex
 assigns every property and asserts the guarded content.
 Its `PersonJson` constant holds `{"id":1,"name":"Ada"}`.
 
-| Property | What the test supplies |
-| --- | --- |
-| `Content` | Typed body or default. |
-| `HasContent` | Whether the test promises non-null content. |
-| `IsSuccessfulWithContent` | Whether success and non-null content are both promised. |
-| `IsSuccessStatusCode` | Whether the supplied status is 200–299. |
-| `IsSuccessful` | Whether status succeeds and no error occurred. |
-| `IsReceived` | Whether a reply arrived. |
-| `StatusCode`, `ReasonPhrase`, `Version` | Reply metadata, or null when absent. |
-| `Headers`, `ContentHeaders` | Reply and body header collections, or null. |
-| `RequestMessage` | Associated request, or null. |
-| `Error` | `ApiExceptionBase` for a simulated failure, or null. |
+| Property | Type | Default and what the test supplies |
+| --- | --- | --- |
+| `Content` | `T?` | `default(T)`. Typed body for the scenario. |
+| `HasContent` | [bool] | `false`. Whether the test promises non-null content. |
+| `IsSuccessfulWithContent` | [bool] | `false`. Whether success and non-null content are both promised. |
+| `IsSuccessStatusCode` | [bool] | `false`. Whether the supplied status is 200–299. |
+| `IsSuccessful` | [bool] | `false`. Whether status succeeds and no error occurred. |
+| `IsReceived` | [bool] | `false`. Whether a reply arrived. |
+| `StatusCode` | [HttpStatusCode], nullable | `null`. Reply status for the scenario. |
+| `ReasonPhrase` | [string], nullable | `null`. Reply reason phrase. |
+| `Version` | [Version], nullable | `null`. HTTP version. |
+| `Headers` | [HttpResponseHeaders], nullable | `null`. Reply header collection. |
+| `ContentHeaders` | [HttpContentHeaders], nullable | `null`. Body header collection. |
+| `RequestMessage` | [HttpRequestMessage], nullable | `null`. Associated request. |
+| `Error` | [ApiExceptionBase], nullable | `null`. Exception for a simulated failure. |
 
 True success/received flags need the metadata their interface contracts promise.
 A true `HasContent` or `IsSuccessfulWithContent` needs non-null content.
@@ -56,6 +59,26 @@ The [runnable example](https://github.com/reactiveui/refit/blob/main/src/example
 creates and checks both error kinds. Read [error construction](../results/errors.md) for their constructors.
 `Dispose()` does nothing. It does not dispose any request, response or resource you assigned.
 The test must dispose those resources itself.
+
+| Overload | Description | Parameters | Returns |
+| --- | --- | --- | --- |
+| `StubApiResponse<T>()` | Creates an independently configurable response wrapper for a test scenario. | None. `T` is the body type. | A stub with the defaults above. |
+| `HasRequestError(out ApiRequestException? error)` | Tests whether this stub represents a transport failure before a response arrived. | [ApiRequestException] `error`: receives the request-phase error or `null`. | [bool]: `true` exactly when `Error` is an [`ApiRequestException`](../results/errors.md); the output is non-null on success. |
+| `HasResponseError(out ApiException? error)` | Tests whether this stub represents an HTTP or body-reading response failure. | [ApiException] `error`: receives the response-phase error or `null`. | [bool]: `true` exactly when `Error` is an [`ApiException`](../results/errors.md), including [`ValidationApiException`](../results/errors.md); the output is non-null on success. |
+| `Dispose()` | Satisfies the response-wrapper disposal contract without owning assigned resources. | None. | `void`; does not dispose any assigned resource. |
+
+Source: [StubApiResponse.cs](https://github.com/reactiveui/refit/blob/main/src/Refit.Testing/StubApiResponse.cs).
+
+[bool]: https://learn.microsoft.com/dotnet/api/system.boolean
+[string]: https://learn.microsoft.com/dotnet/api/system.string
+[Version]: https://learn.microsoft.com/dotnet/api/system.version
+[HttpStatusCode]: https://learn.microsoft.com/dotnet/api/system.net.httpstatuscode
+[HttpResponseHeaders]: https://learn.microsoft.com/dotnet/api/system.net.http.headers.httpresponseheaders
+[HttpContentHeaders]: https://learn.microsoft.com/dotnet/api/system.net.http.headers.httpcontentheaders
+[HttpRequestMessage]: https://learn.microsoft.com/dotnet/api/system.net.http.httprequestmessage
+[ApiExceptionBase]: ../results/errors.md
+[ApiException]: ../results/errors.md
+[ApiRequestException]: ../results/errors.md
 
 ## JSON metadata boundary
 
