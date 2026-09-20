@@ -621,6 +621,7 @@ Types: `Refit.AttachmentNameAttribute`, `Refit.ByteArrayPart`, `Refit.FileInfoPa
 | [`Task<ApiResponse<T>>`](results/responses.md) | Gives you a result wrapper with status, headers and a captured error. See [keeping status and error details](results/return-types.md#keep-status-and-error-details). |
 | [`Task<IApiResponse<T>>`](results/responses.md) | Gives you the typed response wrapper through its interface. See [response details](results/responses.md). |
 | [`Task<IApiResponse>`](results/responses.md) | Gives you response details without a typed reply body; the wrapper owns live response content. See [response details](results/responses.md). |
+| [`PagedEnumerable<TPage, TItem>`](results/pagination.md) | Sends one request per page, lazily, and yields the items of every page. Needs the source generator and a `[Paged]` attribute. See [pagination](results/pagination.md). |
 | [`Task<HttpRequestMessage>`](https://learn.microsoft.com/dotnet/api/system.net.http.httprequestmessage) | Builds a request and returns it without sending it; the caller owns and must dispose it. |
 | [`Task<HttpResponseMessage>`](https://learn.microsoft.com/dotnet/api/system.net.http.httpresponsemessage) | Returns the live HTTP response; the caller owns and must dispose it. |
 | [`Task<HttpContent>`](https://learn.microsoft.com/dotnet/api/system.net.http.httpcontent) | Returns the live response content; the caller owns and must dispose it. |
@@ -826,6 +827,58 @@ Types: `Refit.IReturnTypeAdapter<TReturn, TResult>`.
 | [`RefitSettings.ReturnTypeAdapters`](clients/settings.md) | Exposes the adapter types that the opt-in reflection request builder uses to create custom return shapes. | None. Read-only [`IList<Type>`](https://learn.microsoft.com/dotnet/api/system.collections.generic.ilist-1) property; add a closed adapter type or supported open generic definition. Each entry is a [`Type`](https://learn.microsoft.com/dotnet/api/system.type). | Mutable adapter registry, initialized empty. Reflection builds consult it; source generation discovers adapters at compile time. |
 | [`IReturnTypeAdapter<TReturn, TResult>`](https://github.com/reactiveui/refit/blob/main/src/Refit/IReturnTypeAdapter.cs) | Defines the contract for converting a deferred HTTP call into the return type exposed by a Refit interface method. | `TReturn`: surfaced wrapper type. `TResult`: deserialized response body type. | Implement [`Adapt`](https://github.com/reactiveui/refit/blob/main/src/Refit/IReturnTypeAdapter.cs) to return the wrapper. |
 
+### Pagination
+
+[Full description and examples](results/pagination.md).
+
+Types: `Refit.PagedEnumerable<TPage, TItem>`, `Refit.PagedEnumerable`, `Refit.PagedAttribute`, `Refit.PageTokenAttribute`, `Refit.PageContinuation`, `Refit.PageContinuation<TToken>` and `Refit.NextLinkOriginPolicy`.
+
+#### Declare a paged method
+
+[Full description and examples](results/pagination.md#read-every-item).
+
+| Member | Description | Parameters | Returns or value |
+| --- | --- | --- | --- |
+| [`PagedAttribute`](https://github.com/reactiveui/refit/blob/main/src/Refit/PagedAttribute.cs) | Marks a method that returns `PagedEnumerable<TPage, TItem>`, so the source generator emits its paging loop. | None. | Method attribute type. |
+| [`PagedAttribute.Items`](https://github.com/reactiveui/refit/blob/main/src/Refit/PagedAttribute.cs) | Names the member of the page that holds the items. | Nullable [`string`](https://learn.microsoft.com/dotnet/api/system.string), dotted for nested members. When omitted, the page must have exactly one sequence of the item type. | The member the generator reads; a misspelled name is a build error. |
+| [`PagedAttribute.Next`](https://github.com/reactiveui/refit/blob/main/src/Refit/PagedAttribute.cs) | Names the member of the page that holds the next token, offset or link. | Nullable [`string`](https://learn.microsoft.com/dotnet/api/system.string), dotted for nested members. The member must be nullable. | `null` or an empty string ends the sequence. |
+| [`PagedAttribute.NextHeader`](https://github.com/reactiveui/refit/blob/main/src/Refit/PagedAttribute.cs) | Names the response header that holds the next token or link. | Nullable [`string`](https://learn.microsoft.com/dotnet/api/system.string). The page type must be `ApiResponse<T>` or `IApiResponse`. | `Link` is read for its `rel="next"` entry; any other header is read as the whole value. |
+| [`PagedAttribute.Total`](https://github.com/reactiveui/refit/blob/main/src/Refit/PagedAttribute.cs) | Names the member of the page that holds the total item count. | Nullable [`string`](https://learn.microsoft.com/dotnet/api/system.string). The token parameter must be an [`int`](https://learn.microsoft.com/dotnet/api/system.int32). | The sequence ends when the offset reaches the total or a page is empty. |
+| [`PagedAttribute.Origins`](https://github.com/reactiveui/refit/blob/main/src/Refit/PagedAttribute.cs) | Lists the origins a next link may point at. | Nullable [`string[]`](https://learn.microsoft.com/dotnet/api/system.string) of absolute `http` or `https` addresses. | A link to any other origin is refused and never requested. |
+| [`PagedAttribute.SameOrigin`](https://github.com/reactiveui/refit/blob/main/src/Refit/PagedAttribute.cs) | Restricts next links to the origin of the client's `BaseAddress`. | [`bool`](https://learn.microsoft.com/dotnet/api/system.boolean), default `false`. | Exactly one of `Origins`, `SameOrigin` and `AnyOrigin` is required for a method that follows links. |
+| [`PagedAttribute.AnyOrigin`](https://github.com/reactiveui/refit/blob/main/src/Refit/PagedAttribute.cs) | Lets next links point at any `http` or `https` origin. | [`bool`](https://learn.microsoft.com/dotnet/api/system.boolean), default `false`. | The client's credentials go to whatever origin the server names. |
+| [`PageTokenAttribute`](https://github.com/reactiveui/refit/blob/main/src/Refit/PageTokenAttribute.cs) | Marks the parameter that carries the continuation. | None. | Parameter attribute type. The argument is the token of the first page. |
+
+#### Read the sequence
+
+[Full description and examples](results/pagination.md#what-the-sequence-does-for-you).
+
+| Member | Description | Parameters | Returns or value |
+| --- | --- | --- | --- |
+| [`PagedEnumerable<TPage, TItem>`](https://github.com/reactiveui/refit/blob/main/src/Refit/PagedEnumerable%7BTPage%2CTItem%7D.cs) | A lazy sequence of items that also exposes the pages. Every enumeration starts again from the first page. | `TPage`: the page type, your DTO or an `ApiResponse<T>` of it. `TItem`: the item type. | Implements [`IAsyncEnumerable<TItem>`](https://learn.microsoft.com/dotnet/api/system.collections.generic.iasyncenumerable-1). |
+| `AsPages()` | Exposes the pages as the service returned them. | None. | [`IAsyncEnumerable<TPage>`](https://learn.microsoft.com/dotnet/api/system.collections.generic.iasyncenumerable-1); each page is disposed when you move past it. |
+| `WithMaxPages(int pages)` | Bounds the pages fetched. | [`int`](https://learn.microsoft.com/dotnet/api/system.int32) `pages`: positive limit. | A new `PagedEnumerable<TPage, TItem>`. Throws [`ArgumentOutOfRangeException`](https://learn.microsoft.com/dotnet/api/system.argumentoutofrangeexception) unless `pages` is positive. |
+| `WithPrefetch()` | Requests the next page while you read the current one. | None. | A new `PagedEnumerable<TPage, TItem>` that reads at most one page ahead. |
+| `ToObservable()` | Exposes the items as a cold observable. | None. | [`IObservable<TItem>`](https://learn.microsoft.com/dotnet/api/system.iobservable-1); each subscription starts from the first page, and disposing it cancels the request in flight. |
+| `ToPageObservable()` | Exposes the pages as a cold observable. | None. | [`IObservable<TPage>`](https://learn.microsoft.com/dotnet/api/system.iobservable-1); a page is disposed after `OnNext` returns. |
+
+#### Write the loop yourself
+
+[Full description and examples](results/pagination.md#write-the-loop-yourself).
+
+| Member | Description | Parameters | Returns or value |
+| --- | --- | --- | --- |
+| [`PagedEnumerable.Create<TPage, TItem, TToken>(fetch, items, next)`](https://github.com/reactiveui/refit/blob/main/src/Refit/PagedEnumerable.cs) | Wraps a method that fetches one page for a token. The first page is requested with `default(TToken)`. | `fetch`: [`Func<TToken, CancellationToken, Task<TPage>>`](https://learn.microsoft.com/dotnet/api/system.func-3). `items`: [`Func<TPage, IEnumerable<TItem>?>`](https://learn.microsoft.com/dotnet/api/system.func-2). `next`: `Func<TPage, TToken, PageContinuation<TToken>>`. | A `PagedEnumerable<TPage, TItem>` that requests nothing until it is enumerated. Throws [`ArgumentNullException`](https://learn.microsoft.com/dotnet/api/system.argumentnullexception) for a null delegate. |
+| `PagedEnumerable.Create<TPage, TItem, TToken>(first, fetch, items, next)` | The same, starting from a token you supply. | `first`: the token of the first page; the delegates are as above. | A `PagedEnumerable<TPage, TItem>`. |
+| `PagedEnumerable.FromCursor<TPage, TItem>(fetch, items, nextCursor)` | Wraps an API whose next page is named by a string cursor. | `fetch`: [`Func<string?, CancellationToken, Task<TPage>>`](https://learn.microsoft.com/dotnet/api/system.func-3). `nextCursor`: [`Func<TPage, string?>`](https://learn.microsoft.com/dotnet/api/system.func-2). | A sequence that ends on a `null` or empty cursor. |
+| `PagedEnumerable.FromOffset<TPage, TItem>(fetch, items, nextOffset)` | Wraps an API addressed by the index of the first item, starting at zero. | `fetch`: [`Func<int, CancellationToken, Task<TPage>>`](https://learn.microsoft.com/dotnet/api/system.func-3). `nextOffset`: [`Func<TPage, int, int?>`](https://learn.microsoft.com/dotnet/api/system.func-3). | A sequence that ends when `nextOffset` returns `null`. |
+| `PagedEnumerable.FromLinks<TPage, TItem>(originPolicy, fetch, items, nextLink)` | Wraps an API whose reply names the next page with a link. | `originPolicy`: [`NextLinkOriginPolicy`](https://github.com/reactiveui/refit/blob/main/src/Refit/NextLinkOriginPolicy.cs). `fetch`: [`Func<Uri?, CancellationToken, Task<TPage>>`](https://learn.microsoft.com/dotnet/api/system.func-3), called with `null` for the first page. `nextLink`: [`Func<TPage, Uri?>`](https://learn.microsoft.com/dotnet/api/system.func-2). | A sequence that follows only the links the policy allows. A refused link throws [`InvalidOperationException`](https://learn.microsoft.com/dotnet/api/system.invalidoperationexception) without being requested. |
+| [`PageContinuation.To<TToken>(TToken next)`](https://github.com/reactiveui/refit/blob/main/src/Refit/PageContinuation.cs) | Creates a continuation to the next page. | `next`: the token for the next fetch. | A continuation, or the end of the sequence when `next` is `null` or an empty string. |
+| [`PageContinuation<TToken>`](https://github.com/reactiveui/refit/blob/main/src/Refit/PageContinuation%7BTToken%7D.cs) | Says whether another page follows and which token requests it. | None. | `HasNext`, `Token` and `End`. |
+| [`NextLinkOriginPolicy.Allow(params Uri[] origins)`](https://github.com/reactiveui/refit/blob/main/src/Refit/NextLinkOriginPolicy.cs) | Creates a policy that follows only links whose scheme, host and port match a listed origin. | [`Uri[]`](https://learn.microsoft.com/dotnet/api/system.uri) `origins`: at least one absolute `http` or `https` address. | A policy. Throws [`ArgumentException`](https://learn.microsoft.com/dotnet/api/system.argumentexception) for an empty list or a relative address. |
+| `NextLinkOriginPolicy.Unrestricted` | A policy that follows a link to any `http` or `https` origin. | None. | The shared unrestricted policy. |
+| `NextLinkOriginPolicy.IsAllowed(Uri link)` | Tests whether a link may be followed. | [`Uri`](https://learn.microsoft.com/dotnet/api/system.uri) `link`: non-null. | `true` for an absolute `http` or `https` link without user information on an allowed origin. |
+| [`IApiResponse.GetLink(string relation)`](https://github.com/reactiveui/refit/blob/main/src/Refit/ApiResponseExtensions.cs) | Reads the target of the first `Link` response header entry with a relation. | [`string`](https://learn.microsoft.com/dotnet/api/system.string) `relation`: such as `next`, compared without regard to case. | [`Uri?`](https://learn.microsoft.com/dotnet/api/system.uri): the target, which may be relative, or `null` when there is none. |
 
 ## Serialization
 
