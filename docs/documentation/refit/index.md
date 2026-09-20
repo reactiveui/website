@@ -96,6 +96,7 @@ The example uses `CancellationToken.None` because its short local request has no
 | [Routes and HTTP methods](requests/routes.md) | Choose a method, fill a route, and inspect a request before sending it. |
 | [Return types](results/return-types.md) | Choose `Task<T>`, `ValueTask<T>`, `IObservable<T>` or a response wrapper. |
 | [Streaming replies](results/streaming.md) | Read a JSON array, JSON Lines or server-sent events with `IAsyncEnumerable<T>`. |
+| [Pagination](results/pagination.md) | Read every item of a paged list, such as an S3, Azure or GitHub listing, with `await foreach`. |
 | [JSON and generated metadata](serialization/json.md) | Configure serializers, combine contexts and check missing registrations. |
 | [AOT and generated clients](aot.md) | Generate request and JSON code for apps that compile ahead of time. |
 | [Testing clients](testing/index.md) | Supply local replies, inspect requests and check which routes were called. |

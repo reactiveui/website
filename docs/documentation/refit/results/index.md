@@ -17,7 +17,8 @@ Choose `ApiResponse<T>` or `IApiResponse<T>` when you want to inspect the status
 body, and error on the returned value. Dispose an `ApiResponse<T>` after you finish with it.
 Use `IObservable<T>` when the request result should be delivered through a subscription. It
 represents one request result. Use `IAsyncEnumerable<T>` when one response contains a stream
-of items that your code should read with `await foreach`.
+of items that your code should read with `await foreach`. Use `PagedEnumerable<TPage, TItem>` when a
+service returns a long list in pages and your code should read every item.
 
 These pages help you choose a return form and handle its result.
 
@@ -28,3 +29,4 @@ These pages help you choose a return form and handle its result.
 | [Response details](responses.md) | Status, content, headers, transport failures and success guards. |
 | [Error bodies](errors.md) | Typed error JSON, problem details and custom failure handling. |
 | [Return adapters](adapters.md) | Custom wrappers and matching generic return types. |
+| [Pagination](pagination.md) | Reading every item of a paged list with cursors, offsets, headers and links. |
