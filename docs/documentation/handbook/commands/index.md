@@ -103,7 +103,7 @@ LoadUsers.ThrownExceptions.Subscribe(exception =>
 
 ## Controlling executability
 
-A `ReactiveCommand` may or may not be executable in a given situation. For example, the command backing the *Save* menu item might be unavailable if there are no unsaved changes. We pass into the `ReactiveCommand` an `IObservable<bool>` of when the ReactiveCommand should be allowed to be executed. The `ReactiveCommand` uses an IObservable eventing system to determine if execution should be allowed which differs from other frameworks where you might have the command continuous poll if execution is allowed. The ReactiveCommand approach has some performance advantages in that the value is cached between the can execute observable being fired. You commonly will create your can execute observable using the [`WhenAnyValue` functions](../when-any.md) provided by the ReactiveUI framework: 
+A `ReactiveCommand` may or may not be executable in a given situation. For example, the command backing the *Save* menu item might be unavailable if there are no unsaved changes. We pass into the `ReactiveCommand` an `IObservable<bool>` of when the ReactiveCommand should be allowed to be executed. The `ReactiveCommand` uses an IObservable eventing system to determine if execution should be allowed which differs from other frameworks where you might have the command continuous poll if execution is allowed. The ReactiveCommand approach has some performance advantages in that the value is cached between the can execute observable being fired. You commonly will create your can execute observable using the [`WhenAnyValue` functions](../../binding/observing.md) provided by the ReactiveUI framework: 
 
 ```cs
 // Each time values of UserName and Password properties change,
@@ -278,7 +278,7 @@ command.Execute().Subscribe();
 
 ## Bindings
 
-`ReactiveCommand` can be connected to the View by either using XAML binding on supported platforms, or using the inbuilt [ReactiveUI binding](../data-binding/index.md) method `BindCommand`. Use of BindCommand is preferred but not required where XAML bindings are supported. Read more on this [here](binding-commands.md).
+`ReactiveCommand` can be connected to the View by either using XAML binding on supported platforms, or using the inbuilt [ReactiveUI binding](../data-binding/index.md) method `BindCommand`. Use of BindCommand is preferred but not required where XAML bindings are supported. Read more on this [here](../../binding/bindings.md).
 
 ## Unit Testing
 

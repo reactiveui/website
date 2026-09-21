@@ -56,7 +56,7 @@ Ada Lovelace
 
 | Source | Stream |
 |---|---|
-| A property | `WhenAnyValue`. See [WhenAny](../handbook/when-any.md). |
+| A property | `WhenAnyValue`. See [WhenAny](../binding/observing.md). |
 | A command | `ReactiveCommand` is a stream of its results, and `IsExecuting` and `ThrownExceptions` are streams too. See [commands](../handbook/commands/index.md). |
 | An event | `Events()` from the [observable events generator](../handbook/observable-events/index.md), or [`Signal.FromEvent`](../primitives/creation-factories.md#from-an-event). |
 | A task | [`Signal.FromAsync`](../primitives/creation-factories.md). |

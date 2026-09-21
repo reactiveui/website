@@ -1,3 +1,19 @@
+/documentation/handbook/when-any/  /documentation/binding/observing/  301
+/documentation/handbook/when-any  /documentation/binding/observing/  301
+/documentation/handbook/when-any.html  /documentation/binding/observing/  301
+/documentation/handbook/data-binding/value-converters/  /documentation/binding/converters/  301
+/documentation/handbook/data-binding/value-converters  /documentation/binding/converters/  301
+/documentation/handbook/data-binding/value-converters.html  /documentation/binding/converters/  301
+/documentation/handbook/data-binding/windows-forms/  /documentation/binding/threading/  301
+/documentation/handbook/data-binding/windows-forms  /documentation/binding/threading/  301
+/documentation/handbook/data-binding/windows-forms.html  /documentation/binding/threading/  301
+/documentation/handbook/commands/binding-commands/  /documentation/binding/bindings/  301
+/documentation/handbook/commands/binding-commands  /documentation/binding/bindings/  301
+/documentation/handbook/commands/binding-commands.html  /documentation/binding/bindings/  301
+/documentation/handbook/interactions/binding-interactions/  /documentation/binding/bindings/  301
+/documentation/handbook/interactions/binding-interactions  /documentation/binding/bindings/  301
+/documentation/handbook/interactions/binding-interactions.html  /documentation/binding/bindings/  301
+
 # Legacy docfx URLs redirected to mkdocs directory URLs.
 # Catchall while we migrate from docfx (.html) to mkdocs (directory) URLs.
 # Per-page redirects can be added above this line as more granular rules.
