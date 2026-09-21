@@ -14,8 +14,8 @@ then change the other settings when a request calls for them.
 
 ## Set the serializer and formatters
 
-**1. Prepare generated metadata.** Use the context and serializer from
-[client creation](creation.md#reuse-your-http-client).
+**1. Prepare the JSON serializer.** Use the context and `JsonSettings` from
+[client creation](creation.md#use-settings-instead-of-a-context).
 
 **2. Choose the settings constructor.** The serializer is required in these constructor overloads.
 A null formatter selects the default formatter.
@@ -30,8 +30,8 @@ RefitSettings keys = new(JsonSettings.ContentSerializer, null, null, new CamelCa
 ```
 
 **3. Pass the settings to client creation or registration.** Reuse the configured serializer.
-The parameterless constructor creates a System.Text.Json serializer and default formatters.
-Assign generated JSON metadata before using that serializer in an AOT app.
+The parameterless constructor creates a System.Text.Json serializer with Refit's defaults and no context.
+Add a context before using that serializer in an AOT app. The next section shows how.
 A null serializer passed to a constructor throws `ArgumentNullException`.
 
 A production client commonly keeps one `RefitSettings` instance with its generated JSON context
@@ -45,35 +45,92 @@ Other settings may be read when a request is built.
 Changing shared settings during calls does not provide a uniform reconfiguration contract.
 Prepare a different settings instance when clients need different rules.
 
+## Add a JSON context to settings
+
+Settings hold the serializer, so settings hold the JSON choices. You can give the serializer a context three ways.
+
+- **Build the options yourself.** Assign the context as the `TypeInfoResolver` of your own options, wrap them in a
+  serializer and pass `new RefitSettings(serializer)`. `JsonSettings` in [client creation](creation.md#use-settings-instead-of-a-context)
+  does this. Pick this way when you have `JsonSerializerOptions` to share, need full control,
+  or want one options object reused elsewhere in your app.
+  The short path needs no options object. This way makes you assign the `TypeInfoResolver` yourself
+  and keep the options unchanged after first use.
+- **Build settings from a context.** `RefitSettings.ForJsonContext(context)` makes settings that use the context's own options.
+  Reflection-based JSON is off.
+- **Add a context to settings you have.** `settings.UseJsonContext(context)` is the bridge. It keeps your serializer's naming policy,
+  converters and other options, adds the context, and returns the same settings.
+  It throws `InvalidOperationException` when the serializer is not a `SystemTextJsonContentSerializer`.
+
+```csharp
+RefitSettings shortcut = RefitSettings.ForJsonContext(SampleJsonContext.Default);
+```
+
+```csharp
+RefitSettings camel = RefitSettings.CamelCase().UseJsonContext(ClientNamingJsonContext.Default);
+```
+
+Each method takes `allowReflectionFallback` too. Pass `true` to let a type the context does not list use
+reflection-based JSON. That is not trim or Native AOT safe.
+The same settings also work with the reflection creation methods, such as `RestService.For<T>(hostUrl, settings)`.
+See [choose whose settings apply](../serialization/json.md#choose-whose-settings-apply).
+These APIs exist on .NET 8 and later.
+
 ## Align naming rules with generated JSON
 
-`CamelCase()`, `SnakeCase()` and `KebabCase()` return new settings.
-They align the JSON naming policy and URL key formatter.
-For AOT, replace their serializer with one whose generated context uses the same convention.
-These contexts register the demonstration model, `ClientNamingInput(int PageSize)`.
+`CamelCase()`, `SnakeCase()` and `KebabCase()` return settings that align the JSON naming policy and the URL key formatter.
+Add a context with `UseJsonContext`. The settings' naming policy wins over the naming in the context's own
+`JsonSourceGenerationOptions`, so one context serves all three.
+This context registers the demonstration model, `ClientNamingInput(int PageSize)`.
 
 
 ```csharp
-[JsonSourceGenerationOptions(PropertyNamingPolicy = JsonKnownNamingPolicy.CamelCase)]
+[JsonSourceGenerationOptions(JsonSerializerDefaults.Web)]
+[JsonSerializable(typeof(ClientNamingInput))]
+internal sealed partial class ClientNamingJsonContext : JsonSerializerContext;
+```
+
+The example checks all three shortcuts and writes the model through each.
+
+
+```csharp
+RefitSettings camel = RefitSettings.CamelCase().UseJsonContext(ClientNamingJsonContext.Default);
+RefitSettings snake = RefitSettings.SnakeCase().UseJsonContext(ClientNamingJsonContext.Default);
+RefitSettings kebab = RefitSettings.KebabCase().UseJsonContext(ClientNamingJsonContext.Default);
+RefitSettings[] naming = [camel, snake, kebab];
+for (int index = 0; index < naming.Length; index++)
+{
+    RefitSettings settings = naming[index];
+    Console.WriteLine(settings.UrlParameterKeyFormatter.Format(NamingKey));
+    using HttpContent content = settings.ContentSerializer.ToHttpContent(new ClientNamingInput(NamingPageSize));
+    Console.WriteLine(await content.ReadAsStringAsync());
+}
+```
+
+If you build the options yourself, give each convention its own context. Each context states its naming in
+`JsonSourceGenerationOptions`, and you assign it as the `TypeInfoResolver` of options you own.
+
+
+```csharp
+[JsonSourceGenerationOptions(JsonSerializerDefaults.Web, PropertyNamingPolicy = JsonKnownNamingPolicy.CamelCase)]
 [JsonSerializable(typeof(ClientNamingInput))]
 internal sealed partial class ClientCamelJsonContext : JsonSerializerContext;
 ```
 
 
 ```csharp
-[JsonSourceGenerationOptions(PropertyNamingPolicy = JsonKnownNamingPolicy.SnakeCaseLower)]
+[JsonSourceGenerationOptions(JsonSerializerDefaults.Web, PropertyNamingPolicy = JsonKnownNamingPolicy.SnakeCaseLower)]
 [JsonSerializable(typeof(ClientNamingInput))]
 internal sealed partial class ClientSnakeJsonContext : JsonSerializerContext;
 ```
 
 
 ```csharp
-[JsonSourceGenerationOptions(PropertyNamingPolicy = JsonKnownNamingPolicy.KebabCaseLower)]
+[JsonSourceGenerationOptions(JsonSerializerDefaults.Web, PropertyNamingPolicy = JsonKnownNamingPolicy.KebabCaseLower)]
 [JsonSerializable(typeof(ClientNamingInput))]
 internal sealed partial class ClientKebabJsonContext : JsonSerializerContext;
 ```
 
-The example checks all three shortcuts and writes the model with each generated context.
+The example writes the model with each generated context.
 
 
 ```csharp
@@ -146,7 +203,7 @@ HTTP client across the checks and does not contact a server.
 
 ## Settings reference
 
-Each row describes one constructor, naming factory, or public property. Nullable constructor arguments use `null` to select the formatter default; they are not optional C# parameters.
+Each row describes one constructor, factory, context method, or public property. Nullable constructor arguments use `null` to select the formatter default; they are not optional C# parameters.
 
 | Member | Description | Parameters | Returns or value |
 | --- | --- | --- | --- |
@@ -159,6 +216,10 @@ Each row describes one constructor, naming factory, or public property. Nullable
 | [`RefitSettings.CamelCase()`](https://github.com/reactiveui/refit/blob/main/src/Refit/RefitSettings.cs) | Creates settings that serialize JSON and format URL/form keys in camelCase. | None. | New [`RefitSettings`](settings.md) using camelCase JSON and URL/form keys. |
 | [`RefitSettings.SnakeCase()`](https://github.com/reactiveui/refit/blob/main/src/Refit/RefitSettings.cs) | Creates settings that serialize JSON and format URL/form keys in snake_case. | None. | New [`RefitSettings`](settings.md) using snake_case JSON and URL/form keys. |
 | [`RefitSettings.KebabCase()`](https://github.com/reactiveui/refit/blob/main/src/Refit/RefitSettings.cs) | Creates settings that serialize JSON and format URL/form keys in kebab-case. | None. | New [`RefitSettings`](settings.md) using kebab-case JSON and URL/form keys. |
+| [`RefitSettings.ForJsonContext(JsonSerializerContext context)`](https://github.com/reactiveui/refit/blob/main/src/Refit/RefitSettings.JsonContext.cs) | Creates settings that run on a context's own options, with reflection-based JSON off. | [`JsonSerializerContext`](https://learn.microsoft.com/dotnet/api/system.text.json.serialization.jsonserializercontext) `context`: the generated context. | New [`RefitSettings`](settings.md) whose serializer is `SystemTextJsonContentSerializer.ForContext(context)`. A type the context does not list throws `NotSupportedException`. .NET 8 and later. |
+| [`RefitSettings.ForJsonContext(JsonSerializerContext context, bool allowReflectionFallback)`](https://github.com/reactiveui/refit/blob/main/src/Refit/RefitSettings.JsonContext.cs) | Creates settings that run on a context's own options, optionally with a reflection fallback. | `context`; [`bool`](https://learn.microsoft.com/dotnet/api/system.boolean) `allowReflectionFallback`: `true` lets a type the context does not list use reflection-based JSON. Not trim or Native AOT safe. | New [`RefitSettings`](settings.md). .NET 8 and later. |
+| [`UseJsonContext(JsonSerializerContext context)`](https://github.com/reactiveui/refit/blob/main/src/Refit/RefitSettings.JsonContext.cs) | Adds a context to these settings' System.Text.Json serializer, with reflection-based JSON off. | `context`: the generated context that supplies metadata for the types it lists. | These settings. Only `ContentSerializer` changes, to a serializer built on a copy of the current options plus the context. The naming policy, converters and resolvers stay in place. Throws `InvalidOperationException` when the serializer is not a `SystemTextJsonContentSerializer`. .NET 8 and later. |
+| [`UseJsonContext(JsonSerializerContext context, bool allowReflectionFallback)`](https://github.com/reactiveui/refit/blob/main/src/Refit/RefitSettings.JsonContext.cs) | Adds a context to these settings' System.Text.Json serializer, optionally with a reflection fallback. | `context`; `allowReflectionFallback`: `true` lets a type no resolver lists use reflection-based JSON. Not trim or Native AOT safe. | These settings. Throws `InvalidOperationException` when the serializer is not a `SystemTextJsonContentSerializer`. .NET 8 and later. |
 | [`AuthorizationHeaderValueGetter`](https://github.com/reactiveui/refit/blob/main/src/Refit/RefitSettings.cs) | Supplies a token for a declared `[Authorize]` header that has no token. Generated preparation uses it even with a supplied `HttpClient`; a settings-created handler also uses it for an explicit token. | [`Func<HttpRequestMessage, CancellationToken, ValueTask<string>>`](https://learn.microsoft.com/dotnet/api/system.func-3) or `null`. | Token getter; default `null`. An empty returned token removes the header. |
 | [`HttpMessageHandlerFactory`](https://github.com/reactiveui/refit/blob/main/src/Refit/RefitSettings.cs) | Supplies the primary handler when Refit creates the `HttpClient`. | [`Func<HttpMessageHandler>`](https://learn.microsoft.com/dotnet/api/system.func-1) or `null`. | Handler factory; default `null`. Refit ignores it when you supply an existing `HttpClient`. |
 | [`ExceptionFactory`](https://github.com/reactiveui/refit/blob/main/src/Refit/RefitSettings.cs) | Maps unsuccessful HTTP responses to exceptions. | [`Func<HttpResponseMessage, ValueTask<Exception?>>`](https://learn.microsoft.com/dotnet/api/system.func-2). | Exception factory; default creates Refit API exceptions. A `null` result suppresses the HTTP error. |

@@ -11,6 +11,7 @@ will read and write the JSON models used by those calls.
 
 This page brings those two pieces together: a generated Refit client and a generated JSON
 context. It walks through the setup, explains where it helps, and shows how to publish and run the example.
+The JSON context APIs are available on .NET 8 and later.
 
 ## Where this helps in real apps
 
@@ -41,10 +42,10 @@ This chooses the generated implementation and does not fall back to runtime requ
 **2. Generate the JSON readers and writers too.** Request generation and JSON generation are separate jobs.
 Add your request and reply types to a `JsonSerializerContext`.
 The attributes below ask .NET's JSON generator to produce code for `Person`.
-This file imports `System.Text.Json.Serialization`.
+This file imports `System.Text.Json` and `System.Text.Json.Serialization`.
 
 ```csharp
-[JsonSourceGenerationOptions(PropertyNamingPolicy = JsonKnownNamingPolicy.CamelCase)]
+[JsonSourceGenerationOptions(JsonSerializerDefaults.Web)]
 [JsonSerializable(typeof(Person))]
 [JsonSerializable(typeof(string))]
 [JsonSerializable(typeof(Person[]))]
@@ -52,9 +53,32 @@ This file imports `System.Text.Json.Serialization`.
 internal sealed partial class SampleJsonContext : JsonSerializerContext;
 ```
 
-**3. Supply the context to Refit's serializer.** `TypeInfoResolver` tells the JSON serializer where
-to get each type's generated readers and writers. Keep the options and settings for reuse.
-This example imports `System.Text.Json` and declares the fields inside its sample class.
+Keep the `JsonSourceGenerationOptions(JsonSerializerDefaults.Web)` line. It is the line that goes wrong most often.
+A context without it expects PascalCase property names and matches them by exact case.
+A service that sends camelCase names then fills your models with default values, and nothing reports an error.
+The web defaults read camelCase names and ignore case.
+[JSON and generated metadata](serialization/json.md#add-the-web-defaults) shows the failure.
+
+**3. Give the context to Refit and call the API.** `RestService.ForGenerated<T>` takes the context.
+Refit reads and writes JSON with the context's own options, and it never falls back to reflection.
+A type that you did not list on the context throws `NotSupportedException`.
+The sample host supplies its shared HTTP client. In your app, pass your own client.
+
+```csharp
+IPeopleApi api = RestService.ForGenerated<IPeopleApi>(host.Client, SampleJsonContext.Default);
+Person person = await api.GetPersonAsync(1, CancellationToken.None);
+Console.WriteLine(person.Name); // Ada
+```
+
+The context is the only JSON setup the client needs.
+Refit does not write `[JsonSerializable]` entries for you. You list each type on your context yourself.
+
+**Or build the settings yourself.** Pick this form when you have `JsonSerializerOptions` to share,
+need full control, or want one options object reused elsewhere in your app.
+The short path needs no options object. This form makes you assign the `TypeInfoResolver` yourself and keep
+the options unchanged after first use. A `TypeInfoResolver` tells the serializer where to find the metadata for each type.
+Give it the context, wrap the options in a serializer, and pass the settings to `ForGenerated`.
+Both forms are safe for Native AOT, and the native example runs both.
 
 ```csharp
 private static readonly JsonSerializerOptions JsonOptions = new(SampleJsonContext.Default.Options) { TypeInfoResolver = SampleJsonContext.Default };
@@ -62,32 +86,20 @@ private static readonly JsonSerializerOptions JsonOptions = new(SampleJsonContex
 private static readonly RefitSettings Settings = new(new SystemTextJsonContentSerializer(JsonOptions));
 ```
 
-`SampleJsonContext.Default.Person` is a `JsonTypeInfo<Person>`. It describes one model and lets
-the typed `JsonSerializer` overloads work without looking up metadata through reflection:
-
 ```csharp
-JsonTypeInfo<Person> personInfo = SampleJsonContext.Default.Person;
-string json = JsonSerializer.Serialize(new(1, "Ada"), personInfo);
-Person? restored = JsonSerializer.Deserialize(json, personInfo);
-Console.WriteLine(restored?.Name); // Ada
+IPeopleApi withSettings = RestService.ForGenerated<IPeopleApi>(host.Client, Settings);
+Person fromSettings = await withSettings.GetPersonAsync(1, CancellationToken.None);
+Console.WriteLine(fromSettings.Name); // Ada
 ```
 
-Refit's `SystemTextJsonContentSerializer` does not take `JsonTypeInfo<T>` as a method argument.
-It uses `JsonSerializerOptions.TypeInfoResolver`, so assigning the generated context to
-`TypeInfoResolver` connects every registered `JsonTypeInfo<T>` to Refit's generic request and
-reply overloads. Use the typed overloads above for JSON work outside Refit, and reuse the same
-context in the Refit settings.
+If you have settings and want the context too, skip the hand-made resolver. `settings.UseJsonContext(context)` and
+`ForGenerated(client, context, settings)` keep your settings and add the context.
+Your naming policy and converters apply. See [choose whose settings apply](serialization/json.md#choose-whose-settings-apply).
 
-**4. Call the API with those settings.** The sample host supplies its shared HTTP client.
-In your app, pass your own client.
+A method can also take a `JsonTypeInfo<T>` parameter, which is the metadata for one type.
+See [pass metadata to a method](serialization/json.md#pass-metadata-to-a-method).
 
-```csharp
-IPeopleApi api = RestService.ForGenerated<IPeopleApi>(host.Client, Settings);
-Person person = await api.GetPersonAsync(1, CancellationToken.None);
-Console.WriteLine(person.Name); // Ada
-```
-
-The complete [native example](https://github.com/reactiveui/refit/blob/main/src/examples/Documentation/Aot/NativeClient/NativeClient.csproj)
+**4. Publish and run.** The complete [native example](https://github.com/reactiveui/refit/blob/main/src/examples/Documentation/Aot/NativeClient/NativeClient.csproj)
 publishes a small console app. From the Refit checkout's `src` folder, publish and run it on Linux x64:
 
 ```bash
@@ -106,6 +118,10 @@ Runtime-only lookups can need members that trimming would otherwise remove.
 Register every JSON request and reply type in your context. Register list or array types too
 when a method serializes or reads that whole container. Use metadata generation for reading replies.
 The default generation mode in the example supports both reading and writing.
+
+Reflection-based JSON is off when you pass a context. Pass `allowReflectionFallback: true` to let a type
+that the context does not list use reflection. That option is not trim or Native AOT safe.
+Add the missing type to the context instead.
 
 Fix `RF006` warnings before using generated-only clients. They identify a method that needs runtime
 request building. If reflection is acceptable for your app, the `Refit.Reflection` package supplies that path.

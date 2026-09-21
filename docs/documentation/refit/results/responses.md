@@ -17,7 +17,8 @@ This page shows which checks to make before using the value and how to release t
 **1. Declare a wrapped return type.** Use `Task<ApiResponse<Person>>` or `Task<IApiResponse<Person>>`
 on your interface method. `Person` is the model from [your first request](../index.md#your-first-request).
 
-**2. Configure generated JSON metadata.** Reuse the [JSON context and serializer setup](../serialization/json.md#set-up-a-reusable-serializer).
+**2. Configure generated JSON metadata.** Give the client a [JSON context](../serialization/json.md#register-a-context),
+or the settings you build from one.
 Register `Person`, the body type. Do not register `ApiResponse<Person>` as a JSON root.
 Refit creates that wrapper locally; the server sends only the body's JSON.
 
@@ -48,6 +49,24 @@ The content argument is your deserialized value. The constructor does not parse 
 The five-argument constructor takes the request separately. It accepts a null response for a transport failure.
 A transport failure happens before Refit receives an HTTP response.
 [The transport example below](#when-no-reply-arrives) shows that constructor.
+
+## Read the body with explicit metadata
+
+A method that returns `ApiResponse<T>` can take a `JsonTypeInfo<T>` parameter. Refit reads the body with that metadata
+and does not send the parameter. `T` is the body type, `Order` here, not `ApiResponse<Order>`.
+
+```csharp
+[Get("/orders/{id}")]
+Task<ApiResponse<Order>> GetOrderResponseAsync(int id, JsonTypeInfo<Order> orderInfo, CancellationToken cancellationToken);
+```
+
+```csharp
+using ApiResponse<Order> response = await api.GetOrderResponseAsync(OrdersServer.OrderId, OrdersJsonContext.Default.Order, CancellationToken.None);
+Console.WriteLine($"{response.StatusCode} {response.Content?.Customer}"); // OK Ada
+```
+
+The wrapper carries the status and headers as usual. See [pass metadata to a method](../serialization/json.md#pass-metadata-to-a-method)
+for the rules.
 
 ## Status success and content success differ
 

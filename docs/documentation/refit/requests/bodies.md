@@ -19,7 +19,7 @@ Metadata describes the JSON names and readers for a type. Refit's generated clie
 generator do separate jobs: one builds HTTP requests, and the other writes and reads JSON.
 
 ```csharp
-[JsonSourceGenerationOptions(PropertyNamingPolicy = JsonKnownNamingPolicy.CamelCase)]
+[JsonSourceGenerationOptions(JsonSerializerDefaults.Web)]
 [JsonSerializable(typeof(Person))]
 [JsonSerializable(typeof(string))]
 [JsonSerializable(typeof(Person[]))]
@@ -27,7 +27,8 @@ generator do separate jobs: one builds HTTP requests, and the other writes and r
 internal sealed partial class SampleJsonContext : JsonSerializerContext;
 ```
 
-Create one serializer and reuse its settings. The [JSON guide](../serialization/json.md) shows the complete setup.
+Hand the context to `RestService.ForGenerated` in step 4. To build the serializer and settings yourself instead,
+see the [JSON guide](../serialization/json.md#build-the-options-yourself).
 
 **2. Describe the body format.** Put `Body` on the one parameter that supplies the body.
 The form input appears below.
@@ -83,11 +84,11 @@ internal sealed class ContactForm
 ```
 
 **4. Send the requests.** `host.Client` is the shared HTTP client from the
-[first-request example](../index.md). `Settings` uses the generated JSON context above.
+[first-request example](../index.md). The client takes the generated JSON context above.
 
 ```csharp
 const int graceId = 2;
-IBodyApi api = RestService.ForGenerated<IBodyApi>(host.Client, Settings);
+IBodyApi api = RestService.ForGenerated<IBodyApi>(host.Client, SampleJsonContext.Default);
 Person saved = await api.JsonAsync(new(1, "Ada"));
 await api.TextAsync("hello");
 await api.QuotedAsync("quoted");
@@ -108,6 +109,35 @@ The source example checks the actual bytes received by each local route.
 It also decompresses the gzip body and checks the restored JSON.
 JSON Lines puts a newline between the two items. Refit does not add a trailing newline.
 See: the complete [body example](https://github.com/reactiveui/refit/blob/main/src/examples/Documentation/Bodies/Bodies.cs).
+
+To pass settings that you built yourself, hand them to the same call. `Settings` wraps options
+that use the context as their `TypeInfoResolver`.
+
+```csharp
+IBodyApi withSettings = RestService.ForGenerated<IBodyApi>(host.Client, Settings);
+Person savedWithSettings = await withSettings.JsonAsync(new(1, "Ada"));
+```
+
+## Write the body with explicit metadata
+
+A method can take a `JsonTypeInfo<T>` parameter for the body. `T` is the type of the `[Body]` parameter.
+The parameter holds the metadata for that type, such as a property of your JSON context.
+Refit writes the body with it and does not send the parameter. A second parameter can supply the metadata
+for the reply, as in this method:
+
+```csharp
+[Post("/orders")]
+Task<Order> PlaceOrderAsync([Body] NewOrder order, JsonTypeInfo<NewOrder> newOrderInfo, JsonTypeInfo<Order> orderInfo, CancellationToken cancellationToken);
+```
+
+```csharp
+NewOrder newOrder = new("Ada", [new("KB-1", 1, KeyboardPrice)]);
+Order placed = await api.PlaceOrderAsync(newOrder, OrdersJsonContext.Default.NewOrder, OrdersJsonContext.Default.Order, CancellationToken.None);
+```
+
+The metadata's own options apply to that call. The parameter works with the buffered and streamed request-body modes below.
+It needs a JSON body: a form, JSON Lines or multipart body cannot take one, and the build fails with `RF014`.
+See [pass metadata to a method](../serialization/json.md#pass-metadata-to-a-method) for the rules.
 
 ## Choose a serialization method
 

@@ -25,11 +25,20 @@ internal interface IStreamingApi
 }
 ```
 
-**2. Create the client.** Pass your HTTP client to `RestService.ForGenerated<IStreamingApi>`.
+**2. Create the client.** Pass your HTTP client and the generated JSON context from
+[the first request](../index.md#your-first-request) to `RestService.ForGenerated<IStreamingApi>`.
 The default `SystemTextJsonContentSerializer` supports streamed replies.
-Use the generated JSON context and settings from [the first request](../index.md#your-first-request).
-The source example passes those shared settings as `host.Settings`.
 The runnable example uses the sample host's client with a base address of `https://people.example`.
+
+```csharp
+IStreamingApi api = RestService.ForGenerated<IStreamingApi>(host.Client, SampleJsonContext.Default);
+```
+
+To pass settings that you built yourself, hand them to the same call. The sample host exposes its shared settings as `host.Settings`.
+
+```csharp
+IStreamingApi withSettings = RestService.ForGenerated<IStreamingApi>(host.Client, host.Settings);
+```
 
 **3. Read the items.** The example sets `DeadlineSeconds` to `10` and starts `count` at `0`.
 In your app, pass the caller's cancellation token when the caller controls the request lifetime.
@@ -69,6 +78,26 @@ It does not reconnect when the connection ends.
 
 The server must send each event's data as JSON that the serializer can deserialize as `T`.
 For example, an unquoted text value cannot be read as `Person`.
+
+## Read the items with explicit metadata
+
+A streaming method can take a `JsonTypeInfo<T>` parameter for the item type. `T` is the type of one item, not of the
+sequence. Refit reads every item with that metadata and does not send the parameter.
+It works with all three formats above.
+
+```csharp
+[Get("/orders")]
+IAsyncEnumerable<Order> StreamOrdersAsync(JsonTypeInfo<Order> orderInfo, CancellationToken cancellationToken);
+```
+
+```csharp
+await foreach (Order streamed in api.StreamOrdersAsync(OrdersJsonContext.Default.Order, CancellationToken.None))
+{
+    Console.WriteLine(streamed.Customer); // Ada
+}
+```
+
+See [pass metadata to a method](../serialization/json.md#pass-metadata-to-a-method) for the rules.
 
 ## Cancellation and errors
 

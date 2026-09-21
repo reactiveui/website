@@ -13,7 +13,7 @@ and Native AOT. They also explain who should dispose the HTTP client.
 
 | Page | What you can do |
 | --- | --- |
-| [Create a client](creation.md) | Create a generated client over a shared or new `HttpClient`, select an interface through `Type`, or use the reflection path when needed. |
+| [Create a client](creation.md) | Create a generated client from a JSON context or from settings, over a shared or created `HttpClient`, select an interface through `Type`, or use the reflection path when needed. |
 | [Settings](settings.md) | Set naming, serialization, request options and failure handling. |
 | [Dependency injection](dependency-injection.md) | Register generated clients, named transports and keyed clients. |
 | [Request builders](request-builders.md) | Select reflected methods by name and parameter types, or supply a request builder to client creation. |

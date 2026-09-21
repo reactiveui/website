@@ -48,9 +48,12 @@ internal interface IPeopleApi
 **3. Register the JSON types.** The compiler generates a JSON context from these registrations.
 It supplies model metadata without finding properties through reflection at runtime.
 Use the same context when you publish a Native AOT app.
+Add `using System.Text.Json;` and `using System.Text.Json.Serialization;` for the JSON types.
+Keep the `JsonSerializerDefaults.Web` line. It makes the context read the camelCase names that most services send.
+[JSON and generated metadata](serialization/json.md#add-the-web-defaults) explains what goes wrong without it.
 
 ```csharp
-[JsonSourceGenerationOptions(PropertyNamingPolicy = JsonKnownNamingPolicy.CamelCase)]
+[JsonSourceGenerationOptions(JsonSerializerDefaults.Web)]
 [JsonSerializable(typeof(Person))]
 [JsonSerializable(typeof(string))]
 [JsonSerializable(typeof(Person[]))]
@@ -58,9 +61,32 @@ Use the same context when you publish a Native AOT app.
 internal sealed partial class SampleJsonContext : JsonSerializerContext;
 ```
 
-**4. Reuse the serializer and one HTTP client.** These settings use that context.
-Add `using System.Text.Json;` and `using System.Text.Json.Serialization;` for the JSON types.
-The sample host exposes `_settings` as `host.Settings`.
+**4. Reuse one HTTP client.** Create the HTTP client when your app starts and reuse it for calls.
+In the runnable samples, `host.Client` is that client. Its `BaseAddress` is `https://people.example`.
+The sample host supplies local replies, so you can run the examples without a web server.
+
+**5. Create the implementation and call it.** `RestService.ForGenerated<T>` uses the implementation
+that Refit generated during the build. Pass the JSON context as the second argument.
+This call asks for `https://people.example/people/1`.
+In your own app, pass your HTTP client in place of `host.Client`. Add `using Refit;` to use Refit's types.
+
+```csharp
+IPeopleApi api = RestService.ForGenerated<IPeopleApi>(host.Client, SampleJsonContext.Default);
+Person person = await api.GetPersonAsync(1, CancellationToken.None);
+Console.WriteLine(person.Name); // Ada
+```
+
+Pass a cancellation token from the caller when a request should stop with a screen or a user action.
+The example uses `CancellationToken.None` because its short local request has no caller to cancel it.
+
+## Pass settings instead of a context
+
+`RefitSettings` holds the serializer and the other choices for a client, such as headers and error handling.
+You can build your own `JsonSerializerOptions`, wrap them in a serializer and pass the settings instead of the context.
+Pick this form when you have options to share, need full control, or want one options object
+elsewhere in your app. The short path above needs no options object. This form makes you assign the
+`TypeInfoResolver` yourself and keep the options unchanged after first use.
+The sample host exposes its settings as `host.Settings`.
 
 ```csharp
 private static readonly JsonSerializerOptions JsonOptions = new(SampleJsonContext.Default.Options) { TypeInfoResolver = SampleJsonContext.Default };
@@ -68,23 +94,13 @@ private static readonly JsonSerializerOptions JsonOptions = new(SampleJsonContex
 private readonly RefitSettings _settings = new(new SystemTextJsonContentSerializer(JsonOptions));
 ```
 
-Create the HTTP client when your app starts and reuse it for calls.
-In the runnable samples, `host.Client` is that client. Its `BaseAddress` is `https://people.example`.
-The sample host supplies local replies, so you can run the examples without a web server.
-
-**5. Create the implementation and call it.** `RestService.ForGenerated<T>` uses the implementation
-that Refit generated during the build. This call asks for `https://people.example/people/1`.
-In your own app, pass your HTTP client in place of `host.Client`. Add `using Refit;` to use Refit's types.
-Pass `_settings` in place of `host.Settings`.
-
 ```csharp
-IPeopleApi api = RestService.ForGenerated<IPeopleApi>(host.Client, host.Settings);
-Person person = await api.GetPersonAsync(1, CancellationToken.None);
-Console.WriteLine(person.Name); // Ada
+IPeopleApi withSettings = RestService.ForGenerated<IPeopleApi>(host.Client, host.Settings);
+Person fromSettings = await withSettings.GetPersonAsync(1, CancellationToken.None);
 ```
 
-Pass a cancellation token from the caller when a request should stop with a screen or a user action.
-The example uses `CancellationToken.None` because its short local request has no caller to cancel it.
+In your own app, pass `_settings` in place of `host.Settings`.
+[Create a client](clients/creation.md#use-settings-instead-of-a-context) covers the settings form in detail.
 
 ## Find a topic
 
@@ -97,7 +113,7 @@ The example uses `CancellationToken.None` because its short local request has no
 | [Return types](results/return-types.md) | Choose `Task<T>`, `ValueTask<T>`, `IObservable<T>` or a response wrapper. |
 | [Streaming replies](results/streaming.md) | Read a JSON array, JSON Lines or server-sent events with `IAsyncEnumerable<T>`. |
 | [Pagination](results/pagination.md) | Read every item of a paged list, such as an S3, Azure or GitHub listing, with `await foreach`. |
-| [JSON and generated metadata](serialization/json.md) | Configure serializers, combine contexts and check missing registrations. |
+| [JSON and generated metadata](serialization/json.md) | Register a JSON context, keep your serializer settings, pass metadata to a method and check missing registrations. |
 | [AOT and generated clients](aot.md) | Generate request and JSON code for apps that compile ahead of time. |
 | [Testing clients](testing/index.md) | Supply local replies, inspect requests and check which routes were called. |
 
