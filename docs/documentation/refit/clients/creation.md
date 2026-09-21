@@ -35,15 +35,9 @@ internal interface IClientApi
 }
 ```
 
-**2. Reuse JSON metadata.** The [shared context](../serialization/json.md) registers `Person`.
-The source file imports `System.Text.Json`. Its settings live in the sample class.
-
-
-```csharp
-private static readonly JsonSerializerOptions JsonOptions = new(SampleJsonContext.Default.Options) { TypeInfoResolver = SampleJsonContext.Default };
-
-private static readonly RefitSettings JsonSettings = new(new SystemTextJsonContentSerializer(JsonOptions));
-```
+**2. Give Refit the JSON context.** The [shared context](../serialization/json.md) registers `Person`.
+Refit reads and writes JSON with the context's own options, and it never falls back to reflection.
+This is the short path. It needs no options or settings object.
 
 **3. Create the implementation.** `host.Client` is the shared client with the local sample transport.
 Pass your app's client with its `BaseAddress` set when you use this in your app.
@@ -55,7 +49,7 @@ generated path to use when trimming or Native AOT matters.
 
 
 ```csharp
-IClientApi api = RestService.ForGenerated<IClientApi>(host.Client, JsonSettings);
+IClientApi api = RestService.ForGenerated<IClientApi>(host.Client, SampleJsonContext.Default);
 Person person = await api.ReadAsync();
 Console.WriteLine(person.Name); // Ada
 ```
@@ -63,12 +57,55 @@ Console.WriteLine(person.Name); // Ada
 The [runnable source](https://github.com/reactiveui/refit/blob/main/src/examples/Documentation/Clients/Clients.cs)
 checks the returned person. Dispose your shared HTTP client when its owner shuts down.
 Creating a Refit implementation around a supplied client does not create another HTTP client.
+The context overloads exist on .NET 8 and later.
+
+## Use settings instead of a context
+
+`RefitSettings` holds the serializer and every other choice for a client: headers, formatters and error handling.
+Pass settings when you need more than JSON, or when you prefer to own the JSON options.
+Pick the options way when you have `JsonSerializerOptions` to share, need full control,
+or want one options object reused elsewhere in your app.
+The short path needs no options object. The options way makes you assign the `TypeInfoResolver` yourself
+and keep the options unchanged after first use.
+The source file imports `System.Text.Json`. Its settings live in the sample class.
+
+
+```csharp
+private static readonly JsonSerializerOptions JsonOptions = new(SampleJsonContext.Default.Options) { TypeInfoResolver = SampleJsonContext.Default };
+
+private static readonly RefitSettings JsonSettings = new(new SystemTextJsonContentSerializer(JsonOptions));
+```
+
+`ForGenerated<T>` takes those settings in place of the context:
+
+```csharp
+IClientApi withSettings = RestService.ForGenerated<IClientApi>(host.Client, JsonSettings);
+```
+
+`RefitSettings.ForJsonContext(context)` is a shortcut that builds settings from a context.
+They use the context's own options, like the short path.
+
+```csharp
+RefitSettings shortcut = RefitSettings.ForJsonContext(SampleJsonContext.Default);
+IClientApi withShortcut = RestService.ForGenerated<IClientApi>(host.Client, shortcut);
+```
+
+When you have settings and want the context too, `ForGenerated(client, context, settings)` is the bridge.
+It keeps your settings and adds the context, so you do not assign a `TypeInfoResolver` by hand.
+It sets the result as `settings.ContentSerializer`. Your naming policy and converters apply.
+See [choose whose settings apply](../serialization/json.md#choose-whose-settings-apply).
+This example keeps a `Buffered` setting next to the context.
+
+```csharp
+IClientApi bridged = RestService.ForGenerated<IClientApi>(host.Client, SampleJsonContext.Default, new RefitSettings { Buffered = true });
+```
 
 ## Select an interface through Type
 
 Use the non-generic overload when your app selects a known interface through a `Type` value.
 It returns `object`, so the caller casts the implementation.
-Its settings parameter is required.
+Its settings parameter is required, and it has no context overload.
+Pass `JsonSettings` from above, or settings built with `RefitSettings.ForJsonContext`.
 The sample's `ClientInterface` contains `typeof(IClientApi)`.
 
 
@@ -94,7 +131,7 @@ IClientApi api = RestService.ForGenerated<IClientApi>(client, settings);
 Person person = await api.ReadAsync();
 ```
 
-The string overloads of `ForGenerated` create their own HTTP client.
+The string overloads of `ForGenerated`, with or without a context, create their own HTTP client.
 For an interface that inherits [`IDisposable`](https://learn.microsoft.com/dotnet/api/system.idisposable),
 the generated implementation disposes that client. Use that interface only when you want it to own
 the transport. `OwnedClientInterface` contains `typeof(IOwnedClientApi)` in this example.
@@ -107,6 +144,7 @@ internal interface IOwnedClientApi : IClientApi, IDisposable;
 
 ```csharp
 using IOwnedClientApi owned = RestService.ForGenerated<IOwnedClientApi>(BaseUrl, settings);
+using IOwnedClientApi contextOwned = RestService.ForGenerated<IOwnedClientApi>(BaseUrl, SampleJsonContext.Default);
 using IOwnedClientApi defaultOwned = RestService.ForGenerated<IOwnedClientApi>(BaseUrl);
 using IOwnedClientApi selectedOwned = (IOwnedClientApi)RestService.ForGenerated(OwnedClientInterface, BaseUrl, settings);
 ```
@@ -152,6 +190,14 @@ Each row describes one public overload. The `ForGenerated` overloads use only so
 | `CreateHttpClient(string hostUrl, RefitSettings? settings)` | Creates an HTTP client, chooses the configured handler chain, and sets its base address. | [`string`](https://learn.microsoft.com/dotnet/api/system.string) `hostUrl`: non-null, non-whitespace base address; [`RefitSettings`](settings.md) `settings`: nullable settings for handlers and URL resolution. | [`HttpClient`](https://learn.microsoft.com/dotnet/api/system.net.http.httpclient) with the configured base address; the caller owns it. |
 | `ForGenerated<T>(HttpClient client)` | Resolves the registered generated implementation for `T` with default settings and never builds reflected requests. | [`HttpClient`](https://learn.microsoft.com/dotnet/api/system.net.http.httpclient) `client`: non-null client used by the implementation. | `T`: generated implementation; if `T` inherits [`IDisposable`](https://learn.microsoft.com/dotnet/api/system.idisposable), disposing it also disposes `client`. Throws [`InvalidOperationException`](https://learn.microsoft.com/dotnet/api/system.invalidoperationexception) when no generated implementation is available on modern .NET. |
 | `ForGenerated<T>(HttpClient client, RefitSettings settings)` | Resolves the registered generated implementation for `T` with the supplied settings and never builds reflected requests. | [`HttpClient`](https://learn.microsoft.com/dotnet/api/system.net.http.httpclient) `client`: non-null client; [`RefitSettings`](settings.md) `settings`: non-null serializer and request settings. | `T`: generated implementation; if `T` inherits [`IDisposable`](https://learn.microsoft.com/dotnet/api/system.idisposable), disposing it also disposes `client`. Throws [`InvalidOperationException`](https://learn.microsoft.com/dotnet/api/system.invalidoperationexception) when no generated implementation is available on modern .NET. |
+| `ForGenerated<T>(HttpClient client, JsonSerializerContext context)` | Resolves the registered generated implementation for `T` and reads and writes JSON with the context's own options. It never builds reflected requests and never uses reflection-based JSON. | [`HttpClient`](https://learn.microsoft.com/dotnet/api/system.net.http.httpclient) `client`: non-null client; [`JsonSerializerContext`](https://learn.microsoft.com/dotnet/api/system.text.json.serialization.jsonserializercontext) `context`: the generated context. | `T`: generated implementation. Throws [`InvalidOperationException`](https://learn.microsoft.com/dotnet/api/system.invalidoperationexception) when no generated implementation is available. A request or reply type that the context does not list throws [`NotSupportedException`](https://learn.microsoft.com/dotnet/api/system.notsupportedexception). .NET 8 and later. |
+| `ForGenerated<T>(HttpClient client, JsonSerializerContext context, bool allowReflectionFallback)` | Resolves the generated implementation for `T` with the context's own options, optionally with a reflection fallback. | `client`; `context`; [`bool`](https://learn.microsoft.com/dotnet/api/system.boolean) `allowReflectionFallback`: `true` lets a type the context does not list use reflection-based JSON. Reflection is not trim or Native AOT safe. | `T`: generated implementation. .NET 8 and later. |
+| `ForGenerated<T>(HttpClient client, JsonSerializerContext context, RefitSettings settings)` | Resolves the generated implementation for `T`, keeps the settings' serializer options and adds the context. | `client`; `context`; [`RefitSettings`](settings.md) `settings`: non-null settings whose serializer is a `SystemTextJsonContentSerializer`. | `T`: generated implementation. Sets `settings.ContentSerializer` to a serializer built on a copy of its options plus the context. Throws `InvalidOperationException` when the settings use another serializer. .NET 8 and later. |
+| `ForGenerated<T>(HttpClient client, JsonSerializerContext context, RefitSettings settings, bool allowReflectionFallback)` | Resolves the generated implementation for `T`, keeps the settings' serializer options and adds the context, optionally with a reflection fallback. | `client`; `context`; `settings`; `allowReflectionFallback`: `true` lets a type no resolver lists use reflection-based JSON. Not trim or Native AOT safe. | `T`: generated implementation. .NET 8 and later. |
+| `ForGenerated<T>(string hostUrl, JsonSerializerContext context)` | Creates an HTTP client, then resolves the generated implementation for `T` on the context's own options with reflection-based JSON off. | [`string`](https://learn.microsoft.com/dotnet/api/system.string) `hostUrl`: non-null, non-whitespace base address; `context`. | `T`: generated implementation; if `T` inherits [`IDisposable`](https://learn.microsoft.com/dotnet/api/system.idisposable), disposing it also disposes the created client. .NET 8 and later. |
+| `ForGenerated<T>(string hostUrl, JsonSerializerContext context, bool allowReflectionFallback)` | Creates an HTTP client, then resolves the generated implementation for `T` on the context's own options, optionally with a reflection fallback. | `hostUrl`; `context`; `allowReflectionFallback`. | `T`: generated implementation. .NET 8 and later. |
+| `ForGenerated<T>(string hostUrl, JsonSerializerContext context, RefitSettings settings)` | Creates an HTTP client with the supplied settings, keeps their serializer options and adds the context. | `hostUrl`; `context`; `settings`: non-null settings whose serializer is a `SystemTextJsonContentSerializer`. | `T`: generated implementation. Sets `settings.ContentSerializer` to the composed serializer. .NET 8 and later. |
+| `ForGenerated<T>(string hostUrl, JsonSerializerContext context, RefitSettings settings, bool allowReflectionFallback)` | Creates an HTTP client with the supplied settings, keeps their serializer options and adds the context, optionally with a reflection fallback. | `hostUrl`; `context`; `settings`; `allowReflectionFallback`. | `T`: generated implementation. .NET 8 and later. |
 | `ForGenerated<T>(string hostUrl)` | Creates an HTTP client with default settings, then resolves the generated implementation for `T`. | [`string`](https://learn.microsoft.com/dotnet/api/system.string) `hostUrl`: non-null, non-whitespace base address for the created client. | `T`: generated implementation; if `T` inherits [`IDisposable`](https://learn.microsoft.com/dotnet/api/system.idisposable), disposing it also disposes the created client. |
 | `ForGenerated<T>(string hostUrl, RefitSettings settings)` | Creates an HTTP client with the supplied settings, then resolves the generated implementation for `T`. | [`string`](https://learn.microsoft.com/dotnet/api/system.string) `hostUrl`: non-null, non-whitespace base address; [`RefitSettings`](settings.md) `settings`: non-null serializer and request settings. | `T`: generated implementation; if `T` inherits [`IDisposable`](https://learn.microsoft.com/dotnet/api/system.idisposable), disposing it also disposes the created client. |
 | `ForGenerated(Type refitInterfaceType, HttpClient client, RefitSettings settings)` | Resolves a generated implementation for the runtime interface type over the supplied client. | [`Type`](https://learn.microsoft.com/dotnet/api/system.type) `refitInterfaceType`: non-null Refit interface; [`HttpClient`](https://learn.microsoft.com/dotnet/api/system.net.http.httpclient) `client`: non-null transport; [`RefitSettings`](settings.md) `settings`: non-null settings. | [`object`](https://learn.microsoft.com/dotnet/api/system.object) implementing the interface. For a source-generated disposable interface, disposing the cast implementation also disposes `client`. Throws [`InvalidOperationException`](https://learn.microsoft.com/dotnet/api/system.invalidoperationexception) when no generated implementation is available on modern .NET. |
@@ -169,9 +215,9 @@ Each row describes one public overload. The `ForGenerated` overloads use only so
 
 Production implementations: [`RestService.cs`](https://github.com/reactiveui/refit/blob/main/src/Refit/RestService.cs), [`RequestBuilder.cs`](https://github.com/reactiveui/refit/blob/main/src/Refit/RequestBuilder.cs), and [`IRequestBuilder.cs`](https://github.com/reactiveui/refit/blob/main/src/Refit/IRequestBuilder.cs).
 
-Generic overloads without settings use defaults.
+Generic overloads without settings or a context use defaults.
 Those defaults do not register your JSON models for AOT.
-Supply generated serializer metadata for calls that serialize or read models.
+Pass a context, or settings that hold generated serializer metadata, for calls that serialize or read models.
 Generated overloads that take settings reject null settings and null clients.
 An unavailable generated implementation throws `InvalidOperationException`.
 An unsupported generated method throws instead of using reflected fallback.
