@@ -13,6 +13,9 @@
 /documentation/handbook/interactions/binding-interactions/  /documentation/binding/bindings/  301
 /documentation/handbook/interactions/binding-interactions  /documentation/binding/bindings/  301
 /documentation/handbook/interactions/binding-interactions.html  /documentation/binding/bindings/  301
+/documentation/handbook/observable-as-property-helper/  /documentation/binding/properties/  301
+/documentation/handbook/observable-as-property-helper  /documentation/binding/properties/  301
+/documentation/handbook/observable-as-property-helper.html  /documentation/binding/properties/  301
 
 # Legacy docfx URLs redirected to mkdocs directory URLs.
 # Catchall while we migrate from docfx (.html) to mkdocs (directory) URLs.

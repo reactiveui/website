@@ -37,7 +37,7 @@ ReactiveUI makes it easy to combine the MVVM pattern with Reactive Programming b
 - **[ReactiveUI.SourceGenerators](https://github.com/reactiveui/ReactiveUI.SourceGenerators)** - Compile-time code generation for reactive properties and commands
 - **[WhenAnyValue](../binding/observing.md)** - Observe property changes reactively
 - **[ReactiveCommand](../handbook/commands/index.md)** - Asynchronous, composable command execution
-- **[ObservableAsPropertyHelper](../handbook/observable-as-property-helper.md)** - Transform observables into read-only properties
+- **[ObservableAsPropertyHelper](../binding/properties.md)** - Transform observables into read-only properties
 - **[WhenActivated](../handbook/when-activated.md)** - Manage subscriptions and prevent memory leaks
 - **[Data Binding](../handbook/data-binding/index.md)** - Type-safe, reactive data binding
 - **[User Input Validation](../handbook/user-input-validation.md)** - Declarative validation with ReactiveUI.Validation

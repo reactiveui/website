@@ -1,11 +1,10 @@
 ---
-Order: 9
+Order: 10
 ---
 # Setup
 
 [Run the complete page example](https://github.com/reactiveui/ReactiveUI.Binding.SourceGenerators/blob/main/src/examples/Documentation/Pages/setup/setup.csproj).
-Two more projects cover the [Native AOT program](https://github.com/reactiveui/ReactiveUI.Binding.SourceGenerators/blob/main/src/examples/Documentation/Pages/setup/aot/aot.csproj)
-and the [System.Reactive flavour](https://github.com/reactiveui/ReactiveUI.Binding.SourceGenerators/blob/main/src/examples/Documentation/Pages/setup/reactive/reactive.csproj).
+A second project covers the [Native AOT program](https://github.com/reactiveui/ReactiveUI.Binding.SourceGenerators/blob/main/src/examples/Documentation/Pages/setup/aot/aot.csproj).
 
 A binding call such as `item.WhenChanged(x => x.Title)` has to do real work when the program runs. Something must
 watch the property, convert values, write to controls and find views. This page shows how to install the package
@@ -14,7 +13,7 @@ It also shows how to read the build messages that say a call cannot get generate
 
 One package brings the generator and the calls. A program that has its own converters, observation providers,
 command binders, platform modules or view mappings also builds a *builder* at startup and registers them.
-Later sections cover the System.Reactive package, Native AOT, two build properties and every analyzer message.
+Later sections cover the System.Reactive package's names, Native AOT, two build properties and every analyzer message.
 
 ## Get started
 
@@ -544,19 +543,27 @@ True
 
 [Views](views.md) covers the locator, view contracts and generated view dispatch.
 
-## Choose the System.Reactive package
+## Use the System.Reactive package
 
-The package you reference decides which scheduling type a binding takes. The lean `ReactiveUI.Binding` package uses a
-*sequencer*, the object from `ReactiveUI.Primitives` that decides which thread runs a piece of work. System.Reactive
-uses its own `IScheduler` for the same job. If your program already schedules with System.Reactive, reference the second package.
+The examples on these pages use the lean `ReactiveUI.Binding` package. It schedules work with a *sequencer*, the
+object from `ReactiveUI.Primitives` that decides which thread runs a piece of work. A second package,
+`ReactiveUI.Binding.Reactive`, is the same library compiled against System.Reactive. Reference it only if your program
+already schedules with System.Reactive's `IScheduler`.
 
 ```bash
 dotnet add package ReactiveUI.Binding.Reactive
 ```
 
-`ReactiveUI.Binding.Reactive` is the same library compiled against System.Reactive. Everything that takes an `ISequencer` in the
-lean package takes an `IScheduler` here. The two packages share no type names. Every type in `ReactiveUI.Binding`
-lives in `ReactiveUI.Binding.Reactive` in this package, and the same holds for the platform namespaces. Import the shifted namespace.
+The calls read the same in both packages. Only the names you import change:
+
+| Lean package | System.Reactive package |
+|--------------|-------------------------|
+| `ReactiveUI.Binding` | `ReactiveUI.Binding.Reactive` |
+| `ReactiveUI.Binding.Builder` | `ReactiveUI.Binding.Reactive.Builder` |
+| `ReactiveUI.Binding.Maui` (package `ReactiveUI.Binding.Maui`) | `ReactiveUI.Binding.Reactive.Maui` (package `ReactiveUI.Binding.Maui.Reactive`) |
+| a parameter of type `ISequencer` | a parameter of type `IScheduler` |
+
+The WPF and WinForms packages follow the same pattern as MAUI. Import the shifted namespace once for the whole project:
 
 ```xml
 <ItemGroup>
@@ -564,117 +571,8 @@ lives in `ReactiveUI.Binding.Reactive` in this package, and the same holds for t
 </ItemGroup>
 ```
 
-The snippet below prints the namespace of the builder type. It shows why you import the shifted namespace: the builder is in
-`ReactiveUI.Binding.Reactive.Builder`, not in `ReactiveUI.Binding.Builder`.
-
-```csharp
-Console.WriteLine(typeof(ReactiveUIBindingBuilder).Namespace);
-```
-
-```text
-ReactiveUI.Binding.Reactive.Builder
-```
-
-The generator detects which package you reference and writes code for it. Reference one runtime package, not both. Each carries
-the generator, and two copies write the same files twice. The platform packages have a `.Reactive` twin as well, such as `ReactiveUI.Binding.Maui.Reactive`.
-
-The startup chain is the same. The snippet below builds an application with the shifted `WithMaui` module and asks it for the
-view thread invoker. The `True` shows the shifted MAUI module registered its invoker, just as the lean one does.
-
-```csharp
-IReactiveUIBindingBuilder builder = RxBindingBuilder.CreateReactiveUIBindingBuilder();
-
-var app = builder
-    .WithCoreServices()
-    .WithMaui()
-    .BuildApp();
-
-Console.WriteLine(app.Current!.GetService<IViewThreadInvoker>() is DispatcherViewThreadInvoker);
-```
-
-```text
-True
-```
-
-The binding calls read the same as in the lean package. The snippet below binds the count of unfinished items to a label
-and prints the label before and after one item is completed. It shows that the same call, written against the shifted
-namespace, keeps the label in step with the view model.
-
-```csharp
-var viewModel = new TodoListViewModel(InMemoryTodoStore.CreateSeeded());
-var view = new TodoView();
-await viewModel.LoadAsync();
-
-using (viewModel.BindOneWay(view, x => x.RemainingCount, v => v.RemainingLabel.Text, static count => count.ToString(CultureInfo.InvariantCulture)))
-{
-    Console.WriteLine(view.RemainingLabel.Text);
-
-    viewModel.SelectedItem = viewModel.Items[0];
-    await viewModel.CompleteAsync();
-
-    Console.WriteLine(view.RemainingLabel.Text);
-}
-```
-
-```text
-3
-2
-```
-
-A binding writes to the control on the thread that owns it. A call that takes a scheduler takes any System.Reactive
-`IScheduler`, so you can choose where the write runs instead. `ImmediateScheduler.Instance` runs the write at once. The snippet
-below passes it as the last argument, so the label already holds the count when the `using` block starts.
-
-```csharp
-var viewModel = new TodoListViewModel(InMemoryTodoStore.CreateSeeded());
-var view = new TodoView();
-await viewModel.LoadAsync();
-
-using (viewModel.BindOneWay(view, x => x.RemainingCount, v => v.RemainingLabel.Text, static count => count.ToString(CultureInfo.InvariantCulture), ImmediateScheduler.Instance))
-{
-    Console.WriteLine(view.RemainingLabel.Text);
-}
-```
-
-```text
-3
-```
-
-`NewThreadScheduler` starts a thread of its own for the write. The snippet below waits for the label to change, then compares
-the writer thread with the caller thread. The `True` shows the write did not happen on the calling thread, which is what you
-choose a scheduler for.
-
-```csharp
-var viewModel = new TodoListViewModel(InMemoryTodoStore.CreateSeeded());
-var view = new TodoView();
-await viewModel.LoadAsync();
-
-var written = new TaskCompletionSource<int>(TaskCreationOptions.RunContinuationsAsynchronously);
-view.RemainingLabel.PropertyChanged += (_, e) =>
-{
-    if (e.PropertyName == nameof(Label.Text))
-    {
-        _ = written.TrySetResult(Environment.CurrentManagedThreadId);
-    }
-};
-
-var callerThread = Environment.CurrentManagedThreadId;
-
-using (viewModel.BindOneWay(view, x => x.RemainingCount, v => v.RemainingLabel.Text, static count => count.ToString(CultureInfo.InvariantCulture), NewThreadScheduler.Default))
-{
-    var writerThread = await written.Task;
-
-    Console.WriteLine(view.RemainingLabel.Text);
-    Console.WriteLine(writerThread != callerThread);
-}
-```
-
-```text
-3
-True
-```
-
-A `null` scheduler means the thread that owns the target, as if you named none. [Threading](threading.md) covers the choices.
+Reference one runtime package, not both. Each package carries the generator, and the generator writes code for the
+package it finds. Two copies would write the same files twice.
 
 ## Publish with Native AOT and trimming
 
@@ -836,6 +734,9 @@ the `Unsafe` overload that resolves the path with reflection.
 | RXUIBIND009 | Warning | The call site cannot reach the generated dispatch | [Keep dispatch in reach](#keep-dispatch-in-reach) |
 | RXUIBIND010 | Warning | The path passes through a type that raises no notification | [Observe types that raise notifications](#observe-types-that-raise-notifications) |
 | RXUIBIND011 | Warning | The call resolved to ReactiveUI's own mixin | [Keep dispatch in reach](#keep-dispatch-in-reach) |
+| RXUIBIND012 | Warning | `ToProperty` targets a type whose notifications generated code cannot raise | [Properties backed by observables](properties.md#how-the-generator-raises-your-notification) |
+| RXUIBIND013 | Warning | `ToProperty` names its property in a form the generator cannot read | [Name the property directly](properties.md#name-the-property-directly) |
+| RXUIBIND014 | Error | Below C# 13, a `string` initial value passed by position makes a `ToProperty` call ambiguous | [Name the property directly](properties.md#name-the-property-directly) |
 
 `RXUIBIND100` is an MSBuild error, not an analyzer message. It appears when the compiler is older than Roslyn 4.8 and reads:
 "ReactiveUI.Binding's source generator requires Roslyn 4.8 or later (Visual Studio 2022 17.8+, or .NET SDK 8.0.100+)". Upgrade the build tools.
@@ -1233,4 +1134,7 @@ using (viewModel.WhenChanged(x => x.RemainingCount).Subscribe(Console.WriteLine)
 | [`RXUIBIND009`](https://github.com/reactiveui/ReactiveUI.Binding.SourceGenerators/blob/main/src/ReactiveUI.Binding.SourceGenerators/DiagnosticWarnings.cs) | Reports a call site the generated dispatch cannot reach. | Warning. | Needs concrete overloads, C# 9 or lower, and `InternalsVisibleTo`. The file must sit under the root namespace. |
 | [`RXUIBIND010`](https://github.com/reactiveui/ReactiveUI.Binding.SourceGenerators/blob/main/src/ReactiveUI.Binding.SourceGenerators/DiagnosticWarnings.cs) | Reports a path that passes through a type that raises no notification. | Warning. | The observation reads that link once and stops following the path there. |
 | [`RXUIBIND011`](https://github.com/reactiveui/ReactiveUI.Binding.SourceGenerators/blob/main/src/ReactiveUI.Binding.SourceGenerators/DiagnosticWarnings.cs) | Reports a binding call that resolved to ReactiveUI's own mixin. | Warning. | The call generates nothing and uses the runtime expression engine. Import `ReactiveUI.Binding`. |
+| [`RXUIBIND012`](https://github.com/reactiveui/ReactiveUI.Binding.SourceGenerators/blob/main/src/ReactiveUI.Binding.SourceGenerators/DiagnosticWarnings.cs) | Reports a `ToProperty` source whose notifications generated code cannot raise. | Warning. | The call generates nothing and throws when it runs. [Properties backed by observables](properties.md) lists the ways a type can offer generated code a way in. |
+| [`RXUIBIND013`](https://github.com/reactiveui/ReactiveUI.Binding.SourceGenerators/blob/main/src/ReactiveUI.Binding.SourceGenerators/DiagnosticWarnings.cs) | Reports a `ToProperty` property named in a form the generator cannot read. | Warning. | Name the property as `x => x.Property` or as a constant such as `nameof(Property)`. |
+| [`RXUIBIND014`](https://github.com/reactiveui/ReactiveUI.Binding.SourceGenerators/blob/main/src/ReactiveUI.Binding.SourceGenerators/DiagnosticWarnings.cs) | Reports a `ToProperty` call below C# 13 that a positional `string` initial value makes ambiguous. | Error. | Write the argument as `initialValue: ...`, or move to C# 13. |
 | [`RXUIBIND100`](https://github.com/reactiveui/ReactiveUI.Binding.SourceGenerators/blob/main/src/ReactiveUI.Binding.SourceGenerators/build/ReactiveUI.Binding.SourceGenerators.targets) | Stops the build when the compiler is older than Roslyn 4.8. | Error from MSBuild, not from the analyzer. | The message asks for Visual Studio 2022 17.8 or .NET SDK 8.0.100 or later. |

@@ -101,7 +101,7 @@ Grace Hopper
 ```
 
 The source generators can write this for you with `[ObservableAsProperty]`. See
-[ObservableAsPropertyHelper](../handbook/observable-as-property-helper.md).
+[Properties backed by observables](../binding/properties.md).
 
 ### `InvokeCommand`
 

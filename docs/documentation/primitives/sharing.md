@@ -399,7 +399,7 @@ A `ReadOnlyState<T>` holds a subscription to its stream. Dispose it when you no 
 reading `Value`, `Changed`, or subscribing throws an `ObjectDisposedException`.
 
 In a ReactiveUI view model, `ToProperty` does a similar job and raises a property changed event for the screen.
-See [observable as property helper](../handbook/observable-as-property-helper.md).
+See [Properties backed by observables](../binding/properties.md).
 
 ## Every sharing operator at a glance
 

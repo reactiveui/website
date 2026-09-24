@@ -1,5 +1,5 @@
 ---
-Order: 10
+Order: 11
 ---
 # Unsafe twins and the runtime fallback
 
@@ -507,8 +507,54 @@ using (view.BindInteractionUnsafe(
 True
 ```
 
-## Write on a sequencer
+## Back a property with ToPropertyUnsafe
 
+`ToPropertyUnsafe` is the twin of [`ToProperty`](properties.md). It reads the property name when the helper is
+created, from an expression such as `x => x.Headline` or from any string. It then finds the member that raises the
+type's notification by reflection. It tries ReactiveUI's raise extensions for an `IReactiveObject`, then a
+`RaisePropertyChanged`, `OnPropertyChanged`, `NotifyPropertyChanged` or `NotifyOfPropertyChange` method, then the
+field behind a field-like `PropertyChanged` event. Reflection reaches a protected or private raise method, so the
+type does not have to be `partial`.
+
+The view model below inherits only a protected `RaisePropertyChanged` and is not `partial`. `ToProperty` reports
+RXUIBIND012 for it, and `ToPropertyUnsafe` backs the property instead.
+
+```csharp
+public sealed class TodoHeadlineViewModel : ObservableObject
+{
+    private readonly ObservableAsPropertyHelper<string> _headline;
+
+    public TodoHeadlineViewModel(IObservable<string> titles) =>
+        _headline = titles.ToPropertyUnsafe(this, x => x.Headline);
+
+    public string Headline => _headline.Value;
+}
+```
+
+The snippet below pushes a new title and prints the headline and the notifications raised after the helper was
+created.
+
+```csharp
+BehaviorSignal<string> titles = new(OriginalTitle);
+var viewModel = new TodoHeadlineViewModel(titles);
+List<string> raised = [];
+viewModel.PropertyChanged += (_, e) => raised.Add(e.PropertyName ?? string.Empty);
+
+titles.OnNext(RenamedTitle);
+
+Console.WriteLine(viewModel.Headline);
+Console.WriteLine(string.Join(", ", raised));
+```
+
+```text
+Renew car registration online
+Headline
+```
+
+A type with none of those members throws `InvalidOperationException` when the helper is created. The overloads take
+the same initial value, initial-value factory, `deferSubscription`, scheduler and `out` arguments as `ToProperty`.
+
+## Write on a sequencer
 A **sequencer** decides when queued work runs. [Threading and platforms](threading.md) explains sequencers and the thread that owns a view. Each property-binding twin has an overload that takes an `ISequencer`. The binding delivers each write to the target on that sequencer, and the first write waits too. A newer value replaces a value that waits.
 
 A null sequencer means the binding writes on the thread that owns the target. An immediate sequencer writes inline. The overloads are members of `ReactiveSchedulerExtensions`.
@@ -1438,6 +1484,7 @@ The first column links to the source file. A twin that repeats for each number o
 | [`BindCommandUnsafe`](https://github.com/reactiveui/ReactiveUI.Binding.SourceGenerators/blob/main/src/ReactiveUI.Binding.Shared/Mixins/ReactiveUIBindingExtensions.BindCommand.Unsafe.cs) | Connects the command a property holds to a control. | Returns `IDisposable`. Takes an event name `string?`, plus an `IObservable<TParam?>` or a parameter expression for the command parameter. | A null event name picks the control's default event. Nothing is bound while the view model, the command or the control is null, or when no registered binder supports the control. |
 | [`InvokeCommandUnsafe`](https://github.com/reactiveui/ReactiveUI.Binding.SourceGenerators/blob/main/src/ReactiveUI.Binding.Shared/Mixins/ReactiveUIBindingExtensions.InvokeCommand.Unsafe.cs) | Runs the command a property holds for each value of a stream. | Extension on `IObservable<T>`. Returns `IDisposable`. | Skips a value while there is no command or the command cannot run. A null target runs nothing. A null source or command path throws `ArgumentNullException`. |
 | [`BindInteractionUnsafe`](https://github.com/reactiveui/ReactiveUI.Binding.SourceGenerators/blob/main/src/ReactiveUI.Binding.Shared/Mixins/ReactiveUIBindingExtensions.BindInteraction.Unsafe.cs) | Registers a handler on the interaction a property holds. | Returns `IDisposable`. The handler is a `Func` returning `Task`, or returning `IObservable<TDontCare>`. | Moves the handler when the property holds another interaction. A null view model registers nothing. |
+| [`ToPropertyUnsafe`](https://github.com/reactiveui/ReactiveUI.Binding.SourceGenerators/blob/main/src/ReactiveUI.Binding.Shared/Mixins/ReactiveUIBindingExtensions.ToProperty.Unsafe.cs) | Backs a read-only property with an observable's latest value, finding the property and its raise member by reflection. | Extension on `IObservable<TRet>`. Takes the declaring object and an `Expression<Func<TObj, TRet>>` of the form `x => x.Property`, or the property's name as any string. Optional: an initial value or a `Func<TRet>` factory, `deferSubscription`, an `ISequencer?` scheduler, and an `out ObservableAsPropertyHelper<TRet>`. Returns `ObservableAsPropertyHelper<TRet>`. | Throws `InvalidOperationException` when the type raises no notification reflection can reach, and `ArgumentException` for a selector that does not read one property off its parameter. |
 | [`ReactiveSchedulerExtensions`](https://github.com/reactiveui/ReactiveUI.Binding.SourceGenerators/blob/main/src/ReactiveUI.Binding.Shared/Mixins/ReactiveSchedulerExtensions.Unsafe.cs) | Holds the twins of `BindOneWay`, `BindTwoWay`, `OneWayBind` and `Bind` that take a sequencer. | Static class in `ReactiveUI.Binding`. Each twin takes an `ISequencer?` after the expressions and any conversion `Func`. A converter form takes the converters, the sequencer, then an `object?` hint. | A null sequencer writes on the target's owning thread. An immediate sequencer writes inline. A two-way twin does not schedule the write back. |
 | [`TriggerUpdate`](https://github.com/reactiveui/ReactiveUI.Binding.SourceGenerators/blob/main/src/ReactiveUI.Binding.Shared/Bindings/TriggerUpdate.cs) | Selects the direction that an update stream drives. | Enum in `ReactiveUI.Binding`. Values below. | The optional last argument of the `BindUnsafe` forms that take an update stream. |
 | [`TriggerUpdate.ViewToViewModel`](https://github.com/reactiveui/ReactiveUI.Binding.SourceGenerators/blob/main/src/ReactiveUI.Binding.Shared/Bindings/TriggerUpdate.cs) | The stream replaces view notifications and requests writes to the view model. | `0`; the default. | View model changes reach the view at once. |

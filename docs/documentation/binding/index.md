@@ -198,13 +198,14 @@ of the examples. They talk to in-memory services, so no example needs a network 
 | Page | What you can do |
 | --- | --- |
 | [Observing](observing.md) | Watch one to sixteen properties with `WhenChanged`, `WhenChanging`, `WhenAnyValue`, `WhenAny` and `WhenAnyObservable`. |
+| [Properties backed by observables](properties.md) | Back a read-only property with a stream using `ToProperty`, `ObservableAsPropertyHelper<T>` and `[ObservableAsProperty]`. |
 | [Bindings](bindings.md) | Connect properties one way and two ways, bind to a command or an interaction, and handle errors. |
 | [Converters](converters.md) | Use the built-in converters for numbers, dates, booleans, strings and nullable values. |
 | [Custom converters](custom-converters.md) | Write and register your own converter and choose a fallback. |
 | [Mechanisms](mechanisms.md) | See how a type announces a change and how the generator picks a way to listen. |
 | [Views](views.md) | Use `IViewFor<T>`, the view locator and view mappings. |
 | [Threading and platforms](threading.md) | Write on the owning thread, choose a scheduler, and use the WPF, WinForms, MAUI and Avalonia packages. |
-| [Setup](setup.md) | Start the builder, choose the System.Reactive package, publish with Native AOT and read the analyzer's diagnostics. |
+| [Setup](setup.md) | Start the builder, find the System.Reactive package's names, publish with Native AOT and read the analyzer's diagnostics. |
 | [Unsafe twins and the runtime fallback](unsafe.md) | Bind a call site that the generator cannot read. |
 | [API reference](api.md) | Look up every public type and member with its parameters and return value. |
 
