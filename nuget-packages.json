@@ -33,6 +33,7 @@
     "ReactiveMarbles.PropertyChanged.SourceGenerator",
     "ReactiveMarbles.RoslynHelpers",
     "ReactiveMarbles.SourceGenerator.TestNuGetHelper",
+    "ReactiveUI.Binding",
     "ReactiveUI.Binding.Analyzer",
     "ReactiveUI.Binding.SourceGenerators",
     "ReactiveUI.Disposables",

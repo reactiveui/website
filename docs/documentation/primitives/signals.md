@@ -320,7 +320,7 @@ Pass an `IEqualityComparer<T>` as a third argument to skip a value that equals t
 comparer, a change event that leaves the value the same still sends it again.
 
 Watching properties is exactly what ReactiveUI's `WhenAnyValue` does for you, so in a ReactiveUI app you rarely
-need to build this by hand. See [WhenAny](../handbook/when-any.md).
+need to build this by hand. See [WhenAny](../binding/observing.md).
 
 ## Sending from many threads
 

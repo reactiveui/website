@@ -115,7 +115,7 @@ name: 'Grace'
 The lambda must read one property directly, such as `p => p.Name`. A lambda that calls a method, such as
 `p => p.ToString()`, throws `ArgumentException`. The helper works with trimming and Native AOT.
 
-In a ReactiveUI app, [`WhenAnyValue`](../../handbook/when-any.md) does this job for view models and follows chains of
+In a ReactiveUI app, [`WhenAnyValue`](../../binding/observing.md) does this job for view models and follows chains of
 properties.
 
 ## Running code on subscribe and dispose

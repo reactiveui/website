@@ -101,7 +101,7 @@ Grace Hopper
 ```
 
 The source generators can write this for you with `[ObservableAsProperty]`. See
-[ObservableAsPropertyHelper](../handbook/observable-as-property-helper.md).
+[Properties backed by observables](../binding/properties.md).
 
 ### `InvokeCommand`
 
@@ -111,7 +111,7 @@ cannot run. [Your first pipeline](#your-first-pipeline) shows it. See [commands]
 ### `WhenAnyValue` and `WhenAnyObservable`
 
 `WhenAnyValue` makes a stream from properties. `WhenAnyObservable` follows a property that itself holds a stream, such
-as a command on a child view model. See [WhenAny](../handbook/when-any.md).
+as a command on a child view model. See [WhenAny](../binding/observing.md).
 
 ## Every other operator
 
