@@ -158,3 +158,27 @@
    compounds with six items. */
 .md-typeset .grid.cards p { font-size: 0.78rem; line-height: 1.5; }
 .md-typeset .grid.cards hr { margin: 0.4rem 0; }
+
+/* ---- Landing-page project cards: two columns wide enough for a short code sample, with each
+       project's logo from its GitHub repository beside the name. ---- */
+.md-typeset .grid.cards.rxui-projects > :is(ul, ol) {
+  grid-template-columns: 1fr;
+}
+
+@media screen and (min-width: 60em) {
+  .md-typeset .grid.cards.rxui-projects > :is(ul, ol) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.md-typeset .rxui-projects img.rxui-logo {
+  width: 1.6rem;
+  height: 1.6rem;
+  object-fit: contain;
+  vertical-align: middle;
+  margin-right: 0.4rem;
+}
+
+.md-typeset .rxui-projects pre > code {
+  font-size: 0.7rem;
+}

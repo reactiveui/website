@@ -11,91 +11,216 @@ hide:
 
 # ReactiveUI
 
-<p class="tagline">An advanced, composable, functional reactive model-view-viewmodel framework for all .NET platforms.</p>
+<p class="tagline">A family of open-source .NET libraries for building apps. Use them together, or pick only the one you need.</p>
 
 [:material-rocket-launch: Get started](documentation/getting-started/index.md){ .md-button .md-button--primary }
-[:fontawesome-brands-github: Star on GitHub](https://github.com/reactiveui/ReactiveUI){ .md-button }
+[:fontawesome-brands-github: Browse on GitHub](https://github.com/reactiveui){ .md-button }
 
 </div>
 
-<div class="rxui-sample" markdown>
+</div>
 
-=== "C#"
+## Build your app
+
+These libraries shape how your app fits together. Several of them use streams. A **stream** is a series of
+values that arrive over time, such as each new value of a property. You **subscribe** to a stream to receive
+its values.
+
+<div class="grid cards rxui-projects" markdown>
+
+-   ![](https://raw.githubusercontent.com/reactiveui/ReactiveUI/main/images/logo.png){ .rxui-logo } **ReactiveUI**
+
+    ---
+
+    A model-view-viewmodel (MVVM) framework for WPF, WinForms, WinUI, MAUI, Avalonia and Uno. MVVM keeps
+    screen logic in a view model class that you can test without a UI. Here the Save button turns off while
+    the name is empty.
 
     ```csharp
-    this.WhenAnyValue(x => x.SearchQuery)
-        .Calm(TimeSpan.FromSeconds(0.8), RxSchedulers.TaskpoolScheduler)
-        .Select(query => query?.Trim())
-        .Unique()
-        .Where(query => !string.IsNullOrWhiteSpace(query))
-        .WitnessOn(RxSchedulers.MainThreadScheduler)
-        .InvokeCommand(this, x => x.ExecuteSearch);
+    IObservable<bool> canSave = this.WhenAnyValue(
+        x => x.Name, name => !string.IsNullOrWhiteSpace(name));
+
+    Save = ReactiveCommand.CreateFromTask(SaveAsync, canSave);
     ```
 
-=== "F#"
+    [:material-arrow-right: Docs](documentation/getting-started/index.md) ·
+    [:fontawesome-brands-github: GitHub](https://github.com/reactiveui/ReactiveUI)
 
-    ```fsharp
-    this.WhenAnyValue(fun x -> x.SearchQuery)
-        .Calm(TimeSpan.FromSeconds(0.8), RxSchedulers.TaskpoolScheduler)
-        .Select(fun (query: string) -> if isNull query then null else query.Trim())
-        .Unique()
-        .Where(fun query -> not (String.IsNullOrWhiteSpace(query)))
-        .WitnessOn(RxSchedulers.MainThreadScheduler)
-        .InvokeCommand(this.ExecuteSearch)
+-   ![](https://raw.githubusercontent.com/reactiveui/ReactiveUI.Binding.SourceGenerators/main/images/logo.png){ .rxui-logo } **ReactiveUI.Binding**
+
+    ---
+
+    Keeps a view and a view model in step. A source generator writes the binding code when you build,
+    so bindings are safe to trim and to publish with Native AOT. Dispose a binding to stop it.
+
+    ```csharp
+    // The text box shows Name, and typing updates Name.
+    using var binding = view.Bind(
+        viewModel, vm => vm.Name, v => v.NameBox.Text);
     ```
 
+    [:material-arrow-right: Docs](documentation/binding/index.md) ·
+    [:fontawesome-brands-github: GitHub](https://github.com/reactiveui/ReactiveUI.Binding.SourceGenerators)
+
+-   ![](https://raw.githubusercontent.com/reactiveui/ReactiveUI.Validation/main/media/logo.png){ .rxui-logo } **ReactiveUI.Validation**
+
+    ---
+
+    Adds validation rules to a view model. Each rule names a property, a check and the message to show
+    when the check fails.
+
+    ```csharp
+    this.ValidationRule(
+        vm => vm.Email,
+        email => email?.Contains('@') == true,
+        "Enter a valid email address.");
+    ```
+
+    [:material-arrow-right: Docs](documentation/handbook/user-input-validation.md) ·
+    [:fontawesome-brands-github: GitHub](https://github.com/reactiveui/ReactiveUI.Validation)
+
+-   ![](https://raw.githubusercontent.com/reactiveui/styleguide/master/logo_sextant/vertical.png){ .rxui-logo } **Sextant**
+
+    ---
+
+    Navigation that starts from the view model. You open and close pages by naming view models, so you
+    can test navigation without a UI.
+
+    ```csharp
+    // Show the page for DetailsViewModel, then go back.
+    await viewStack.PushPage<DetailsViewModel>();
+    await viewStack.PopPage();
+    ```
+
+    [:material-arrow-right: Docs](documentation/handbook/sextant/index.md) ·
+    [:fontawesome-brands-github: GitHub](https://github.com/reactiveui/Sextant)
+
 </div>
 
+## Foundations
+
+Every library on this page uses ReactiveUI.Primitives for its streams. ReactiveUI, ReactiveUI.Binding, Akavache and
+Fusillade also use Splat. You can use either one on its own.
+
+<div class="grid cards rxui-projects" markdown>
+
+-   ![](https://raw.githubusercontent.com/reactiveui/splat/main/images/logo.png){ .rxui-logo } **Splat**
+
+    ---
+
+    A service locator and logging for every .NET platform. A **service locator** is one shared place that
+    hands out services. Register a service when your app starts, then ask for it anywhere.
+
+    ```csharp
+    AppLocator.CurrentMutable.RegisterLazySingleton<IWeatherService>(
+        () => new WeatherService());
+
+    var weather = AppLocator.Current.GetService<IWeatherService>();
+    ```
+
+    [:material-arrow-right: Docs](documentation/handbook/dependency-inversion/index.md) ·
+    [:fontawesome-brands-github: GitHub](https://github.com/reactiveui/splat)
+
+-   ![](https://raw.githubusercontent.com/reactiveui/Primitives/main/images/logo.png){ .rxui-logo } **ReactiveUI.Primitives**
+
+    ---
+
+    Small, fast streams, ready for Native AOT. Turn events, timers and tasks into streams. Then shape them
+    with **operators**, methods that take a stream and return a new one. `Calm` waits for 300 ms of quiet.
+
+    ```csharp
+    using var search = Signal.FromEventPattern(
+            h => box.TextChanged += h, h => box.TextChanged -= h)
+        .Select(_ => box.Text)
+        .Calm(TimeSpan.FromMilliseconds(300))
+        .Subscribe(RunSearch);
+    ```
+
+    [:material-arrow-right: Docs](documentation/primitives/index.md) ·
+    [:fontawesome-brands-github: GitHub](https://github.com/reactiveui/Primitives)
+
 </div>
 
-<div class="grid cards" markdown>
+## Data and networking
 
--   :material-script-text-outline:{ .lg .middle } **Declarative**
+These libraries call web services and keep data on the device. None of them needs ReactiveUI.
 
-    ---
+<div class="grid cards rxui-projects" markdown>
 
-    Describe what you want, not how to do it. Code is communication between people that also happens to run on a computer; optimising for human readability pays off over a project's lifetime.
-
--   :material-puzzle-outline:{ .lg .middle } **Composable**
+-   ![](https://raw.githubusercontent.com/reactiveui/refit/main/images/logo.png){ .rxui-logo } **Refit**
 
     ---
 
-    Build re-usable chunks of functionality that slot into your reactive pipelines. Write and [test code](documentation/handbook/testing.md) once, leverage it many times.
+    Turns a C# interface into a REST client. An attribute on each method describes the request, and Refit
+    writes the code that sends it. `AppJsonContext` is your `System.Text.Json` source-generated context.
 
--   :material-monitor-cellphone:{ .lg .middle } **Cross-platform**
+    ```csharp
+    public interface IGitHubApi
+    {
+        [Get("/users/{user}")]
+        Task<User> GetUserAsync(string user, CancellationToken token);
+    }
 
-    ---
+    var api = RestService.ForGenerated<IGitHubApi>(
+        httpClient, AppJsonContext.Default);
+    ```
 
-    Share business logic between mobile and desktop. First-class support for [.NET (WPF, WinForms, WinUI), MAUI, Avalonia, and Uno](documentation/getting-started/installation/index.md). Xamarin remains supported for legacy apps.
+    [:material-arrow-right: Docs](documentation/refit/index.md) ·
+    [:fontawesome-brands-github: GitHub](https://github.com/reactiveui/refit)
 
--   :material-test-tube:{ .lg .middle } **Scalable & Testable**
-
-    ---
-
-    ReactiveUI [copes gracefully as your application grows](articles/2026-05-07-why-reactiveui-earns-its-keep.md). Control time in tests — no more 3-second waits.
-
--   :material-book-open-page-variant-outline:{ .lg .middle } **Built on ReactiveUI.Primitives**
-
-    ---
-
-    Streams are LINQ for events. [ReactiveUI.Primitives](documentation/primitives/why-primitives.md) makes them fast, small and ready for Native AOT, and [works alongside System.Reactive](documentation/primitives/system-reactive.md) when a library still needs it.
-
--   :material-lightning-bolt-outline:{ .lg .middle } **Async-aware commands**
+-   ![](https://raw.githubusercontent.com/reactiveui/Akavache/main/Images/logo.png){ .rxui-logo } **Akavache**
 
     ---
 
-    [`ReactiveCommand`](documentation/handbook/commands/index.md) runs your async work, surfaces `CanExecute`, funnels errors to one handler, and cancels on demand — bind it to a button and forget the plumbing.
+    Stores objects on the device: a cache, user settings and encrypted secrets. Ask for a key, and
+    Akavache returns the saved copy, or fetches a new one when the copy is missing or has expired.
 
--   :material-auto-fix:{ .lg .middle } **Less boilerplate**
+    ```csharp
+    var news = await CacheDatabase.LocalMachine.GetOrFetchObject(
+        "news",
+        () => api.GetNewsAsync(),
+        DateTimeOffset.Now.AddHours(1));
+    ```
+
+    [:material-arrow-right: Docs](documentation/handbook/akavache/index.md) ·
+    [:fontawesome-brands-github: GitHub](https://github.com/reactiveui/Akavache)
+
+-   ![](https://raw.githubusercontent.com/reactiveui/punchclock/main/images/logo.png){ .rxui-logo } **Punchclock**
 
     ---
 
-    Decorate fields and methods with `[Reactive]`, `[ObservableAsProperty]`, and `[ReactiveCommand]`; [source generators](documentation/handbook/view-models/boilerplate-code.md) write the property and command code for you.
+    A queue that limits how many tasks run at once. When a slot frees up, the task with the highest
+    priority runs next.
 
--   :material-account-group-outline:{ .lg .middle } **Open-source community**
+    ```csharp
+    using var queue = new OperationQueue(maximumConcurrent: 2);
+
+    var page = queue.Enqueue(1, () => http.GetStringAsync(pageUrl));
+    var urgent = queue.Enqueue(10, () => http.GetStringAsync(urgentUrl));
+    await Task.WhenAll(page, urgent);
+    ```
+
+    [:fontawesome-brands-github: Read the guide on GitHub](https://github.com/reactiveui/punchclock#readme)
+
+-   ![](https://raw.githubusercontent.com/reactiveui/styleguide/master/logo_fusillade/main.png){ .rxui-logo } **Fusillade**
 
     ---
 
-    [Contribute](contribute/index.md) under an OSI-approved licence. Free for commercial use. Maintained by the ReactiveUI Association and Contributors.
+    An `HttpClient` handler that sends requests in order of importance. Requests the user waits on go
+    first, background work waits, and identical requests share one download.
+
+    ```csharp
+    using var client = new HttpClient(
+        NetCache.UserInitiated, disposeHandler: false);
+
+    string json = await client.GetStringAsync(url);
+    ```
+
+    [:fontawesome-brands-github: Read the guide on GitHub](https://github.com/reactiveui/Fusillade#readme)
 
 </div>
+
+## Open source
+
+Every library here is free for commercial use under an OSI-approved licence. The ReactiveUI Association and
+its contributors maintain them. [Contribute](contribute/index.md) or [sponsor the work](sponsors.md).
