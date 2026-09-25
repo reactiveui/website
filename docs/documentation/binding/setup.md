@@ -678,7 +678,7 @@ Two MSBuild properties change what the generator writes. Set them in the project
 
 A *dispatch* sends a call to the code the generator wrote for it. There are two ways to do it.
 
-- **An interceptor.** The generator writes a method that the compiler puts in place of your call. This needs Roslyn 4.13 or newer. The call site does not change and the file's namespace does not matter.
+- **An interceptor.** The generator writes a method that the compiler puts in place of your call. This needs Roslyn 4.13 or newer and C# 11 or later. The call site does not change and the file's namespace does not matter.
 - **A concrete overload.** The generator writes an overload of the binding method that wins method lookup over the runtime stub.
   Roslyn 4.8 and newer can use it. From C# 10 the generator matches your call by the text of its lambdas. Before C# 10 it matches by file and line.
 
@@ -691,9 +691,10 @@ to `false` to keep concrete overloads on a compiler that could intercept.
 </PropertyGroup>
 ```
 
-The interceptors live in the `ReactiveUI.Binding.Generated.Interceptors` namespace. The compiler accepts an interceptor only from a namespace
-the project lists in `InterceptorsNamespaces`. The package adds `ReactiveUI.Binding.Generated.Interceptors` to
-that list, after any namespaces you listed, so you do nothing.
+Each project's interceptors live in a namespace of their own under `ReactiveUI.Binding.Generated.Interceptors`, named after the
+assembly, so a project and the test project it exposes its internals to never see each other's generated types. The compiler
+accepts an interceptor only from a namespace the project lists in `InterceptorsNamespaces`, or one inside it. The package adds
+`ReactiveUI.Binding.Generated.Interceptors` to that list, after any namespaces you listed, so you do nothing.
 
 ### Mark generated files
 
@@ -739,6 +740,7 @@ the `Unsafe` overload that resolves the path with reflection.
 | RXUIBIND014 | Error | Below C# 13, a `string` initial value passed by position makes a `ToProperty` call ambiguous | [Name the property directly](properties.md#name-the-property-directly) |
 | RXUIBIND015 | Warning | The call names a private or protected nested type | [Name types generated code can reach](#name-types-generated-code-can-reach) |
 | RXUIBIND016 | Warning | The call's types are built from a type parameter | [Name types generated code can reach](#name-types-generated-code-can-reach) |
+| RXUIBIND017 | Warning | A binding writes to a WPF, WinForms or MAUI object without that platform's Binding package | [The generated fallback](threading.md#the-generated-fallback) |
 
 `RXUIBIND100` is an MSBuild error, not an analyzer message. It appears when the compiler is older than Roslyn 4.8 and reads:
 "ReactiveUI.Binding's source generator requires Roslyn 4.8 or later (Visual Studio 2022 17.8+, or .NET SDK 8.0.100+)". Upgrade the build tools.
@@ -1170,4 +1172,5 @@ using (viewModel.WhenChanged(x => x.RemainingCount).Subscribe(Console.WriteLine)
 | [`RXUIBIND014`](https://github.com/reactiveui/ReactiveUI.Binding.SourceGenerators/blob/main/src/ReactiveUI.Binding.SourceGenerators/DiagnosticWarnings.cs) | Reports a `ToProperty` call below C# 13 that a positional `string` initial value makes ambiguous. | Error. | Write the argument as `initialValue: ...`, or move to C# 13. |
 | [`RXUIBIND015`](https://github.com/reactiveui/ReactiveUI.Binding.SourceGenerators/blob/main/src/ReactiveUI.Binding.SourceGenerators/DiagnosticWarnings.cs) | Reports a call that names a private or protected nested type. | Warning. | The call generates nothing and throws when it runs. Make the type `internal` or `public`, or call the `Unsafe` overload. |
 | [`RXUIBIND016`](https://github.com/reactiveui/ReactiveUI.Binding.SourceGenerators/blob/main/src/ReactiveUI.Binding.SourceGenerators/DiagnosticWarnings.cs) | Reports a call whose types are built from a type parameter. | Warning. | The call generates nothing and throws when it runs. Call the `Unsafe` overload. |
+| [`RXUIBIND017`](https://github.com/reactiveui/ReactiveUI.Binding.SourceGenerators/blob/main/src/ReactiveUI.Binding.SourceGenerators/DiagnosticWarnings.cs) | Reports a binding that writes to a WPF, WinForms or MAUI object when the matching `ReactiveUI.Binding.Wpf`, `.WinForms` or `.Maui` package is not referenced. | Warning. | The binding still generates, but its writes are not moved to the object's thread. Reference the package the message names. |
 | [`RXUIBIND100`](https://github.com/reactiveui/ReactiveUI.Binding.SourceGenerators/blob/main/src/ReactiveUI.Binding.SourceGenerators/build/ReactiveUI.Binding.SourceGenerators.targets) | Stops the build when the compiler is older than Roslyn 4.8. | Error from MSBuild, not from the analyzer. | The message asks for Visual Studio 2022 17.8 or .NET SDK 8.0.100 or later. |
