@@ -12,13 +12,15 @@ These companies support ReactiveUI and the people who maintain it.
 
     ---
 
-    [JetBrains](https://www.jetbrains.com/) supports ReactiveUI.
+    [JetBrains](https://www.jetbrains.com/) gives the maintainers licences for its tools through its
+    [open source support programme](https://www.jetbrains.com/community/opensource/).
 
 -   [![Claude by Anthropic](images/sponsors/claude.svg)](https://claude.com/)
 
     ---
 
-    [Anthropic](https://www.anthropic.com/) supports ReactiveUI through [Claude](https://claude.com/).
+    [Anthropic](https://www.anthropic.com/) supports the maintainers with [Claude](https://claude.com/)
+    through [Claude for Open Source](https://claude.com/contact-sales/claude-for-oss).
 
 -   [![OpenAI](images/sponsors/openai.svg)](https://openai.com/codex/)
 
