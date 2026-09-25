@@ -20,6 +20,8 @@ Reusable and fallback routes do not have to be called.
 **2. Start asynchronous verification when a request may arrive later.** `VerifyAllCalledAsync()`
 waits for up to one second. `VerifyAllCalledAsync(timeout)` uses your `TimeSpan`.
 Neither overload accepts a cancellation token. A zero timeout performs an immediate check.
+The timeout runs on `StubHttp.TimeProvider`. Set a fake clock to fail the check without waiting.
+See [simulated time](streaming.md#control-simulated-time).
 
 **3. Send and await the call.** The [runnable verification example](https://github.com/reactiveui/refit/blob/main/src/examples/Documentation/Testing/Testing.cs)
 asserts that verification is pending before it sends, then awaits both the response and verification.
@@ -45,6 +47,9 @@ It throws `InvalidOperationException` when there are no recorded requests.
 `RequestBodyAsync<T>(index)` does the same for a zero-based request index.
 A negative or unavailable index throws `ArgumentOutOfRangeException`.
 The [first test](index.md#make-your-first-test) demonstrates both names.
+
+These methods read what the [request-capture policy](streaming.md#test-a-streaming-upload) recorded.
+The default policy, `RequestCapture.Full`, records every body. `RequestCapture.None` records nothing, so they return default.
 
 Absent content returns default. A body that cannot be buffered also returns default.
 Captured empty or malformed JSON is passed to the serializer and can throw.

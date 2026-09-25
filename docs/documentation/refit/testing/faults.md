@@ -18,7 +18,8 @@ Set `FailurePercent=0` when you only want HTTP errors.
 Probabilities are fractions: 0 means never and 1 means always.
 
 **2. Attach the behavior.** Give it to `new StubHttp(behavior)` or assign `http.Behavior`.
-Assign null to disable simulation.
+Assign null to disable simulation. The delay runs on `http.TimeProvider`. Assign a fake clock so the test
+moves time forward itself instead of waiting. See [simulated time](streaming.md#control-simulated-time).
 
 **3. Send through a client and check the result.** The [runnable fault example](https://github.com/reactiveui/refit/blob/main/src/examples/Documentation/Testing/Testing.cs)
 checks a 503 response and then a thrown `HttpRequestException` with the configured message.

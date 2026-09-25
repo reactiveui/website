@@ -109,6 +109,9 @@ An unsuccessful HTTP status throws when `RefitSettings.ExceptionFactory` returns
 A bad item throws while the loop reads it. Handle errors around the whole `await foreach` loop.
 Use cancellation to end an endless reply when the screen or operation no longer needs it.
 
+To test these cases without a server, release items one at a time from a test response.
+See [test streams, uploads and time](../testing/streaming.md).
+
 ## Custom serializers
 
 The serializer must implement `IStreamingContentSerializer`.
