@@ -42,7 +42,7 @@ The returned `ValueTask<bool>` is not complete, because no data is waiting. Rele
 
 ```csharp
 StreamSource source = new(StreamingContentFormat.JsonLines);
-using StubHttp http = new() { { Route.Get("/people/live"), Reply.Stream(source) } };
+using StubHttp http = new() { { Route.Get(LivePath), Reply.Stream(source) } };
 ITestingStreamingApi api = http.CreateGeneratedClient<ITestingStreamingApi>(BaseUrl, CreateSettings());
 await using IAsyncEnumerator<TestingPerson> people = api.WatchAsync(CancellationToken.None).GetAsyncEnumerator();
 
@@ -53,7 +53,7 @@ SampleCheck.Equal(FirstName, people.Current.Name);
 ValueTask<bool> second = people.MoveNextAsync();
 SampleCheck.Equal(false, second.IsCompleted); // Grace has not been released yet.
 
-source.Release(new TestingPerson(2, SecondName));
+source.Release(new TestingPerson(SecondId, SecondName));
 SampleCheck.Equal(true, await second);
 SampleCheck.Equal(SecondName, people.Current.Name);
 
@@ -65,6 +65,7 @@ SampleCheck.Equal(StreamedPeople, source.ReadChunks);
 
 `Complete()` ends the body. The loop finishes, Refit disposes the response, and `Closed` completes.
 `CreateSettings()` registers the JSON metadata, as on the [testing overview](index.md#make-your-first-test).
+`LivePath` is `/people/live`, and `SecondId` is 2. `CreateClient(http)` returns `new HttpClient(http, disposeHandler: false)`.
 
 ## Cancellation, disconnects and stalled bodies
 
@@ -125,12 +126,8 @@ chunk per item and then end the body. Each response gets its own copy, so these 
 
 
 ```csharp
-TestingPerson[] people = [new(1, FirstName), new(2, SecondName)];
-using StubHttp http = new()
-{
-    { Route.Get("/people/live"), Reply.JsonLines(people) },
-    { Route.Get("/people/live"), Reply.ServerSentEvents(people) },
-};
+TestingPerson[] people = [new(1, FirstName), new(SecondId, SecondName)];
+using StubHttp http = new() { { Route.Get(LivePath), Reply.JsonLines(people) }, { Route.Get(LivePath), Reply.ServerSentEvents(people) } };
 ```
 
 ## Test a streaming upload
@@ -189,15 +186,10 @@ forward, and any delay that has run out then completes.
 
 ```csharp
 FakeTimeProvider clock = new();
-NetworkBehavior behavior = new(SimulationSeed)
-{
-    Delay = TimeSpan.FromSeconds(DelaySeconds),
-    Variance = 0,
-    FailurePercent = 0,
-};
+NetworkBehavior behavior = new(SimulationSeed) { Delay = TimeSpan.FromSeconds(DelaySeconds), Variance = 0, FailurePercent = 0 };
 using StubHttp http = new(behavior) { { Route.Get("/slow"), Reply.Text("done") } };
 http.TimeProvider = clock;
-using HttpClient client = new(http, disposeHandler: false);
+using HttpClient client = CreateClient(http);
 
 Task<HttpResponseMessage> pending = client.GetAsync(new Uri($"{BaseUrl}/slow"));
 clock.Advance(TimeSpan.FromSeconds(DelaySeconds - 1));
