@@ -171,10 +171,10 @@ Sink's line about "most people underestimate the complexity of their app" is the
 
 ## Where to start
 
-- [Compelling example](../documentation/getting-started/compelling-example.md) — the search-box pattern from §3, fully implemented.
-- [WhenActivated handbook](../documentation/handbook/when-activated.md) — the lifecycle pattern from §5.
-- [Testing](../documentation/handbook/testing.md) — `TestScheduler` and friends.
-- [Routing](../documentation/handbook/routing.md) — view-model-first navigation.
-- [Installation](../documentation/getting-started/installation/index.md) — pick your platform.
+- [Compelling example](../documentation/reactiveui/getting-started/compelling-example.md) — the search-box pattern from §3, fully implemented.
+- [WhenActivated handbook](../documentation/reactiveui/handbook/when-activated.md) — the lifecycle pattern from §5.
+- [Testing](../documentation/reactiveui/handbook/testing.md) — `TestScheduler` and friends.
+- [Routing](../documentation/reactiveui/handbook/routing.md) — view-model-first navigation.
+- [Installation](../documentation/reactiveui/getting-started/installation/index.md) — pick your platform.
 
 ReactiveUI doesn't make trivial apps simpler. It makes complex apps *possible to keep working on*. That's the trade — and after a year of either code-base, the difference isn't subtle.

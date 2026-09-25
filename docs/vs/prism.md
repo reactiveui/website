@@ -24,7 +24,7 @@ This is not an either/or comparison: **Prism and ReactiveUI are commonly used to
 - **`ReactiveCommand`** with `IsExecuting`, `ThrownExceptions`, `CanExecute` exposed as observables (not just an `ICommand`).
 - **View-model activation** (`WhenActivated`) to set up and tear down per-view subscriptions cleanly.
 - **Strongly-typed bindings** (`this.Bind`, `BindCommand`) that survive renames.
-- **Optional view-model-first router** (`IScreen` + `RoutingState`, or [Sextant](../documentation/handbook/sextant/index.md)).
+- **Optional view-model-first router** (`IScreen` + `RoutingState`, or [Sextant](../documentation/sextant.md)).
 
 ### Using them together
 

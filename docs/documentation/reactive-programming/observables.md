@@ -57,8 +57,8 @@ Ada Lovelace
 | Source | Stream |
 |---|---|
 | A property | `WhenAnyValue`. See [WhenAny](../binding/observing.md). |
-| A command | `ReactiveCommand` is a stream of its results, and `IsExecuting` and `ThrownExceptions` are streams too. See [commands](../handbook/commands/index.md). |
-| An event | `Events()` from the [observable events generator](../handbook/observable-events/index.md), or [`Signal.FromEvent`](../primitives/creation-factories.md#from-an-event). |
+| A command | `ReactiveCommand` is a stream of its results, and `IsExecuting` and `ThrownExceptions` are streams too. See [commands](../reactiveui/handbook/commands/index.md). |
+| An event | `Events()` from the [observable events generator](../primitives/observable-events/index.md), or [`Signal.FromEvent`](../primitives/creation-factories.md#from-an-event). |
 | A task | [`Signal.FromAsync`](../primitives/creation-factories.md). |
 | A value you push yourself | [`Signal<T>`](../primitives/signals.md) and the other signals. |
 | A rule or a timer | [Creation factories](../primitives/creation-factories.md) such as `Signal.Range`, `Signal.Every` and `Signal.Create`. |
@@ -196,7 +196,7 @@ refreshing
 ```
 
 The second value arrives after deactivation, so nothing prints. `RxVoid` is a value that carries no data, for a stream
-where only the fact that something happened matters. See [WhenActivated](../handbook/when-activated.md) and
+where only the fact that something happened matters. See [WhenActivated](../reactiveui/handbook/when-activated.md) and
 [disposables](../primitives/disposables.md).
 
 ## Threads
@@ -217,14 +217,14 @@ Output:
 result: 42
 ```
 
-See [scheduling](../handbook/scheduling.md) and [UI platforms](../primitives/platforms.md).
+See [scheduling](../reactiveui/handbook/scheduling.md) and [UI platforms](../primitives/platforms.md).
 
 ## Testing
 
 Streams that wait, such as a search that waits for typing to stop, are slow to test in real time. Pass a
 `VirtualClock` to the operators that wait, and move time forward yourself. See
 [testing with a virtual clock](../primitives/scheduling.md#testing-with-a-virtual-clock) and
-[testing](../handbook/testing.md).
+[testing](../reactiveui/handbook/testing.md).
 
 ## Related topics
 

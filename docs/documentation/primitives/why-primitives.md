@@ -275,4 +275,4 @@ upgrade existing code without changing it. See
 - [The overview](index.md) walks through your first stream.
 - [ReactiveUI.Primitives and System.Reactive](system-reactive.md) covers the differences in detail.
 - [Best practices](best-practices.md) covers the habits that avoid leaks and frozen screens.
-- [ReactiveUI's handbook](../handbook/index.md) shows streams at work in view models, commands and bindings.
+- [ReactiveUI's handbook](../reactiveui/handbook/index.md) shows streams at work in view models, commands and bindings.

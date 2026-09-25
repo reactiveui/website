@@ -38,7 +38,7 @@ So if the appeal of CT.Mvvm is "I want `[ObservableProperty]` and `[RelayCommand
 
 - **Reactive composition** — `WhenAnyValue`, `Throttle`, `CombineLatest`, `Select`, `Where`, `Buffer`, `DistinctUntilChanged` and the rest of Rx.NET. Anything you can express as a stream of values composes cleanly.
 - **Async-aware commands** — `ReactiveCommand` exposes `IsExecuting`, `ThrownExceptions`, `CanExecute` as observables you can pipe into other commands or into the view.
-- **View-model navigation** — `IScreen` + `RoutingState` for a view-model-first router (with [Sextant](../documentation/handbook/sextant/index.md) as a higher-level alternative on top).
+- **View-model navigation** — `IScreen` + `RoutingState` for a view-model-first router (with [Sextant](../documentation/sextant.md) as a higher-level alternative on top).
 - **Service location built in** — Splat ships out of the box and has adapters for every common DI container.
 - **Activation lifecycle** — `WhenActivated` / `IActivatableViewModel` for binding setup/teardown.
 - **Cross-platform views** — `ReactiveUserControl<T>`, `ReactivePage<T>`, `ReactiveWindow<T>`, `ReactiveContentPage<T>`, `ReactiveActivity<T>`, `ReactiveViewController<T>`, etc.

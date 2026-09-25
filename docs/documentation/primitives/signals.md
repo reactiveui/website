@@ -590,7 +590,7 @@ Pass a cancellation token to `ExecuteAsync` to stop the work. A cancelled run al
 `TaskCanceledException`.
 
 In a ReactiveUI app, `ReactiveCommand` does this job and binds straight to buttons. See
-[commands](../handbook/commands/index.md).
+[commands](../reactiveui/handbook/commands/index.md).
 
 ## Work that can be cancelled
 

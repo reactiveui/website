@@ -28,7 +28,7 @@ its values.
 
 <div class="grid cards rxui-projects" markdown>
 
--   [![](https://raw.githubusercontent.com/reactiveui/ReactiveUI/main/images/logo.png){ .rxui-logo } **ReactiveUI**](documentation/getting-started/index.md){ .rxui-project-link }
+-   [![](https://raw.githubusercontent.com/reactiveui/ReactiveUI/main/images/logo.png){ .rxui-logo } **ReactiveUI**](documentation/reactiveui/getting-started/index.md){ .rxui-project-link }
 
     ---
 
@@ -43,7 +43,7 @@ its values.
     Save = ReactiveCommand.CreateFromTask(SaveAsync, canSave);
     ```
 
-    [:material-arrow-right: Docs](documentation/getting-started/index.md) ·
+    [:material-arrow-right: Docs](documentation/reactiveui/getting-started/index.md) ·
     [:fontawesome-brands-github: GitHub](https://github.com/reactiveui/ReactiveUI)
 
 -   [![](https://raw.githubusercontent.com/reactiveui/ReactiveUI.Binding.SourceGenerators/main/images/logo.png){ .rxui-logo } **ReactiveUI.Binding**](documentation/binding/index.md){ .rxui-project-link }
@@ -62,7 +62,7 @@ its values.
     [:material-arrow-right: Docs](documentation/binding/index.md) ·
     [:fontawesome-brands-github: GitHub](https://github.com/reactiveui/ReactiveUI.Binding.SourceGenerators)
 
--   [![](https://raw.githubusercontent.com/reactiveui/ReactiveUI.Validation/main/media/logo.png){ .rxui-logo } **ReactiveUI.Validation**](documentation/handbook/user-input-validation.md){ .rxui-project-link }
+-   [![](https://raw.githubusercontent.com/reactiveui/ReactiveUI.Validation/main/media/logo.png){ .rxui-logo } **ReactiveUI.Validation**](documentation/validation.md){ .rxui-project-link }
 
     ---
 
@@ -76,10 +76,10 @@ its values.
         "Enter a valid email address.");
     ```
 
-    [:material-arrow-right: Docs](documentation/handbook/user-input-validation.md) ·
+    [:material-arrow-right: Docs](documentation/validation.md) ·
     [:fontawesome-brands-github: GitHub](https://github.com/reactiveui/ReactiveUI.Validation)
 
--   [![](https://raw.githubusercontent.com/reactiveui/styleguide/master/logo_sextant/vertical.png){ .rxui-logo } **Sextant**](documentation/handbook/sextant/index.md){ .rxui-project-link }
+-   [![](https://raw.githubusercontent.com/reactiveui/styleguide/master/logo_sextant/vertical.png){ .rxui-logo } **Sextant**](documentation/sextant.md){ .rxui-project-link }
 
     ---
 
@@ -92,7 +92,7 @@ its values.
     await viewStack.PopPage();
     ```
 
-    [:material-arrow-right: Docs](documentation/handbook/sextant/index.md) ·
+    [:material-arrow-right: Docs](documentation/sextant.md) ·
     [:fontawesome-brands-github: GitHub](https://github.com/reactiveui/Sextant)
 
 </div>
@@ -104,7 +104,7 @@ Fusillade also use Splat. You can use either one on its own.
 
 <div class="grid cards rxui-projects" markdown>
 
--   [![](https://raw.githubusercontent.com/reactiveui/splat/main/images/logo.png){ .rxui-logo } **Splat**](documentation/handbook/dependency-inversion/index.md){ .rxui-project-link }
+-   [![](https://raw.githubusercontent.com/reactiveui/splat/main/images/logo.png){ .rxui-logo } **Splat**](documentation/splat/index.md){ .rxui-project-link }
 
     ---
 
@@ -118,7 +118,7 @@ Fusillade also use Splat. You can use either one on its own.
     var weather = AppLocator.Current.GetService<IWeatherService>();
     ```
 
-    [:material-arrow-right: Docs](documentation/handbook/dependency-inversion/index.md) ·
+    [:material-arrow-right: Docs](documentation/splat/index.md) ·
     [:fontawesome-brands-github: GitHub](https://github.com/reactiveui/splat)
 
 -   [![](https://raw.githubusercontent.com/reactiveui/Primitives/main/images/logo.png){ .rxui-logo } **ReactiveUI.Primitives**](documentation/primitives/index.md){ .rxui-project-link }
@@ -170,7 +170,7 @@ These libraries call web services and keep data on the device. None of them need
     [:material-arrow-right: Docs](documentation/refit/index.md) ·
     [:fontawesome-brands-github: GitHub](https://github.com/reactiveui/refit)
 
--   [![](https://raw.githubusercontent.com/reactiveui/Akavache/main/Images/logo.png){ .rxui-logo } **Akavache**](documentation/handbook/akavache/index.md){ .rxui-project-link }
+-   [![](https://raw.githubusercontent.com/reactiveui/Akavache/main/Images/logo.png){ .rxui-logo } **Akavache**](documentation/akavache/index.md){ .rxui-project-link }
 
     ---
 
@@ -184,7 +184,7 @@ These libraries call web services and keep data on the device. None of them need
         DateTimeOffset.Now.AddHours(1));
     ```
 
-    [:material-arrow-right: Docs](documentation/handbook/akavache/index.md) ·
+    [:material-arrow-right: Docs](documentation/akavache/index.md) ·
     [:fontawesome-brands-github: GitHub](https://github.com/reactiveui/Akavache)
 
 -   [![](https://raw.githubusercontent.com/reactiveui/punchclock/main/images/logo.png){ .rxui-logo } **Punchclock**](https://github.com/reactiveui/punchclock#readme){ .rxui-project-link }

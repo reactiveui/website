@@ -19,7 +19,7 @@ ReactiveUI, by contrast, is unopinionated about app structure. It plugs into wha
 |--------|-----------|------------|
 | Scope | Full app shell + navigation + container + binding | MVVM building blocks on top of the host platform |
 | Container | Built-in `Mvx.IoCProvider` | Splat by default; adapters for Autofac / DryIoc / MSDI / Ninject / SimpleInjector |
-| Navigation | `IMvxNavigationService` (view-model-first) | `IScreen` + `RoutingState`, or [Sextant](../documentation/handbook/sextant/index.md); or use the host's native navigation |
+| Navigation | `IMvxNavigationService` (view-model-first) | `IScreen` + `RoutingState`, or [Sextant](../documentation/sextant.md); or use the host's native navigation |
 | Binding | Fluent / convention-based MvvmCross bindings | `this.Bind`, `BindCommand`, `OneWayBind` (strongly-typed Expressions); plus the host platform's bindings |
 | Reactive composition | Not first-class (some Rx hooks exist) | First-class via Rx.NET |
 | Commands | `MvxCommand` / `MvxAsyncCommand` | `ReactiveCommand<TParam, TResult>` with `IsExecuting` / `ThrownExceptions` |

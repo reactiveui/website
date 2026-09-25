@@ -72,7 +72,7 @@ public sealed class PriceTicker : IDisposable
 ```
 
 After `Dispose`, the ticker has left the signal, and later prices do not reach it. In a ReactiveUI view,
-`WhenActivated` gives you this group and disposes it for you. See [when activated](../handbook/when-activated.md).
+`WhenActivated` gives you this group and disposes it for you. See [when activated](../reactiveui/handbook/when-activated.md).
 
 ## Always pass an error callback
 

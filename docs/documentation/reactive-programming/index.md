@@ -34,16 +34,16 @@ A stream sends three kinds of notification to each subscriber:
 - **failure**, once, with the exception that ended it.
 
 You **subscribe** to receive them. `Subscribe` hands back an `IDisposable`: dispose it to stop. In a view or view
-model, [`WhenActivated`](../handbook/when-activated.md) disposes subscriptions for you when the view goes away.
+model, [`WhenActivated`](../reactiveui/handbook/when-activated.md) disposes subscriptions for you when the view goes away.
 
 ## Threads
 
 Code that updates the screen must run on the UI thread. `RxSchedulers.MainThreadScheduler` is ReactiveUI's
 [sequencer](../primitives/scheduling.md) for that thread, and `RxSchedulers.TaskpoolScheduler` runs work in the
 background. Pass `RxSchedulers.MainThreadScheduler` to `WitnessOn` to move a stream's values onto the UI thread. See
-[scheduling](../handbook/scheduling.md) and [UI platforms](../primitives/platforms.md).
+[scheduling](../reactiveui/handbook/scheduling.md) and [UI platforms](../primitives/platforms.md).
 
 ## See also
 
-- [Testing](../handbook/testing.md), for moving time forward yourself instead of waiting.
+- [Testing](../reactiveui/handbook/testing.md), for moving time forward yourself instead of waiting.
 - [Videos](videos.md)

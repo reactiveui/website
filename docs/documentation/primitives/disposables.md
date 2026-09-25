@@ -331,7 +331,7 @@ mutable.Dispose();             // disposes second only
 ## In a ReactiveUI app
 
 `WhenActivated` hands you a group for a view's subscriptions and disposes it when the view deactivates. See
-[when activated](../handbook/when-activated.md). The [best practices page](best-practices.md#dispose-every-subscription)
+[when activated](../reactiveui/handbook/when-activated.md). The [best practices page](best-practices.md#dispose-every-subscription)
 explains why every subscription needs disposing.
 
 ## Every disposable at a glance

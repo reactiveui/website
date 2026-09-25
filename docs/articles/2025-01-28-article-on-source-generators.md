@@ -1,4 +1,4 @@
-﻿---
+---
 NoTitle: true
 IsBlog: true
 Title: ReactiveUI Source Generators 
@@ -15,7 +15,7 @@ Published: January 28, 2025
 > **Update, September 2026** ReactiveUI.SourceGenerators no longer generates `[ObservableAsProperty]`. ReactiveUI.Binding
 > now provides it, on `partial` properties only, and `InitializeOAPH()` is gone. The `[ObservableAsProperty]` samples
 > below show the old form. [Properties backed by observables](../documentation/binding/properties.md) shows the current
-> one, and the [ReactiveUI.Binding migration guide](../documentation/upgrading/reactiveui-binding-migration.md#reactiveuisourcegenerators)
+> one, and the [ReactiveUI.Binding migration guide](../documentation/reactiveui/upgrading/reactiveui-binding-migration.md#reactiveuisourcegenerators)
 > lists every change.
 
 ---

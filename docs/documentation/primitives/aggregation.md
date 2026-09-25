@@ -458,7 +458,7 @@ Output:
 
 A ReactiveUI command's `Execute` method returns a stream. The task operators on this page are how you wait for
 its result in ordinary code, for example `await command.Execute().FirstAsync()`. See
-[commands](../handbook/commands/index.md).
+[commands](../reactiveui/handbook/commands/index.md).
 
 ## Every aggregation and result operator at a glance
 

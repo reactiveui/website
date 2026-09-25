@@ -3,44 +3,144 @@ Order: 1
 ---
 # Documentation
 
-<p>ReactiveUI is a composable, cross-platform model-view-viewmodel framework for all .NET platforms, that is inspired by functional reactive programming. Reactive programming is a paradigm that allows you to express the idea around a feature in one readable place, abstract mutable state away from your user interfaces and improve the testability of your application.</p>
+ReactiveUI is a family of open-source .NET libraries. Each library has its own GitHub repository and its own section
+of these docs. Pick a library below, or start with the pages that cover them all.
 
-<p>It is the father of the extremely popular <a href="https://github.com/ReactiveCocoa/">ReactiveCocoa</a> framework. Internally the maintainers debate whether ReactiveUI is or is not a framework, as at its core the project is essentially a bunch of extension methods for reactive streams, built on <a href="primitives/why-primitives.md">ReactiveUI.Primitives</a>. The project was started in 2009 by Anaïs Betts and is now old enough to attend grade school but unlike a teenager it is extremely stable and has matured over the years into a solid and fine choice for building your next application. <a href="https://github.com/reactiveui/ReactiveUI/issues/979#issuecomment-196735701" target="_blank">The framework is used by Slack, GitHub, Amazon, Elastic and Microsoft</a>.</p>
+[:material-rocket-launch: Getting started](getting-started/index.md){ .md-button .md-button--primary }
+[:material-package-variant: Installation](getting-started/installation.md){ .md-button }
 
-<p>We believe that code is communication between people, that also happens to run on a computer. If you optimise for humans, then over a long time your project will end up better. Software should be understandable by other people; that is super important. We believe that only <a href="https://www.youtube.com/watch?v=5DZ8nC0ENdg" target="_blank">the power of reactive streams allows you to express the idea around a feature in one readable place</a>.</p>
+## Build your app
 
-<p>Let’s say you have a text field, and whenever the user types something into it, you want to make a network request which searches for that query. Your designer has requested that this search query automatically execute as the user is typing but your operation team wants guarantees that only one network request is ever in transit and no more frequently than roughly once per second whilst the user is typing.</p>
+<div class="grid cards rxui-projects" markdown>
 
-<img src="../images/search-autocomplete.gif" alt="search autocomplete" />
+-   [![](https://raw.githubusercontent.com/reactiveui/ReactiveUI/main/images/logo.png){ .rxui-logo } **ReactiveUI**](reactiveui/index.md){ .rxui-project-link }
 
-<h3>How would you usually implement this?</h3>
+    ---
 
-<p>Most modern programming today is basically imperative, meaning it models the traditional fetch-execute cycle of a CPU. Perform an instruction, fetch the next one. Perform that one, and so on. For decades, programmers have had to mould their brains to fit the paradigm of the CPU. It's been like this since the early 1980s.</p>
+    A model-view-viewmodel (MVVM) framework for WPF, WinForms, WinUI, MAUI, Avalonia, Uno, Blazor and Android.
 
-<p>When we rely on hoping that the behavior that emerges from a program is correct, and that reliance is based on nothing more than a programmer's correctness, then we can easily find ourselves in a sticky situation. We can try and mitigate the costs of imperative programming with things like unit tests or integration tests, but why mitigate the costs when there's a better way?</p>
+    [:material-arrow-right: Docs](reactiveui/index.md) ·
+    [:material-download: Install](reactiveui/getting-started/installation/index.md) ·
+    [:fontawesome-brands-github: GitHub](https://github.com/reactiveui/ReactiveUI)
 
-<h3>There is a better way</h3>
+-   [![](https://raw.githubusercontent.com/reactiveui/ReactiveUI.Binding.SourceGenerators/main/images/logo.png){ .rxui-logo } **ReactiveUI.Binding**](binding/index.md){ .rxui-project-link }
 
-<p>Long ago, when computer programming first came to be, machines had to be programmed quite manually. If the technician entered the correct sequence of machine codes in the correct order, then the resulting program behavior would satisfy the business requirements.  Instead of telling a computer how to do its job, which is error-prone and relies too heavily on the infallibility of the programmer, why don't we just tell it what its job is and let it figure the rest out?</p>
+    ---
 
-<p>ReactiveUI is inspired by the paradigm of Functional Reactive Programming, which allows you to model user input as a function that changes over time. This is super cool because it allows you to abstract mutable state away from your user interfaces and express the idea around a feature in one readable place whilst improving application testability. Reactive programming can look scary and complex at first glance, but the best way to describe reactive programming is to think of a spreadsheet:</p>
+    Keeps a view and a view model in step, with bindings written by a source generator. ReactiveUI installs it for you.
 
-<br />
-<img src="../images/frp-excel.gif" alt="frp excel" />
-<br />
+    [:material-arrow-right: Docs](binding/index.md) ·
+    [:material-download: Setup](binding/setup.md) ·
+    [:fontawesome-brands-github: GitHub](https://github.com/reactiveui/ReactiveUI.Binding.SourceGenerators)
 
-<br />
+-   [![](https://raw.githubusercontent.com/reactiveui/styleguide/master/logo/main.png){ .rxui-logo } **ReactiveUI.SourceGenerators**](source-generators/index.md){ .rxui-project-link }
 
-<ul>
-    <li>Three cells, A, B, and C.</li>
-    <li>C is defined as the sum of A and B.</li>
-    <li>Whenever A or B changes, C reacts to update itself.</li>
-</ul>
+    ---
 
-<p>That's reactive programming: changes propagate throughout a system automatically. Welcome to the peanut butter and jelly of programming paradigms.</p>
+    Writes reactive properties and commands for your view models while your project builds.
 
-<div class="youtube-video-container"><iframe src="https://www.youtube.com/embed/DYEbUF4xs1Q" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+    [:material-arrow-right: Docs](source-generators/index.md) ·
+    [:fontawesome-brands-github: GitHub](https://github.com/reactiveui/ReactiveUI.SourceGenerators)
 
-<h3>Get started</h3>
+-   [![](https://raw.githubusercontent.com/reactiveui/ReactiveUI.Validation/main/media/logo.png){ .rxui-logo } **ReactiveUI.Validation**](validation.md){ .rxui-project-link }
 
-<p>Sounds interesting? <a href="getting-started/index.md">Get started!</a></p>
+    ---
+
+    Adds validation rules to a view model, each with the message to show when it fails.
+
+    [:material-arrow-right: Docs](validation.md) ·
+    [:fontawesome-brands-github: GitHub](https://github.com/reactiveui/ReactiveUI.Validation)
+
+-   [![](https://raw.githubusercontent.com/reactiveui/styleguide/master/logo_sextant/vertical.png){ .rxui-logo } **Sextant**](sextant.md){ .rxui-project-link }
+
+    ---
+
+    Navigation that starts from the view model, so you can test it without a UI.
+
+    [:material-arrow-right: Docs](sextant.md) ·
+    [:fontawesome-brands-github: GitHub](https://github.com/reactiveui/Sextant)
+
+-   [![](https://raw.githubusercontent.com/reactiveui/styleguide/master/logo/main.png){ .rxui-logo } **ReactiveUI.Maui.Plugins.Popup**](maui-plugins-popup.md){ .rxui-project-link }
+
+    ---
+
+    Reactive popup pages for .NET MAUI.
+
+    [:material-arrow-right: Docs](maui-plugins-popup.md) ·
+    [:fontawesome-brands-github: GitHub](https://github.com/reactiveui/Maui.Plugins.Popup)
+
+</div>
+
+## Foundations
+
+<div class="grid cards rxui-projects" markdown>
+
+-   [![](https://raw.githubusercontent.com/reactiveui/Primitives/main/images/logo.png){ .rxui-logo } **ReactiveUI.Primitives**](primitives/index.md){ .rxui-project-link }
+
+    ---
+
+    Small, fast streams and operators, ready for Native AOT. Every library here uses them.
+
+    [:material-arrow-right: Docs](primitives/index.md) ·
+    [:fontawesome-brands-github: GitHub](https://github.com/reactiveui/Primitives)
+
+-   [![](https://raw.githubusercontent.com/reactiveui/splat/main/images/logo.png){ .rxui-logo } **Splat**](splat/index.md){ .rxui-project-link }
+
+    ---
+
+    A service locator and logging for every .NET platform.
+
+    [:material-arrow-right: Docs](splat/index.md) ·
+    [:fontawesome-brands-github: GitHub](https://github.com/reactiveui/splat)
+
+</div>
+
+## Data and networking
+
+<div class="grid cards rxui-projects" markdown>
+
+-   [![](https://raw.githubusercontent.com/reactiveui/refit/main/images/logo.png){ .rxui-logo } **Refit**](refit/index.md){ .rxui-project-link }
+
+    ---
+
+    Turns a C# interface into a REST client.
+
+    [:material-arrow-right: Docs](refit/index.md) ·
+    [:fontawesome-brands-github: GitHub](https://github.com/reactiveui/refit)
+
+-   [![](https://raw.githubusercontent.com/reactiveui/Akavache/main/Images/logo.png){ .rxui-logo } **Akavache**](akavache/index.md){ .rxui-project-link }
+
+    ---
+
+    Stores objects, settings and encrypted secrets on the device.
+
+    [:material-arrow-right: Docs](akavache/index.md) ·
+    [:fontawesome-brands-github: GitHub](https://github.com/reactiveui/Akavache)
+
+-   [![](https://raw.githubusercontent.com/reactiveui/punchclock/main/images/logo.png){ .rxui-logo } **Punchclock**](https://github.com/reactiveui/punchclock#readme){ .rxui-project-link }
+
+    ---
+
+    A queue that limits how many tasks run at once.
+
+    [:fontawesome-brands-github: Read the guide on GitHub](https://github.com/reactiveui/punchclock#readme)
+
+-   [![](https://raw.githubusercontent.com/reactiveui/styleguide/master/logo_fusillade/main.png){ .rxui-logo } **Fusillade**](https://github.com/reactiveui/Fusillade#readme){ .rxui-project-link }
+
+    ---
+
+    An `HttpClient` handler that sends requests in order of importance.
+
+    [:fontawesome-brands-github: Read the guide on GitHub](https://github.com/reactiveui/Fusillade#readme)
+
+</div>
+
+## Across the libraries
+
+- [Getting started](getting-started/index.md) helps you pick a library.
+- [Installation](getting-started/installation.md) lists every package, and explains how ReactiveUI brings
+  ReactiveUI.Binding with it.
+- [Reactive programming](reactive-programming/index.md) explains streams, the idea several libraries share.
+- [Resources](resources/samples.md) collects samples, videos, talks and articles.
+- [Roadmap](roadmap/index.md) says what the maintainers work on next.
+- [Security](security/index.md) describes how the packages are signed.

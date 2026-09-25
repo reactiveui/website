@@ -468,9 +468,9 @@ It only sends the values. It does not complete the observer, so you decide when 
 ## In a ReactiveUI app
 
 ReactiveUI gives you a main thread scheduler, and `WitnessOn` is how you move work onto it. See
-[scheduling](../handbook/scheduling.md). When a view activates, ReactiveUI hands you a group to add your
+[scheduling](../reactiveui/handbook/scheduling.md). When a view activates, ReactiveUI hands you a group to add your
 subscriptions to, and disposes that group when the view goes away. See
-[when activated](../handbook/when-activated.md).
+[when activated](../reactiveui/handbook/when-activated.md).
 
 ## Every utility operator at a glance
 

@@ -35,7 +35,7 @@ website/
 │   └── _build.csproj           PackageReference set against NuStreamDocs
 ├── docs/                       all source content
 │   ├── index.md                landing page
-│   ├── documentation/          handbook + getting-started + guidelines
+│   ├── documentation/          one folder per library (reactiveui/, binding/, primitives/, ...) + suite-wide pages
 │   ├── articles/               curated articles
 │   ├── Announcements/          chronological announcements
 │   ├── contribute/             contributor guide

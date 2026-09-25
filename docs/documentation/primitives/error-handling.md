@@ -459,7 +459,7 @@ problem.Throw();   // throws InvalidOperationException: sensor lost
 
 In a ReactiveUI app, an error that reaches a command or a binding with nothing to handle it goes to ReactiveUI's
 default exception handler. The operators on this page let you deal with an error closer to where it happens,
-before it gets that far. See [the default exception handler](../handbook/default-exception-handler.md).
+before it gets that far. See [the default exception handler](../reactiveui/handbook/default-exception-handler.md).
 
 ## Every error handling operator at a glance
 

@@ -24,7 +24,7 @@ If your view-models are mostly `T Property { get; set; }` with a few `[RelayComm
 - **Async-aware commands** — `ReactiveCommand` exposes `IsExecuting`, `ThrownExceptions`, and `CanExecute` as observables. Disabling a button while another command is running is one line.
 - **Activation lifecycle** — `WhenActivated` (via `ReactiveContentPage<TViewModel>` / `ReactiveFlyoutPage<TViewModel>` / `ReactiveShell`) gives you a single place to wire up bindings that auto-dispose when the page goes away — without writing `OnAppearing` / `OnDisappearing` boilerplate.
 - **Strongly-typed bindings** — `this.Bind`, `this.OneWayBind`, `this.BindCommand` take Expressions, so a rename in the view-model fails the build.
-- **View-model-first navigation when Shell doesn't fit** — for flows that don't map well to URIs (modal stacks, popups, complex back-stack manipulation), [Sextant](../documentation/handbook/sextant/index.md) (with `Sextant.Maui` and optionally `Sextant.Plugins.Popup`) gives you a view-model-first router that interoperates with Shell.
+- **View-model-first navigation when Shell doesn't fit** — for flows that don't map well to URIs (modal stacks, popups, complex back-stack manipulation), [Sextant](../documentation/sextant.md) (with `Sextant.Maui` and optionally `Sextant.Plugins.Popup`) gives you a view-model-first router that interoperates with Shell.
 
 ### How they layer
 
@@ -55,7 +55,7 @@ You can opt in to as much or as little of this stack as you want. Common partial
 
 ### Migrating from Xamarin.Forms
 
-If you're coming from a Xamarin.Forms + ReactiveUI app, the migration is mostly a `xmlns` / package rename plus the `MauiProgram.cs` bootstrap pattern. See the dedicated [Xamarin to MAUI](../documentation/upgrading/xamarin-to-maui.md) guide.
+If you're coming from a Xamarin.Forms + ReactiveUI app, the migration is mostly a `xmlns` / package rename plus the `MauiProgram.cs` bootstrap pattern. See the dedicated [Xamarin to MAUI](../documentation/reactiveui/upgrading/xamarin-to-maui.md) guide.
 
 ### When to add ReactiveUI to a MAUI app
 

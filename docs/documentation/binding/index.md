@@ -1,5 +1,5 @@
 ---
-Order: 1
+Order: 3
 ---
 # ReactiveUI.Binding
 
@@ -33,6 +33,10 @@ dotnet add package ReactiveUI.Binding
 The example on this page shows a label from .NET MAUI, so its project also references the MAUI package,
 `ReactiveUI.Binding.Maui`. [Threading and platforms](threading.md) explains what the platform packages add.
 [Setup](setup.md) covers the builder, the analyzer and Native AOT.
+
+If your app uses ReactiveUI, skip this step. The ReactiveUI packages bring ReactiveUI.Binding and its platform
+package with them. [Installation](../getting-started/installation.md#reactiveui-and-reactiveuibinding) shows which
+package brings which.
 
 These examples use .NET 10 and C# 14. They run against a store that keeps its data in memory,
 so you can run them as they are.

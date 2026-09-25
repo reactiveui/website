@@ -25,7 +25,7 @@ Every sequencer is in the `ReactiveUI.Primitives.Concurrency` namespace. The Bla
 are in `ReactiveUI.Primitives.Blazor.Concurrency` and `ReactiveUI.Primitives.Blazor.Components`.
 
 In a ReactiveUI app you rarely create one yourself. ReactiveUI sets its main thread scheduler to the right one for
-your platform. See [scheduling in the handbook](../handbook/scheduling.md).
+your platform. See [scheduling in the handbook](../reactiveui/handbook/scheduling.md).
 
 ## Your first UI update
 
@@ -344,7 +344,7 @@ After three seconds the component shows:
 There is no `Dispose` to write. The subscription ends with the component.
 
 This `ReactiveComponentBase` has no view model. ReactiveUI's Blazor package has its own
-`ReactiveComponentBase<T>`, which adds one. See [Blazor](../getting-started/installation/blazor.md).
+`ReactiveComponentBase<T>`, which adds one. See [Blazor](../reactiveui/getting-started/installation/blazor.md).
 
 #### When the stream fails or completes
 

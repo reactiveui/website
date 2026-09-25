@@ -1,5 +1,5 @@
 ---
-Order: 6
+Order: 9
 ---
 # ReactiveUI.Primitives
 
@@ -76,6 +76,7 @@ each one.
 | [ReactiveUI.Primitives and System.Reactive](system-reactive.md) | Names, types and behaviour that differ, AOT and speed, and using both together. |
 | [Best practices](best-practices.md) | Habits that avoid leaks, frozen screens and slow tests. |
 | [Extension helpers](extensions/index.md) | Ready-made helpers: retries with delays, async work per value, spotting a quiet stream, and waiting in tests. |
+| [ObservableEvents](observable-events/index.md) | A source generator that turns .NET events into streams, from the `ReactiveUI.Primitives.ObservableEvents` package. |
 | [Async streams](async/index.md) | `IObservableAsync<T>`, where the sender waits for each subscriber, with its own operator pages. |
 | [Type reference](types.md) | Every public type not shown on an operator page, and the operator it belongs to. |
 

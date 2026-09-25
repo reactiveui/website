@@ -196,7 +196,7 @@ this sample out. Prefer `CreateGeneratedClient<T>` for new tests.
 Use handler tests for an app service that wraps a Refit interface.
 Use a response stub when your code only consumes a reply wrapper.
 For a ReactiveUI app, keep HTTP calls asynchronous and pass their results into your view model.
-See [ReactiveUI commands](../../handbook/commands/index.md) for managing asynchronous work from the UI.
+See [ReactiveUI commands](../../reactiveui/handbook/commands/index.md) for managing asynchronous work from the UI.
 
 ## Settings and client factories
 

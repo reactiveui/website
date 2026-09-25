@@ -106,7 +106,7 @@ property `[ObservableAsProperty]`. See [Properties backed by observables](../bin
 ### `InvokeCommand`
 
 `InvokeCommand` executes a command with each value from a stream, and skips values that arrive while the command
-cannot run. [Your first pipeline](#your-first-pipeline) shows it. See [commands](../handbook/commands/index.md).
+cannot run. [Your first pipeline](#your-first-pipeline) shows it. See [commands](../reactiveui/handbook/commands/index.md).
 
 ### `WhenAnyValue` and `WhenAnyObservable`
 

@@ -18,7 +18,7 @@ It is opinionated about app structure (Bootstrapper, Conductors, Screens) and la
 | Aspect | Caliburn.Micro | ReactiveUI |
 |--------|---------------|-----------|
 | View binding | Convention-based (`x:Name` matches a VM member) | Explicit (`this.Bind`, `this.OneWayBind`, `BindCommand`) with strongly-typed Expressions |
-| Navigation | `Conductor<T>` / `Screen` lifecycle | `IScreen` + `RoutingState`, or [Sextant](../documentation/handbook/sextant/index.md) |
+| Navigation | `Conductor<T>` / `Screen` lifecycle | `IScreen` + `RoutingState`, or [Sextant](../documentation/sextant.md) |
 | Reactive composition | Not built in | First-class via Rx |
 | Commands | `Task` / `void` methods bound by name | `ReactiveCommand<TParam, TResult>` with `IsExecuting` / `ThrownExceptions` |
 | Activation | `IActivate` / `IDeactivate` | `IActivatableViewModel` + `WhenActivated` |
