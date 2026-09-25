@@ -152,7 +152,9 @@ These libraries call web services and keep data on the device. None of them need
     ---
 
     Turns a C# interface into a REST client. An attribute on each method describes the request, and Refit
-    writes the code that sends it. `AppJsonContext` is your `System.Text.Json` source-generated context.
+    writes the code that sends it. Refit takes advantage of System.Text.Json
+    [source generation](https://learn.microsoft.com/dotnet/standard/serialization/system-text-json/source-generation)
+    to read JSON without reflection. `AppJsonContext` is only this example's name for your context class.
 
     ```csharp
     public interface IGitHubApi

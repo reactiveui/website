@@ -40,8 +40,11 @@ HTTP version policy but do not enable the platform's HTTP/3 support.
 This chooses the generated implementation and does not fall back to runtime request building.
 
 **2. Generate the JSON readers and writers too.** Request generation and JSON generation are separate jobs.
-Add your request and reply types to a `JsonSerializerContext`.
-The attributes below ask .NET's JSON generator to produce code for `Person`.
+Refit takes advantage of System.Text.Json
+[source generation](https://learn.microsoft.com/dotnet/standard/serialization/system-text-json/source-generation).
+Add your request and reply types to a JSON context: a `partial` class that derives from `JsonSerializerContext`.
+`SampleJsonContext` is only the name this example gives its class. Give yours any name.
+The attributes below ask the System.Text.Json source generator to produce code for `Person`.
 This file imports `System.Text.Json` and `System.Text.Json.Serialization`.
 
 ```csharp

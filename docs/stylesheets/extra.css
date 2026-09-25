@@ -50,6 +50,15 @@
   font-weight: 700;
 }
 
+/* The logo is a blue "R" that disappears against the blue bar, so it sits on a white tile. */
+.md-header .md-logo img {
+  height: 2.2rem;
+  padding: 0.2rem;
+  background: #ffffff;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
 .md-header__button:hover,
 .md-header__option:hover,
 .md-header__source:hover {

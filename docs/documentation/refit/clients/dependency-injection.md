@@ -134,7 +134,7 @@ ISettingsFor untypedHolder = settingsProvider.GetRequiredService<ISettingsFor>()
 
 Pass a context next to the settings factory to keep your settings and add the context.
 Refit sets the context on the settings that the factory returns, so their naming policy and converters apply.
-This registration returns snake_case settings and adds `SampleJsonContext`.
+This registration returns snake_case settings and adds the example's context class, `SampleJsonContext`.
 When the factory returns `null`, Refit uses the context's own options.
 
 ```csharp

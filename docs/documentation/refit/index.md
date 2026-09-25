@@ -45,8 +45,11 @@ internal interface IPeopleApi
 }
 ```
 
-**3. Register the JSON types.** The compiler generates a JSON context from these registrations.
-It supplies model metadata without finding properties through reflection at runtime.
+**3. Register the JSON types.** Refit reads and writes JSON with System.Text.Json, and takes advantage of its
+[source generation](https://learn.microsoft.com/dotnet/standard/serialization/system-text-json/source-generation).
+You declare a *JSON context*: a `partial` class that derives from `JsonSerializerContext` and lists your model types.
+The System.Text.Json source generator fills it in when you build, so nothing inspects your models through reflection
+at runtime. `SampleJsonContext` is only the name this example gives its class. Give yours any name.
 Use the same context when you publish a Native AOT app.
 Add `using System.Text.Json;` and `using System.Text.Json.Serialization;` for the JSON types.
 Keep the `JsonSerializerDefaults.Web` line. It makes the context read the camelCase names that most services send.
@@ -66,7 +69,7 @@ In the runnable samples, `host.Client` is that client. Its `BaseAddress` is `htt
 The sample host supplies local replies, so you can run the examples without a web server.
 
 **5. Create the implementation and call it.** `RestService.ForGenerated<T>` uses the implementation
-that Refit generated during the build. Pass the JSON context as the second argument.
+that Refit generated during the build. Pass your context's `Default` instance as the second argument.
 This call asks for `https://people.example/people/1`.
 In your own app, pass your HTTP client in place of `host.Client`. Add `using Refit;` to use Refit's types.
 

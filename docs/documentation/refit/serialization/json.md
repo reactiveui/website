@@ -11,8 +11,10 @@ to find its properties. That inspection is called *reflection-based JSON*.
 Trimming removes code that an app seems not to use, and Native AOT compiles the app ahead of time.
 Both can remove code that reflection needs, so a reflection-based app can fail after you publish it.
 
-A *JSON context* replaces that inspection. You declare a class and list your model types on it.
-The C# compiler fills the class in during the build with *metadata*: the property names and the
+A *JSON context* replaces that inspection. Refit takes advantage of this System.Text.Json
+[source generation](https://learn.microsoft.com/dotnet/standard/serialization/system-text-json/source-generation) feature.
+You declare a `partial` class that derives from `JsonSerializerContext` and list your model types on it.
+The System.Text.Json source generator fills the class in during the build with *metadata*: the property names and the
 reading and writing code for each listed type. Give the context to Refit, and Refit reads and writes
 those models without reflection.
 
@@ -31,6 +33,7 @@ internal sealed record Person(int Id, string Name);
 ```
 
 **2. Declare the context.** Derive a partial class from `JsonSerializerContext`.
+The class name is your choice. This page calls it `SampleJsonContext`.
 Add `JsonSerializable` for each root type you send and receive.
 Register a collection or closed generic shape when that is the request or reply type.
 Add `JsonSourceGenerationOptions(JsonSerializerDefaults.Web)` too. [The next section](#add-the-web-defaults) explains why.
@@ -46,7 +49,7 @@ internal sealed partial class SampleJsonContext : JsonSerializerContext;
 
 Here `Person`, `Person[]` and `List<Person>` are separate JSON roots.
 Model properties also contribute their declared types. An `object` property needs each possible runtime type
-registered too. The compiler generates the context when you build.
+registered too. The System.Text.Json source generator fills in the context when you build.
 [Microsoft's source-generation guide](https://learn.microsoft.com/en-us/dotnet/standard/serialization/system-text-json/source-generation)
 describes these registrations.
 
@@ -280,7 +283,7 @@ Console.WriteLine(shipment.GetType().Name); // PickupShipment
 ```
 
 A derived type that you register in code needs its own `[JsonSerializable]` entry on the context.
-`OrdersJsonContext` lists `PickupShipment` for that reason. `PickupKind` is the text `"pickup"`.
+The example's context class, `OrdersJsonContext`, lists `PickupShipment` for that reason. `PickupKind` is the text `"pickup"`.
 `DefaultJsonTypeInfoResolver` uses reflection, so the Native AOT example leaves this scenario out.
 Declare polymorphism with attributes when you publish with Native AOT.
 
@@ -327,8 +330,8 @@ Console.WriteLine(placed.Id); // 5
 
 ## Pass metadata to a method
 
-`JsonTypeInfo<T>` holds the metadata for one type. A context has one property for each type you list:
-`SampleJsonContext.Default.Person` is a `JsonTypeInfo<Person>`. The `JsonSerializer` methods in .NET accept it:
+`JsonTypeInfo<T>` holds the metadata for one type. A context has one property for each type you list.
+In this page's context, `SampleJsonContext.Default.Person` is a `JsonTypeInfo<Person>`. The `JsonSerializer` methods in .NET accept it:
 
 ```csharp
 JsonTypeInfo<Person> personInfo = SampleJsonContext.Default.Person;

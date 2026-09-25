@@ -160,7 +160,7 @@ const string compressionText = "compress me";
 using HttpContent gzip = GeneratedRequestRunner.CompressBodyContent(new StringContent(compressionText), settings, RequestCompression.GZip, CompressionLevel.Fastest);
 ```
 
-Add `using System.IO.Compression;`. The full sample's `HelperJsonContext` supplies
+Add `using System.IO.Compression;`. The full sample's context class, `HelperJsonContext`, supplies
 generated JSON metadata for the integer values. The body checks expect `12` for JSON and
 `1\n2` for JSON Lines. GZip is available on all Refit targets, Brotli on .NET 8 and later,
 and Zstandard on .NET 11 and later. Requesting an unavailable coding throws

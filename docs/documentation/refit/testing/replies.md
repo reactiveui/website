@@ -15,7 +15,7 @@ code handles an empty response. The examples start with a typed model and build 
 ## Return a typed model
 
 **1. Generate JSON metadata for the body type.** The [complete setup](index.md#make-your-first-test)
-registers `TestingPerson` with `[JsonSerializable(typeof(TestingPerson))]` on `TestingJsonContext`.
+registers `TestingPerson` with `[JsonSerializable(typeof(TestingPerson))]` on the sample's context class, `TestingJsonContext`.
 Use `new SystemTextJsonContentSerializer` with options whose `TypeInfoResolver` is that context.
 Repeat that setup when copying a standalone typed-reply test.
 Register any returned collection or generic types separately. A missing registration can fail while writing the reply.

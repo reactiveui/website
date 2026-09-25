@@ -77,8 +77,8 @@ When they share a key, the later value wins. The `IContextApi` shown on
 for all three sources. Its `SaveAsync` call supplies `call-tenant`.
 
 The complete sample enables `CaptureRequestContent` and `CaptureMethodArguments`, then sends a person
-through a local handler. That handler observes the request used below. Its serializer uses the generated
-`SampleJsonContext` from [the AOT setup](../aot.md#make-one-call-ready-for-aot), which includes `Person`.
+through a local handler. That handler observes the request used below. Its serializer uses the context class
+from [the AOT setup](../aot.md#make-one-call-ready-for-aot), `SampleJsonContext`, which lists `Person`.
 `TenantKey` is the constant `"tenant"`.
 
 

@@ -71,7 +71,7 @@ It uses JSON names, including the naming policy and `JsonPropertyName` attribute
 For a value whose runtime type differs from its declared type, it uses that runtime type's metadata.
 
 Register all those types in a JSON context. See [the AOT setup](../aot.md#make-one-call-ready-for-aot).
-The sample's `SampleJsonContext` includes `Person` and uses camel-case JSON names.
+The sample's context class, `SampleJsonContext`, lists `Person` and uses camel-case JSON names.
 These shared fields supply that metadata to the converter.
 The file imports `System.Text.Json`.
 
@@ -129,7 +129,7 @@ indexed objects. It calls `UrlParameterFormatter` directly and does not consult 
 or a property's `Query(Format = ...)`. Nesting stops at depth 32. A null root value adds no entries.
 
 The complete example also checks a nested person, a repeated integer collection and an omitted
-null object. It registers `JsonQueryEnvelope` in `QueryJsonContext` and uses that generated metadata:
+null object. It registers `JsonQueryEnvelope` on its own context class, `QueryJsonContext`, and uses that generated metadata:
 
 ```csharp
 SystemTextJsonContentSerializer serializer = new(NestedOptions);
