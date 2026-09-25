@@ -726,7 +726,7 @@ True
 
 ### The generated fallback
 
-A binding the generator writes does not need the module to move its writes. The generator checks the type of the target while it reads the binding. It matches `System.Windows.Threading.DispatcherObject`, `System.Windows.Forms.Control` and `Microsoft.Maui.Controls.BindableObject`. The generated binding then carries the invoker for that platform as its fallback. `BindTo`, `BindOneWay`, `OneWayBind` and `Bind` do this for the target. `BindTwoWay` does it for both sides. `BindCommand` does it for the view.
+A binding the generator writes does not need the module to move its writes. The generator checks the type of the target while it reads the binding. It matches `System.Windows.Threading.DispatcherObject`, `System.Windows.Forms.Control` and `Microsoft.Maui.Controls.BindableObject`. The generated binding then carries the invoker for that platform as its fallback. `BindTo`, `BindOneWay`, `OneWayBind` and `Bind` do this for the target. `BindTwoWay` does it for both sides. `BindCommand` does it for the view, and for the control when the view has no invoker of its own, such as a plain view object that holds WPF buttons.
 
 The generator declares the fallback classes in `ViewThreadInvokers.g.cs`, once per compilation. It declares a class only when the platform type resolves in the compilation, so every generated reference has a declaration. There is no WinUI invoker, so a WinUI or Avalonia target needs an invoker you register.
 

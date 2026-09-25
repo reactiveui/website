@@ -728,7 +728,7 @@ the `Unsafe` overload that resolves the path with reflection.
 | RXUIBIND003 | Warning | The path names a private or protected member | [Write the path in the call](#write-the-path-in-the-call) |
 | RXUIBIND004 | Warning | `WhenChanging` targets a type with no before-change notification | [Observe types that raise notifications](#observe-types-that-raise-notifications) |
 | RXUIBIND005 | Info | The source type implements `INotifyDataErrorInfo` | [Bind the shapes the generator reads](#bind-the-shapes-the-generator-reads) |
-| RXUIBIND006 | Warning | The path has an indexer, a field or a method call | [Write the path in the call](#write-the-path-in-the-call) |
+| RXUIBIND006 | Warning | The path has an indexer, a method call, a static field, or a read-only field at its end | [Write the path in the call](#write-the-path-in-the-call) |
 | RXUIBIND007 | Warning | `BindCommand` finds no event on the control | [Bind the shapes the generator reads](#bind-the-shapes-the-generator-reads) |
 | RXUIBIND008 | Warning | The property is not an interaction | [Bind the shapes the generator reads](#bind-the-shapes-the-generator-reads) |
 | RXUIBIND009 | Warning | The call site cannot reach the generated dispatch | [Keep dispatch in reach](#keep-dispatch-in-reach) |
@@ -737,6 +737,8 @@ the `Unsafe` overload that resolves the path with reflection.
 | RXUIBIND012 | Warning | `ToProperty` targets a type whose notifications generated code cannot raise | [Properties backed by observables](properties.md#how-the-generator-raises-your-notification) |
 | RXUIBIND013 | Warning | `ToProperty` names its property in a form the generator cannot read | [Name the property directly](properties.md#name-the-property-directly) |
 | RXUIBIND014 | Error | Below C# 13, a `string` initial value passed by position makes a `ToProperty` call ambiguous | [Name the property directly](properties.md#name-the-property-directly) |
+| RXUIBIND015 | Warning | The call names a private or protected nested type | [Name types generated code can reach](#name-types-generated-code-can-reach) |
+| RXUIBIND016 | Warning | The call's types are built from a type parameter | [Name types generated code can reach](#name-types-generated-code-can-reach) |
 
 `RXUIBIND100` is an MSBuild error, not an analyzer message. It appears when the compiler is older than Roslyn 4.8 and reads:
 "ReactiveUI.Binding's source generator requires Roslyn 4.8 or later (Visual Studio 2022 17.8+, or .NET SDK 8.0.100+)". Upgrade the build tools.
@@ -801,18 +803,21 @@ Book dentist appointment
 Buy birthday present for Sam
 ```
 
-A path follows properties. An indexer, a field or a method call has no notification to follow, so RXUIBIND006 reports it.
-It reports all three shapes.
+A path follows properties and instance fields. A field raises no notification of its own, so the generator reads it once
+and observes the rest of the path as usual; that is what lets a binding run through a named control such as `x:Name="TitleLabel"`.
+An indexer, a method call, a static field, or a read-only field at the end of a path has nothing the generator can follow or
+write, so RXUIBIND006 reports it.
 
 ```text
 viewModel.WhenChanged(x => x.Items[0].Title)
 viewModel.WhenChanged(x => x.SelectedItem!.Title.ToUpperInvariant())
-this.WhenChanged(x => x.Query)
+viewModel.WhenChanged(x => SearchSettings.DefaultQuery)
 
-warning RXUIBIND006: Expression contains unsupported path segment
+warning RXUIBIND006: Expression contains 'x.Items[0]' which is not a property or instance field access.
 ```
 
-The last line names `Query`, a public field. Replace each with a property. The snippet below follows two properties,
+The last line reads `DefaultQuery`, a static field, which belongs to no instance on the path. Replace each with a property. The call keeps
+working through the `Unsafe` overload, which resolves an indexer at run time. The snippet below follows two properties,
 `SelectedItem` and then its `Title`. When `SelectedItem` changes, the observation moves to the new item's `Title`, so the
 output shows both titles.
 
@@ -830,6 +835,29 @@ using (viewModel.WhenChanged(x => x.SelectedItem!.Title).Subscribe(Console.Write
 ```text
 Renew car registration
 Book dentist appointment
+```
+
+### Name types generated code can reach
+
+The generated method lives in a class of its own, so every type the call names has to be one that class can name. Two
+shapes cannot be named, and the call is left to the runtime stub, which throws when it runs.
+
+RXUIBIND015 reports a call that names a private or protected nested type, such as a view model declared `private` inside a
+test class. Make the type `internal` or `public`, or call the `Unsafe` overload.
+
+```text
+item.WhenChanged(x => x.Title)   // item is a private nested class
+
+warning RXUIBIND015: 'Tests.PrivateItem' is private or protected, so generated code cannot name it; this call generates nothing and throws when it runs
+```
+
+RXUIBIND016 reports a call whose types are built from a type parameter, such as `Source<TItem>` inside a generic method.
+The generated method has no `TItem` to name. Call the `Unsafe` overload, which resolves the types when it runs.
+
+```text
+items.BindTo(source, x => x.Data)   // source is Source<TItem> inside a generic method
+
+warning RXUIBIND016: 'Source<TItem>' is built from a type parameter, so generated code cannot name it; this call generates nothing and throws when it runs
 ```
 
 ### Observe types that raise notifications
@@ -1027,6 +1055,9 @@ viewModel.WhenAnyValue(x => x.RemainingCount)
 warning RXUIBIND011: Binding call resolved to ReactiveUI's own mixin
 ```
 
+Only ReactiveUI methods that take a property selector are reported. A ReactiveUI method that only shares a binding name, such
+as the UIKit `BindTo` that binds a list of sections to a table view, is not a binding mixin and is not reported.
+
 Import `ReactiveUI.Binding`, as in step 2 of [Get started](#get-started). The snippet below is a file that does, so
 `WhenAnyValue` reaches this package. It prints the count of unfinished items, first `3` and then `2` after one item is completed.
 
@@ -1128,13 +1159,15 @@ using (viewModel.WhenChanged(x => x.RemainingCount).Subscribe(Console.WriteLine)
 | [`RXUIBIND003`](https://github.com/reactiveui/ReactiveUI.Binding.SourceGenerators/blob/main/src/ReactiveUI.Binding.SourceGenerators/DiagnosticWarnings.cs) | Reports a path that names a private or protected member. | Warning. | The call gets no generated code. Make the member public. |
 | [`RXUIBIND004`](https://github.com/reactiveui/ReactiveUI.Binding.SourceGenerators/blob/main/src/ReactiveUI.Binding.SourceGenerators/DiagnosticWarnings.cs) | Reports `WhenChanging` on a type with no before-change notification. | Warning. | The observation reads the value once and then stays silent. Does not appear when concrete overloads dispatch the call. |
 | [`RXUIBIND005`](https://github.com/reactiveui/ReactiveUI.Binding.SourceGenerators/blob/main/src/ReactiveUI.Binding.SourceGenerators/DiagnosticWarnings.cs) | Reports a source type that implements `INotifyDataErrorInfo`. | Info. | The generated binding carries the value and not the validation state. |
-| [`RXUIBIND006`](https://github.com/reactiveui/ReactiveUI.Binding.SourceGenerators/blob/main/src/ReactiveUI.Binding.SourceGenerators/DiagnosticWarnings.cs) | Reports a path with an indexer, a field or a method call. | Warning. | The call gets no generated code. Use properties in the path. |
+| [`RXUIBIND006`](https://github.com/reactiveui/ReactiveUI.Binding.SourceGenerators/blob/main/src/ReactiveUI.Binding.SourceGenerators/DiagnosticWarnings.cs) | Reports a path with an indexer, a method call, a static field, or a read-only field at its end. | Warning. | The call gets no generated code. Use properties or instance fields in the path. |
 | [`RXUIBIND007`](https://github.com/reactiveui/ReactiveUI.Binding.SourceGenerators/blob/main/src/ReactiveUI.Binding.SourceGenerators/DiagnosticWarnings.cs) | Reports a `BindCommand` control with no default bindable event. | Warning. | Default events are `Click`, `TouchUpInside` and `Pressed`. Name another event in `toEvent`. |
 | [`RXUIBIND008`](https://github.com/reactiveui/ReactiveUI.Binding.SourceGenerators/blob/main/src/ReactiveUI.Binding.SourceGenerators/DiagnosticWarnings.cs) | Reports a `BindInteraction` property that is not an `IInteraction<TInput, TOutput>`. | Warning. | Bind a property of the interaction type. |
 | [`RXUIBIND009`](https://github.com/reactiveui/ReactiveUI.Binding.SourceGenerators/blob/main/src/ReactiveUI.Binding.SourceGenerators/DiagnosticWarnings.cs) | Reports a call site the generated dispatch cannot reach. | Warning. | Needs concrete overloads, C# 9 or lower, and `InternalsVisibleTo`. The file must sit under the root namespace. |
 | [`RXUIBIND010`](https://github.com/reactiveui/ReactiveUI.Binding.SourceGenerators/blob/main/src/ReactiveUI.Binding.SourceGenerators/DiagnosticWarnings.cs) | Reports a path that passes through a type that raises no notification. | Warning. | The observation reads that link once and stops following the path there. |
-| [`RXUIBIND011`](https://github.com/reactiveui/ReactiveUI.Binding.SourceGenerators/blob/main/src/ReactiveUI.Binding.SourceGenerators/DiagnosticWarnings.cs) | Reports a binding call that resolved to ReactiveUI's own mixin. | Warning. | The call generates nothing and uses the runtime expression engine. Import `ReactiveUI.Binding`. |
+| [`RXUIBIND011`](https://github.com/reactiveui/ReactiveUI.Binding.SourceGenerators/blob/main/src/ReactiveUI.Binding.SourceGenerators/DiagnosticWarnings.cs) | Reports a binding call that resolved to ReactiveUI's own mixin. | Warning. | Only ReactiveUI methods that take a property selector are reported. The call generates nothing and uses the runtime expression engine. Import `ReactiveUI.Binding`. |
 | [`RXUIBIND012`](https://github.com/reactiveui/ReactiveUI.Binding.SourceGenerators/blob/main/src/ReactiveUI.Binding.SourceGenerators/DiagnosticWarnings.cs) | Reports a `ToProperty` source whose notifications generated code cannot raise. | Warning. | The call generates nothing and throws when it runs. [Properties backed by observables](properties.md) lists the ways a type can offer generated code a way in. |
 | [`RXUIBIND013`](https://github.com/reactiveui/ReactiveUI.Binding.SourceGenerators/blob/main/src/ReactiveUI.Binding.SourceGenerators/DiagnosticWarnings.cs) | Reports a `ToProperty` property named in a form the generator cannot read. | Warning. | Name the property as `x => x.Property` or as a constant such as `nameof(Property)`. |
 | [`RXUIBIND014`](https://github.com/reactiveui/ReactiveUI.Binding.SourceGenerators/blob/main/src/ReactiveUI.Binding.SourceGenerators/DiagnosticWarnings.cs) | Reports a `ToProperty` call below C# 13 that a positional `string` initial value makes ambiguous. | Error. | Write the argument as `initialValue: ...`, or move to C# 13. |
+| [`RXUIBIND015`](https://github.com/reactiveui/ReactiveUI.Binding.SourceGenerators/blob/main/src/ReactiveUI.Binding.SourceGenerators/DiagnosticWarnings.cs) | Reports a call that names a private or protected nested type. | Warning. | The call generates nothing and throws when it runs. Make the type `internal` or `public`, or call the `Unsafe` overload. |
+| [`RXUIBIND016`](https://github.com/reactiveui/ReactiveUI.Binding.SourceGenerators/blob/main/src/ReactiveUI.Binding.SourceGenerators/DiagnosticWarnings.cs) | Reports a call whose types are built from a type parameter. | Warning. | The call generates nothing and throws when it runs. Call the `Unsafe` overload. |
 | [`RXUIBIND100`](https://github.com/reactiveui/ReactiveUI.Binding.SourceGenerators/blob/main/src/ReactiveUI.Binding.SourceGenerators/build/ReactiveUI.Binding.SourceGenerators.targets) | Stops the build when the compiler is older than Roslyn 4.8. | Error from MSBuild, not from the analyzer. | The message asks for Visual Studio 2022 17.8 or .NET SDK 8.0.100 or later. |

@@ -314,6 +314,29 @@ using (view.OneWayBindUnsafe(viewModel, source, target, static count => $"{count
 3 left
 ```
 
+A path through an indexer, such as `x => x.Items[0].Title`, is one the generator leaves alone and RXUIBIND006 reports. The `Unsafe` overloads read it at run time. The binding observes the item the indexer returns, so renaming that item updates the box.
+
+```csharp
+var viewModel = await LoadTodoAsync();
+TodoView view = new() { ViewModel = viewModel };
+Expression<Func<TodoListViewModel, string>> source = x => x.Items[0].Title;
+Expression<Func<TodoView, string>> target = v => v.SelectedTitleTextBox.Text;
+
+using (view.OneWayBindUnsafe(viewModel, source, target))
+{
+    Console.WriteLine(view.SelectedTitleTextBox.Text);
+
+    // The binding observes the item the indexer returns, so renaming it updates the box.
+    viewModel.Items[0].Title = RenamedTitle;
+    Console.WriteLine(view.SelectedTitleTextBox.Text);
+}
+```
+
+```text
+Renew car registration
+Renew registration online
+```
+
 `BindUnsafe` carries the property both ways. Without conversion functions it uses the registered converters. With them it takes the same two functions as `BindTwoWayUnsafe`. The [update stream section](#hold-a-write-until-a-signal-fires) shows it in use.
 
 **Write a stream to a property.** `BindToUnsafe` writes each value a stream delivers. It converts the value with the converter registered for the two types. Pass a hint, a converter or both to change that. A null target writes nothing.
@@ -1077,7 +1100,7 @@ True
 
 ### Convert with RuntimeBindingConverter and TwoWayConverters
 
-`RuntimeBindingConverter.TryConvert` converts a value from one type to another. It returns `false` and leaves the default in `result` when no converter can do it. A converter you pass wins over the registered ones. Otherwise it uses the converter registered for the two types. The hint goes to the converter, which decides what it means. This call converts a to-do item to text with a converter you name and a hint that asks for upper case. Use it to test a converter without a binding.
+`RuntimeBindingConverter.TryConvert` converts a value from one type to another. It returns `false` and leaves the default in `result` when no converter can do it. When nothing is registered for the two types, a value that already is the target type, or a null the target can hold, passes through unchanged. A converter you pass wins over the registered ones. Otherwise it uses the converter registered for the two types. The hint goes to the converter, which decides what it means. This call converts a to-do item to text with a converter you name and a hint that asks for upper case. Use it to test a converter without a binding.
 
 ```csharp
 var item = new TodoItem { Title = OriginalTitle };
@@ -1107,6 +1130,23 @@ Console.WriteLine(number);
 ```text
 False
 0
+```
+
+A value typed as `object`, the way a picker or a list holds its selection, often already is the type you want. Nothing is registered from `object` to `string`, but the value is a string, so it passes through as it is. This is what lets a two-way binding carry a list's `SelectedItem` into a `string` property.
+
+```csharp
+object status = DraftStatus;
+
+// Nothing converts object to string, but the value is a string, so it passes through as it is.
+var converted = RuntimeBindingConverter.TryConvert<object, string>(status, null, null, out var text);
+
+Console.WriteLine(converted);
+Console.WriteLine(text);
+```
+
+```text
+True
+Draft
 ```
 
 `TwoWayConverters.Create` pairs a forward and a reverse conversion into a `TwoWayConverterPair` and infers both types. This call builds a pair between a `decimal` and text and runs each direction. The output shows both conversions giving the same text.
@@ -1497,7 +1537,7 @@ The first column links to the source file. A twin that repeats for each number o
 | [`RuntimeBindingFallback.OneWayBind`](https://github.com/reactiveui/ReactiveUI.Binding.SourceGenerators/blob/main/src/ReactiveUI.Binding.Shared/Fallback/RuntimeBindingFallback.cs) | Binds a view model property one way onto a view property, starting from the view. | Returns `IReactiveBinding<TView, TProp>`. Takes the same type, or a conversion `Func`, then an `ISequencer?` and the expression text. | A null conversion throws `ArgumentNullException`. |
 | [`RuntimeBindingFallback.Bind`](https://github.com/reactiveui/ReactiveUI.Binding.SourceGenerators/blob/main/src/ReactiveUI.Binding.Shared/Fallback/RuntimeBindingFallback.cs) | Binds a view model property and a view property to each other, starting from the view. | Returns `IReactiveBinding<TView, BindingChange>`. Takes the same type, or a `TwoWayConverterPair`, then an `ISequencer?` and the expression text. Two more forms end with an update stream and a `TriggerUpdate` instead. | A null pair throws `ArgumentNullException`. The forms with an update stream take no sequencer and no expression text. |
 | [`RuntimeBindingFallback.BindTo`](https://github.com/reactiveui/ReactiveUI.Binding.SourceGenerators/blob/main/src/ReactiveUI.Binding.Shared/Fallback/RuntimeBindingFallback.cs) | Writes each value of a stream into a property. | Returns `IDisposable`. Takes a hint `object?`, an `IBindingTypeConverter?`, an `ISequencer?` and the expression text. | A null target drops the values. A value the converter refuses is written as the default of the property type. A null source or property throws `ArgumentNullException`. |
-| [`RuntimeBindingConverter.TryConvert`](https://github.com/reactiveui/ReactiveUI.Binding.SourceGenerators/blob/main/src/ReactiveUI.Binding.Shared/Fallback/RuntimeBindingConverter.cs) | Converts a value from one type to another. | Returns `bool`. Takes the value, a hint `object?`, an `IBindingTypeConverter?` override and an `out` result. | A converter you pass wins over the registered ones. Returns `false` and the default when no converter can convert. The converter is chosen from the declared types, not the runtime type. |
+| [`RuntimeBindingConverter.TryConvert`](https://github.com/reactiveui/ReactiveUI.Binding.SourceGenerators/blob/main/src/ReactiveUI.Binding.Shared/Fallback/RuntimeBindingConverter.cs) | Converts a value from one type to another. | Returns `bool`. Takes the value, a hint `object?`, an `IBindingTypeConverter?` override and an `out` result. | A converter you pass wins over the registered ones. Returns `false` and the default when no converter can convert. The converter is chosen from the declared types, not the runtime type. With nothing registered for the pair, a value that already is the target type, or a null the target can hold, passes through. |
 | [`RuntimeCommandBindingFallback.BindCommand`](https://github.com/reactiveui/ReactiveUI.Binding.SourceGenerators/blob/main/src/ReactiveUI.Binding.Shared/Fallback/RuntimeCommandBindingFallback.cs) | Keeps the command a property holds bound to a control. | Returns `IDisposable`. Takes an `IObservable<object?>` of parameters, an event name `string?` and the expression text. | Rebinds when either property changes. Nothing is bound while the view model, the command or the control is null. A null command or control path throws `ArgumentNullException`. |
 | [`RuntimeCommandFallback.InvokeCommand`](https://github.com/reactiveui/ReactiveUI.Binding.SourceGenerators/blob/main/src/ReactiveUI.Binding.Shared/Fallback/RuntimeCommandFallback.cs) | Runs the command a property holds for each value of a stream. | Returns `IDisposable`. Takes a stream, a target and a command path. | A null target drops the values. A null source or path throws `ArgumentNullException`. |
 | [`RuntimeInteractionFallback.BindInteraction`](https://github.com/reactiveui/ReactiveUI.Binding.SourceGenerators/blob/main/src/ReactiveUI.Binding.Shared/Fallback/RuntimeInteractionFallback.cs) | Keeps a handler registered on the interaction a property holds. | Returns `IDisposable`. Takes a view model, an interaction path, a `Func` that registers the handler and returns `IDisposable`, and the expression text. | Moves the handler when the property holds another interaction. A null view model registers nothing. A null path or callback throws `ArgumentNullException`. |

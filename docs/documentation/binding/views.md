@@ -211,15 +211,16 @@ Console.WriteLine(CountActivatable(candidates));
 ## Bind a view to its view model
 
 The view-first binding methods, `OneWayBind` and `Bind`, take the view model and two property paths. They need a
-view that implements `IViewFor`. The bindings follow `view.ViewModel`, so show the view model in the view first.
-Then bind. Read [bindings](bindings.md) for the full set of binding methods.
+view that implements `IViewFor`. On a view that implements `IViewFor<T>`, the bindings follow `view.ViewModel`, not the
+instance you pass, which only decides the types. A view that implements only the non-generic `IViewFor` binds the view
+model you pass. Read [bindings](bindings.md) for the full set of binding methods.
 
 ```csharp
 TodoListViewModel viewModel = new(InMemoryTodoStore.CreateSeeded());
 TodoView view = new();
 await viewModel.LoadAsync();
 
-// The bindings follow view.ViewModel, so the screen has to show the view model first.
+// The bindings follow view.ViewModel, so the screen shows the view model they read.
 _ = Present(view, viewModel);
 
 using (view.OneWayBind(viewModel, x => x.RemainingCount, v => v.RemainingLabel.Text, static count => count.ToString(CultureInfo.InvariantCulture)))
@@ -242,6 +243,39 @@ Book vet appointment
 model. `BindAccountsView` in the [example project](https://github.com/reactiveui/ReactiveUI.Binding.SourceGenerators/blob/main/src/examples/Documentation/Pages/views/ViewForExamples.cs)
 does the same for a banking screen. Every binding writes to the view on the thread that owns it. See
 [threading](threading.md).
+
+A binding made before the view has a view model waits for one. While `view.ViewModel` is null, the binding writes
+nothing, so the label keeps its own text. Assigning a view model starts the binding, and replacing it moves the binding
+to the new one.
+
+```csharp
+TodoListViewModel household = new(InMemoryTodoStore.CreateSeeded());
+TodoListViewModel shared = new(InMemoryTodoStore.CreateSeeded());
+await household.LoadAsync();
+await shared.LoadAsync();
+shared.SelectedItem = shared.Items[0];
+await shared.CompleteAsync();
+TodoView view = new();
+
+// The binding follows view.ViewModel, which is still empty, so the label is left alone.
+using (view.OneWayBind(household, x => x.RemainingCount, v => v.RemainingLabel.Text, static count => count.ToString(CultureInfo.InvariantCulture)))
+{
+    Console.WriteLine(view.RemainingLabel.Text ?? NoViewModelText);
+
+    view.ViewModel = household;
+    Console.WriteLine(view.RemainingLabel.Text);
+
+    // Replacing the view model moves the binding to the new one.
+    view.ViewModel = shared;
+    Console.WriteLine(view.RemainingLabel.Text);
+}
+```
+
+```text
+no view model yet
+3
+2
+```
 
 ## Use the locator your application registers
 

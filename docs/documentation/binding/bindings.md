@@ -99,7 +99,7 @@ Console.WriteLine(view.RemainingLabel.Text);
 
 ## Bind from the view
 
-`OneWayBind` does the same work from the view's side. Call it on a view that implements `IViewFor` ([Views](views.md)) and pass the view model. It reads the view model and writes the view, and it returns an `IReactiveBinding` instead of an `IDisposable`. That object is a disposable that also reports what the binding writes, as [Read what a binding reports](#read-what-a-binding-reports) shows. A view-first call reads its view model from the view's `ViewModel` property, so set that property first.
+`OneWayBind` does the same work from the view's side. Call it on a view that implements `IViewFor` ([Views](views.md)) and pass the view model. It reads the view model and writes the view, and it returns an `IReactiveBinding` instead of an `IDisposable`. That object is a disposable that also reports what the binding writes, as [Read what a binding reports](#read-what-a-binding-reports) shows. A view-first call reads its view model from the view's `ViewModel` property; while that property is empty, the binding waits for one.
 
 ```csharp
 var list = await OpenTodoListAsync();
@@ -114,6 +114,54 @@ using (view.OneWayBind(list, x => x.FilterText, v => v.FilterTextBox.Text))
 
 ```text
 car
+```
+
+A path can run through a field. A control you name in markup, such as `x:Name="TitleLabel"`, is a field of the view, so `v => v.TitleLabel.Text` binds into it. The field is read once and the rest of the path is observed as usual.
+
+```csharp
+var list = await OpenTodoListAsync();
+TodoHeadingView view = new() { ViewModel = list };
+
+// TitleLabel is a field, like every x:Name control; the path runs through it.
+using (view.OneWayBind(list, x => x.SelectedItem!.Title, v => v.TitleLabel.Text))
+{
+    list.SelectedItem = list.Items[0];
+    Console.WriteLine(view.TitleLabel.Text);
+
+    list.SelectedItem = list.Items[1];
+    Console.WriteLine(view.TitleLabel.Text);
+}
+```
+
+```text
+Renew car registration
+Book dentist appointment
+```
+
+While the path passes through a null, such as `SelectedItem` with nothing selected, `OneWayBind` and `Bind` write nothing and the view keeps what it shows. A control that refuses null never receives one. `BindOneWay` and `BindTwoWay` instead write the default, which clears the target.
+
+```csharp
+var list = await OpenTodoListAsync();
+TodoHeadingView view = new() { ViewModel = list };
+
+using (view.OneWayBind(list, x => x.SelectedItem!.Title, v => v.TitleLabel.Text))
+{
+    // Nothing is selected yet, so there is no title to write and the label is left alone.
+    Console.WriteLine(view.TitleLabel.Text ?? NothingSelectedText);
+
+    list.SelectedItem = list.Items[0];
+    Console.WriteLine(view.TitleLabel.Text);
+
+    // Clearing the selection breaks the path again; the label keeps the last title it was given.
+    list.SelectedItem = null;
+    Console.WriteLine(view.TitleLabel.Text);
+}
+```
+
+```text
+nothing selected
+Renew car registration
+Renew car registration
 ```
 
 Each call takes the same kinds of extra arguments, and each kind adds an overload.
@@ -394,6 +442,28 @@ using (view.Bind(viewModel, x => x.Draft.Amount, v => v.AmountTextBox.Text, Form
 ```text
 1200.00
 85.50
+```
+
+A picker or a list holds its selection as an `object`. `Bind` can carry it into a `string` property without a converter: nothing is registered from `object` to `string`, but a value that already is a string passes through as it is.
+
+```csharp
+var list = await OpenTodoListAsync();
+TodoTagFilterView view = new() { ViewModel = list };
+
+// No converter is registered from object to string; a string in SelectedItem passes through as it is.
+using (view.Bind(list, x => x.FilterText, v => v.TagPicker.SelectedItem))
+{
+    view.TagPicker.SelectedItem = HealthTag;
+    Console.WriteLine(list.FilterText);
+
+    list.FilterText = CarFilter;
+    Console.WriteLine(view.TagPicker.SelectedItem);
+}
+```
+
+```text
+health
+car
 ```
 
 ## Read what a binding reports
