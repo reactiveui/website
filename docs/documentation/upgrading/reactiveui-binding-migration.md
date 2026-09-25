@@ -9,7 +9,8 @@ that need a change, and the places where the new engine behaves differently.
 
 ReactiveUI.Binding writes the code for each binding while your project builds. A *source generator* is the part of
 the compiler that writes it. An *analyzer* is the part that checks your calls and reports a warning when it cannot
-write code for one. View location, view hosts, routing, activation and validation stay in ReactiveUI.
+write code for one. View location moves to ReactiveUI.Binding too, so views are found by generated code. View hosts,
+routing, activation and validation stay in ReactiveUI.
 
 ## Upgrade in five steps
 
@@ -58,12 +59,49 @@ These types moved to `ReactiveUI.Binding` and keep their names. A file that name
 | Converters | `IBindingTypeConverter`, `IBindingTypeConverter<TFrom, TTo>`, `IBindingFallbackConverter`, `ISetMethodBindingConverter`, the standard converters and their registries |
 | Interactions | `Interaction<TInput, TOutput>`, `IInteraction<TInput, TOutput>`, `IInteractionContext<TInput, TOutput>`, `IOutputContext<TInput, TOutput>`, `UnhandledInteractionException<TInput, TOutput>` |
 | Properties | `ObservableAsPropertyHelper<T>` and `ToProperty` |
-| View registration | `ViewContractAttribute`, `SingleInstanceViewAttribute`, `ExcludeFromViewRegistrationAttribute`, which ReactiveUI's view locator still reads |
+| View registration | `ViewContractAttribute`, `SingleInstanceViewAttribute`, `ExcludeFromViewRegistrationAttribute` |
+| View location | `IViewLocator`, `DefaultViewLocator`, `ViewLocator`, `ViewMappingBuilder`, `ViewLocatorNotFoundException` |
 
-ReactiveUI.Binding also has a view locator of its own, with the same names as ReactiveUI's: `IViewLocator`,
-`ViewLocator`, `DefaultViewLocator`, `ViewMappingBuilder` and `ViewLocatorNotFoundException`. In your code those
-names still mean ReactiveUI's locator, which the view hosts use. Write `ReactiveUI.Binding.ViewLocator` when you
-want the other one.
+`ObservableForProperty` lives in `ReactiveUI.Binding.ObservableForProperty`. The ReactiveUI package imports that
+namespace too. It reads its path with reflection, so it is not safe to trim. For changes only, without the current
+value, `WhenAnyValue(x => x.Name).Skip(1)` is generated at compile time instead.
+
+A view's `WhenActivated(block)` finds the view's `ViewModel` with reflection, so it is not safe to trim either. Pass
+the view's own `WhenAnyValue(x => x.ViewModel)` as the second argument, and it activates the view model without
+reflection:
+
+```csharp
+this.WhenActivated(
+    disposables => disposables(this.Bind(ViewModel, x => x.Name, v => v.NameBox.Text)),
+    this.WhenAnyValue(x => x.ViewModel));
+```
+
+## View location
+
+The view hosts (`ViewModelViewHost` and `RoutedViewHost` on every platform) now use ReactiveUI.Binding's view locator.
+Its source generator finds each `IViewFor<T>` in your app at compile time, so a view is found without registering it
+and without reflection. A view you register in the service locator still wins over the generated lookup.
+
+| Before | Now |
+|---|---|
+| `ViewLocator.Current` | `ViewLocator.GetCurrent()` |
+| `IViewLocator.ResolveView<T>(string? contract)` and `ResolveView<T>()` | The same, as extension methods on `IViewLocator` |
+| `IViewLocator.ResolveView(object? viewModel, string? contract)` | The same. It reads the view model's type while your app runs, so it is not safe to trim; `ResolveView(viewModel, contract)` with a typed view model is |
+| `new ViewMappingBuilder(locator)` | `locator.CreateMappingBuilder()` |
+| `DefaultViewLocator.Map<TViewModel, TView>()` chained | `Map` returns nothing; chain on `CreateMappingBuilder()` instead |
+
+A custom `IViewLocator` implements two methods:
+
+```csharp
+public IViewFor? ResolveView<TViewModel>(TViewModel viewModel, string? contract)
+    where TViewModel : class;
+
+[RequiresDynamicCode("Resolves a view from the view model's runtime type.")]
+public IViewFor? ResolveView(object? viewModel, string? contract);
+```
+
+The view without a contract answers only a request without a contract. A request for a contract that has no view
+finds nothing, and the host's `ContractFallbackByPass` decides whether it then asks for the view without a contract.
 
 ## Calls the generator cannot read
 
@@ -256,6 +294,7 @@ change registrations. A custom provider still has to handle trimming for itself.
 | `CreatesCommandBindingViaEvent`, `CreatesCommandBindingViaCommandParameter` and the WinForms, Android, UIKit and AppKit command binders | Nothing. The generated code covers them |
 | The Apple `NSDate` converters | Nothing. The generated code converts `NSDate` |
 | `ComponentModelFallbackConverter` | A converter you register for the pair |
+| ReactiveUI's `IViewLocator`, `DefaultViewLocator`, `ViewLocator`, `ViewMappingBuilder` and `ViewLocatorNotFoundException` | The same names from `ReactiveUI.Binding`. See [View location](#view-location) |
 
 ## Build requirements
 
