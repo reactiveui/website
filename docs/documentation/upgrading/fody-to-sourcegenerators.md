@@ -119,30 +119,12 @@ public class MyViewModel : ReactiveObject
 }
 ```
 
-### SourceGenerators Pattern
+### Source Generator Pattern
 
-```csharp
-public partial class MyViewModel : ReactiveObject
-{
-    [Reactive]
-    private string _firstName = string.Empty;
-    
-    [Reactive]
-    private string _lastName = string.Empty;
-    
-    [ObservableAsProperty]
-    private string _fullName = string.Empty;
-    
-    public MyViewModel()
-    {
-        _fullNameHelper = this.WhenAnyValue(x => x.FirstName, x => x.LastName,
-                (f, l) => $"{f} {l}")
-            .ToProperty(this, nameof(FullName));
-    }
-}
-```
-
-### Alternative: Observable Property (New Feature)
+ReactiveUI.SourceGenerators does not generate `[ObservableAsProperty]`. ReactiveUI.Binding provides it, and the
+ReactiveUI package brings ReactiveUI.Binding with it. Declare the property as `partial` and get-only. The generator
+writes the property body and a field named `_{name}Helper`, which you assign with `ToProperty`. Partial properties
+need C# 13 or later.
 
 ```csharp
 public partial class MyViewModel : ReactiveObject
@@ -155,16 +137,27 @@ public partial class MyViewModel : ReactiveObject
     
     public MyViewModel()
     {
-        // Simpler - InitializeOAPH() called automatically
-        InitializeOAPH();
+        _fullNameHelper = this.WhenAnyValue(static x => x.FirstName, static x => x.LastName,
+                static (f, l) => $"{f} {l}")
+            .ToProperty(this, static x => x.FullName, initialValue: string.Empty);
     }
-    
+
     [ObservableAsProperty]
-    private IObservable<string> FullName => 
-        this.WhenAnyValue(x => x.FirstName, x => x.LastName,
-            (f, l) => $"{f} {l}");
+    public partial string FullName { get; }
 }
 ```
+
+Below C# 13, write the helper yourself:
+
+```csharp
+private readonly ObservableAsPropertyHelper<string> _fullNameHelper;
+
+public string FullName => _fullNameHelper.Value;
+```
+
+Earlier ReactiveUI.SourceGenerators releases put `[ObservableAsProperty]` on a field or a method and had an
+`InitializeOAPH()` method. The [ReactiveUI.Binding migration guide](reactiveui-binding-migration.md#reactiveuisourcegenerators)
+covers moving that code.
 
 ## Step 4: Migrate Reactive Commands
 
@@ -262,14 +255,14 @@ private string _userName = string.Empty;
 [ObservableAsProperty]
 public string Status { get; }
 
-// SourceGenerators ✅
+// ReactiveUI.Binding ✅
 [ObservableAsProperty]
-private string _status = string.Empty;
+public partial string Status { get; }
 
 public MyViewModel()
 {
     _statusHelper = SomeObservable
-        .ToProperty(this, nameof(Status));
+        .ToProperty(this, nameof(Status), string.Empty);
 }
 ```
 
@@ -382,16 +375,16 @@ public string Name { get; set; }
 private string _name = string.Empty;
 ```
 
-### Issue 3: Missing InitializeOAPH Call
+### Issue 3: Helper Field Not Assigned
 
-**Error**: `ObservableAsPropertyHelper not initialized`
+**Symptom**: an `[ObservableAsProperty]` property always returns its type's default value.
 
-**Solution**: Call `InitializeOAPH()` in constructor
+**Solution**: Assign the generated `_{name}Helper` field with `ToProperty` in the constructor
 
 ```csharp
 public MyViewModel()
 {
-    InitializeOAPH(); // Add this line
+    _statusHelper = SomeObservable.ToProperty(this, static x => x.Status); // Add this line
 }
 ```
 
@@ -417,7 +410,7 @@ using ReactiveUI.SourceGenerators;
 - [ ] Delete FodyWeavers.xml
 - [ ] Add `partial` keyword to all reactive classes
 - [ ] Convert `[Reactive]` properties to fields or use `partial` properties
-- [ ] Update `[ObservableAsProperty]` properties
+- [ ] Make `[ObservableAsProperty]` properties `partial` and assign their `_{name}Helper` fields
 - [ ] Update `.ToPropertyEx` calls to `.ToProperty`
 - [ ] Migrate reactive commands using `[ReactiveCommand]`
 - [ ] Update using statements
@@ -476,15 +469,15 @@ public partial class PersonViewModel : ReactiveObject
     [Reactive]
     private string _lastName = string.Empty;
     
-    [ObservableAsProperty]
-    private string _fullName = string.Empty;
-    
     public PersonViewModel()
     {
-        _fullNameHelper = this.WhenAnyValue(x => x.FirstName, x => x.LastName,
-                (f, l) => $"{f} {l}")
-            .ToProperty(this, nameof(FullName));
+        _fullNameHelper = this.WhenAnyValue(static x => x.FirstName, static x => x.LastName,
+                static (f, l) => $"{f} {l}")
+            .ToProperty(this, static x => x.FullName, initialValue: string.Empty);
     }
+    
+    [ObservableAsProperty]
+    public partial string FullName { get; }
     
     [ReactiveCommand]
     private async Task Save()

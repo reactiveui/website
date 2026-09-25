@@ -77,7 +77,7 @@ public partial class MyViewModel : ReactiveObject
     private string _lastName = string.Empty;
     
     [ObservableAsProperty]
-    private string _fullName = string.Empty;
+    public partial string FullName { get; }
     
     public MyViewModel()
     {
@@ -87,6 +87,10 @@ public partial class MyViewModel : ReactiveObject
     }
 }
 ```
+
+`[ObservableAsProperty]` comes from ReactiveUI.Binding, which the ReactiveUI package brings with it. It needs C# 13
+or later. [Declare the property with an attribute](../binding/properties.md#declare-the-property-with-an-attribute)
+covers it.
 
 #### Reactive Commands
 
@@ -230,10 +234,10 @@ public partial class SearchViewModel : ReactiveObject
     private string _searchText = string.Empty;
     
     [ObservableAsProperty]
-    private bool _isSearching;
+    public partial bool IsSearching { get; }
     
     [ObservableAsProperty]
-    private List<SearchResult> _results;
+    public partial List<SearchResult> Results { get; }
     
     public SearchViewModel()
     {
@@ -242,11 +246,11 @@ public partial class SearchViewModel : ReactiveObject
             async () => await PerformSearchAsync(SearchText),
             this.WhenAnyValue(x => x.SearchText, text => !string.IsNullOrWhiteSpace(text)));
         
-        SearchCommand.IsExecuting
-            .ToProperty(this, x => x.IsSearching);
+        _isSearchingHelper = SearchCommand.IsExecuting
+            .ToProperty(this, static x => x.IsSearching);
         
-        SearchCommand
-            .ToProperty(this, x => x.Results);
+        _resultsHelper = SearchCommand
+            .ToProperty(this, static x => x.Results);
     }
     
     public ReactiveCommand<RxVoid, List<SearchResult>> SearchCommand { get; }

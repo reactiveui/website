@@ -296,6 +296,97 @@ change registrations. A custom provider still has to handle trimming for itself.
 | `ComponentModelFallbackConverter` | A converter you register for the pair |
 | ReactiveUI's `IViewLocator`, `DefaultViewLocator`, `ViewLocator`, `ViewMappingBuilder` and `ViewLocatorNotFoundException` | The same names from `ReactiveUI.Binding`. See [View location](#view-location) |
 
+## ReactiveUI.SourceGenerators
+
+ReactiveUI.SourceGenerators no longer writes the two things ReactiveUI.Binding now provides: `[ObservableAsProperty]`
+and view registration. `[Reactive]`, `[ReactiveCommand]`, `[IViewFor]` and the other attributes work as before.
+
+| Removed from ReactiveUI.SourceGenerators | Use instead |
+|---|---|
+| `[ObservableAsProperty]` on a field, a method or an `IObservable<T>` property, and `InitializeOAPH()` | ReactiveUI.Binding's `[ObservableAsProperty]` on a `partial` property, assigned with `ToProperty` |
+| The `ReadOnly`, `UseProtected`, `PropertyName` and `InitialValue` options of `[ObservableAsProperty]` | Declare the property with the name and access you want. Pass `initialValue:` to `ToProperty` |
+| `RegisterViewsForViewModelsSourceGenerated()`, `SplatRegistrationType`, and the `RegistrationType` and `ViewModelRegistrationType` options of `[IViewFor]` | The generated view lookup. List `IViewFor<T>` on the view's declaration |
+| RXUISG0014, RXUISG0017 and the RXUISPR0002 suppression | Nothing. They only applied to `[ObservableAsProperty]` |
+
+RXUISG0012 and RXUISG0013 remain. They now report an attribute that any member forwards to its generated member
+with a `[property:]` or `[field:]` target, when the attribute's type or arguments are not valid.
+
+### Move a property to ReactiveUI.Binding's attribute
+
+Declare the property yourself, as `partial` and get-only, and mark it `[ObservableAsProperty]`. The generator writes
+the property body and a field named `_{name}Helper`. You assign that field with `ToProperty`, as before. Partial
+properties need C# 13 or later.
+
+Before:
+
+```csharp
+[ObservableAsProperty]
+private string _fullName = string.Empty;
+
+public PersonViewModel()
+{
+    _fullNameHelper = this.WhenAnyValue(x => x.FirstName, x => x.LastName, (first, last) => $"{first} {last}")
+        .ToProperty(this, x => x.FullName);
+}
+```
+
+After:
+
+```csharp
+public PersonViewModel()
+{
+    _fullNameHelper = this.WhenAnyValue(static x => x.FirstName, static x => x.LastName, static (first, last) => $"{first} {last}")
+        .ToProperty(this, static x => x.FullName, initialValue: string.Empty);
+}
+
+[ObservableAsProperty]
+public partial string FullName { get; }
+```
+
+The field initializer becomes the `initialValue:` argument. A method or an `IObservable<T>` property that carried the
+attribute becomes the stream you pass to `ToProperty`.
+
+Below C# 13, write the helper yourself: a `readonly ObservableAsPropertyHelper<string> _fullNameHelper` field and
+`public string FullName => _fullNameHelper.Value;`. [Properties backed by observables](../binding/properties.md) shows
+both forms.
+
+### Register views without the Splat options
+
+ReactiveUI.Binding's generator adds every class whose declaration implements `IViewFor<T>` to the generated view
+lookup. One source generator cannot see the code another one writes. So the lookup cannot see the interface that
+`[IViewFor]` adds. List the interface on the class yourself. The members `[IViewFor]` generates still implement it.
+
+Before:
+
+```csharp
+[IViewFor<LoginViewModel>(RegistrationType = SplatRegistrationType.PerRequest)]
+public partial class LoginView : UserControl
+{
+}
+
+AppLocator.CurrentMutable.RegisterViewsForViewModelsSourceGenerated();
+```
+
+After:
+
+```csharp
+[IViewFor<LoginViewModel>]
+public partial class LoginView : UserControl, IViewFor<LoginViewModel>
+{
+}
+```
+
+Remove the call to `RegisterViewsForViewModelsSourceGenerated()`. `ViewModelRegistrationType` registered the view
+model as well. Register it yourself if you resolved it from the service locator:
+
+```csharp
+AppLocator.CurrentMutable.RegisterLazySingleton(static () => new LoginViewModel());
+```
+
+A view registered in the service locator still wins over the generated lookup. So you can keep registering a view by
+hand, for example one whose constructor takes arguments. [Views](../binding/views.md#register-a-view-that-needs-arguments)
+shows how.
+
 ## Build requirements
 
 - **Compiler:** Roslyn 4.8 or newer, which ships with Visual Studio 2022 17.8 and the .NET 8 SDK. An older

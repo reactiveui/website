@@ -12,6 +12,12 @@ Published: 2025-01-28
 Author: Chris Pulman  
 Published: January 28, 2025  
 
+> **Update, September 2026** ReactiveUI.SourceGenerators no longer generates `[ObservableAsProperty]`. ReactiveUI.Binding
+> now provides it, on `partial` properties only, and `InitializeOAPH()` is gone. The `[ObservableAsProperty]` samples
+> below show the old form. [Properties backed by observables](../documentation/binding/properties.md) shows the current
+> one, and the [ReactiveUI.Binding migration guide](../documentation/upgrading/reactiveui-binding-migration.md#reactiveuisourcegenerators)
+> lists every change.
+
 ---
 
 With the release of C# 12 and Visual Studio 17.8.0, writing reactive applications has become more efficient thanks to `ReactiveUI.SourceGenerators`. This library streamlines the development process by reducing boilerplate code when working with properties, commands, and reactive bindings in ReactiveUI. By using `[Reactive]`, `[ObservableAsProperty]`, and `[ReactiveCommand]` attributes, you can write clean and maintainable ViewModel code.

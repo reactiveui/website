@@ -29,8 +29,8 @@ That's the whole surface area. There is no router, no view location, no built-in
 | `[RelayCommand]` on a method | `[ReactiveCommand]` on a method | Generates a `ReactiveCommand<TParam, TResult>` (async-aware, with `IsExecuting`, `ThrownExceptions`, `CanExecute` as observables) rather than an `IRelayCommand`. |
 | `[NotifyPropertyChangedFor]` / `[NotifyCanExecuteChangedFor]` | `[Reactive(nameof(OtherProperty))]` and `CanExecute` overloads on `[ReactiveCommand]` | Same intent, ReactiveUI semantics. |
 | `[ObservableValidator]` + `[NotifyDataErrorInfo(...)]` | `ReactiveValidationObject` + `ValidationRule(...)` in `ReactiveUI.Validation` | RxUI's validation flows through observables; the gen-attribute approach is one option of several. |
-| (no equivalent) | `[ObservableAsProperty]` on a method/field/property | Generates an `ObservableAsPropertyHelper<T>` from an `IObservable<T>` — there is no CT.Mvvm equivalent because OAPH is a ReactiveUI concept. |
-| (no equivalent) | `[IViewFor(typeof(VM))]` on a view class | Generates the `IViewFor<TViewModel>` plumbing on Windows/MAUI/Avalonia/WinForms views. |
+| (no equivalent) | `[ObservableAsProperty]` on a `partial` property, from [ReactiveUI.Binding](../documentation/binding/properties.md) | Backs a read-only property with an `ObservableAsPropertyHelper<T>` that you assign with `ToProperty`. There is no CT.Mvvm equivalent. |
+| (no equivalent) | `[IViewFor<TViewModel>]` on a view class | Generates the `IViewFor<TViewModel>` plumbing on Windows/MAUI/Avalonia/WinForms views. |
 
 So if the appeal of CT.Mvvm is "I want `[ObservableProperty]` and `[RelayCommand]` and almost no other code", `ReactiveUI.SourceGenerators` gets you the same boilerplate-elimination story while keeping the rest of ReactiveUI available when you need it.
 

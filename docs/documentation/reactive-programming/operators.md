@@ -100,8 +100,8 @@ Output:
 Grace Hopper
 ```
 
-The source generators can write this for you with `[ObservableAsProperty]`. See
-[Properties backed by observables](../binding/properties.md).
+ReactiveUI.Binding's source generator can write the helper field and the property body for you. Mark a `partial`
+property `[ObservableAsProperty]`. See [Properties backed by observables](../binding/properties.md).
 
 ### `InvokeCommand`
 

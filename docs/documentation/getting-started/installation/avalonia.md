@@ -128,10 +128,10 @@ public partial class MainViewModel : ReactiveObject
     private string _statusMessage = string.Empty;
 
     [ObservableAsProperty]
-    private bool _isBusy;
+    public partial bool IsBusy { get; }
 
     [ObservableAsProperty]
-    private List<SearchResult> _searchResults;
+    public partial List<SearchResult> SearchResults { get; }
 
     public MainViewModel()
     {
@@ -141,12 +141,12 @@ public partial class MainViewModel : ReactiveObject
             this.WhenAnyValue(x => x.SearchText, text => !string.IsNullOrWhiteSpace(text)));
 
         // Wire up IsBusy from command execution
-        SearchCommand.IsExecuting
-            .ToProperty(this, x => x.IsBusy);
+        _isBusyHelper = SearchCommand.IsExecuting
+            .ToProperty(this, static x => x.IsBusy);
 
         // Wire up search results
-        SearchCommand
-            .ToProperty(this, x => x.SearchResults);
+        _searchResultsHelper = SearchCommand
+            .ToProperty(this, static x => x.SearchResults);
 
         // React to search text changes with debouncing
         this.WhenAnyValue(x => x.SearchText)
@@ -171,6 +171,11 @@ public partial class MainViewModel : ReactiveObject
     public ReactiveCommand<RxVoid, List<SearchResult>> SearchCommand { get; }
 }
 ```
+
+`[ObservableAsProperty]` comes from ReactiveUI.Binding, which the ReactiveUI package brings with it. Mark a `partial`
+get-only property with it, and the generator writes a `_{name}Helper` field that you assign with `ToProperty`. It needs
+C# 13 or later. [Properties backed by observables](../../binding/properties.md) also shows the helper you write by hand
+on an older compiler.
 
 ### 4. Create Views that Implement IViewFor
 

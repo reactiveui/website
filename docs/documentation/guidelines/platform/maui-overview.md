@@ -119,7 +119,7 @@ public partial class MainViewModel : ReactiveObject
     private string _searchText = string.Empty;
     
     [ObservableAsProperty]
-    private List<SearchResult> _searchResults;
+    public partial List<SearchResult> SearchResults { get; }
     
     public MainViewModel()
     {
@@ -127,8 +127,8 @@ public partial class MainViewModel : ReactiveObject
             async () => await SearchAsync(SearchText),
             this.WhenAnyValue(x => x.SearchText, text => !string.IsNullOrWhiteSpace(text)));
         
-        SearchCommand
-            .ToPropertyEx(this, x => x.SearchResults);
+        _searchResultsHelper = SearchCommand
+            .ToProperty(this, static x => x.SearchResults);
     }
     
     [ReactiveCommand]

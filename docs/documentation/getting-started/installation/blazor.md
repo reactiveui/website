@@ -119,16 +119,16 @@ public partial class CounterViewModel : ReactiveObject
     private string _message = "Click the button!";
 
     [ObservableAsProperty]
-    private bool _isEven;
+    public partial bool IsEven { get; }
 
     public CounterViewModel()
     {
         IncrementCommand = ReactiveCommand.Create(IncrementCount);
 
         // React to count changes
-        this.WhenAnyValue(x => x.CurrentCount)
-            .Select(count => count % 2 == 0)
-            .ToProperty(this, x => x.IsEven);
+        _isEvenHelper = this.WhenAnyValue(x => x.CurrentCount)
+            .Select(static count => count % 2 == 0)
+            .ToProperty(this, static x => x.IsEven);
 
         this.WhenAnyValue(x => x.CurrentCount)
             .Subscribe(count => Message = $"Current count: {count}");
@@ -143,6 +143,11 @@ public partial class CounterViewModel : ReactiveObject
     public ReactiveCommand<RxVoid, RxVoid> IncrementCommand { get; }
 }
 ```
+
+`[ObservableAsProperty]` comes from ReactiveUI.Binding, which the ReactiveUI package brings with it. Mark a `partial`
+get-only property with it, and the generator writes a `_{name}Helper` field that you assign with `ToProperty`. It needs
+C# 13 or later. [Properties backed by observables](../../binding/properties.md) also shows the helper you write by hand
+on an older compiler.
 
 ### 3. Create Blazor Components that Use ViewModels
 
@@ -219,10 +224,10 @@ public partial class FetchDataViewModel : ReactiveObject
     private string _statusMessage = "Loading...";
 
     [ObservableAsProperty]
-    private List<WeatherForecast> _forecasts;
+    public partial List<WeatherForecast> Forecasts { get; }
 
     [ObservableAsProperty]
-    private bool _isLoading;
+    public partial bool IsLoading { get; }
 
     public FetchDataViewModel(IWeatherService weatherService)
     {
@@ -234,12 +239,12 @@ public partial class FetchDataViewModel : ReactiveObject
             return await _weatherService.GetForecastAsync();
         });
 
-        LoadDataCommand.IsExecuting
-            .ToProperty(this, x => x.IsLoading);
+        _isLoadingHelper = LoadDataCommand.IsExecuting
+            .ToProperty(this, static x => x.IsLoading);
 
-        LoadDataCommand
+        _forecastsHelper = LoadDataCommand
             .Tap(_ => StatusMessage = "Data loaded successfully")
-            .ToProperty(this, x => x.Forecasts);
+            .ToProperty(this, static x => x.Forecasts);
 
         LoadDataCommand.ThrownExceptions
             .Subscribe(ex => StatusMessage = $"Error: {ex.Message}");
