@@ -5,64 +5,153 @@ Order: 5
 
 [Run the complete page example](https://github.com/reactiveui/refit/blob/main/src/examples/Documentation/Pages/testing-response-stubs/testing-response-stubs.csproj).
 
-Some code only deals with the result of an API call. For example, a method might inspect
-the status and decide which message to show. You can test that decision by giving it a
-response with the exact data and flags you need.
+Some code only deals with the result of an API call. For example, a method might take an `IApiResponse<T>`,
+check its status and decide which message to show. That method never sends an HTTP request.
+You can test it by handing it a response with exactly the data and flags you need.
 
-`StubApiResponse<T>` lets you create that response directly. Use it for code that accepts
-`IApiResponse<T>`, and use [handler tests](index.md) when the request itself is part of what you want to check.
+`StubApiResponse<T>` is that response. It implements `IApiResponse<T>`, and you set every property yourself.
 
-## Supply a consistent state
+## When to build a response by hand
 
-The stub skips HTTP and JSON serialization. It cannot replace a concrete `ApiResponse<T>` return value.
+Build a `StubApiResponse<T>` when both of these are true:
 
-**1. Choose the content and flags.** Every property is init-only and independent.
+- The code under test receives an `IApiResponse<T>` as a parameter or from a mock.
+- The code under test never calls HTTP itself.
+
+Use a [`StubHttp` handler](index.md) instead when the request is part of what you want to check,
+or when the code calls a Refit client itself. The stub skips HTTP and JSON entirely.
+It cannot stand in where the code needs a concrete `ApiResponse<T>`, because it is a different class.
+
+## Build a success and two failures
+
+How do you build an `IApiResponse<T>` by hand for code that never calls through a stub HTTP client?
+
+**1. Set the content and the flags.** Every property is init-only and separate from the others.
 Setting `Content` does not set `HasContent`. Setting status 200 does not set `IsSuccessful`.
 
-**2. Supply real header collections if needed.** `HttpResponseHeaders` has no public constructor.
-Create an `HttpResponseMessage` and assign its headers and version to the stub. The test owns that disposable message.
+**2. Set `Error` for a failure.** An `ApiRequestException` means the call failed before any reply arrived.
+An `ApiException` means the server replied with a failure.
 
-**3. Read through `IApiResponse<T>`.** The interface's success contracts tell the compiler when content
-or metadata is non-null. The concrete stub properties do not carry those narrowing attributes.
-The [success example](#response-and-error-examples) passes a stub to the code under test and checks its result.
+**3. Pass the stub to the code under test.** Read it through `IApiResponse<T>`, as your app code does.
 
-| Property | Type | Default and what the test supplies |
-| --- | --- | --- |
-| `Content` | `T?` | `default(T)`. Typed body for the scenario. |
-| `HasContent` | [bool] | `false`. Whether the test promises non-null content. |
-| `IsSuccessfulWithContent` | [bool] | `false`. Whether success and non-null content are both promised. |
-| `IsSuccessStatusCode` | [bool] | `false`. Whether the supplied status is 200–299. |
-| `IsSuccessful` | [bool] | `false`. Whether status succeeds and no error occurred. |
-| `IsReceived` | [bool] | `false`. Whether a reply arrived. |
-| `StatusCode` | [HttpStatusCode], nullable | `null`. Reply status for the scenario. |
-| `ReasonPhrase` | [string], nullable | `null`. Reply reason phrase. |
-| `Version` | [Version], nullable | `null`. HTTP version. |
-| `Headers` | [HttpResponseHeaders], nullable | `null`. Reply header collection. |
-| `ContentHeaders` | [HttpContentHeaders], nullable | `null`. Body header collection. |
-| `RequestMessage` | [HttpRequestMessage], nullable | `null`. Associated request. |
-| `Error` | [ApiExceptionBase], nullable | `null`. Exception for a simulated failure. |
+Source: [`Testing.cs`](https://github.com/reactiveui/refit/blob/main/src/examples/Documentation/Testing/Testing.cs).
 
-True success/received flags need the metadata their interface contracts promise.
-A true `HasContent` or `IsSuccessfulWithContent` needs non-null content.
-The stub does not enforce these promises. Incorrect combinations can mislead your code and the compiler.
+[//]: # "excerpt:Testing/Testing.cs#ShowResponseStubsAsync"
 
-## Select an error kind
+```csharp
+using HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, "https://api.example.com/people/1");
+using HttpResponseMessage message = new HttpResponseMessage(HttpStatusCode.OK) { RequestMessage = request, Content = new StringContent("{\"id\":1,\"name\":\"Ada\"}") };
+using StubApiResponse<TestingPerson> stub = new StubApiResponse<TestingPerson>
+{
+    Content = new TestingPerson(1, "Ada"),
+    HasContent = true,
+    StatusCode = message.StatusCode,
+    Headers = message.Headers,
+    ContentHeaders = message.Content.Headers,
+    Version = message.Version,
+    IsSuccessStatusCode = true,
+    IsSuccessful = true,
+    IsSuccessfulWithContent = true,
+    IsReceived = true,
+};
+string? name = stub.Content?.Name; // "Ada"
+
+ApiRequestException sendError = new ApiRequestException("Connection failed.", request, request.Method, CreateSettings());
+using StubApiResponse<TestingPerson> failed = new StubApiResponse<TestingPerson> { Error = sendError };
+bool hasRequestError = failed.HasRequestError(out ApiRequestException? captured); // true, captured == sendError
+
+using HttpResponseMessage rejected = new HttpResponseMessage(HttpStatusCode.BadRequest) { RequestMessage = request };
+ApiException replyError = await ApiException.Create(request, request.Method, rejected, CreateSettings());
+using StubApiResponse<TestingPerson> refused = new StubApiResponse<TestingPerson>
+{
+    Error = replyError,
+    IsReceived = true,
+    StatusCode = HttpStatusCode.BadRequest,
+    Headers = rejected.Headers,
+    ContentHeaders = rejected.Content.Headers,
+    Version = rejected.Version,
+    ReasonPhrase = rejected.ReasonPhrase,
+    RequestMessage = request,
+};
+bool hasResponseError = refused.HasResponseError(out ApiException? capturedReply); // true, capturedReply == replyError
+
+using ApiResponse<TestingPerson> real = new ApiResponse<TestingPerson>(message, new TestingPerson(1, "Ada"), CreateSettings());
+string? realName = real.Content?.Name; // the same code reads a stub and a real ApiResponse: "Ada"
+```
+
+The sample builds three stubs and one real response.
+
+- `stub` is a success. It sets the content, the status and the success flags. `stub.Content?.Name` is `"Ada"`.
+- `failed` carries only an `ApiRequestException`. `HasRequestError` returns `true` and hands back that same exception.
+- `refused` carries an `ApiException` from a `400 Bad Request` reply, with the reply's metadata copied across.
+  `HasResponseError` returns `true` and hands back that exception.
+- `real` is a real `ApiResponse<T>` built from `message`. The same read works on it and on the stub.
+
+The real `ApiResponse<T>` constructor throws `ArgumentException` when the `HttpResponseMessage` has no
+`RequestMessage`. That is why the sample sets `RequestMessage = request` on `message`.
+A stub has no such check.
+
+### What the success stub leaves unset
+
+The success stub copies `Headers`, `ContentHeaders` and `Version` from `message`, because its success flags promise
+them. `HttpResponseHeaders` has no public constructor, so copying from an `HttpResponseMessage` is the way to supply
+real header collections. The test owns that message and disposes it.
+
+These properties keep their defaults:
+
+| Property | Type | Value in the success stub | What it means for you |
+| --- | --- | --- | --- |
+| `ReasonPhrase` | [string], nullable | `null` | The text after the status code, such as `OK`. |
+| `RequestMessage` | [HttpRequestMessage], nullable | `null` | The request that led to the reply. |
+| `Error` | [ApiExceptionBase], nullable | `null` | No failure. |
+
+### Keep the flags consistent
+
+The `IApiResponse<T>` interface tells the compiler what each flag promises.
+A `true` `HasContent` or `IsSuccessfulWithContent` promises non-null `Content`.
+A `true` `IsSuccessful`, `IsSuccessStatusCode` or `IsReceived` promises non-null `Headers`, `StatusCode` and `Version`.
+The compiler trusts those promises when your code reads the stub through the interface.
+The stub does not check them. If a stub sets `IsSuccessful` but leaves `Headers` `null`, code that reads `Headers`
+after checking `IsSuccessful` compiles without a warning and then throws `NullReferenceException`.
+Set every value the flags promise, as the success stub in the sample does.
+
+The concrete stub properties carry no such promises. Read the stub through `IApiResponse<T>` to get them.
+
+## Tell the error kinds apart
 
 `HasRequestError(out ApiRequestException?)` checks whether `Error` is a request-phase exception.
-`HasResponseError(out ApiException?)` checks for a response/body error, including `ValidationApiException`.
-Each returns false and assigns null for the other kind or a missing error.
-A true result supplies a non-null out value. These methods inspect `Error`, regardless of your status flags.
+`HasResponseError(out ApiException?)` checks for a reply error, including `ValidationApiException`.
+Each returns `false` and sets its out value to `null` for the other kind or for no error.
+A `true` result gives a non-null out value. Both methods look only at `Error`. They ignore your status flags.
+See [error construction](../results/errors.md) for the exception constructors.
 
-The [error examples](#response-and-error-examples) create and check both error kinds. Read [error construction](../results/errors.md) for their constructors.
-`Dispose()` does nothing. It does not dispose any request, response or resource you assigned.
-The test must dispose those resources itself.
+`Dispose()` does nothing. It does not dispose any request, reply or other resource you assigned.
+The test disposes those itself.
+
+## API reference
+
+| Property | Type | Default |
+| --- | --- | --- |
+| `Content` | `T?` | `default(T)` |
+| `HasContent` | [bool] | `false` |
+| `IsSuccessfulWithContent` | [bool] | `false` |
+| `IsSuccessStatusCode` | [bool] | `false` |
+| `IsSuccessful` | [bool] | `false` |
+| `IsReceived` | [bool] | `false` |
+| `StatusCode` | [HttpStatusCode], nullable | `null` |
+| `ReasonPhrase` | [string], nullable | `null` |
+| `Version` | [Version], nullable | `null` |
+| `Headers` | [HttpResponseHeaders], nullable | `null` |
+| `ContentHeaders` | [HttpContentHeaders], nullable | `null` |
+| `RequestMessage` | [HttpRequestMessage], nullable | `null` |
+| `Error` | [ApiExceptionBase], nullable | `null` |
 
 | Overload | Description | Parameters | Returns |
 | --- | --- | --- | --- |
-| `StubApiResponse<T>()` | Creates an independently configurable response wrapper for a test scenario. | None. `T` is the body type. | A stub with the defaults above. |
-| `HasRequestError(out ApiRequestException? error)` | Tests whether this stub represents a transport failure before a response arrived. | [ApiRequestException] `error`: receives the request-phase error or `null`. | [bool]: `true` exactly when `Error` is an [`ApiRequestException`](../results/errors.md); the output is non-null on success. |
-| `HasResponseError(out ApiException? error)` | Tests whether this stub represents an HTTP or body-reading response failure. | [ApiException] `error`: receives the response-phase error or `null`. | [bool]: `true` exactly when `Error` is an [`ApiException`](../results/errors.md), including [`ValidationApiException`](../results/errors.md); the output is non-null on success. |
-| `Dispose()` | Satisfies the response-wrapper disposal contract without owning assigned resources. | None. | `void`; does not dispose any assigned resource. |
+| `StubApiResponse<T>()` | Creates a response whose properties you set yourself. | None. `T` is the content type. | A stub with the defaults above. |
+| `HasRequestError(out ApiRequestException? error)` | Tests whether the stub represents a failure before any reply arrived. | [ApiRequestException] `error`: receives the request-phase error or `null`. | [bool]: `true` exactly when `Error` is an [`ApiRequestException`](../results/errors.md); the out value is non-null then. |
+| `HasResponseError(out ApiException? error)` | Tests whether the stub represents a reply failure. | [ApiException] `error`: receives the reply error or `null`. | [bool]: `true` exactly when `Error` is an [`ApiException`](../results/errors.md), including [`ValidationApiException`](../results/errors.md); the out value is non-null then. |
+| `Dispose()` | Meets the `IDisposable` contract of `IApiResponse<T>`. | None. | `void`; disposes nothing you assigned. |
 
 Source: [StubApiResponse.cs](https://github.com/reactiveui/refit/blob/main/src/Refit.Testing/StubApiResponse.cs).
 
@@ -77,81 +166,10 @@ Source: [StubApiResponse.cs](https://github.com/reactiveui/refit/blob/main/src/R
 [ApiException]: ../results/errors.md
 [ApiRequestException]: ../results/errors.md
 
-## JSON metadata boundary
+## JSON metadata
 
-The stub does not serialize `T`, so creating it requires no JSON context.
-If the code under test later serializes the model, register that model with `[JsonSerializable]`
+The stub does not serialize `T`, so creating one needs no JSON context.
+If the code under test serializes the model later, register that model with `[JsonSerializable]`
 on a `JsonSerializerContext` and configure a source-generated serializer there.
 For an end-to-end `StubHttp` test, repeat [the full generated client setup](index.md#make-your-first-test).
-A response stub alone does not test trimming or native AOT execution.
-
-## Response and error examples
-
-**A successful response.** Suppose your app has this method. It reads a response through `IApiResponse<T>`.
-
-
-```csharp
-static string Greet(IApiResponse<TestingPerson> response) =>
-    response.IsSuccessfulWithContent ? $"Hello, {response.Content.Name}" : "The person could not be loaded.";
-```
-
-The test gives it a stub in the success state. The headers and version come from a real `HttpResponseMessage`.
-
-
-```csharp
-using HttpResponseMessage message = new(HttpStatusCode.OK);
-using StubApiResponse<TestingPerson> response = new()
-{
-    Content = new TestingPerson(1, "Ada"),
-    HasContent = true,
-    IsSuccessfulWithContent = true,
-    IsSuccessStatusCode = true,
-    IsSuccessful = true,
-    IsReceived = true,
-    StatusCode = message.StatusCode,
-    Headers = message.Headers,
-    ContentHeaders = message.Content.Headers,
-    Version = message.Version,
-};
-
-string greeting = Greet(response);
-
-Assert.Equal("Hello, Ada", greeting);
-```
-
-**A request error.** An `ApiRequestException` means the call failed before a response arrived.
-
-
-```csharp
-using HttpRequestMessage request = new(HttpMethod.Get, "https://api.example.com/people/1");
-ApiRequestException sendError = new("Connection failed.", request, request.Method, new RefitSettings());
-using StubApiResponse<TestingPerson> response = new() { Error = sendError };
-
-bool failedToSend = response.HasRequestError(out ApiRequestException? error);
-
-Assert.True(failedToSend);
-Assert.Same(sendError, error);
-```
-
-**A response error.** An `ApiException` means the server replied with a failure.
-
-
-```csharp
-using HttpRequestMessage request = new(HttpMethod.Get, "https://api.example.com/people/1");
-using HttpResponseMessage rejected = new(HttpStatusCode.BadRequest) { RequestMessage = request };
-ApiException replyError = await ApiException.Create(request, request.Method, rejected, new RefitSettings());
-using StubApiResponse<TestingPerson> response = new()
-{
-    Error = replyError,
-    IsReceived = true,
-    StatusCode = rejected.StatusCode,
-    Headers = rejected.Headers,
-    Version = rejected.Version,
-};
-
-bool rejectedByServer = response.HasResponseError(out ApiException? error);
-
-Assert.True(rejectedByServer);
-Assert.NotNull(error);
-Assert.Equal(HttpStatusCode.BadRequest, error.StatusCode);
-```
+A response stub alone does not test trimming or native AOT.

@@ -9,13 +9,16 @@ You should be able to test a service call even when the service is offline. `Ref
 lets your test choose the reply and inspect the request your client sends. You can check a
 successful call, an error or missing data without relying on a running server.
 
-The main helper, `StubHttp`, stands in for the HTTP handler. Your real Refit client still
-builds the request, so the test can catch mistakes in its route, headers and body.
+The main helper, `StubHttp`, stands in for the HTTP handler. A handler is the object that `HttpClient`
+passes each request to. `StubHttp` is a stub: a stand-in that answers with replies you set up and never
+touches the network. Your real Refit client still builds the request, so the test can catch mistakes in
+its route, headers and body.
 
 ## Pick your test framework
 
-`Refit.Testing` works with any test framework. The same set of tests exists for each of the four main ones.
-The tests differ only in their attributes and assert calls, so pick the page for the framework your project uses:
+`Refit.Testing` works with any test framework. It has no test attributes or assert methods of its own.
+The samples on these pages note each result in a comment. To see the same checks written as full tests,
+pick the page for the framework your project uses:
 
 - [xUnit](xunit.md)
 - [NUnit](nunit.md)
@@ -27,9 +30,9 @@ and streaming data in and out.
 
 ## Make your first test
 
-**1. Reference `Refit.Testing` and Refit.** The complete [runnable .NET 10 example](https://github.com/reactiveui/refit/blob/main/src/examples/Documentation/Testing/Testing.cs)
-use the packages' source projects. An app can reference the corresponding NuGet packages.
-The sample needs no server and no internet connection when it runs.
+**1. Reference `Refit.Testing` and Refit.** Add both NuGet packages to your test project.
+The runnable .NET 10 example, [`Testing.cs`](https://github.com/reactiveui/refit/blob/main/src/examples/Documentation/Testing/Testing.cs),
+references their source projects instead. It needs no server and no internet connection when it runs.
 
 **2. Declare a model and interface.** The model is the C# shape of the reply body.
 
@@ -68,65 +71,116 @@ Native AOT needs this generated metadata for the request and reply models.
 Read [JSON configuration](../serialization/json.md) and [AOT](../aot.md) for registration limits.
 
 
-Put these two members in your test class. `CreateSettings()` returns new settings each time.
+**4. Add the settings members.** Put these two members in your test class.
+`CreateSettings()` returns new settings each time.
 Give each handler its own settings, because `StubHttp` changes the settings you pass it.
 
-
 ```csharp
-private static readonly JsonSerializerOptions JsonOptions = new(TestingJsonContext.Default.Options) { TypeInfoResolver = TestingJsonContext.Default };
+private static readonly JsonSerializerOptions JsonOptions = new JsonSerializerOptions(TestingJsonContext.Default.Options) { TypeInfoResolver = TestingJsonContext.Default };
 
-private static RefitSettings CreateSettings() => new(new SystemTextJsonContentSerializer(JsonOptions));
+private static RefitSettings CreateSettings() => new RefitSettings(new SystemTextJsonContentSerializer(JsonOptions));
 ```
 
-**4. Choose replies and make real client calls.** A route selects a request by its method and path.
-A one-shot expectation must receive one matching request. Each entry below is such an expectation.
-`VerifyAllCalled()` fails the test when an expectation received no request.
-The examples use xUnit's `Assert`; use your test framework's equivalent.
+**5. Stub the calls and send them.** You want to send a real Refit request with no server, then see
+what your client sent. Fill a `StubHttp` with entries. Each entry pairs a route with a reply.
+A route is a rule that picks which requests the entry answers, here by HTTP method and path.
+A reply is what the stub sends back. By default a route is one-shot: it answers one matching request,
+then it is used up.
 
+[//]: # "excerpt:Testing/Testing.cs#ShowClientAsync"
 
 ```csharp
-[Fact]
-public async Task GetAsync_ReturnsThePerson()
+using StubHttp http = new StubHttp
 {
-    // Arrange
-    using StubHttp http = new()
     {
-        { Route.Get("/people/{id}"), Reply.With(new TestingPerson(1, "Ada")) },
-    };
-    ITestingApi api = http.CreateGeneratedClient<ITestingApi>("https://api.example.com", CreateSettings());
-
-    // Act
-    TestingPerson person = await api.GetAsync(1);
-
-    // Assert
-    Assert.Equal("Ada", person.Name);
-    http.VerifyAllCalled();
-}
-```
-
-**5. Check what the client sent.** The handler records each request. `LastRequestBodyAsync<T>()` reads the latest
-body back as a model. `RequestBodyAsync<T>(index)` reads the body at a zero-based position in `Requests`.
-The rest of the examples on these pages show only the body of a test.
-
-
-```csharp
-using StubHttp http = new()
-{
-    { Route.Post("/people"), Reply.With(new TestingPerson(2, "Grace"), HttpStatusCode.Created) },
+        Route.Get("/people/{id}"),
+        Reply.With(new TestingPerson(1, "Ada"))
+    },
+    {
+        Route.Post("/people"),
+        Reply.With(new TestingPerson(2, "Grace"), HttpStatusCode.Created)
+    },
 };
 ITestingApi api = http.CreateGeneratedClient<ITestingApi>("https://api.example.com", CreateSettings());
 
-_ = await api.CreateAsync(new TestingPerson(2, "Grace"));
-
-TestingPerson? sent = await http.LastRequestBodyAsync<TestingPerson>();
-Assert.Equal("Grace", sent?.Name);
-Assert.Equal(sent, await http.RequestBodyAsync<TestingPerson>(0)); // the same body, read by its index
-Assert.Equal(HttpMethod.Post, http.Requests[0].Method);
-http.VerifyAllCalled();
+TestingPerson person = await api.GetAsync(1); // person.Name == "Ada"
+TestingPerson created = await api.CreateAsync(new TestingPerson(2, "Grace")); // created.Name == "Grace"
+TestingPerson? sent = await http.LastRequestBodyAsync<TestingPerson>(); // sent?.Name == "Grace"
 ```
 
-Add `using` directives for `System.Net`, `System.Text.Json`, `System.Text.Json.Serialization`, `Refit`,
-`Refit.Testing` and `Xunit`.
+`Reply.With` turns a model into a JSON body. It uses the serializer from the settings you passed to
+`CreateGeneratedClient`. The client calls go through the stub, so Refit builds real requests.
+
+The stub also captures each request. To capture a request is to keep a copy of its body, so you can read
+it after the call ends. `LastRequestBodyAsync<T>()` reads the latest captured body back as a model.
+`RequestBodyAsync<T>(index)` reads the body at a zero-based position in `Requests`.
+
+Finish each test with `http.VerifyAllCalled()`. It throws when a one-shot route received no request.
+[Verification](verification.md) covers it in full. Watch out for two rules:
+
+- A request that no route matches throws `InvalidOperationException`. The stub does not return an automatic 404.
+- A one-shot route answers once. A second `GetAsync(1)` here would find no route. Add another entry, or make
+  the route reusable as [Routes](routes.md) shows.
+
+The page's code needs `using` directives for `System.Net`, `System.Text.Json`, `System.Text.Json.Serialization`,
+`Refit` and `Refit.Testing`.
+
+## Point settings at the stub
+
+Some code takes a `RefitSettings` and builds its own client. You want that code to talk to the stub instead
+of the real network. The [`Testing.cs`](https://github.com/reactiveui/refit/blob/main/src/examples/Documentation/Testing/Testing.cs)
+sample shows the three ways to wire it up.
+
+[//]: # "excerpt:Testing/Testing.cs#ShowSettingsWiringAsync"
+
+```csharp
+using StubHttp http = new StubHttp();
+RefitSettings fresh = http.ToSettings(); // fresh.HttpMessageHandlerFactory!() == http
+RefitSettings supplied = CreateSettings();
+RefitSettings wired = http.ToSettings(supplied); // wired is the same instance as supplied
+
+// Uses default settings, which replaces the serializer wired in above: the stub keeps one, and the last call wins.
+ITestingApi api = http.CreateGeneratedClient<ITestingApi>("https://api.example.com");
+```
+
+- `ToSettings()` creates new settings. Their `HttpMessageHandlerFactory` returns the stub.
+- `ToSettings(supplied)` changes your settings in place and returns the same instance.
+- `CreateGeneratedClient<T>(hostUrl)` with no settings creates default settings and wires them the same way.
+
+Each of these calls also makes the stub adopt the settings' serializer. The stub holds one serializer, and
+the last call wins. In the sample, the last call uses default settings. The stub now writes typed replies and
+reads captured bodies with the default serializer, not the one from `CreateSettings()`.
+Wire one set of settings to each stub.
+
+## Use a reflection client
+
+Your interface may have no generated client, for example in a project without Refit's source generator.
+`CreateClient<T>` builds the client at run time with reflection instead. Reflection means reading type
+information while the app runs. The sample is in
+[`TestingReflection.cs`](https://github.com/reactiveui/refit/blob/main/src/examples/Documentation/Testing/TestingReflection.cs).
+
+[//]: # "excerpt:Testing/TestingReflection.cs#RunAsync"
+
+```csharp
+using StubHttp http = new StubHttp { { Route.Get("/people/1"), Reply.Json("{\"id\":1,\"name\":\"Ada\"}") } };
+ITestingApi defaults = http.CreateClient<ITestingApi>("https://api.example.com");
+TestingPerson first = await defaults.GetAsync(1); // first.Name == "Ada"
+
+RefitSettings settings = new RefitSettings(new SystemTextJsonContentSerializer(TestingJsonContext.Default.Options));
+
+// each route answers once, so add another for the second call
+http.Add(Route.Get("/people/1"), Reply.Json("{\"id\":1,\"name\":\"Ada\"}"));
+ITestingApi configured = http.CreateClient<ITestingApi>("https://api.example.com", settings);
+TestingPerson second = await configured.GetAsync(1); // second == first
+```
+
+`CreateClient<T>(hostUrl)` uses default settings. `CreateClient<T>(hostUrl, settings)` keeps your serializer.
+`Reply.Json` sends raw JSON text, so the reply itself needs no model metadata.
+The route is one-shot, so the sample adds a second entry before the second call.
+
+Both overloads call `RestService.For<T>`. On modern targets they carry a trimming warning. Trimming removes
+code the build believes is unused, and reflection can need that code. The example's Native AOT host leaves
+this sample out. Prefer `CreateGeneratedClient<T>` for new tests.
 
 ## Choose the test boundary
 
@@ -164,41 +218,9 @@ They throw `InvalidOperationException` when none is registered.
 Use the settings overload and generated JSON context in trimmed or AOT apps.
 
 `CreateClient<T>(hostUrl)` and `CreateClient<T>(hostUrl, baseSettings)` use `RestService.For<T>`.
-That path permits runtime reflection and carries a trimming warning on modern targets.
-Trimming removes code the build believes is unused. Prefer the generated factories for new tests.
+That path uses reflection and carries a trimming warning on modern targets.
+[Use a reflection client](#use-a-reflection-client) shows both. Prefer the generated factories for new tests.
 Creating a client does not make an HTTP request or prove that its JSON configuration is complete.
-
-
-This test shows that `ToSettings(settings)` returns your instance, now pointed at the handler.
-
-
-```csharp
-using StubHttp http = new();
-RefitSettings settings = CreateSettings();
-
-RefitSettings returned = http.ToSettings(settings);
-
-Assert.Same(settings, returned);
-Assert.Same(http, settings.HttpMessageHandlerFactory!());
-```
-
-The reflection-based factories run in the JIT version of the example. The native host excludes them.
-With generated JSON metadata in the settings, the client factory itself can still fall back to reflection.
-`CreateClient<T>(hostUrl)` works the same way with default settings.
-Use generated factories for native execution.
-
-
-```csharp
-using StubHttp http = new()
-{
-    { Route.Get("/people/1"), Reply.Json("""{"id":1,"name":"Ada"}""") },
-};
-ITestingApi api = http.CreateClient<ITestingApi>("https://api.example.com", CreateSettings());
-
-TestingPerson person = await api.GetAsync(1);
-
-Assert.Equal("Ada", person.Name);
-```
 
 ## API reference
 

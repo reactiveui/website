@@ -6,11 +6,11 @@ Order: 2
 [Run the complete page example](https://github.com/reactiveui/refit/blob/main/src/examples/Documentation/Pages/testing-replies/testing-replies.csproj).
 
 To test how your app handles a service response, you need control over what comes back.
-The `Reply` helpers let you return a model, a status code, raw text or a reply built from
-the incoming request.
+A reply is what a stub entry sends back when its [route](routes.md) matches. The `Reply` helpers let you
+return a model, a status code, raw text, a stream or a reply built from the incoming request.
 
 Use them to give a successful call realistic data, reproduce an error body, or see how your
-code handles an empty response. The examples start with a typed model and build from there.
+code handles an empty response. This page starts with a typed model and builds from there.
 
 ## Return a typed model
 
@@ -29,6 +29,63 @@ The [first test](index.md#make-your-first-test) runs both overloads and checks t
 
 ## JSON, text and custom content
 
+You need replies of different shapes: JSON, an error body, plain text, raw bytes, a bare status, or a reply
+that depends on the request. This [`Testing.cs`](https://github.com/reactiveui/refit/blob/main/src/examples/Documentation/Testing/Testing.cs)
+sample sets up one route for each shape and sends a request to each.
+
+[//]: # "excerpt:Testing/Testing.cs#ShowRepliesAsync"
+
+```csharp
+using StubHttp http = new StubHttp
+{
+    {
+        Route.Get("/json"),
+        Reply.Json("{\"id\":1,\"name\":\"Ada\"}")
+    },
+    {
+        Route.Get("/rejected"),
+        Reply.Json("{\"error\":\"invalid\"}", HttpStatusCode.BadRequest)
+    },
+    {
+        Route.Get("/text"),
+        Reply.Text("hello")
+    },
+    {
+        Route.Get("/html"),
+        Reply.Text("<p>hello</p>", "text/html")
+    },
+    {
+        Route.Get("/content"),
+        Reply.Content(new ByteArrayContent([1]))
+    },
+    {
+        Route.Get("/status"),
+        Reply.Status(HttpStatusCode.NoContent)
+    },
+    {
+        Route.Get("/sync"),
+        Reply.From(static request => new HttpResponseMessage(HttpStatusCode.Accepted) { Content = new StringContent(request.RequestUri!.AbsolutePath) })
+    },
+    {
+        Route.Post("/async"),
+        Reply.From(static async request => new HttpResponseMessage(HttpStatusCode.OK) { Content = new StringContent(await request.Content!.ReadAsStringAsync()) })
+    },
+};
+using HttpClient httpClient = new HttpClient(http, disposeHandler: false);
+
+using HttpResponseMessage json = await httpClient.GetAsync(new Uri("https://api.example.com/json")); // json.StatusCode == OK
+using HttpResponseMessage rejected = await httpClient.GetAsync(new Uri("https://api.example.com/rejected")); // rejected.StatusCode == BadRequest
+using HttpResponseMessage text = await httpClient.GetAsync(new Uri("https://api.example.com/text")); // text body == "hello"
+using HttpResponseMessage html = await httpClient.GetAsync(new Uri("https://api.example.com/html")); // html content type == "text/html"
+using HttpResponseMessage content = await httpClient.GetAsync(new Uri("https://api.example.com/content")); // content.StatusCode == OK
+using HttpResponseMessage status = await httpClient.GetAsync(new Uri("https://api.example.com/status")); // status.StatusCode == NoContent
+using HttpResponseMessage sync = await httpClient.GetAsync(new Uri("https://api.example.com/sync")); // sync body == "/sync"
+using HttpResponseMessage echoed = await httpClient.PostAsync(new Uri("https://api.example.com/async"), new StringContent("Ada")); // echoed body == "Ada"
+```
+
+The sample sends through a plain `HttpClient`, so it needs no model metadata. Each reply works the same way
+behind a Refit client.
+
 | Method | Body and status |
 | --- | --- |
 | `With<T>(body)` / `With<T>(body, status)` | Serialize the typed body with the adopted serializer. Status 200 or your supplied status. |
@@ -37,12 +94,18 @@ The [first test](index.md#make-your-first-test) runs both overloads and checks t
 | `Status(statusCode)` | The supplied status with no explicit body. |
 | `Content(body)` | The exact [`HttpContent`](https://learn.microsoft.com/en-us/dotnet/api/system.net.http.httpcontent) object, with status 200. |
 | `From(responder)` | Your lambda returns the complete response. The sync and async overloads receive the request. A third overload also receives the send's `CancellationToken`. |
+| `Stream(source)` | A streamed body that your test controls through a stream source. Status 200. |
+| `JsonLines<T>(items)` / `ServerSentEvents<T>(items)` | A ready-made stream of the items, in JSON Lines or server-sent-events format. Status 200. |
 
-Raw HTTP examples need no model metadata. They create replies directly.
-See the [reply examples](#reply-examples) for an error body and a reply built from the request.
-Use `Reply.From(async (request, cancellationToken) => ...)` when your responder reads a streaming upload.
-Pass the token to the read so that cancelling the call stops it.
+The two `From` lambdas in the sample capture nothing, so they are marked `static`.
+The async one reads the request body and sends it back.
 The handler fills in `RequestMessage` when your response has none.
+
+Use `Reply.From((request, cancellationToken) => ...)` when your lambda reads a streaming upload.
+Pass the token to each read so that cancelling the call stops it. [Read an upload one line at a time](streaming.md#read-an-upload-one-line-at-a-time) shows it.
+
+A stream source is a `StreamSource` object. Your test uses it to release items into a streamed reply one at a time.
+[Receive a stream](streaming.md#receive-a-stream) covers `Reply.Stream`, `Reply.JsonLines` and `Reply.ServerSentEvents`.
 
 ## Response property precedence
 
@@ -50,10 +113,35 @@ You can also construct `new StubResponse` with init properties.
 Its `Status` defaults to OK. Its optional properties are `Json`, `Text`, `ContentType`, `Content`,
 `Responder`, `ResponderAsync` and `CancellableResponderAsync`. The factory methods select the usual shapes for you.
 
+When one `StubResponse` sets several of these at once, you need to know which one wins.
+This [`Testing.cs`](https://github.com/reactiveui/refit/blob/main/src/examples/Documentation/Testing/Testing.cs)
+sample sets all of them but `CancellableResponderAsync`.
+
+[//]: # "excerpt:Testing/Testing.cs#ShowReplyPropertiesAsync"
+
+```csharp
+using StringContent explicitContent = new StringContent("explicit");
+StubResponse properties = new StubResponse
+{
+    Status = HttpStatusCode.Created,
+    Json = "{}",
+    Text = "text",
+    ContentType = "text/plain",
+    Content = explicitContent,
+    Responder = static _ => new HttpResponseMessage(HttpStatusCode.Accepted),
+    ResponderAsync = static _ => Task.FromResult(new HttpResponseMessage(HttpStatusCode.NoContent)),
+};
+using StubHttp http = new StubHttp { { Route.Get("/precedence"), properties } };
+using HttpClient httpClient = new HttpClient(http, disposeHandler: false);
+using HttpResponseMessage precedence = await httpClient.GetAsync(new Uri("https://api.example.com/precedence")); // precedence.StatusCode == NoContent, ResponderAsync wins
+```
+
+The reply has status 204 No Content, so `ResponderAsync` wins.
 `CancellableResponderAsync` takes precedence over `ResponderAsync`, which takes precedence over `Responder`.
-Any responder controls the entire reply, including status. Without a responder, content uses this order:
-explicit `Content`, typed body from `With`, `Json`, then `Text`. `ContentType` applies only to `Text`.
-The [precedence example](#reply-examples) configures conflicting properties and checks that the async responder wins.
+Any responder controls the entire reply, including status. Without a responder, the body uses this order:
+explicit `Content`, then the typed or streamed body from `With`, `Stream`, `JsonLines` or `ServerSentEvents`,
+then `Json`, then `Text`. `ContentType` applies only to `Text`.
+Set one body property per reply, so the test reads plainly.
 
 ## Dispose content and allocate repeated replies
 
@@ -67,77 +155,6 @@ The serializer is stored on the handler, rather than on each route.
 A later `ToSettings` call can change how existing typed replies are written.
 Keep one serializer configuration per handler.
 
-## Reply examples
-
-These tests send through a raw `HttpClient` built on the handler.
-
-**An error body.** `Reply.Json(body, status)` returns raw JSON with the status you choose.
-
-
-```csharp
-using StubHttp http = new()
-{
-    { Route.Get("/people/99"), Reply.Json("""{"error":"not found"}""", HttpStatusCode.NotFound) },
-};
-using HttpClient httpClient = new(http, disposeHandler: false);
-
-using HttpResponseMessage response = await httpClient.GetAsync(new Uri("https://api.example.com/people/99"));
-
-Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
-Assert.Equal("""{"error":"not found"}""", await response.Content.ReadAsStringAsync());
-```
-
-**A reply built from the request.** This async responder reads the request body and sends it back.
-It creates a fresh response and content on every call.
-
-
-```csharp
-using StubHttp http = new()
-{
-    {
-        Route.Post("/people"),
-        Reply.From(static async request =>
-        {
-            string json = await request.Content!.ReadAsStringAsync();
-            return new HttpResponseMessage(HttpStatusCode.Created)
-            {
-                Content = new StringContent(json, Encoding.UTF8, "application/json"),
-            };
-        })
-    },
-};
-using HttpClient httpClient = new(http, disposeHandler: false);
-using StringContent body = new("""{"id":2,"name":"Grace"}""", Encoding.UTF8, "application/json");
-
-using HttpResponseMessage response = await httpClient.PostAsync(new Uri("https://api.example.com/people"), body);
-
-Assert.Equal(HttpStatusCode.Created, response.StatusCode);
-Assert.Equal("""{"id":2,"name":"Grace"}""", await response.Content.ReadAsStringAsync());
-```
-
-**Property precedence.** This reply sets every property. `ResponderAsync` wins over `Responder` and every body.
-
-
-```csharp
-using StringContent content = new("explicit");
-StubResponse reply = new()
-{
-    Status = HttpStatusCode.Created,
-    Json = "{}",
-    Text = "text",
-    ContentType = "text/plain",
-    Content = content,
-    Responder = static _ => new HttpResponseMessage(HttpStatusCode.Accepted),
-    ResponderAsync = static _ => Task.FromResult(new HttpResponseMessage(HttpStatusCode.NoContent)),
-};
-using StubHttp http = new() { { Route.Get("/people/1"), reply } };
-using HttpClient httpClient = new(http, disposeHandler: false);
-
-using HttpResponseMessage response = await httpClient.GetAsync(new Uri("https://api.example.com/people/1"));
-
-Assert.Equal(HttpStatusCode.NoContent, response.StatusCode); // ResponderAsync wins
-```
-
 ## API reference
 
 | API | Description | Parameters | Returns and behavior |
@@ -150,6 +167,9 @@ Assert.Equal(HttpStatusCode.NoContent, response.StatusCode); // ResponderAsync w
 | [`Reply.Text(string body, string contentType)`](https://github.com/reactiveui/refit/blob/main/src/Refit.Testing/Reply.cs) | Creates text content with a custom media type. | `body`: [`string`](https://learn.microsoft.com/en-us/dotnet/api/system.string) text; `contentType`: [`string`](https://learn.microsoft.com/en-us/dotnet/api/system.string) media type | Returns UTF-8 text [`StubResponse`](replies.md) with the supplied media type and status [`HttpStatusCode.OK`](https://learn.microsoft.com/en-us/dotnet/api/system.net.httpstatuscode). |
 | [`Reply.Status(HttpStatusCode statusCode)`](https://github.com/reactiveui/refit/blob/main/src/Refit.Testing/Reply.cs) | Creates a bodyless reply for a chosen status code. | `statusCode`: [`HttpStatusCode`](https://learn.microsoft.com/en-us/dotnet/api/system.net.httpstatuscode) response status | Returns a [`StubResponse`](replies.md). |
 | [`Reply.Content(HttpContent body)`](https://github.com/reactiveui/refit/blob/main/src/Refit.Testing/Reply.cs) | Reuses an explicit HTTP content instance as a reply body. | `body`: [`HttpContent`](https://learn.microsoft.com/en-us/dotnet/api/system.net.http.httpcontent) exact content instance | Returns [`StubResponse`](replies.md) using that content and status [`HttpStatusCode.OK`](https://learn.microsoft.com/en-us/dotnet/api/system.net.httpstatuscode). |
+| [`Reply.Stream(StreamSource source)`](https://github.com/reactiveui/refit/blob/main/src/Refit.Testing/Reply.cs) | Creates a streamed reply whose body your test releases through a stream source. | `source`: [`StreamSource`](streaming.md#receive-a-stream) that supplies the body | Returns [`StubResponse`](replies.md) with status [`HttpStatusCode.OK`](https://learn.microsoft.com/en-us/dotnet/api/system.net.httpstatuscode) and the source's media type; a null `source` throws [`ArgumentNullException`](https://learn.microsoft.com/dotnet/api/system.argumentnullexception). |
+| [`Reply.JsonLines<T>(IEnumerable<T> items)`](https://github.com/reactiveui/refit/blob/main/src/Refit.Testing/Reply.cs) | Creates a finished JSON Lines stream from a fixed set of items. | `items`: [`IEnumerable<T>`](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.ienumerable-1) to write, one per line | Returns [`StubResponse`](replies.md) that writes every item with the handler serializer, then ends the stream; a null `items` throws [`ArgumentNullException`](https://learn.microsoft.com/dotnet/api/system.argumentnullexception). |
+| [`Reply.ServerSentEvents<T>(IEnumerable<T> items)`](https://github.com/reactiveui/refit/blob/main/src/Refit.Testing/Reply.cs) | Creates a finished server-sent-events stream from a fixed set of items. | `items`: [`IEnumerable<T>`](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.ienumerable-1) to write, one event each | Returns [`StubResponse`](replies.md) with `text/event-stream` content that writes every item, then ends the stream; a null `items` throws [`ArgumentNullException`](https://learn.microsoft.com/dotnet/api/system.argumentnullexception). |
 | [`Reply.From(Func<HttpRequestMessage, HttpResponseMessage> responder)`](https://github.com/reactiveui/refit/blob/main/src/Refit.Testing/Reply.cs) | Uses a synchronous request-aware factory to build the whole reply. | `responder`: [`Func<HttpRequestMessage, HttpResponseMessage>`](https://learn.microsoft.com/en-us/dotnet/api/system.func-2) request-to-response function | Returns [`StubResponse`](replies.md) whose responder supplies the complete [`HttpResponseMessage`](https://learn.microsoft.com/en-us/dotnet/api/system.net.http.httpresponsemessage). |
 | [`Reply.From(Func<HttpRequestMessage, Task<HttpResponseMessage>> responder)`](https://github.com/reactiveui/refit/blob/main/src/Refit.Testing/Reply.cs) | Uses an asynchronous request-aware factory to build the whole reply. | `responder`: [`Func<HttpRequestMessage, Task<HttpResponseMessage>>`](https://learn.microsoft.com/en-us/dotnet/api/system.func-2), with [`Task<TResult>`](https://learn.microsoft.com/en-us/dotnet/api/system.threading.tasks.task-1) result | Returns [`StubResponse`](replies.md) whose async responder supplies the complete [`HttpResponseMessage`](https://learn.microsoft.com/en-us/dotnet/api/system.net.http.httpresponsemessage). |
 | [`Reply.From(Func<HttpRequestMessage, CancellationToken, Task<HttpResponseMessage>> responder)`](https://github.com/reactiveui/refit/blob/main/src/Refit.Testing/Reply.cs) | Uses an asynchronous factory that also receives the send's cancellation token. | `responder`: [`Func<HttpRequestMessage, CancellationToken, Task<HttpResponseMessage>>`](https://learn.microsoft.com/en-us/dotnet/api/system.func-3) | Returns [`StubResponse`](replies.md) whose cancellable responder supplies the complete [`HttpResponseMessage`](https://learn.microsoft.com/en-us/dotnet/api/system.net.http.httpresponsemessage). |
