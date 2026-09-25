@@ -188,6 +188,16 @@
   margin-right: 0.4rem;
 }
 
+/* The logo and name link to the project's docs; keep the heading look and show the link on hover. */
+.md-typeset .rxui-projects a.rxui-project-link {
+  color: inherit;
+}
+
+.md-typeset .rxui-projects a.rxui-project-link:hover strong {
+  color: var(--rxui-blue);
+  text-decoration: underline;
+}
+
 .md-typeset .rxui-projects pre > code {
   font-size: 0.7rem;
 }
