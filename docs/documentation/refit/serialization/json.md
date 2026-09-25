@@ -62,7 +62,7 @@ Refit adds no converters of its own.
 
 ```csharp
 IPeopleApi api = RestService.ForGenerated<IPeopleApi>(client, SampleJsonContext.Default);
-Person person = await api.GetPersonAsync(1, CancellationToken.None);
+Person person = await api.GetPersonAsync(1, cancellationToken);
 Console.WriteLine(person.Name); // Ada
 ```
 
@@ -85,7 +85,7 @@ Most services send camelCase names, such as `{"id":5,"customer":"Ada"}`.
 A plain context reads such a reply into an object whose properties hold default values.
 Refit reports no error.
 
-The rest of this page uses a shop's orders API. `OrdersServer.OrderId` in the code is the number 5.
+The rest of this page uses a shop's orders API.
 `OrderStatus` is an enum that the JSON writes as text, such as `"Shipped"`.
 
 ```csharp
@@ -125,7 +125,7 @@ internal sealed partial class UnconfiguredOrdersJsonContext : JsonSerializerCont
 
 ```csharp
 IOrdersApi unconfigured = RestService.ForGenerated<IOrdersApi>(client, UnconfiguredOrdersJsonContext.Default);
-Order empty = await unconfigured.GetOrderAsync(OrdersServer.OrderId, CancellationToken.None);
+Order empty = await unconfigured.GetOrderAsync(5, cancellationToken);
 Console.WriteLine($"{empty.Id} {empty.Customer is null}"); // 0 True
 ```
 
@@ -144,7 +144,7 @@ internal sealed partial class OrdersJsonContext : JsonSerializerContext;
 
 ```csharp
 IOrdersApi web = RestService.ForGenerated<IOrdersApi>(client, OrdersJsonContext.Default);
-Order order = await web.GetOrderAsync(OrdersServer.OrderId, CancellationToken.None);
+Order order = await web.GetOrderAsync(5, cancellationToken);
 Console.WriteLine($"{order.Id} {order.Customer}"); // 5 Ada
 ```
 
@@ -201,7 +201,7 @@ RefitSettings settings = new(serializer);
 
 IOrdersApi api = RestService.ForGenerated<IOrdersApi>(client, settings);
 
-Order order = await api.GetOrderAsync(OrdersServer.OrderId, CancellationToken.None);
+Order order = await api.GetOrderAsync(5, cancellationToken);
 Console.WriteLine(order.Lines[0].UnitPrice); // 49.50
 ```
 
@@ -222,7 +222,7 @@ RefitSettings settings = new(new SystemTextJsonContentSerializer(AppOptions));
 
 IOrdersApi api = RestService.ForGenerated<IOrdersApi>(client, OrdersJsonContext.Default, settings);
 
-Order order = await api.GetOrderAsync(OrdersServer.OrderId, CancellationToken.None);
+Order order = await api.GetOrderAsync(5, cancellationToken);
 Console.WriteLine(order.Lines[0].UnitPrice); // 49.50
 ```
 
@@ -278,7 +278,7 @@ RefitSettings settings = new(new SystemTextJsonContentSerializer(ModifiedOptions
 
 IOrdersApi api = RestService.ForGenerated<IOrdersApi>(client, OrdersJsonContext.Default, settings);
 
-Shipment shipment = await api.GetShipmentAsync(OrdersServer.OrderId, CancellationToken.None);
+Shipment shipment = await api.GetShipmentAsync(5, cancellationToken);
 Console.WriteLine(shipment.GetType().Name); // PickupShipment
 ```
 
@@ -305,7 +305,7 @@ internal sealed partial class OrderReadsJsonContext : JsonSerializerContext;
 IOrdersApi api = RestService.ForGenerated<IOrdersApi>(client, OrderReadsJsonContext.Default);
 try
 {
-    _ = await api.PlaceOrderAsync(newOrder, CancellationToken.None);
+    await api.PlaceOrderAsync(newOrder, cancellationToken);
     throw new InvalidOperationException("NewOrder has no metadata, so the call should throw.");
 }
 catch (NotSupportedException error)
@@ -324,7 +324,7 @@ for example while you move a large app to a context one type at a time.
 ```csharp
 // Reflection-based JSON is not trim or Native AOT safe.
 IOrdersApi fallback = RestService.ForGenerated<IOrdersApi>(client, OrderReadsJsonContext.Default, allowReflectionFallback: true);
-Order placed = await fallback.PlaceOrderAsync(newOrder, CancellationToken.None);
+Order placed = await fallback.PlaceOrderAsync(newOrder, cancellationToken);
 Console.WriteLine(placed.Id); // 5
 ```
 
@@ -372,18 +372,18 @@ The client in this example has no context. Each call brings the metadata it need
 ```csharp
 IOrdersTypeInfoApi api = RestService.ForGenerated<IOrdersTypeInfoApi>(client);
 
-Order order = await api.GetOrderAsync(OrdersServer.OrderId, OrdersJsonContext.Default.Order, CancellationToken.None);
+Order order = await api.GetOrderAsync(5, OrdersJsonContext.Default.Order, cancellationToken);
 Console.WriteLine($"{order.Customer} {order.Lines[0].UnitPrice}"); // Ada 49.5
 
-List<Order> orders = await api.ListOrdersAsync(OrdersJsonContext.Default.ListOrder, CancellationToken.None);
+List<Order> orders = await api.ListOrdersAsync(OrdersJsonContext.Default.ListOrder, cancellationToken);
 
-await foreach (Order streamed in api.StreamOrdersAsync(OrdersJsonContext.Default.Order, CancellationToken.None))
+await foreach (Order streamed in api.StreamOrdersAsync(OrdersJsonContext.Default.Order, cancellationToken))
 {
     Console.WriteLine(streamed.Customer); // Ada
 }
 
-NewOrder newOrder = new("Ada", [new("KB-1", 1, KeyboardPrice)]);
-Order placed = await api.PlaceOrderAsync(newOrder, OrdersJsonContext.Default.NewOrder, OrdersJsonContext.Default.Order, CancellationToken.None);
+NewOrder newOrder = new("Ada", [new("KB-1", 1, 49.5M)]);
+Order placed = await api.PlaceOrderAsync(newOrder, OrdersJsonContext.Default.NewOrder, OrdersJsonContext.Default.Order, cancellationToken);
 ```
 
 Refit matches a parameter by its `T`:
@@ -402,8 +402,8 @@ Refit matches a parameter by its `T`:
 ```csharp
 IOrdersTypeInfoApi api = RestService.ForGenerated<IOrdersTypeInfoApi>(client, OrdersJsonContext.Default);
 
-Order looked = await api.FindOrderAsync(OrdersServer.OrderId);
-Order passed = await api.FindOrderAsync(OrdersServer.OrderId, OrdersJsonContext.Default.Order);
+Order looked = await api.FindOrderAsync(5);
+Order passed = await api.FindOrderAsync(5, OrdersJsonContext.Default.Order);
 ```
 
 The metadata's own options apply to that call. They win over the serializer options in your settings.
@@ -412,7 +412,7 @@ These settings say snake_case, and the call reads the shop's camelCase reply.
 ```csharp
 IOrdersTypeInfoApi api = RestService.ForGenerated<IOrdersTypeInfoApi>(client, RefitSettings.SnakeCase());
 
-Order order = await api.GetOrderAsync(OrdersServer.OrderId, OrdersJsonContext.Default.Order, CancellationToken.None);
+Order order = await api.GetOrderAsync(5, OrdersJsonContext.Default.Order, cancellationToken);
 Console.WriteLine(order.Lines[0].UnitPrice); // 49.5
 ```
 
@@ -461,7 +461,7 @@ Keep the options unchanged after the serializer starts using them.
 ```csharp
 RefitSettings settings = new(Serializer);
 IPeopleApi withSettings = RestService.ForGenerated<IPeopleApi>(client, settings);
-Person fromSettings = await withSettings.GetPersonAsync(1, CancellationToken.None);
+Person fromSettings = await withSettings.GetPersonAsync(1, cancellationToken);
 Console.WriteLine(fromSettings.Name); // Ada
 ```
 
@@ -564,7 +564,7 @@ capability, and `body` and `format` select one of those inputs. The caller owns 
 
 ```csharp
 await using MemoryStream stream = new(Encoding.UTF8.GetBytes(body));
-await foreach (Person? item in streaming.DeserializeStreamAsync<Person>(stream, format, CancellationToken.None))
+await foreach (Person? item in streaming.DeserializeStreamAsync<Person>(stream, format, cancellationToken))
 {
     Console.WriteLine(item!.Name);
 }
@@ -580,12 +580,11 @@ Each method takes a `JsonTypeInfo<T>` in place of a lookup. The context's `Order
 
 ```csharp
 RefitSettings settings = RefitSettings.ForJsonContext(OrdersJsonContext.Default);
-if (settings.ContentSerializer is not IJsonTypeInfoContentSerializer serializer)
-{
-    throw new InvalidOperationException("The System.Text.Json serializer offers the metadata capability.");
-}
 
-Order order = new(OrderId, "Ada", OrderStatus.Shipped, [new("KB-1", 1, KeyboardPrice)]);
+// SystemTextJsonContentSerializer, the default, implements IJsonTypeInfoContentSerializer.
+IJsonTypeInfoContentSerializer serializer = (IJsonTypeInfoContentSerializer)settings.ContentSerializer;
+
+Order order = new(5, "Ada", OrderStatus.Shipped, [new("KB-1", 1, 49.5M)]);
 
 using HttpContent content = serializer.ToHttpContent(order, OrdersJsonContext.Default.Order);
 string json = await content.ReadAsStringAsync();
@@ -637,7 +636,7 @@ JsonSerializerOptions defaultOptions = defaults.SerializerOptions;
 defaultOptions.TypeInfoResolver = SampleJsonContext.Default;
 JsonSerializerOptions separateDefaults = SystemTextJsonContentSerializer.GetDefaultJsonSerializerOptions();
 using HttpContent content = defaults.ToHttpContent(new Person(1, "Ada"));
-Person? person = await defaults.FromHttpContentAsync<Person>(content, CancellationToken.None);
+Person? person = await defaults.FromHttpContentAsync<Person>(content, cancellationToken);
 Console.WriteLine(person!.Name); // Ada
 ```
 

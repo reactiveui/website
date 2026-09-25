@@ -27,14 +27,10 @@ shows the normal API call. The example below constructs the same kind of wrapper
 This is useful when writing a client adapter or a test.
 
 ```csharp
-using HttpRequestMessage request = new(HttpMethod.Get, "https://people.example/person");
+using HttpRequestMessage request = new(HttpMethod.Get, "https://api.example.com/people/1");
 using HttpResponseMessage message = new(HttpStatusCode.OK) { RequestMessage = request };
 using ApiResponse<Person> response = new(message, new(1, "Ada"), settings);
-using ApiResponse<Person> explicitError = new(message, new(1, "Ada"), settings, error: null);
-Console.WriteLine(response.IsReceived); // True
-Console.WriteLine(response.StatusCode); // OK
-Console.WriteLine(response.RequestMessage.RequestUri);
-Console.WriteLine(response.Settings == settings); // True
+// response.IsReceived == true, response.StatusCode == HttpStatusCode.OK
 if (response.IsSuccessfulWithContent)
 {
     Console.WriteLine(response.Content.Name); // Ada
@@ -61,8 +57,8 @@ Task<ApiResponse<Order>> GetOrderResponseAsync(int id, JsonTypeInfo<Order> order
 ```
 
 ```csharp
-using ApiResponse<Order> response = await api.GetOrderResponseAsync(OrdersServer.OrderId, OrdersJsonContext.Default.Order, CancellationToken.None);
-Console.WriteLine($"{response.StatusCode} {response.Content?.Customer}"); // OK Ada
+using ApiResponse<Order> response = await api.GetOrderResponseAsync(5, OrdersJsonContext.Default.Order, cancellationToken);
+// response.StatusCode == HttpStatusCode.OK, response.Content?.Customer == "Ada"
 ```
 
 The wrapper carries the status and headers as usual. See [pass metadata to a method](../serialization/json.md#pass-metadata-to-a-method)
@@ -72,15 +68,13 @@ for the rules.
 
 A status from 200 through 299 is an HTTP success. It does not prove that the body matches your C# model.
 The response can have status 200 and contain invalid JSON.
-The runnable example supplies a 200 reply with the text `not JSON`:
+Here the service replies 200 with the text `not JSON`:
 
 ```csharp
-using ApiResponse<Person> malformed = await api.GetMalformedAsync(CancellationToken.None);
-Console.WriteLine(malformed.IsReceived); // True
-Console.WriteLine(malformed.IsSuccessStatusCode); // True
-Console.WriteLine(malformed.IsSuccessful); // False
-Console.WriteLine(malformed.HasContent); // False
-_ = await malformed.EnsureSuccessStatusCodeAsync();
+using ApiResponse<Person> malformed = await api.GetMalformedAsync(cancellationToken);
+// malformed.IsReceived == true, malformed.IsSuccessStatusCode == true
+// malformed.IsSuccessful == false, malformed.HasContent == false
+await malformed.EnsureSuccessStatusCodeAsync(); // passes: it checks only the status
 if (malformed.HasResponseError(out ApiException? readError))
 {
     Console.WriteLine(readError.InnerException?.GetType().Name); // JsonException
@@ -118,12 +112,12 @@ The `out T` lets a wrapper for a derived model be read through an interface for 
 ```csharp
 IApiResponse<Person> typed = response;
 IApiResponse untyped = response;
-_ = await response.EnsureSuccessStatusCodeAsync();
-_ = await response.EnsureSuccessfulAsync();
-_ = await typed.EnsureSuccessStatusCodeAsync();
-_ = await typed.EnsureSuccessfulAsync();
-_ = await untyped.EnsureSuccessStatusCodeAsync();
-_ = await untyped.EnsureSuccessfulAsync();
+await response.EnsureSuccessStatusCodeAsync();
+await response.EnsureSuccessfulAsync();
+await typed.EnsureSuccessStatusCodeAsync();
+await typed.EnsureSuccessfulAsync();
+await untyped.EnsureSuccessStatusCodeAsync();
+await untyped.EnsureSuccessfulAsync();
 ```
 
 The concrete guards return `ValueTask<ApiResponse<T>>`.
@@ -149,14 +143,13 @@ The cause-only overload uses the cause's message and rejects a null cause.
 All retain the request, method and settings you supply.
 
 ```csharp
-using HttpRequestMessage request = new(HttpMethod.Get, "https://people.example/person");
+using HttpRequestMessage request = new(HttpMethod.Get, "https://api.example.com/people/1");
 HttpRequestException cause = new("Connection unavailable.");
 ApiRequestException fromCause = new(request, request.Method, settings, cause);
-ApiRequestException withMessage = new("Could not contact people API.", request, request.Method, settings);
-ApiRequestException withBoth = new("Could not contact people API.", request, request.Method, settings, cause);
+ApiRequestException withMessage = new("Could not contact the people service.", request, request.Method, settings);
+ApiRequestException withBoth = new("Could not contact the people service.", request, request.Method, settings, cause);
 using ApiResponse<Person> missing = new(request, response: null, content: null, settings, fromCause);
-Console.WriteLine(missing.IsReceived); // False
-Console.WriteLine(missing.StatusCode is null); // True
+// missing.IsReceived == false, missing.StatusCode == null
 if (missing.HasRequestError(out ApiRequestException? sendError))
 {
     Console.WriteLine(sendError.Message); // Connection unavailable.
@@ -165,36 +158,31 @@ if (missing.HasRequestError(out ApiRequestException? sendError))
 
 **Implementation discrepancy:** the concrete guards check for a response before using the captured error.
 With a null response, both concrete guards throw `InvalidOperationException` rather than the documented
-`ApiRequestException`. The interface guards surface the captured transport error.
-The example checks this difference:
+`ApiRequestException`. The interface guards surface the captured transport error:
 
 ```csharp
 IApiResponse<Person> typed = missing;
 try
 {
-    _ = await typed.EnsureSuccessfulAsync();
-    throw new InvalidOperationException("The interface guard should throw.");
+    await typed.EnsureSuccessfulAsync();
 }
 catch (ApiRequestException error)
 {
-    SampleCheck.Equal(fromCause, error);
+    Console.WriteLine(error.Message); // Connection unavailable. (the captured fromCause)
 }
 
 try
 {
-    _ = await missing.EnsureSuccessfulAsync();
-    throw new InvalidOperationException("The concrete guard should throw.");
+    await missing.EnsureSuccessfulAsync();
 }
 catch (InvalidOperationException error)
 {
-    SampleCheck.Equal("The response is unavailable for this API response.", error.Message);
+    Console.WriteLine(error.Message); // The response is unavailable for this API response.
 }
 ```
 
 Use `HasRequestError` or an interface guard when handling this case.
 Read [error bodies and problem details](errors.md) for the exception properties.
-The [response examples](https://github.com/reactiveui/refit/tree/main/src/examples/Documentation/Responses)
-contain the executable reproduction.
 
 ## Ownership
 
@@ -203,14 +191,19 @@ Repeated calls are safe. It does not dispose the request separately.
 Read any needed body or headers before disposing the wrapper.
 Disposal does not change its status flags or erase the stored value.
 
-The ownership example creates separate request and response streams. These checks confirm
-that disposing the wrapper closes only the response stream:
+Disposing the wrapper closes the response body, but the request stays yours to dispose:
 
 ```csharp
+MemoryStream requestStream = new();
+MemoryStream responseStream = new();
+using HttpRequestMessage request = new(HttpMethod.Post, "https://api.example.com/people") { Content = new StreamContent(requestStream) };
+HttpResponseMessage message = new(HttpStatusCode.OK) { RequestMessage = request, Content = new StreamContent(responseStream) };
+ApiResponse<Person> response = new(message, new(1, "Ada"), settings);
+
 response.Dispose();
-response.Dispose();
-SampleCheck.Equal(false, responseStream.CanRead);
-SampleCheck.Equal(true, requestStream.CanRead);
+response.Dispose(); // safe: the second call does nothing
+// responseStream.CanRead == false: the wrapper disposed the response
+// requestStream.CanRead == true: the using declaration disposes the request later
 ```
 
 ## Response API reference

@@ -25,10 +25,10 @@ builds a request for `customer-a` with page `1`.
 The example also reads Refit's method name and route template.
 
 ```csharp
-_ = request.Options.TryGetValue(new("tenant"), out string? tenant);
-_ = request.Options.TryGetValue(new("page"), out int page);
-_ = request.Options.TryGetValue(new(HttpRequestMessageOptions.MethodName), out string? method);
-_ = request.Options.TryGetValue(new(HttpRequestMessageOptions.RelativePathTemplate), out string? route);
+request.Options.TryGetValue(new("tenant"), out string? tenant);
+request.Options.TryGetValue(new("page"), out int page);
+request.Options.TryGetValue(new(HttpRequestMessageOptions.MethodName), out string? method);
+request.Options.TryGetValue(new(HttpRequestMessageOptions.RelativePathTemplate), out string? route);
 Console.WriteLine(tenant); // customer-a
 Console.WriteLine(page); // 1
 Console.WriteLine(method); // BuildAsync
@@ -79,15 +79,14 @@ for all three sources. Its `SaveAsync` call supplies `call-tenant`.
 The complete sample enables `CaptureRequestContent` and `CaptureMethodArguments`, then sends a person
 through a local handler. That handler observes the request used below. Its serializer uses the context class
 from [the AOT setup](../aot.md#make-one-call-ready-for-aot), `SampleJsonContext`, which lists `Person`.
-`TenantKey` is the constant `"tenant"`.
 
 
 ```csharp
-_ = request.Options.TryGetValue(new(HttpRequestMessageOptions.InterfaceType), out Type? interfaceType);
+request.Options.TryGetValue(new(HttpRequestMessageOptions.InterfaceType), out Type? interfaceType);
 bool hasReflectedInfo = request.Options.TryGetValue(new(HttpRequestMessageOptions.RestMethodInfo), out object? reflectedInfo);
-_ = request.Options.TryGetValue(new(HttpRequestMessageOptions.MethodArguments), out object?[]? arguments);
-_ = request.Options.TryGetValue(new(HttpRequestMessageOptions.RequestContent), out string? body);
-_ = request.Options.TryGetValue(new(TenantKey), out string? tenant);
+request.Options.TryGetValue(new(HttpRequestMessageOptions.MethodArguments), out object?[]? arguments);
+request.Options.TryGetValue(new(HttpRequestMessageOptions.RequestContent), out string? body);
+request.Options.TryGetValue(new("tenant"), out string? tenant);
 Console.WriteLine(interfaceType == typeof(IContextApi)); // True
 Console.WriteLine(hasReflectedInfo); // False for this generated method
 Console.WriteLine(arguments?.Length); // 3, including CancellationToken

@@ -21,8 +21,8 @@ Probabilities are fractions: 0 means never and 1 means always.
 Assign null to disable simulation. The delay runs on `http.TimeProvider`. Assign a fake clock so the test
 moves time forward itself instead of waiting. See [simulated time](streaming.md#control-simulated-time).
 
-**3. Send through a client and check the result.** The [runnable fault example](https://github.com/reactiveui/refit/blob/main/src/examples/Documentation/Testing/Testing.cs)
-checks a 503 response and then a thrown `HttpRequestException` with the configured message.
+**3. Send through a client and check the result.** The [fault examples](#fault-examples)
+check a 503 response and then a thrown `HttpRequestException` with the configured message.
 Raw `HttpClient` receives the simulated exception directly.
 Refit can wrap a connection failure as `ApiRequestException` according to its error settings.
 See [error handling](../results/errors.md).
@@ -82,54 +82,74 @@ with `[JsonSerializable]`. Set its context as `TypeInfoResolver` in the options 
 The [complete setup](index.md#make-your-first-test) applies even when a fault sometimes replaces the typed reply.
 Fault injection does not supply missing JSON metadata or validate native AOT compatibility.
 
-## Calculation and injection excerpts
+## Fault examples
 
-The calculation excerpt exercises the seeded constructor and every standalone method.
-`SimulationSeed` is 7 and `DefaultDelaySeconds` is 2 in the complete source.
+These tests send through a raw `HttpClient` built on the handler. Each request still needs a matching route.
+
+**An HTTP error.** `ErrorPercent = 1` replaces every reply with the error status.
 
 
 ```csharp
-NetworkBehavior defaults = new();
-NetworkBehavior behavior = new(SimulationSeed)
+NetworkBehavior behavior = new()
+{
+    Delay = TimeSpan.Zero,
+    FailurePercent = 0,
+    ErrorPercent = 1,
+    ErrorStatusCode = HttpStatusCode.ServiceUnavailable,
+};
+using StubHttp http = new(behavior)
+{
+    { Route.Get("/people/1"), Reply.Json("""{"id":1,"name":"Ada"}""") },
+};
+using HttpClient httpClient = new(http, disposeHandler: false);
+
+using HttpResponseMessage response = await httpClient.GetAsync(new Uri("https://api.example.com/people/1"));
+
+Assert.Equal(HttpStatusCode.ServiceUnavailable, response.StatusCode);
+http.VerifyAllCalled();
+```
+
+**A connection failure.** `FailurePercent = 1` makes every request throw the exception from `FailureFactory`.
+
+
+```csharp
+NetworkBehavior behavior = new()
+{
+    Delay = TimeSpan.Zero,
+    FailurePercent = 1,
+    FailureFactory = static () => new HttpRequestException("Connection reset."),
+};
+using StubHttp http = new(behavior)
+{
+    { Route.Get("/people/1"), Reply.Json("""{"id":1,"name":"Ada"}""") },
+};
+using HttpClient httpClient = new(http, disposeHandler: false);
+
+HttpRequestException error = await Assert.ThrowsAsync<HttpRequestException>(
+    () => httpClient.GetAsync(new Uri("https://api.example.com/people/1")));
+
+Assert.Equal("Connection reset.", error.Message);
+```
+
+**Draw values without a request.** The calculation methods use the same random sequence as the handler.
+A fixed seed makes that sequence repeat.
+
+
+```csharp
+NetworkBehavior behavior = new(seed: 7)
 {
     Delay = TimeSpan.Zero,
     Variance = 0,
     FailurePercent = 0,
     ErrorPercent = 1,
     ErrorStatusCode = HttpStatusCode.ServiceUnavailable,
-    FailureFactory = static () => new HttpRequestException(FailureMessage),
+    FailureFactory = static () => new HttpRequestException("Connection reset."),
 };
-SampleCheck.Equal(TimeSpan.FromSeconds(DefaultDelaySeconds), defaults.Delay);
-SampleCheck.Equal(TimeSpan.Zero, behavior.NextDelay());
-SampleCheck.Equal(false, behavior.NextIsFailure());
-SampleCheck.Equal(true, behavior.NextIsError());
-SampleCheck.Equal(FailureMessage, behavior.CreateFailure().Message);
-using HttpResponseMessage standalone = behavior.CreateErrorResponse();
-SampleCheck.Equal(HttpStatusCode.ServiceUnavailable, standalone.StatusCode);
-```
 
-The injection excerpt checks both fault kinds through a raw client.
-Each attempt still needs a matching route.
-
-
-```csharp
-using StubHttp http = new(behavior) { { Route.Get("/fault"), Reply.Text("normal") } };
-using HttpClient client = CreateClient(http);
-using HttpResponseMessage error = await client.GetAsync(new Uri("https://people.example/fault"));
-SampleCheck.Equal(HttpStatusCode.ServiceUnavailable, error.StatusCode);
-Verify(http);
-behavior.FailurePercent = 1;
-http.Add(Route.Get("/failure"), Reply.Text("normal"));
-bool failed = false;
-try
-{
-    using HttpResponseMessage response = await client.GetAsync(new Uri("https://people.example/failure"));
-}
-catch (HttpRequestException cause)
-{
-    failed = cause.Message == FailureMessage;
-}
-
-SampleCheck.Equal(true, failed);
-http.Behavior = null;
+Assert.Equal(TimeSpan.Zero, behavior.NextDelay());
+Assert.False(behavior.NextIsFailure());
+Assert.True(behavior.NextIsError());
+Assert.Equal("Connection reset.", behavior.CreateFailure().Message);
+using HttpResponseMessage error = behavior.CreateErrorResponse();
+Assert.Equal(HttpStatusCode.ServiceUnavailable, error.StatusCode);
 ```

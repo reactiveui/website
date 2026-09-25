@@ -40,18 +40,18 @@ internal sealed class DateFilter
 **2. Register formats on the default value formatter.** `AddFormat<DateTime>` supplies a rule for dates.
 `AddFormat<DateFilter, DateTime>` supplies a more specific rule for dates inside `DateFilter`.
 Pass that formatter through `RefitSettings` when creating the client.
-The source file imports `System.Globalization`.
-Its constants are `DateFormat = "yyyy-MM-dd"` and `DayText = "2026-09-17"`.
 
 ```csharp
 DefaultUrlParameterFormatter values = new();
 values.AddFormat<DateTime>("yyyy-MM");
-values.AddFormat<DateFilter, DateTime>(DateFormat);
-RefitSettings settings = new(host.Settings.ContentSerializer) { UrlParameterFormatter = values };
-IFormatterApi api = RestService.ForGenerated<IFormatterApi>(host.Client, settings);
-DateTime day = DateTime.ParseExact(DayText, DateFormat, CultureInfo.InvariantCulture);
+values.AddFormat<DateFilter, DateTime>("yyyy-MM-dd");
+RefitSettings settings = RefitSettings.ForJsonContext(SampleJsonContext.Default);
+settings.UrlParameterFormatter = values;
+IFormatterApi api = RestService.ForGenerated<IFormatterApi>(httpClient, settings);
+
+DateTime day = new(2026, 9, 17);
 using HttpRequestMessage dates = await api.DatesAsync(day, new() { Started = day, End = day });
-Console.WriteLine(dates.RequestUri); // /reports?day=2026-09&Started=2026-09-17&End=2026
+// dates.RequestUri: "/reports?day=2026-09&Started=2026-09-17&End=2026"
 ```
 
 **3. Keep an attribute for a local exception.** `End` keeps its `Query(Format = "yyyy")` rule.
@@ -65,21 +65,14 @@ also shows naming formatters applied to flattened query objects.
 
 The key formatter changes names taken from C# parameters and properties.
 An explicit `AliasAs` name keeps the name you supplied.
-Here are the four built-in key formatters. `Key` is the example's constant for `PageSize`.
+Set one on your settings:
 
 ```csharp
-IUrlParameterKeyFormatter[] names =
-[
-    new DefaultUrlParameterKeyFormatter(),
-    new CamelCaseUrlParameterKeyFormatter(),
-    new SnakeCaseUrlParameterKeyFormatter(),
-    new KebabCaseUrlParameterKeyFormatter(),
-];
-foreach (IUrlParameterKeyFormatter formatter in names)
-{
-    Console.WriteLine(formatter.Format(Key)); // PageSize, pageSize, page_size, page-size
-}
+settings.UrlParameterKeyFormatter = new SnakeCaseUrlParameterKeyFormatter();
+string key = settings.UrlParameterKeyFormatter.Format("PageSize"); // "page_size"
 ```
+
+Here are the four built-in key formatters.
 
 | Key formatter | `Format("PageSize")` | Settings shortcut |
 | --- | --- | --- |
@@ -116,8 +109,7 @@ Other types keep the client's normal value formatter.
 
 ```csharp
 settings.UrlParameterFormatterMap[typeof(bool)] = new YesNoFormatter();
-using HttpRequestMessage active = await api.ActiveAsync(true);
-Console.WriteLine(active.RequestUri); // /reports?active=yes
+using HttpRequestMessage active = await api.ActiveAsync(true); // active.RequestUri: "/reports?active=yes"
 ```
 
 The type map takes priority over `RefitSettings.UrlParameterFormatter`.
@@ -127,17 +119,31 @@ Refit checks for a registered formatter before using the default one.
 
 `HonorContentSerializerPropertyNamesInQuery` defaults to true. Set it to false when query
 keys should follow CLR names and your key formatter instead of explicit JSON names.
-The [query example](https://github.com/reactiveui/refit/blob/main/src/examples/Documentation/Queries/Queries.cs)
-uses a model whose `Value` property has `[JsonPropertyName("wire-name")]` and checks both settings:
+This model gives its `Value` property an explicit JSON name:
 
 ```csharp
-foreach (bool honor in new[] { true, false })
+internal sealed class JsonNamedValue
 {
-    RefitSettings settings = new(host.Settings.ContentSerializer) { HonorContentSerializerPropertyNamesInQuery = honor, UrlParameterKeyFormatter = new CamelCaseUrlParameterKeyFormatter() };
-    IQueryApi api = RestService.ForGenerated<IQueryApi>(host.Client, settings);
-    using HttpRequestMessage request = await api.JsonNamesAsync(new() { Value = 1 });
-    SampleCheck.Equal(honor ? "/people?wire-name=1" : "/people?value=1", request.RequestUri?.OriginalString);
+    [JsonPropertyName("wire-name")]
+    public int Value { get; init; }
 }
+```
+
+```csharp
+[Get("/people")]
+Task<HttpRequestMessage> JsonNamesAsync([Query] JsonNamedValue value);
+```
+
+With the default, the query key is the JSON name. Turn it off to use the CLR name and your key formatter:
+
+```csharp
+RefitSettings settings = RefitSettings.ForJsonContext(SampleJsonContext.Default);
+settings.UrlParameterKeyFormatter = new CamelCaseUrlParameterKeyFormatter();
+IQueryApi api = RestService.ForGenerated<IQueryApi>(httpClient, settings);
+using HttpRequestMessage honored = await api.JsonNamesAsync(new() { Value = 1 }); // "/people?wire-name=1"
+
+settings.HonorContentSerializerPropertyNamesInQuery = false;
+using HttpRequestMessage clrName = await api.JsonNamesAsync(new() { Value = 1 }); // "/people?value=1"
 ```
 
 This setting affects query names, not JSON body names. An explicit `AliasAs` still takes priority.
@@ -163,16 +169,15 @@ so the second call selects the `DateFilter` registration. The form formatter tak
 
 
 ```csharp
-string? general = values.Format(day, typeof(DateTime), typeof(DateTime));
-string? contained = values.Format(day, typeof(DateTime), typeof(DateFilter));
+string? general = values.Format(day, typeof(DateTime), typeof(DateTime)); // "2026-09"
+string? contained = values.Format(day, typeof(DateTime), typeof(DateFilter)); // "2026-09-17"
+
 DefaultFormUrlEncodedParameterFormatter formValues = new();
-string? formDate = formValues.Format(day, DateFormat);
-string? omitted = formValues.Format(null, null);
-Console.WriteLine(general); // 2026-09
-Console.WriteLine(contained); // 2026-09-17
-Console.WriteLine(formDate); // 2026-09-17
-Console.WriteLine(omitted is null); // True
+string? formDate = formValues.Format(day, "yyyy-MM-dd"); // "2026-09-17"
 ```
+
+`values` and `day` are the formatter and date from [the first example](#set-shared-date-rules).
+Both formatters return null for a null value.
 
 The URL formatter checks that the attribute provider is non-null before checking the value.
 A null value then returns null. Registrations match the value's exact runtime type and the exact container type.

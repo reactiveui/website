@@ -65,22 +65,26 @@ internal sealed partial class SampleJsonContext : JsonSerializerContext;
 ```
 
 **4. Reuse one HTTP client.** Create the HTTP client when your app starts and reuse it for calls.
-In the runnable samples, `host.Client` is that client. Its `BaseAddress` is `https://people.example`.
-The sample host supplies local replies, so you can run the examples without a web server.
+Set its `BaseAddress` to the root of the API. The examples on these pages call this client `httpClient`.
+
+```csharp
+HttpClient httpClient = new() { BaseAddress = new Uri("https://people.example") };
+```
+
+The runnable samples supply a local client that answers each request, so they run without a web server.
 
 **5. Create the implementation and call it.** `RestService.ForGenerated<T>` uses the implementation
 that Refit generated during the build. Pass your context's `Default` instance as the second argument.
-This call asks for `https://people.example/people/1`.
-In your own app, pass your HTTP client in place of `host.Client`. Add `using Refit;` to use Refit's types.
+This call asks for `https://people.example/people/1`. Add `using Refit;` to use Refit's types.
 
 ```csharp
-IPeopleApi api = RestService.ForGenerated<IPeopleApi>(host.Client, SampleJsonContext.Default);
-Person person = await api.GetPersonAsync(1, CancellationToken.None);
+IPeopleApi api = RestService.ForGenerated<IPeopleApi>(httpClient, SampleJsonContext.Default);
+Person person = await api.GetPersonAsync(1, cancellationToken);
 Console.WriteLine(person.Name); // Ada
 ```
 
-Pass a cancellation token from the caller when a request should stop with a screen or a user action.
-The example uses `CancellationToken.None` because its short local request has no caller to cancel it.
+Pass the caller's `CancellationToken` so the request stops when a screen closes or the user cancels.
+Pass `CancellationToken.None` when nothing can cancel the call.
 
 ## Pass settings instead of a context
 
@@ -89,20 +93,17 @@ You can build your own `JsonSerializerOptions`, wrap them in a serializer and pa
 Pick this form when you have options to share, need full control, or want one options object
 elsewhere in your app. The short path above needs no options object. This form makes you assign the
 `TypeInfoResolver` yourself and keep the options unchanged after first use.
-The sample host exposes its settings as `host.Settings`.
 
 ```csharp
 private static readonly JsonSerializerOptions JsonOptions = new(SampleJsonContext.Default.Options) { TypeInfoResolver = SampleJsonContext.Default };
-
-private readonly RefitSettings _settings = new(new SystemTextJsonContentSerializer(JsonOptions));
 ```
 
 ```csharp
-IPeopleApi withSettings = RestService.ForGenerated<IPeopleApi>(host.Client, host.Settings);
-Person fromSettings = await withSettings.GetPersonAsync(1, CancellationToken.None);
+RefitSettings settings = new(new SystemTextJsonContentSerializer(JsonOptions));
+IPeopleApi withSettings = RestService.ForGenerated<IPeopleApi>(httpClient, settings);
+Person fromSettings = await withSettings.GetPersonAsync(1, cancellationToken); // fromSettings == person
 ```
 
-In your own app, pass `_settings` in place of `host.Settings`.
 [Create a client](clients/creation.md#use-settings-instead-of-a-context) covers the settings form in detail.
 
 ## Find a topic

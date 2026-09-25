@@ -51,7 +51,7 @@ and consume its result with `await foreach`. `T` is the element type, and elemen
 
 ```csharp
 await using MemoryStream stream = new(Encoding.UTF8.GetBytes(body));
-await foreach (Person? item in streaming.DeserializeStreamAsync<Person>(stream, format, CancellationToken.None))
+await foreach (Person? item in streaming.DeserializeStreamAsync<Person>(stream, format, cancellationToken))
 {
     Console.WriteLine(item!.Name);
 }
@@ -88,7 +88,7 @@ Its read method selects a CLR type from the current token; the supplied `Type` d
 ```csharp
 ObjectToInferredTypesConverter converter = new();
 Utf8JsonReader reader = new("1"u8);
-_ = reader.Read();
+reader.Read();
 object? inferred = converter.Read(ref reader, typeof(object), Options);
 Console.WriteLine(inferred!.GetType().Name); // Int64
 ```

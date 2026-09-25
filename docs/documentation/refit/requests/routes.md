@@ -51,11 +51,11 @@ internal interface IRoutesApi
 }
 ```
 
-**2. Create the client and inspect a request.** The sample host's HTTP client has a base address
+**2. Create the client and inspect a request.** In this example `httpClient` has a base address
 of `https://people.example`. `[PathPrefix("/v1")]` adds `/v1` before each route in `IRoutesApi`.
 
 ```csharp
-IRoutesApi api = RestService.ForGenerated<IRoutesApi>(host.Client, host.Settings);
+IRoutesApi api = RestService.ForGenerated<IRoutesApi>(httpClient, settings);
 using HttpRequestMessage request = await api.GetAsync(1);
 Console.WriteLine(request.Method); // GET
 Console.WriteLine(request.RequestUri); // /v1/people/1

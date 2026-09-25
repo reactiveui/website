@@ -39,8 +39,7 @@ internal interface IClientApi
 Refit reads and writes JSON with the context's own options, and it never falls back to reflection.
 This is the short path. It needs no options or settings object.
 
-**3. Create the implementation.** `host.Client` is the shared client with the local sample transport.
-Pass your app's client with its `BaseAddress` set when you use this in your app.
+**3. Create the implementation.** Pass `httpClient`, your app's shared `HttpClient` with its `BaseAddress` set.
 Keep the client alive for the calls that use it.
 
 This supplied-client shape keeps the transport, handlers and fixed authentication headers in
@@ -49,7 +48,7 @@ generated path to use when trimming or Native AOT matters.
 
 
 ```csharp
-IClientApi api = RestService.ForGenerated<IClientApi>(host.Client, SampleJsonContext.Default);
+IClientApi api = RestService.ForGenerated<IClientApi>(httpClient, SampleJsonContext.Default);
 Person person = await api.ReadAsync();
 Console.WriteLine(person.Name); // Ada
 ```
@@ -67,19 +66,18 @@ Pick the options way when you have `JsonSerializerOptions` to share, need full c
 or want one options object reused elsewhere in your app.
 The short path needs no options object. The options way makes you assign the `TypeInfoResolver` yourself
 and keep the options unchanged after first use.
-The source file imports `System.Text.Json`. Its settings live in the sample class.
+Add `using System.Text.Json;` for `JsonSerializerOptions`.
 
 
 ```csharp
 private static readonly JsonSerializerOptions JsonOptions = new(SampleJsonContext.Default.Options) { TypeInfoResolver = SampleJsonContext.Default };
-
-private static readonly RefitSettings JsonSettings = new(new SystemTextJsonContentSerializer(JsonOptions));
 ```
 
-`ForGenerated<T>` takes those settings in place of the context:
+`ForGenerated<T>` takes settings built from those options in place of the context:
 
 ```csharp
-IClientApi withSettings = RestService.ForGenerated<IClientApi>(host.Client, JsonSettings);
+RefitSettings settings = new(new SystemTextJsonContentSerializer(JsonOptions));
+IClientApi withSettings = RestService.ForGenerated<IClientApi>(httpClient, settings);
 ```
 
 `RefitSettings.ForJsonContext(context)` is a shortcut that builds settings from a context.
@@ -87,7 +85,7 @@ They use the context's own options, like the short path.
 
 ```csharp
 RefitSettings shortcut = RefitSettings.ForJsonContext(SampleJsonContext.Default);
-IClientApi withShortcut = RestService.ForGenerated<IClientApi>(host.Client, shortcut);
+IClientApi withShortcut = RestService.ForGenerated<IClientApi>(httpClient, shortcut);
 ```
 
 When you have settings and want the context too, `ForGenerated(client, context, settings)` is the bridge.
@@ -97,7 +95,7 @@ See [choose whose settings apply](../serialization/json.md#choose-whose-settings
 This example keeps a `Buffered` setting next to the context.
 
 ```csharp
-IClientApi bridged = RestService.ForGenerated<IClientApi>(host.Client, SampleJsonContext.Default, new RefitSettings { Buffered = true });
+IClientApi bridged = RestService.ForGenerated<IClientApi>(httpClient, SampleJsonContext.Default, new RefitSettings { Buffered = true });
 ```
 
 ## Select an interface through Type
@@ -105,12 +103,12 @@ IClientApi bridged = RestService.ForGenerated<IClientApi>(host.Client, SampleJso
 Use the non-generic overload when your app selects a known interface through a `Type` value.
 It returns `object`, so the caller casts the implementation.
 Its settings parameter is required, and it has no context overload.
-Pass `JsonSettings` from above, or settings built with `RefitSettings.ForJsonContext`.
-The sample's `ClientInterface` contains `typeof(IClientApi)`.
+Pass `settings` from above, or settings built with `RefitSettings.ForJsonContext`.
 
 
 ```csharp
-object implementation = RestService.ForGenerated(ClientInterface, host.Client, JsonSettings);
+Type apiType = typeof(IClientApi);
+object implementation = RestService.ForGenerated(apiType, httpClient, settings);
 IClientApi selected = (IClientApi)implementation;
 ```
 
@@ -122,11 +120,10 @@ Keep each interface and its generated implementation available in the published 
 
 `CreateHttpClient` gives you a client you can explicitly dispose.
 It sets `BaseAddress`, uses `HttpMessageHandlerFactory` when supplied, and installs the settings token handler.
-The example's `settings` use generated JSON metadata and a local handler factory.
 
 
 ```csharp
-using HttpClient client = RestService.CreateHttpClient(BaseUrl, settings);
+using HttpClient client = RestService.CreateHttpClient("https://people.example", settings);
 IClientApi api = RestService.ForGenerated<IClientApi>(client, settings);
 Person person = await api.ReadAsync();
 ```
@@ -134,7 +131,7 @@ Person person = await api.ReadAsync();
 The string overloads of `ForGenerated`, with or without a context, create their own HTTP client.
 For an interface that inherits [`IDisposable`](https://learn.microsoft.com/dotnet/api/system.idisposable),
 the generated implementation disposes that client. Use that interface only when you want it to own
-the transport. `OwnedClientInterface` contains `typeof(IOwnedClientApi)` in this example.
+the transport.
 
 
 ```csharp
@@ -143,10 +140,11 @@ internal interface IOwnedClientApi : IClientApi, IDisposable;
 
 
 ```csharp
-using IOwnedClientApi owned = RestService.ForGenerated<IOwnedClientApi>(BaseUrl, settings);
-using IOwnedClientApi contextOwned = RestService.ForGenerated<IOwnedClientApi>(BaseUrl, SampleJsonContext.Default);
-using IOwnedClientApi defaultOwned = RestService.ForGenerated<IOwnedClientApi>(BaseUrl);
-using IOwnedClientApi selectedOwned = (IOwnedClientApi)RestService.ForGenerated(OwnedClientInterface, BaseUrl, settings);
+const string baseUrl = "https://people.example";
+using IOwnedClientApi owned = RestService.ForGenerated<IOwnedClientApi>(baseUrl, settings);
+using IOwnedClientApi contextOwned = RestService.ForGenerated<IOwnedClientApi>(baseUrl, SampleJsonContext.Default);
+using IOwnedClientApi defaultOwned = RestService.ForGenerated<IOwnedClientApi>(baseUrl);
+using IOwnedClientApi selectedOwned = (IOwnedClientApi)RestService.ForGenerated(typeof(IOwnedClientApi), baseUrl, settings);
 ```
 
 Disposing such an implementation also disposes a supplied HTTP client.
@@ -168,10 +166,10 @@ It is unsuitable as a Native AOT fallback.
 
 
 ```csharp
-IClientApi reflected = RestService.For<IClientApi>(host.Client, host.Settings);
-IRequestBuilder<IClientApi> builder = RequestBuilder.ForType<IClientApi>(host.Settings);
-IClientApi suppliedBuilder = RestService.For(host.Client, builder);
-object runtimeSelected = RestService.For(ClientInterface, host.Client, builder);
+IClientApi reflected = RestService.For<IClientApi>(httpClient, settings);
+IRequestBuilder<IClientApi> builder = RequestBuilder.ForType<IClientApi>(settings);
+IClientApi suppliedBuilder = RestService.For(httpClient, builder);
+object runtimeSelected = RestService.For(typeof(IClientApi), httpClient, builder);
 ```
 
 The settings overload first tries a fully inline generated implementation.

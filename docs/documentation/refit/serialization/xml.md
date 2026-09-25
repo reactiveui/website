@@ -69,7 +69,7 @@ content through these methods. The content declares `application/xml` and its wr
 ```csharp
 using HttpContent content = serializer.ToHttpContent(new WirePerson { Id = 1, Name = "Ada" });
 Console.WriteLine(content.Headers.ContentType?.MediaType); // application/xml
-WirePerson? person = await serializer.FromHttpContentAsync<WirePerson>(content, CancellationToken.None);
+WirePerson? person = await serializer.FromHttpContentAsync<WirePerson>(content, cancellationToken);
 Console.WriteLine(person?.Name); // Ada
 ```
 

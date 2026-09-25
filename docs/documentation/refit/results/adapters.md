@@ -55,17 +55,15 @@ internal interface IAdapterApi
 
 Create the generated client and invoke the wrapper once.
 
-
 ```csharp
-IAdapterApi api = RestService.ForGenerated<IAdapterApi>(host.Client, host.Settings);
-PersonCall<Person> pending = api.Read();
-Person result = await pending.InvokeAsync(CancellationToken.None);
-Console.WriteLine(result.Name); // Ada
+IAdapterApi api = RestService.ForGenerated<IAdapterApi>(httpClient, SampleJsonContext.Default);
+PersonCall<Person> pending = api.Read(); // nothing is sent yet
+Person person = await pending.InvokeAsync(cancellationToken); // sends the request; person.Name == "Ada"
 ```
 
 The source generator discovers adapter implementations declared in the current compilation and
 emits a direct `new ...().Adapt(...)` call. No entry in `RefitSettings.ReturnTypeAdapters` is needed.
-The example uses a local handler and generated System.Text.Json metadata, and is suitable for native AOT.
+With generated System.Text.Json metadata, this works in a Native AOT app.
 A class in a referenced assembly alone is not discovered by this source-declaration scan.
 
 ## Invocation and matching limits
@@ -98,18 +96,14 @@ that is designed to run more than once. See [request builders](../clients/reques
 creating that builder explicitly.
 
 The [reflection example](https://github.com/reactiveui/refit/blob/main/src/examples/Documentation/Clients/Reflection/ReflectionClients.cs)
-registers the same deferred wrapper used above. `Content` is the example's namespace;
-`host` supplies the local client and generated JSON serializer.
+registers the same deferred wrapper used above.
 
 ```csharp
-RefitSettings settings = new(host.Settings.ContentSerializer);
-settings.ReturnTypeAdapters.Add(typeof(Content.PersonCallAdapter<>));
-Content.IAdapterApi api = RestService.For<Content.IAdapterApi>(host.Client, settings);
-int before = host.Http.Requests.Count;
-Content.PersonCall<Person> pending = api.Read();
-SampleCheck.Equal(before, host.Http.Requests.Count);
-SampleCheck.Equal(expected, await pending.InvokeAsync(CancellationToken.None));
-SampleCheck.Equal(before + 1, host.Http.Requests.Count);
+RefitSettings settings = RefitSettings.ForJsonContext(SampleJsonContext.Default);
+settings.ReturnTypeAdapters.Add(typeof(PersonCallAdapter<>));
+IAdapterApi api = RestService.For<IAdapterApi>(httpClient, settings);
+PersonCall<Person> pending = api.Read(); // nothing is sent yet
+Person person = await pending.InvokeAsync(cancellationToken); // sends the request; person.Name == "Ada"
 ```
 
 The contracts are in [IReturnTypeAdapter.cs](https://github.com/reactiveui/refit/blob/main/src/Refit/IReturnTypeAdapter.cs).

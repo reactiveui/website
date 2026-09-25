@@ -43,7 +43,7 @@ internal interface IQueryApi
 ```
 
 **2. Create the generated client.** Use the shared client setup from [the first request](../index.md#your-first-request).
-The example creates `api` with `RestService.ForGenerated<IQueryApi>(host.Client)`.
+The example creates `api` with `RestService.ForGenerated<IQueryApi>(httpClient)`.
 
 **3. Inspect the query text.** This return type builds a request without sending it.
 Refit escapes the space in the name as `%20`.
@@ -85,7 +85,7 @@ internal sealed class SearchFilter
 `SerializeNull = true` sends the null note as `note=`. Without it, Refit leaves out a null property.
 
 ```csharp
-IQueryApi snakeApi = RestService.ForGenerated<IQueryApi>(host.Client, RefitSettings.SnakeCase());
+IQueryApi snakeApi = RestService.ForGenerated<IQueryApi>(httpClient, RefitSettings.SnakeCase());
 using HttpRequestMessage grouped = await snakeApi.FilterAsync(new());
 Console.WriteLine(grouped.RequestUri); // /people?filter.name=Ada%20Lovelace&filter.page_size=20&filter.price=5.00&filter.note=
 ```
@@ -257,7 +257,7 @@ internal interface IQueryOptionsApi
 
 
 ```csharp
-IQueryOptionsApi api = RestService.ForGenerated<IQueryOptionsApi>(host.Client, host.Settings);
+IQueryOptionsApi api = RestService.ForGenerated<IQueryOptionsApi>(httpClient, settings);
 DateTime day = DateTime.ParseExact("2026-09-17", "yyyy-MM-dd", CultureInfo.InvariantCulture);
 using HttpRequestMessage dates = await api.DatesAsync(new() { Started = day, End = day });
 Console.WriteLine(dates.RequestUri); // /reports?filter-Started=09%2F17%2F2026%2000%3A00%3A00&filter-End=2026
@@ -285,7 +285,7 @@ Console.WriteLine(text.RequestUri); // /reports?phrase=Ada%20Lovelace&other=Grac
 
 This loop builds each scalar collection format with a null middle element. Joined formats retain
 its empty place. `Indexed` uses comma-separated values for this scalar collection; the object collection
-earlier on this page demonstrates indexed property names. `results` stores the paths for the full sample's assertions.
+earlier on this page demonstrates indexed property names. Each new `RefitSettings` reuses the serializer from `settings`.
 
 
 ```csharp
@@ -295,14 +295,12 @@ CollectionFormat[] formats =
     CollectionFormat.Ssv, CollectionFormat.Tsv, CollectionFormat.Pipes,
     CollectionFormat.Multi, CollectionFormat.Indexed,
 ];
-List<(CollectionFormat Format, string? Path)> results = [];
 foreach (CollectionFormat format in formats)
 {
-    RefitSettings settings = new(host.Settings.ContentSerializer) { CollectionFormat = format };
-    IQueryOptionsApi api = RestService.ForGenerated<IQueryOptionsApi>(host.Client, settings);
+    RefitSettings formatSettings = new(settings.ContentSerializer) { CollectionFormat = format };
+    IQueryOptionsApi api = RestService.ForGenerated<IQueryOptionsApi>(httpClient, formatSettings);
     using HttpRequestMessage request = await api.TagsAsync(["math", null, "code"]);
     Console.WriteLine($"{format}: {request.RequestUri}");
-    results.Add((format, request.RequestUri?.OriginalString));
 }
 ```
 

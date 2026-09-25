@@ -23,9 +23,9 @@ Neither overload accepts a cancellation token. A zero timeout performs an immedi
 The timeout runs on `StubHttp.TimeProvider`. Set a fake clock to fail the check without waiting.
 See [simulated time](streaming.md#control-simulated-time).
 
-**3. Send and await the call.** The [runnable verification example](https://github.com/reactiveui/refit/blob/main/src/examples/Documentation/Testing/Testing.cs)
-asserts that verification is pending before it sends, then awaits both the response and verification.
-It also proves that an unmet expectation throws `InvalidOperationException`.
+**3. Send and await the call.** The [verification examples](#verification-examples)
+check that verification is pending before the send, then await both the response and verification.
+They also show that an unmet expectation throws `InvalidOperationException`.
 The error lists the missing methods and templates.
 
 `VerifyAllCalled()` checks immediately and throws the same missing-route error.
@@ -34,7 +34,8 @@ A route is consumed before simulated delay, injected failure and responder execu
 Even a request that later fails can satisfy verification.
 The protected `SendAsync(request, cancellationToken)` implements this behavior through `HttpClient` or `HttpMessageInvoker`.
 It honors cancellation during matching body reads and simulated delay, and checks again after building a normal reply.
-Initial request buffering has no token. Predicates and responders receive no token either.
+Initial request buffering has no token. Predicates receive no token either.
+A responder receives the token only through the [`Reply.From` overload](replies.md#json-text-and-custom-content) that takes one.
 
 ## Inspect sent models
 
@@ -97,9 +98,8 @@ Actual behavior: the handler keeps its completed signal. The next async verifica
 when the added route is missing, even with a positive timeout.
 A signal here is the internal task used to notify waiting verification that every expectation was consumed.
 
-The runnable example first completes one route, adds another, and checks the actual failure.
-It then sends the second request and checks synchronous verification succeeds.
-This uses no timing-based sleeps. See [the executable reproduction](https://github.com/reactiveui/refit/blob/main/src/examples/Documentation/Testing/Testing.cs).
+The [reproduction below](#a-route-added-after-verification) completes one route, adds another, and checks the actual failure.
+It uses no timing-based sleeps.
 Build the full table before any verification completes, or create another handler for a separate scenario.
 
 ## Concurrent one-shot requests
@@ -112,51 +112,62 @@ The complete example reproduces this without relying on timing: an asynchronous 
 until both requests are matching, then lets both continue. Both receive the reply, and verification succeeds.
 One expectation should accept one request, so this is an implementation discrepancy.
 
-## Executable verification excerpts
+## Verification examples
 
-This call belongs to a synchronous helper in the complete example. It runs after a client call finishes.
-The asynchronous example uses it alongside both async overloads.
+### Wait for a request
 
-
-```csharp
-http.VerifyAllCalled();
-```
+Start the verification before the send. It completes once the expected request arrives.
 
 
 ```csharp
-using StubHttp http = new() { { Route.Get("/expected"), Reply.Text("received") } };
-using HttpClient client = CreateClient(http);
-Task waiting = http.VerifyAllCalledAsync(TimeSpan.FromSeconds(1));
-SampleCheck.Equal(false, waiting.IsCompleted);
-using HttpResponseMessage response = await client.GetAsync(new Uri("https://people.example/expected"));
-await waiting;
-await http.VerifyAllCalledAsync();
-Verify(http);
-SampleCheck.Equal(null, await http.LastRequestBodyAsync<TestingPerson>());
-```
+using StubHttp http = new()
+{
+    { Route.Get("/people/1"), Reply.Json("""{"id":1,"name":"Ada"}""") },
+};
+using HttpClient httpClient = new(http, disposeHandler: false);
 
-The additional-route reproduction asserts immediate completion and the missing second route.
-
-
-```csharp
-using StubHttp http = new() { { Route.Get("/first"), Reply.Status(HttpStatusCode.OK) } };
-using HttpClient client = CreateClient(http);
-using HttpResponseMessage first = await client.GetAsync(new Uri("https://people.example/first"));
-await http.VerifyAllCalledAsync();
-http.Add(Route.Get("/second"), Reply.Status(HttpStatusCode.OK));
 Task verification = http.VerifyAllCalledAsync(TimeSpan.FromSeconds(1));
-SampleCheck.Equal(true, verification.IsCompleted);
-bool rejected = false;
-try
-{
-    await verification;
-}
-catch (InvalidOperationException error)
-{
-    rejected = error.Message.Contains("/second", StringComparison.Ordinal);
-}
+Assert.False(verification.IsCompleted); // nothing has been sent yet
 
-SampleCheck.Equal(true, rejected);
-using HttpResponseMessage second = await client.GetAsync(new Uri("https://people.example/second"));
-Verify(http);
+using HttpResponseMessage response = await httpClient.GetAsync(new Uri("https://api.example.com/people/1"));
+
+await verification; // completes once the expected request arrives
+```
+
+### Fail on a missing request
+
+`VerifyAllCalled()` checks at once. The error message lists each missing method and template.
+
+
+```csharp
+using StubHttp http = new()
+{
+    { Route.Get("/people/1"), Reply.Status(HttpStatusCode.OK) },
+};
+
+InvalidOperationException error = Assert.Throws<InvalidOperationException>(http.VerifyAllCalled);
+
+Assert.Contains("GET /people/1", error.Message);
+```
+
+### A route added after verification
+
+This reproduction shows the discrepancy described [above](#adding-routes-after-completed-verification).
+
+
+```csharp
+using StubHttp http = new()
+{
+    { Route.Get("/people/1"), Reply.Status(HttpStatusCode.OK) },
+};
+using HttpClient httpClient = new(http, disposeHandler: false);
+using HttpResponseMessage first = await httpClient.GetAsync(new Uri("https://api.example.com/people/1"));
+await http.VerifyAllCalledAsync();
+
+http.Add(Route.Get("/people/2"), Reply.Status(HttpStatusCode.OK));
+Task verification = http.VerifyAllCalledAsync(TimeSpan.FromSeconds(1));
+
+Assert.True(verification.IsCompleted); // it did not wait for /people/2
+InvalidOperationException error = await Assert.ThrowsAsync<InvalidOperationException>(() => verification);
+Assert.Contains("/people/2", error.Message);
 ```

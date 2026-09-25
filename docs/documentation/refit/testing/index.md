@@ -55,47 +55,65 @@ Native AOT needs this generated metadata for the request and reply models.
 Read [JSON configuration](../serialization/json.md) and [AOT](../aot.md) for registration limits.
 
 
+Put these two members in your test class. `CreateSettings()` returns new settings each time.
+Give each handler its own settings, because `StubHttp` changes the settings you pass it.
+
+
 ```csharp
 private static readonly JsonSerializerOptions JsonOptions = new(TestingJsonContext.Default.Options) { TypeInfoResolver = TestingJsonContext.Default };
-```
 
-
-```csharp
 private static RefitSettings CreateSettings() => new(new SystemTextJsonContentSerializer(JsonOptions));
 ```
 
 **4. Choose replies and make real client calls.** A route selects a request by its method and path.
 A one-shot expectation must receive one matching request. Each entry below is such an expectation.
-`SampleCheck.Equal` throws when a result differs. Your tests can use their assertion library instead.
+`VerifyAllCalled()` fails the test when an expectation received no request.
+The examples use xUnit's `Assert`; use your test framework's equivalent.
+
+
+```csharp
+[Fact]
+public async Task GetAsync_ReturnsThePerson()
+{
+    // Arrange
+    using StubHttp http = new()
+    {
+        { Route.Get("/people/{id}"), Reply.With(new TestingPerson(1, "Ada")) },
+    };
+    ITestingApi api = http.CreateGeneratedClient<ITestingApi>("https://api.example.com", CreateSettings());
+
+    // Act
+    TestingPerson person = await api.GetAsync(1);
+
+    // Assert
+    Assert.Equal("Ada", person.Name);
+    http.VerifyAllCalled();
+}
+```
+
+**5. Check what the client sent.** The handler records each request. `LastRequestBodyAsync<T>()` reads the latest
+body back as a model. `RequestBodyAsync<T>(index)` reads the body at a zero-based position in `Requests`.
+The rest of the examples on these pages show only the body of a test.
 
 
 ```csharp
 using StubHttp http = new()
 {
-    {
-        Route.Get("/people/{id}"),
-        Reply.With(new TestingPerson(1, PersonName))
-    },
-    {
-        Route.Post("/people"),
-        Reply.With(new TestingPerson(CreatedPersonId, CreatedName), HttpStatusCode.Created)
-    },
+    { Route.Post("/people"), Reply.With(new TestingPerson(2, "Grace"), HttpStatusCode.Created) },
 };
-ITestingApi api = http.CreateGeneratedClient<ITestingApi>(BaseUrl, CreateSettings());
-TestingPerson person = await api.GetAsync(1);
-SampleCheck.Equal(PersonName, person.Name);
-_ = await api.CreateAsync(new(CreatedPersonId, CreatedName));
+ITestingApi api = http.CreateGeneratedClient<ITestingApi>("https://api.example.com", CreateSettings());
+
+_ = await api.CreateAsync(new TestingPerson(2, "Grace"));
+
 TestingPerson? sent = await http.LastRequestBodyAsync<TestingPerson>();
-SampleCheck.Equal(CreatedName, sent?.Name);
-SampleCheck.Equal(sent, await http.RequestBodyAsync<TestingPerson>(1));
-SampleCheck.Equal(HttpMethod.Post, http.Requests[1].Method);
-Verify(http);
+Assert.Equal("Grace", sent?.Name);
+Assert.Equal(sent, await http.RequestBodyAsync<TestingPerson>(0)); // the same body, read by its index
+Assert.Equal(HttpMethod.Post, http.Requests[0].Method);
+http.VerifyAllCalled();
 ```
 
-The fences are excerpts of the complete example. Its files include imports, assertions and a runner.
-Its constants name Ada, Grace, the created person's ID 2 and the base URL `https://people.example`.
-Use `System.Net`, `System.Text.Json`, `System.Text.Json.Serialization`, `Refit` and `Refit.Testing`
-when assembling the standalone code in your app.
+Add `using` directives for `System.Net`, `System.Text.Json`, `System.Text.Json.Serialization`, `Refit`,
+`Refit.Testing` and `Xunit`.
 
 ## Choose the test boundary
 
@@ -138,32 +156,35 @@ Trimming removes code the build believes is unused. Prefer the generated factori
 Creating a client does not make an HTTP request or prove that its JSON configuration is complete.
 
 
-```csharp
-using StubHttp wiring = new();
-RefitSettings fresh = wiring.ToSettings();
-SampleCheck.Equal(wiring, fresh.HttpMessageHandlerFactory!());
-RefitSettings supplied = CreateSettings();
-SampleCheck.Equal(supplied, wiring.ToSettings(supplied));
-ITestingApi generated = wiring.CreateGeneratedClient<ITestingApi>(BaseUrl);
-SampleCheck.Equal(true, generated is not null);
-SampleCheck.Equal(wiring, supplied.HttpMessageHandlerFactory!());
-```
-
-The legacy factories run in the JIT version of the example. The native host excludes them.
-Their settings overload has generated JSON metadata but the client factory itself can fall back to reflection.
-The complete example calls both clients through local routes and checks that they return the same person.
-Use generated factories for native execution.
+This test shows that `ToSettings(settings)` returns your instance, now pointed at the handler.
 
 
 ```csharp
 using StubHttp http = new();
-http.Add(Route.Get("/people/1"), Reply.Json("{\"id\":1,\"name\":\"Ada\"}"));
-ITestingApi defaults = http.CreateClient<ITestingApi>("https://people.example");
-TestingPerson first = await defaults!.GetAsync(1);
-RefitSettings settings = new(new SystemTextJsonContentSerializer(TestingJsonContext.Default.Options));
-http.Add(Route.Get("/people/1"), Reply.Json("{\"id\":1,\"name\":\"Ada\"}"));
-ITestingApi configured = http.CreateClient<ITestingApi>("https://people.example", settings);
-TestingPerson second = await configured!.GetAsync(1);
+RefitSettings settings = CreateSettings();
+
+RefitSettings returned = http.ToSettings(settings);
+
+Assert.Same(settings, returned);
+Assert.Same(http, settings.HttpMessageHandlerFactory!());
+```
+
+The reflection-based factories run in the JIT version of the example. The native host excludes them.
+With generated JSON metadata in the settings, the client factory itself can still fall back to reflection.
+`CreateClient<T>(hostUrl)` works the same way with default settings.
+Use generated factories for native execution.
+
+
+```csharp
+using StubHttp http = new()
+{
+    { Route.Get("/people/1"), Reply.Json("""{"id":1,"name":"Ada"}""") },
+};
+ITestingApi api = http.CreateClient<ITestingApi>("https://api.example.com", CreateSettings());
+
+TestingPerson person = await api.GetAsync(1);
+
+Assert.Equal("Ada", person.Name);
 ```
 
 ## API reference

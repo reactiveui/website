@@ -25,22 +25,20 @@ The context overloads exist on .NET 8 and later.
 Refit reads and writes JSON with the context's own options, and it never falls back to reflection.
 
 **2. Register the client.** Import `Microsoft.Extensions.DependencyInjection`.
-`CreateTransport(expected)` is the sample's local handler factory.
-In an app, keep the normal transport or configure the handler your app needs.
+Set the service's base address on the returned builder.
 
 **3. Resolve the interface and call it.** This console example owns and disposes its service provider.
 An application host owns the provider for a hosted app.
-
+The runnable sample also plugs in a local handler, so it runs without a web server.
 
 ```csharp
 ServiceCollection services = new();
-_ = services.AddRefitGeneratedClient<IClientApi>(SampleJsonContext.Default)
-    .ConfigureHttpClient(static client => client.BaseAddress = new(BaseUrl))
-    .ConfigurePrimaryHttpMessageHandler(() => CreateTransport(expected));
+services.AddRefitGeneratedClient<IClientApi>(SampleJsonContext.Default)
+    .ConfigureHttpClient(static client => client.BaseAddress = new Uri("https://api.example.com"));
+
 await using ServiceProvider provider = services.BuildServiceProvider();
 IClientApi api = provider.GetRequiredService<IClientApi>();
-Person person = await api.ReadAsync();
-Console.WriteLine(person.Name); // Ada
+Person person = await api.ReadAsync(); // person.Name == "Ada"
 ```
 
 The API implementation is transient: each resolution can create a new implementation.
@@ -55,20 +53,15 @@ Pick the options way when you have `JsonSerializerOptions` to share, need full c
 or want one options object reused elsewhere in your app.
 The short path needs no options object. The options way makes you assign the `TypeInfoResolver` yourself
 and keep the options unchanged after first use.
-[Client creation](creation.md#use-settings-instead-of-a-context) builds `JsonSettings` this way.
+[Client creation](creation.md#use-settings-instead-of-a-context) builds `JsonOptions` this way.
 
 The settings holder is a singleton: its settings are shared by clients for that registration.
 
-
 ```csharp
-ServiceCollection settingsServices = new();
-_ = settingsServices.AddSingleton<ISettingsFor>(new SettingsFor<IClientApi>(JsonSettings));
-_ = settingsServices.AddRefitGeneratedClient<IClientApi>(JsonSettings)
-    .ConfigureHttpClient(static client => client.BaseAddress = new(BaseUrl))
-    .ConfigurePrimaryHttpMessageHandler(() => CreateTransport(expected));
-await using ServiceProvider settingsProvider = settingsServices.BuildServiceProvider();
-IClientApi settingsApi = settingsProvider.GetRequiredService<IClientApi>();
-Person fromSettings = await settingsApi.ReadAsync();
+RefitSettings settings = new(new SystemTextJsonContentSerializer(JsonOptions));
+
+services.AddRefitGeneratedClient<IClientApi>(settings)
+    .ConfigureHttpClient(static client => client.BaseAddress = new Uri("https://api.example.com"));
 ```
 
 To keep your settings and add the context, pass both. That is the bridge.
@@ -82,24 +75,22 @@ Refit rejects null keys.
 
 
 ```csharp
-ServiceCollection keyedServices = new();
-_ = keyedServices.AddKeyedRefitGeneratedClient<IClientApi>(ServiceKey, SampleJsonContext.Default)
-    .ConfigureHttpClient(static client => client.BaseAddress = new(BaseUrl))
-    .ConfigurePrimaryHttpMessageHandler(() => CreateTransport(expected));
-await using ServiceProvider keyedProvider = keyedServices.BuildServiceProvider();
-IClientApi regional = keyedProvider.GetRequiredKeyedService<IClientApi>(ServiceKey);
+services.AddKeyedRefitGeneratedClient<IClientApi>("eu", SampleJsonContext.Default)
+    .ConfigureHttpClient(static client => client.BaseAddress = new Uri("https://eu.api.example.com"));
+services.AddKeyedRefitGeneratedClient<IClientApi>("us", SampleJsonContext.Default)
+    .ConfigureHttpClient(static client => client.BaseAddress = new Uri("https://us.api.example.com"));
+
+IClientApi europe = provider.GetRequiredKeyedService<IClientApi>("eu");
 ```
+
+In a constructor, ask for a keyed client with `[FromKeyedServices("eu")] IClientApi api`.
 
 The keyed overloads with settings also take an HTTP client name.
 This registration names the underlying HTTP client `regional-people`:
 
 ```csharp
-ServiceCollection keyedSettingsServices = new();
-_ = keyedSettingsServices.AddKeyedRefitGeneratedClient<IClientApi>(ServiceKey, JsonSettings, "regional-people")
-    .ConfigureHttpClient(static client => client.BaseAddress = new(BaseUrl))
-    .ConfigurePrimaryHttpMessageHandler(() => CreateTransport(expected));
-await using ServiceProvider keyedSettingsProvider = keyedSettingsServices.BuildServiceProvider();
-IClientApi regionalWithSettings = keyedSettingsProvider.GetRequiredKeyedService<IClientApi>(ServiceKey);
+services.AddKeyedRefitGeneratedClient<IClientApi>("eu", settings, "regional-people")
+    .ConfigureHttpClient(static client => client.BaseAddress = new Uri("https://eu.api.example.com"));
 ```
 
 `regional-people` is the underlying named HTTP client.
@@ -116,9 +107,10 @@ Do not capture a scoped token service in that singleton settings object.
 
 
 ```csharp
-ServiceCollection factoryServices = new();
-_ = factoryServices.AddSingleton(JsonSettings);
-_ = factoryServices.AddRefitGeneratedClient<IClientApi>(static serviceProvider => serviceProvider.GetRequiredService<RefitSettings>(), "people");
+services.AddSingleton(settings);
+services.AddRefitGeneratedClient<IClientApi>(
+    static serviceProvider => serviceProvider.GetRequiredService<RefitSettings>(),
+    "people");
 ```
 
 `SettingsFor<T>` carries the nullable settings for one interface.
@@ -128,8 +120,10 @@ The constructor stores the supplied settings reference; it does not copy setting
 
 
 ```csharp
-SettingsFor<IClientApi> holder = settingsProvider.GetRequiredService<SettingsFor<IClientApi>>();
-ISettingsFor untypedHolder = settingsProvider.GetRequiredService<ISettingsFor>();
+services.AddSingleton<ISettingsFor>(new SettingsFor<IClientApi>(settings));
+
+SettingsFor<IClientApi> holder = provider.GetRequiredService<SettingsFor<IClientApi>>();
+ISettingsFor untypedHolder = provider.GetRequiredService<ISettingsFor>();
 ```
 
 Pass a context next to the settings factory to keep your settings and add the context.
@@ -138,29 +132,26 @@ This registration returns snake_case settings and adds the example's context cla
 When the factory returns `null`, Refit uses the context's own options.
 
 ```csharp
-ServiceCollection contextFactoryServices = new();
-_ = contextFactoryServices.AddSingleton(RefitSettings.SnakeCase());
-_ = contextFactoryServices.AddRefitGeneratedClient<IClientApi>(SampleJsonContext.Default, static serviceProvider => serviceProvider.GetRequiredService<RefitSettings>(), "snake-people")
-    .ConfigureHttpClient(static client => client.BaseAddress = new(BaseUrl))
-    .ConfigurePrimaryHttpMessageHandler(() => CreateTransport(expected));
+services.AddSingleton(RefitSettings.SnakeCase());
+services.AddRefitGeneratedClient<IClientApi>(
+        SampleJsonContext.Default,
+        static serviceProvider => serviceProvider.GetRequiredService<RefitSettings>(),
+        "snake-people")
+    .ConfigureHttpClient(static client => client.BaseAddress = new Uri("https://api.example.com"));
 ```
 
 ## Resolve authorization per request
 
 `AddAuthorizationHeaderValueProvider` adds a handler that creates a fresh DI scope for each request.
 Use its service provider to resolve a token service with a scoped lifetime.
-The short sample returns a local token without resolving another service.
-
+`ITokenService` stands for your own service. Its `GetTokenAsync` method returns the access token as a `ValueTask<string>`.
 
 ```csharp
-ServiceCollection tokenServices = new();
-StubHttp tokenTransport = CreateTransport(expected);
-_ = tokenServices.AddRefitGeneratedClient<IClientApi>(JsonSettings)
-    .ConfigureHttpClient(static client => client.BaseAddress = new(BaseUrl))
-    .ConfigurePrimaryHttpMessageHandler(() => tokenTransport)
-    .AddAuthorizationHeaderValueProvider(static (_, _, _) => ValueTask.FromResult(HandlerToken));
-await using ServiceProvider tokenProvider = tokenServices.BuildServiceProvider();
-IClientApi secured = tokenProvider.GetRequiredService<IClientApi>();
+services.AddScoped<ITokenService, TokenService>();
+services.AddRefitGeneratedClient<IClientApi>(settings)
+    .ConfigureHttpClient(static client => client.BaseAddress = new Uri("https://api.example.com"))
+    .AddAuthorizationHeaderValueProvider(static (serviceProvider, request, cancellationToken) =>
+        serviceProvider.GetRequiredService<ITokenService>().GetTokenAsync(cancellationToken));
 ```
 
 The handler runs for every outgoing request.
@@ -178,23 +169,31 @@ fills a declared scheme only when its token is missing.
 `AuthorizationHeaderValueGetter` is configured.
 That handler obtains a token whenever an authorization header exists, including a header with an explicit token.
 
-The runnable reproduction uses a local transport that requires the handler token.
-
+This example counts how often Refit asks for a token.
 
 ```csharp
-using HttpClient client = RestService.CreateHttpClient(BaseUrl, settings);
+int calls = 0;
+RefitSettings settings = new()
+{
+    AuthorizationHeaderValueGetter = (request, cancellationToken) =>
+    {
+        calls++;
+        return ValueTask.FromResult("ada-access-token");
+    },
+};
+
+using HttpClient client = RestService.CreateHttpClient("https://api.example.com", settings);
 IClientApi api = RestService.ForGenerated<IClientApi>(client, settings);
-await api.AuthorizedAsync();
-Console.WriteLine(calls); // 2
+
+await api.AuthorizedAsync(); // calls == 2
 ```
 
 The missing-token call asks twice: generated preparation and the handler both invoke the getter.
-The sample resets its invocation counter and passes a different explicit caller token.
-
+A call that passes its own token asks once:
 
 ```csharp
-await api.ExplicitAsync(CallerToken);
-Console.WriteLine(calls); // 1
+calls = 0;
+await api.ExplicitAsync("caller-token"); // calls == 1, and the request sends "ada-access-token"
 ```
 
 The explicit-token call asks once, and the handler replaces the supplied token.
@@ -214,22 +213,20 @@ compiles these calls without claiming Native AOT support.
 
 
 ```csharp
-ServiceCollection services = new();
-_ = services.AddRefitClient<IClientApi>(settings)
-    .ConfigureHttpClient(static client => client.BaseAddress = new(BaseUrl));
-_ = services.AddRefitClient(ClientInterface, static _ => null, "runtime-selected");
-_ = services.AddKeyedRefitClient<IClientApi>(ServiceKey, settings);
+services.AddRefitClient<IClientApi>(settings)
+    .ConfigureHttpClient(static client => client.BaseAddress = new Uri("https://api.example.com"));
+services.AddRefitClient(typeof(IClientApi), static _ => null, "runtime-selected");
+services.AddKeyedRefitClient<IClientApi>("eu", settings);
 ```
 
 The `IHttpClientBuilder` overloads attach registrations to an existing named HTTP configuration.
 They preserve its name.
 
-
 ```csharp
 IHttpClientBuilder http = services.AddHttpClient("existing")
-    .ConfigureHttpClient(static client => client.BaseAddress = new(BaseUrl));
-_ = http.AddRefitClient<IClientApi>(settings);
-_ = http.AddKeyedRefitClient(ClientInterface, ServiceKey, settings);
+    .ConfigureHttpClient(static client => client.BaseAddress = new Uri("https://api.example.com"));
+http.AddRefitClient<IClientApi>(settings);
+http.AddKeyedRefitClient(typeof(IClientApi), "eu", settings);
 ```
 
 There are no generated-registration overloads on `IHttpClientBuilder`.

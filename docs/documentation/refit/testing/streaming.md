@@ -42,30 +42,28 @@ The returned `ValueTask<bool>` is not complete, because no data is waiting. Rele
 
 ```csharp
 StreamSource source = new(StreamingContentFormat.JsonLines);
-using StubHttp http = new() { { Route.Get(LivePath), Reply.Stream(source) } };
-ITestingStreamingApi api = http.CreateGeneratedClient<ITestingStreamingApi>(BaseUrl, CreateSettings());
+using StubHttp http = new() { { Route.Get("/people/live"), Reply.Stream(source) } };
+ITestingStreamingApi api = http.CreateGeneratedClient<ITestingStreamingApi>("https://api.example.com", CreateSettings());
 await using IAsyncEnumerator<TestingPerson> people = api.WatchAsync(CancellationToken.None).GetAsyncEnumerator();
 
-source.Release(new TestingPerson(1, FirstName));
-SampleCheck.Equal(true, await people.MoveNextAsync());
-SampleCheck.Equal(FirstName, people.Current.Name);
+source.Release(new TestingPerson(1, "Ada"));
+Assert.True(await people.MoveNextAsync());
+Assert.Equal("Ada", people.Current.Name);
 
-ValueTask<bool> second = people.MoveNextAsync();
-SampleCheck.Equal(false, second.IsCompleted); // Grace has not been released yet.
+ValueTask<bool> next = people.MoveNextAsync();
+Assert.False(next.IsCompleted); // Grace has not been released yet
 
-source.Release(new TestingPerson(SecondId, SecondName));
-SampleCheck.Equal(true, await second);
-SampleCheck.Equal(SecondName, people.Current.Name);
+source.Release(new TestingPerson(2, "Grace"));
+Assert.True(await next);
+Assert.Equal("Grace", people.Current.Name);
 
 source.Complete();
-SampleCheck.Equal(false, await people.MoveNextAsync());
-await source.Closed; // Reaching the end disposed the response.
-SampleCheck.Equal(StreamedPeople, source.ReadChunks);
+Assert.False(await people.MoveNextAsync());
+await source.Closed; // reaching the end disposed the response
 ```
 
 `Complete()` ends the body. The loop finishes, Refit disposes the response, and `Closed` completes.
-`CreateSettings()` registers the JSON metadata, as on the [testing overview](index.md#make-your-first-test).
-`LivePath` is `/people/live`, and `SecondId` is 2. `CreateClient(http)` returns `new HttpClient(http, disposeHandler: false)`.
+`CreateSettings()` is the helper from the [testing overview](index.md#make-your-first-test). It registers the JSON metadata.
 
 ## Cancellation, disconnects and stalled bodies
 
@@ -74,19 +72,19 @@ SampleCheck.Equal(StreamedPeople, source.ReadChunks);
 
 
 ```csharp
-await cancellation.CancelAsync();
-bool cancelled = false;
-try
-{
-    _ = await stalled;
-}
-catch (OperationCanceledException)
-{
-    cancelled = true;
-}
+StreamSource source = new();
+using StubHttp http = new() { { Route.Get("/people/live"), Reply.Stream(source) } };
+ITestingStreamingApi api = http.CreateGeneratedClient<ITestingStreamingApi>("https://api.example.com", CreateSettings());
+using CancellationTokenSource cancellation = new();
+await using IAsyncEnumerator<TestingPerson> people = api.WatchAsync(cancellation.Token).GetAsyncEnumerator();
+source.Release(new TestingPerson(1, "Ada"));
+Assert.True(await people.MoveNextAsync());
 
-SampleCheck.Equal(true, cancelled);
-await source.Closed; // The client disposed the response when the read was cancelled.
+ValueTask<bool> waiting = people.MoveNextAsync();
+await cancellation.CancelAsync();
+
+await Assert.ThrowsAnyAsync<OperationCanceledException>(async () => await waiting);
+await source.Closed; // the client disposed the response when the read was cancelled
 ```
 
 **A dropped connection fails after the chunks it already sent.** Release the chunks first, then call `Disconnect()`.
@@ -97,8 +95,22 @@ Use `Fail(exception)` to throw your own exception instead.
 
 ```csharp
 StreamSource source = new();
-source.Release(new TestingPerson(1, FirstName));
+source.Release(new TestingPerson(1, "Ada"));
 source.Disconnect();
+using StubHttp http = new() { { Route.Get("/people/live"), Reply.Stream(source) } };
+ITestingStreamingApi api = http.CreateGeneratedClient<ITestingStreamingApi>("https://api.example.com", CreateSettings());
+List<string> names = [];
+
+HttpIOException error = await Assert.ThrowsAsync<HttpIOException>(async () =>
+{
+    await foreach (TestingPerson person in api.WatchAsync(CancellationToken.None))
+    {
+        names.Add(person.Name);
+    }
+});
+
+Assert.Equal("Ada", Assert.Single(names));
+Assert.Equal(HttpRequestError.ResponseEnded, error.HttpRequestError);
 ```
 
 **A stalled body sends headers and then nothing.** Do not release anything. The status and content type arrive,
@@ -106,15 +118,20 @@ but a body read waits until you release data, cancel the read or dispose the res
 
 
 ```csharp
-HttpResponseMessage response = await client.GetAsync(new Uri($"{BaseUrl}/events"), HttpCompletionOption.ResponseHeadersRead);
-try
-{
-    SampleCheck.Equal(HttpStatusCode.OK, response.StatusCode);
-    SampleCheck.Equal("text/event-stream", response.Content.Headers.ContentType?.MediaType);
+StreamSource source = new(StreamingContentFormat.ServerSentEvents);
+using StubHttp http = new() { { Route.Get("/events"), Reply.Stream(source) } };
+using HttpClient httpClient = new(http, disposeHandler: false);
+using CancellationTokenSource cancellation = new();
 
-    Stream body = await response.Content.ReadAsStreamAsync();
-    ValueTask<int> read = body.ReadAsync(new byte[ReadBufferBytes], cancellation.Token);
-    SampleCheck.Equal(false, read.IsCompleted); // Headers arrived; the body has not.
+using HttpResponseMessage response = await httpClient.GetAsync(new Uri("https://api.example.com/events"), HttpCompletionOption.ResponseHeadersRead);
+Stream body = await response.Content.ReadAsStreamAsync();
+ValueTask<int> read = body.ReadAsync(new byte[64], cancellation.Token);
+
+Assert.Equal("text/event-stream", response.Content.Headers.ContentType?.MediaType);
+Assert.False(read.IsCompleted); // the headers arrived; the body has not
+
+await cancellation.CancelAsync();
+await Assert.ThrowsAnyAsync<OperationCanceledException>(async () => await read);
 ```
 
 Use a stalled body to check your app's own timeout. Cancel the token yourself instead of waiting for a real timer.
@@ -123,11 +140,21 @@ Use a stalled body to check your app's own timeout. Cancel the token yourself in
 
 When the test does not need to pace the items, `Reply.JsonLines(items)` and `Reply.ServerSentEvents(items)` send one
 chunk per item and then end the body. Each response gets its own copy, so these replies also work on a reusable route.
+`Reply.ServerSentEvents(people)` works the same way.
 
 
 ```csharp
-TestingPerson[] people = [new(1, FirstName), new(SecondId, SecondName)];
-using StubHttp http = new() { { Route.Get(LivePath), Reply.JsonLines(people) }, { Route.Get(LivePath), Reply.ServerSentEvents(people) } };
+TestingPerson[] people = [new(1, "Ada"), new(2, "Grace")];
+using StubHttp http = new() { { Route.Get("/people/live"), Reply.JsonLines(people) } };
+ITestingStreamingApi api = http.CreateGeneratedClient<ITestingStreamingApi>("https://api.example.com", CreateSettings());
+
+List<string> names = [];
+await foreach (TestingPerson person in api.WatchAsync(CancellationToken.None))
+{
+    names.Add(person.Name);
+}
+
+Assert.Equal(new[] { "Ada", "Grace" }, names);
 ```
 
 ## Test a streaming upload
@@ -150,25 +177,35 @@ With the default policy it is two, because the handler had already read everythi
 
 
 ```csharp
-int pulledBeforeReply = -1;
-string uploaded = string.Empty;
+int produced = 0;
+IEnumerable<TestingPerson> Upload()
+{
+    produced++;
+    yield return new TestingPerson(1, "Ada");
+    produced++;
+    yield return new TestingPerson(2, "Grace");
+}
+
+int producedBeforeReply = -1;
 using StubHttp http = new()
 {
     {
         Route.Post("/people/import"),
         Reply.From(async request =>
         {
-            pulledBeforeReply = pulled;
-            uploaded = await request.Content!.ReadAsStringAsync();
+            producedBeforeReply = produced;
+            _ = await request.Content!.ReadAsStringAsync();
             return new HttpResponseMessage(HttpStatusCode.Accepted);
         })
     },
 };
 http.RequestCapture = RequestCapture.None;
-ITestingStreamingApi api = http.CreateGeneratedClient<ITestingStreamingApi>(BaseUrl, CreateSettings());
+ITestingStreamingApi api = http.CreateGeneratedClient<ITestingStreamingApi>("https://api.example.com", CreateSettings());
 
 await api.ImportAsync(Upload());
-SampleCheck.Equal(0, pulledBeforeReply); // The handler left the upload for the reply code.
+
+Assert.Equal(0, producedBeforeReply); // the handler left the upload for the reply code
+Assert.Equal(2, produced);
 ```
 
 `Bounded(maxBytes)` records the bytes as your reply code reads them. It keeps at most `maxBytes`.
@@ -186,17 +223,21 @@ forward, and any delay that has run out then completes.
 
 ```csharp
 FakeTimeProvider clock = new();
-NetworkBehavior behavior = new(SimulationSeed) { Delay = TimeSpan.FromSeconds(DelaySeconds), Variance = 0, FailurePercent = 0 };
-using StubHttp http = new(behavior) { { Route.Get("/slow"), Reply.Text("done") } };
+NetworkBehavior behavior = new() { Delay = TimeSpan.FromSeconds(2), Variance = 0, FailurePercent = 0 };
+using StubHttp http = new(behavior)
+{
+    { Route.Get("/people/1"), Reply.Json("""{"id":1,"name":"Ada"}""") },
+};
 http.TimeProvider = clock;
-using HttpClient client = CreateClient(http);
+using HttpClient httpClient = new(http, disposeHandler: false);
 
-Task<HttpResponseMessage> pending = client.GetAsync(new Uri($"{BaseUrl}/slow"));
-clock.Advance(TimeSpan.FromSeconds(DelaySeconds - 1));
-SampleCheck.Equal(false, pending.IsCompleted); // One simulated second is still outstanding.
+Task<HttpResponseMessage> pending = httpClient.GetAsync(new Uri("https://api.example.com/people/1"));
+clock.Advance(TimeSpan.FromSeconds(1));
+Assert.False(pending.IsCompleted); // one simulated second is still outstanding
 
 clock.Advance(TimeSpan.FromSeconds(1));
 using HttpResponseMessage response = await pending;
+Assert.Equal(HttpStatusCode.OK, response.StatusCode);
 ```
 
 The same clock sets when `VerifyAllCalledAsync(timeout)` gives up. The verification fails only after you advance the clock

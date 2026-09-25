@@ -14,15 +14,9 @@ and custom parts, including which streams your app must keep open.
 
 ## Send a file and text together
 
-The complete local [multipart project](https://github.com/reactiveui/refit/blob/main/src/examples/Documentation/Multipart/Multipart.csproj)
-build and run on .NET 10 with C# 14. Their handler inspects the real generated requests without contacting a server.
-`SampleCheck.Equal` throws when a value differs from the expected result.
-The source files include imports, the handler and the runner.
-
 **1. Put `[Multipart]` on the HTTP method.** It selects `multipart/form-data` content.
 The boundary is the text that separates the parts in the HTTP body.
-`[Multipart("sample-boundary")]` supplies a custom boundary.
-The default is `----MyGreatBoundary`, available from `new MultipartAttribute().BoundaryText`.
+The default is `----MyGreatBoundary`. `[Multipart("report-boundary")]` supplies your own.
 The boundary must meet the HTTP content parser's rules; the attribute does not validate it.
 
 **2. Choose a part wrapper.** `StreamPart` uses a stream you own.
@@ -30,59 +24,33 @@ The boundary must meet the HTTP content parser's rules; the attribute does not v
 Each constructor takes `(value, fileName, contentType = null, name = null)`.
 The file name is the name sent to the service; it need not be a local path.
 
-**3. Make an asynchronous call.** `UploadAsync` below sends a file and title.
+**3. Declare the method.** `UploadAsync` sends a file and a title.
 The `[Query]` parameter stays in the URL rather than becoming another body part.
-The other methods show file collections, raw values, JSON model parts and a custom extension.
-
 
 ```csharp
 internal interface IMultipartApi
 {
-    [Multipart("sample-boundary")]
+    [Multipart]
     [Post("/upload")]
     Task<HttpResponseMessage> UploadAsync([AliasAs("file")] StreamPart file, string title, [Query] string mode);
-
-    [Multipart]
-    [Post("/files")]
-    Task<HttpResponseMessage> UploadFilesAsync(ByteArrayPart bytes, FileInfoPart file, IEnumerable<ByteArrayPart> attachments);
-
-    [Multipart]
-    [Post("/raw")]
-    Task<HttpResponseMessage> UploadRawAsync(HttpContent content, Stream raw, byte[] bytes, FileInfo file);
-
-    [Multipart]
-    [Post("/metadata")]
-    Task<HttpResponseMessage> UploadMetadataAsync(UploadMetadata metadata, Guid token);
-
-    [Multipart]
-    [Post("/custom")]
-    Task<HttpRequestMessage> BuildAsync([AliasAs("aliased")] MultipartItem item);
 }
 ```
 
-The runnable example creates one `HttpClient` with a local `MultipartHandler` and passes it to
-`RestService.ForGenerated<IMultipartApi>(client, settings)`. The generator builds all five methods inline.
-It needs no runtime reflection request builder.
-The handler stores plain value snapshots because Refit disposes a sent request and its content.
-
+**4. Make the call.** Create the client with your `httpClient` and `settings`, then pass the parts.
 
 ```csharp
-await using MemoryStream stream = new(StreamBytes);
-StreamPart file = new(stream, "report.txt", TextMediaType, "chosen-field");
-using HttpResponseMessage reply = await api.UploadAsync(file, ReportTitle, "preview");
-SampleCheck.Equal(Boundary, handler.Boundary);
-SampleCheck.Equal("?mode=preview", handler.Query);
-SampleCheck.Equal("chosen-field", handler.Parts[0].Name);
-SampleCheck.Equal("report.txt", handler.Parts[0].FileName);
-SampleCheck.Equal(StreamText, handler.Parts[0].Body);
-SampleCheck.Equal("title", handler.Parts[1].Name);
-SampleCheck.Equal(ReportTitle, handler.Parts[1].Body);
-SampleCheck.Equal(true, stream.CanRead);
+IMultipartApi api = RestService.ForGenerated<IMultipartApi>(httpClient, settings);
+
+await using MemoryStream stream = new("Quarterly totals"u8.ToArray());
+StreamPart file = new(stream, "report.txt", "text/plain");
+using HttpResponseMessage reply = await api.UploadAsync(file, "Annual report", "preview");
+// POST /upload?mode=preview
+// part "file": file name "report.txt", text/plain, "Quarterly totals"
+// part "title": "Annual report"
 ```
 
-The sample's constants provide `text/plain`, `stream text`, `byte text`, `bytes.txt`,
-`Annual report`, `sample-boundary`, the greeting `hello` and the second attachment byte 2.
-`file.Name` in later excerpts belongs to the temporary local file created by the complete runner.
+The generator builds multipart methods inline, so they need no runtime reflection.
+Refit leaves `stream` open. The `await using` declaration disposes it.
 
 ## Field names, file names and content types
 
@@ -111,40 +79,16 @@ Constructing `FileInfoPart` does not open the file; `ToContent()` does.
 `ToContent()` creates HTTP content and applies a nonempty `ContentType` as its media type.
 Use a media type such as `application/pdf`, without a `charset` parameter.
 An invalid media type can throw `FormatException` during content creation.
-Null or empty `ContentType` preserves the content's existing type.
+Null or empty `ContentType` keeps the content's own type. `StreamPart`, `ByteArrayPart` and `FileInfoPart`
+content has no `Content-Type` header of its own.
 The method does not assign content disposition; that happens when the content is added to a multipart body.
 
-
 ```csharp
-await using MemoryStream stream = new(StreamBytes);
-StreamPart streaming = new(stream, "source.txt");
-using (HttpContent content = streaming.ToContent())
-{
-    SampleCheck.Equal(StreamText, await content.ReadAsStringAsync());
-    SampleCheck.Equal(null, content.Headers.ContentDisposition);
-}
-
-SampleCheck.Equal(true, stream.CanRead);
-SampleCheck.Equal(stream.Length, stream.Position);
-SampleCheck.Equal(stream, streaming.Value);
-SampleCheck.Equal("source.txt", streaming.FileName);
-SampleCheck.Equal(null, streaming.Name);
-SampleCheck.Equal(null, streaming.ContentType);
-byte[] value = ByteBytes;
-ByteArrayPart bytes = new(value, BytesFileName, TextMediaType, "attachment");
-SampleCheck.Equal(value, bytes.Value);
-SampleCheck.Equal("attachment", bytes.Name);
-SampleCheck.Equal(TextMediaType, bytes.ContentType);
-using HttpContent byteContent = bytes.ToContent();
-SampleCheck.Equal(ByteText, await byteContent.ReadAsStringAsync());
-SampleCheck.Equal(TextMediaType, byteContent.Headers.ContentType?.MediaType);
-FileInfoPart disk = new(file, "public-name.txt");
-SampleCheck.Equal(file, disk.Value);
-using (HttpContent diskContent = disk.ToContent())
-{
-    SampleCheck.Equal("disk text", await diskContent.ReadAsStringAsync());
-    SampleCheck.Equal(null, diskContent.Headers.ContentType);
-}
+ByteArrayPart notes = new("Meeting notes"u8.ToArray(), "notes.txt", "text/plain", "attachment");
+using HttpContent content = notes.ToContent();
+string body = await content.ReadAsStringAsync(cancellationToken); // "Meeting notes"
+// content.Headers.ContentType?.MediaType == "text/plain"
+// content.Headers.ContentDisposition == null
 ```
 
 ## Stream ownership and repeated files
@@ -155,39 +99,48 @@ You must position the stream before sending and dispose it when finished.
 A retry must provide readable data again, for example by rewinding a seekable stream before the next call.
 
 `FileInfoPart` and raw `FileInfo` open streams that Refit owns.
-Disposing their content closes those streams. The direct-conversion test also reopens the file exclusively
-after disposing its content. Every `ToContent()` call creates new content; avoid sharing one content instance across sends.
+Disposing their content closes those streams, so the file is free again once the call ends.
+Every `ToContent()` call creates new content; avoid sharing one content instance across sends.
 
 A collection of part wrappers produces one part per entry. Entries without a `Name` override share the parameter's field name.
 A null collection or null single parameter contributes no part. Do not place null file-wrapper entries inside a collection:
 the generated loop does not skip them.
 
-
 ```csharp
-ByteArrayPart bytes = new(ByteBytes, BytesFileName, TextMediaType);
-FileInfoPart disk = new(file, "download-name.txt", TextMediaType, "document");
-using HttpResponseMessage reply = await api.UploadFilesAsync(bytes, disk, [new([1], "one.bin"), new([SecondByte], "two.bin")]);
-SampleCheck.Equal(new MultipartAttribute().BoundaryText, handler.Boundary);
-SampleCheck.Equal("bytes", handler.Parts[0].Name);
-SampleCheck.Equal(BytesFileName, handler.Parts[0].FileName);
-SampleCheck.Equal("document", handler.Parts[1].Name);
-SampleCheck.Equal("download-name.txt", handler.Parts[1].FileName);
-SampleCheck.Equal("attachments", handler.Parts[2].Name);
-SampleCheck.Equal("attachments", handler.Parts[3].Name);
-SampleCheck.Equal(Boundary, new MultipartAttribute(Boundary).BoundaryText);
+[Multipart]
+[Post("/files")]
+Task<HttpResponseMessage> UploadFilesAsync(ByteArrayPart bytes, FileInfoPart file, IEnumerable<ByteArrayPart> attachments);
 ```
 
+```csharp
+FileInfo reportFile = new("report.txt");
+ByteArrayPart summary = new("Quarterly totals"u8.ToArray(), "summary.txt", "text/plain");
+FileInfoPart report = new(reportFile, "q3-report.txt", "text/plain", "document");
+ByteArrayPart[] attachments = [new("chart"u8.ToArray(), "chart.png"), new("table"u8.ToArray(), "table.csv")];
+using HttpResponseMessage reply = await api.UploadFilesAsync(summary, report, attachments);
+// part "bytes": file name "summary.txt"
+// part "document": file name "q3-report.txt" (Name overrides the parameter name "file")
+// part "attachments": file name "chart.png"
+// part "attachments": file name "table.csv"
+```
+
+You can also pass raw values without a wrapper. Each one takes its names from the table above.
 
 ```csharp
-using StringContent content = new("custom body");
-content.Headers.ContentDisposition = new("form-data") { Name = "custom-field" };
-await using MemoryStream stream = new("raw stream"u8.ToArray());
-using HttpResponseMessage reply = await api.UploadRawAsync(content, stream, "raw bytes"u8.ToArray(), file);
-SampleCheck.Equal("custom-field", handler.Parts[0].Name);
-SampleCheck.Equal("raw", handler.Parts[1].FileName);
-SampleCheck.Equal("bytes", handler.Parts[2].FileName);
-SampleCheck.Equal(file.Name, handler.Parts[3].FileName);
-SampleCheck.Equal(true, stream.CanRead);
+[Multipart]
+[Post("/raw")]
+Task<HttpResponseMessage> UploadRawAsync(HttpContent content, Stream raw, byte[] bytes, FileInfo file);
+```
+
+```csharp
+using StringContent note = new("Reviewed by finance");
+note.Headers.ContentDisposition = new("form-data") { Name = "note" };
+await using MemoryStream raw = new("Quarterly totals"u8.ToArray());
+using HttpResponseMessage reply = await api.UploadRawAsync(note, raw, "Chart data"u8.ToArray(), reportFile);
+// part "note": no file name, the content exactly as you built it
+// part "raw": file name "raw"
+// part "bytes": file name "bytes"
+// part "file": file name "report.txt" (reportFile.Name)
 ```
 
 ## Send a model as one JSON part
@@ -198,15 +151,13 @@ Numbers, booleans, enums and other serialized models use the content serializer.
 
 For standalone use, repeat the generated JSON setup below.
 `JsonSerializerContext` holds metadata describing how to read and write a model.
-`[JsonSerializable]` registers a type, and `TypeInfoResolver` finds its metadata at runtime.
+`[JsonSerializable]` registers a type. `RefitSettings.ForJsonContext` builds settings that read the metadata.
 Register collection and closed generic model types separately when you add them.
 Raw file bytes and text do not need JSON metadata.
-
 
 ```csharp
 internal sealed record UploadMetadata(string Title);
 ```
-
 
 ```csharp
 [JsonSourceGenerationOptions(PropertyNamingPolicy = JsonKnownNamingPolicy.CamelCase)]
@@ -214,26 +165,25 @@ internal sealed record UploadMetadata(string Title);
 internal sealed partial class MultipartJsonContext : JsonSerializerContext;
 ```
 
-
 ```csharp
-private static readonly JsonSerializerOptions Options = new(MultipartJsonContext.Default.Options) { TypeInfoResolver = MultipartJsonContext.Default };
-
-private static readonly RefitSettings Settings = new(new SystemTextJsonContentSerializer(Options));
+RefitSettings settings = RefitSettings.ForJsonContext(MultipartJsonContext.Default);
 ```
 
-
 ```csharp
-using HttpResponseMessage reply = await api.UploadMetadataAsync(new(ReportTitle), Guid.Empty);
-SampleCheck.Equal("metadata", handler.Parts[0].Name);
-SampleCheck.Equal("application/json", handler.Parts[0].MediaType);
-SampleCheck.Equal("{\"title\":\"Annual report\"}", handler.Parts[0].Body);
-SampleCheck.Equal(Guid.Empty.ToString(), handler.Parts[1].Body);
-SampleCheck.Equal(TextMediaType, handler.Parts[1].MediaType);
+[Multipart]
+[Post("/metadata")]
+Task<HttpResponseMessage> UploadMetadataAsync(UploadMetadata metadata, Guid token);
 ```
 
-The main example uses generated request code and JSON metadata,
-and its native executable runs the same local assertions.
-This result covers the declared static parameter types. An `object`, interface or open generic parameter can need
+```csharp
+Guid token = Guid.Parse("3f2504e0-4f89-11d3-9a0c-0305e82c3301");
+using HttpResponseMessage reply = await api.UploadMetadataAsync(new("Annual report"), token);
+// part "metadata": application/json, {"title":"Annual report"}
+// part "token": text/plain, 3f2504e0-4f89-11d3-9a0c-0305e82c3301
+```
+
+This works with generated request code and runs in a Native AOT app.
+It covers the declared static parameter types. An `object`, interface or open generic parameter can need
 the reflection request builder instead. Read [AOT setup](../aot.md) and [JSON configuration](../serialization/json.md).
 
 ## Extend `MultipartItem`
@@ -243,7 +193,6 @@ Its protected constructors accept `(fileName, contentType)` or `(fileName, conte
 Override protected `CreateContent()` to return fresh content. Call inherited public `ToContent()`
 to create that content and apply the configured media type.
 The two-argument constructor leaves `Name` null.
-
 
 ```csharp
 internal sealed class TextPart : MultipartItem
@@ -260,24 +209,24 @@ internal sealed class TextPart : MultipartItem
 }
 ```
 
-The extension test runs both constructors. The second overrides the field name and media type,
-while its empty file name falls back to the `aliased` parameter name.
-
+Declare the parameter as `MultipartItem`, or as your own type.
 
 ```csharp
-TextPart simple = new(Greeting, "hello.txt");
-using HttpContent standalone = simple.ToContent();
-SampleCheck.Equal(TextMediaType, standalone.Headers.ContentType?.MediaType);
-TextPart named = new(Greeting, string.Empty, "application/x-sample", "chosen");
-using HttpRequestMessage request = await api.BuildAsync(named);
-using IEnumerator<HttpContent> parts = ((MultipartFormDataContent)request.Content!).GetEnumerator();
-SampleCheck.Equal(true, parts.MoveNext());
-HttpContent part = parts.Current;
-SampleCheck.Equal(false, parts.MoveNext());
-SampleCheck.Equal("chosen", part.Headers.ContentDisposition?.Name?.Trim('"'));
-SampleCheck.Equal("aliased", part.Headers.ContentDisposition?.FileName?.Trim('"'));
-SampleCheck.Equal("application/x-sample", part.Headers.ContentType?.MediaType);
-SampleCheck.Equal(Greeting, await part.ReadAsStringAsync());
+[Multipart]
+[Post("/notes")]
+Task<HttpResponseMessage> UploadNoteAsync([AliasAs("attachment")] MultipartItem note);
+```
+
+The first part below keeps the `text/plain` type that `StringContent` sets. The second overrides the field name
+and media type. Its empty file name falls back to the parameter's alias.
+
+```csharp
+TextPart plain = new("Reviewed by finance", "notes.txt");
+using HttpContent content = plain.ToContent(); // content.Headers.ContentType?.MediaType == "text/plain"
+
+TextPart named = new("Reviewed by finance", string.Empty, "text/markdown", "note");
+using HttpResponseMessage reply = await api.UploadNoteAsync(named);
+// part "note": file name "attachment", text/markdown, "Reviewed by finance"
 ```
 
 ## Flatten a form object: reflection-only path
@@ -290,16 +239,13 @@ depth limits and reference-cycle guards follow form-body flattening.
 Null fields are omitted unless their query configuration requests null serialization.
 An emitted null value becomes empty text; unnamed or whitespace-only fields are skipped.
 
-The current generator deliberately sends `[FormObject]` methods to the reflection request builder.
+The generator does not build `[FormObject]` methods. With the default generated request mode,
+such a method produces analyzer warning `RF006`, and Refit sends it to the reflection request builder.
+That builder is in the `Refit.Reflection` package. Create the client with `RestService.For`.
+Reflection flattening reads properties at runtime, so it is not trim or Native AOT safe.
+A generated JSON context does not change that.
 The separate [JIT-only project](https://github.com/reactiveui/refit/blob/main/src/examples/Documentation/Multipart/Legacy/Legacy.csproj)
-references `Refit.Reflection` and calls `RestService.For` explicitly.
-It is excluded from the main project and native publication.
-That project's `RefitGeneratedRequestBuilding=false` selects reflection request construction for every method deliberately.
-Diagnostic severities remain unchanged. The compatibility probe below checks the `RF006` warning that the same method
-produces with the default generated request mode.
-Adding a generated JSON context does not make reflective property flattening AOT-compatible.
-The flattened model below is not JSON-serialized; the generated serializer settings cover the separate JSON model example.
-
+runs this example. It sets `RefitGeneratedRequestBuilding=false`, which selects reflection request construction for every method.
 
 ```csharp
 internal sealed class FormFields
@@ -315,7 +261,6 @@ internal sealed class FormFields
 }
 ```
 
-
 ```csharp
 internal interface IFormUploadApi
 {
@@ -325,47 +270,14 @@ internal interface IFormUploadApi
 }
 ```
 
-
 ```csharp
-using MultipartHandler handler = new();
-using HttpClient client = CreateClient(handler);
-RefitSettings settings = new(new SystemTextJsonContentSerializer(MultipartJsonContext.Default.Options));
-IFormUploadApi api = RestService.For<IFormUploadApi>(client, settings);
-using HttpResponseMessage reply = await api.UploadAsync(new(), new("recipe"u8.ToArray(), "recipe.txt"));
-SampleCheck.Equal("caption", handler.Parts[0].Name);
-SampleCheck.Equal("Annual report", handler.Parts[0].Body);
-SampleCheck.Equal("Tags", handler.Parts[1].Name);
-SampleCheck.Equal("math", handler.Parts[1].Body);
-SampleCheck.Equal("Tags", handler.Parts[2].Name);
-SampleCheck.Equal("code", handler.Parts[2].Body);
-SampleCheck.Equal("Note", handler.Parts[3].Name);
-SampleCheck.Equal(string.Empty, handler.Parts[3].Body);
-SampleCheck.Equal("recipe", handler.Parts[4].Name);
-SampleCheck.Equal("recipe.txt", handler.Parts[4].FileName);
-SampleCheck.Equal(true, new FormObjectAttribute() is Attribute);
-```
-
-The [compiling compatibility harness](https://github.com/reactiveui/refit/blob/main/src/examples/Documentation/Tooling/CompatibilitySample.cs)
-uses Roslyn, the C# compiler APIs, to analyze source input and assert its expected diagnostic.
-The harness itself builds without warnings and verifies the default-mode limitation:
-
-
-```csharp
-const string source = """
-    internal sealed class FormFields
-    {
-        public string Name { get; init; } = "Ada";
-    }
-    internal interface IFormUpload
-    {
-        [Refit.Multipart]
-        [Refit.Post("/form")]
-        System.Threading.Tasks.Task<System.Net.Http.HttpResponseMessage> UploadAsync([Refit.FormObject] FormFields fields);
-    }
-    """;
-CSharpCompilation compilation = ToolingCompilation.Create(source);
-ImmutableArray<Diagnostic> diagnostics = await AnalyzerSample.DiagnoseAsync(compilation);
-bool requiresReflection = AnalyzerSample.Contains(diagnostics, "RF006");
+IFormUploadApi api = RestService.For<IFormUploadApi>(httpClient, settings);
+using HttpResponseMessage reply = await api.UploadAsync(new FormFields(), new("Mix flour and water"u8.ToArray(), "recipe.txt"));
+// part "caption": "Annual report"
+// part "Tags": "math"
+// part "Tags": "code"
+// part "Note": "" (SerializeNull sends the null as empty text)
+// part "recipe": file name "recipe.txt"
 ```
 
 ## Obsolete attachment naming
@@ -375,26 +287,15 @@ On a supported parameter, the legacy builder uses it as the file-name override; 
 Wrapper metadata still supplies a nonempty wrapper file name and its explicit `Name`.
 Although the attribute can target properties, multipart attachment routing reads parameter attributes.
 
-The type is obsolete and produces compiler warning `CS0618` when used directly.
-The compatibility probe compiles that old usage as input and asserts the warning; it does not claim the obsolete API is warning-free.
-Use `StreamPart`, `ByteArrayPart`, `FileInfoPart` or a `MultipartItem` extension to choose names in new code.
-The wrapper examples above verify those replacements.
-
+The type is obsolete. Using it produces compiler warning `CS0618`:
 
 ```csharp
-const string source = """
-    internal interface ILegacyUpload
-    {
-        [Refit.Multipart]
-        [Refit.Post("/form")]
-        System.Threading.Tasks.Task UploadAsync([Refit.AttachmentName("sent.bin")] byte[] attachment);
-    }
-    """;
-CSharpCompilation compilation = ToolingCompilation.Create(source);
-bool warned = AnalyzerSample.Contains(compilation.GetDiagnostics(), ObsoleteWarning);
+[Multipart]
+[Post("/form")]
+Task UploadAsync([AttachmentName("sent.bin")] byte[] attachment); // warning CS0618
 ```
 
-`ObsoleteWarning` is the compiler probe's constant for `CS0618`.
+Use `StreamPart`, `ByteArrayPart`, `FileInfoPart` or a `MultipartItem` extension to choose names in new code.
 
 ## API reference
 

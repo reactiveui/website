@@ -52,7 +52,7 @@ internal static async Task<Person?> GetPersonAsync(HttpClient client, int id, Ca
     string path = string.Create(CultureInfo.InvariantCulture, $"/people/{id}");
     using HttpRequestMessage request = new(HttpMethod.Get, path);
     using HttpResponseMessage response = await client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken);
-    _ = response.EnsureSuccessStatusCode();
+    response.EnsureSuccessStatusCode();
     return await response.Content.ReadFromJsonAsync(SampleJsonContext.Default.Person, cancellationToken);
 }
 ```

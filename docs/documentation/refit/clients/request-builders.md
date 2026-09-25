@@ -48,9 +48,9 @@ Its result follows the method's declared return type, so this example casts it t
 
 
 ```csharp
-IRequestBuilder<IRequestLookupApi> lookup = RequestBuilder.ForType<IRequestLookupApi>(host.Settings);
+IRequestBuilder<IRequestLookupApi> lookup = RequestBuilder.ForType<IRequestLookupApi>(settings);
 Func<HttpClient, object[], object?> invoke = lookup.BuildRestResultFuncForMethod(nameof(IRequestLookupApi.BuildAsync), [typeof(int)]);
-using HttpRequestMessage request = await (Task<HttpRequestMessage>)invoke(host.Client, [1])!;
+using HttpRequestMessage request = await (Task<HttpRequestMessage>)invoke(httpClient, [1])!;
 Console.WriteLine(request.RequestUri); // /lookup/1
 ```
 
@@ -68,8 +68,8 @@ This call selects `GenericAsync<int>(int)` and checks its local request property
 
 ```csharp
 Func<HttpClient, object[], object?> generic = lookup.BuildRestResultFuncForMethod(nameof(IRequestLookupApi.GenericAsync), [typeof(int)], [typeof(int)]);
-using HttpRequestMessage genericRequest = await (Task<HttpRequestMessage>)generic(host.Client, [1])!;
-_ = genericRequest.Options.TryGetValue(new("value"), out int value);
+using HttpRequestMessage genericRequest = await (Task<HttpRequestMessage>)generic(httpClient, [1])!;
+genericRequest.Options.TryGetValue(new HttpRequestOptionsKey<int>("value"), out int value); // value == 1
 ```
 
 The builder caches delegates by method name, parameter types and generic type arguments.
@@ -112,18 +112,17 @@ The settings-factory registry is separate from the request-builder-factory regis
 The [advanced sample implementation](https://github.com/reactiveui/refit/blob/main/src/examples/Documentation/Clients/RegisteredClient.cs)
 retains the client base address and settings, making each registration shape observable.
 It is a small hand-written implementation used to demonstrate this infrastructure.
-`RegisteredInterface` contains `typeof(IRegisteredClient)`.
 
 
 ```csharp
 RestService.RegisterGeneratedFactory<IRegisteredClient>(static (http, builder) => new RegisteredClient(http, builder.Settings));
-IRegisteredClient typed = RestService.ForGenerated<IRegisteredClient>(client, JsonSettings);
+IRegisteredClient typed = RestService.ForGenerated<IRegisteredClient>(httpClient, settings);
 
-RestService.RegisterGeneratedFactory(RegisteredInterface, static (http, builder) => new RegisteredClient(http, builder.Settings));
-IRegisteredClient selected = (IRegisteredClient)RestService.ForGenerated(RegisteredInterface, client, JsonSettings);
+RestService.RegisterGeneratedFactory(typeof(IRegisteredClient), static (http, builder) => new RegisteredClient(http, builder.Settings));
+IRegisteredClient selected = (IRegisteredClient)RestService.ForGenerated(typeof(IRegisteredClient), httpClient, settings);
 
-RestService.RegisterGeneratedSettingsFactory<IRegisteredClient>(static (http, settings) => new RegisteredClient(http, settings));
-IRegisteredClient inline = RestService.ForGenerated<IRegisteredClient>(client, JsonSettings);
+RestService.RegisterGeneratedSettingsFactory<IRegisteredClient>(static (http, clientSettings) => new RegisteredClient(http, clientSettings));
+IRegisteredClient inline = RestService.ForGenerated<IRegisteredClient>(httpClient, settings);
 ```
 
 Registration rejects a null factory; the untyped overload also rejects a null interface type.

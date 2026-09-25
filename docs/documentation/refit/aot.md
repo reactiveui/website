@@ -65,11 +65,11 @@ The web defaults read camelCase names and ignore case.
 **3. Give the context to Refit and call the API.** `RestService.ForGenerated<T>` takes the context.
 Refit reads and writes JSON with the context's own options, and it never falls back to reflection.
 A type that you did not list on the context throws `NotSupportedException`.
-The sample host supplies its shared HTTP client. In your app, pass your own client.
+`httpClient` is your app's shared `HttpClient`, with its `BaseAddress` set to the API root.
 
 ```csharp
-IPeopleApi api = RestService.ForGenerated<IPeopleApi>(host.Client, SampleJsonContext.Default);
-Person person = await api.GetPersonAsync(1, CancellationToken.None);
+IPeopleApi api = RestService.ForGenerated<IPeopleApi>(httpClient, SampleJsonContext.Default);
+Person person = await api.GetPersonAsync(1, cancellationToken);
 Console.WriteLine(person.Name); // Ada
 ```
 
@@ -85,13 +85,12 @@ Both forms are safe for Native AOT, and the native example runs both.
 
 ```csharp
 private static readonly JsonSerializerOptions JsonOptions = new(SampleJsonContext.Default.Options) { TypeInfoResolver = SampleJsonContext.Default };
-
-private static readonly RefitSettings Settings = new(new SystemTextJsonContentSerializer(JsonOptions));
 ```
 
 ```csharp
-IPeopleApi withSettings = RestService.ForGenerated<IPeopleApi>(host.Client, Settings);
-Person fromSettings = await withSettings.GetPersonAsync(1, CancellationToken.None);
+RefitSettings settings = new(new SystemTextJsonContentSerializer(JsonOptions));
+IPeopleApi withSettings = RestService.ForGenerated<IPeopleApi>(httpClient, settings);
+Person fromSettings = await withSettings.GetPersonAsync(1, cancellationToken);
 Console.WriteLine(fromSettings.Name); // Ada
 ```
 

@@ -83,12 +83,11 @@ internal sealed class ContactForm
 }
 ```
 
-**4. Send the requests.** `host.Client` is the shared HTTP client from the
+**4. Send the requests.** `httpClient` is the shared HTTP client from the
 [first-request example](../index.md). The client takes the generated JSON context above.
 
 ```csharp
-const int graceId = 2;
-IBodyApi api = RestService.ForGenerated<IBodyApi>(host.Client, SampleJsonContext.Default);
+IBodyApi api = RestService.ForGenerated<IBodyApi>(httpClient, SampleJsonContext.Default);
 Person saved = await api.JsonAsync(new(1, "Ada"));
 await api.TextAsync("hello");
 await api.QuotedAsync("quoted");
@@ -100,7 +99,7 @@ Console.WriteLine(stream.CanRead); // True: the caller still owns the stream.
 using StringContent content = new("content text");
 await api.ContentAsync(content);
 await api.FormAsync(new());
-await api.LinesAsync([new(1, "Ada"), new(graceId, "Grace")]);
+await api.LinesAsync([new(1, "Ada"), new(2, "Grace")]);
 await api.GzipAsync(new(1, "Ada"));
 Console.WriteLine(saved.Name); // Ada
 ```
@@ -110,11 +109,14 @@ It also decompresses the gzip body and checks the restored JSON.
 JSON Lines puts a newline between the two items. Refit does not add a trailing newline.
 See: the complete [body example](https://github.com/reactiveui/refit/blob/main/src/examples/Documentation/Bodies/Bodies.cs).
 
-To pass settings that you built yourself, hand them to the same call. `Settings` wraps options
-that use the context as their `TypeInfoResolver`.
+To pass settings that you built yourself, hand them to the same call. `JsonOptions` holds options
+that use the context as their `TypeInfoResolver`, built as in
+[pass settings instead of a context](../index.md#pass-settings-instead-of-a-context).
+The examples below build their settings from the same options.
 
 ```csharp
-IBodyApi withSettings = RestService.ForGenerated<IBodyApi>(host.Client, Settings);
+RefitSettings settings = new(new SystemTextJsonContentSerializer(JsonOptions));
+IBodyApi withSettings = RestService.ForGenerated<IBodyApi>(httpClient, settings);
 Person savedWithSettings = await withSettings.JsonAsync(new(1, "Ada"));
 ```
 
@@ -131,8 +133,8 @@ Task<Order> PlaceOrderAsync([Body] NewOrder order, JsonTypeInfo<NewOrder> newOrd
 ```
 
 ```csharp
-NewOrder newOrder = new("Ada", [new("KB-1", 1, KeyboardPrice)]);
-Order placed = await api.PlaceOrderAsync(newOrder, OrdersJsonContext.Default.NewOrder, OrdersJsonContext.Default.Order, CancellationToken.None);
+NewOrder newOrder = new("Ada", [new("KB-1", 1, 49.5m)]);
+Order placed = await api.PlaceOrderAsync(newOrder, OrdersJsonContext.Default.NewOrder, OrdersJsonContext.Default.Order, cancellationToken);
 ```
 
 The metadata's own options apply to that call. The parameter works with the buffered and streamed request-body modes below.
@@ -192,16 +194,19 @@ Choose `mode` from the three values above. The runnable example sends and checks
 through each mode, then repeats the requests with the content-only capability wrapper.
 
 ```csharp
-RefitSettings settings = new(host.Settings.ContentSerializer) { RequestBodySerialization = mode };
-IBodyApi api = RestService.ForGenerated<IBodyApi>(host.Client, settings);
+RefitSettings settings = new(new SystemTextJsonContentSerializer(JsonOptions)) { RequestBodySerialization = mode };
+IBodyApi api = RestService.ForGenerated<IBodyApi>(httpClient, settings);
 Person result = await api.JsonAsync(new(1, "Ada"));
 Console.WriteLine(result.Name); // Ada
 ```
 
+`ContentOnlySerializer` below stands for any serializer that implements only `IHttpContentSerializer`.
+The example's version forwards each call to the `SystemTextJsonContentSerializer` it wraps.
+
 ```csharp
-ContentOnlySerializer limited = new((SystemTextJsonContentSerializer)host.Settings.ContentSerializer);
+ContentOnlySerializer limited = new(new SystemTextJsonContentSerializer(JsonOptions));
 RefitSettings fallback = new(limited) { RequestBodySerialization = mode };
-IBodyApi fallbackApi = RestService.ForGenerated<IBodyApi>(host.Client, fallback);
+IBodyApi fallbackApi = RestService.ForGenerated<IBodyApi>(httpClient, fallback);
 Person fallbackResult = await fallbackApi.JsonAsync(new(1, "Ada"));
 ```
 
@@ -264,14 +269,14 @@ for that coding. A null property leaves that coding using its resolved level.
 Options remain settings-level choices even when the body attribute selects the coding.
 
 ```csharp
-RefitSettings settings = new(host.Settings.ContentSerializer)
+RefitSettings settings = new(new SystemTextJsonContentSerializer(JsonOptions))
 {
     RequestCompression = RequestCompression.GZip,
     RequestCompressionLevel = CompressionLevel.Fastest,
     RequestCompressionOptions = new() { GZip = new(), Brotli = new() },
 };
-IBodyApi inherited = RestService.ForGenerated<IBodyApi>(host.Client, settings);
-IBodyPolicyApi overrides = RestService.ForGenerated<IBodyPolicyApi>(host.Client, settings);
+IBodyApi inherited = RestService.ForGenerated<IBodyApi>(httpClient, settings);
+IBodyPolicyApi overrides = RestService.ForGenerated<IBodyPolicyApi>(httpClient, settings);
 await inherited.JsonAsync(new(1, "Ada"));
 await overrides.BrotliAsync(new(1, "Ada"));
 await overrides.NoneAsync(new(1, "Ada"));
@@ -288,12 +293,12 @@ coding option properties and verifies the exact headers and decompressed bytes.
 `AppendChecksum` configures the Zstandard frame, while a null options property selects the level-based path.
 
 ```csharp
-RefitSettings settings = new(host.Settings.ContentSerializer)
+RefitSettings settings = new(new SystemTextJsonContentSerializer(JsonOptions))
 {
     RequestCompressionLevel = CompressionLevel.Fastest,
     RequestCompressionOptions = new() { GZip = new(), Brotli = new(), Zstandard = new() { AppendChecksum = true } },
 };
-ICompressionApi api = RestService.ForGenerated<ICompressionApi>(host.Client, settings);
+ICompressionApi api = RestService.ForGenerated<ICompressionApi>(httpClient, settings);
 ```
 
 Here `coding` selects `GZip`, `Brotli` or `Zstandard`.
@@ -316,12 +321,14 @@ A base address without its final slash treats the last segment as a file to repl
 The local example checks the legacy prefix and both RFC forms.
 
 ```csharp
-RefitSettings legacy = new(host.Settings.ContentSerializer) { UrlResolution = UrlResolutionMode.RefitLegacy };
-IBodyPolicyApi legacyApi = RestService.ForGenerated<IBodyPolicyApi>(host.Client, legacy);
+HttpClient httpClient = new() { BaseAddress = new Uri("https://people.example/root/") };
+
+RefitSettings legacy = new(new SystemTextJsonContentSerializer(JsonOptions)) { UrlResolution = UrlResolutionMode.RefitLegacy };
+IBodyPolicyApi legacyApi = RestService.ForGenerated<IBodyPolicyApi>(httpClient, legacy);
 await legacyApi.RootedAsync(); // /root/child
 
-RefitSettings rfc = new(host.Settings.ContentSerializer) { UrlResolution = UrlResolutionMode.Rfc3986 };
-IBodyPolicyApi rfcApi = RestService.ForGenerated<IBodyPolicyApi>(host.Client, rfc);
+RefitSettings rfc = new(new SystemTextJsonContentSerializer(JsonOptions)) { UrlResolution = UrlResolutionMode.Rfc3986 };
+IBodyPolicyApi rfcApi = RestService.ForGenerated<IBodyPolicyApi>(httpClient, rfc);
 ```
 
 `TimeoutAttribute(int milliseconds)` exposes its value through the read-only `Milliseconds` property.

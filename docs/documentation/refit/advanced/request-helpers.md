@@ -6,287 +6,396 @@ Order: 2
 [Run the complete page example](https://github.com/reactiveui/refit/blob/main/src/examples/Documentation/Pages/advanced-request-helpers/advanced-request-helpers.csproj).
 
 Behind a Refit interface call are several steps: filling in the URL, adding headers, writing
-the body, sending the request and reading the reply. The generated client uses
-`GeneratedRequestRunner` to carry out many of those steps.
+the body, sending the request and reading the reply. The source generator writes that code
+for each interface method, and it calls `GeneratedRequestRunner` to carry out many of the steps.
 
-These helpers are useful when you are building your own client infrastructure and need that
-control. Calling them directly also means choosing the formatting, cancellation and ownership
-rules that the generator normally chooses from your interface.
+You do not call these helpers for an ordinary service call. This page shows the code Refit
+generates for common interface methods, so you can read it and debug it. Each section then
+shows what a helper returns for a given input. If you call a helper yourself, you also choose
+the formatting, cancellation and ownership rules that the generator normally chooses from
+your interface.
+
+The generated excerpts on this page are trimmed from the generator's output. They drop the
+`global::` prefixes and the `refit` prefix on local names, and they show enum values by name
+where the generator writes a cast. `settings` is the client's `RefitSettings`, and `Client` is
+its `HttpClient`.
 
 ## Build a path
 
-The [complete .NET 10 / C# 14 sample](https://github.com/reactiveui/refit/blob/main/src/examples/Documentation/Pages/advanced-request-helpers/Program.cs)
-references local Refit source and runs against a local HTTP handler. It uses generated JSON
-metadata and direct form getters. It also includes a separate reflected metadata example;
-the combined sample project does not claim Native AOT support.
-
-`BuildRequestPath` takes placeholder ranges with an inclusive start and exclusive end.
-Generated code computes these positions at compile time. Keep the ranges ordered and
-non-overlapping, and include the braces in each range. The string-value span overload
-escapes each replacement. Its overload with a `PreEncoded` flag appends flagged values
-verbatim. A null replacement for an optional `{name?}` removes its preceding `/`;
-a plain `{name}` with a null value leaves an empty segment.
-The two-argument overload checks a template without replacements. Any unresolved
-placeholder throws `ArgumentException` unless `allowUnmatchedParameter` is true.
-
-The generic overload without a format appends an invariant formatted span without escaping
-when it fits its buffer. The generator uses it only for unformatted integers, whose digits
-and optional minus sign are safe in a URL. Do not use that fast path for arbitrary
-`ISpanFormattable` values. The generic overload with a format escapes the rendered value
-and supports other span-formattable values.
-
-`RoundTripEscapePath` preserves the `/` separators of a catch-all route value, formatting
-and escaping its sections. Its result is already escaped; insert it with `PreEncoded = true`
-to avoid escaping the percent signs again. `RequireAbsoluteUrl` accepts a string or `Uri`,
-returns its absolute URL text, and rejects null, empty, or relative values with
-`ArgumentException`. A `Uri` contributes its `OriginalString`.
-
-The current validation checks `UriKind.Absolute`, rather than requiring an HTTP or HTTPS
-scheme. On Linux, `RequireAbsoluteUrl("/items")` returns `"/items"`, which .NET accepts
-as a file URI. A generated `[Url]` request can consequently reach HTTP dispatch with an
-unsupported scheme instead of failing this helper's argument check. The complete sample
-asserts this limitation; supply an explicit HTTP or HTTPS URL.
+**You write** methods with route placeholders:
 
 ```csharp
-const string template = "/items/{id}";
-const string itemsPath = "/items";
-(int StartIdx, int EndIdx) range = (SampleValues.PlaceholderStart, SampleValues.PlaceholderEnd);
-string escaped = GeneratedRequestRunner.BuildRequestPath(template, false, [(range, "a/b")]);
-string encoded = GeneratedRequestRunner.BuildRequestPath(template, false, [(range, "a%2Fb", true)]);
-string integer = GeneratedRequestRunner.BuildRequestPath(template, false, range, SampleValues.Identifier);
-string formatted = GeneratedRequestRunner.BuildRequestPath(template, false, range, SampleValues.Identifier, "D3");
-string unchanged = GeneratedRequestRunner.BuildRequestPath(itemsPath, false);
-string catchAll = GeneratedRequestRunner.RoundTripEscapePath("a b/c", settings, GeneratedParameterAttributeProvider.Empty, typeof(string));
-string absolute = GeneratedRequestRunner.RequireAbsoluteUrl(new Uri(AbsoluteUrl));
+public interface IProductsApi
+{
+    [Get("/products/{id}")]
+    Task<Product> GetAsync(int id);
+
+    [Get("/files/{**path}")]
+    Task<Stream> GetFileAsync(string path);
+}
 ```
 
-Here `settings` is a `RefitSettings` and `AbsoluteUrl` is `"https://example.test/items"`.
-Both string span calls produce `/items/a%2Fb`.
-The integer calls produce `/items/42` and `/items/042`; the catch-all fragment is `a%20b/c`.
+**Refit generates** a `BuildRequestPath` call with the placeholder's position worked out at
+compile time. For the integer `id`, it uses the generic overload when default formatting applies:
+
+```csharp
+useDefaultFormatting
+    ? GeneratedRequestRunner.BuildRequestPath("/products/{id}", settings.AllowUnmatchedRouteParameters, (10, 14), id)
+    : GeneratedRequestRunner.BuildRequestPath("/products/{id}", settings.AllowUnmatchedRouteParameters, [((10, 14), GeneratedRequestRunner.FormatUrlParameter(settings, id, GeneratedParameterAttributeProvider.Empty, typeof(int)))])
+```
+
+For the catch-all `{**path}`, it escapes the value with `RoundTripEscapePath` and marks it as
+already encoded:
+
+```csharp
+GeneratedRequestRunner.BuildRequestPath(
+    "/files/{**path}",
+    settings.AllowUnmatchedRouteParameters,
+    [((7, 15), GeneratedRequestRunner.RoundTripEscapePath(path?.ToString(), settings, GeneratedParameterAttributeProvider.Empty, typeof(string)), true)])
+```
+
+`BuildRequestPath` takes placeholder ranges with an inclusive start and an exclusive end.
+Keep the ranges in order, do not let them overlap, and include the braces in each range.
+The overload taking string values escapes each replacement. Its overload with a `PreEncoded`
+flag appends flagged values verbatim. A null replacement for an optional `{name?}` removes
+the `/` before it. A plain `{name}` with a null value leaves an empty segment.
+The two-argument overload checks a template that has no replacements. Any unresolved
+placeholder throws `ArgumentException` unless `allowUnmatchedParameter` is true.
+
+```csharp
+string byName = GeneratedRequestRunner.BuildRequestPath("/products/{name}", false, [((10, 16), "shoes/boots")]); // "/products/shoes%2Fboots"
+string order = GeneratedRequestRunner.BuildRequestPath("/orders/{id}", false, (8, 12), 42, "D6"); // "/orders/000042"
+string file = GeneratedRequestRunner.RoundTripEscapePath("reports/2026 q3.pdf", settings, GeneratedParameterAttributeProvider.Empty, typeof(string)); // "reports/2026%20q3.pdf"
+```
+
+The generic overload without a format appends an invariant formatted span without escaping
+it, when it fits its buffer. The generator uses it only for unformatted integers, whose digits
+and optional minus sign are safe in a URL. Do not use that overload for other
+`ISpanFormattable` values. The generic overload with a format escapes the rendered value
+and supports other span-formattable values.
 The no-format generic overload is compiled under `NET6_0_OR_GREATER`, and its formatted
 counterpart under `NET8_0_OR_GREATER`. Both are present on Refit's .NET 8 and later targets
 and absent on its .NET Framework targets.
 
-`BuildRelativeUri` returns a relative `Uri`, not the final absolute request address.
-With `UrlResolutionMode.RefitLegacy`, it requires a leading slash and prefixes the client's
-base-address path, trimming that base path's trailing slash. A missing base address throws
-`InvalidOperationException`. With `Rfc3986`, it leaves the relative path for `HttpClient`
-to resolve. The overload taking `UriFormat` re-encodes the full path and query in legacy
-mode; RFC mode ignores that argument. [Query building and formatting](query-builder.md)
-covers `BuildQueryKey`, `FormatInvariant`, `FormatUrlParameter`, the three default-formatter
-guards, and `AddFormattedCollectionProperty`.
+`RoundTripEscapePath` keeps the `/` separators of a catch-all route value, and formats and
+escapes each section between them. Its result is already escaped, so insert it with
+`PreEncoded = true`. Otherwise the percent signs are escaped a second time.
 
-The sample uses a shared `Client` whose base address is `https://example.test/api/`.
-With `itemsPath = "/items"`, legacy resolution yields `/api/items`.
-`ItemSegment` is `"items"`.
+## Resolve the request URL
+
+**Refit generates** a `BuildRelativeUri` call around every path. A `[QueryUriFormat]` method
+adds a fourth argument with its `UriFormat`:
 
 ```csharp
-Uri legacy = GeneratedRequestRunner.BuildRelativeUri(Client, itemsPath, UrlResolutionMode.RefitLegacy);
-Uri rfc = GeneratedRequestRunner.BuildRelativeUri(Client, ItemSegment, UrlResolutionMode.Rfc3986, UriFormat.Unescaped);
-Uri unescaped = GeneratedRequestRunner.BuildRelativeUri(Client, "/items?q=a%20b", UrlResolutionMode.RefitLegacy, UriFormat.Unescaped);
+var request = new HttpRequestMessage(
+    HttpMethod.Get,
+    GeneratedRequestRunner.BuildRelativeUri(Client, "/products", settings.UrlResolution));
 ```
 
+`BuildRelativeUri` returns a relative `Uri`, not the final absolute request address.
+With `UrlResolutionMode.RefitLegacy`, it requires a leading slash and prefixes the path of the
+client's base address, without that path's trailing slash. A missing base address throws
+`InvalidOperationException`. With `Rfc3986`, it leaves the relative path for `HttpClient`
+to resolve. The overload taking `UriFormat` re-encodes the full path and query in legacy
+mode. RFC mode ignores that argument.
+
+```csharp
+HttpClient httpClient = new() { BaseAddress = new Uri("https://api.example.com/v2/") };
+Uri legacy = GeneratedRequestRunner.BuildRelativeUri(httpClient, "/products", UrlResolutionMode.RefitLegacy); // "/v2/products"
+Uri rfc = GeneratedRequestRunner.BuildRelativeUri(httpClient, "products", UrlResolutionMode.Rfc3986); // "products"
+```
+
+**You write** a `[Url]` parameter when the caller supplies the whole address:
+
+```csharp
+[Get("")]
+Task<Stream> DownloadAsync([Url] string url);
+```
+
+**Refit generates** a check, then uses the address as it is:
+
+```csharp
+var absoluteUrl = GeneratedRequestRunner.RequireAbsoluteUrl(url);
+var request = new HttpRequestMessage(HttpMethod.Get, new Uri(absoluteUrl, UriKind.Absolute));
+```
+
+`RequireAbsoluteUrl` accepts a `string` or a `Uri`, and returns its absolute URL text.
+A `Uri` contributes its `OriginalString`. It rejects null, empty and relative values with
+`ArgumentException`. For example, `RequireAbsoluteUrl("https://cdn.example.com/images/42.png")`
+returns the same text.
+
+The check tests for `UriKind.Absolute`. It does not require an HTTP or HTTPS scheme.
+On Linux, `RequireAbsoluteUrl("/items")` returns `"/items"`, which .NET accepts as a file URI.
+A generated `[Url]` request can then reach HTTP dispatch with an unsupported scheme, instead of
+failing this helper's argument check. The complete sample shows this limitation. Always pass
+an explicit HTTP or HTTPS URL.
+
+[Query building and formatting](query-builder.md) covers `BuildQueryKey`, `FormatInvariant`,
+`FormatUrlParameter`, the three default-formatter guards, and `AddFormattedCollectionProperty`.
+
 ## Set headers and request options
+
+**You write** header, property and timeout attributes:
+
+```csharp
+public interface IProductsApi
+{
+    [Post("/orders")]
+    Task CreateAsync([Body] Order order, [Header("X-Request-Id")] string requestId, CancellationToken cancellationToken);
+
+    [Get("/products")]
+    [Timeout(5000)]
+    Task<List<Product>> ListAsync([HeaderCollection] IDictionary<string, string> headers, [Property("TraceId")] int traceId);
+}
+```
+
+**Refit generates** one helper call for each. Every method also gets the
+`AddConfiguredRequestOptions` call. These lines come from both methods:
+
+```csharp
+GeneratedRequestRunner.SetHeader(request, "X-Request-Id", requestId?.ToString(), settings.ValidateHeaders);
+GeneratedRequestRunner.AddHeaderCollection(request, headers, settings.ValidateHeaders);
+GeneratedRequestRunner.AddConfiguredRequestOptions(request, settings, typeof(IProductsApi));
+GeneratedRequestRunner.AddRequestProperty<int>(request, "TraceId", traceId);
+GeneratedRequestRunner.SetRequestTimeout(request, 5000);
+```
 
 `SetHeader` removes an earlier request or content header with the same name, then adds
 the new value. Null removes a header without adding one. On a method that accepts a body,
 it can create empty content so a content header has a place to live. It strips CR and LF
-from the supplied name and value. With `validateHeaders: true`, malformed values can throw
-`FormatException`; otherwise it uses the headers' `TryAddWithoutValidation` path.
-`AddHeaderCollection` applies the same rules to each dictionary entry; a null dictionary
-does nothing. Later values replace earlier values by key.
-
-`AddConfiguredRequestOptions` applies the settings' request options and interface type.
-On .NET 8 and later it also applies the configured HTTP version and version policy.
-`AddRequestProperty<TValue>` sets a typed `HttpRequestMessage.Options` value on those
-targets; .NET Framework uses the request's `Properties` dictionary.
-`SetRequestTimeout` stores the per-call milliseconds for the sending helpers. A positive
-value applies a timeout in addition to cancellation. Zero or a negative value disables
-this timeout; storing the option does not start a timer or send a request.
+from the name and value. With `validateHeaders: true`, a malformed value can throw
+`FormatException`. Otherwise it adds the value with the headers' `TryAddWithoutValidation` method.
+`AddHeaderCollection` applies the same rules to each dictionary entry. A null dictionary
+does nothing. Later values replace earlier values with the same key.
 
 ```csharp
-const string modeHeader = "X-Mode";
-const string removedHeader = "X-Remove";
-using HttpRequestMessage request = new(HttpMethod.Post, itemsPath);
-GeneratedRequestRunner.SetHeader(request, modeHeader, "old", validateHeaders: true);
-GeneratedRequestRunner.AddHeaderCollection(request, new Dictionary<string, string> { [modeHeader] = "new" }, validateHeaders: true);
-GeneratedRequestRunner.SetHeader(request, removedHeader, "remove me", validateHeaders: false);
-GeneratedRequestRunner.SetHeader(request, removedHeader, null, validateHeaders: false);
-GeneratedRequestRunner.AddHeaderCollection(request, null, validateHeaders: true);
-GeneratedRequestRunner.AddConfiguredRequestOptions(request, settings, typeof(IHelperApi));
-GeneratedRequestRunner.AddRequestProperty(request, "TraceId", SampleValues.Identifier);
-GeneratedRequestRunner.SetRequestTimeout(request, SampleValues.TimeoutMilliseconds);
+using HttpRequestMessage request = new(HttpMethod.Get, "/products");
+GeneratedRequestRunner.SetHeader(request, "X-Api-Version", "1", validateHeaders: true);
+GeneratedRequestRunner.SetHeader(request, "X-Api-Version", "2", validateHeaders: true);
+// request.Headers.GetValues("X-Api-Version") returns only "2"
 ```
 
+`AddConfiguredRequestOptions` applies the settings' request options and the interface type.
+On .NET 8 and later it also applies the configured HTTP version and version policy.
+`AddRequestProperty<TValue>` sets a typed `HttpRequestMessage.Options` value on those
+targets. On .NET Framework it uses the request's `Properties` dictionary.
+`SetRequestTimeout` stores the per-call milliseconds for the sending helpers. A positive
+value applies a timeout in addition to cancellation. Zero or a negative value turns this
+timeout off. Storing the option does not start a timer or send a request.
+
 ## Create body content
+
+**You write** a `[Body]` parameter. For the `CreateAsync` method above, **Refit generates**:
+
+```csharp
+request.Content = GeneratedRequestRunner.CreateBodyContent<Order>(
+    settings,
+    order,
+    BodySerializationMethod.Default,
+    !settings.Buffered);
+request.Content = GeneratedRequestRunner.CompressBodyContent(
+    request.Content,
+    settings,
+    RequestCompression.Default,
+    CompressionLevel.Optimal);
+```
 
 `CreateBodyContent<TBody>` returns an existing `HttpContent` unchanged and wraps a
 `Stream` with `CreateStreamContent`. With `BodySerializationMethod.Default`, a string is
 sent as raw text. Other values, or the `Serialized` mode, use the configured content
 serializer. For ordinary values, this method supports `Default` and `Serialized`
-(and the retained obsolete `Json` value). Other modes throw `ArgumentOutOfRangeException`;
-generated code calls the separate URL-encoded or JSON Lines helpers for those modes.
-`streamBody: true` writes serialized content through a streaming wrapper unless the settings
-choose synchronous serialization, which already creates a buffer.
+(and the obsolete `Json` value, kept for compatibility). Other modes throw
+`ArgumentOutOfRangeException`. Generated code calls the separate URL-encoded or JSON Lines
+helpers for those modes. `streamBody: true` writes serialized content through a streaming
+wrapper, unless the settings choose synchronous serialization, which already creates a buffer.
+
+```csharp
+using HttpContent note = GeneratedRequestRunner.CreateBodyContent(settings, "Leave at the front desk", BodySerializationMethod.Default, streamBody: false);
+// await note.ReadAsStringAsync() returns "Leave at the front desk", sent as text/plain
+```
 
 `CreateJsonLinesBodyContent<TBody>` serializes each element of an enumerable as a JSON
-value, with a newline between values and no trailing newline. A string is treated as a single value, rather than an enumerable
-of characters. Existing content and streams pass through as with other body helpers.
-`SerializeMultipartPart<T>` serializes one part through the configured serializer; it does
-not create a multipart container. A serializer failure is wrapped in `ArgumentException`
-with the field name and original exception.
+value, with a newline between values and no trailing newline. It treats a string as a single
+value, not as a sequence of characters. Existing content and streams pass through, as with
+the other body helpers. For example, `CreateJsonLinesBodyContent(settings, new[] { 3, 7 })`
+writes `3`, a newline, then `7`.
+
+**You write** a `[Multipart]` method:
+
+```csharp
+[Multipart]
+[Post("/upload")]
+Task UploadAsync([AliasAs("file")] Stream file, Product metadata);
+```
+
+**Refit generates** one part per argument:
+
+```csharp
+var multipart = new MultipartFormDataContent("----MyGreatBoundary");
+if (file != null)
+{
+    multipart.Add(GeneratedRequestRunner.CreateStreamContent(file), "file", "file");
+}
+if (metadata != null)
+{
+    multipart.Add(GeneratedRequestRunner.SerializeMultipartPart(settings, metadata, "metadata"), "metadata");
+}
+request.Content = multipart;
+```
+
+`SerializeMultipartPart<T>` serializes one part through the configured serializer. It does
+not create a multipart container. It wraps a serializer failure in `ArgumentException`, with
+the field name and the original exception.
 
 `CreateStreamContent` leaves the caller's stream open when the content is disposed.
-The caller still owns and must dispose that stream. Existing content returned unchanged
-does not acquire this special stream protection.
+You still own that stream and must dispose it. Existing content that a helper returns
+unchanged does not get this stream protection.
 
 `CompressBodyContent` resolves `RequestCompression.Default` from the settings.
-Explicit `None` returns the same content. An explicit coding also selects the supplied
-compression level, while the default uses the settings' level. Compressor options in the
+Explicit `None` returns the same content. An explicit coding also uses the compression
+level you pass, while `Default` uses the settings' level. Compressor options in the
 settings can override level-based construction. The returned compression content owns its
-inner content; dispose the returned wrapper.
+inner content, so dispose the returned wrapper.
 
 ```csharp
-using HttpContent raw = GeneratedRequestRunner.CreateBodyContent(settings, "plain text", BodySerializationMethod.Default, streamBody: false);
-using HttpContent json = GeneratedRequestRunner.CreateBodyContent(settings, SampleValues.Count, BodySerializationMethod.Serialized, streamBody: true);
-using HttpContent lines = GeneratedRequestRunner.CreateJsonLinesBodyContent(settings, SampleValues.Items);
-using HttpContent multipartPart = GeneratedRequestRunner.SerializeMultipartPart(settings, SampleValues.Count, nameof(count));
+using HttpContent gzip = GeneratedRequestRunner.CompressBodyContent(new StringContent("""{"orderId":42}"""), settings, RequestCompression.GZip, CompressionLevel.Fastest);
+// gzip.Headers.ContentEncoding contains "gzip"
 ```
 
-The compression example wraps its input content:
-
-```csharp
-const string compressionText = "compress me";
-using HttpContent gzip = GeneratedRequestRunner.CompressBodyContent(new StringContent(compressionText), settings, RequestCompression.GZip, CompressionLevel.Fastest);
-```
-
-Add `using System.IO.Compression;`. The full sample's context class, `HelperJsonContext`, supplies
-generated JSON metadata for the integer values. The body checks expect `12` for JSON and
-`1\n2` for JSON Lines. GZip is available on all Refit targets, Brotli on .NET 8 and later,
-and Zstandard on .NET 11 and later. Requesting an unavailable coding throws
-`PlatformNotSupportedException`. The .NET 10 sample checks this exception for Zstandard;
-it does not verify successful .NET 11 Zstandard compression or its options.
+Add `using System.IO.Compression;` for `CompressionLevel`. GZip is available on all Refit
+targets, Brotli on .NET 8 and later, and Zstandard on .NET 11 and later. Requesting an
+unavailable coding throws `PlatformNotSupportedException`. The .NET 10 sample checks this
+exception for Zstandard. It does not verify successful .NET 11 Zstandard compression or its options.
 
 ## Supply form descriptors
 
-`CreateUrlEncodedBodyContent<TBody>(settings, body)` flattens form values using the
-declared body's public properties or dictionary entries. A string is escaped as one entire
-value, so `a=b` becomes `a%3Db`; it is not parsed as an already encoded form.
-Existing content and streams pass through. Ordinary object flattening in this overload
-uses reflected metadata.
-
-The overload taking `FormField<TBody>[]` can use direct getters instead. That descriptor
-path applies only to a non-null object that is not a dictionary and a configured
-`SystemTextJsonContentSerializer`. Other serializer types can need their property-name
-hook and fall back to reflected flattening. Nested complex form values can also require
-runtime property traversal. Direct getters illustrate how generated code avoids discovery
-for known simple fields; the descriptors alone are not a guarantee for every body shape.
-
-`FormField<TBody>` stores the `Getter`, `ClrName`, `ExplicitName`, `PrefixSegment`,
-`Format`, `CollectionFormat`, and `SerializeNull` supplied to its constructor. These are
-read-only properties. `ResolveFieldName` uses `ExplicitName` when present; otherwise it
-formats `ClrName` with the supplied key formatter, then prepends the prefix verbatim.
-An explicit collection format overrides the settings' default. `SerializeNull` emits an
-empty field for a null value; false omits it. The getter reads the field value directly.
-
-The sample's `FormBody` has `Count = 12` and a null `Note`.
+**You write** a URL-encoded body. When every property is a simple value, **Refit generates**
+code that reads each property directly and builds a `FormUrlEncodedContent`. That code calls
+`CanUnrollForm`, `BuildQueryKey` and `FormatInvariant`, and it falls back to
+`CreateUrlEncodedBodyContent(settings, form)` when the serializer is not
+`SystemTextJsonContentSerializer`. When a property is a collection, Refit generates an array
+of `FormField<TBody>` descriptors instead:
 
 ```csharp
-FormBody body = new();
-const string formPrefix = "form.";
-FormField<FormBody> count = new(static value => value.Count, nameof(FormBody.Count), nameof(count), formPrefix, "D3", null, false);
-FormField<FormBody> note = new(static value => value.Note, nameof(FormBody.Note), "note", null, null, CollectionFormat.Csv, true);
-FormField<FormBody>[] fields = [count, note];
-using HttpContent form = GeneratedRequestRunner.CreateUrlEncodedBodyContent(settings, body, fields);
-string formText = await form.ReadAsStringAsync();
-string? fieldName = count.ResolveFieldName(settings.UrlParameterKeyFormatter);
+public sealed class TagForm
+{
+    public string? Name { get; set; }
+
+    [Query(CollectionFormat.Csv)]
+    public string[]? Tags { get; set; }
+}
+
+[Post("/tags")]
+Task SaveTagsAsync([Body(BodySerializationMethod.UrlEncoded)] TagForm form);
 ```
 
-The result is `form.count=012&note=`. `CanUnrollForm` reports whether the body is a plain
-non-null object: it excludes strings, streams, existing content, and dictionaries.
-It does not check serializer compatibility or send a request.
+```csharp
+private static readonly FormField<TagForm>[] formFields = new FormField<TagForm>[]
+{
+    new FormField<TagForm>(static body => (object?)body.Name, "Name", null, null, null, null, false),
+    new FormField<TagForm>(static body => (object?)body.Tags, "Tags", null, null, null, CollectionFormat.Csv, false),
+};
+
+request.Content = GeneratedRequestRunner.CreateUrlEncodedBodyContent<TagForm>(settings, form, formFields);
+```
+
+`CreateUrlEncodedBodyContent<TBody>(settings, body)` flattens form values from the
+declared body's public properties or dictionary entries. It escapes a string as one whole
+value, so `a=b` becomes `a%3Db`. It does not parse the string as an already encoded form.
+Existing content and streams pass through. This overload uses reflection to flatten an
+ordinary object.
+
+The overload taking `FormField<TBody>[]` can use the descriptors' getters instead. That path
+applies only to a non-null object that is not a dictionary, with a
+`SystemTextJsonContentSerializer` configured. Other serializer types can need their
+property-name hook and fall back to reflection. Nested complex form values can also require
+runtime property discovery. The descriptors avoid discovery for known simple fields. They do
+not guarantee it for every body shape.
+
+`FormField<TBody>` stores the `Getter`, `ClrName`, `ExplicitName`, `PrefixSegment`,
+`Format`, `CollectionFormat` and `SerializeNull` passed to its constructor, as read-only
+properties. `ResolveFieldName` uses `ExplicitName` when it is set. Otherwise it
+formats `ClrName` with the key formatter you pass. It then prepends the prefix verbatim.
+An explicit collection format overrides the settings' default. `SerializeNull: true` emits an
+empty field for a null value; `false` omits it.
+
+```csharp
+TagForm form = new() { Name = "Summer sale", Tags = ["shoes", "hats"] };
+FormField<TagForm>[] fields =
+[
+    new(static value => value.Name, nameof(TagForm.Name), "name", null, null, null, false),
+    new(static value => value.Tags, nameof(TagForm.Tags), null, null, null, CollectionFormat.Csv, false),
+];
+using HttpContent content = GeneratedRequestRunner.CreateUrlEncodedBodyContent(settings, form, fields);
+string body = await content.ReadAsStringAsync(); // "name=Summer+sale&Tags=shoes%2Chats"
+```
+
+`CanUnrollForm` reports whether the body is a plain non-null object. It returns `false` for
+strings, streams, existing content and dictionaries. It does not check the serializer or send
+a request.
 
 ## Send a built request
 
-All four dispatch entry points require the client's `BaseAddress`, even when a request
-has an absolute URI. They apply the configured authorization getter, exception handling,
-and positive per-call timeout. The task entry points dispose the request after dispatch.
-The flags are infrastructure contracts; select them to match the return type.
+**Refit generates** one dispatch call at the end of each method. The call depends on the
+return type:
+
+| You write | Refit generates |
+| --- | --- |
+| `Task CreateAsync(..., CancellationToken cancellationToken)` | `SendVoidAsync(Client, request, settings, settings.Buffered, cancellationToken)` |
+| `Task<List<Product>> ListAsync(...)` | `SendAsync<List<Product>, List<Product>>(Client, request, settings, false, true, false, CancellationToken.None)` |
+| `Task<ApiResponse<Order>> SubmitAsync([Body(BodySerializationMethod.UrlEncoded)] OrderForm form)` | `SendAsync<ApiResponse<Order>, Order>(Client, request, settings, true, true, settings.Buffered, CancellationToken.None)` |
+| `IObservable<List<Product>> WatchAsync()` | `SendObservable<List<Product>, List<Product>>(Client, BuildRequest, settings, false, true, false, CancellationToken.None)` |
+| `IAsyncEnumerable<Product> StreamAsync(CancellationToken cancellationToken)` | `StreamAsync<Product>(Client, request, settings, cancellationToken)` |
+
+The generated code passes the method's `CancellationToken` when it has one, and
+`CancellationToken.None` when it does not. It passes `settings.Buffered` as `bufferBody` when
+the method sends a serialized or form body.
+
+All four dispatch methods require the client's `BaseAddress`, even when a request
+has an absolute URI. They apply the configured authorization getter, exception handling
+and positive per-call timeout. The task methods dispose the request after sending it.
+Choose the flags to match the return type, as the generator does.
 
 `SendVoidAsync` sends a request with no returned body and disposes the response.
 The default exception factory throws on an HTTP error. `SendAsync<T, TBody>` can deserialize
-`T`, return raw response/content/stream results, or construct an API response wrapper.
-`isApiResponse: true` requires a supported wrapper type for `T`; `TBody` is its body type.
-`bufferBody` controls buffering of request content before sending, not response content.
+`T`, return the raw response, content or stream, or build an API response wrapper.
+`isApiResponse: true` requires a supported wrapper type for `T`, and `TBody` is its body type.
+`bufferBody` controls buffering of the request content before sending, not the response content.
 
-Use `shouldDisposeResponse: true` for a fully consumed value. Use false when returning
-a wrapper, `HttpResponseMessage`, `HttpContent`, or response stream whose caller needs
-the response to stay open. The caller must dispose the returned owner. For a plain-result
-HTTP error, the pipeline can transfer the response to the thrown exception instead.
+`shouldDisposeResponse` decides who disposes the response. Generated code passes `true` for
+every result except `HttpResponseMessage`, `HttpContent` and `Stream`, including an
+`ApiResponse<T>` whose body it has already read. For those three results it passes `false`,
+because the caller reads from the live response and must dispose it. For a plain result
+with an HTTP error, the pipeline hands the response to the thrown exception instead.
 
 ```csharp
-const string itemsPath = "/items";
-await GeneratedRequestRunner.SendVoidAsync(client, new(HttpMethod.Get, "/ping"), settings, bufferBody: false, CancellationToken.None);
-int result = await GeneratedRequestRunner.SendAsync<int, int>(
-    client,
-    new(HttpMethod.Get, itemsPath),
+List<Product>? products = await GeneratedRequestRunner.SendAsync<List<Product>, List<Product>>(
+    httpClient,
+    new HttpRequestMessage(HttpMethod.Get, "/products"),
     settings,
     isApiResponse: false,
     shouldDisposeResponse: true,
     bufferBody: false,
-    CancellationToken.None);
-using ApiResponse<int>? wrapped = await GeneratedRequestRunner.SendAsync<ApiResponse<int>, int>(
-    client,
-    new(HttpMethod.Get, itemsPath),
-    settings,
-    isApiResponse: true,
-    shouldDisposeResponse: false,
-    bufferBody: false,
-    CancellationToken.None);
+    cancellationToken);
 ```
 
 `SendObservable<T, TBody>` returns a cold observable: each subscription starts a new
-request. Its factory must create a fresh message, because each request is disposed after
-use. The method token and subscription token are linked when both can cancel.
-The same result and ownership flags apply as for `SendAsync`.
+request. For an `IObservable<T>` method, generated code passes a local function that
+builds a fresh request, because each request is disposed after use. The method token and
+subscription token are linked when both can cancel. The same result and ownership flags
+apply as for `SendAsync`.
 
-Here `ToTask` from `ReactiveUI.Primitives` subscribes for a result and awaits it.
-`handler` is the full sample's local HTTP handler. Both subscriptions send a request.
-
-```csharp
-IObservable<int> observable = GeneratedRequestRunner.SendObservable<int, int>(
-    client,
-    static () => new HttpRequestMessage(HttpMethod.Get, itemsPath),
-    settings,
-    isApiResponse: false,
-    shouldDisposeResponse: true,
-    bufferBody: false,
-    CancellationToken.None);
-int first = await observable.ToTask();
-int second = await observable.ToTask();
-```
-
-`StreamAsync<T>` sends on enumeration and requires an `IStreamingContentSerializer`.
-The built-in System.Text.Json serializer supports it. Response media type selects JSON
-array, JSON Lines, or server-sent event framing. The sequence disposes the request, response,
+`StreamAsync<T>` sends when you start enumerating and requires an `IStreamingContentSerializer`.
+The built-in System.Text.Json serializer supports it. The response media type selects JSON
+array, JSON Lines or server-sent event framing. The sequence disposes the request, response
 and body stream when enumeration finishes or is disposed. It links the method token and
 consumer token when both can cancel. A positive request timeout also applies while reading.
-Unlike the observable factory, this call captures one request: do not reuse the sequence
-for a second enumeration with a disposed request.
+Unlike the observable, this call captures one request. Do not enumerate the sequence a
+second time, because its request is already disposed.
 
-```csharp
-HttpRequestMessage streamRequest = new(HttpMethod.Get, "/stream");
-GeneratedRequestRunner.SetRequestTimeout(streamRequest, SampleValues.TimeoutMilliseconds);
-int sum = 0;
-await foreach (int item in GeneratedRequestRunner.StreamAsync<int>(client, streamRequest, settings, CancellationToken.None).WithCancellation(CancellationToken.None))
-{
-    sum += item;
-}
-```
-
-The local handler returns `[1,2]`, so the sum is `3`. The complete sample also checks the
-individual values and order, cold observable dispatch, raw response/content/stream results,
-request options, and decompressed GZip and Brotli payloads.
+The complete sample also checks the streamed values and their order, cold observable
+dispatch, raw response, content and stream results, request options, and decompressed
+GZip and Brotli payloads.
 [Method metadata](method-metadata.md) describes the reflected information objects.
 
 ## Path and formatting overloads
@@ -317,7 +426,7 @@ A range is a [value tuple][tuple] of two [int] positions: inclusive start and ex
 ## Header and option overloads
 
 | Overload | Description | Parameters | Returns |
-| --- | --- | --- |
+| --- | --- | --- | --- |
 | `SetHeader(HttpRequestMessage request, string name, string? value, bool validateHeaders)` | Replaces one request header and optionally validates its syntax. | [HttpRequestMessage] `request`; [string] `name`: header name; [string] `value`: replacement or `null`; [bool] `validateHeaders`: whether to validate header syntax. | `void`; replaces the header, or removes it for `null`. |
 | `AddHeaderCollection(HttpRequestMessage request, IDictionary<string, string>? headers, bool validateHeaders)` | Applies a collection of header replacements to the request. | [HttpRequestMessage] `request`; [`IDictionary<string, string>`][dictionary] `headers`: replacements or `null`; [bool] `validateHeaders`: whether to validate syntax. | `void`; applies `SetHeader` to each entry. Null does nothing. |
 | `AddConfiguredRequestOptions(HttpRequestMessage request, RefitSettings settings, Type interfaceType)` | Copies configured request options and HTTP version settings onto a request. | [HttpRequestMessage] `request`; [RefitSettings] `settings`: options and version rules; [Type] `interfaceType`: Refit interface. | `void`; stores request options and interface type, plus HTTP version settings on modern .NET. |
@@ -331,7 +440,7 @@ A range is a [value tuple][tuple] of two [int] positions: inclusive start and ex
 to survive trimming when they use reflection. Read [AOT guidance](../aot.md) before using them in a native app.
 
 | Overload | Description | Parameters | Returns |
-| --- | --- | --- |
+| --- | --- | --- | --- |
 | `CreateBodyContent<TBody>(RefitSettings settings, TBody body, BodySerializationMethod serializationMethod, bool streamBody)` | Serializes a request body according to the selected body mode, preserving supplied content and streams. | [RefitSettings] `settings`; `body`: value to send; [BodySerializationMethod] `serializationMethod`; [bool] `streamBody`: whether serialized content streams. | [HttpContent]: existing content, protected stream content, raw text, or serialized body as described above. |
 | `CreateBodyContent<TBody>(RefitSettings settings, TBody body, JsonTypeInfo<TBody>? typeInfo, BodySerializationMethod serializationMethod, bool streamBody)` | Serializes a request body with the metadata a method parameter supplies. It follows the same body rules as the overload above. | [RefitSettings] `settings`; `body`: value to send; [`JsonTypeInfo<TBody>`](https://learn.microsoft.com/dotnet/api/system.text.json.serialization.metadata.jsontypeinfo-1) `typeInfo`: metadata for `TBody`, or `null` to use the serializer's own lookup; [BodySerializationMethod] `serializationMethod`; [bool] `streamBody`. | [HttpContent]: as above, with the body written through `IJsonTypeInfoContentSerializer` when `typeInfo` is set. Throws `InvalidOperationException` when the serializer does not implement it. .NET 8 and later. |
 | `CreateJsonLinesBodyContent<TBody>(RefitSettings settings, TBody body)` | Creates newline-delimited JSON content from one value or an enumerable body. | [RefitSettings] `settings`; `body`: one value or a sequence of values. | [HttpContent]: JSON Lines content, or existing content/stream handling. |
@@ -351,11 +460,11 @@ The shared flags have these meanings:
 | Parameter | Type | Value |
 | --- | --- | --- |
 | `isApiResponse` | [bool] | `true` when `T` is a supported [response wrapper](../results/responses.md). |
-| `shouldDisposeResponse` | [bool] | `true` for a fully consumed result. Use `false` when returning a live response owner. |
+| `shouldDisposeResponse` | [bool] | `true` for a fully consumed result, including an `ApiResponse<T>`. Use `false` when returning `HttpResponseMessage`, `HttpContent` or `Stream`. |
 | `bufferBody` | [bool] | Whether to buffer request content before sending. |
 
 | Overload | Description | Parameters | Returns |
-| --- | --- | --- |
+| --- | --- | --- | --- |
 | `SendVoidAsync(HttpClient client, HttpRequestMessage request, RefitSettings settings, bool bufferBody, CancellationToken cancellationToken)` | Sends a request whose successful result has no response body. | [HttpClient] `client`; [HttpRequestMessage] `request`: message to send; [RefitSettings] `settings`; [bool] `bufferBody`: flag above; [CancellationToken] `cancellationToken`: request cancellation. | [Task]: completion without a result. Disposes the request and response. |
 | `SendAsync<T, TBody>(HttpClient client, HttpRequestMessage request, RefitSettings settings, bool isApiResponse, bool shouldDisposeResponse, bool bufferBody, CancellationToken cancellationToken)` | Sends a request and processes its response as a deserialized value or API response wrapper. | [HttpClient] `client`; [HttpRequestMessage] `request`; [RefitSettings] `settings`; three [bool] flags above; [CancellationToken] `cancellationToken`: request cancellation. | [`Task<T?>`][task-result]: deserialized, raw, or wrapped result. Disposes the request. Response ownership follows the flag. |
 | `SendObservable<T, TBody>(HttpClient client, Func<HttpRequestMessage> requestFactory, RefitSettings settings, bool isApiResponse, bool shouldDisposeResponse, bool bufferBody, CancellationToken methodCancellationToken)` | Creates a cold observable that builds and sends a fresh request for each subscription. | [HttpClient] `client`; [`Func<HttpRequestMessage>`][factory] `requestFactory`: creates a fresh message per subscription; [RefitSettings] `settings`; three [bool] flags above; [CancellationToken] `methodCancellationToken`: caller cancellation. | [`IObservable<T?>`][observable]: sends one request per subscription and delivers its result or error. See [observable replies](../results/return-types.md#querying-a-reply). |
@@ -367,7 +476,7 @@ The shared flags have these meanings:
 read-only and retain the constructor arguments. None of the arguments has a default.
 
 | Overload | Description | Parameters | Returns |
-| --- | --- | --- |
+| --- | --- | --- | --- |
 | `FormField(Func<TBody, object?> getter, string clrName, string? explicitName, string? prefixSegment, string? format, CollectionFormat? collectionFormat, bool serializeNull)` | Creates a descriptor that reads and formats one URL-encoded form field. | [`Func<TBody, object?>`][getter] `getter`: reads a field; [string] `clrName`: declared name; nullable [string] arguments: explicit name, prefix with delimiter and value format; nullable [CollectionFormat] `collectionFormat`: override or settings default; [bool] `serializeNull`: whether null emits an empty field. | A [`FormField<TBody>`](https://github.com/reactiveui/refit/blob/main/src/Refit/FormField.cs) descriptor. |
 | `ResolveFieldName(IUrlParameterKeyFormatter urlParameterKeyFormatter)` | Resolves the final form key from the explicit name or configured key formatter. | [IUrlParameterKeyFormatter] `urlParameterKeyFormatter`: formats `ClrName` when no explicit name is set. | [string], nullable: resolved name with the prefix prepended. |
 

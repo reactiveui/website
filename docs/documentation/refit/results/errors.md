@@ -32,17 +32,19 @@ Include every error model your app deserializes. An AOT build needs these regist
 internal sealed partial class ErrorJsonContext : JsonSerializerContext;
 ```
 
-**3. Reuse options and settings.** These fields live on the sample's `Errors` class.
+**3. Reuse options and settings.** Keep one options object in a field, and build `settings` from it.
 They keep JSON metadata available without a reflection resolver.
 
 ```csharp
 private static readonly JsonSerializerOptions Options = new(ErrorJsonContext.Default.Options) { TypeInfoResolver = ErrorJsonContext.Default };
+```
 
-private static readonly RefitSettings Settings = new(new SystemTextJsonContentSerializer(Options));
+```csharp
+RefitSettings settings = new(new SystemTextJsonContentSerializer(Options));
 ```
 
 **4. Declare the calls.** Create the client with
-`RestService.ForGenerated<IErrorsApi>(httpClient, Settings)`.
+`RestService.ForGenerated<IErrorsApi>(httpClient, settings)`.
 Give your `httpClient` the server's base address. The runnable example uses a local message handler.
 
 ```csharp
@@ -68,8 +70,7 @@ A wrapped call records that error in `Error` instead.
 ```csharp
 try
 {
-    _ = await api.GetRejectedAsync(CancellationToken.None);
-    throw new InvalidOperationException("The rejected call should throw.");
+    await api.GetRejectedAsync(cancellationToken);
 }
 catch (ApiException error)
 {
@@ -214,11 +215,11 @@ They return a `Task<ApiException>`; await it before reading the captured content
 
 ```csharp
 using HttpRequestMessage request = new(HttpMethod.Get, "https://people.example/person");
-using HttpResponseMessage response = new(HttpStatusCode.BadRequest) { RequestMessage = request, Content = new StringContent(RejectedJson) };
-ApiException error = await ApiException.Create(request, request.Method, response, Settings);
+using HttpResponseMessage response = new(HttpStatusCode.BadRequest) { RequestMessage = request, Content = new StringContent("""{"code":"name_taken"}""") };
+ApiException error = await ApiException.Create(request, request.Method, response, settings);
 Console.WriteLine(error.HasContent); // True
 Console.WriteLine(error.Uri);
-DefaultApiExceptionFactory factory = new(Settings);
+DefaultApiExceptionFactory factory = new(settings);
 using HttpResponseMessage success = new(HttpStatusCode.OK) { RequestMessage = request };
 Exception? noError = await factory.CreateAsync(success);
 Console.WriteLine(noError is null); // True
@@ -236,7 +237,7 @@ An optional inner exception preserves the reading error:
 ```csharp
 using HttpResponseMessage unreadable = new(HttpStatusCode.OK) { RequestMessage = request, Content = new StringContent("not JSON") };
 JsonException cause = new("Invalid person JSON.");
-ApiException readError = await ApiException.Create("Could not read the person.", request, request.Method, unreadable, Settings, cause);
+ApiException readError = await ApiException.Create("Could not read the person.", request, request.Method, unreadable, settings, cause);
 ```
 
 All four factory overloads reject a null response.
@@ -410,8 +411,8 @@ RefitSettings customSettings = new(new SystemTextJsonContentSerializer(Options))
 {
     ExceptionFactory = static _ => ValueTask.FromResult<Exception?>(new InvalidOperationException("App-specific failure.")),
 };
-IErrorsApi custom = RestService.ForGenerated<IErrorsApi>(host.Client, customSettings);
-using ApiResponse<Person> wrapper = await custom.GetRejectedResponseAsync(CancellationToken.None);
+IErrorsApi custom = RestService.ForGenerated<IErrorsApi>(httpClient, customSettings);
+using ApiResponse<Person> wrapper = await custom.GetRejectedResponseAsync(cancellationToken);
 Console.WriteLine(wrapper.Error is null); // True: the custom exception is lost.
 ```
 

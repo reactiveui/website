@@ -17,7 +17,7 @@ and what to call them, while keeping the interface method convenient for your ca
 **1. Choose the input type.** This example sends a search name and a result limit.
 
 ```csharp
-internal sealed record SearchChoice(string Name, int Limit);
+public sealed record SearchChoice(string Name, int Limit);
 ```
 
 **2. Implement `IQueryConverter<T>.Flatten`.** Add the entries to the supplied builder.
@@ -25,7 +25,7 @@ Pass `false` for `preEncoded` to let it escape ordinary names and values.
 Use `keyPrefix` so a `Query` prefix on the argument still works.
 
 ```csharp
-internal sealed class SearchChoiceConverter : IQueryConverter<SearchChoice>
+public sealed class SearchChoiceConverter : IQueryConverter<SearchChoice>
 {
     public void Flatten(SearchChoice value, string keyPrefix, ref GeneratedQueryStringBuilder builder, RefitSettings settings)
     {
@@ -37,32 +37,47 @@ internal sealed class SearchChoiceConverter : IQueryConverter<SearchChoice>
 
 `GeneratedRequestRunner.FormatInvariant` renders the limit without relying on the device's language settings.
 The converter writes two entries. It does not send a request.
-Generated request code caches one converter instance per converter type, so keep per-call data in the method.
+The [query builder](../advanced/query-builder.md) page describes every `builder` method.
 
 **3. Name the converter on the argument.** The converter must implement `IQueryConverter<T>`
 for the argument's declared type. Its public parameterless constructor must be available to the generated code.
 
 ```csharp
-internal interface IConverterApi
+public interface IPeopleApi
 {
     [Get("/people")]
-    Task<HttpRequestMessage> SearchAsync([QueryConverter(typeof(SearchChoiceConverter))] SearchChoice choice);
+    Task<List<Person>> SearchAsync([QueryConverter(typeof(SearchChoiceConverter))] SearchChoice choice, CancellationToken cancellationToken);
 
     [Get("/people")]
-    Task<HttpRequestMessage> PersonAsync([Query(".", "person")] [QueryConverter(typeof(SystemTextJsonQueryConverter<Person>))] Person person);
+    Task<List<Person>> FindAsync([Query(".", "person")] [QueryConverter(typeof(SystemTextJsonQueryConverter<Person>))] Person person, CancellationToken cancellationToken);
 }
 ```
 
-**4. Call the generated method.** `SearchLimit` is the sample's constant for `20`.
+For `SearchAsync`, Refit generates a cached converter and one `Flatten` call. This excerpt is
+trimmed from the generator's output:
 
 ```csharp
-IConverterApi api = RestService.ForGenerated<IConverterApi>(host.Client, host.Settings);
-using HttpRequestMessage custom = await api.SearchAsync(new("Ada Lovelace", SearchLimit));
-Console.WriteLine(custom.RequestUri); // /people?q=Ada%20Lovelace&limit=20
+private static readonly SearchChoiceConverter queryConverter = new SearchChoiceConverter();
+
+// Inside the generated SearchAsync:
+var query = new GeneratedQueryStringBuilder("/people", false);
+if (choice != null)
+{
+    queryConverter.Flatten(choice, "", ref query, settings);
+}
 ```
 
-Run the complete [converter example](https://github.com/reactiveui/refit/blob/main/src/examples/Documentation/Queries/Converters.cs)
-to check both approaches on this page.
+The generated code keeps one converter instance per converter type, so keep per-call data in
+the method. A null argument skips the converter. For `FindAsync`, Refit passes `"person."`
+as `keyPrefix`: the prefix from `[Query]` plus its delimiter.
+
+**4. Call the generated method.**
+
+```csharp
+IPeopleApi api = RestService.ForGenerated<IPeopleApi>(httpClient, settings);
+List<Person> people = await api.SearchAsync(new SearchChoice("Ada Lovelace", 20), cancellationToken);
+// GET /people?q=Ada%20Lovelace&limit=20
+```
 
 ## Reuse generated JSON metadata
 
@@ -71,23 +86,21 @@ It uses JSON names, including the naming policy and `JsonPropertyName` attribute
 For a value whose runtime type differs from its declared type, it uses that runtime type's metadata.
 
 Register all those types in a JSON context. See [the AOT setup](../aot.md#make-one-call-ready-for-aot).
-The sample's context class, `SampleJsonContext`, lists `Person` and uses camel-case JSON names.
-These shared fields supply that metadata to the converter.
-The file imports `System.Text.Json`.
+The example's context class, `SampleJsonContext`, lists `Person` and uses camel-case JSON names.
+Build the client's settings from that context:
 
 ```csharp
-private static readonly JsonSerializerOptions Options = new(SampleJsonContext.Default.Options) { TypeInfoResolver = SampleJsonContext.Default };
-
-private static readonly RefitSettings Settings = new(new SystemTextJsonContentSerializer(Options));
+JsonSerializerOptions options = new(SampleJsonContext.Default.Options) { TypeInfoResolver = SampleJsonContext.Default };
+RefitSettings settings = new(new SystemTextJsonContentSerializer(options));
 ```
 
-The `PersonAsync` declaration above selects the JSON converter and a `person.` prefix.
-The resulting query uses `person.id` and `person.name`.
+The `FindAsync` declaration above selects the JSON converter and a `person.` prefix.
+The query uses `person.id` and `person.name`:
 
 ```csharp
-IConverterApi jsonApi = RestService.ForGenerated<IConverterApi>(host.Client, Settings);
-using HttpRequestMessage json = await jsonApi.PersonAsync(new(1, "Ada"));
-Console.WriteLine(json.RequestUri); // /people?person.id=1&person.name=Ada
+IPeopleApi api = RestService.ForGenerated<IPeopleApi>(httpClient, settings);
+List<Person> people = await api.FindAsync(new Person(1, "Ada"), cancellationToken);
+// GET /people?person.id=1&person.name=Ada
 ```
 
 The converter's `Flatten` method skips null properties.
@@ -109,17 +122,15 @@ Supply a generated context to keep that metadata path ready for Native AOT.
 ## Call a converter yourself
 
 The parameterless JSON converter also implements the public `IQueryConverter<T>.Flatten` contract.
-The method adds entries to a builder; `Build` returns the finished path and releases its rented buffers.
-This synchronous helper uses the same generated-metadata `Settings` shown above.
-Its constants `QueryPath` and `JsonPrefix` hold `/people` and `person.`.
-
+You can call it to see the query it writes. `Flatten` adds entries to a builder.
+`Build` returns the finished path and releases the builder's rented buffers.
+This call uses the `settings` built from `SampleJsonContext` above:
 
 ```csharp
 SystemTextJsonQueryConverter<Person> converter = new();
-GeneratedQueryStringBuilder builder = new(QueryPath);
-converter.Flatten(new(1, "Ada"), JsonPrefix, ref builder, Settings);
-string path = builder.Build();
-Console.WriteLine(path); // /people?person.id=1&person.name=Ada
+GeneratedQueryStringBuilder query = new("/people");
+converter.Flatten(new Person(1, "Ada Lovelace"), "person.", ref query, settings);
+string url = query.Build(); // "/people?person.id=1&person.name=Ada%20Lovelace"
 ```
 
 For this converter, JSON metadata chooses the property names. `AliasAs` and the URL key formatter
@@ -128,21 +139,21 @@ has `Query(SerializeNull = true)`. Collection elements are formatted as values r
 indexed objects. It calls `UrlParameterFormatter` directly and does not consult `UrlParameterFormatterMap`
 or a property's `Query(Format = ...)`. Nesting stops at depth 32. A null root value adds no entries.
 
-The complete example also checks a nested person, a repeated integer collection and an omitted
-null object. It registers `JsonQueryEnvelope` on its own context class, `QueryJsonContext`, and uses that generated metadata:
+A nested object and a collection flatten like this. `PeopleFilter` must be registered on the
+JSON context that `options` comes from, and `CollectionFormat.Multi` repeats the key for each
+code. The null `Manager` adds nothing:
 
 ```csharp
-SystemTextJsonContentSerializer serializer = new(NestedOptions);
-RefitSettings settings = new(serializer) { CollectionFormat = CollectionFormat.Multi };
-SystemTextJsonQueryConverter<JsonQueryEnvelope> converter = new();
-JsonQueryEnvelope value = new(new(1, "Ada"), [1, SecondCode], null);
-GeneratedQueryStringBuilder builder = new(QueryPath);
-converter.Flatten(value, "filter.", ref builder, settings);
-SampleCheck.Equal("/people?filter.person.id=1&filter.person.name=Ada&filter.codes=1&filter.codes=2", builder.Build());
+public sealed record PeopleFilter(Person Person, int[] Codes, Person? Manager);
 ```
 
-Here, `SecondCode` is `2` and `QueryPath` is `/people`. The converter requires a
-`SystemTextJsonContentSerializer`; the example also verifies rejection of an incompatible serializer.
+```csharp
+RefitSettings settings = new(new SystemTextJsonContentSerializer(options)) { CollectionFormat = CollectionFormat.Multi };
+SystemTextJsonQueryConverter<PeopleFilter> converter = new();
+GeneratedQueryStringBuilder query = new("/people");
+converter.Flatten(new PeopleFilter(new Person(1, "Ada"), [10, 20], null), "filter.", ref query, settings);
+string url = query.Build(); // "/people?filter.person.id=1&filter.person.name=Ada&filter.codes=10&filter.codes=20"
+```
 
 ## API reference
 

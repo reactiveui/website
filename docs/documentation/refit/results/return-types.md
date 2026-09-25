@@ -46,11 +46,11 @@ Use your app's HTTP client in the same way.
 Use `Task` for a call that has no result value.
 
 ```csharp
-Person fromTask = await api.GetTaskAsync(CancellationToken.None);
-Person fromValueTask = await api.GetValueTaskAsync(CancellationToken.None);
+Person fromTask = await api.GetTaskAsync(cancellationToken);
+Person fromValueTask = await api.GetValueTaskAsync(cancellationToken);
 Console.WriteLine(fromTask.Name); // Ada
 Console.WriteLine(fromValueTask.Name); // Ada
-await api.PingAsync(CancellationToken.None);
+await api.PingAsync(cancellationToken);
 ```
 
 As a general rule, await a `ValueTask<T>` once. If several callers need the same operation,
@@ -80,7 +80,7 @@ Add `using ReactiveUI.Primitives;` to use these operators and the lambda overloa
 Refit's public method still returns the C# `IObservable<Person>` type.
 
 ```csharp
-IObservable<string> names = api.GetPerson(CancellationToken.None)
+IObservable<string> names = api.GetPerson(cancellationToken)
     .Where(static person => person.Id > 0)
     .Select(static person => person.Name);
 
@@ -113,7 +113,7 @@ Use a response wrapper when your app needs those details as well as the reply va
 Dispose the wrapper after reading it.
 
 ```csharp
-using ApiResponse<Person> response = await api.GetResponseAsync(CancellationToken.None);
+using ApiResponse<Person> response = await api.GetResponseAsync(cancellationToken);
 await response.EnsureSuccessfulAsync();
 if (response.HasContent)
 {

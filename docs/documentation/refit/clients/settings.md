@@ -14,19 +14,20 @@ then change the other settings when a request calls for them.
 
 ## Set the serializer and formatters
 
-**1. Prepare the JSON serializer.** Use the context and `JsonSettings` from
+**1. Prepare the JSON serializer.** Build it from the JSON context described in
 [client creation](creation.md#use-settings-instead-of-a-context).
 
 **2. Choose the settings constructor.** The serializer is required in these constructor overloads.
-A null formatter selects the default formatter.
-
+A null formatter selects the default formatter. Each line below is a separate choice; pick the one you need.
 
 ```csharp
-RefitSettings defaults = new() { ContentSerializer = JsonSettings.ContentSerializer };
-RefitSettings serializerOnly = new(JsonSettings.ContentSerializer);
-RefitSettings values = new(JsonSettings.ContentSerializer, new DefaultUrlParameterFormatter());
-RefitSettings forms = new(JsonSettings.ContentSerializer, null, new DefaultFormUrlEncodedParameterFormatter());
-RefitSettings keys = new(JsonSettings.ContentSerializer, null, null, new CamelCaseUrlParameterKeyFormatter());
+SystemTextJsonContentSerializer serializer = SystemTextJsonContentSerializer.ForContext(SampleJsonContext.Default);
+
+RefitSettings serializerOnly = new(serializer);
+RefitSettings values = new(serializer, new DefaultUrlParameterFormatter());
+RefitSettings forms = new(serializer, null, new DefaultFormUrlEncodedParameterFormatter());
+RefitSettings keys = new(serializer, null, null, new CamelCaseUrlParameterKeyFormatter()); // keys "PageSize" as "pageSize"
+RefitSettings initialized = new() { ContentSerializer = serializer };
 ```
 
 **3. Pass the settings to client creation or registration.** Reuse the configured serializer.
@@ -50,8 +51,8 @@ Prepare a different settings instance when clients need different rules.
 Settings hold the serializer, so settings hold the JSON choices. You can give the serializer a context three ways.
 
 - **Build the options yourself.** Assign the context as the `TypeInfoResolver` of your own options, wrap them in a
-  serializer and pass `new RefitSettings(serializer)`. `JsonSettings` in [client creation](creation.md#use-settings-instead-of-a-context)
-  does this. Pick this way when you have `JsonSerializerOptions` to share, need full control,
+  serializer and pass `new RefitSettings(serializer)`. [Client creation](creation.md#use-settings-instead-of-a-context)
+  shows this. Pick this way when you have `JsonSerializerOptions` to share, need full control,
   or want one options object reused elsewhere in your app.
   The short path needs no options object. This way makes you assign the `TypeInfoResolver` yourself
   and keep the options unchanged after first use.
@@ -80,8 +81,7 @@ These APIs exist on .NET 8 and later.
 `CamelCase()`, `SnakeCase()` and `KebabCase()` return settings that align the JSON naming policy and the URL key formatter.
 Add a context with `UseJsonContext`. The settings' naming policy wins over the naming in the context's own
 `JsonSourceGenerationOptions`, so one context serves all three.
-This context registers the demonstration model, `ClientNamingInput(int PageSize)`.
-
+This context registers a model with one property, `ClientNamingInput(int PageSize)`.
 
 ```csharp
 [JsonSourceGenerationOptions(JsonSerializerDefaults.Web)]
@@ -89,33 +89,20 @@ This context registers the demonstration model, `ClientNamingInput(int PageSize)
 internal sealed partial class ClientNamingJsonContext : JsonSerializerContext;
 ```
 
-The example checks all three shortcuts and writes the model through each.
-
+The snake_case settings below send `PageSize` as `page_size` in both the URL and the JSON body.
 
 ```csharp
-RefitSettings camel = RefitSettings.CamelCase().UseJsonContext(ClientNamingJsonContext.Default);
-RefitSettings snake = RefitSettings.SnakeCase().UseJsonContext(ClientNamingJsonContext.Default);
-RefitSettings kebab = RefitSettings.KebabCase().UseJsonContext(ClientNamingJsonContext.Default);
-RefitSettings[] naming = [camel, snake, kebab];
-for (int index = 0; index < naming.Length; index++)
-{
-    RefitSettings settings = naming[index];
-    Console.WriteLine(settings.UrlParameterKeyFormatter.Format(NamingKey));
-    using HttpContent content = settings.ContentSerializer.ToHttpContent(new ClientNamingInput(NamingPageSize));
-    Console.WriteLine(await content.ReadAsStringAsync());
-}
+RefitSettings settings = RefitSettings.SnakeCase().UseJsonContext(ClientNamingJsonContext.Default);
+string key = settings.UrlParameterKeyFormatter.Format("PageSize"); // "page_size"
+using HttpContent body = settings.ContentSerializer.ToHttpContent(new ClientNamingInput(5));
+string json = await body.ReadAsStringAsync(cancellationToken); // {"page_size":5}
 ```
+
+`CamelCase()` gives `pageSize` and `KebabCase()` gives `page-size` in the same places.
 
 If you build the options yourself, give each convention its own context. Each context states its naming in
 `JsonSourceGenerationOptions`, and you assign it as the `TypeInfoResolver` of options you own.
-
-
-```csharp
-[JsonSourceGenerationOptions(JsonSerializerDefaults.Web, PropertyNamingPolicy = JsonKnownNamingPolicy.CamelCase)]
-[JsonSerializable(typeof(ClientNamingInput))]
-internal sealed partial class ClientCamelJsonContext : JsonSerializerContext;
-```
-
+A camelCase or kebab-case context differs only in its `PropertyNamingPolicy`.
 
 ```csharp
 [JsonSourceGenerationOptions(JsonSerializerDefaults.Web, PropertyNamingPolicy = JsonKnownNamingPolicy.SnakeCaseLower)]
@@ -123,35 +110,12 @@ internal sealed partial class ClientCamelJsonContext : JsonSerializerContext;
 internal sealed partial class ClientSnakeJsonContext : JsonSerializerContext;
 ```
 
-
 ```csharp
-[JsonSourceGenerationOptions(JsonSerializerDefaults.Web, PropertyNamingPolicy = JsonKnownNamingPolicy.KebabCaseLower)]
-[JsonSerializable(typeof(ClientNamingInput))]
-internal sealed partial class ClientKebabJsonContext : JsonSerializerContext;
+JsonSerializerOptions options = new(ClientSnakeJsonContext.Default.Options) { TypeInfoResolver = ClientSnakeJsonContext.Default };
+RefitSettings settings = RefitSettings.SnakeCase();
+settings.ContentSerializer = new SystemTextJsonContentSerializer(options);
+// URL key "page_size", JSON body {"page_size":5}
 ```
-
-The example writes the model with each generated context.
-
-
-```csharp
-RefitSettings camel = RefitSettings.CamelCase();
-RefitSettings snake = RefitSettings.SnakeCase();
-RefitSettings kebab = RefitSettings.KebabCase();
-RefitSettings[] naming = [camel, snake, kebab];
-System.Text.Json.Serialization.JsonSerializerContext[] contexts = [ClientCamelJsonContext.Default, ClientSnakeJsonContext.Default, ClientKebabJsonContext.Default];
-for (int index = 0; index < naming.Length; index++)
-{
-    RefitSettings settings = naming[index];
-    System.Text.Json.Serialization.JsonSerializerContext context = contexts[index];
-    JsonSerializerOptions options = new(context.Options) { TypeInfoResolver = context };
-    settings.ContentSerializer = new SystemTextJsonContentSerializer(options);
-    Console.WriteLine(settings.UrlParameterKeyFormatter.Format(NamingKey));
-    using HttpContent content = settings.ContentSerializer.ToHttpContent(new ClientNamingInput(NamingPageSize));
-    Console.WriteLine(await content.ReadAsStringAsync());
-}
-```
-
-The key/body names are `pageSize`, `page_size` and `page-size`.
 Register each request, reply and container type your real API uses.
 See [JSON contexts](../serialization/json.md) for combining and reusing registrations.
 An explicit `AliasAs` name wins over a naming rule.
@@ -174,32 +138,42 @@ Keep the trailing slash when the base path represents a folder to append to.
 
 `Buffered` asks Refit to load the request body into memory before passing it to the HTTP handler.
 An explicit `[Body(true)]` or `[Body(false)]` overrides the client setting for that argument.
-The [policy example](https://github.com/reactiveui/refit/blob/main/src/examples/Documentation/Clients/SettingsPolicies.cs)
-checks both client defaults and both attribute overrides. Its handler observes the content length
-before reading any bytes:
+A buffered body has a known `Content-Length` before the handler reads it.
 
 ```csharp
-RefitSettings settings = new(serializer) { Buffered = buffer };
-ISettingsPolicyApi api = RestService.ForGenerated<ISettingsPolicyApi>(client, settings);
-SampleCheck.Equal(BufferingHandler.ReplyText, await api.InheritedAsync(new(1, "Ada")));
-SampleCheck.Equal(buffer, handler.LengthBeforeRead.HasValue);
-SampleCheck.Equal(BufferingHandler.ReplyText, await api.UnbufferedAsync(new(1, "Ada")));
-SampleCheck.Equal(false, handler.LengthBeforeRead.HasValue);
-SampleCheck.Equal(BufferingHandler.ReplyText, await api.BufferedAsync(new(1, "Ada")));
-SampleCheck.Equal(true, handler.LengthBeforeRead > 0);
-```
+internal interface ISettingsPolicyApi
+{
+    [Post("/people")]
+    Task<string> InheritedAsync([Body] Person person); // follows settings.Buffered
 
-The same project declares `/policy/{tenant}` without a matching method argument.
-With `AllowUnmatchedRouteParameters` false, building that request throws `ArgumentException`.
-True retains the placeholder for code that will rewrite it later. It does not supply a tenant value.
+    [Post("/people")]
+    Task<string> UnbufferedAsync([Body(false)] Person person); // never buffered
+
+    [Post("/people")]
+    Task<string> BufferedAsync([Body(true)] Person person); // always buffered
+
+    [Get("/tenants/{tenant}/people")]
+    Task<HttpRequestMessage> UnmatchedAsync();
+}
+```
 
 ```csharp
-RefitSettings settings = new(serializer) { AllowUnmatchedRouteParameters = allow };
-ISettingsPolicyApi api = RestService.ForGenerated<ISettingsPolicyApi>(client, settings);
+RefitSettings settings = new(serializer) { Buffered = true };
+ISettingsPolicyApi api = RestService.ForGenerated<ISettingsPolicyApi>(httpClient, settings);
+string reply = await api.InheritedAsync(new(1, "Ada")); // sent buffered, with a Content-Length
 ```
 
-Configure either setting before creating the client. The complete example reuses one local
-HTTP client across the checks and does not contact a server.
+`UnmatchedAsync` declares `{tenant}` without a matching method argument.
+With `AllowUnmatchedRouteParameters` false, the default, building that request throws `ArgumentException`.
+True keeps the placeholder for code that will rewrite it later. It does not supply a tenant value.
+
+```csharp
+RefitSettings settings = new(serializer) { AllowUnmatchedRouteParameters = true };
+ISettingsPolicyApi api = RestService.ForGenerated<ISettingsPolicyApi>(httpClient, settings);
+using HttpRequestMessage request = await api.UnmatchedAsync(); // request.RequestUri: "/tenants/{tenant}/people"
+```
+
+Configure either setting before creating the client.
 
 ## Settings reference
 

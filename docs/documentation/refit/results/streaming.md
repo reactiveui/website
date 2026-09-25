@@ -28,27 +28,26 @@ internal interface IStreamingApi
 **2. Create the client.** Pass your HTTP client and the generated JSON context from
 [the first request](../index.md#your-first-request) to `RestService.ForGenerated<IStreamingApi>`.
 The default `SystemTextJsonContentSerializer` supports streamed replies.
-The runnable example uses the sample host's client with a base address of `https://people.example`.
+In this example `httpClient` has a base address of `https://people.example`.
 
 ```csharp
-IStreamingApi api = RestService.ForGenerated<IStreamingApi>(host.Client, SampleJsonContext.Default);
+IStreamingApi api = RestService.ForGenerated<IStreamingApi>(httpClient, SampleJsonContext.Default);
 ```
 
-To pass settings that you built yourself, hand them to the same call. The sample host exposes its shared settings as `host.Settings`.
+To pass settings that you built yourself, hand them to the same call.
 
 ```csharp
-IStreamingApi withSettings = RestService.ForGenerated<IStreamingApi>(host.Client, host.Settings);
+IStreamingApi withSettings = RestService.ForGenerated<IStreamingApi>(httpClient, settings);
 ```
 
-**3. Read the items.** The example sets `DeadlineSeconds` to `10` and starts `count` at `0`.
+**3. Read the items.** This example stops the request if it takes longer than 10 seconds.
 In your app, pass the caller's cancellation token when the caller controls the request lifetime.
 
 ```csharp
-using CancellationTokenSource cancellation = new(TimeSpan.FromSeconds(DeadlineSeconds));
+using CancellationTokenSource cancellation = new(TimeSpan.FromSeconds(10));
 await foreach (Person person in api.ReadPeopleAsync(cancellation.Token))
 {
     Console.WriteLine(person.Name); // Ada, then Grace
-    count++;
 }
 ```
 
@@ -91,7 +90,7 @@ IAsyncEnumerable<Order> StreamOrdersAsync(JsonTypeInfo<Order> orderInfo, Cancell
 ```
 
 ```csharp
-await foreach (Order streamed in api.StreamOrdersAsync(OrdersJsonContext.Default.Order, CancellationToken.None))
+await foreach (Order streamed in api.StreamOrdersAsync(OrdersJsonContext.Default.Order, cancellationToken))
 {
     Console.WriteLine(streamed.Customer); // Ada
 }

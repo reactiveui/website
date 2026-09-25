@@ -41,7 +41,7 @@ The returned `HttpContent` belongs to the caller. Dispose it when you finish.
 ```csharp
 using HttpContent content = serializer.ToHttpContent(new WirePerson { Id = 1, Name = "Ada" });
 Console.WriteLine(content.Headers.ContentType?.MediaType); // application/json
-WirePerson? person = await serializer.FromHttpContentAsync<WirePerson>(content, CancellationToken.None);
+WirePerson? person = await serializer.FromHttpContentAsync<WirePerson>(content, cancellationToken);
 Console.WriteLine(person?.Name); // Ada
 ```
 

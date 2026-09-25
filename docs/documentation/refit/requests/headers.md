@@ -40,16 +40,15 @@ internal interface IHeaderApi
 `HeaderCollection` sends the entries in a dictionary as headers.
 `Authorize` writes the `Authorization` header with the default `Bearer` scheme.
 
-**3. Build the request and inspect the headers.** The sample's `api` is a generated `IHeaderApi`
-using its shared HTTP client. `App` is `Driver` and `RegionHeader` is `X-Region`.
-`SampleToken` is a random token for the local stub service.
-In your app, get a real token from your authentication service.
+**3. Build the request and inspect the headers.** `api` is a generated `IHeaderApi` created from `httpClient`.
+In your app, get the access token from your authentication service.
 
 ```csharp
-using HttpRequestMessage request = await api.BuildAsync(App, new Dictionary<string, string> { [RegionHeader] = "north" }, SampleToken, "customer-a", 1);
+string accessToken = "ada-access-token";
+using HttpRequestMessage request = await api.BuildAsync("Driver", new Dictionary<string, string> { ["X-Region"] = "north" }, accessToken, "customer-a", 1);
 Console.WriteLine(string.Join(",", request.Headers.GetValues("X-App"))); // Driver
-Console.WriteLine(string.Join(",", request.Headers.GetValues(RegionHeader))); // north
-Console.WriteLine(request.Headers.Authorization); // Bearer followed by the sample token
+Console.WriteLine(string.Join(",", request.Headers.GetValues("X-Region"))); // north
+Console.WriteLine(request.Headers.Authorization); // Bearer ada-access-token
 Console.WriteLine(request.Headers.Contains("X-Remove")); // False
 ```
 
@@ -64,9 +63,9 @@ The generated request calls it before sending. It passes the request and cancell
 The getter returns a `ValueTask<string>`.
 
 ```csharp
-RefitSettings tokenSettings = new(host.Settings.ContentSerializer) { AuthorizationHeaderValueGetter = static (_, _) => ValueTask.FromResult(SampleToken) };
-IHeaderApi securedApi = RestService.ForGenerated<IHeaderApi>(host.Client, tokenSettings);
-Person person = await securedApi.ReadAsync(CancellationToken.None);
+RefitSettings tokenSettings = new() { AuthorizationHeaderValueGetter = static (_, _) => ValueTask.FromResult("ada-access-token") };
+IHeaderApi securedApi = RestService.ForGenerated<IHeaderApi>(httpClient, SampleJsonContext.Default, tokenSettings);
+Person person = await securedApi.ReadAsync(cancellationToken); // sends "Authorization: Bearer ada-access-token"
 Console.WriteLine(person.Name); // Ada
 ```
 
@@ -124,17 +123,18 @@ internal interface IContextApi
 }
 ```
 
-Here `api` is a generated `IContextApi` with `Tenant = "client-tenant"`.
-Passing null for `app` removes the static header. `TestToken` is randomly generated local test data;
-`TenantKey` is the constant `"tenant"`.
-
+Here `api` is a generated `IContextApi`. The token is the Base64 text of `Ada:secret`.
+Passing null for `app` removes the static header.
 
 ```csharp
-using HttpRequestMessage built = await api.BuildAsync(TestToken, null);
-Console.WriteLine(built.Headers.Authorization); // Basic followed by the test token
+api.Tenant = "client-tenant";
+
+using HttpRequestMessage built = await api.BuildAsync("QWRhOnNlY3JldA==", null);
+Console.WriteLine(built.Headers.Authorization); // Basic QWRhOnNlY3JldA==
 Console.WriteLine(built.Headers.Contains("X-App")); // False
-_ = built.Options.TryGetValue(new(TenantKey), out string? clientTenant);
-Console.WriteLine(clientTenant); // client-tenant
+
+built.Options.TryGetValue(new HttpRequestOptionsKey<string>("tenant"), out string? tenant);
+Console.WriteLine(tenant); // client-tenant
 ```
 
 ## Header attribute reference

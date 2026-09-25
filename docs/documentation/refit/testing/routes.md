@@ -22,53 +22,27 @@ For a full Refit test, use the [generated client and JSON context](index.md#make
 Raw HTTP does not need JSON metadata unless you serialize or deserialize models.
 
 **3. Check the status.** A fallback declared first cannot hide a one-shot expectation.
+Here the GET and DELETE expectations answer their requests. The fallback answers the request that matches neither.
+`disposeHandler: false` leaves the handler for its own `using` to dispose.
 
 
 ```csharp
 using StubHttp http = new()
 {
-    {
-        Route.Fallback(),
-        Reply.Status(HttpStatusCode.NotFound)
-    },
-    {
-        Route.Get("/get"),
-        Reply.Status(HttpStatusCode.OK)
-    },
-    {
-        Route.Post("/post"),
-        Reply.Status(HttpStatusCode.Created)
-    },
-    {
-        Route.Put("/put"),
-        Reply.Status(HttpStatusCode.NoContent)
-    },
-    {
-        Route.Delete("/delete"),
-        Reply.Status(HttpStatusCode.NoContent)
-    },
-    {
-        Route.Patch("/patch"),
-        Reply.Status(HttpStatusCode.NoContent)
-    },
-    {
-        Route.Head("/head"),
-        Reply.Status(HttpStatusCode.OK)
-    },
-    {
-        Route.For(HttpMethod.Options, "/options"),
-        Reply.Status(HttpStatusCode.OK)
-    },
-    {
-        Route.Any("/any"),
-        Reply.Status(HttpStatusCode.Accepted)
-    },
+    { Route.Fallback(), Reply.Status(HttpStatusCode.NotFound) },
+    { Route.Get("/people/{id}"), Reply.Json("""{"id":1,"name":"Ada"}""") },
+    { Route.Delete("/people/{id}"), Reply.Status(HttpStatusCode.NoContent) },
 };
-using HttpClient client = CreateClient(http);
-using HttpResponseMessage get = await client.GetAsync(new Uri("https://people.example/get"));
-SampleCheck.Equal(HttpStatusCode.OK, get.StatusCode);
-using HttpResponseMessage missing = await client.GetAsync(new Uri("https://people.example/missing"));
-SampleCheck.Equal(HttpStatusCode.NotFound, missing.StatusCode);
+using HttpClient httpClient = new(http, disposeHandler: false);
+
+using HttpResponseMessage found = await httpClient.GetAsync(new Uri("https://api.example.com/people/1"));
+using HttpResponseMessage deleted = await httpClient.DeleteAsync(new Uri("https://api.example.com/people/1"));
+using HttpResponseMessage missing = await httpClient.GetAsync(new Uri("https://api.example.com/orders/1"));
+
+Assert.Equal(HttpStatusCode.OK, found.StatusCode);
+Assert.Equal(HttpStatusCode.NoContent, deleted.StatusCode);
+Assert.Equal(HttpStatusCode.NotFound, missing.StatusCode);
+http.VerifyAllCalled();
 ```
 
 ## Path and priority rules
@@ -90,8 +64,7 @@ An unmatched request throws `InvalidOperationException`; it does not return an a
 
 ## Check queries, headers and bodies
 
-The [constraint example](https://github.com/reactiveui/refit/blob/main/src/examples/Documentation/Testing/Testing.cs)
-sets every matching property and sends a form body that satisfies them.
+The [constraint example](#check-every-condition) sets every matching property and sends a form body that satisfies them.
 
 | Property | Required request behavior |
 | --- | --- |
@@ -115,29 +88,24 @@ Body buffering makes content rereadable when buffering succeeds.
 ## Duplicate-query discrepancy
 
 The implementation compares pair count and membership. It does not check how many times a pair occurs.
-Expected behavior: two expected `a=1` pairs require two actual `a=1` pairs.
-Actual behavior: `a=1&b=2` passes because the count is two and `a=1` is present.
-The same discrepancy affects both exact-query properties.
-The runnable example asserts the actual response, rather than hiding the defect:
+Expected behavior: two expected `tag=books` pairs require two actual `tag=books` pairs.
+Actual behavior: `tag=books&page=2` passes because the count is two and `tag=books` is present.
+The same discrepancy affects `ExactQuery`. This test shows the actual behavior:
 
 
 ```csharp
 using StubHttp http = new()
 {
     {
-        new RouteMatcher { Template = "/query", ExactQueryParams = [("a", "1"), ("a", "1")] },
-        Reply.Text(AcceptedReply)
-    },
-    {
-        new RouteMatcher { Template = "/query", ExactQuery = "a=1&a=1" },
-        Reply.Text(AcceptedReply)
+        new RouteMatcher { Template = "/search", ExactQueryParams = [("tag", "books"), ("tag", "books")] },
+        Reply.Text("matched")
     },
 };
-using HttpClient client = CreateClient(http);
-using HttpResponseMessage pairs = await client.GetAsync(new Uri("https://people.example/query?a=1&b=2"));
-using HttpResponseMessage encoded = await client.GetAsync(new Uri("https://people.example/query?a=1&b=2"));
-SampleCheck.Equal(AcceptedReply, await pairs.Content.ReadAsStringAsync());
-SampleCheck.Equal(AcceptedReply, await encoded.Content.ReadAsStringAsync());
+using HttpClient httpClient = new(http, disposeHandler: false);
+
+using HttpResponseMessage response = await httpClient.GetAsync(new Uri("https://api.example.com/search?tag=books&page=2"));
+
+Assert.Equal("matched", await response.Content.ReadAsStringAsync()); // matched, with one tag=books instead of two
 ```
 
 Avoid duplicate exact-query expectations. If duplicates matter, parse and count pairs in `Where`.
@@ -145,9 +113,10 @@ Also send one-shot tests serially. Matching and consumption are separate steps.
 Concurrent requests can both select the same one-shot route before either consumes it.
 That is a race: the result depends on how requests overlap.
 
-## Complete constraint and enumeration excerpts
+## Check every condition
 
-The complete constraint test uses raw form data. No serializer metadata is needed for this body.
+This test sets every matching condition and sends a form body that satisfies them all.
+The body is raw form data, so no serializer metadata is needed.
 
 
 ```csharp
@@ -155,50 +124,45 @@ RouteMatcher route = new()
 {
     Method = HttpMethod.Post,
     Template = "/people/{id}",
-    Query = [("mode", "short")],
-    ExactQuery = "extra=1&mode=short",
-    ExactQueryParams = [("mode", "short"), ("extra", "1")],
-    Headers = [("X-Test", "yes"), ("Content-Type", "application/x-www-form-urlencoded")],
-    Body = "name=Ada+Lovelace&extra=1",
+    Query = [("notify", "true")],
+    ExactQuery = "notify=true&source=web",
+    ExactQueryParams = [("source", "web"), ("notify", "true")],
+    Headers = [("X-Api-Key", "test-key"), ("Content-Type", "application/x-www-form-urlencoded")],
+    Body = "name=Ada+Lovelace&city=London",
     FormData = [("name", "Ada Lovelace")],
-    Where = static request => request.RequestUri!.Host == "people.example",
-    WhereAsync = static async request => (await request.Content!.ReadAsStringAsync()).Contains(PersonName, StringComparison.Ordinal),
-    Reusable = true,
-    Fallback = false,
+    Where = static request => request.RequestUri!.Host == "api.example.com",
+    WhereAsync = static async request => (await request.Content!.ReadAsStringAsync()).Contains("London", StringComparison.Ordinal),
 };
-using StubHttp http = new() { { route, Reply.Text("matched") } };
-using HttpClient client = CreateClient(http);
-using HttpRequestMessage request = new(HttpMethod.Post, "https://people.example/people/7?mode=short&extra=1")
+using StubHttp http = new() { { route, Reply.Text("updated") } };
+using HttpClient httpClient = new(http, disposeHandler: false);
+using HttpRequestMessage request = new(HttpMethod.Post, "https://api.example.com/people/7?notify=true&source=web")
 {
-    Content = new FormUrlEncodedContent([new("name", "Ada Lovelace"), new("extra", "1")]),
+    Content = new FormUrlEncodedContent([new("name", "Ada Lovelace"), new("city", "London")]),
 };
-request.Headers.Add("X-Test", "yes");
-using HttpResponseMessage response = await client.SendAsync(request);
-SampleCheck.Equal("matched", await response.Content.ReadAsStringAsync());
-Verify(http);
+request.Headers.Add("X-Api-Key", "test-key");
+
+using HttpResponseMessage response = await httpClient.SendAsync(request);
+
+Assert.Equal("updated", await response.Content.ReadAsStringAsync());
+http.VerifyAllCalled();
 ```
 
-Both enumeration interfaces return snapshots of the configured routes.
-The example checks each route and confirms the nine-entry table size.
+## List the configured routes
+
+`StubHttp` implements `IEnumerable<RouteMatcher>`, so LINQ works on it.
+Both enumeration interfaces return a snapshot of the configured routes.
 
 
 ```csharp
-int genericCount = 0;
-foreach (RouteMatcher route in (IEnumerable<RouteMatcher>)http)
+using StubHttp http = new()
 {
-    SampleCheck.Equal(true, route.Template.Length > 0);
-    genericCount++;
-}
+    { Route.Get("/people/{id}"), Reply.Status(HttpStatusCode.OK) },
+    { Route.Post("/people"), Reply.Status(HttpStatusCode.Created) },
+};
 
-SampleCheck.Equal(RouteCount, genericCount);
-int count = 0;
-foreach (object route in (IEnumerable)http)
-{
-    SampleCheck.Equal(true, route is RouteMatcher);
-    count++;
-}
+string[] templates = http.Select(static route => route.Template).ToArray();
 
-SampleCheck.Equal(RouteCount, count);
+Assert.Equal(new[] { "/people/{id}", "/people" }, templates);
 ```
 
 ## API reference
