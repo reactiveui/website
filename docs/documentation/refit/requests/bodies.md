@@ -106,7 +106,8 @@ Console.WriteLine(saved.Name); // Ada
 
 The source example checks the actual bytes received by each local route.
 It also decompresses the gzip body and checks the restored JSON.
-JSON Lines puts a newline between the two items. Refit does not add a trailing newline.
+For an `IEnumerable<T>` body, JSON Lines puts a newline between the items and none after the last one.
+An `IAsyncEnumerable<T>` upload ends every line, as [upload many records](#upload-many-records-as-json-lines) explains.
 See: the complete [body example](https://github.com/reactiveui/refit/blob/main/src/examples/Documentation/Bodies/Bodies.cs).
 
 To pass settings that you built yourself, hand them to the same call. `JsonOptions` holds options
@@ -148,7 +149,7 @@ See [pass metadata to a method](../serialization/json.md#pass-metadata-to-a-meth
 | `Default = 0` | Passes [`HttpContent`](https://learn.microsoft.com/dotnet/api/system.net.http.httpcontent) and streams through. Sends a string as plain text. Uses the configured serializer for other values. |
 | `Serialized = 3` | Uses the configured serializer, including for strings. A JSON string includes quotes. |
 | `UrlEncoded = 2` | Sends form key/value pairs. A dictionary or a generated property map supplies the fields. |
-| `JsonLines = 4` | Sends an enumerable as one serialized value per line. Register the element types with the JSON context. |
+| `JsonLines = 4` | Sends an `IEnumerable<T>` or `IAsyncEnumerable<T>` as one serialized value per line. Register the element types with the JSON context. See [upload many records](#upload-many-records-as-json-lines). |
 | `Json = 1` | An obsolete name retained for compatibility. Use `Serialized` in new code. |
 
 Supplied `HttpContent` and streams also bypass serialization in the form and JSON Lines helpers.
@@ -158,6 +159,183 @@ is wrapped as one item.
 Form property names can come from `AliasAs` or the configured serializer's naming rules.
 The key formatter applies when no explicit name exists.
 See [query formatting](query-formatters.md) for the related naming and value format APIs.
+
+## Upload many records as JSON Lines
+
+[Run the complete upload example](https://github.com/reactiveui/refit/blob/main/src/examples/Documentation/Bodies/JsonLinesUploadSample.cs).
+
+Say you have many records to send to a bulk import endpoint. They may come from a slow source, such as a
+database query or a large file. You want to send each record as soon as it is ready, without first building
+a list of all of them.
+
+**JSON Lines** fits this job. Each record is one JSON object on its own line, so the server can read and
+handle one record at a time.
+
+**1. Declare the method.** Mark the body with `[Body(BodySerializationMethod.JsonLines)]`, the same attribute
+as any JSON Lines body. Make the parameter an `IAsyncEnumerable<T>`, and add a `CancellationToken`.
+This interface is in [`IJsonLinesUploadApi.cs`](https://github.com/reactiveui/refit/blob/main/src/examples/Documentation/Bodies/IJsonLinesUploadApi.cs).
+
+```csharp
+[Post("/imports/records")]
+Task ImportRecordsAsync(
+    [Body(BodySerializationMethod.JsonLines)] IAsyncEnumerable<ImportRecord> records,
+    CancellationToken cancellationToken);
+```
+
+**2. Write a producer.** An async iterator method makes a good producer: it hands over each record with
+`yield return` as soon as the record is ready. A real producer reads rows from a database or a file.
+This one makes up two records. Mark its `CancellationToken` parameter with `[EnumeratorCancellation]`,
+so that cancelling the upload also stops the producer.
+
+```csharp
+private static async IAsyncEnumerable<ImportRecord> ProduceRecordsAsync(
+    [EnumeratorCancellation] CancellationToken cancellationToken = default)
+{
+    for (int id = 1; id <= 2; id++)
+    {
+        await Task.Delay(10, cancellationToken); // Pretend the next row takes a moment to read.
+        yield return new ImportRecord(id, $"SKU-{id}", id * 10);
+    }
+}
+```
+
+**3. Send the records.** Pass the producer to the method. `api` is a generated `IJsonLinesUploadApi`.
+
+```csharp
+using CancellationTokenSource cancellation = new(TimeSpan.FromSeconds(30));
+
+// Refit writes each record as the producer yields it. Nothing is collected into a list first.
+await api.ImportRecordsAsync(ProduceRecordsAsync(), cancellation.Token);
+```
+
+The server receives one line per record:
+
+```text
+{"id":1,"sku":"SKU-1","quantity":10}
+{"id":2,"sku":"SKU-2","quantity":20}
+```
+
+### How an async upload behaves
+
+- **One record at a time.** Refit asks the producer for the next record only after it has written the last one.
+  Only one record is in memory at a time.
+- **No `Content-Length`.** Refit cannot know the size of the body before it has read every record, so the
+  request has no `Content-Length` header. HTTP sends the body in pieces instead, which is called chunked transfer.
+- **Every line ends with a line feed**, the last one too. The server can handle each record as soon as its line arrives.
+- **Each record is written as `T`** with the configured serializer. When you pass a JSON context, Refit uses
+  the metadata it generated for `T`.
+- **Cancellation reaches the producer.** On .NET 8 and later, the call's `CancellationToken` flows into the
+  producer and into every write. Refit always disposes the producer's enumerator, so `finally` blocks and
+  `using` statements in the producer run. On .NET Framework, Refit checks for cancellation between writes.
+
+### Use source-generated JSON
+
+Register the record type in your JSON context, and create the client with that context. The upload then works
+in a trimmed or Native AOT app.
+
+```csharp
+[JsonSourceGenerationOptions(JsonSerializerDefaults.Web)]
+[JsonSerializable(typeof(ImportRecord))]
+[JsonSerializable(typeof(List<ImportRecord>))]
+internal sealed partial class ImportRecordsJsonContext : JsonSerializerContext;
+```
+
+```csharp
+// Each record is written as ImportRecord, using the metadata ImportRecordsJsonContext generated for it.
+IJsonLinesUploadApi api = RestService.ForGenerated<IJsonLinesUploadApi>(httpClient, ImportRecordsJsonContext.Default);
+```
+
+### Retry a failed upload
+
+An async upload can be sent only once. Refit never keeps the records in memory, so it has nothing to send a
+second time. Sending the same request content again throws `InvalidOperationException`.
+To retry, call the method again with a new sequence from the producer:
+
+```csharp
+try
+{
+    await api.ImportRecordsAsync(ProduceRecordsAsync(), cancellation.Token);
+}
+catch (ApiException exception) when (exception.StatusCode == HttpStatusCode.ServiceUnavailable)
+{
+    // Start the producer again from the beginning, instead of trying to resend the first request.
+    await api.ImportRecordsAsync(ProduceRecordsAsync(), cancellation.Token);
+}
+```
+
+### Send a list you already have
+
+When the records are already in an array or a list, declare the parameter as `IEnumerable<T>`:
+
+```csharp
+[Post("/imports/records")]
+Task ImportRecordBatchAsync([Body(BodySerializationMethod.JsonLines)] IEnumerable<ImportRecord> records);
+```
+
+```csharp
+ImportRecord[] records = [new ImportRecord(1, "SKU-1", 10), new ImportRecord(2, "SKU-2", 20)];
+await api.ImportRecordBatchAsync(records);
+```
+
+Refit can send an `IEnumerable<T>` body again, because it can read the collection a second time.
+
+### Send a base type with its discriminator
+
+Records sometimes share a base type. Here `LoginEvent` derives from `AuditEvent`, and the server needs each line
+to say which kind of event it is. The `[JsonPolymorphic]` attribute asks System.Text.Json to add that `kind`
+property, but only when it writes a value as `AuditEvent`:
+
+```csharp
+[JsonPolymorphic(TypeDiscriminatorPropertyName = "kind")]
+[JsonDerivedType(typeof(LoginEvent), "login")]
+internal abstract record AuditEvent(string ActorId);
+```
+
+When `T` is sealed or a struct, Refit writes each element as `T`. When `T` can have subclasses, as `AuditEvent` can,
+Refit writes each element as its own runtime type, so the `kind` property is missing.
+To write every line as `AuditEvent`, build a `JsonLinesContent<AuditEvent>` yourself and pass it as the body.
+Any `HttpContent` body is sent as it is.
+
+```csharp
+[Post("/imports/events")]
+Task ImportRawAsync([Body] HttpContent content);
+```
+
+```csharp
+AuditEvent[] events = [new LoginEvent("ada", "10.0.0.1")];
+
+// JsonLinesContent<AuditEvent> writes every line as AuditEvent, so the "kind" discriminator is included.
+using JsonLinesContent<AuditEvent> content = new(events, settings.ContentSerializer);
+await api.ImportRawAsync(content);
+```
+
+The server receives `{"kind":"login","ipAddress":"10.0.0.1","actorId":"ada"}`.
+The discriminator comes from your JSON configuration, not from Refit.
+
+### Send a known `Content-Length`
+
+Some servers reject a body without a `Content-Length` header. For those, collect the records first and let the
+content serialize them before you send it. `LoadIntoBufferAsync` writes the whole body into memory, so the
+length is known. This gives up the one-record-at-a-time benefit, so use it only when the server needs it.
+
+```csharp
+[Post("/imports/records")]
+Task ImportRecordContentAsync([Body] HttpContent content);
+```
+
+```csharp
+List<ImportRecord> records = [];
+await foreach (ImportRecord record in ProduceRecordsAsync())
+{
+    records.Add(record);
+}
+
+using JsonLinesContent<ImportRecord> content = new(records, settings.ContentSerializer);
+await content.LoadIntoBufferAsync(); // Serializes everything now, so the length is known.
+await api.ImportRecordContentAsync(content);
+```
+
+The request has a `Content-Length` of 73 bytes.
 
 ## Buffering and serialization modes
 
@@ -394,6 +572,7 @@ Per-call cancellation is in [RequestExecutionHelpers.cs](https://github.com/reac
 | --- | --- | --- | --- |
 | [`BodyAttribute`](https://github.com/reactiveui/refit/blob/main/src/Refit/BodyAttribute.cs) | Marks one interface-method parameter as the HTTP request body. | Applies to a parameter. | Refit uses the parameter value as `HttpContent`, stream content, plain text, or serialized content according to its type and `SerializationMethod`. |
 | [`BodySerializationMethod`](https://github.com/reactiveui/refit/blob/main/src/Refit/BodySerializationMethod.cs) | Selects how Refit turns a body value into HTTP content. | Enum values below. | Use with `BodyAttribute` to choose text, serialized, form, or JSON Lines content. |
+| [`JsonLinesContent<T>`](https://github.com/reactiveui/refit/blob/main/src/Refit/JsonLinesContent%7BT%7D.cs) | `HttpContent` that writes a sequence as JSON Lines, serializing every element as `T`. Pass it as a body to force the declared type. | `JsonLinesContent(IEnumerable<T> items, IHttpContentSerializer serializer)`; `JsonLinesContent(IAsyncEnumerable<T> items, IHttpContentSerializer serializer)`. | Reads the sequence one element at a time, with no `Content-Length`. Content from an `IEnumerable<T>` reads the sequence again on every send and adds no line feed after the last line. Content from an `IAsyncEnumerable<T>` ends every line with a line feed, can be sent once, and throws `InvalidOperationException` when sent again. |
 | [`RequestBodySerializationMode`](https://github.com/reactiveui/refit/blob/main/src/Refit/RequestBodySerializationMode.cs) | Selects how Refit writes serialized JSON request content. | Enum values below. | Configure through `RefitSettings.RequestBodySerialization`. |
 | [`RequestCompression`](https://github.com/reactiveui/refit/blob/main/src/Refit/RequestCompression.cs) | Selects the content coding applied to a request body. | Enum values below. | Configure a default in `RefitSettings` or override it on `BodyAttribute`. |
 | [`RequestCompressionOptions`](https://github.com/reactiveui/refit/blob/main/src/Refit/RequestCompressionOptions.cs) | Holds optional compressor-specific settings that replace the resolved compression level for each coding. | Available on .NET 9 and later. | Assign it to `RefitSettings.RequestCompressionOptions`. |

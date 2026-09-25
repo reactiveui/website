@@ -12,6 +12,19 @@ successful call, an error or missing data without relying on a running server.
 The main helper, `StubHttp`, stands in for the HTTP handler. Your real Refit client still
 builds the request, so the test can catch mistakes in its route, headers and body.
 
+## Pick your test framework
+
+`Refit.Testing` works with any test framework. The same set of tests exists for each of the four main ones.
+The tests differ only in their attributes and assert calls, so pick the page for the framework your project uses:
+
+- [xUnit](xunit.md)
+- [NUnit](nunit.md)
+- [MSTest](mstest.md)
+- [TUnit](tunit.md)
+
+Each page covers reading a reply, checking what your app sent, handling a 404, a slow or broken network,
+and streaming data in and out.
+
 ## Make your first test
 
 **1. Reference `Refit.Testing` and Refit.** The complete [runnable .NET 10 example](https://github.com/reactiveui/refit/blob/main/src/examples/Documentation/Testing/Testing.cs)

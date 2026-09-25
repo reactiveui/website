@@ -70,6 +70,8 @@ Refit chooses the format from the response's `Content-Type` header.
 | `ServerSentEvents` | `text/event-stream` | Each event's `data:` field holds a JSON value. |
 
 **JSON Lines** separates items with newlines instead of enclosing them in one array.
+You can send JSON Lines too: [upload many records](../requests/bodies.md#upload-many-records-as-json-lines)
+streams an `IAsyncEnumerable<T>` to the server one record at a time.
 **Server-sent events**, often shortened to SSE, let a server send named events through a reply that stays open.
 Refit's default serializer reads the JSON from each event's data field.
 It gives you the deserialized value. It does not expose the event name, ID or retry field.
