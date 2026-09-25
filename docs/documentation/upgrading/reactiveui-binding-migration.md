@@ -47,14 +47,23 @@ this line once:
 global using ReactiveUI.Binding;
 ```
 
-These types moved to `ReactiveUI.Binding` and keep their names: `IViewFor`, `IViewFor<T>`, `IActivatableView`,
-`IReactiveBinding<TView, TValue>`, `BindingDirection`, `TriggerUpdate`, `IObservedChange<TSender, TValue>`,
-`ICreatesObservableForProperty`, `IBindingTypeConverter` and the standard converters, `Interaction<TInput, TOutput>`,
-`ObservableAsPropertyHelper<T>`, `ViewContractAttribute` and `SingleInstanceViewAttribute`.
+These types moved to `ReactiveUI.Binding` and keep their names. A file that names one of them needs the namespace:
+
+| Area | Types |
+|---|---|
+| Views | `IViewFor`, `IViewFor<T>`, `IActivatableView` |
+| Bindings | `IReactiveBinding<TView, TValue>`, `ReactiveBinding<TView, TValue>`, `BindingDirection`, `TriggerUpdate` |
+| Observed changes | `IObservedChange<TSender, TValue>`, `ObservedChange<TSender, TValue>` |
+| Extension points | `ICreatesObservableForProperty`, `ICreatesCommandBinding`, `IPropertyBindingHook`, `BindingAffinity` |
+| Converters | `IBindingTypeConverter`, `IBindingTypeConverter<TFrom, TTo>`, `IBindingFallbackConverter`, `ISetMethodBindingConverter`, the standard converters and their registries |
+| Interactions | `Interaction<TInput, TOutput>`, `IInteraction<TInput, TOutput>`, `IInteractionContext<TInput, TOutput>`, `IOutputContext<TInput, TOutput>`, `UnhandledInteractionException<TInput, TOutput>` |
+| Properties | `ObservableAsPropertyHelper<T>` and `ToProperty` |
+| View registration | `ViewContractAttribute`, `SingleInstanceViewAttribute`, `ExcludeFromViewRegistrationAttribute`, which ReactiveUI's view locator still reads |
 
 ReactiveUI.Binding also has a view locator of its own, with the same names as ReactiveUI's: `IViewLocator`,
-`ViewLocator` and `DefaultViewLocator`. In your code those names still mean ReactiveUI's locator, which the view
-hosts use. Write `ReactiveUI.Binding.ViewLocator` when you want the other one.
+`ViewLocator`, `DefaultViewLocator`, `ViewMappingBuilder` and `ViewLocatorNotFoundException`. In your code those
+names still mean ReactiveUI's locator, which the view hosts use. Write `ReactiveUI.Binding.ViewLocator` when you
+want the other one.
 
 ## Calls the generator cannot read
 
@@ -87,6 +96,7 @@ WinForms designer fields and MAUI `x:Name` fields are private by default. Make a
 ```
 
 A field raises no change notification, so the binding reads it once. The rest of the path is watched as usual.
+A `readonly` field can sit along a path, but not at the end of a path that a binding writes to.
 
 [Unsafe twins and the runtime fallback](../binding/unsafe.md) shows every twin with an example.
 
@@ -107,6 +117,16 @@ view.BindUnsafe(
     TriggerUpdate.ViewToViewModel);
 ```
 
+No overload takes `IBindingTypeConverter` objects and a signal together. Write lambdas that call your
+converter instead.
+
+The last argument picks the direction the signal drives:
+
+- **`TriggerUpdate.ViewToViewModel`**, the default: the signal replaces the view's own change notifications. Editing
+  the view writes to the view model only when the signal fires.
+- **`TriggerUpdate.ViewModelToView`**: after the first value from the view model, the signal decides when the view
+  model writes to the view. The view's own changes still write to the view model straight away.
+
 A conversion lambda always returns a value, and the binding writes it. ReactiveUI used to skip the write when a
 converter refused a value, such as `"fa0"` typed into a number box. To keep that, return the value the other side
 already holds. The binding sees an equal value and writes nothing.
@@ -114,8 +134,10 @@ already holds. The binding sees an equal value and writes nothing.
 ## ToProperty and ObservableAsPropertyHelper
 
 `ToProperty` is generated. Name the property with a lambda, `x => x.Total`, or with `nameof(Total)`. Any other
-form, such as a computed string, gets no generated code and throws when it runs. On a `ReactiveObject`, change
-notifications and `SuppressChangeNotifications` work as before.
+form, such as an indexer or a computed string, gets no generated code, and the analyzer reports RXUIBIND013. That
+call throws when it runs. On a `ReactiveObject`, the generated code raises `PropertyChanging` and
+`PropertyChanged` through ReactiveUI's own notification state, so `SuppressChangeNotifications` and
+`DelayChangeNotifications` work as before.
 
 `ObservableAsPropertyHelper<T>` keeps its members: `Value`, `IsSubscribed`, `ThrownExceptions` and `Default()`.
 One thing changed. When the source stream fails and nothing subscribes to `ThrownExceptions`, the helper throws the
@@ -134,12 +156,15 @@ they compile when your view's `ViewModel` property is nullable. The binding foll
 - While a parent on the path is `null`, such as `x => x.Customer!.Name` with no `Customer`, the view keeps its
   value. Nothing is written until the path is whole again.
 
-A view that implements only the non-generic `IViewFor` binds the view model you pass in.
+The view model you pass in decides the types of the binding. The binding itself reads `view.ViewModel`. A view that
+implements only the non-generic `IViewFor` binds the view model you pass in. This works the same way for generated
+calls and `Unsafe` twins.
 
 ## Hand-written IReactiveObject types
 
 The generated code watches `PropertyChanged`. A class that implements `IReactiveObject` itself raises that event
-only after it calls `SubscribePropertyChangedEvents`. Call it from the event's `add` accessor:
+only after it calls `SubscribePropertyChangedEvents`. ReactiveUI's old observation read the `Changed` stream
+instead, so it never needed the call. Call it from the event's `add` accessor:
 
 ```csharp
 private PropertyChangedEventHandler? _propertyChanged;
@@ -169,13 +194,18 @@ platform base classes already do this.
 var confirmed = await ViewModel.ConfirmDelete.Handle(item);
 ```
 
+A handler receives an `IInteractionContext<TInput, TOutput>` from `ReactiveUI.Binding`. Register your handlers
+against that type.
+
 ## Behavior that changed
 
 ### Every binding writes on the view's thread
 
-Each binding moves its writes onto the thread that owns the view, on every platform. A value set on another
-thread reaches the view one turn of the message loop later. A test that sets a value and checks the view at once
-may need to let the UI thread run first.
+Each binding moves its writes onto the thread that owns the view, on every platform. ReactiveUI used to do this
+only for WPF two-way `Bind` and for command swaps. A value set on another thread reaches the view one turn of the
+message loop later. A test that sets a value and checks the view at once may need to let the UI thread run first.
+Set `BindingSchedulers.MainThread` when you want every binding to write on a sequencer you choose. A *sequencer*
+is the object that decides which thread runs a piece of work.
 
 A binding to a WPF, WinForms or MAUI object needs that platform's Binding package to move its writes. The
 ReactiveUI platform packages bring it. Without it, warning RXUIBIND017 reports the call.
@@ -184,6 +214,14 @@ ReactiveUI platform packages bring it. Without it, warning RXUIBIND017 reports t
 
 A binding writes only the latest value. When a property changes several times before the binding can write, the
 values in between are skipped, and the binding's change stream skips them too.
+
+### Observations are delivered one at a time
+
+A property observation delivers each change on the thread that raised it, one change at a time. When two threads
+change the property together, the second thread waits up to 20 milliseconds. After that it hands its change to
+the thread that is already delivering, and moves on. After-change observations then skip to the latest value.
+Before-change observations, such as `WhenChanging`, keep every change in order. Your subscriber runs without a lock
+held, so it can take its own locks safely.
 
 ### Converters are picked by the declared types
 
@@ -195,22 +233,27 @@ unchanged. For example, a `string` held in an `object`-typed `SelectedItem` bind
 ### Missing change notifications are found at build time
 
 ReactiveUI logged a warning when your app ran into a property with no change notification. The analyzer now
-reports it as RXUIBIND010 when you build. The binding reads such a property once, as before.
+reports it as RXUIBIND010 when you build. The binding reads such a property once, as before. If your project treats
+warnings as errors and a test model raises no notification on purpose, make the model raise
+`PropertyChanged` rather than turning the warning off.
 
 ### Custom observation providers compete by score
 
 A custom `ICreatesObservableForProperty` handles a property only when its score is higher than the generated code's.
-The generated code wins a tie. Call `ObservationAffinityChecker.Refresh()` after you change registrations.
+The generated code wins a tie. Call `ReactiveUI.Binding.Fallback.ObservationAffinityChecker.Refresh()` after you
+change registrations. A custom provider still has to handle trimming for itself.
 
 ## Removed types
 
 | Removed | Use instead |
 |---|---|
 | ReactiveUI's `WhenAny*`, `ObservableForProperty`, `Bind`, `OneWayBind`, `BindTo`, `BindCommand`, `InvokeCommand` and `BindInteraction` extension methods | The same names from `ReactiveUI.Binding`, or their `Unsafe` twins |
-| `PropertyBinderImplementation`, `CommandBinderImplementation`, `InteractionBinderImplementation` | The extension methods |
-| `Reflection`, `ExpressionMixins`, `ReflectionMixins`, `ExpressionRewriter` | `ReactiveUI.Binding.Expressions` |
-| ReactiveUI's observation providers for `INotifyPropertyChanged`, KVO, UIKit, AppKit, Android, WinForms, WPF and WinUI | Nothing. The generated code covers them |
-| ReactiveUI's platform command binders | Nothing. The generated code covers them |
+| `PropertyBinderImplementation`, `CommandBinderImplementation`, `InteractionBinderImplementation` and their interfaces | The extension methods |
+| `Reflection`: `Rewrite`, `ExpressionToPropertyNames`, `GetValueFetcherForProperty`, `GetValueFetcherOrThrow`, `GetValueSetterForProperty`, `GetValueSetterOrThrow`, `TryGetValueForPropertyChain`, `TryGetAllValuesForPropertyChain` and `TrySetValueToPropertyChain` | The same methods on `ReactiveUI.Binding.Expressions.Reflection` |
+| `Reflection.ReallyFindType`, `GetEventArgsTypeForEvent`, `ThrowIfMethodsNotOverloaded` and `ViewModelWhenAnyValue` | Nothing. They served ReactiveUI's own engine |
+| `ExpressionMixins`, `ReflectionMixins`, `ExpressionRewriter` | `ReactiveUI.Binding.Expressions.ExpressionMixins` |
+| `INPCObservableForProperty`, `POCOObservableForProperty`, `IROObservableForProperty` and the providers for KVO, UIKit, AppKit, Android widgets, WinForms, WPF and WinUI | Nothing. The generated code covers them. A custom provider still registers as `ICreatesObservableForProperty` |
+| `CreatesCommandBindingViaEvent`, `CreatesCommandBindingViaCommandParameter` and the WinForms, Android, UIKit and AppKit command binders | Nothing. The generated code covers them |
 | The Apple `NSDate` converters | Nothing. The generated code converts `NSDate` |
 | `ComponentModelFallbackConverter` | A converter you register for the pair |
 
@@ -221,7 +264,8 @@ The generated code wins a tie. Call `ObservationAffinityChecker.Refresh()` after
 - **Interceptors:** with Roslyn 4.13 or newer and C# 11 or later, the generator replaces each call in place. With an
   older compiler or language version it writes overloads instead, and your code does not change either way.
   [Choose how calls reach generated code](../binding/setup.md#choose-how-calls-reach-generated-code) explains the
-  difference.
+  difference. The generated code compiles as C# 7.3 or later, and each project's generated code lives in a
+  namespace of its own.
 - **Trimming and NativeAOT:** generated code is safe to trim. The `Unsafe` twins and `WhenAnyDynamic` are not, and a
   `PublishAot` build reports every place that calls them.
 
