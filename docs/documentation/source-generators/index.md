@@ -464,12 +464,8 @@ it.
 ## Windows Forms control hosts
 
 ReactiveUI.SourceGenerators also ships `[RoutedControlHost]` and `[ViewModelControlHost]` for Windows Forms, in the
-`ReactiveUI.SourceGenerators.WinForms` namespace.
-
-> [!WARNING]
-> In ReactiveUI.SourceGenerators 4.0.0, a control generated from `[RoutedControlHost]` or `[ViewModelControlHost]`
-> throws when it is constructed. This is a known bug, reported upstream. Use the `RoutedControlHost` and
-> `ViewModelControlHost` controls from ReactiveUI.WinForms instead.
+`ReactiveUI.SourceGenerators.WinForms` namespace. They need ReactiveUI.SourceGenerators 4.0.1 or later, which
+ReactiveUI brings.
 
 ## Analyzer messages
 
