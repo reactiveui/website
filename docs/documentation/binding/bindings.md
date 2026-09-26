@@ -164,6 +164,103 @@ Renew car registration
 Renew car registration
 ```
 
+### Bind a control MAUI or Avalonia names in XAML
+
+WPF and WinUI write the fields for `x:Name` controls before the compiler runs, so the generator sees them without
+reading any XAML. MAUI and Avalonia declare those fields with their own source generator instead, one the binding
+generator cannot see. Since ReactiveUI.Binding 8.4.0, the generator reads the page itself, so `Bind`, `OneWayBind`
+and `BindCommand` reach a control a MAUI or Avalonia page names in XAML, with no setup.
+
+A MAUI page needs one extra thing: MAUI makes each `x:Name` field `private` unless the tag carries
+`x:FieldModifier`. Generated code cannot reach a private field, so give a bound control
+`x:FieldModifier="internal"` (or `"public"`).
+
+```xml
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="ReactiveUI.Binding.Documentation.Xaml.MauiSignInPage">
+    <VerticalStackLayout>
+        <Entry x:Name="UserNameEntry" x:FieldModifier="internal" />
+        <Button x:Name="SignInButton" x:FieldModifier="internal" Text="Sign in" />
+        <Label x:Name="StatusLabel" x:FieldModifier="internal" />
+    </VerticalStackLayout>
+</ContentPage>
+```
+
+```csharp
+public static void BindMauiNamedControls()
+{
+    SignInViewModel viewModel = new SignInViewModel { UserName = "ada" };
+    MauiSignInPage page = new MauiSignInPage { ViewModel = viewModel };
+
+    using IDisposable name = page.Bind(viewModel, x => x.UserName, v => v.UserNameEntry.Text);
+    using IDisposable status = page.OneWayBind(viewModel, x => x.Status, v => v.StatusLabel.Text);
+    using IDisposable signIn = page.BindCommand(viewModel, x => x.SignIn, v => v.SignInButton);
+
+    page.UserNameEntry.Text = "grace";
+    page.SignInButton.Command.Execute(null);
+
+    Console.WriteLine(viewModel.UserName);
+    Console.WriteLine(page.StatusLabel.Text);
+
+    // Output:
+    // grace
+    // Signed in as grace
+}
+```
+
+```text
+grace
+Signed in as grace
+```
+
+Avalonia's own name generator gives each `x:Name` or `Name` field the accessibility that
+`AvaloniaNameGeneratorDefaultFieldModifier` sets, `internal` by default, so an Avalonia view needs no extra
+attribute.
+
+```xml
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="ReactiveUI.Binding.Documentation.Xaml.AvaloniaSignInView">
+    <StackPanel>
+        <TextBox Name="UserNameBox" />
+        <Button Name="SignInButton" Content="Sign in" />
+        <TextBlock x:Name="StatusText" />
+    </StackPanel>
+</UserControl>
+```
+
+```csharp
+public static void BindAvaloniaNamedControls()
+{
+    SignInViewModel viewModel = new SignInViewModel { UserName = "ada" };
+    AvaloniaSignInView view = new AvaloniaSignInView { ViewModel = viewModel };
+
+    using IDisposable name = view.Bind(viewModel, x => x.UserName, v => v.UserNameBox.Text);
+    using IDisposable status = view.OneWayBind(viewModel, x => x.Status, v => v.StatusText.Text);
+
+    Console.WriteLine(view.UserNameBox.Text);
+
+    view.UserNameBox.Text = "linus";
+    viewModel.SignIn.Execute(null);
+
+    Console.WriteLine(view.StatusText.Text);
+
+    // Output:
+    // ada
+    // Signed in as linus
+}
+```
+
+```text
+ada
+Signed in as linus
+```
+
+A control inside a template gets no field, so the generator cannot bind it this way. A generic control named with
+`x:TypeArguments` is not read either. [`XamlExamples`](https://github.com/reactiveui/ReactiveUI.Binding.SourceGenerators/blob/main/src/examples/Documentation/Pages/xaml/XamlExamples.cs)
+has both methods in full.
+
 Each call takes the same kinds of extra arguments, and each kind adds an overload.
 
 | Call | Reads | Writes | Extra arguments its overloads accept |

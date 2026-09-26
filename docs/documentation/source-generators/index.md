@@ -467,6 +467,11 @@ ReactiveUI.SourceGenerators also ships `[RoutedControlHost]` and `[ViewModelCont
 `ReactiveUI.SourceGenerators.WinForms` namespace. They need ReactiveUI.SourceGenerators 4.0.1 or later, which
 ReactiveUI brings.
 
+A generated host watches its own properties, such as `ViewModel` and `Router`, to know when to swap the view. From
+ReactiveUI.SourceGenerators 4.2.0, it does this through ReactiveUI.Binding's `ObservedProperty` when the project has
+ReactiveUI.Binding 8.4.0 or later, so it follows the same rules as `WhenAnyValue`. With an older ReactiveUI.Binding,
+the host follows `PropertyChanged` itself, and the generator reports RXUISG0022.
+
 ## Analyzer messages
 
 | ID | Severity | When you see it |
@@ -484,6 +489,7 @@ ReactiveUI brings.
 | RXUISG0019 | Error | A `[BindableDerivedList]` field is not a `ReadOnlyObservableCollection<T>`. |
 | RXUISG0020 | Warning | A `[Reactive]` property, or the class that holds it, is not `partial`. A code fix makes both `partial`. |
 | RXUISG0021 | Warning | A `[ReactiveCommand]` scheduler name does not resolve to a scheduler, so the command is generated without it. Needs 4.1.0 or later. |
+| RXUISG0022 | Info | A Windows Forms control host follows its own `PropertyChanged` because the project has no ReactiveUI.Binding 8.4.0 or later. Needs 4.2.0 or later. |
 
 The RXUISG0016 code fix turns the property into a `[Reactive]` partial property when the project's language version
 allows a partial property (C# 13, or C# 14 for one with an initial value) and the running compiler generates partial

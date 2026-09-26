@@ -120,6 +120,50 @@ Console.WriteLine(profile.Saves);
 1
 ```
 
+## Observe from code another generator writes
+
+The reverse gap exists too: code another source generator writes cannot call `WhenAnyValue`, because ReactiveUI.Binding
+never sees that call either. `ObservedProperty`, added in ReactiveUI.Binding 8.4.0, gives such code the same
+observation without a generated binding. It ships in both `ReactiveUI.Binding` and `ReactiveUI.Binding.Reactive`.
+Hand-written code keeps calling `WhenAnyValue`; `ObservedProperty` is for a generator's own output.
+
+`ObservedProperty.Create` observes one property, two properties, or two properties through a selector. Each property
+is passed twice: as a lambda that names it, the way a generated binding reads a property, and as a delegate that
+reads it. `Then` continues a path one property further, and `Switch` follows a property that holds an observable,
+the way `WhenAnyObservable` does.
+
+| Generated code wants | It calls |
+| --- | --- |
+| `WhenAnyValue(x => x.Name)` | `ObservedProperty.Create(source, x => x.Name, x => x.Name)` |
+| `WhenAnyValue(x => x.Name, x => x.Age)` | `ObservedProperty.Create(source, ...Name..., ...Age...)`, with an optional selector |
+| `WhenAnyValue(x => x.Home.City)` | `ObservedProperty.Create(source, ...Home...).Then(h => h.City, h => h.City)` |
+| `WhenAnyObservable(x => x.Messages)` | `ObservedProperty.Create(source, ...Messages...).Switch()` |
+
+The example below observes `DisplayName`, the same property [Observe a property written from a field](#observe-a-property-written-from-a-field)
+binds, but the way a generator's own output would: with `ObservedProperty.Create` instead of `WhenAnyValue`.
+
+```csharp
+public static void ObserveFromGeneratedCode()
+{
+    ProfileViewModel profile = new ProfileViewModel();
+
+    using IDisposable subscription = ObservedProperty
+        .Create(profile, static x => x.DisplayName, static x => x.DisplayName)
+        .Subscribe(Console.WriteLine);
+
+    profile.DisplayName = "Grace";
+
+    // Output:
+    // Ada
+    // Grace
+}
+```
+
+```text
+Ada
+Grace
+```
+
 ## When a member is still out of reach
 
 A view member another source generator writes, such as a field a UI framework's XAML compiler adds to a partial

@@ -117,6 +117,11 @@ Console.WriteLine(ReactiveContentPage<RecipeListViewModel>.ViewModelProperty.Pro
 // ViewModel
 ```
 
+Binding to a control a page names with `x:Name` needs one extra step: give the control `x:FieldModifier="internal"`,
+because MAUI's own source generator makes each `x:Name` field `private` otherwise, and the code ReactiveUI.Binding
+generates cannot reach a private field. [Bind a control MAUI or Avalonia names in XAML](../../../binding/bindings.md#bind-a-control-maui-or-avalonia-names-in-xaml)
+covers this in full.
+
 `ReactiveNavigationPage<TViewModel>`, `ReactiveFlyoutPage<TViewModel>`, `ReactiveMasterDetailPage<TViewModel>`, `ReactiveCarouselView<TViewModel>` and `ReactiveContentView<TViewModel>` follow the same pattern, over `NavigationPage`, `FlyoutPage` (under its old and new names), `CarouselView` and `ContentView`.
 
 ```csharp
