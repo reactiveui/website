@@ -1,39 +1,24 @@
 # Blazor
 
-## Project
+`ReactiveUI.Blazor` connects ReactiveUI to Blazor. Add it by following
+[Installation](../../getting-started/installation/blazor.md). `ReactiveUI.Blazor` also ships as
+`ReactiveUI.Blazor.Reactive`, built from the same source, for an app that uses System.Reactive. See
+[Blazor](../../handbook/platforms/blazor.md) for a full walkthrough, built around a to-do list.
 
-Ensure that you install `ReactiveUI.Blazor` into your application.
+## Guidelines
 
-## ViewModel
+- **View models inherit from `ReactiveObject`,** or from `ReactiveValidationObject` when a view model needs
+  [validation](../../../validation.md).
+- **Pick the component base class by how the view model reaches the page.** `ReactiveComponentBase<T>` takes its
+  view model as a component parameter or lets the page instantiate one directly.
+  `ReactiveInjectableComponentBase<T>` resolves its view model from the dependency injection container instead.
+  `ReactiveLayoutComponentBase<T>` gives the same shape to a layout that wraps other pages.
+  `ReactiveOwningComponentBase<T>` also owns a scoped service provider, disposed with the component, for a view
+  model that needs a scoped dependency.
+- **Use `IActivatableViewModel` and `WhenActivated` for lifecycle.** See [When Activated](../../handbook/when-activated.md).
+- **Keep every subscription disposed.** See [Cleaning up subscriptions](../../../reactive-programming/observables.md#cleaning-up)
+  and [Disposables](../../../primitives/disposables.md).
 
-Your ViewModel should inherit from `ReactiveObject` or 'ReactiveValidationObject' if you wish to use [ReactiveUI.Validation](../../../validation.md)
+## Further reading
 
-- `ReactiveObject`
-- `ReactiveValidationObject`
-
-Use `IActivatableViewModel` and `WhenActivated` for lifecycle
-
-- `IActivatableViewModel`
-- [When Activated](../../handbook/when-activated.md)
-
-Keep references to your subscriptions
-
-- [Cleaning up subscriptions](../../../reactive-programming/observables.md#cleaning-up)
-
-Use disposables to manage lifetime, scope and resources:
-
-- [Disposables](../../../primitives/disposables.md)
-
-## View
-
-Your Page (View) should inherit from
-
-- `ReactiveComponentBase<T>`: If you want to pass your ViewModel to the page as a parameter or you want to instantiate it to the View, then set the ViewModel property in the Page's code behind.
-- `ReactiveInjectableComponentBase<T>`: If you want that your corresponding ViewModel should be injected by the dependency injection container.
-- `ReactiveLayoutComponentBase`: If you only want to instantiate your ViewModel corresponding to the View, then just set the ViewModel property in the Page's code behind.
-
-
-Use your normal Blazor concepts that you would usually use in Blazor development. There's also some extension methods which will make your life easier
-
-Useful links
 - [ReactiveUI On The Web with Blazor](../../../../articles/2020-07-12-article-blazor-compelling-example.md)

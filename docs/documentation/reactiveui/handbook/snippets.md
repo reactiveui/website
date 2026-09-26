@@ -1,53 +1,40 @@
 ---
-Order: 18
+Order: 20
 ---
 # Snippets
 
-Snippets are short code templates that can be inserted into your code. They are used to reduce the amount of typing when writing repetitive code. The snippets are activated by writing the shortcut of the snippet and hitting **Tab** (**Tab, Tab** in Visual Studio).
+Snippets are short code templates that expand as you type, so a common pattern such as a two-way binding or a
+backing property needs no retyping. The **snippets** folder in the [ReactiveUI repository](https://github.com/reactiveui/reactiveui/)
+holds a set for Visual Studio, JetBrains ReSharper and JetBrains Rider. Every shortcut starts with **rui**, so
+autocomplete finds them together.
 
-The **snippets** folder in the [ReactiveUI repository](https://github.com/reactiveui/reactiveui/) on Github contains snippets for inserting common code when using ReactiveUI. There are snippets available for Visual Studio, Visual Studio for Mac, Visual Studio Code, JetBrains Resharper and JetBrains Rider.
+## Visual Studio
 
-All the ReactiveUI snippet shortcuts start with the letters **rui** making them easy to find when using auto complete in your editor of choice.
+The `snippets/Visual Studio` folder holds one `.snippet` file per shortcut:
 
-## Installing the snippets
+| Shortcut | Inserts |
+|---|---|
+| `ruib` | A `Bind` call |
+| `ruibc` | A `BindCommand` call |
+| `ruiowb` | A `OneWayBind` call |
+| `ruicommand` | A `ReactiveCommand` property |
+| `ruiinteraction` | An `Interaction<TInput, TOutput>` property |
+| `ruioaph` | An `ObservableAsPropertyHelper<T>` field and its property |
+| `ruiprop` | A property that raises a change notification |
+| `ruiiv4` | The `DependencyProperty` an `IViewFor<T>` implementation needs |
+| `ruiviewreg` | Registers a view with `Locator.CurrentMutable` |
 
-### Visual Studio
+1. Open **Tools** > **Code Snippets Manager**, set the language to **CSharp**, and click **Add**.
+1. Point it at the folder that holds the `.snippet` files.
 
-You have 2 options.
+## JetBrains ReSharper
 
-1. Copy the snippets in the following directory:  
-`C:\Users\<your-username>\Documents\Visual Studio 2022\Code Snippets\Visual C#\My Code Snippets\`
+The `snippets/Resharper/RxUI.DotSettings` file holds ReSharper's live templates for the same shortcuts. Import it
+through ReSharper's settings: **ReSharper** > **Manage Options**, then **Import and Export** > **Import from File**,
+and select `RxUI.DotSettings`.
 
-Or:
+## JetBrains Rider
 
-1. Store the snippets in a folder of your choice on your computer
-1. Open Visual Studio
-1. Open the **Tools** menu bar item
-1. Click on **Code Snippets Manager**
-1. Change language to **CSharp**
-1. Click on **Add**
-1. Navigate to the folder you stored the snippets in and click on **Select Folder**
-
-### Visual Studio for Mac
-
-1. Store the snippet files in the following folder: `~/Library/VisualStudio/<version>/Snippets`
-
-### Visual Studio Code
-
-1. Copy the contents of **ReactiveUI.json**
-1. Open Visual Studio Code
-1. Open **File** menu bar item (**Code** on MacOS)
-1. Click on **Preferences** > **User snippets**
-1. Paste contents inside the angle brackets (`{}`)
-
-### JetBrains Resharper
-
-1. Copy the contents of **RxUI.dotsettings**
-1. Navigate to the **UserSettings.dotsettings** inside your project root folder
-1. Paste the contents inside a `<LiveTemplatesManager></LiveTemplatesManager>` XML element
-
-### JetBrains Rider
-
-1. Store the snippet file in the following folder:
-   1. **Windows**: `C:\Users\<your-username>\.Rider<version>\config\templates`
-   1. **MacOS**: `~/Library/Preferences/Rider<version>/templates`
+The `snippets/Rider/ReactiveUI.xml` file holds Rider's live templates for `ruiprop`, `ruib`, `ruibc` and `ruiowb`.
+Import it through **Settings** > **Editor** > **Live Templates**: open the gear menu and choose **Import Settings**,
+then select `ReactiveUI.xml`.

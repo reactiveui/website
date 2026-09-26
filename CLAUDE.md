@@ -97,6 +97,9 @@ concurrency. They do not know this library, and they may not know reactive progr
 - Use headings so a reader can find a topic.
 - Use a list for steps or for separate items. Use a table to compare items across the same columns.
 - Show a short code example when it explains faster than words.
+- **Overload families by arity** (`WithInstance<T1..T16>`, `CombineLatest`, `Zip`, `WhenAnyValue` and the like):
+  show the one- and two-argument forms only, then state how many the family supports ("overloads take from 1 to
+  16 services"). Never show or list each arity. This holds for examples, excerpts, tables and at-a-glance rows.
 
 ### Scope
 

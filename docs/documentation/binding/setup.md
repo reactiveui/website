@@ -40,7 +40,7 @@ You can write `using ReactiveUI.Binding;` at the top of each file instead. Impor
 delivers the current value first and then every new one, and the `using` block disposes the subscription when you are done.
 
 ```csharp
-var item = new TodoItem { Title = "Renew car registration" };
+TodoItem item = new TodoItem { Title = "Renew car registration" };
 
 using (item.WhenChanged(x => x.Title).Subscribe(Console.WriteLine))
 {
@@ -127,7 +127,7 @@ for an `int` to `string` converter. The lookup finds nothing, which shows that a
 `WithCoreServices` runs.
 
 ```csharp
-var builder = RxBindingBuilder.CreateReactiveUIBindingBuilder();
+ReactiveUIBindingBuilder builder = RxBindingBuilder.CreateReactiveUIBindingBuilder();
 
 Console.WriteLine(builder.ConverterService.TypedConverters.TryGetConverter(typeof(int), typeof(string)) is null);
 ```
@@ -143,7 +143,7 @@ so the configuration never touches the shared resolver.
 
 ```csharp
 using ModernDependencyResolver resolver = new();
-var fromResolver = resolver.CreateReactiveUIBindingBuilder();
+ReactiveUIBindingBuilder fromResolver = resolver.CreateReactiveUIBindingBuilder();
 
 Console.WriteLine(ReferenceEquals(resolver, fromResolver.CurrentMutable));
 
@@ -176,7 +176,7 @@ ReactiveUIBindingModule module = new();
 
 module.Configure(resolver);
 
-var providers = resolver.GetServices<ICreatesObservableForProperty>().Select(static service => service.GetType()).ToList();
+List<Type> providers = resolver.GetServices<ICreatesObservableForProperty>().Select(static service => service.GetType()).ToList();
 
 Console.WriteLine(providers.Count);
 Console.WriteLine(providers.Contains(typeof(INPCObservableForProperty)));
@@ -202,7 +202,7 @@ binding builder behind the interface and still returns a working application.
 using ModernDependencyResolver resolver = new();
 IAppBuilder appBuilder = resolver.CreateReactiveUIBindingBuilder();
 
-var app = appBuilder.BuildApp();
+IReactiveUIBindingInstance app = appBuilder.BuildApp();
 
 Console.WriteLine(app.Current is not null);
 ```
@@ -219,19 +219,19 @@ resolver and that the builder returned itself each time.
 
 ```csharp
 using ModernDependencyResolver resolver = new();
-var builder = resolver.CreateReactiveUIBindingBuilder();
+ReactiveUIBindingBuilder builder = resolver.CreateReactiveUIBindingBuilder();
 TodoItemObservableForProperty provider = new();
 ButtonCommandBinder binder = new();
 
-var core = ((IReactiveUIBindingBuilder)builder).WithCoreServices();
-var module = builder.WithPlatformModule(new TodoModule());
+IReactiveUIBindingBuilder core = ((IReactiveUIBindingBuilder)builder).WithCoreServices();
+IReactiveUIBindingBuilder module = builder.WithPlatformModule(new TodoModule());
 _ = builder.WithFallbackConverter(new EnumNameFallbackConverter());
 _ = builder.WithSetMethodConverter(new TagListSetMethodConverter());
 _ = builder.WithCommandBinder(binder);
 _ = builder.WithRegistration(registry => registry.RegisterLazySingleton<ICreatesObservableForProperty>(() => provider));
 _ = builder.ConfigureViewLocator(static mappings => mappings.Map<TodoListViewModel, TodoView>());
 
-var app = builder.BuildApp();
+IReactiveUIBindingInstance app = builder.BuildApp();
 
 TodoListViewModel viewModel = new(InMemoryTodoStore.CreateSeeded());
 
@@ -276,7 +276,7 @@ separate, and that a lookup finds your converter by the pair of types.
 
 ```csharp
 using ModernDependencyResolver resolver = new();
-var builder = resolver.CreateReactiveUIBindingBuilder();
+ReactiveUIBindingBuilder builder = resolver.CreateReactiveUIBindingBuilder();
 IAppBuilder appBuilder = builder;
 
 _ = appBuilder
@@ -301,11 +301,11 @@ converter afterwards.
 
 ```csharp
 using ModernDependencyResolver resolver = new();
-var builder = resolver.CreateReactiveUIBindingBuilder();
+ReactiveUIBindingBuilder builder = resolver.CreateReactiveUIBindingBuilder();
 IAppBuilder appBuilder = builder;
 
-var fallback = appBuilder.WithFallbackConverter(new EnumNameFallbackConverter());
-var setMethod = appBuilder.WithSetMethodConverter(new TagListSetMethodConverter());
+IReactiveUIBindingBuilder fallback = appBuilder.WithFallbackConverter(new EnumNameFallbackConverter());
+IReactiveUIBindingBuilder setMethod = appBuilder.WithSetMethodConverter(new TagListSetMethodConverter());
 
 Console.WriteLine(ReferenceEquals(builder, fallback));
 Console.WriteLine(ReferenceEquals(builder, setMethod));
@@ -327,7 +327,7 @@ why you register a converter once at startup instead of at every call.
 ```csharp
 viewModel.SelectedItem = viewModel.Items[0];
 
-using var binding = view.OneWayBind(viewModel, x => x.SelectedItem!.Tags, v => v.TagsLabel.Text);
+using IReactiveBinding<TodoView, string> binding = view.OneWayBind(viewModel, x => x.SelectedItem!.Tags, v => v.TagsLabel.Text);
 
 Console.WriteLine(view.TagsLabel.Text);
 ```
@@ -341,7 +341,7 @@ for an enumeration and converts `TodoPriority.High` to its name. It shows that t
 registered.
 
 ```csharp
-var converter = BindingConverters.Current.FallbackConverters.TryGetConverter(typeof(TodoPriority), typeof(string));
+IBindingFallbackConverter? converter = BindingConverters.Current.FallbackConverters.TryGetConverter(typeof(TodoPriority), typeof(string));
 
 Console.WriteLine(converter is EnumNameFallbackConverter);
 
@@ -360,7 +360,7 @@ and an item type. The snippet below resolves the converter for `List<string>` an
 The list changes in place, and no new list is built.
 
 ```csharp
-var converter = BindingConverters.Current.ResolveSetMethodConverter(typeof(List<string>), typeof(string));
+ISetMethodBindingConverter? converter = BindingConverters.Current.ResolveSetMethodConverter(typeof(List<string>), typeof(string));
 
 Console.WriteLine(converter is TagListSetMethodConverter);
 
@@ -474,7 +474,7 @@ locator for the view, which shows that the whole chain works through the interfa
 
 ```csharp
 using ModernDependencyResolver resolver = new();
-var builder = resolver.CreateReactiveUIBindingBuilder();
+ReactiveUIBindingBuilder builder = resolver.CreateReactiveUIBindingBuilder();
 IAppBuilder appBuilder = builder;
 
 Console.WriteLine(ReferenceEquals(builder, appBuilder.WithPlatformModule(new TodoModule())));
@@ -483,7 +483,7 @@ _ = appBuilder
     .WithRegistration(static registry => registry.RegisterConstant(InMemoryTodoStore.CreateSeeded()))
     .ConfigureViewLocator(static mappings => mappings.Map<TodoListViewModel, TodoView>());
 
-var locator = resolver.GetService<IViewLocator>();
+IViewLocator? locator = resolver.GetService<IViewLocator>();
 TodoListViewModel viewModel = new(resolver.GetService<InMemoryTodoStore>()!);
 
 Console.WriteLine(locator!.ResolveView(viewModel) is TodoView);
@@ -511,7 +511,7 @@ Register it with `WithCommandBinder`. The snippet below binds the add command to
 attached the command once, and the last line shows the button now holds the view model's own command.
 
 ```csharp
-using var binding = view.BindCommand(viewModel, x => x.AddCommand, v => v.AddButton);
+using IDisposable binding = view.BindCommand(viewModel, x => x.AddCommand, v => v.AddButton);
 
 Console.WriteLine(binder.BindCount);
 Console.WriteLine(ReferenceEquals(viewModel.AddCommand, view.AddButton.Command));
@@ -532,7 +532,7 @@ you list and registers it as the application's `IViewLocator`. Call it after `Wi
 of the answer. It shows that the mapping you registered reaches the locator the rest of the library uses.
 
 ```csharp
-var view = ViewLocator.GetCurrent().ResolveView(viewModel);
+IViewFor? view = ViewLocator.GetCurrent().ResolveView(viewModel);
 
 Console.WriteLine(view is TodoView);
 ```
@@ -595,7 +595,7 @@ The program runs three calls. The first observes a title with `WhenChanged`, as 
 simplest call works in a published program.
 
 ```csharp
-var item = new TodoItem { Title = "Renew car registration" };
+TodoItem item = new TodoItem { Title = "Renew car registration" };
 
 using (item.WhenChanged(x => x.Title).Subscribe(Console.WriteLine))
 {
@@ -613,8 +613,8 @@ the `static` lambda is the conversion. The row shows `Open` at first and `Done` 
 also works without reflection.
 
 ```csharp
-var item = new TodoItem { Title = "File quarterly tax return" };
-var row = new TodoRowView();
+TodoItem item = new TodoItem { Title = "File quarterly tax return" };
+TodoRowView row = new TodoRowView();
 
 using (item.BindOneWay(row, x => x.IsDone, v => v.StatusText, static done => done ? DoneText : OpenText))
 {
@@ -636,8 +636,8 @@ title of an item to the title text of a row. Writing to the row then changes the
 data without reflection too.
 
 ```csharp
-var item = new TodoItem { Title = "Book dentist appointment" };
-var row = new TodoRowView();
+TodoItem item = new TodoItem { Title = "Book dentist appointment" };
+TodoRowView row = new TodoRowView();
 
 using (item.BindTwoWay(row, x => x.Title, v => v.TitleText))
 {
@@ -741,6 +741,7 @@ the `Unsafe` overload that resolves the path with reflection.
 | RXUIBIND015 | Warning | The call names a private or protected nested type | [Name types generated code can reach](#name-types-generated-code-can-reach) |
 | RXUIBIND016 | Warning | The call's types are built from a type parameter | [Name types generated code can reach](#name-types-generated-code-can-reach) |
 | RXUIBIND017 | Warning | A binding writes to a WPF, WinForms or MAUI object without that platform's Binding package | [The generated fallback](threading.md#the-generated-fallback) |
+| RXUIBIND020 | Info | A view is registered only in the service locator, so `ResolveView` with an `object` view model cannot reach it | [Reach a view registered only in the service locator](views.md#reach-a-view-registered-only-in-the-service-locator) |
 
 `RXUIBIND100` is an MSBuild error, not an analyzer message. It appears when the compiler is older than Roslyn 4.8 and reads:
 "ReactiveUI.Binding's source generator requires Roslyn 4.8 or later (Visual Studio 2022 17.8+, or .NET SDK 8.0.100+)". Upgrade the build tools.
@@ -764,7 +765,7 @@ Write the lambda in the call. The snippet below does, so the generator can read 
 title and then the new one, exactly as in the first walkthrough.
 
 ```csharp
-var item = new TodoItem { Title = "Renew car registration" };
+TodoItem item = new TodoItem { Title = "Renew car registration" };
 
 using (item.WhenChanged(x => x.Title).Subscribe(Console.WriteLine))
 {
@@ -790,7 +791,7 @@ Make the property public and observe it. The snippet below observes `NewTitle`, 
 title is set before the subscription, so the first line is the value that was already there and the second is the change.
 
 ```csharp
-var viewModel = new TodoListViewModel(InMemoryTodoStore.CreateSeeded());
+TodoListViewModel viewModel = new TodoListViewModel(InMemoryTodoStore.CreateSeeded());
 
 viewModel.NewTitle = DentistTitle;
 
@@ -824,7 +825,7 @@ working through the `Unsafe` overload, which resolves an indexer at run time. Th
 output shows both titles.
 
 ```csharp
-var viewModel = new TodoListViewModel(InMemoryTodoStore.CreateSeeded());
+TodoListViewModel viewModel = new TodoListViewModel(InMemoryTodoStore.CreateSeeded());
 await viewModel.LoadAsync();
 viewModel.SelectedItem = viewModel.Items[0];
 
@@ -877,7 +878,7 @@ Observe a type that raises `PropertyChanged`. The snippet below observes `IsDone
 the value at subscription and then the change, so you see every value the flag takes.
 
 ```csharp
-var item = new TodoItem { Title = "File quarterly tax return" };
+TodoItem item = new TodoItem { Title = "File quarterly tax return" };
 
 using (item.WhenChanged(x => x.IsDone).Subscribe(Console.WriteLine))
 {
@@ -903,8 +904,8 @@ Observe a property of the view model that mirrors the state instead. The snippet
 view model. The view model raises the notification, so the output follows the link going down and coming back up.
 
 ```csharp
-var storage = InMemoryObjectStorage.CreateSeeded();
-var browser = new StorageBrowserViewModel(storage);
+InMemoryObjectStorage storage = InMemoryObjectStorage.CreateSeeded();
+StorageBrowserViewModel browser = new StorageBrowserViewModel(storage);
 
 using (browser.WhenChanged(x => x.ConnectionStatus).Subscribe(static state => Console.WriteLine(state)))
 {
@@ -934,7 +935,7 @@ Observe a type that raises `PropertyChanging`. The snippet below uses `EditableT
 appears twice.
 
 ```csharp
-var todo = new EditableTodo { Title = DentistTitle };
+EditableTodo todo = new EditableTodo { Title = DentistTitle };
 
 using (todo.WhenChanging(x => x.Title).Subscribe(Console.WriteLine))
 {
@@ -963,8 +964,8 @@ prints whether the command can run, before and after the view model gets a title
 `CanExecute`, so the answer changes from `False` to `True`.
 
 ```csharp
-var viewModel = new TodoListViewModel(InMemoryTodoStore.CreateSeeded());
-var view = new TodoView { ViewModel = viewModel };
+TodoListViewModel viewModel = new TodoListViewModel(InMemoryTodoStore.CreateSeeded());
+TodoView view = new TodoView { ViewModel = viewModel };
 
 using (view.BindCommand(viewModel, x => x.AddCommand, v => v.AddButton))
 {
@@ -995,8 +996,8 @@ label, then sets an amount and prints the label. The label shows the summary tex
 without the generator reading `INotifyDataErrorInfo`.
 
 ```csharp
-var viewModel = new TransferViewModel(new InMemoryBankingBackend());
-var view = new TransferView { ViewModel = viewModel };
+TransferViewModel viewModel = new TransferViewModel(new InMemoryBankingBackend());
+TransferView view = new TransferView { ViewModel = viewModel };
 
 using (viewModel.BindOneWay(view, x => x.ValidationSummary, v => v.ValidationLabel.Text))
 {
@@ -1024,8 +1025,8 @@ asks the question through `Handle` and prints the answer. The `True` shows a pro
 binding that works.
 
 ```csharp
-var viewModel = new IssueBoardViewModel(InMemoryGitHubServer.CreateSeeded());
-var view = new IssueBoardView { ViewModel = viewModel };
+IssueBoardViewModel viewModel = new IssueBoardViewModel(InMemoryGitHubServer.CreateSeeded());
+IssueBoardView view = new IssueBoardView { ViewModel = viewModel };
 
 using (view.BindInteraction(viewModel, x => x.ConfirmClose, static context =>
 {
@@ -1033,7 +1034,7 @@ using (view.BindInteraction(viewModel, x => x.ConfirmClose, static context =>
     return Task.CompletedTask;
 }))
 {
-    var confirmed = await viewModel.ConfirmClose.Handle(new Issue { Title = "Crash on startup" });
+    bool confirmed = await viewModel.ConfirmClose.Handle(new Issue { Title = "Crash on startup" });
 
     Console.WriteLine(confirmed);
 }
@@ -1064,7 +1065,7 @@ Import `ReactiveUI.Binding`, as in step 2 of [Get started](#get-started). The sn
 `WhenAnyValue` reaches this package. It prints the count of unfinished items, first `3` and then `2` after one item is completed.
 
 ```csharp
-var viewModel = new TodoListViewModel(InMemoryTodoStore.CreateSeeded());
+TodoListViewModel viewModel = new TodoListViewModel(InMemoryTodoStore.CreateSeeded());
 await viewModel.LoadAsync();
 
 using (viewModel.WhenAnyValue(x => x.RemainingCount).Subscribe(Console.WriteLine))
@@ -1095,7 +1096,7 @@ that intercepts. The snippet below sits under the root namespace of the sample p
 so it reaches the dispatch. It prints the count of unfinished items before and after one item is completed.
 
 ```csharp
-var viewModel = new TodoListViewModel(InMemoryTodoStore.CreateSeeded());
+TodoListViewModel viewModel = new TodoListViewModel(InMemoryTodoStore.CreateSeeded());
 await viewModel.LoadAsync();
 
 using (viewModel.WhenChanged(x => x.RemainingCount).Subscribe(Console.WriteLine))

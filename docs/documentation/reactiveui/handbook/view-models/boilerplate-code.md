@@ -1,5 +1,5 @@
 ---
-Order: 2
+Order: 4
 ---
 # Source Generators and Fody, the easy way to create properties in ReactiveUI
 

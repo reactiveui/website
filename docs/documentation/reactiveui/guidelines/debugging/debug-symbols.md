@@ -5,8 +5,8 @@ metadata embedded in the assembly's PDB (`<DebugType>embedded</DebugType>` +
 `Microsoft.SourceLink.GitHub`, configured once in
 [`src/Directory.Build.props`](https://github.com/reactiveui/reactiveui/blob/main/src/Directory.Build.props)).
 That means you can step from your own code straight into the framework source
-on GitHub at the exact commit your installed version was built from — no
-matching local clone, no symbol-server hunting.
+on GitHub, at the exact commit your installed version was built from. You need
+no matching local clone and no symbol-server hunting.
 
 ## Visual Studio (2022 and newer)
 
@@ -32,8 +32,8 @@ Two debugger settings unlock SourceLink stepping. Both live under
 Set a breakpoint, hit it, then *Step Into* (`F11`) any ReactiveUI call
 (e.g. `this.WhenAnyValue(...)`). Visual Studio prompts once with
 *"Source Link will download <https://raw.githubusercontent.com/reactiveui/...>
-— OK?"*; accept and you'll land in `WhenAnyMixin.cs` at the exact commit your
-NuGet package was published from.
+— OK?"*; accept and you land in the framework's source file at the exact
+commit your NuGet package was published from.
 
 ## Rider / VS Code (C# Dev Kit)
 

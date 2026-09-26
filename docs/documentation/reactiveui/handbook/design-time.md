@@ -1,86 +1,22 @@
 ---
-Order: 9
+Order: 18
 ---
-# ReactiveUI Bindings
+# Design-time support
 
-ReactiveUI offers a better design-time data system for solutions that use [ReactiveUI type-safe bindings](data-binding/index.md). `this.Bind` methods family overwrite whatever has been put into XAML. If your XAML markup looks like this:
+A designer surface, such as the Visual Studio or Rider XAML preview, loads your views to draw them without running
+your app. `WhenActivated` needs an activation fetcher to know when a view is shown and hidden, and a designer never
+provides one. Without a check for that case, activation would throw every time a designer opened a view.
 
-```xml
-<TextBlock 
-    x:Name="ExampleTextBlock" 
-    Text="This is design time text" />
-```
+`GetIsDesignMode`, an extension method on `IActivatableView`, reports whether a designer surface is loading the
+view. It returns `false` unless a platform package overrides it for its own view types. The WPF package, for
+example, backs it with `DesignerProperties.GetIsInDesignMode`. `WhenActivated` calls it internally. With no
+activation fetcher registered and the view in design mode, it does nothing instead of throwing. A designer preview
+then needs none of the services the running app has. See [Design mode](when-activated.md#design-mode) for the check
+in place and what it returns for a view outside a designer.
 
-You'll see `This is design time text` string in design time, that will be overridden by the code where binding magic happens at run time:
+Call `GetIsDesignMode` yourself to skip work a designer cannot run, such as creating a router or navigating it. The
+WPF grade-book example's `MainWindow` constructor does this before it builds a real `AppShell`.
 
-```cs
-this.WhenActivated(disposable => 
-{
-    // ReactiveUI will bind ExampleString ViewModel property 
-    // to ExampleTextBlock.Text property (defined above)
-    this.Bind(ViewModel, 
-        viewModel => viewModel.ExampleString, 
-        view => view.ExampleTextBlock.Text)
-        .DisposeWith(disposable);
-});
-```
-
-## Regular Bindings
-
-If you use regular bindings, or type-safe `{x:Bind }` markup extension available on UWP, then you can import the `d` directive and set design-time `DataContext`. For the ease of use, you can extract an interface from your ViewModel and create two implementations for it, one implementation would display design-time data only, and another one would be your actual view model. See an example.
-
-**Views.AboutView.xaml**
-
-```xml
-<Page x:Class="MyCoolApp.UWP.Views.AboutView"
-      xmlns:d="https://schemas.microsoft.com/expression/blend/2008"
-      xmlns:designTime="using:MyCoolApp.UWP.DesignTime"
-      d:DataContext="{d:DesignInstance designTime:DesignTimeAboutViewModel,
-                                                  IsDesignTimeCreatable=True}"
-      d:DesignHeight="600"
-      d:DesignWidth="600">
-  <!-- Page Content -->
-</Page>
-```
-
-**Interfaces.IAboutViewModel.cs**
-
-```cs
-public interface IAboutViewModel : INotifyPropertyChanged
-{
-    IEnumerable<AboutSection> AboutSections { get; set; }
-
-    ReactiveCommand<RxVoid, AboutFeed> RefreshCommand { get; set; }
-}
-```
-
-**DesignTime.DesignTimeAboutViewModel.cs**
-
-```cs
-public class DesignTimeAboutViewModel : IAboutViewModel
-{
-  public DesignTimeAboutViewModel()
-  {
-      AboutSections = new List<AboutSectionViewModel>
-      {
-          new AboutSection {Title = "Title 1", Body = "Lorum Ipsum"},
-          new AboutSection {Title = "Title 2", Body = "Lorum Ipsum"},
-          new AboutSection {Title = "Title 3", Body = "Lorum Ipsum"}
-      });
-      RefreshCommand = ReactiveCommand.CreateFromTask(() => Task.FromResult(new AboutFeed()));
-  }
-  
-  /* Properties and commands are deliberately omitted */
-}
-```
-
-**ViewModels.AboutViewModel.cs**
-
-```cs
-public class AboutViewModel : ReactiveObject, IAboutViewModel
-{
-  /* Actual interface implementation */
-}
-```
-
-    
+For design-time data in XAML markup, bind through `d:DataContext` and a design-time implementation of your view
+model's interface, the way you would for any XAML-based framework. ReactiveUI adds nothing of its own on top of
+that. [Data Binding](data-binding/index.md) covers the bindings a view sets up once it has a real view model.

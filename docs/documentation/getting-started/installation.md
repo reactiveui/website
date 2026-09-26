@@ -42,7 +42,7 @@ Each row is one GitHub repository. The docs link goes to that library's section 
 
 | Library | Repository | Main package | Other packages | Docs |
 |---|---|---|---|---|
-| ReactiveUI | [reactiveui/ReactiveUI](https://github.com/reactiveui/ReactiveUI) | `ReactiveUI` | `ReactiveUI.WPF`, `ReactiveUI.WinForms`, `ReactiveUI.WinUI`, `ReactiveUI.Maui`, `ReactiveUI.AndroidX`, `ReactiveUI.Blazor`, `ReactiveUI.Blend`, `ReactiveUI.Drawing`, `ReactiveUI.Routing`, `ReactiveUI.Testing` | [ReactiveUI](../reactiveui/index.md) |
+| ReactiveUI | [reactiveui/ReactiveUI](https://github.com/reactiveui/ReactiveUI) | `ReactiveUI` | `ReactiveUI.WPF`, `ReactiveUI.WinForms`, `ReactiveUI.WinUI`, `ReactiveUI.Maui`, `ReactiveUI.AndroidX`, `ReactiveUI.Blazor`, `ReactiveUI.Blend`, `ReactiveUI.Drawing`, `ReactiveUI.Testing` | [ReactiveUI](../reactiveui/index.md) |
 | ReactiveUI for Avalonia | [reactiveui/ReactiveUI.Avalonia](https://github.com/reactiveui/ReactiveUI.Avalonia) | `ReactiveUI.Avalonia` | `ReactiveUI.Avalonia.Autofac`, `ReactiveUI.Avalonia.DryIoc`, `ReactiveUI.Avalonia.Microsoft.Extensions.DependencyInjection`, `ReactiveUI.Avalonia.Ninject` | [Avalonia](../reactiveui/getting-started/installation/avalonia.md) |
 | ReactiveUI for Uno | [reactiveui/ReactiveUI.Uno](https://github.com/reactiveui/ReactiveUI.Uno) | `ReactiveUI.Uno` | | [Uno Platform](https://platform.uno/blog/getting-started-with-uno-platform-and-reactiveui/) |
 | ReactiveUI.Binding | [reactiveui/ReactiveUI.Binding.SourceGenerators](https://github.com/reactiveui/ReactiveUI.Binding.SourceGenerators) | `ReactiveUI.Binding` | `ReactiveUI.Binding.Wpf`, `ReactiveUI.Binding.WinForms`, `ReactiveUI.Binding.Maui` | [ReactiveUI.Binding](../binding/index.md) |

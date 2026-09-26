@@ -44,11 +44,11 @@ public sealed class TodoPriorityToColorConverter : BindingTypeConverter<TodoPrio
 **3. Call it on its own.** A converter is an ordinary object. You can call `TryConvert` on it without a binding, which is the easiest way to test one. The loop below converts every priority and prints whether each conversion worked.
 
 ```csharp
-var converter = new TodoPriorityToColorConverter();
+TodoPriorityToColorConverter converter = new TodoPriorityToColorConverter();
 
-foreach (var priority in Enum.GetValues<TodoPriority>())
+foreach (TodoPriority priority in Enum.GetValues<TodoPriority>())
 {
-    var success = converter.TryConvert(priority, null, out var colorName);
+    bool success = converter.TryConvert(priority, null, out var colorName);
     Console.WriteLine($"{priority}: {success} {colorName}");
 }
 ```
@@ -65,7 +65,7 @@ High: True Red
 TodoItem item = new() { Title = CarRegistrationTitle, Priority = TodoPriority.High };
 Label badge = new();
 
-using var binding = item.BindOneWay(badge, x => x.Priority, x => x.Text, new TodoPriorityToColorConverter());
+using IDisposable binding = item.BindOneWay(badge, x => x.Priority, x => x.Text, new TodoPriorityToColorConverter());
 Console.WriteLine(badge.Text);
 
 item.Priority = TodoPriority.Low;
@@ -84,9 +84,9 @@ Gray
 ```csharp
 BindingConverters.Current.TypedConverters.Register(new TodoPriorityToColorConverter());
 
-var converter = BindingConverters.Current.TypedConverters.TryGetConverter(typeof(TodoPriority), typeof(string));
+IBindingTypeConverter? converter = BindingConverters.Current.TypedConverters.TryGetConverter(typeof(TodoPriority), typeof(string));
 
-var success = converter!.TryConvertTyped(TodoPriority.High, null, out var highColor);
+bool success = converter!.TryConvertTyped(TodoPriority.High, null, out var highColor);
 Console.WriteLine(success);
 Console.WriteLine(highColor);
 
@@ -141,7 +141,7 @@ public sealed class PriorityColourConverter : IBindingTypeConverter
 The `from switch` matches only a `TodoPriority`. Any other value falls to `null`, and the method returns `false`. The next excerpt calls the converter directly. It prints the two types, the score and the result for a `TodoPriority`, then tries a `string` to show the failure.
 
 ```csharp
-var converter = new PriorityColourConverter();
+PriorityColourConverter converter = new PriorityColourConverter();
 
 Console.WriteLine($"{converter.FromType.Name} -> {converter.ToType.Name}");
 Console.WriteLine(converter.GetAffinityForObjects());
@@ -166,7 +166,7 @@ A binding uses this converter as it uses the base-class one. This binding shows 
 TodoItem item = new() { Title = CarRegistrationTitle, Priority = TodoPriority.High };
 Label badge = new();
 
-using var binding = item.BindOneWay(badge, x => x.Priority, x => x.Text, new PriorityColourConverter());
+using IDisposable binding = item.BindOneWay(badge, x => x.Priority, x => x.Text, new PriorityColourConverter());
 Console.WriteLine(badge.Text);
 
 item.Priority = TodoPriority.Low;
@@ -204,8 +204,8 @@ A registry returns the untyped `IBindingTypeConverter`. The second excerpt gets 
 ConverterService service = new();
 service.TypedConverters.Register(new CurrencyTextConverter(DollarSymbol));
 
-var untyped = service.TypedConverters.TryGetConverter(typeof(decimal), typeof(string))!;
-var typed = (IBindingTypeConverter<decimal, string>)untyped;
+IBindingTypeConverter untyped = service.TypedConverters.TryGetConverter(typeof(decimal), typeof(string))!;
+IBindingTypeConverter<decimal, string> typed = (IBindingTypeConverter<decimal, string>)untyped;
 
 Console.WriteLine($"{untyped.FromType.Name} -> {untyped.ToType.Name}");
 Console.WriteLine(typed.TryConvert(TransferAmount, conversionHint: null, out var amountText));
@@ -253,7 +253,7 @@ When a converter returns `false`, the binding writes nothing for that value. The
 TodoItem item = new() { Title = CarRegistrationTitle, Priority = TodoPriority.High };
 CheckBox highPriorityBox = new();
 
-using var binding = item.BindOneWay(highPriorityBox, x => x.Priority, x => x.IsChecked, new PriorityMatchesHintConverter(), TodoPriority.High);
+using IDisposable binding = item.BindOneWay(highPriorityBox, x => x.Priority, x => x.IsChecked, new PriorityMatchesHintConverter(), TodoPriority.High);
 Console.WriteLine(highPriorityBox.IsChecked);
 
 item.Priority = TodoPriority.Low;
@@ -292,11 +292,11 @@ False
 A two-way binding moves values both ways, so it needs two conversions. `BindTwoWay` and `Bind` take two converters. The first converts from the source to the target, and the second converts back. The built-in `NullableDateOnlyToStringTypeConverter` and `StringToNullableDateOnlyTypeConverter` do the work here. You can pass your own the same way.
 
 ```csharp
-var store = InMemoryTodoStore.CreateSeeded();
-var item = (await store.GetAsync(DentistTaskId))!;
+InMemoryTodoStore store = InMemoryTodoStore.CreateSeeded();
+TodoItem item = (await store.GetAsync(DentistTaskId))!;
 Entry dueDateBox = new();
 
-using var binding = item.BindTwoWay(
+using IDisposable binding = item.BindTwoWay(
     dueDateBox,
     x => x.DueDate,
     x => x.Text,
@@ -319,7 +319,7 @@ The same shape works for a converter pair of your own. This binding keeps the ta
 TodoItem item = new() { Title = CarRegistrationTitle, Tags = ["car", "admin"] };
 Entry tagsBox = new();
 
-using var binding = item.BindTwoWay(tagsBox, x => x.Tags, x => x.Text, new TagListToTextConverter(), new TextToTagListConverter());
+using IDisposable binding = item.BindTwoWay(tagsBox, x => x.Tags, x => x.Text, new TagListToTextConverter(), new TextToTagListConverter());
 Console.WriteLine(tagsBox.Text);
 
 tagsBox.Text = TypedTags;
@@ -334,8 +334,8 @@ car|admin|urgent
 Each half is also a plain converter. This excerpt calls both halves without a binding, so you can test each direction on its own.
 
 ```csharp
-var toText = new TagListToTextConverter();
-var toTags = new TextToTagListConverter();
+TagListToTextConverter toText = new TagListToTextConverter();
+TextToTagListConverter toTags = new TextToTagListConverter();
 TodoItem item = new() { Title = CarRegistrationTitle, Tags = ["car", "admin"] };
 
 Console.WriteLine(toText.TryConvert(item.Tags, null, out var text));
@@ -360,7 +360,7 @@ AccountsView view = new();
 AccountsViewModel viewModel = new(new InMemoryBankingBackend());
 view.ViewModel = viewModel;
 
-using var binding = view.OneWayBind(viewModel, x => x.TotalBalance, v => v.TotalBalanceLabel.Text, new DecimalToStringTypeConverter());
+using IReactiveBinding<AccountsView, string> binding = view.OneWayBind(viewModel, x => x.TotalBalance, v => v.TotalBalanceLabel.Text, new DecimalToStringTypeConverter());
 await viewModel.LoadAccountsAsync();
 
 Console.WriteLine(view.TotalBalanceLabel.Text);
@@ -377,7 +377,7 @@ TransferView view = new();
 TransferViewModel viewModel = new(new InMemoryBankingBackend());
 view.ViewModel = viewModel;
 
-using var binding = view.Bind(
+using IReactiveBinding<TransferView, BindingChange> binding = view.Bind(
     viewModel,
     x => x.Draft.Amount,
     v => v.AmountTextBox.Text,
@@ -411,10 +411,10 @@ AccountsView view = new();
 AccountsViewModel viewModel = new(new InMemoryBankingBackend());
 view.ViewModel = viewModel;
 
-using var binding = view.OneWayBind(viewModel, x => x.Accounts, v => v.AccountList.ItemsSource, new AccountsToViewsConverter(locator));
+using IReactiveBinding<AccountsView, System.Collections.IEnumerable> binding = view.OneWayBind(viewModel, x => x.Accounts, v => v.AccountList.ItemsSource, new AccountsToViewsConverter(locator));
 await viewModel.LoadAccountsAsync();
 
-foreach (var row in view.AccountList.ItemsSource.OfType<AccountSummaryView>())
+foreach (AccountSummaryView row in view.AccountList.ItemsSource.OfType<AccountSummaryView>())
 {
     Console.WriteLine(row.ViewModel!.Name);
 }
@@ -467,7 +467,7 @@ ConverterService service = new();
 service.TypedConverters.Register(new DemoIntToStringConverter(LowAffinityScore));
 service.TypedConverters.Register(new DemoIntToStringConverter(HighAffinityScore));
 
-var resolved = service.TypedConverters.TryGetConverter(typeof(int), typeof(string));
+IBindingTypeConverter? resolved = service.TypedConverters.TryGetConverter(typeof(int), typeof(string));
 
 Console.WriteLine(resolved!.GetAffinityForObjects());
 ```
@@ -484,13 +484,13 @@ To replace a built-in converter, register one for the same pair with a higher af
 ConverterService service = new();
 DefaultConverterRegistration.RegisterDefaults(service);
 
-var builtIn = service.TypedConverters.TryGetConverter(typeof(bool), typeof(string));
+IBindingTypeConverter? builtIn = service.TypedConverters.TryGetConverter(typeof(bool), typeof(string));
 Console.WriteLine(builtIn!.GetType().Name);
 
 service.TypedConverters.Register(new CustomBoolToStringConverter());
 
-var resolved = service.TypedConverters.TryGetConverter(typeof(bool), typeof(string));
-var success = resolved!.TryConvertTyped(true, null, out var result);
+IBindingTypeConverter? resolved = service.TypedConverters.TryGetConverter(typeof(bool), typeof(string));
+bool success = resolved!.TryConvertTyped(true, null, out var result);
 
 Console.WriteLine(resolved.GetType().Name);
 Console.WriteLine(success);
@@ -515,7 +515,7 @@ ConverterService service = new();
 
 service.TypedConverters.Register(new PriorityColourConverter());
 
-var resolved = service.ResolveConverter(typeof(TodoPriority), typeof(string));
+object? resolved = service.ResolveConverter(typeof(TodoPriority), typeof(string));
 
 Console.WriteLine(resolved!.GetType().Name);
 ```
@@ -561,7 +561,7 @@ _ = builder
     .WithSetMethodConverter(new DemoSetMethodConverter())
     .BuildApp();
 
-var service = BindingConverters.Current;
+ConverterService service = BindingConverters.Current;
 
 Console.WriteLine(service.TypedConverters.TryGetConverter(typeof(TodoPriority), typeof(string))!.GetType().Name);
 Console.WriteLine(service.FallbackConverters.TryGetConverter(typeof(TodoPriority), typeof(string))!.GetType().Name);
@@ -622,7 +622,7 @@ The registry picks the fallback converter the same way: highest positive affinit
 ConverterService service = new();
 service.FallbackConverters.Register(new CustomFallbackConverter());
 
-var fallback = service.FallbackConverters.TryGetConverter(typeof(TodoPriority), typeof(string));
+IBindingFallbackConverter? fallback = service.FallbackConverters.TryGetConverter(typeof(TodoPriority), typeof(string));
 
 Console.WriteLine(fallback!.GetAffinityForObjects(typeof(TodoPriority), typeof(string)));
 Console.WriteLine(fallback.GetAffinityForObjects(typeof(TodoPriority), typeof(int)));
@@ -646,9 +646,9 @@ ConverterService service = new();
 DefaultConverterRegistration.RegisterDefaults(service);
 service.FallbackConverters.Register(new CustomFallbackConverter());
 
-var forInteger = service.ResolveConverter(typeof(int), typeof(string));
-var forPriority = service.ResolveConverter(typeof(TodoPriority), typeof(string));
-var forGuid = service.ResolveConverter(typeof(TodoPriority), typeof(Guid));
+object? forInteger = service.ResolveConverter(typeof(int), typeof(string));
+object? forPriority = service.ResolveConverter(typeof(TodoPriority), typeof(string));
+object? forGuid = service.ResolveConverter(typeof(TodoPriority), typeof(Guid));
 
 Console.WriteLine(forInteger!.GetType().Name);
 Console.WriteLine(forPriority!.GetType().Name);
@@ -687,7 +687,7 @@ Register it in `SetMethodConverters`. `ResolveSetMethodConverter` on the service
 ConverterService service = new();
 service.SetMethodConverters.Register(new DemoSetMethodConverter());
 
-var converter = service.ResolveSetMethodConverter(typeof(string), typeof(string));
+ISetMethodBindingConverter? converter = service.ResolveSetMethodConverter(typeof(string), typeof(string));
 
 Console.WriteLine(converter!.GetType().Name);
 Console.WriteLine(converter.PerformSet(null, "Renew car registration", null));
@@ -718,7 +718,7 @@ A set-method converter usually applies to one kind of target. Return 0 for the o
 ConverterService service = new();
 service.SetMethodConverters.Register(new LegacyTagListSetMethodConverter());
 
-var converter = service.ResolveSetMethodConverter(typeof(IReadOnlyList<string>), typeof(List<string>))!;
+ISetMethodBindingConverter converter = service.ResolveSetMethodConverter(typeof(IReadOnlyList<string>), typeof(List<string>))!;
 
 Console.WriteLine(converter.GetAffinityForObjects(typeof(IReadOnlyList<string>), typeof(List<string>)));
 Console.WriteLine(converter.GetAffinityForObjects(typeof(string), typeof(string)));
@@ -757,9 +757,9 @@ public static ModernDependencyResolver Create()
 **1. Read the converters.** `ConverterMigrationHelper.ExtractConverters` returns the typed, fallback and set-method converters that the resolver holds. It registers nothing. It skips a `null` registration and keeps the order the resolver returns. The result is an `ExtractedConverters` record with one list for each kind. The excerpt reads the resolver and prints how many converters of each kind it found and their class names.
 
 ```csharp
-using var legacyResolver = LegacyAppDependencyResolver.Create();
+using Splat.ModernDependencyResolver legacyResolver = LegacyAppDependencyResolver.Create();
 
-var extracted = ConverterMigrationHelper.ExtractConverters(legacyResolver);
+ExtractedConverters extracted = ConverterMigrationHelper.ExtractConverters(legacyResolver);
 
 Console.WriteLine(extracted.TypedConverters.Count);
 Console.WriteLine(extracted.FallbackConverters.Count);
@@ -781,20 +781,20 @@ LegacyTagListSetMethodConverter
 **2. Copy them into a service.** `ImportFrom` is an extension on `ConverterService`. It extracts the three kinds and registers each converter with the matching registry. Each converter keeps its behaviour: the typed one maps `TodoPriority.High` to `#D32F2F`, the fallback one shows an `IssueState` as its text and the set-method one fills the list. The excerpt imports into a new service, then uses one converter of each kind to prove the copy worked.
 
 ```csharp
-using var legacyResolver = LegacyAppDependencyResolver.Create();
+using Splat.ModernDependencyResolver legacyResolver = LegacyAppDependencyResolver.Create();
 ConverterService service = new();
 
 service.ImportFrom(legacyResolver);
 
-var typed = service.TypedConverters.TryGetConverter(typeof(TodoPriority), typeof(string));
+IBindingTypeConverter? typed = service.TypedConverters.TryGetConverter(typeof(TodoPriority), typeof(string));
 Console.WriteLine(typed!.TryConvertTyped(TodoPriority.High, null, out var highColour));
 Console.WriteLine(highColour);
 
-var fallback = service.FallbackConverters.TryGetConverter(typeof(IssueState), typeof(string));
+IBindingFallbackConverter? fallback = service.FallbackConverters.TryGetConverter(typeof(IssueState), typeof(string));
 Console.WriteLine(fallback!.TryConvert(typeof(IssueState), IssueState.Closed, typeof(string), null, out var stateText));
 Console.WriteLine(stateText);
 
-var setMethod = service.SetMethodConverters.TryGetConverter(typeof(IReadOnlyList<string>), typeof(List<string>));
+ISetMethodBindingConverter? setMethod = service.SetMethodConverters.TryGetConverter(typeof(IReadOnlyList<string>), typeof(List<string>));
 List<string> tagList = ["draft"];
 List<string> newTags = ["travel", "admin"];
 
@@ -816,11 +816,11 @@ The import is a one-time copy. A converter that you add to the resolver later do
 **3. Import into the shared service.** The next two examples import into `BindingConverters.Current`, which is the service that bindings use when you do not hand them another one. The first passes the migrated converter to `BindTo` as the converter override.
 
 ```csharp
-using var legacyResolver = LegacyAppDependencyResolver.Create();
+using Splat.ModernDependencyResolver legacyResolver = LegacyAppDependencyResolver.Create();
 
 BindingConverters.Current.ImportFrom(legacyResolver);
 
-var migrated = BindingConverters.Current.TypedConverters.TryGetConverter(typeof(TodoPriority), typeof(string));
+IBindingTypeConverter? migrated = BindingConverters.Current.TypedConverters.TryGetConverter(typeof(TodoPriority), typeof(string));
 TodoItem item = new() { Title = "Renew passport", Priority = TodoPriority.High };
 Label priorityBadge = new();
 
@@ -842,7 +842,7 @@ using (item.WhenChanged(x => x.Priority).BindTo(priorityBadge, x => x.Text, migr
 The second leaves the converter out. The binding looks in the same service and takes the converter with the highest affinity for the two types. Prefer this form. Import once at start-up, and every binding that needs a migrated converter finds it.
 
 ```csharp
-using var legacyResolver = LegacyAppDependencyResolver.Create();
+using Splat.ModernDependencyResolver legacyResolver = LegacyAppDependencyResolver.Create();
 
 BindingConverters.Current.ImportFrom(legacyResolver);
 
@@ -890,10 +890,10 @@ LegacyTagListSetMethodConverter
 It is a `record`, so two results are equal when they hold the same three lists, and `with` copies one. This excerpt compares a result with a copy and with a copy that has no fallback converters. It also checks `Equals`, `GetHashCode` and `ToString`.
 
 ```csharp
-using var legacyResolver = LegacyAppDependencyResolver.Create();
-var extracted = ConverterMigrationHelper.ExtractConverters(legacyResolver);
-var same = extracted with { };
-var withoutFallback = extracted with { FallbackConverters = [] };
+using Splat.ModernDependencyResolver legacyResolver = LegacyAppDependencyResolver.Create();
+ExtractedConverters extracted = ConverterMigrationHelper.ExtractConverters(legacyResolver);
+ExtractedConverters same = extracted with { };
+ExtractedConverters withoutFallback = extracted with { FallbackConverters = [] };
 object boxedSame = same;
 
 Console.WriteLine(extracted == same);

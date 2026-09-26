@@ -145,7 +145,9 @@ using HttpResponseMessage reply = await api.UploadRawAsync(note, raw, "Chart dat
 
 ## Send a model as one JSON part
 
-A concrete sealed model without `[FormObject]` is serialized as one part, named after its parameter.
+A model parameter without `[FormObject]` is serialized as one part, named after its parameter.
+Declare it as a concrete class or struct. Refit writes the value as that declared type.
+A collection of such classes sends one part per item.
 Strings become UTF-8 `text/plain` parts. Guid and date/time values use the form formatter and plain text.
 Numbers, booleans, enums and other serialized models use the content serializer.
 
@@ -183,8 +185,12 @@ using HttpResponseMessage reply = await api.UploadMetadataAsync(new("Annual repo
 ```
 
 This works with generated request code and runs in a Native AOT app.
-It covers the declared static parameter types. An `object`, interface or open generic parameter can need
-the reflection request builder instead. Read [AOT setup](../aot.md) and [JSON configuration](../serialization/json.md).
+Refit generates the request for the part wrappers, the raw values above, and any concrete class or struct.
+A part declared as `object`, an interface or a method type parameter has no shape that Refit can see when it builds.
+The same goes for a collection of value types, such as `int[]`.
+Such a method falls back to the reflection request builder, and the build reports `RF006` with the reason
+`UnsupportedMultipartPart`. See [find methods that fall back to reflection](../aot.md#find-methods-that-fall-back-to-reflection)
+and [JSON configuration](../serialization/json.md).
 
 ## Extend `MultipartItem`
 
@@ -239,9 +245,12 @@ depth limits and reference-cycle guards follow form-body flattening.
 Null fields are omitted unless their query configuration requests null serialization.
 An emitted null value becomes empty text; unnamed or whitespace-only fields are skipped.
 
-The generator does not build `[FormObject]` methods. With the default generated request mode,
-such a method produces analyzer warning `RF006`, and Refit sends it to the reflection request builder.
+Only the reflection request builder splits an object into one part per property.
+With the default generated request mode, a `[FormObject]` method gets analyzer warning `RF006` on that parameter,
+with the reason `FormObjectMultipartPart`. Refit sends the method to the reflection request builder.
 That builder is in the `Refit.Reflection` package. Create the client with `RestService.For`.
+To keep the request generated, declare each form field as its own parameter.
+Or remove `[FormObject]` to send the object as one serialized part.
 Reflection flattening reads properties at runtime, so it is not trim or Native AOT safe.
 A generated JSON context does not change that.
 The separate [JIT-only project](https://github.com/reactiveui/refit/blob/main/src/examples/Documentation/Multipart/Legacy/Legacy.csproj)

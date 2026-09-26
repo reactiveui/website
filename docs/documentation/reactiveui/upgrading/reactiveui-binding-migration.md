@@ -44,7 +44,7 @@ for the System.Reactive flavor). The ReactiveUI package adds that namespace to y
 `<ImplicitUsings>enable</ImplicitUsings>`, your calls compile with no new `using`. Without implicit usings, add
 this line once:
 
-```csharp
+```text
 global using ReactiveUI.Binding;
 ```
 
@@ -70,7 +70,7 @@ A view's `WhenActivated(block)` finds the view's `ViewModel` with reflection, so
 the view's own `WhenAnyValue(x => x.ViewModel)` as the second argument, and it activates the view model without
 reflection:
 
-```csharp
+```text
 this.WhenActivated(
     disposables => disposables(this.Bind(ViewModel, x => x.Name, v => v.NameBox.Text)),
     this.WhenAnyValue(x => x.ViewModel));
@@ -80,25 +80,64 @@ this.WhenActivated(
 
 The view hosts (`ViewModelViewHost` and `RoutedViewHost` on every platform) now use ReactiveUI.Binding's view locator.
 Its source generator finds each `IViewFor<T>` in your app at compile time, so a view is found without registering it
-and without reflection. A view you register in the service locator still wins over the generated lookup.
+and without reflection. For a view class the generator found, a registration in the service locator still wins over
+the generated lookup.
 
 | Before | Now |
 |---|---|
 | `ViewLocator.Current` | `ViewLocator.GetCurrent()` |
 | `IViewLocator.ResolveView<T>(string? contract)` and `ResolveView<T>()` | The same, as extension methods on `IViewLocator` |
-| `IViewLocator.ResolveView(object? viewModel, string? contract)` | The same. It reads the view model's type while your app runs, so it is not safe to trim; `ResolveView(viewModel, contract)` with a typed view model is |
+| `IViewLocator.ResolveView(object? viewModel, string? contract)` | Checks the generated lookup and the `Map` entries only, so it is safe to trim. `ResolveViewUnsafe(viewModel, contract)` also asks the service locator |
 | `new ViewMappingBuilder(locator)` | `locator.CreateMappingBuilder()` |
 | `DefaultViewLocator.Map<TViewModel, TView>()` chained | `Map` returns nothing; chain on `CreateMappingBuilder()` instead |
 
-A custom `IViewLocator` implements two methods:
+A custom `IViewLocator` implements three methods. Keep `ResolveView(object?, string?)` free of any step that closes a
+generic type over the view model's run-time type, because the default view hosts call it. Put that step in
+`ResolveViewUnsafe`:
 
-```csharp
+```text
 public IViewFor? ResolveView<TViewModel>(TViewModel viewModel, string? contract)
     where TViewModel : class;
 
-[RequiresDynamicCode("Resolves a view from the view model's runtime type.")]
 public IViewFor? ResolveView(object? viewModel, string? contract);
+
+[RequiresDynamicCode("Resolves a view from the view model's runtime type.")]
+public IViewFor? ResolveViewUnsafe(object? viewModel, string? contract);
 ```
+
+### Views registered only in the service locator
+
+The default view hosts find a view in two steps: the generated lookup, then the views you add with `Map`. They do not
+ask the service locator for `IViewFor<T>` of a view model's run-time type. So a view that only the service locator
+knows, such as one from a library built without the generator, is not found by `ViewModelViewHost`,
+`RoutedViewHost`, `ViewModelControlHost`, `RoutedControlHost` or the template `AutoDataTemplateBindingHook` assigns.
+A view registered under a contract that no `[ViewContract]` attribute names is in the same position. Pick one fix
+per view:
+
+- **Bridge the registration, and keep the default host.** One call while the app starts adds a `Map` entry whose
+  view comes from the service locator. It stays safe to trim and to publish with Native AOT:
+
+  ```text
+  locator.CreateMappingBuilder().MapFromServiceLocator<TViewModel, IViewFor<TViewModel>>();
+  ```
+
+- **Or map the view directly** with `locator.Map<TViewModel, TView>()`, or mark the view class with `[ViewContract]`
+  so the generator files it under its contract.
+- **Or swap the host for its Unsafe twin**: `ViewModelViewHostUnsafe`, `RoutedViewHostUnsafe`,
+  `ViewModelControlHostUnsafe`, `RoutedControlHostUnsafe` or `AutoDataTemplateBindingHookUnsafe`. A twin also asks
+  the service locator. It carries `[RequiresDynamicCode]`, so a Native AOT build warns where you use it.
+
+The default hosts carry no trim or AOT attributes, so you can remove any warning suppressions you added for them.
+[View location](../handbook/view-location/index.md#which-lookup-the-view-hosts-use) compares the two lookups, and
+each platform page shows its twins.
+
+### Android auto-wireup constructors
+
+`LayoutViewHost` and `ReactiveViewHost<TViewModel>` wire their child controls without reflection. The constructor
+that takes `performAutoWireup` and `resolveStrategy` belongs to `LayoutViewHostUnsafe` and
+`ReactiveViewHostUnsafe<TViewModel>`. Derive from the Unsafe type to keep auto-wireup, or wire the controls in the
+`bind` callback constructor. [Android](../handbook/platforms/android.md#host-a-view-without-an-activity-or-fragment)
+shows both.
 
 The view without a contract answers only a request without a contract. A request for a contract that has no view
 finds nothing, and the host's `ContractFallbackByPass` decides whether it then asks for the view without a contract.
@@ -110,7 +149,7 @@ The generator writes code for a call when each property is picked by an inline l
 through instance fields, such as controls named in XAML:
 
 ```csharp
-this.Bind(ViewModel, vm => vm.Name, v => v.NameBox.Text);
+disposables(this.Bind(ViewModel, x => x.NewTitle, v => v.NewTitleBox.Text));
 ```
 
 Every binding method has an `Unsafe` twin with the same parameters, such as `BindUnsafe` and `WhenAnyValueUnsafe`.
@@ -140,30 +179,29 @@ A `readonly` field can sit along a path, but not at the end of a path that a bin
 
 ### Triggered bindings
 
-`signalViewUpdate` and `TriggerUpdate` exist only on `BindUnsafe`, and only with conversion lambdas. The signal
-now comes after the two converters. Here `saveClicked` is a stream that fires when the user clicks Save, so the
-amount is written to the view model only then. The type of its values does not matter:
+`BindUnsafe` takes an **update stream** where the plain, generated `Bind` does not: a stream whose values are
+ignored, used only to say when a two-way binding copies one direction. `commit` fires when the user commits the
+text, so the edit reaches the view model only then, not on every keystroke:
 
-```csharp
-view.BindUnsafe(
-    viewModel,
-    static vm => vm.Amount,
-    static v => v.AmountBox.Text,
-    static amount => amount.ToString(CultureInfo.CurrentCulture),
-    static text => decimal.TryParse(text, CultureInfo.CurrentCulture, out var value) ? value : 0M,
-    saveClicked,
-    TriggerUpdate.ViewToViewModel);
+```text
+Signal<EventArgs> commit = new();
+
+using (view.BindUnsafe(viewModel, x => x.FilterText, v => v.FilterTextBox.Text, commit))
+{
+    view.FilterTextBox.Text = "new text";
+    commit.OnNext(EventArgs.Empty); // the view model sees the edit only now
+}
 ```
 
-No overload takes `IBindingTypeConverter` objects and a signal together. Write lambdas that call your
-converter instead.
+`TriggerUpdate` names the direction the stream drives, as the last argument after the stream:
 
-The last argument picks the direction the signal drives:
+- **`TriggerUpdate.ViewToViewModel`**, the default: the stream replaces the view's own change notifications.
+  Editing the view writes to the view model only when the stream fires.
+- **`TriggerUpdate.ViewModelToView`**: the stream decides when the view model writes to the view. The view's own
+  edits still write to the view model at once.
 
-- **`TriggerUpdate.ViewToViewModel`**, the default: the signal replaces the view's own change notifications. Editing
-  the view writes to the view model only when the signal fires.
-- **`TriggerUpdate.ViewModelToView`**: after the first value from the view model, the signal decides when the view
-  model writes to the view. The view's own changes still write to the view model straight away.
+[Unsafe twins and the runtime fallback](../../binding/unsafe.md#hold-a-write-until-a-signal-fires) covers every
+overload, including the ones that take conversion lambdas.
 
 A conversion lambda always returns a value, and the binding writes it. ReactiveUI used to skip the write when a
 converter refused a value, such as `"fa0"` typed into a number box. To keep that, return the value the other side
@@ -204,9 +242,7 @@ The generated code watches `PropertyChanged`. A class that implements `IReactive
 only after it calls `SubscribePropertyChangedEvents`. ReactiveUI's old observation read the `Changed` stream
 instead, so it never needed the call. Call it from the event's `add` accessor:
 
-```csharp
-private PropertyChangedEventHandler? _propertyChanged;
-
+```text
 public event PropertyChangedEventHandler? PropertyChanged
 {
     add
@@ -217,8 +253,6 @@ public event PropertyChangedEventHandler? PropertyChanged
 
     remove => _propertyChanged -= value;
 }
-
-void IReactiveObject.RaisePropertyChanged(PropertyChangedEventArgs args) => _propertyChanged?.Invoke(this, args);
 ```
 
 Do the same with `SubscribePropertyChangingEvents` for `PropertyChanging`. ReactiveUI's own view hosts and
@@ -229,7 +263,10 @@ platform base classes already do this.
 `Interaction<TInput, TOutput>.Handle` returns `Task<TOutput>`, not `IObservable<TOutput>`. Await it:
 
 ```csharp
-var confirmed = await ViewModel.ConfirmDelete.Handle(item);
+if (!await ConfirmDelete.Handle(item))
+{
+    return false;
+}
 ```
 
 A handler receives an `IInteractionContext<TInput, TOutput>` from `ReactiveUI.Binding`. Register your handlers
@@ -314,78 +351,26 @@ with a `[property:]` or `[field:]` target, when the attribute's type or argument
 ### Move a property to ReactiveUI.Binding's attribute
 
 Declare the property yourself, as `partial` and get-only, and mark it `[ObservableAsProperty]`. The generator writes
-the property body and a field named `_{name}Helper`. You assign that field with `ToProperty`, as before. Partial
-properties need C# 13 or later.
-
-Before:
-
-```csharp
-[ObservableAsProperty]
-private string _fullName = string.Empty;
-
-public PersonViewModel()
-{
-    _fullNameHelper = this.WhenAnyValue(x => x.FirstName, x => x.LastName, (first, last) => $"{first} {last}")
-        .ToProperty(this, x => x.FullName);
-}
-```
-
-After:
-
-```csharp
-public PersonViewModel()
-{
-    _fullNameHelper = this.WhenAnyValue(static x => x.FirstName, static x => x.LastName, static (first, last) => $"{first} {last}")
-        .ToProperty(this, static x => x.FullName, initialValue: string.Empty);
-}
-
-[ObservableAsProperty]
-public partial string FullName { get; }
-```
-
-The field initializer becomes the `initialValue:` argument. A method or an `IObservable<T>` property that carried the
-attribute becomes the stream you pass to `ToProperty`.
-
-Below C# 13, write the helper yourself: a `readonly ObservableAsPropertyHelper<string> _fullNameHelper` field and
-`public string FullName => _fullNameHelper.Value;`. [Properties backed by observables](../../binding/properties.md) shows
-both forms.
+the property body and a field named `_{name}Helper`. You assign that field with `ToProperty`, as before, naming the
+property with a lambda or with `nameof(...)`, and passing `initialValue:` for the field's old default. Partial
+properties need C# 13 or later. Below C# 13, write the helper yourself: a
+`readonly ObservableAsPropertyHelper<T> _{name}Helper` field and a property that reads its `Value`.
+[Properties backed by observables](../../binding/properties.md) covers `ToProperty` and shows both forms, and
+[Source generators](../../source-generators/index.md) covers ReactiveUI.SourceGenerators' own attributes.
 
 ### Register views without the Splat options
 
 ReactiveUI.Binding's generator adds every class whose declaration implements `IViewFor<T>` to the generated view
-lookup. One source generator cannot see the code another one writes. So the lookup cannot see the interface that
-`[IViewFor]` adds. List the interface on the class yourself. The members `[IViewFor]` generates still implement it.
+lookup. One source generator cannot see the code another one writes, so the lookup cannot see the interface that
+ReactiveUI.SourceGenerators' `[IViewFor]` attribute adds. List the interface on the class yourself; the members
+`[IViewFor]` generates still implement it. Remove the call to `RegisterViewsForViewModelsSourceGenerated()`, since
+the generated lookup replaces it. If the attribute's `ViewModelRegistrationType` option registered the view model
+as well, register it yourself instead, with `RegisterViewModel<TViewModel>()` on the builder or with
+`AppLocator.CurrentMutable.RegisterLazySingleton`.
 
-Before:
-
-```csharp
-[IViewFor<LoginViewModel>(RegistrationType = SplatRegistrationType.PerRequest)]
-public partial class LoginView : UserControl
-{
-}
-
-AppLocator.CurrentMutable.RegisterViewsForViewModelsSourceGenerated();
-```
-
-After:
-
-```csharp
-[IViewFor<LoginViewModel>]
-public partial class LoginView : UserControl, IViewFor<LoginViewModel>
-{
-}
-```
-
-Remove the call to `RegisterViewsForViewModelsSourceGenerated()`. `ViewModelRegistrationType` registered the view
-model as well. Register it yourself if you resolved it from the service locator:
-
-```csharp
-AppLocator.CurrentMutable.RegisterLazySingleton(static () => new LoginViewModel());
-```
-
-A view registered in the service locator still wins over the generated lookup. So you can keep registering a view by
+A view registered in the service locator still wins over the generated lookup, so you can keep registering a view by
 hand, for example one whose constructor takes arguments. [Views](../../binding/views.md#register-a-view-that-needs-arguments)
-shows how.
+shows how, and [Source generators](../../source-generators/index.md) covers `[IViewFor]` in full.
 
 ## Build requirements
 

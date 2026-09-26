@@ -1,278 +1,494 @@
 ---
-Order: 3
+Order: 10
 ---
-# Collections in ReactiveUI
+# Collections
 
-ReactiveUI recommends the use of [DynamicData](https://github.com/reactivemarbles/DynamicData) for collection based operations.
+[Run the complete page example](https://github.com/reactiveui/ReactiveUI/blob/main/src/examples/Documentation/Pages/collections/collections.csproj).
 
-> DynamicData has replaced internally the use of [ReactiveList](obsolete/collections/reactive-list.md)
+A screen that shows a list has to react when the list changes: an item is added, removed, replaced or moved. ReactiveUI
+turns those changes into a stream you can subscribe to, filter for the changes you care about, or hand to code that
+tests a handler directly. ReactiveUI also ships as `ReactiveUI.Reactive`, built from the same source, for apps that use
+System.Reactive instead of ReactiveUI.Primitives.
 
-## Overview of Dynamic Data
+A change is one add, remove, replace or move. A batch is every change a single collection edit produces; most edits
+produce one change, but clearing a collection or replacing its contents can produce many at once.
 
-Dynamic Data is reactive collections based on [Reactive Extensions for .NET](../../reactive-programming/index.md). 
+## Track every add and remove
 
-Whenever a change is made to one of Dynamic Data's collections a notification is produced. A notification reflects what has changed in the collection. This notification is represented as a `ChangeSet` which can contain one or more changes.  Each item in the change set is represented as a `Change` which contains information about each individual change since the last notification.
+**1. Call `ActOnEveryObject` on the collection.** Give it a method to run for every item already there and a method to
+run for every item removed later. The example collection is an `ObservableCollection<Product>`, the .NET type that
+raises a change notification for every edit.
 
-The changes sets are published as an `IObservable<ChangeSet>`.  
+**2. Add and remove items.** `ActOnEveryObject` reports the item already in the collection first, then each later
+change.
 
-This basic signature is the monad of Dynamic Data on which a rich set of Linq operators are provided which enable declarative querying and manipulation of data as it changes, and in a thread safe manner.
+**3. Read the log.** The subscription is an `IDisposable`; [dispose it](../guidelines/framework/dispose-your-subscriptions.md)
+when you stop watching the collection.
 
-## Maintaining and consuming data
+```csharp
+ObservableCollection<Product> inventory = [new Product("Kettle", 4)];
+List<string> log = [];
+using IDisposable subscription = inventory.ActOnEveryObject(
+    product => log.Add($"add {product.Name}"),
+    product => log.Add($"remove {product.Name}"));
 
-Dynamic Data provides two specialized  `IObservable<ChangeSet>`  producing collections:
+inventory.Add(new Product("Toaster", 2));
+inventory.RemoveAt(0);
 
- 1. `SourceCache<TObject, TKey>` for items which have a unique key.
- 2. `SourceList<T>` for items which do not have a unique key.
-
-These objects each provide an API for maintaining data which have typical collection methods such as add and remove.  The idea is you maintain data in one of these collections, then use the extensive Linq API to dynamically query the data in a similar manner as Linq-to-Objects.
-
-To convert these collections into an `IObservable<ChangeSet>` you call `Connect()` at which point notifications can be observed and the provided Linq operators can be applied. The convention in dynamic data is that any consumer which calls `Connect` receive a notification of any items which are already in the collection plus any subsequent changes.
-
-Additionally there are several other means of creating observable changes sets from existing collections which implement `INotifyCollectionChanged` and `IEnumerable<T>`.
-
-## What it is not
-
-Dynamic data collections are not an alternative implementation to ```ObservableCollection<T>```.  The architecture of it has been based first and foremost on domain driven concepts. The idea is you load and maintain your data in one of the provided collections which can then use operators to manipulate the data without the complexity of managing collections. It can be used to react to your collections however you want, be it binding to a screen or producing some other kind of notification. The collections can be connected to as many times as required and a single collection can in turn become the source of many other derived collections.
-
-## How to use it
-
-If you are already using ```ObservableCollection<T>``` the easiest and quickest way to try out dynamic data is to use the extension ```.ToObservableChangeSet()```  which produces an observable change set and subsequently enables Dynamic Data operators.
-
-For example if you have an existing reactive list ```ObservableCollection<T> myList``` you can do something like this:
-
-```cs
-// 'myList' is ObservableCollection<T>
-// 'myDerivedList' is IObservableList<T>
-var myDerivedList = myList
-    .ToObservableChangeSet()
-    .Filter(t => t.Status == "Something")
-    .AsObservableList();
-```
-
-And voila you have create a filtered observable list. Or if you specify a key
-
-```cs
-// 'myList' is ObservableCollection<T>
-// 'myDerivedCache' is IObservableCache<T, TKey>
-var myDerivedCache = myList
-    .ToObservableChangeSet(t => t.Id)
-    .Filter(t => t.Status == "Something")
-    .AsObservableCache();
-```
-
-you have a derived observable cache.
-
-A caveat to this approach is if you are using ```myList``` will likely not be thread safe. Assuming ```myList``` is bound to a screen, then the observable change set is created and notified on the UI thread which is recommended to avoid for all operations except binding. The other approach is to create a data source first and bind later.
-
-```cs
-var myList = new SourceList<T>()
-var disposable = myList
-    .Connect() // make the source an observable change set
-    .\\some other operation
-```
-
-or similarly for the observable cache
-
-```cs
-var myCache = new SourceCache<T, int>(t => t.Id) 
-var disposable = myCache
-    .Connect() // make the source an observable change set
-    .\\some other operation
-```
-
-The advantage of creating your own data sources is that they can be maintained on a background thread which frees up valuable main thread time. Then should there be a need, bind as follows:
-
-```cs
-ReadOnlyObservableCollection<T> bindingData;
-var disposable = mySource
-    .Connect() // make the source an observable change set
-    .Sort(SortExpressionComparer<T>.Ascending(t => t.DateTime))
-    .ObserveOn(RxSchedulers.MainThreadScheduler) 
-    // Make sure this line^^ is only right before the Bind()
-    // This may be important to avoid threading issues if
-    // 'mySource' is updated on a different thread.
-    .Bind(out bindingData)
-    .Subscribe(); 
-```
-
-The API for the above is the same for cache and list.
-
-## So what's the difference between a SourceList and a SourceCache
-
-If you have a unique id, you should use an observable cache as it is dictionary based which will ensure no duplicates can be added and it notifies on adds, updates and removes, whereas list allows duplicates and only has no concept of an update. `SourceCache` has several performance advantages over `SourceList`, so if possible, always prefer `SourceCache` over `SourceList`.
-
-There is another difference. The cache side of dynamic data is much more mature and has a wider range of operators. Having more operators is mainly because I found it easier to achieve good all round performance with the key based operators and do not want to add anything to Dynamic Data which inherently has poor performance.
-
-## Using DynamicData with ReactiveUI
-
-When building applications with ReactiveUI and DynamicData, you have a choice to work with mutable or with immutable collections. When working with immutable ones, using an `ObservableAsPropertyHelper<T>` is enough in simple cases. The `ObservableAsPropertyHelper<T>` represents an `Observable<T>`, a stream of values over time. You can treat those values as events, and the new values as event arguments. This means if you are using immutable collections, you can treat them as event arguments and update a property with a new collection each time it changes. See [Properties backed by observables](../../binding/properties.md) to learn how to use this feature. Note, that creating a new collection for each update degrades performance and should be generally avoided, prefer to use DynamicData instead.
-
-### An Example
-
-Imagine your application needs a service that will expose a collection mutated by a background worker. You need to get change notifications from it somehow to synchronize it with the user interface. Here DynamicData comes to the rescue. You expose an `IObservable<IChangeSet<bool>>` from your service to the outer world, and DynamicData takes care of allowing you to observe changes of your mutable `SourceList` of items. Use the `.Connect()` operator to turn your `SourceList<T>` to an observable change set `IObservable<IChangeSet<bool>>`.
-
-```cs
-public class Service 
+foreach (string entry in log)
 {
-    private readonly SourceList<bool> _items = new SourceList<bool>();
-
-    // We expose the Connect() since we are interested in a stream of changes.
-    // If we have more than one subscriber, and the subscribers are known, 
-    // it is recommended you look into the Reactive Extension method Publish().
-    public IObservable<IChangeSet<bool>> Connect() => _items.Connect();
-
-    public Service()
-    {        
-        // With DynamicData you can easily manage mutable datasets,
-        // even if they are extremely large. In this complex scenario 
-        // a service mutates the collection, by using .Add(), .Remove(), 
-        // .Clear(), .Insert(), etc. DynamicData takes care of
-        // allowing you to observe all of those changes.
-        _items.Add(true);
-        _items.RemoveAt(0);
-        _items.Add(false);
-    }
+    Console.WriteLine(entry);
 }
 ```
 
-DynamicData uses .NET types to expose to the outside world, such as `ReadOnlyObservableCollection<T>`, rather than exposing their own types. `IObservable<IChangeSet<T>>` (and `IObservable<IChangeSet<TObject, TKey>>`) are the two base observables you can create derived based functionality from. `IObservable<IChangeSet<T>>` indicates what has changed to a collection. The first time you use `ToObservableChangeSet()` it emits the current state of the collection.
+```text
+add Kettle
+add Toaster
+remove Kettle
+```
 
-`SourceList`, `SourceCache` are multithreaded aware and optimised to create `IObservable<IChangeSet<T>>` and `IObservable<IChangeSet<TObject, TKey>>`. Generally SourceList/SourceCache are meant to be private to your classes, and you expose using the `Bind()` method. You generate the change sets by using the `Connect()` method on them.
+## Watch other kinds of collections
 
-Using the powerful DynamicData operators, you convert the `IObservable<IChangeSet<T>>` to a `ReadOnlyObservableCollection<T>` to which you can easily bind the platform-specific user interface. Declaring the read-only collection as a field or as a variable is required for the `.Bind()` operator to work as it uses `out` variables.
+`ActOnEveryObject` also works on a `ReadOnlyObservableCollection<T>`, the type a view model typically exposes to a
+view. Changes made through the writable collection behind it still reach the subscriber.
 
-```cs
-public class ViewModel : ReactiveObject
+```csharp
+ObservableCollection<Product> inventory = [new Product("Kettle", 4)];
+ReadOnlyObservableCollection<Product> readOnlyInventory = new(inventory);
+List<string> log = [];
+using IDisposable subscription = readOnlyInventory.ActOnEveryObject(
+    product => log.Add($"add {product.Name}"),
+    product => log.Add($"remove {product.Name}"));
+
+inventory.Add(new Product("Toaster", 2));
+```
+
+```text
+add Kettle
+add Toaster
+```
+
+It also subscribes directly to a change-set stream, the kind [the next section](#observe-changes-as-a-change-set)
+produces.
+
+```csharp
+ObservableCollection<Product> inventory = [new Product("Kettle", 4)];
+List<string> log = [];
+using IDisposable subscription = inventory.ToReactiveChangeSet().ActOnEveryObject(
+    product => log.Add($"add {product.Name}"),
+    product => log.Add($"remove {product.Name}"));
+
+inventory.Add(new Product("Toaster", 2));
+```
+
+```text
+add Kettle
+add Toaster
+```
+
+A collection does not need to be an `ObservableCollection<T>`. Any type that implements `INotifyCollectionChanged` and
+`IEnumerable<T>` works, such as a catalog backed by its own list and its own `CollectionChanged` event. Name the item
+and collection types explicitly on the call: `ActOnEveryObject<Product, ShopCatalog>`.
+
+```csharp
+ShopCatalog catalog = new();
+catalog.Stock(new Product("Kettle", 4));
+
+List<string> log = [];
+using IDisposable subscription = catalog.ActOnEveryObject<Product, ShopCatalog>(
+    product => log.Add($"add {product.Name}"),
+    product => log.Add($"remove {product.Name}"));
+
+catalog.Stock(new Product("Toaster", 2));
+catalog.SellOut(catalog.First(static product => product.Name == "Kettle"));
+
+foreach (string entry in log)
 {
-    private readonly ReadOnlyObservableCollection<bool> _items;
-    public ReadOnlyObservableCollection<bool> Items => _items;
+    Console.WriteLine(entry);
+}
+```
 
-    public ViewModel()
+```text
+add Kettle
+add Toaster
+remove Kettle
+```
+
+## Observe changes as a change set
+
+`ToReactiveChangeSet` turns a collection into a stream of `IReactiveChangeSet<T>` batches. Each batch holds one or
+more `ReactiveChange<T>` values. A change has a `Reason` (`Add`, `Remove`, `Replace`, `Move` or `Refresh`), the
+affected item as `Current`, and the `CurrentIndex` and `PreviousIndex` the change carries. A `Replace` also carries the
+replaced item as `Previous`. The stream delivers a batch for the items already in the collection first, then a batch
+for every later change.
+
+```mermaid
+%%{init: {"theme": "base", "themeVariables": {"fontFamily": "Roboto, Helvetica, Arial, sans-serif", "fontSize": "15px", "primaryColor": "#DCE9FF", "primaryBorderColor": "#6C8EC4", "primaryTextColor": "#0B2447", "secondaryColor": "#E3F2E8", "secondaryBorderColor": "#7FA88C", "secondaryTextColor": "#12301C", "tertiaryColor": "#F3E5F5", "tertiaryBorderColor": "#A98BB0", "tertiaryTextColor": "#2E1437", "lineColor": "#7B8699", "textColor": "#1B1F27", "noteBkgColor": "#FFF4D6", "noteBorderColor": "#C9A94F", "noteTextColor": "#3A2A00", "actorBkg": "#DCE9FF", "actorBorder": "#6C8EC4", "actorTextColor": "#0B2447", "signalColor": "#7B8699", "signalTextColor": "#1B1F27", "labelBoxBkgColor": "#F1F3F8", "labelBoxBorderColor": "#A7AEBB", "edgeLabelBackground": "#F7F9FC", "clusterBkg": "#F7F9FC", "clusterBorder": "#C9D1DE"}}}%%
+flowchart LR
+    classDef view fill:#DCE9FF,stroke:#6C8EC4,color:#0B2447
+    classDef model fill:#F3E5F5,stroke:#A98BB0,color:#2E1437
+    classDef vm fill:#E3F2E8,stroke:#7FA88C,color:#12301C
+    Collection(["ObservableCollection change"]):::view -- "Add / Remove / Replace / Move" --> Batch(["ReactiveChangeSet"]):::model
+    Batch -- "subscribe" --> Sub(["Subscriber, e.g. WhenCountChanged"]):::vm
+```
+
+Every edit becomes a batch of changes, and a subscriber decides what to do with each one, from reading every change to
+watching only for a count change.
+
+```csharp
+ObservableCollection<Product> inventory = [new Product("Kettle", 4), new Product("Toaster", 2)];
+List<IReactiveChangeSet<Product>> batches = [];
+using IDisposable subscription = inventory.ToReactiveChangeSet().Subscribe(batches.Add);
+
+inventory.Add(new Product("Blender", 3));
+inventory.RemoveAt(0);
+inventory[0] = new Product("Air fryer", 1);
+inventory.Move(0, 1);
+
+foreach (IReactiveChangeSet<Product> batch in batches)
+{
+    foreach (ReactiveChange<Product> change in batch)
     {
-        var service = new Service();
-        service.Connect()
-            // Transform in DynamicData works like Select in
-            // LINQ, it observes changes in one collection, and
-            // projects its elements to another collection.
-            .Transform(x => !x)
-            // Filter is basically the same as .Where() operator
-            // from LINQ. See all operators in DynamicData docs.
-            .Filter(x => x)
-            // Ensure the updates arrive on the UI thread.
-            .ObserveOn(RxSchedulers.MainThreadScheduler)
-            // We .Bind() and now our mutable Items collection 
-            // contains the new items and the GUI gets refreshed.
-            .Bind(out _items)
-            .Subscribe();
+        Console.WriteLine($"{change.Reason}: {change.Current.Name}, previous={change.Previous?.Name ?? "none"}, index={change.CurrentIndex}, previousIndex={change.PreviousIndex}");
     }
 }
 ```
 
-> **Note** If you are updating an observable list or an observable cache from a background thread, adding `.ObserveOn(RxSchedulers.MainThreadScheduler)` right before a call to `.Bind()` might be neccessary, to ensure the updates arrive on the UI thread.
+```text
+Add: Kettle, previous=none, index=0, previousIndex=-1
+Add: Toaster, previous=none, index=1, previousIndex=-1
+Add: Blender, previous=none, index=2, previousIndex=-1
+Remove: Kettle, previous=none, index=0, previousIndex=-1
+Replace: Air fryer, previous=Toaster, index=0, previousIndex=-1
+Move: Air fryer, previous=none, index=1, previousIndex=0
+```
 
-`ObservableCollectionExtended<T>` is a good single threaded collection where you don't need to do derived based functionality. To synchronize two collections in your view model, declare one of your collections as `ObservableCollectionExtended<T>` and another one as `ReadOnlyObservableCollection<T>`. Then you apply the `.ToObservableChangeSet()` operator to your observable collection that turns it to `IObservable<IChangeSet<T>>`.
+The `ToReactiveChangeSet<TCollection, T>` overload observes a collection that only raises `INotifyCollectionChanged`,
+the same way `ActOnEveryObject` does above.
 
-```cs
-public class SynchronizedCollectionsViewModel : ReactiveObject
+```csharp
+ShopCatalog catalog = new();
+catalog.Stock(new Product("Kettle", 4));
+
+List<IReactiveChangeSet<Product>> batches = [];
+using IDisposable subscription = catalog.ToReactiveChangeSet<ShopCatalog, Product>().Subscribe(batches.Add);
+
+catalog.Stock(new Product("Toaster", 2));
+
+foreach (IReactiveChangeSet<Product> batch in batches)
 {
-    private readonly ReadOnlyObservableCollection<bool> _derived;
-    public ReadOnlyObservableCollection<bool> Derived => _derived;
-
-    public ObservableCollectionExtended<bool> Source { get; }
-
-    public SynchronizedCollectionsViewModel()
-    {
-        Source = new ObservableCollectionExtended<bool>();
-
-        // Use the ToObservableChangeSet operator to convert
-        // the observable collection to IObservable<IChangeSet<T>>
-        // which describes the changes. Then, use any DD operators
-        // to transform the collection. 
-        Source.ToObservableChangeSet()
-            .Transform(value => !value)
-            // No need to use the .ObserveOn() operator here, as
-            // ObservableCollectionExtended is single-threaded.
-            .Bind(out _derived)
-            .Subscribe();
-        
-        // Update the source collection and the derived
-        // collection will update as well.
-        Source.Add(true);
-        Source.RemoveAt(0);
-        Source.Add(false);
-        Source.Add(true);
-    }
+    Console.WriteLine($"{batch.Count} changes, adds={batch.Adds}, removes={batch.Removes}");
 }
 ```
 
-## Tracking Changes in Collections of Reactive Objects
-
-DynamicData supports change tracking for classes that implement the `INotifyPropertyChanged` interface — `ReactiveObject`s. For example, if you'd like to do a `WhenAnyValue` on each element in a collection of changing objects, use the `AutoRefresh()` DynamicData operator:
-
-```cs
-// 'collectionOfReactiveObjects' is ObservableCollection<T>
-// Here, T inherits from the ReactiveObject class.
-// 'databasesValid' is IObservable<bool>
-var databasesValid = collectionOfReactiveObjects
-    .ToObservableChangeSet()
-    .AutoRefresh(model => model.IsValid) // Subscribe only to IsValid property changes
-    .ToCollection()                      // Get the new collection of items
-    .Select(x => x.All(y => y.IsValid)); // Verify all elements satisfy a condition etc.
-
-// Then you can convert IObservable<bool> to a view model property.
-// '_databasesValid' is of type ObservableAsPropertyHelper<bool> here.
-_databasesValid = databasesValid.ToProperty(this, x => x.DatabasesValid);
+```text
+1 changes, adds=1, removes=0
+1 changes, adds=1, removes=0
 ```
 
-> **Note** `ToCollection()` works pretty differently internally, it re-generates the entire list every time while SourceCache/SourceList `Bind()` does addition/removals etc. `ToCollection()` is only meant for aggregation based on operations where you really need a full collection each time as an observable.
+## Watch for a count change
 
-## Converting ReactiveList to DynamicData
+`WhenCountChanged` passes on only the batches that add or remove an item, skipping a batch that only replaces or moves
+one. Use it when a screen cares about the number of items, not their content.
 
-If you are using `ReactiveList<T>`, and only adding/removing from the UI thread use `ObservableCollectionExtended<T>`. It provides similar functionality where you `AddRange()` and suppress notifications. This approach should only be used if you are doing Single Threaded operations and wanting to mutate your data.
+```csharp
+ObservableCollection<Product> inventory = [new Product("Kettle", 4)];
+List<IReactiveChangeSet<Product>> countChangingBatches = [];
+using IDisposable subscription = inventory.ToReactiveChangeSet().WhenCountChanged().Subscribe(countChangingBatches.Add);
 
-A lot of users try to do the following even though it's unnecessary for single threaded applications.
+inventory[0] = new Product("Air fryer", 1);
+inventory.Add(new Product("Toaster", 2));
 
-```cs
-var myList = new SourceList<T>()
-var disposable = myList
-    .Connect() // make the source an observable change set
-    .ObserveOn(RxSchedulers.MainThreadScheduler)
-    .Bind(out _myOutputList)
-    .Subscribe();
+foreach (IReactiveChangeSet<Product> batch in countChangingBatches)
+{
+    Console.WriteLine($"{batch.Count} changes, adds={batch.Adds}, removes={batch.Removes}");
+}
 ```
 
-> **Important Note** A common mistake a lot of users make is trying to expose DynamicData classes to the world. Use the `Bind()` method instead to expose your data through a `ReadOnlyObservableCollection<T>` field, which you then expose as a property.
-
-Try to reuse your `IObservableChangeSet<T>` where it makes sense. It's a expensive operation to generate and you can use the Reactive Extension's method `Publish()`.
-
-```cs
-// Use standard rx Publish() / Connect() to share published change sets.
-// 'shared' is of type IObservable<IChangeSet<T>>
-var shared = _source
-    .Connect()
-    .Publish();
-
-// 'selectedChanged' if of type IObservable<Unit>
-var selectedChanged = shared
-    .WhenPropertyChanged(si => si.IsSelected)
-    .Select(changes => Unit.Default)
-    .StartWith(Unit.Default);
-
-// Apply other operations to the shared connection.
-shared.ToCollection().CombineLatest(selectedChanged, (items, _) => items);
-shared.Maximum(i => i).Subscribe(max => Max = max);
-shared.Connect();
+```text
+1 changes, adds=1, removes=0
+1 changes, adds=1, removes=0
 ```
 
-[Common operations](https://github.com/RolandPheasant/DynamicData#consuming-observable-change-sets) in DynamicData have slightly different names than Reactive Extension operators.
-  * `Where()` is `Filter()`
-  * `Select()` is `Transform()`
-  * `SelectMany()` is `TransformMany()`
+`CountHasChanged` asks a single batch the same question, without a stream around it.
 
-## Explore DynamicData
+```csharp
+ObservableCollection<Product> inventory = [new Product("Kettle", 4)];
+List<IReactiveChangeSet<Product>> allBatches = [];
+using IDisposable subscription = inventory.ToReactiveChangeSet().Subscribe(allBatches.Add);
 
-* [DynamicData GitHub page](https://github.com/reactivemarbles/DynamicData)
-* [DynamicData Snippets](https://github.com/RolandPheasant/DynamicData.Snippets) - Snippets curated based on small example problems
-* [DynamicData Trader App](https://github.com/RolandPheasant/Dynamic.Trader) - A sample stock trading application showing off various implementations.
-* [DynamicData Tail Blazer](https://github.com/RolandPheasant/TailBlazer) - A sample closer to a end application.
-* [DynamicData Samplz](https://github.com/RolandPheasant/DynamicData.Samplz) - More advanced snippets.
+inventory[0] = new Product("Air fryer", 1);
+inventory.Add(new Product("Toaster", 2));
+
+foreach (IReactiveChangeSet<Product> batch in allBatches)
+{
+    Console.WriteLine(batch.CountHasChanged());
+}
+```
+
+```text
+True
+False
+True
+```
+
+## Build and test a change directly
+
+A change handler is a plain method that reads a `ReactiveChange<T>`, so you can test it by building a change
+yourself, without a collection at all. `ReactiveChangeReason.Refresh` marks an item that should be re-evaluated
+without being added or removed. A plain collection edit never produces one. Test a handler for `Refresh` with a
+change you build by hand.
+
+```csharp
+Product kettle = new("Kettle", 4);
+ReactiveChange<Product> refreshed = new(ReactiveChangeReason.Refresh, kettle, default, 0, -1);
+
+Console.WriteLine(DescribeChange(refreshed));
+```
+
+```text
+redraw Kettle
+```
+
+Two changes with the same reason, item and indices are equal, and hash the same.
+
+```csharp
+Product kettle = new("Kettle", 4);
+ReactiveChange<Product> first = new(ReactiveChangeReason.Add, kettle, default, 0, -1);
+ReactiveChange<Product> second = new(ReactiveChangeReason.Add, kettle, default, 0, -1);
+ReactiveChange<Product> third = new(ReactiveChangeReason.Remove, kettle, default, 0, -1);
+
+Console.WriteLine(first.Equals(second));
+Console.WriteLine(first.Equals((object)second));
+Console.WriteLine(first.Equals(third));
+Console.WriteLine(first.GetHashCode() == second.GetHashCode());
+```
+
+```text
+True
+True
+False
+True
+```
+
+A `ReactiveChangeSet<T>` is built the same way, directly from a list of changes. It exposes `Count`, `Adds`,
+`Removes`, an indexer, and `GetEnumerator` for a `foreach` loop.
+
+```csharp
+Product kettle = new("Kettle", 4);
+Product toaster = new("Toaster", 2);
+List<ReactiveChange<Product>> changes =
+[
+    new(ReactiveChangeReason.Add, kettle, default, 0, -1),
+    new(ReactiveChangeReason.Add, toaster, default, 1, -1),
+];
+
+ReactiveChangeSet<Product> batch = new(changes);
+
+Console.WriteLine(batch.Count);
+Console.WriteLine(batch.Adds);
+Console.WriteLine(batch.Removes);
+Console.WriteLine(batch[0].Current.Name);
+
+foreach (ReactiveChange<Product> change in batch)
+{
+    Console.WriteLine(change.Current.Name);
+}
+```
+
+```text
+2
+2
+0
+Kettle
+Kettle
+Toaster
+```
+
+## Observe the raw CollectionChanged event
+
+`ObserveCollectionChanges` forwards each `INotifyCollectionChanged.CollectionChanged` event as a `CollectionChanged`
+value, carrying the `Sender` and the `EventArgs` .NET raised. Use it when you need the raw event instead of a
+change set, for example to inspect `NotifyCollectionChangedAction` directly.
+
+```csharp
+ObservableCollection<Product> inventory = [new Product("Kettle", 4)];
+List<CollectionChanged> events = [];
+using IDisposable subscription = inventory.ObserveCollectionChanges().Subscribe(events.Add);
+
+inventory.Add(new Product("Toaster", 2));
+inventory.RemoveAt(0);
+
+foreach (CollectionChanged notification in events)
+{
+    Console.WriteLine($"{notification.EventArgs.Action}, sender is inventory: {ReferenceEquals(notification.Sender, inventory)}");
+}
+```
+
+```text
+Add, sender is inventory: True
+Remove, sender is inventory: True
+```
+
+Two notifications built from the same sender and event arguments are equal, and hash the same.
+
+```csharp
+ObservableCollection<Product> inventory = [];
+NotifyCollectionChangedEventArgs sharedArgs = new(NotifyCollectionChangedAction.Reset);
+
+CollectionChanged first = new(inventory, sharedArgs);
+CollectionChanged second = new(inventory, sharedArgs);
+CollectionChanged third = new(inventory, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
+
+Console.WriteLine(first == second);
+Console.WriteLine(first.Equals((object)second));
+Console.WriteLine(first != third);
+Console.WriteLine(first.GetHashCode() == second.GetHashCode());
+Console.WriteLine(first.Sender is ObservableCollection<Product>);
+Console.WriteLine(first.EventArgs.Action);
+```
+
+```text
+True
+True
+True
+True
+True
+Reset
+```
+
+A notification built from different event arguments is a different notification, so `first != third` is `True`
+even though both arguments describe a reset.
+
+## Sort with a chained comparer
+
+`OrderedComparer<T>` builds an `IComparer<T>` from one or more keys, so a leaderboard can sort by score first and
+break ties by name without a hand-written `Compare` method. `OrderByDescending` starts the chain, and `ThenBy` adds a
+tie-breaker that only runs when the first key is equal.
+
+```csharp
+List<Player> leaderboard = [new("Ada", 92), new("Alan", 92), new("Grace", 88), new("Barbara", 75)];
+IComparer<Player> byScoreThenName = OrderedComparer<Player>
+    .OrderByDescending(static player => player.Score)
+    .ThenBy(static player => player.Name);
+
+leaderboard.Sort(byScoreThenName);
+
+foreach (Player player in leaderboard)
+{
+    Console.WriteLine($"{player.Name}: {player.Score}");
+}
+```
+
+```text
+Ada: 92
+Alan: 92
+Grace: 88
+Barbara: 75
+```
+
+`OrderBy`, `OrderByDescending`, `ThenBy` and `ThenByDescending` each take an `IComparer<TValue>` overload too, for a
+key whose default comparer is not what you want, such as a case-insensitive name comparison.
+
+```csharp
+List<Player> leaderboard = [new("Mike", 95), new("Zoe", 80), new("adam", 80)];
+IComparer<Player> byScoreThenNameIgnoringCase = OrderedComparer<Player>
+    .OrderByDescending(static player => player.Score, Comparer<int>.Default)
+    .ThenBy(static player => player.Name, StringComparer.OrdinalIgnoreCase);
+
+leaderboard.Sort(byScoreThenNameIgnoringCase);
+
+foreach (Player player in leaderboard)
+{
+    Console.WriteLine($"{player.Name}: {player.Score}");
+}
+```
+
+```text
+Mike: 95
+adam: 80
+Zoe: 80
+```
+
+`OrderBy` can start the chain instead of `OrderByDescending`, and `ThenByDescending` breaks a tie the other way.
+
+```csharp
+List<Player> leaderboard = [new("Sam", 60), new("Ben", 70), new("Sam", 85)];
+IComparer<Player> byNameThenHighestScore = OrderedComparer<Player>
+    .OrderBy(static player => player.Name)
+    .ThenByDescending(static player => player.Score);
+
+leaderboard.Sort(byNameThenHighestScore);
+
+foreach (Player player in leaderboard)
+{
+    Console.WriteLine($"{player.Name}: {player.Score}");
+}
+```
+
+```text
+Ben: 70
+Sam: 85
+Sam: 60
+```
+
+`OrderedComparer.For`, given a sample sequence, infers the row type and returns an `IComparerBuilder<T>` that can
+build several comparers for the same type, one for each sort a screen offers.
+
+```csharp
+List<Player> leaderboard = [new("Ada", 92), new("Ben", 65), new("Zack", 99)];
+IComparerBuilder<Player> builder = OrderedComparer.For(leaderboard);
+
+Console.WriteLine(TopPlayer(leaderboard, builder.OrderByDescending(static player => player.Score)));
+Console.WriteLine(TopPlayer(leaderboard, builder.OrderByDescending(static player => player.Score, Comparer<int>.Default)));
+Console.WriteLine(TopPlayer(leaderboard, builder.OrderBy(static player => player.Name)));
+Console.WriteLine(TopPlayer(leaderboard, builder.OrderBy(static player => player.Name, StringComparer.Ordinal)));
+```
+
+```text
+Zack
+Zack
+Ada
+Ada
+```
+
+`OrderedComparer.For<T>()` builds the same kind of builder without a sample sequence, for a leaderboard that starts
+empty.
+
+```csharp
+IComparerBuilder<Player> builder = OrderedComparer.For<Player>();
+IComparer<Player> byScoreThenName = builder.OrderByDescending(static player => player.Score).ThenBy(static player => player.Name);
+
+List<Player> leaderboard = [new("Grace", 81), new("Alan", 81), new("Ada", 92)];
+leaderboard.Sort(byScoreThenName);
+
+foreach (Player player in leaderboard)
+{
+    Console.WriteLine($"{player.Name}: {player.Score}");
+}
+```
+
+```text
+Ada: 92
+Alan: 81
+Grace: 81
+```
+
+## Members at a glance
+
+| Member | What it does |
+| --- | --- |
+| `ActOnEveryObject` (on `ObservableCollection<T>`, `ReadOnlyObservableCollection<T>`, a custom `INotifyCollectionChanged` collection, or an `IObservable<IReactiveChangeSet<T>>`) | Calls an add method and a remove method for every item, past and future. |
+| `ToReactiveChangeSet` (on `ObservableCollection<T>` or a custom `INotifyCollectionChanged` collection) | Turns a collection into a stream of `IReactiveChangeSet<T>` batches. |
+| `IReactiveChangeSet<T>` / `IReactiveChangeSet` | A batch of changes; exposes `Count`, `Adds`, `Removes`, an indexer and enumeration. |
+| `ReactiveChangeSet<T>` | The concrete change-set type, built from a `List<ReactiveChange<T>>`. |
+| `ReactiveChange<T>` | One change: `Reason`, `Current`, `Previous`, `CurrentIndex`, `PreviousIndex`. |
+| `ReactiveChangeReason` | `Add`, `Remove`, `Replace`, `Move` or `Refresh`. |
+| `WhenCountChanged` | Filters a change-set stream to the batches that add or remove an item. |
+| `CountHasChanged` | Asks a single change set whether it added or removed an item. |
+| `ObserveCollectionChanges` | Forwards each raw `CollectionChanged` event as a `CollectionChanged` value. |
+| `CollectionChanged` | A single notification: `Sender` and `EventArgs`. |
+| `OrderedComparer<T>` | Builds an `IComparer<T>` from `OrderBy` or `OrderByDescending`, chained with `ThenBy` / `ThenByDescending`. |
+| `OrderedComparer.For` | Builds an `IComparerBuilder<T>`, inferred from a sample sequence or named explicitly. |
+| `IComparerBuilder<T>` | The reusable builder `OrderedComparer.For` returns. |
+| `ComparerChainingExtensions.ThenBy` / `ThenByDescending` | Adds a tie-breaking key to an existing `IComparer<T>`. |

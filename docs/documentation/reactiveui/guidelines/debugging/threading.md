@@ -1,77 +1,82 @@
-# Thread Troubleshooting
+# Thread troubleshooting
 
-Working with asynchronous data streams in a UI environment often leads to the most common pitfall in ReactiveUI development: accessing or updating the UI from a background thread. This guide outlines how to identify, troubleshoot, and prevent threading issues in your application.
+[Run the complete page example](https://github.com/reactiveui/ReactiveUI/blob/main/src/examples/Documentation/Pages/guidelines/guidelines.csproj).
 
-## The Symptoms
+The most common threading mistake in a ReactiveUI app is updating a bound property from a background thread.
+On most XAML platforms (WPF, WinUI, WinForms) that throws an `InvalidOperationException` or a cross-thread
+access error immediately. On Apple platforms it can instead cause erratic UI behavior or a race condition that
+is hard to reproduce, without ever throwing.
 
-Threading issues typically manifest in two ways:
-1. **Immediate Crashes**: On most XAML-based platforms (WPF, WinUI, WinForms), attempting to update a UI property from a background thread will throw an `InvalidOperationException` or a "Cross-thread access not valid" error.
-2. **"Weird Shit"**: On some platforms (notably Apple-based ones like iOS and macOS), threading issues may not crash immediately. Instead, they cause erratic UI behavior, silent failures, or race conditions that are difficult to reproduce.
+## Find the source
 
-## Identifying the Source
+[Disable Just My Code](disable-just-my-code.md) before you start. With it on, the debugger hides the framework
+frames between your subscription and the crash, so you cannot see which observable triggered the update.
 
-When your application crashes with a threading exception, the source can sometimes be obscured by the framework's internal dispatching logic.
+When the crash happens in a view's property setter, it usually means the view model changed on a background
+thread and the binding pushed that change straight to the view. Walk the stack up from the setter until you
+reach your own view model code; that is where the fix belongs.
 
-### 1. Disable "Just My Code"
-In Visual Studio, go to **Tools -> Options -> Debugging -> General** and uncheck **Enable Just My Code**. This allows you to see the full call stack, including framework-level calls. Often, the threading exception is thrown inside a property setter or a binding update. By seeing the full stack, you can trace back to exactly which observable triggered the update.
+## Only one WitnessOn per chain
 
-### 2. Trace the Stack
-If the crash occurs in a View's setter, it usually means the ViewModel was updated from a background thread, and the binding system attempted to push that change to the View immediately. Go back up the stack until you find your ViewModel code.
+Adding `WitnessOn(RxSchedulers.MainThreadScheduler)` after every step in a chain is a common first fix. It
+works, but it schedules onto the main thread far more than the chain needs.
 
-## Troubleshooting Strategies
-
-### The "Shotgun" Approach (Not Recommended)
-A common instinct is to add `.WitnessOn(RxSchedulers.MainThreadScheduler)` to every observable pipeline until the crash stops. While this works, it adds unnecessary overhead and makes the code harder to read. It's better to be surgical.
-
-### Surgical Precision
-Identify the boundary where your data transitions from a background operation (like a network request or database query) to a UI update.
+`AvoidWitnessOnAfterEveryStep` marshals after the fetch, again after a `Select`, and again after a second
+`Select`:
 
 ```csharp
-// DON'T: Updating properties from whatever thread the task finished on
-SomeCommand = ReactiveCommand.CreateFromTask(async () => {
-    var data = await _service.FetchData();
-    this.SomeProperty = data; // Could be on a background thread!
-});
-
-// DO: Use RxSchedulers.MainThreadScheduler at the boundary
-_searchResults = this
-    .WhenAnyValue(x => x.SearchTerm)
-    .Calm(TimeSpan.FromMilliseconds(800))
-    .SelectMany(FetchDataAsync)
-    .WitnessOn(RxSchedulers.MainThreadScheduler) // Transition to UI thread here
-    .ToProperty(this, x => x.SearchResults);
+int fetched = await Signal.FromAsync(FetchLatestGradeAsync)
+    .WitnessOn(RxSchedulers.MainThreadScheduler)
+    .Select(static grade => grade)
+    .WitnessOn(RxSchedulers.MainThreadScheduler)
+    .Select(static grade => grade + 0)
+    .WitnessOn(RxSchedulers.MainThreadScheduler)
+    .FirstAsync();
 ```
 
-## Advanced: Global Thread Validation
-
-For complex applications where threading issues are frequent, you can implement a global check. Since `ReactiveObject` implements `INotifyPropertyChanging`, you can hook into this globally during debugging to ensure all property changes are initiated on the UI thread.
+`PreferWitnessOnAtTheBoundary` runs the same two `Select` steps first, then marshals once, right before the
+value reaches the bound property:
 
 ```csharp
-#if DEBUG
-// In your App initialization
-MessageBus.Current.Listen<IReactivePropertyChangedEventArgs<IReactiveObject>>()
-    .Subscribe(x => {
-        // Platform-specific check for UI thread
-        if (!IsOnUIThread()) 
-        {
-            throw new Exception($"Property {x.PropertyName} on {x.Sender.GetType().Name} changed off the UI thread!");
-        }
-    });
-#endif
+int fetched = await Signal.FromAsync(FetchLatestGradeAsync)
+    .Select(static grade => grade)
+    .Select(static grade => grade + 0)
+    .WitnessOn(RxSchedulers.MainThreadScheduler)
+    .FirstAsync();
 ```
 
-> [!NOTE]
-> This approach has a performance cost and should generally be restricted to `#if DEBUG` builds. It is also platform-dependent, as the definition of "UI thread" varies.
+Both set the same value here, since a console has no UI thread to crash:
 
-## Best Practices
+```text
+91
+```
 
-- **Prefer `RxSchedulers` over `RxApp`**: For modern, AOT-friendly code, prefer using `RxSchedulers.MainThreadScheduler`. It avoids the reflection overhead and `RequiresUnreferencedCode` attributes associated with `RxApp`.
-- **Observe at the Boundary**: Only use `ObserveOn` when you are about to update a property that is bound to the UI.
-- **Commands are Your Friend**: `ReactiveCommand` is designed to handle thread marshaling for you. The results of a command created via `CreateFromTask` or `CreateFromObservable` are automatically observed on the `MainThreadScheduler` by default.
+The difference is scheduling overhead: three hops onto the main thread against one. Identify the boundary where
+your data moves from a background operation, such as a network or database call, to a UI update, and put
+`WitnessOn` there and nowhere earlier.
+
+## Let commands marshal their own results
+
+`ReactiveCommand` marshals the results of `CreateFromTask` and `CreateFromObservable` to
+`RxSchedulers.MainThreadScheduler` automatically, so a `Subscribe` against a command's results needs no
+`WitnessOn` of its own.
 
 ```csharp
-// Results of 'Execute' will arrive on the MainThreadScheduler automatically
-LoadData = ReactiveCommand.CreateFromTask(() => _service.FetchData());
+using ReactiveCommand<RxVoid, int> loadGrade = ReactiveCommand.CreateFromTask(FetchLatestGradeAsync);
+using IDisposable subscription = loadGrade.Subscribe(grade => student.Grade = grade);
 
-LoadData.Subscribe(data => this.Data = data); // Safe!
+_ = await loadGrade.Execute();
+Console.WriteLine(student.Grade);
 ```
+
+```text
+91
+```
+
+## At a glance
+
+| Do | Instead of | Why |
+|---|---|---|
+| One `WitnessOn` at the boundary before `Subscribe` | `WitnessOn` after every step | Fewer hops onto the main thread. |
+| Subscribe directly to a command's results | Marshaling a command's results yourself | The command already marshals them. |
+| Turn off Just My Code before tracing a threading crash | Leaving it on | You see the framework frame that triggered the update. |

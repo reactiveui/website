@@ -1,219 +1,32 @@
-# ReactiveUI for .NET MAUI
+# .NET MAUI
 
-**.NET MAUI** (Multi-platform App UI) is Microsoft's cross-platform framework for creating native mobile and desktop apps with C# and XAML. ReactiveUI provides first-class support for .NET MAUI with reactive MVVM patterns.
+.NET MAUI is Microsoft's cross-platform framework for building native mobile and desktop apps with C# and XAML.
+`ReactiveUI.Maui` connects ReactiveUI to it. Add the package by following
+[Installation](../../getting-started/installation/maui.md). `ReactiveUI.Maui` also ships as
+`ReactiveUI.Maui.Reactive`, built from the same source, for an app that uses System.Reactive. See
+[.NET MAUI](../../handbook/platforms/maui.md) for a full walkthrough, built around a recipe book, covering the app
+builder, binding a page to a view model, navigation and activation.
 
-## Why ReactiveUI with MAUI?
+## Guidelines
 
-- **Reactive Data Binding**: Automatic UI updates with WhenAnyValue
-- **Reactive Commands**: Async command execution with built-in state
-- **View Activation**: Automatic subscription lifecycle management
-- **Cross-Platform**: Share view models across iOS, Android, Windows, and macOS
-- **Modern Patterns**: Source generators eliminate boilerplate
-- **Testable**: Full unit testing support for all reactive logic
+- **View models inherit from `ReactiveObject`.** They stay free of any MAUI type, so you can unit test them
+  without a device or an emulator; see [Testing](../../handbook/testing.md).
+- **Pages and controls inherit from the reactive base classes.** `ReactiveContentPage<TViewModel>`,
+  `ReactiveContentView<TViewModel>`, `ReactiveNavigationPage<TViewModel>`, `ReactiveTabbedPage<TViewModel>`,
+  `ReactiveFlyoutPage<TViewModel>`, `ReactiveShell<TViewModel>` and `ReactiveWindow<TViewModel>` each implement
+  `IViewFor<TViewModel>`. Each one exposes a `ViewModel` property that MAUI's data binding can use.
+- **Use `IActivatableViewModel` and `WhenActivated` for lifecycle.** See [When Activated](../../handbook/when-activated.md).
+- **Keep every subscription disposed.** See [Cleaning up subscriptions](../../../reactive-programming/observables.md#cleaning-up)
+  and [Disposables](../../../primitives/disposables.md).
+- **Navigate with a router, or with MAUI Shell, but be consistent about which one owns navigation.** The handbook
+  page shows both: a `Router` navigated through `RoutedViewHost`, and MAUI's own Shell routes side by side.
+- **A custom control that needs a view model implements `IViewFor<TViewModel>` itself.** It does this the same way
+  the platform's own reactive base classes do. The handbook page shows this for a custom item view.
+- **`ReactiveUI.SourceGenerators` removes the boilerplate around reactive properties, computed properties and
+  commands** on any platform, including MAUI; see [Source Generators](../../../source-generators/index.md).
 
-## Quick Links
+## Platform APIs
 
-### Getting Started
-- [Installation Guide](../../getting-started/installation/maui.md)
-- [Compelling Example](../../getting-started/compelling-example.md)
-- [Guidelines](../index.md)
-
-### Features
-- [Data Binding](../../handbook/data-binding/index.md)
-- [Commands](../../handbook/commands/index.md)
-- [View Models](../../handbook/view-models/index.md)
-- [Navigation (Sextant)](../../../sextant.md)
-- [Popups](../../../maui-plugins-popup.md)
-
-### Samples
-- [MAUI Samples Repository](https://github.com/reactiveui/ReactiveUI.Samples/tree/main/maui)
-- [Sample Applications](../../../resources/samples.md)
-
-## Platform-Specific Features
-
-### Shell Integration
-
-ReactiveUI works seamlessly with MAUI Shell:
-
-```csharp
-// Shell navigation with ReactiveUI
-public partial class MainViewModel : ReactiveObject
-{
-    [ReactiveCommand]
-    private async Task NavigateToDetails()
-    {
-        await Shell.Current.GoToAsync("details");
-    }
-}
-```
-
-### Platform APIs
-
-Access platform-specific APIs reactively:
-
-```csharp
-// Geolocation
-Signal.FromAsync(() => Geolocation.GetLocationAsync())
-    .Subscribe(location => CurrentLocation = location);
-
-// Connectivity
-Connectivity.ConnectivityChanged
-    .ToObservable()
-    .Subscribe(e => IsConnected = e.NetworkAccess == NetworkAccess.Internet);
-```
-
-### Handlers and Controls
-
-Use ReactiveUI with custom handlers:
-
-```csharp
-public partial class ReactiveEntry : Entry, IViewFor<EntryViewModel>
-{
-    public static readonly BindableProperty ViewModelProperty = 
-        BindableProperty.Create(nameof(ViewModel), typeof(EntryViewModel), typeof(ReactiveEntry));
-    
-    public EntryViewModel ViewModel
-    {
-        get => (EntryViewModel)GetValue(ViewModelProperty);
-        set => SetValue(ViewModelProperty, value);
-    }
-    
-    object IViewFor.ViewModel
-    {
-        get => ViewModel;
-        set => ViewModel = value as EntryViewModel;
-    }
-}
-```
-
-## Common Patterns
-
-### Reactive Page
-
-```csharp
-public partial class MainPage : ReactiveContentPage<MainViewModel>
-{
-    public MainPage()
-    {
-        InitializeComponent();
-        ViewModel = new MainViewModel();
-        
-        this.WhenActivated(disposables =>
-        {
-            this.Bind(ViewModel, vm => vm.SearchText, v => v.SearchEntry.Text)
-                .DisposeWith(disposables);
-            
-            this.BindCommand(ViewModel, vm => vm.SearchCommand, v => v.SearchButton)
-                .DisposeWith(disposables);
-        });
-    }
-}
-```
-
-### Reactive ViewModel
-
-```csharp
-public partial class MainViewModel : ReactiveObject
-{
-    [Reactive]
-    private string _searchText = string.Empty;
-    
-    [ObservableAsProperty]
-    public partial List<SearchResult> SearchResults { get; }
-    
-    public MainViewModel()
-    {
-        SearchCommand = ReactiveCommand.CreateFromTask(
-            async () => await SearchAsync(SearchText),
-            this.WhenAnyValue(x => x.SearchText, text => !string.IsNullOrWhiteSpace(text)));
-        
-        _searchResultsHelper = SearchCommand
-            .ToProperty(this, static x => x.SearchResults);
-    }
-    
-    [ReactiveCommand]
-    private async Task<List<SearchResult>> Search(string searchText)
-    {
-        return await SearchAsync(searchText);
-    }
-}
-```
-
-## Navigation
-
-### MAUI Shell
-
-```csharp
-// Register routes
-Routing.RegisterRoute("details", typeof(DetailsPage));
-
-// Navigate
-await Shell.Current.GoToAsync($"details?id={itemId}");
-```
-
-### Sextant (View Model First)
-
-```csharp
-// Setup
-AppLocator.CurrentMutable.RegisterNavigationView();
-
-// Navigate
-var viewStack = AppLocator.Current.GetService<IViewStackService>();
-await viewStack.PushPage<DetailsViewModel>();
-```
-
-## Styling and Theming
-
-Use ReactiveUI with MAUI styles:
-
-```xml
-<ResourceDictionary>
-    <Style TargetType="Button" x:Key="PrimaryButton">
-        <Setter Property="BackgroundColor" Value="{StaticResource Primary}" />
-        <Setter Property="TextColor" Value="White" />
-    </Style>
-</ResourceDictionary>
-```
-
-## Performance Tips
-
-1. **Use ObservableAsPropertyHelper**: Avoid manual property notifications
-2. **Throttle User Input**: Use Throttle for search boxes
-3. **Async Commands**: Always use async operations for network/disk
-4. **Dispose Properly**: Use WhenActivated for automatic cleanup
-5. **Platform Caching**: Leverage MAUI's image caching
-
-## Testing
-
-```csharp
-[Fact]
-public async Task SearchCommand_ReturnsResults()
-{
-    // Arrange
-    var viewModel = new MainViewModel();
-    viewModel.SearchText = "test";
-    
-    // Act
-    await viewModel.SearchCommand.Execute();
-    
-    // Assert
-    viewModel.SearchResults.Should().NotBeEmpty();
-}
-```
-
-## Community Resources
-
-- [ReactiveUI Slack](https://join.slack.com/t/reactivex/shared_invite/zt-lt48skpz-G5WDYOAuzA80_MByZrLT0g)
-- [GitHub Discussions](https://github.com/reactiveui/ReactiveUI/discussions)
-- [Stack Overflow](https://stackoverflow.com/questions/tagged/reactiveui+maui)
-
-## Migration from Xamarin.Forms
-
-See our comprehensive [Xamarin to MAUI Migration Guide](../../upgrading/xamarin-to-maui.md).
-
-## Related Topics
-
-- [Installation](../../getting-started/installation/maui.md)
-- [Data Binding](../../handbook/data-binding/index.md)
-- [Sextant Navigation](../../../sextant.md)
-- [Popups](../../../maui-plugins-popup.md)
+MAUI's own platform APIs, such as `Geolocation` and `Connectivity`, are not part of ReactiveUI. Wrap a call to one
+in `Signal.FromAsync`. Convert an event such as `Connectivity.ConnectivityChanged` to a stream with `ToObservable`,
+the same way you would wrap any other event-based API.

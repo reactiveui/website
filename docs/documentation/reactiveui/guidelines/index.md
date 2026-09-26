@@ -1,620 +1,213 @@
+---
+Order: 3
+---
 # Guidelines
 
-## Overview
+[Run the complete page example](https://github.com/reactiveui/ReactiveUI/blob/main/src/examples/Documentation/Pages/guidelines/guidelines.csproj).
 
-These guidelines provide best practices and recommendations for building modern ReactiveUI applications. Following these patterns will help you create maintainable, testable, and performant reactive applications.
+A ReactiveUI app is built from ordinary C# and a handful of library types: `ReactiveObject`, `ReactiveCommand`, and
+streams you subscribe to. Nothing stops you from using them the wrong way, so this section collects the habits that
+keep an app maintainable, testable and correct. Each guideline links to the [handbook](../handbook/index.md) page
+that explains the type or operator behind it, and to the framework and platform pages that go deeper.
 
-## Modern Development Patterns
+## Start the app with RxAppBuilder
 
-### Use RxAppBuilder for Application Initialization
+Configuring dependency injection, schedulers and platform services one call at a time is easy to get wrong: a
+service registered too late, a scheduler set on the wrong thread. `RxAppBuilder.CreateReactiveUIBuilder()` gathers
+all of it into one fluent chain instead.
 
-**RxAppBuilder** is the modern way to initialize ReactiveUI applications. It provides a fluent API for configuring dependency injection, schedulers, and platform-specific features.
+**1. Build an instance.** The example below builds an isolated instance, so it does not touch the schedulers your
+app's own `RxAppBuilder` call already set up for this process.
 
 ```csharp
-var app = RxAppBuilder.CreateReactiveUIBuilder()
-    .WithWpf() // or .WithMaui(), .WithBlazor(), etc.
-    .WithViewsFromAssembly(Assembly.GetExecutingAssembly())
-    .WithRegistration(locator =>
-    {
-        // Register your services
-        locator.RegisterLazySingleton<IDataService>(() => new DataService());
-        locator.RegisterLazySingleton<INavigationService>(() => new NavigationService());
-    })
-    .BuildApp();
+ReactiveUIBuilder builder = RxAppBuilder.CreateReactiveUIBuilder();
+builder.WithMainThreadScheduler(Sequencer.Immediate, setRxApp: false);
+builder.WithTaskPoolScheduler(TaskPoolSequencer.Default, setRxApp: false);
+builder.WithCoreServices();
+IReactiveUIInstance instance = builder.BuildApp();
+
+Console.WriteLine(instance.MainThreadScheduler?.GetType().Name);
 ```
 
-**Benefits:**
-- Centralized configuration
-- Type-safe service registration
-- Platform-specific optimizations
-- Simplified testing setup
-- Clear dependency graph
+```text
+ImmediateSequencer
+```
 
-### Use ReactiveUI.SourceGenerators
+A real app also calls `WithViewsFromAssembly`, `WithRegistration` to register its own services, and the platform
+extension for its UI framework, such as `WithWpf` or `WithMaui`. [RxAppBuilder](../handbook/rxappbuilder.md) walks
+through every one of those calls.
 
-**ReactiveUI.SourceGenerators** eliminates boilerplate code through compile-time code generation. Always prefer source generators over manual property implementation or Fody.
+## Read schedulers and the exception handler through RxSchedulers and RxState
 
-#### Reactive Properties
+The static `RxApp` class does not exist. Read the two schedulers `RxAppBuilder` configured, and the exception
+handler it installed, through `RxSchedulers` and `RxState` instead.
 
 ```csharp
-public partial class MyViewModel : ReactiveObject
+Console.WriteLine(RxSchedulers.MainThreadScheduler.GetType().Name);
+Console.WriteLine(RxSchedulers.TaskpoolScheduler.GetType().Name);
+Console.WriteLine(RxState.DefaultExceptionHandler is not null);
+```
+
+```text
+ImmediateSequencer
+TaskPoolSequencer
+True
+```
+
+`RxSchedulers.MainThreadScheduler` and `TaskpoolScheduler` are `ISequencer` values: a sequencer decides when and
+where work runs. [Scheduling](../handbook/scheduling.md) covers them and `RxState.DefaultExceptionHandler`, the
+observer that receives an exception a subscription would otherwise drop silently.
+
+## Remove boilerplate with source generators
+
+`ReactiveUI.SourceGenerators`, a separate package, writes a property or a command for you from a decorated field or
+method: `[Reactive]` for a settable property, `[ObservableAsProperty]` for a read-only property backed by a stream,
+and `[ReactiveCommand]` for a command. [Reduce boilerplate code](../handbook/view-models/boilerplate-code.md) shows
+every attribute, and [Declare the property with an attribute](../../binding/properties.md#declare-the-property-with-an-attribute)
+covers `[ObservableAsProperty]`, which comes from `ReactiveUI.Binding`.
+
+## Turn events into streams
+
+A view raises events instead of exposing streams: a button click, a text box's `TextChanged`. Subscribing to the
+event directly means unsubscribing it yourself, usually from an override such as `OnClosed`, and a forgotten
+unsubscribe leaks the view. `ReactiveUI.Primitives.ObservableEvents`, a source generator, writes a stream for every
+public event a type raises. Call `Events()` on the object, then read the event as a property on the result.
+[Events](../handbook/events.md) is the full walkthrough, and the [WPF](platform/wpf-overview.md) and
+[Windows Forms](platform/windows-forms.md) pages show it wired into a real control.
+
+## Dispose every subscription
+
+A subscription you never dispose keeps running for as long as the object it watches is alive, even after the
+screen that created it is gone. [Dispose your subscriptions](framework/dispose-your-subscriptions.md) covers
+`WhenActivated` and `DisposeWith`, and the one case that needs neither.
+
+## Bind to a command instead of wiring a click handler
+
+Calling a view model's method straight from a click handler leaves nothing to disable the control once the action
+no longer applies. [Commands](framework/commands.md) covers binding to a `ReactiveCommand` with `BindCommand`
+instead, and [Command names](framework/command-names.md) covers naming the command and the method behind it.
+
+## Let an async command do its own work
+
+Starting a task from a synchronous command's `Subscribe` hides that work from `IsExecuting` and `ThrownExceptions`.
+Nothing then stops a second click from starting the work again while the first run is still going.
+[Asynchronous commands](framework/asynchronous-commands.md) shows `ReactiveCommand.CreateFromTask` doing the same
+work in a way both properties can see.
+
+## Handle a command's failures through ThrownExceptions
+
+A command's `ThrownExceptions` stream is where a subscriber that only watches, such as the screen, learns about a
+failure. The `await` that starts the command still sees the exception; `ThrownExceptions` is for everyone else.
+
+**1. Subscribe to `ThrownExceptions` before the command runs.** The subscriber below turns a failure into a message
+a screen could show.
+
+```csharp
+using ReactiveCommand<RxVoid, RxVoid> save = ReactiveCommand.CreateFromTask(
+    static () => throw new InvalidOperationException("No connection"));
+string errorMessage = string.Empty;
+using IDisposable subscription = save.ThrownExceptions.Subscribe(_ => errorMessage = "Unable to save. Please try again.");
+
+try
 {
-    // Old way (manual)
-    private string _name;
-    public string Name
-    {
-        get => _name;
-        set => this.RaiseAndSetIfChanged(ref _name, value);
-    }
-    
-    // New way (source generators) ✅
-    [Reactive]
-    private string _name = string.Empty;
+    await save.Execute();
 }
-```
-
-#### Observable As Property Helper
-
-```csharp
-public partial class MyViewModel : ReactiveObject
+catch (InvalidOperationException)
 {
-    // Old way (manual)
-    private readonly ObservableAsPropertyHelper<string> _fullName;
-    public string FullName => _fullName.Value;
-    
-    public MyViewModel()
-    {
-        _fullName = this.WhenAnyValue(x => x.FirstName, x => x.LastName, 
-                (f, l) => $"{f} {l}")
-            .ToProperty(this, x => x.FullName);
-    }
-    
-    // New way (source generators) ✅
-    [Reactive]
-    private string _firstName = string.Empty;
-    
-    [Reactive]
-    private string _lastName = string.Empty;
-    
-    [ObservableAsProperty]
-    public partial string FullName { get; }
-    
-    public MyViewModel()
-    {
-        _fullNameHelper = this.WhenAnyValue(x => x.FirstName, x => x.LastName,
-                (f, l) => $"{f} {l}")
-            .ToProperty(this, nameof(FullName));
-    }
-}
-```
-
-`[ObservableAsProperty]` comes from ReactiveUI.Binding, which the ReactiveUI package brings with it. It needs C# 13
-or later. [Declare the property with an attribute](../../binding/properties.md#declare-the-property-with-an-attribute)
-covers it.
-
-#### Reactive Commands
-
-```csharp
-public partial class MyViewModel : ReactiveObject
-{
-    // Old way (manual)
-    public ReactiveCommand<RxVoid, RxVoid> SaveCommand { get; }
-    
-    public MyViewModel()
-    {
-        SaveCommand = ReactiveCommand.CreateFromTask(SaveAsync);
-    }
-    
-    private async Task SaveAsync() { /* ... */ }
-    
-    // New way (source generators) ✅
-    [ReactiveCommand]
-    private async Task Save()
-    {
-        // Your save logic
-    }
-}
-```
-
-**Benefits:**
-- Less boilerplate code
-- Compile-time validation
-- Better IDE support
-- Easier to read and maintain
-- No IL weaving complexity
-
-### Use ObservableEvents for Event Handling
-
-Instead of manually subscribing to events, use **ReactiveUI.Primitives.ObservableEvents** to convert events to observables.
-
-```csharp
-// Old way ❌
-button.Click += Button_Click;
-protected override void OnClosed(EventArgs e)
-{
-    button.Click -= Button_Click;
+    // The awaiting caller also sees the failure; ThrownExceptions is for a subscriber that only watches, such as the screen.
 }
 
-// New way ✅
-this.WhenActivated(disposables =>
-{
-    button.Events().Click
-        .Calm(TimeSpan.FromMilliseconds(500))
-        .Subscribe(_ => HandleClick())
-        .DisposeWith(disposables);
-});
+Console.WriteLine(errorMessage);
 ```
 
-### Always Use WhenActivated
+```text
+Unable to save. Please try again.
+```
 
-**WhenActivated** ensures proper lifecycle management and prevents memory leaks.
+## Await async work instead of blocking on it
+
+Reading `.Result` or calling `.Wait()` on a `Task` blocks the calling thread until the task finishes. On a UI
+thread that freezes the screen. On a thread-pool thread it can starve the pool of other work. `await` keeps the
+thread free while the work runs.
 
 ```csharp
-public partial class MainWindow : ReactiveWindow<MainViewModel>
-{
-    public MainWindow()
-    {
-        InitializeComponent();
-        
-        this.WhenActivated(disposables =>
-        {
-            // All subscriptions here are automatically disposed
-            this.Bind(ViewModel, vm => vm.Name, v => v.NameTextBox.Text)
-                .DisposeWith(disposables);
-            
-            this.BindCommand(ViewModel, vm => vm.SaveCommand, v => v.SaveButton)
-                .DisposeWith(disposables);
-        });
-    }
-}
+int grade = await FetchGradeAsync();
+Console.WriteLine(grade);
 ```
 
-**Rules:**
-- ✅ Always wrap subscriptions in WhenActivated
-- ✅ Always call DisposeWith(disposables)
-- ❌ Never subscribe without disposing
-- ❌ Don't create subscriptions in constructors (outside WhenActivated)
-
-## Architecture Guidelines
-
-### ViewModel Design
-
-#### Keep ViewModels Platform-Agnostic
-
-ViewModels should not reference platform-specific types or UI frameworks.
-
-```csharp
-// Bad ❌
-public class MyViewModel : ReactiveObject
-{
-    private readonly Window _window; // Platform-specific
-    public void ShowDialog() => _window.Show();
-}
-
-// Good ✅
-public class MyViewModel : ReactiveObject
-{
-    private readonly IDialogService _dialogService; // Interface
-    public async Task ShowDialog() => await _dialogService.ShowAsync();
-}
+```text
+91
 ```
 
-#### Single Responsibility
+## Use descriptive names in a WhenAny selector
 
-Each ViewModel should have one clear responsibility.
+`x` and `y` compile as selector parameters, but they make the reader open the lambda to know which property is
+which. [Use descriptive variables with WhenAny](framework/use-descriptive-variables-with-whenany.md) shows named
+parameters next to the same rule written with `x` and `y`.
 
-```csharp
-// Bad - too many responsibilities ❌
-public class MainViewModel
-{
-    public void LoadData() { }
-    public void SaveData() { }
-    public void ExportToExcel() { }
-    public void SendEmail() { }
-    public void GenerateReport() { }
-}
+## Put this on the left of WhenAny
 
-// Good - focused responsibility ✅
-public class MainViewModel
-{
-    private readonly IDataService _dataService;
-    private readonly INavigationService _navigation;
-    
-    public ReactiveCommand<RxVoid, RxVoid> LoadDataCommand { get; }
-    public ReactiveCommand<RxVoid, RxVoid> NavigateToSettingsCommand { get; }
-}
-```
+`this.WhenAny(...)` ties a pipeline's lifetime to the view model that owns it. Reading a dependency's property with
+`dependency.WhenAny(...)` instead ties the pipeline to how long that dependency lives, which can outlast the view
+model. [Put this on the left of WhenAny](framework/use-this-on-left-of-whenany.md) covers it, including the one
+case that still needs `DisposeWith`.
 
-#### Use Reactive Properties Appropriately
+## Read a derived value from an ObservableAsPropertyHelper, not a setter
 
-```csharp
-public partial class SearchViewModel : ReactiveObject
-{
-    [Reactive]
-    private string _searchText = string.Empty;
-    
-    [ObservableAsProperty]
-    public partial bool IsSearching { get; }
-    
-    [ObservableAsProperty]
-    public partial List<SearchResult> Results { get; }
-    
-    public SearchViewModel()
-    {
-        // Derived state from commands
-        SearchCommand = ReactiveCommand.CreateFromTask(
-            async () => await PerformSearchAsync(SearchText),
-            this.WhenAnyValue(x => x.SearchText, text => !string.IsNullOrWhiteSpace(text)));
-        
-        _isSearchingHelper = SearchCommand.IsExecuting
-            .ToProperty(this, static x => x.IsSearching);
-        
-        _resultsHelper = SearchCommand
-            .ToProperty(this, static x => x.Results);
-    }
-    
-    public ReactiveCommand<RxVoid, List<SearchResult>> SearchCommand { get; }
-}
-```
+A plain settable property can be written to from anywhere, including by mistake. An `ObservableAsPropertyHelper`
+property has no setter, so its pipeline is the only place its value can come from.
+[Prefer ObservableAsPropertyHelper over properties](framework/prefer-oaph-over-properties.md) shows both.
 
-### Dependency Injection
+## Marshal to the UI thread at the boundary, not after every step
 
-#### Register Services with RxAppBuilder
+Adding `WitnessOn` after every operator in a pipeline works, but it schedules far more than it needs to. One
+`WitnessOn(RxSchedulers.MainThreadScheduler)`, placed where the result reaches a bound property, is enough.
+[UI thread and schedulers](framework/ui-thread-and-schedulers.md) shows both forms, and an async command that
+marshals its result on its own.
 
-```csharp
-var app = RxAppBuilder.CreateReactiveUIBuilder()
-    .WithWpf()
-    .WithViewsFromAssembly(Assembly.GetExecutingAssembly())
-    .WithRegistration(locator =>
-    {
-        // Singletons for stateful services
-        locator.RegisterLazySingleton<IAuthService>(() => new AuthService());
-        locator.RegisterLazySingleton<ISettingsService>(() => new SettingsService());
-        
-        // Transient for ViewModels
-        locator.Register<MainViewModel>(() => new MainViewModel());
-        locator.Register<DetailsViewModel>(() => new DetailsViewModel());
-    })
-    .BuildApp();
-```
+## Share a chain that more than one subscriber reads
 
-#### Constructor Injection Pattern
+Subscribing to the same `WhenAnyValue` chain more than once repeats its work for every subscriber.
+[Sharing](../../primitives/sharing.md) covers `ShareLatest` and the other operators that share one subscription
+among many.
 
-```csharp
-public class MainViewModel : ReactiveObject
-{
-    private readonly IDataService _dataService;
-    private readonly INavigationService _navigation;
-    
-    // Constructor injection ✅
-    public MainViewModel(
-        IDataService dataService,
-        INavigationService navigation)
-    {
-        _dataService = dataService;
-        _navigation = navigation;
-    }
-    
-    // Alternative: Service locator (use sparingly)
-    public MainViewModel()
-    {
-        _dataService = AppLocator.Current.GetService<IDataService>();
-        _navigation = AppLocator.Current.GetService<INavigationService>();
-    }
-}
-```
+## Reach for DynamicData for reactive collections
 
-## Performance Guidelines
+An `ObservableCollection<T>` has no stream of its own additions and removals. [DynamicData](https://github.com/reactivemarbles/DynamicData)
+adds a `SourceCache<T, TKey>` and operators that turn changes into a bound, sorted, filtered list.
+For the simpler case, a stream of adds and removes from an `ObservableCollection<T>`, ReactiveUI's own
+[Collections](../handbook/collections.md) helpers need no extra package.
 
-### Use Throttle and Debounce
+## Validate input with ReactiveUI.Validation
 
-Prevent excessive operations on high-frequency events.
+`ReactiveUI.Validation`, a separate package, adds `ReactiveValidationObject` and `ValidationRule` for turning a
+property's rules into a stream of validation state a command's `CanExecute` can use. See
+[Validation](../../validation.md).
 
-```csharp
-// Search as user types
-this.WhenAnyValue(x => x.SearchText)
-    .Calm(TimeSpan.FromMilliseconds(500))
-    .Unique()
-    .Where(text => !string.IsNullOrWhiteSpace(text))
-    .SelectMany(async text => await SearchAsync(text))
-    .WitnessOn(RxSchedulers.MainThreadScheduler)
-    .Subscribe(results => Results = results);
-```
+## Test with ReactiveUI.Testing
 
-### Use DynamicData for Collections
+`ReactiveUI.Testing` gives a test a `VirtualClock`, a sequencer that moves only when the test tells it to. A test
+that uses a time operator then runs at once, and the same way every time. [Testing](../handbook/testing.md) covers
+it.
 
-For reactive collections, always use DynamicData instead of ObservableCollection.
+## Keep a view model platform-agnostic, focused, and built through its constructor
 
-```csharp
-public partial class ItemListViewModel : ReactiveObject
-{
-    private readonly SourceCache<Item, int> _itemsCache;
-    private readonly ReadOnlyObservableCollection<ItemViewModel> _items;
-    
-    public ReadOnlyObservableCollection<ItemViewModel> Items => _items;
-    
-    public ItemListViewModel()
-    {
-        _itemsCache = new SourceCache<Item, int>(x => x.Id);
-        
-        _itemsCache.Connect()
-            .Transform(item => new ItemViewModel(item))
-            .Filter(vm => vm.IsVisible)
-            .Sort(SortExpressionComparer<ItemViewModel>.Ascending(x => x.Name))
-            .WitnessOn(RxSchedulers.MainThreadScheduler)
-            .Bind(out _items)
-            .Subscribe();
-    }
-}
-```
+A view model that references a `Window` or another platform type cannot run on a different platform, or in a test,
+without one. Depend on an interface such as `IDialogService` instead, and let the platform project supply the
+implementation.
 
-### Optimize Observable Chains
+A view model with one clear job is easier to read, test and reuse than one with several. Give each view model a
+narrow set of commands and properties, and split one that grows past that into smaller view models.
 
-```csharp
-// Bad - multiple subscriptions ❌
-this.WhenAnyValue(x => x.Property1).Subscribe(/* ... */);
-this.WhenAnyValue(x => x.Property1).Subscribe(/* ... */);
-this.WhenAnyValue(x => x.Property1).Subscribe(/* ... */);
+Take dependencies through the constructor rather than reaching for a service locator inside it.
+`RxAppBuilder.WithRegistration` is where those dependencies get registered; [Registration](../handbook/registration.md)
+covers it, and `AppLocator.Current.GetService<T>()` remains the escape hatch for code that cannot take a
+constructor parameter.
 
-// Good - shared observable ✅
-var sharedObservable = this.WhenAnyValue(x => x.Property1)
-    .ShareLatest();
+## Continue reading
 
-sharedObservable.Subscribe(/* ... */);
-sharedObservable.Subscribe(/* ... */);
-sharedObservable.Subscribe(/* ... */);
-```
-
-## Testing Guidelines
-
-### Use ReactiveUI.Testing
-
-```csharp
-[Fact]
-public void ViewModel_LoadsData_WhenCommandExecuted()
-{
-    // Arrange
-    new VirtualClock().With(clock =>
-    {
-        var mockService = Substitute.For<IDataService>();
-        mockService.GetDataAsync().Returns(Signal.Emit(testData));
-        
-        var vm = new MainViewModel(mockService);
-        
-        // Act
-        vm.LoadDataCommand.Execute().Subscribe();
-        clock.AdvanceBy(TimeSpan.FromSeconds(1));
-        
-        // Assert
-        vm.Data.Should().NotBeNull();
-        vm.IsLoading.Should().BeFalse();
-    });
-}
-```
-
-### Test ViewModels in Isolation
-
-```csharp
-[Fact]
-public async Task SearchCommand_FiltersResults_BasedOnSearchText()
-{
-    // Arrange
-    var vm = new SearchViewModel();
-    vm.SearchText = "test";
-    
-    // Act
-    await vm.SearchCommand.Execute();
-    
-    // Assert
-    vm.Results.Should().NotBeEmpty();
-    vm.Results.Should().OnlyContain(r => r.Name.Contains("test"));
-}
-```
-
-## Error Handling
-
-### Use ThrownExceptions
-
-```csharp
-public MyViewModel()
-{
-    SaveCommand = ReactiveCommand.CreateFromTask(SaveAsync);
-    
-    // Handle errors gracefully
-    SaveCommand.ThrownExceptions
-        .Subscribe(ex =>
-        {
-            // Log the error
-            this.Log().Error(ex, "Failed to save");
-            
-            // Show user-friendly message
-            ErrorMessage = "Unable to save. Please try again.";
-        });
-}
-```
-
-### Validate User Input
-
-```csharp
-public partial class LoginViewModel : ReactiveValidationObject
-{
-    [Reactive]
-    private string _username = string.Empty;
-    
-    [Reactive]
-    private string _password = string.Empty;
-    
-    public LoginViewModel()
-    {
-        // Validation rules
-        this.ValidationRule(
-            vm => vm.Username,
-            username => !string.IsNullOrWhiteSpace(username),
-            "Username is required");
-        
-        this.ValidationRule(
-            vm => vm.Password,
-            password => password?.Length >= 6,
-            "Password must be at least 6 characters");
-        
-        // Command only executes when valid
-        LoginCommand = ReactiveCommand.CreateFromTask(
-            LoginAsync,
-            this.IsValid());
-    }
-    
-    [ReactiveCommand]
-    private async Task Login() { /* ... */ }
-}
-```
-
-## Platform-Specific Guidelines
-
-### WPF
-
-```csharp
-// Use ReactiveWindow<T>
-public partial class MainWindow : ReactiveWindow<MainViewModel>
-{
-    public MainWindow()
-    {
-        InitializeComponent();
-        ViewModel = new MainViewModel();
-        
-        this.WhenActivated(disposables =>
-        {
-            // Bindings here
-        });
-    }
-}
-```
-
-### MAUI
-
-```csharp
-// Use ReactiveContentPage<T>
-public partial class MainPage : ReactiveContentPage<MainViewModel>
-{
-    public MainPage()
-    {
-        InitializeComponent();
-        ViewModel = new MainViewModel();
-        
-        this.WhenActivated(disposables =>
-        {
-            // Bindings here
-        });
-    }
-}
-```
-
-### Blazor
-
-```csharp
-// Use ReactiveComponentBase<T> and call StateHasChanged
-public partial class CounterComponent : ReactiveComponentBase<CounterViewModel>
-{
-    protected override void OnInitialized()
-    {
-        ViewModel = new CounterViewModel();
-        
-        this.WhenActivated(disposables =>
-        {
-            this.WhenAnyValue(x => x.ViewModel.Count)
-                .Subscribe(_ => InvokeAsync(StateHasChanged))
-                .DisposeWith(disposables);
-        });
-        
-        base.OnInitialized();
-    }
-}
-```
-
-## Common Anti-Patterns to Avoid
-
-### ❌ Don't reach for the legacy static `RxApp` API
-
-The static `RxApp` class has been removed. Configure schedulers and the default exception handler through `RxAppBuilder`:
-
-```csharp
-// Good ✅
-var app = RxAppBuilder.CreateReactiveUIBuilder()
-    .WithMainThreadScheduler(/* ISequencer */)
-    .WithTaskPoolScheduler(/* ISequencer */)
-    .WithExceptionHandler(/* IObserver<Exception> */)
-    .BuildApp();
-
-// Read-only access at runtime:
-var ui = RxSchedulers.MainThreadScheduler;
-var bg = RxSchedulers.TaskpoolScheduler;
-var handler = RxState.DefaultExceptionHandler;
-```
-
-### ❌ Don't Forget to Dispose
-
-```csharp
-// Bad ❌
-this.WhenAnyValue(x => x.Property).Subscribe(/* ... */);
-
-// Good ✅
-this.WhenActivated(disposables =>
-{
-    this.WhenAnyValue(x => x.Property)
-        .Subscribe(/* ... */)
-        .DisposeWith(disposables);
-});
-```
-
-### ❌ Don't Mix MVVM Patterns
-
-```csharp
-// Bad - code-behind in view ❌
-private void Button_Click(object sender, EventArgs e)
-{
-    // Business logic here
-}
-
-// Good - command in ViewModel ✅
-[ReactiveCommand]
-private void ExecuteAction()
-{
-    // Business logic here
-}
-```
-
-### ❌ Don't Block on Async
-
-```csharp
-// Bad ❌
-var result = asyncOperation.Result;
-asyncOperation.Wait();
-
-// Good ✅
-var result = await asyncOperation;
-```
-
-## Migration Path
-
-If you're upgrading from older ReactiveUI versions:
-
-1. **Replace Fody with SourceGenerators** - See [Migration Guide](../../source-generators/migrating-from-fody.md)
-2. **Adopt RxAppBuilder** - See [Migration Guide](../upgrading/rxappbuilder-migration.md)
-3. **Update to Modern Patterns** - Follow this guide's recommendations
-4. **Migrate from Xamarin** - See [Xamarin to MAUI Guide](../upgrading/xamarin-to-maui.md)
-
-## Additional Resources
-
-- [Getting Started](../getting-started/index.md)
-- [Handbook](../handbook/index.md)
-- [Reactive Programming Basics](../../reactive-programming/index.md)
-- [Testing Guide](../handbook/testing.md)
-- [Sample Applications](../../resources/samples.md)
-
-## Platform-Specific Guidelines
-
-For detailed platform-specific guidance, see:
-
-- **Framework Guidelines** — see the `framework/` section in the navigation
-- **Platform Guidelines** — see the `platform/` section
-- **Debugging Guidelines** — see the `debugging/` section
-
+The `framework/` pages cover the command, property and subscription guidelines above in more detail, with a
+passing and a failing example for each. The `platform/` pages cover the pattern each UI framework layers on top:
+`ReactiveWindow<T>`, `ReactiveContentPage<T>`, `ReactiveComponentBase<T>` and their equivalents. The `debugging/`
+pages cover diagnosing a problem once you have one. [Upgrading](../upgrading/index.md) covers moving code written
+for an older ReactiveUI release onto the APIs this section describes.

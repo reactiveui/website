@@ -424,36 +424,8 @@ soon as no more pairs can form.
 
 `SyncLatest` keeps the newest value from each side. When either side sends a value, it calls your lambda with
 the newest value from both. It starts once both sides have sent something. The walkthrough at the top of this
-page shows it step by step.
-
-### `SyncLatest` with more sources
-
-`SyncLatest` takes up to 16 streams. Your lambda receives the newest value from each one, in order.
-
-Input: hours, minutes and seconds arrive separately
-
-```csharp
-var hours = new Signal<int>();
-var minutes = new Signal<int>();
-var seconds = new Signal<int>();
-
-hours.SyncLatest(minutes, seconds, (h, m, s) => $"{h:00}:{m:00}:{s:00}")
-     .Subscribe(x => Console.Write($"{x} "));
-
-hours.OnNext(9);
-minutes.OnNext(30);
-seconds.OnNext(0);    // prints 09:30:00
-seconds.OnNext(1);    // prints 09:30:01
-minutes.OnNext(31);   // prints 09:31:01
-```
-
-Output:
-
-```text
-09:30:00 09:30:01 09:31:01
-```
-
-Nothing came out until all three had sent a value.
+page shows it step by step. Overloads take from 2 to 16 streams, calling your lambda with the newest value from
+each one, in order, once every stream has sent at least one value.
 
 ### `CombineLatest` without a lambda
 

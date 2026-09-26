@@ -53,8 +53,8 @@ AccountListViewModel current = new([CreateAccount(EverydayId, EverydayName)]);
 ClosedAccountListViewModel closed = new([]);
 DefaultViewLocator locator = new();
 
-var currentView = locator.ResolveView(current);
-var closedView = locator.ResolveView(closed);
+IViewFor? currentView = locator.ResolveView(current);
+IViewFor? closedView = locator.ResolveView(closed);
 
 Console.WriteLine(currentView?.GetType().Name);
 Console.WriteLine(closedView?.GetType().Name);
@@ -94,7 +94,7 @@ TodoListViewModel viewModel = new(InMemoryTodoStore.CreateSeeded());
 
 Console.WriteLine(view.ViewModel is null);
 
-var shown = Present(view, viewModel);
+TodoListViewModel? shown = Present(view, viewModel);
 
 Console.WriteLine(ReferenceEquals(shown, viewModel));
 Console.WriteLine(ReferenceEquals(view.ViewModel, viewModel));
@@ -114,7 +114,7 @@ generic type argument.
 ```csharp
 IssueBoardView view = new();
 IssueBoardViewModel viewModel = new(InMemoryGitHubServer.CreateSeeded());
-var screen = (IViewFor)view;
+IViewFor screen = (IViewFor)view;
 
 screen.ViewModel = viewModel;
 
@@ -131,9 +131,9 @@ The forwarding property casts the object to the view model type. A view model of
 `InvalidCastException`, and the view keeps its old value.
 
 ```csharp
-var screen = (IViewFor)new IssueBoardView();
+IViewFor screen = (IViewFor)new IssueBoardView();
 TodoListViewModel wrongViewModel = new(InMemoryTodoStore.CreateSeeded());
-var refused = false;
+bool refused = false;
 
 try
 {
@@ -284,10 +284,10 @@ no view model yet
 core services. The example calls it and then `BuildApp`. See [setup](setup.md) for the builder.
 
 ```csharp
-var builder = (IReactiveUIBindingBuilder)RxBindingBuilder.CreateReactiveUIBindingBuilder();
+IReactiveUIBindingBuilder builder = (IReactiveUIBindingBuilder)RxBindingBuilder.CreateReactiveUIBindingBuilder();
 _ = builder.WithCoreServices().BuildApp();
 
-var locator = ViewLocator.GetCurrent();
+IViewLocator locator = ViewLocator.GetCurrent();
 
 Console.WriteLine(locator is DefaultViewLocator);
 ```
@@ -325,9 +325,9 @@ model set, which is what a navigation service needs before it shows the screen.
 
 ```csharp
 TodoListViewModel viewModel = new(InMemoryTodoStore.CreateSeeded());
-var locator = ViewLocator.GetCurrent();
+IViewLocator locator = ViewLocator.GetCurrent();
 
-var view = locator.ResolveView(viewModel);
+IViewFor? view = locator.ResolveView(viewModel);
 
 Console.WriteLine(view?.GetType().Name);
 Console.WriteLine(ReferenceEquals(view?.ViewModel, viewModel));
@@ -349,10 +349,14 @@ screens for one view model. Pass `null` for the default screen. Contracts are co
 | `ResolveView(object, contract)` | You hold the view model as an `object`. |
 | `ResolveView(viewModel)` | You want the default contract. `ViewLocatorMixins` adds this to both forms. |
 
-The generic overload reads the view model type at compile time. It is safe for Native AOT. The `object`
-overload reads the runtime type. When no generated or mapped view answers, it closes `IViewFor<>` over that
-runtime type to ask the service locator. That step needs code the compiler never saw, so the `object` overloads carry
-`[RequiresDynamicCode]`. In an AOT application, use the generic overload or register the view.
+The generic overload reads the view model type at compile time. When no generated or mapped view answers, it
+also asks the service locator, closing `IViewFor<TViewModel>` over that known type, so it is safe for Native AOT.
+The `object` overload reads the runtime type instead, and it stops after the generated lookup and the `Map`
+registrations: closing `IViewFor<>` over a type read at run time needs code the compiler never saw, so the
+`object` overload never asks the service locator. When neither tier answers, it logs a warning and returns
+`null`. [Reach a view registered only in the service locator](#reach-a-view-registered-only-in-the-service-locator)
+covers the fix. `ResolveViewUnsafe` adds the service locator as a third tier for a view model held as an
+`object`; it closes `IViewFor<>` with reflection, so only it carries `[RequiresDynamicCode]`.
 
 A *service locator* is a shared registry where an application registers services by type. This library uses
 Splat's `AppLocator` for that.
@@ -362,9 +366,9 @@ compiler picks the `object` overload, so the call needs no cast and no type argu
 
 ```csharp
 object viewModel = new IssueBoardViewModel(InMemoryGitHubServer.CreateSeeded());
-var locator = ViewLocator.GetCurrent();
+IViewLocator locator = ViewLocator.GetCurrent();
 
-var view = locator.ResolveView(viewModel);
+IViewFor? view = locator.ResolveView(viewModel);
 
 Console.WriteLine(view?.GetType().Name);
 Console.WriteLine(ReferenceEquals(view?.ViewModel, viewModel));
@@ -390,8 +394,8 @@ and the compact screen come back, so a host can pick a layout by name.
 object viewModel = new AccountsViewModel(new InMemoryBankingBackend());
 DefaultViewLocator locator = new();
 
-var standard = ResolveForContract(locator, viewModel, null);
-var compact = ResolveForContract(locator, viewModel, AccountViewContracts.Compact);
+IViewFor? standard = ResolveForContract(locator, viewModel, null);
+IViewFor? compact = ResolveForContract(locator, viewModel, AccountViewContracts.Compact);
 
 Console.WriteLine(standard?.GetType().Name);
 Console.WriteLine(compact?.GetType().Name);
@@ -406,9 +410,9 @@ The next snippet resolves a view for a `null` view model. It returns `null` and 
 pass a missing view model safely. Both overloads behave this way.
 
 ```csharp
-var locator = ViewLocator.GetCurrent();
+IViewLocator locator = ViewLocator.GetCurrent();
 
-var view = locator.ResolveView((object?)null);
+IViewFor? view = locator.ResolveView((object?)null);
 
 Console.WriteLine(view is null);
 ```
@@ -416,6 +420,69 @@ Console.WriteLine(view is null);
 ```text
 True
 ```
+
+### Reach a view registered only in the service locator
+
+A screen registered only with Splat's `AppLocator`, and never mapped or generated, is a case `ResolveView` with an
+`object` view model cannot reach. The next snippet registers `TodoItemDetailView` that way, then asks for it
+through both overloads. `ResolveView` finds nothing and logs a warning that names `ResolveViewUnsafe`.
+`ResolveViewUnsafe` asks the service locator too, and finds it.
+
+```csharp
+object viewModel = new TodoItem { Title = NoteTitle };
+DefaultViewLocator locator = new DefaultViewLocator();
+AppLocator.CurrentMutable.Register<IViewFor<TodoItem>>(static () => new TodoItemDetailView());
+
+try
+{
+    IViewFor? aheadOfTimeSafe = locator.ResolveView(viewModel);
+    IViewFor? reflective = locator.ResolveViewUnsafe(viewModel);
+
+    Console.WriteLine(aheadOfTimeSafe is null);
+    Console.WriteLine(reflective?.GetType().Name);
+}
+finally
+{
+    AppLocator.CurrentMutable.UnregisterAll<IViewFor<TodoItem>>();
+}
+```
+
+```text
+True
+TodoItemDetailView
+```
+
+Call `MapFromServiceLocator<TViewModel, TView>` on the mapping builder to fix this without reflection. It adds a
+`Map` that reads the view from the service locator the first time `ResolveView` asks for it, so the `object`
+overload finds it and stays Native AOT safe.
+
+```csharp
+object viewModel = new TodoItem { Title = NoteTitle };
+DefaultViewLocator locator = new DefaultViewLocator();
+AppLocator.CurrentMutable.Register<IViewFor<TodoItem>>(static () => new TodoItemDetailView());
+
+try
+{
+    locator.CreateMappingBuilder().MapFromServiceLocator<TodoItem, IViewFor<TodoItem>>();
+
+    IViewFor? view = locator.ResolveView(viewModel);
+
+    Console.WriteLine(view?.GetType().Name);
+}
+finally
+{
+    AppLocator.CurrentMutable.UnregisterAll<IViewFor<TodoItem>>();
+}
+```
+
+```text
+TodoItemDetailView
+```
+
+The analyzer catches this at build time instead of at the warning above. RXUIBIND020 (Info) reports a Splat
+`Register`, `RegisterLazySingleton` or `RegisterConstant` of `IViewFor<T>` when the project has no generated view
+and no `Map` for `T`, so you can add the mapping before the warning ever logs. Both the warning and RXUIBIND020
+arrived in ReactiveUI.Binding 8.1.0.
 
 ## Handle a missing view
 
@@ -426,7 +493,7 @@ normal. A host that needs a screen decides what to do. This helper turns `null` 
 ```csharp
 public static IViewFor RequireView(IViewLocator locator, object viewModel)
 {
-    var view = locator.ResolveView(viewModel);
+    IViewFor? view = locator.ResolveView(viewModel);
     return view ?? throw new ViewLocatorNotFoundException($"No screen is registered for {viewModel.GetType().Name}.");
 }
 ```
@@ -436,10 +503,10 @@ The next snippet asks for the screen of a to-do item that has none. The plain ca
 
 ```csharp
 TodoItem note = new() { Title = NoteTitle };
-var locator = ViewLocator.GetCurrent();
+IViewLocator locator = ViewLocator.GetCurrent();
 ViewLocatorNotFoundException? failure = null;
 
-var view = locator.ResolveView(note);
+IViewFor? view = locator.ResolveView(note);
 
 try
 {
@@ -542,8 +609,8 @@ model set and the other item gets `null`, so a custom locator behaves like the d
 TodoListViewModel viewModel = new(InMemoryTodoStore.CreateSeeded());
 TodoViewLocator locator = new();
 
-var view = locator.ResolveView(viewModel, null);
-var missing = locator.ResolveView(new TodoItem(), null);
+IViewFor? view = locator.ResolveView(viewModel, null);
+IViewFor? missing = locator.ResolveView(new TodoItem(), null);
 
 Console.WriteLine(view?.GetType().Name);
 Console.WriteLine(ReferenceEquals(view?.ViewModel, viewModel));
@@ -564,7 +631,7 @@ The next snippet reads the contract back from the attribute with reflection. It 
 registered under, which is the string a caller passes to `ResolveView`.
 
 ```csharp
-var attribute = typeof(AccountStatementView).GetCustomAttribute<ViewContractAttribute>();
+ViewContractAttribute? attribute = typeof(AccountStatementView).GetCustomAttribute<ViewContractAttribute>();
 
 Console.WriteLine(attribute?.Contract);
 ```
@@ -578,11 +645,11 @@ statement
 `ResolveView` to choose.
 
 ```csharp
-var account = CreateAccount();
+Account account = CreateAccount();
 DefaultViewLocator locator = new();
 
-var statement = locator.ResolveView(account, AccountViewContracts.Statement);
-var summary = locator.ResolveView(account, null);
+IViewFor? statement = locator.ResolveView(account, AccountViewContracts.Statement);
+IViewFor? summary = locator.ResolveView(account, null);
 
 Console.WriteLine(statement?.GetType().Name);
 Console.WriteLine(summary?.GetType().Name);
@@ -593,20 +660,20 @@ AccountStatementView
 AccountSummaryView
 ```
 
-The next snippet asks for a contract that no view claims. The locator returns the default screen instead of
-nothing, so an unknown contract still shows a sensible screen.
+The next snippet asks for a contract that no view claims. `Account` has more than one view, so the locator
+cannot pick one for an unknown contract, and it returns `null`. Check for `null` before you show the view.
 
 ```csharp
-var account = CreateAccount();
+Account account = CreateAccount();
 DefaultViewLocator locator = new();
 
-var view = locator.ResolveView(account, UnclaimedContract);
+IViewFor? view = locator.ResolveView(account, UnclaimedContract);
 
-Console.WriteLine(view?.GetType().Name);
+Console.WriteLine(view is null);
 ```
 
 ```text
-AccountSummaryView
+True
 ```
 
 Two more rules follow from how the generator writes the lookup. A view model that has only one registered view,
@@ -640,12 +707,12 @@ resolve sets the latest view model on that instance. Use it only for a view that
 place at once.
 
 ```csharp
-var everyday = CreateAccount(EverydayId, EverydayName);
-var savings = CreateAccount(SavingsId, SavingsName);
+Account everyday = CreateAccount(EverydayId, EverydayName);
+Account savings = CreateAccount(SavingsId, SavingsName);
 DefaultViewLocator locator = new();
 
-var first = locator.ResolveView(everyday);
-var second = locator.ResolveView(savings);
+IViewFor? first = locator.ResolveView(everyday);
+IViewFor? second = locator.ResolveView(savings);
 
 Console.WriteLine(first?.GetType().Name);
 Console.WriteLine(ReferenceEquals(first, second));
@@ -664,12 +731,12 @@ True
 view by hand. The next sections show `Map`.
 
 ```csharp
-var item = new TodoItem { Title = "Renew car registration" };
+TodoItem item = new TodoItem { Title = "Renew car registration" };
 DefaultViewLocator locator = new();
 
-var before = locator.ResolveView(item);
+IViewFor? before = locator.ResolveView(item);
 locator.Map<TodoItem, TodoItemPreviewView>();
-var after = locator.ResolveView(item);
+IViewFor? after = locator.ResolveView(item);
 
 Console.WriteLine(before is null);
 Console.WriteLine(after?.GetType().Name);
@@ -689,12 +756,12 @@ the service locator holds it. Register the view with `AppLocator`, and unregiste
 TransferReceipt receipt = new("RCPT-000001", TransferAmount, AccountBalance - TransferAmount, DateTimeOffset.UnixEpoch);
 DefaultViewLocator locator = new();
 
-var before = locator.ResolveView(receipt);
+IViewFor? before = locator.ResolveView(receipt);
 AppLocator.CurrentMutable.Register<IViewFor<TransferReceipt>>(static () => new ReceiptView(ReceiptHeading));
 
 try
 {
-    var after = (ReceiptView?)locator.ResolveView(receipt);
+    ReceiptView? after = (ReceiptView?)locator.ResolveView(receipt);
 
     Console.WriteLine(before is null);
     Console.WriteLine(after?.HeadingLabel.Text);
@@ -723,7 +790,7 @@ match. Nothing reports the overlap.
 AccountListViewModel current = new([CreateAccount(EverydayId, EverydayName)]);
 DefaultViewLocator locator = new();
 
-var view = locator.ResolveView(current);
+IViewFor? view = locator.ResolveView(current);
 
 Console.WriteLine(view?.GetType().Name);
 Console.WriteLine(view is DetailedAccountListView);
@@ -744,16 +811,16 @@ with a function that takes a view model and a contract. Return `null` for anythi
 Editors hide the method from completion lists, because generated code is its intended caller.
 
 ```csharp
-var item = new TodoItem { Title = "Renew car registration" };
+TodoItem item = new TodoItem { Title = "Renew car registration" };
 DefaultViewLocator locator = new();
 
-var before = locator.ResolveView(item, PreviewCardContract);
+IViewFor? before = locator.ResolveView(item, PreviewCardContract);
 
 DefaultViewLocator.SetGeneratedViewDispatch(static (viewModel, contract) =>
     viewModel is TodoItem && contract == PreviewCardContract ? new TodoItemPreviewView() : null);
 
-var after = locator.ResolveView(item, PreviewCardContract);
-var otherContract = locator.ResolveView(item, null);
+IViewFor? after = locator.ResolveView(item, PreviewCardContract);
+IViewFor? otherContract = locator.ResolveView(item, null);
 
 Console.WriteLine(before is null);
 Console.WriteLine(after?.GetType().Name);
@@ -789,12 +856,12 @@ The next snippet maps the preview view for a to-do item and resolves it. The loc
 parameterless constructor and sets the view model, so a view the generator skips still works.
 
 ```csharp
-var item = CreateItem();
+TodoItem item = CreateItem();
 DefaultViewLocator locator = new();
 
 locator.Map<TodoItem, TodoItemPreviewView>();
 
-var view = locator.ResolveView(item);
+IViewFor? view = locator.ResolveView(item);
 
 Console.WriteLine(view?.GetType().Name);
 Console.WriteLine(ReferenceEquals(view?.ViewModel, item));
@@ -808,13 +875,13 @@ True
 Add a contract, and the mapping answers only to that contract.
 
 ```csharp
-var item = CreateItem();
+TodoItem item = CreateItem();
 DefaultViewLocator locator = new();
 
 locator.Map<TodoItem, TodoItemPreviewView>(PreviewContract);
 
-var preview = locator.ResolveView(item, PreviewContract);
-var plain = locator.ResolveView(item, null);
+IViewFor? preview = locator.ResolveView(item, PreviewContract);
+IViewFor? plain = locator.ResolveView(item, null);
 
 Console.WriteLine(preview?.GetType().Name);
 Console.WriteLine(plain is null);
@@ -829,12 +896,12 @@ Use a factory for a screen that needs setup before it is shown. The locator call
 so each call gets a new view.
 
 ```csharp
-var item = CreateItem();
+TodoItem item = CreateItem();
 DefaultViewLocator locator = new();
 
 locator.Map<TodoItem>(static () => new TodoItemPreviewView { IsCompact = true });
 
-var view = (TodoItemPreviewView?)locator.ResolveView(item);
+TodoItemPreviewView? view = (TodoItemPreviewView?)locator.ResolveView(item);
 
 Console.WriteLine(view?.IsCompact);
 Console.WriteLine(ReferenceEquals(view?.ViewModel, item));
@@ -848,14 +915,14 @@ True
 `Unmap` removes a mapping and returns `true` when one existed. A `null` contract removes the default mapping.
 
 ```csharp
-var item = CreateItem();
+TodoItem item = CreateItem();
 DefaultViewLocator locator = new();
 locator.Map<TodoItem, TodoItemPreviewView>();
 locator.Map<TodoItem, TodoItemPreviewView>(PreviewContract);
 
-var removedDefault = locator.Unmap<TodoItem>();
-var removedAgain = locator.Unmap<TodoItem>();
-var removedContract = locator.Unmap<TodoItem>(PreviewContract);
+bool removedDefault = locator.Unmap<TodoItem>();
+bool removedAgain = locator.Unmap<TodoItem>();
+bool removedContract = locator.Unmap<TodoItem>(PreviewContract);
 
 Console.WriteLine(removedDefault);
 Console.WriteLine(removedAgain);
@@ -880,7 +947,7 @@ an interface matches only when the call is typed as that interface.
 builder so that you can chain them.
 
 ```csharp
-var item = CreateItem();
+TodoItem item = CreateItem();
 DefaultViewLocator locator = new();
 
 _ = locator.CreateMappingBuilder()
@@ -888,9 +955,9 @@ _ = locator.CreateMappingBuilder()
     .Map<TodoItem, TodoItemDetailView>(DetailContract)
     .Map<TodoItem>(static () => new TodoItemPreviewView { IsCompact = true }, CompactContract);
 
-var standard = locator.ResolveView(item, null);
-var detail = locator.ResolveView(item, DetailContract);
-var compact = (TodoItemPreviewView?)locator.ResolveView(item, CompactContract);
+IViewFor? standard = locator.ResolveView(item, null);
+IViewFor? detail = locator.ResolveView(item, DetailContract);
+TodoItemPreviewView? compact = (TodoItemPreviewView?)locator.ResolveView(item, CompactContract);
 
 Console.WriteLine(standard?.GetType().Name);
 Console.WriteLine(detail?.GetType().Name);
@@ -911,8 +978,8 @@ creates a `DefaultViewLocator`, hands you its `ViewMappingBuilder` and registers
 the builder and reads them back from the shared locator.
 
 ```csharp
-var item = CreateItem();
-var builder = (IReactiveUIBindingBuilder)RxBindingBuilder.CreateReactiveUIBindingBuilder();
+TodoItem item = CreateItem();
+IReactiveUIBindingBuilder builder = (IReactiveUIBindingBuilder)RxBindingBuilder.CreateReactiveUIBindingBuilder();
 
 _ = builder
     .WithCoreServices()
@@ -921,10 +988,10 @@ _ = builder
         .Map<TodoItem, TodoItemDetailView>(DetailContract))
     .BuildApp();
 
-var locator = ViewLocator.GetCurrent();
+IViewLocator locator = ViewLocator.GetCurrent();
 
-var standard = locator.ResolveView(item);
-var detail = locator.ResolveView(item, DetailContract);
+IViewFor? standard = locator.ResolveView(item);
+IViewFor? detail = locator.ResolveView(item, DetailContract);
 
 Console.WriteLine(standard?.GetType().Name);
 Console.WriteLine(detail?.GetType().Name);
@@ -940,14 +1007,14 @@ can still reach it. The extension lives in `ReactiveUI.Binding.Mixins`. It throw
 the builder is not a ReactiveUI.Binding builder.
 
 ```csharp
-var item = CreateItem();
+TodoItem item = CreateItem();
 
 _ = RxBindingBuilder.CreateReactiveUIBindingBuilder()
     .WithCoreServices()
     .ConfigureViewLocator(static mappings => mappings.Map<TodoItem, TodoItemPreviewView>())
     .BuildApp();
 
-var view = ViewLocator.GetCurrent().ResolveView(item);
+IViewFor? view = ViewLocator.GetCurrent().ResolveView(item);
 
 Console.WriteLine(view?.GetType().Name);
 ```
@@ -971,8 +1038,8 @@ Every source sets the view model on the view before the locator returns it. The 
 each source and removes the mapping to show the next source answer.
 
 ```csharp
-var item = CreateItem();
-var account = CreateAccount();
+TodoItem item = CreateItem();
+Account account = CreateAccount();
 DefaultViewLocator locator = new();
 locator.Map<Account, AccountStatementView>();
 locator.Map<TodoItem, TodoItemPreviewView>();
@@ -980,10 +1047,10 @@ AppLocator.CurrentMutable.Register<IViewFor<TodoItem>>(static () => new TodoItem
 
 try
 {
-    var generated = locator.ResolveView(account);
-    var mapped = locator.ResolveView(item);
+    IViewFor? generated = locator.ResolveView(account);
+    IViewFor? mapped = locator.ResolveView(item);
     _ = locator.Unmap<TodoItem>();
-    var registered = locator.ResolveView(item);
+    IViewFor? registered = locator.ResolveView(item);
 
     Console.WriteLine(generated?.GetType().Name);
     Console.WriteLine(mapped?.GetType().Name);

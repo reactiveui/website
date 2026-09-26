@@ -219,7 +219,9 @@ Pass a context, or settings that hold generated serializer metadata, for calls t
 Generated overloads that take settings reject null settings and null clients.
 An unavailable generated implementation throws `InvalidOperationException`.
 An unsupported generated method throws instead of using reflected fallback.
-Fix the generator's `RF006` diagnostic before using that method through generated-only creation.
+Fix the `RF006` warning before using that method through generated-only creation.
+[Find methods that fall back to reflection](../aot.md#find-methods-that-fall-back-to-reflection) explains each reason
+and how to make the build fail on one.
 
 On .NET Framework, generated registration differs because module initializers are unavailable.
 Refit can resolve the emitted implementation type by name and construct it through reflection.

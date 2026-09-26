@@ -3,6 +3,12 @@ Order: 2
 ---
 # Installation
 
+> [!WARNING]
+> ReactiveUI drops a target framework after Microsoft ends support for it. .NET 8 and .NET 9 reach
+> [end of support](https://learn.microsoft.com/dotnet/core/releases-and-support) on November 10, 2026, and .NET
+> Framework 4.6.2 reaches [end of support](https://learn.microsoft.com/lifecycle/end-of-support/end-of-support-2027)
+> on January 12, 2027. Plan to move new and existing apps to .NET 10 or later, or to .NET Framework 4.7.2 or later.
+
 Install the ReactiveUI package for your UI framework. It brings the core `ReactiveUI` package, and
 [ReactiveUI.Binding](../../../binding/index.md) for bindings, so one reference is enough for an app project.
 A class library that holds only view models references `ReactiveUI`.

@@ -93,8 +93,8 @@ value, so you can assign a `readonly` field from an expression body or a field i
 constructor body.
 
 ```csharp
-var item = new TodoItem { Title = "Renew car registration", Notes = "Bring the insurance certificate" };
-var viewModel = new PartialOwnEventViewModel(item);
+TodoItem item = new TodoItem { Title = "Renew car registration", Notes = "Bring the insurance certificate" };
+PartialOwnEventViewModel viewModel = new PartialOwnEventViewModel(item);
 
 Console.WriteLine(viewModel.Title);
 Console.WriteLine(viewModel.Notes);
@@ -143,8 +143,8 @@ helper needs a value before the stream produces one. `Priority` instead names it
 setting, or simply prefer not to repeat the selector.
 
 ```csharp
-var item = new TodoItem { IsDone = false, Priority = TodoPriority.High };
-var viewModel = new RaiseMethodViewModel(item);
+TodoItem item = new TodoItem { IsDone = false, Priority = TodoPriority.High };
+RaiseMethodViewModel viewModel = new RaiseMethodViewModel(item);
 
 Console.WriteLine(viewModel.RemainingLabel);
 Console.WriteLine(viewModel.Priority);
@@ -193,9 +193,9 @@ public sealed partial class PartialProtectedBaseViewModel : ObservableObject
 scheduler is a `VirtualClock`, a sequencer you step by hand, which the [Threading](threading.md) page covers.
 
 ```csharp
-var item = new TodoItem { IsDone = false, DueDate = RegistrationDue };
+TodoItem item = new TodoItem { IsDone = false, DueDate = RegistrationDue };
 VirtualClock scheduler = new();
-var viewModel = new PartialProtectedBaseViewModel(item, scheduler);
+PartialProtectedBaseViewModel viewModel = new PartialProtectedBaseViewModel(item, scheduler);
 
 item.IsDone = true;
 
@@ -265,8 +265,8 @@ public sealed partial class SummaryViewModel : INotifyPropertyChanged
 ```
 
 ```csharp
-var item = new TodoItem { Title = "Renew car registration" };
-var summary = new SummaryViewModel(item);
+TodoItem item = new TodoItem { Title = "Renew car registration" };
+SummaryViewModel summary = new SummaryViewModel(item);
 
 Console.WriteLine(summary.Title);
 Console.WriteLine(summary.IsDone);
@@ -290,10 +290,10 @@ Most of the time `ToProperty` is all you need. Construct `ObservableAsPropertyHe
 already have callbacks that raise a change notification, or when a property has no source at all.
 
 ```csharp
-var item = new TodoItem { Title = "Renew car registration" };
-var titles = item.WhenChanged(x => x.Title);
+TodoItem item = new TodoItem { Title = "Renew car registration" };
+IObservable<string> titles = item.WhenChanged(x => x.Title);
 
-using var helper = new ObservableAsPropertyHelper<string>(
+using ObservableAsPropertyHelper<string> helper = new ObservableAsPropertyHelper<string>(
     titles,
     onChanged: static value => Console.WriteLine($"Now: {value}"),
     onChanging: static value => Console.WriteLine($"Was: {value}"));
@@ -325,14 +325,14 @@ A source that fails sends its error to `ThrownExceptions` instead of ending the 
 stream by default, so the error is rethrown on the thread that produced it. Subscribe to see it instead.
 
 ```csharp
-var item = new TodoItem { Title = "Renew car registration" };
-var titles = item.WhenChanged(x => x.Title);
-var failure = new InvalidOperationException("The title source failed.");
-var withFailure = Signal.Concat(titles, Signal.Fail<string>(failure));
+TodoItem item = new TodoItem { Title = "Renew car registration" };
+IObservable<string> titles = item.WhenChanged(x => x.Title);
+InvalidOperationException failure = new InvalidOperationException("The title source failed.");
+IObservable<string> withFailure = Signal.Concat(titles, Signal.Fail<string>(failure));
 
-var helper = new ObservableAsPropertyHelper<string>(withFailure, Console.WriteLine);
+ObservableAsPropertyHelper<string> helper = new ObservableAsPropertyHelper<string>(withFailure, Console.WriteLine);
 
-using var subscription = helper.ThrownExceptions.Subscribe(static ex => Console.WriteLine(ex.Message));
+using IDisposable subscription = helper.ThrownExceptions.Subscribe(static ex => Console.WriteLine(ex.Message));
 
 item.Title = "Renew car registration online";
 
@@ -351,7 +351,7 @@ Not connected
 anything. Use it for a property that has no source yet, such as a design-time or disconnected view model.
 
 ```csharp
-using var helper = ObservableAsPropertyHelper<string>.Default("Not connected");
+using ObservableAsPropertyHelper<string> helper = ObservableAsPropertyHelper<string>.Default("Not connected");
 
 Console.WriteLine(helper.Value);
 Console.WriteLine(helper.IsSubscribed);

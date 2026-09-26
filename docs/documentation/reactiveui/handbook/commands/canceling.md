@@ -1,165 +1,241 @@
 ---
-Order: 3
+Order: 2
 ---
-# Canceling Command Execution
+# Canceling command execution
 
-If your command's execution logic can take a long time to complete, it can be useful to allow the execution to be canceled. This cancelation support can be used internally by your view models, or exposed so that users have a say in the matter.
+[Run the complete page example](https://github.com/reactiveui/ReactiveUI/blob/main/src/examples/Documentation/Pages/commands/commands.csproj).
 
-## Basic Cancelation
+A command's execution can take a while: a network search, a file copy, a long calculation. The
+[basics page](index.md) covers running a command and reading its result; this page covers stopping one before it
+finishes. `Execute` returns a cold `IObservable<TResult>` — nothing runs until something subscribes — so disposing
+that subscription is how you cancel.
 
-At its most primitive form, canceling a command's execution involves disposing the execution subscription:
+## Cancel by disposing the execution
 
-```cs
-var subscription = someReactiveCommand.Execute().Subscribe();
+**1. Keep the disposable that `Subscribe` returns.** `Search` runs a slow GitHub lookup. Disposing the
+subscription tears down the execution before it produces a result.
 
-// This cancels the command's execution.
-subscription.Dispose();
+```csharp
+InMemoryGitHubApi api = new() { Latency = _slowNetwork };
+using RepositorySearchViewModel viewModel = new(api);
+Task<bool> stopped = viewModel.Search.IsExecuting.Where(static executing => !executing).Skip(1).FirstAsync().ToTask();
+
+IDisposable execution = viewModel.Search.Execute("platform").Subscribe(static _ => { }, static _ => { });
+Console.WriteLine(viewModel.IsSearching);
+
+execution.Dispose();
+_ = await stopped;
+
+Console.WriteLine(viewModel.IsSearching);
+Console.WriteLine(viewModel.Results.Count);
+
+// Output:
+// True
+// False
+// 0
 ```
 
-However, this requires you to obtain, and keep a hold of the subscription. If you're using bindings to execute your commands you won't have access to the subscription.
+**2. Watch `IsExecuting` go back to `false`.** Disposing stops the execution immediately: `IsExecuting` turns
+`false` and no result ever reaches `Results`, so `viewModel.Results.Count` stays at `0`.
 
-## Canceling via Another Observable
+The command itself is unaffected. It stays subscribable and can be executed again.
 
-ReactiveUI.Primitives can cancel one stream when another stream sends a value. It does this with the [`TakeUntil`](../../../primitives/filtering.md) operator:
+## Cancel from another command
 
-```cs
-var cancel = new Signal<RxVoid>();
-var command = ReactiveCommand
-    .CreateFromObservable(
-        () => Signal
-            .Emit(RxVoid.Default)
-            .Shift(TimeSpan.FromSeconds(3))
-            .TakeUntil(cancel));
+Binding a button straight to `Dispose()` is awkward, since you need to hold the subscription around until the
+button is clicked. It reads better to run a second command instead, and have the first command's execution logic
+stop when the second one fires. [`TakeUntil`](../../../primitives/filtering.md) is the operator for this: it
+subscribes to a source and unsubscribes as soon as another observable produces a value.
 
-// Somewhere else.
-command.Execute().Subscribe();
+**1. Build the search to stop when `cancel` fires.** `TakeUntil(cancel)` unsubscribes from the search's
+observable as soon as `cancel` produces a value. That disposes the pending GitHub request the same way the
+previous example disposed it by hand.
 
-// This cancels the above execution.
-cancel.OnNext(RxVoid.Default);
+```csharp
+InMemoryGitHubApi api = new() { Latency = _slowNetwork };
+using ReactiveCommand<RxVoid, RxVoid>? cancel = ReactiveCommand.Create(static () => { });
+using ReactiveCommand<string, IReadOnlyList<Repository>> search = ReactiveCommand.CreateFromObservable<string, IReadOnlyList<Repository>>(
+    query => Signal.FromAsync(cancellationToken => api.SearchRepositoriesAsync(query, cancellationToken)).TakeUntil(cancel));
+using IDisposable canCancel = search.IsExecuting.Subscribe(static executing => Console.WriteLine($"Searching: {executing}"));
+Task<bool> stopped = search.IsExecuting.Where(static executing => !executing).Skip(1).FirstAsync().ToTask();
+
+using IDisposable execution = search.Execute("platform").Subscribe(static _ => { });
+_ = await cancel.Execute();
+_ = await stopped;
+
+Console.WriteLine(api.RequestCount);
+
+// Output:
+// Searching: False
+// Searching: True
+// Searching: False
+// 1
 ```
 
-Of course, you wouldn't normally create a subject specifically for cancelation. Normally you already have some other observable that you want to use as a cancelation signal. An obvious example is having one command cancel another:
+**2. Execute `cancel` to stop the search.** `api.RequestCount` stops at `1`: the search made its one HTTP call,
+but `TakeUntil` unsubscribed before a second attempt or a result could land.
 
-```cs
-public class SomeViewModel : ReactiveObject
-{
-    public SomeViewModel()
-    {
-        this.CancelableCommand = ReactiveCommand
-            .CreateFromObservable(
-                () => Signal
-                    .Emit(RxVoid.Default)
-                    .Shift(TimeSpan.FromSeconds(3))
-                    .TakeUntil(this.CancelCommand));
-        this.CancelCommand = ReactiveCommand.Create(
-            () => { },
-            this.CancelableCommand.IsExecuting);
-    }
+A view model that exposes both commands lets the view bind a *Cancel* button to `cancel` and a *Search* button to
+`search`. `cancel` is only ever executable while `search` is executing, so bind its `canExecute` to
+`search.IsExecuting`; see controlling executability on the [basics page](index.md).
 
-    public ReactiveCommand<RxVoid, RxVoid> CancelableCommand { get; }
-
-    public ReactiveCommand<RxVoid, RxVoid> CancelCommand { get; }
-}
+```mermaid
+%%{init: {"theme": "base", "themeVariables": {"fontFamily": "Roboto, Helvetica, Arial, sans-serif", "fontSize": "15px", "primaryColor": "#DCE9FF", "primaryBorderColor": "#6C8EC4", "primaryTextColor": "#0B2447", "secondaryColor": "#E3F2E8", "secondaryBorderColor": "#7FA88C", "secondaryTextColor": "#12301C", "tertiaryColor": "#F3E5F5", "tertiaryBorderColor": "#A98BB0", "tertiaryTextColor": "#2E1437", "lineColor": "#7B8699", "textColor": "#1B1F27", "noteBkgColor": "#FFF4D6", "noteBorderColor": "#C9A94F", "noteTextColor": "#3A2A00", "actorBkg": "#DCE9FF", "actorBorder": "#6C8EC4", "actorTextColor": "#0B2447", "signalColor": "#7B8699", "signalTextColor": "#1B1F27", "labelBoxBkgColor": "#F1F3F8", "labelBoxBorderColor": "#A7AEBB", "edgeLabelBackground": "#F7F9FC", "clusterBkg": "#F7F9FC", "clusterBorder": "#C9D1DE"}}}%%
+flowchart LR
+    Button(["Cancel button"]):::view -- "executes" --> CancelCmd(["cancel command"]):::vm
+    CancelCmd -- "ticks a value" --> TakeUntil(["TakeUntil"]):::neutral
+    Search(["search command's execution"]):::vm -- "subscribes through" --> TakeUntil
+    TakeUntil -- "unsubscribes" --> Search
+    classDef view fill:#DCE9FF,stroke:#6C8EC4,color:#0B2447
+    classDef vm fill:#E3F2E8,stroke:#7FA88C,color:#12301C
+    classDef neutral fill:#F1F3F8,stroke:#A7AEBB,color:#1B1F27
 ```
 
-Here we have a view model with a command, `CancelableCommand`, that can be canceled by executing another command, `CancelCommand`. Notice how `CancelCommand` can only be executed when `CancelableCommand` is executing.
+`TakeUntil` sits between the search's execution and the cancel command; a value from `cancel` tears the
+subscription down from there.
 
-> **Note** At first glance there may appear to be an irresolvable circular dependency between `CancelableCommand` and `CancelCommand`. However, note that `CancelableCommand` does not need to resolve its execution pipeline until it is executed. So as long as `CancelCommand` exists before `CancelableCommand` is executed, the circular dependency is resolved.
+## Cancel with a `CancellationToken`
 
-## Cancelation with the Task Parallel Library
+`CreateFromTask` has overloads that pass your execution logic a `CancellationToken`. Disposing the execution
+subscription cancels that token, so an `async` method that honors it stops early, the same way `TakeUntil` stops
+an observable pipeline.
 
-Cancelation in the TPL is handled with `CancellationToken` and `CancellationTokenSource`. Operators that work with tasks will normally have overloads that will pass you a `CancellationToken` with which to create your `Task`. The idea of these overloads is that the `CancellationToken` you receive will be canceled if the subscription is disposed. So you should pass the token through to all relevant asynchronous operations. `ReactiveCommand` provides similar overloads for `CreateFromTask`.
+**1. Take the token with no parameter of your own.** `CreateFromTask(Func<CancellationToken, Task>, ...)` covers a
+method with nothing to pass in besides the token; `RefreshLocalCacheAsync` takes only the token.
 
-Consider the following example:
+```csharp
+LibraryDesk desk = new();
 
-```cs
-public class SomeViewModel : ReactiveObject
-{
-    public SomeViewModel()
-    {
-        this.CancelableCommand = ReactiveCommand
-            .CreateFromTask(
-                ct => this.DoSomethingAsync(ct));
-    }
+using ReactiveCommand<RxVoid, RxVoid> refresh = ReactiveCommand.CreateFromTask(desk.RefreshLocalCacheAsync);
+using ReactiveCommand<RxVoid, RxVoid> refreshWhileOpen = ReactiveCommand.CreateFromTask(desk.RefreshLocalCacheAsync, desk.WhenAnyValue(d => d.IsOpen));
+using ReactiveCommand<RxVoid, RxVoid> refreshImmediate = ReactiveCommand.CreateFromTask(desk.RefreshLocalCacheAsync, Sequencer.Immediate);
+using ReactiveCommand<RxVoid, RxVoid> refreshGuarded = ReactiveCommand.CreateFromTask(desk.RefreshLocalCacheAsync, desk.WhenAnyValue(d => d.IsOpen), Sequencer.Immediate);
 
-    public ReactiveCommand<RxVoid, RxVoid> CancelableCommand { get; }
+_ = await refresh.Execute();
+_ = await refreshWhileOpen.Execute();
+_ = await refreshImmediate.Execute();
+_ = await refreshGuarded.Execute();
 
-    private async Task DoSomethingAsync(CancellationToken ct)
-    {
-        await Task.Delay(TimeSpan.FromSeconds(3), ct);
-    }
-}
+Console.WriteLine("Local cache refreshed 4 times");
+
+// Output:
+// Local cache refreshed 4 times
 ```
 
-There are several important things to note here:
+`CreateFromTask<TResult>(Func<CancellationToken, Task<TResult>>, ...)` adds a result. `SyncWithCentralCatalogueAsync`
+counts the books it synced, and disposing its execution cancels the token exactly as in the first example on this
+page.
 
-1. Our `DoSomethingAsync` method takes a `CancellationToken`
-2. This token is passed through to `Task.Delay` so that the delay will end early if the token is canceled.
-3. We use an appropriate overload of `CreateFromTask` so that we have a token to pass through to `DoSomethingAsync`. This token will be automatically canceled if the execution subscription is disposed.
+```csharp
+LibraryDesk desk = new();
 
-The above code allows us to do something like this:
+using ReactiveCommand<RxVoid, int> sync = ReactiveCommand.CreateFromTask(desk.SyncWithCentralCatalogueAsync);
+using ReactiveCommand<RxVoid, int> syncWhileOpen = ReactiveCommand.CreateFromTask(desk.SyncWithCentralCatalogueAsync, desk.WhenAnyValue(d => d.IsOpen));
+using ReactiveCommand<RxVoid, int> syncImmediate = ReactiveCommand.CreateFromTask(desk.SyncWithCentralCatalogueAsync, Sequencer.Immediate);
+using ReactiveCommand<RxVoid, int> syncGuarded = ReactiveCommand.CreateFromTask(desk.SyncWithCentralCatalogueAsync, desk.WhenAnyValue(d => d.IsOpen), Sequencer.Immediate);
 
-```cs
-var subscription = viewModel
-    .CancelableCommand
-    .Execute()
-    .Subscribe();
+Console.WriteLine(await sync.Execute());
+Console.WriteLine(await syncWhileOpen.Execute());
+Console.WriteLine(await syncImmediate.Execute());
+Console.WriteLine(await syncGuarded.Execute());
 
-// This cancels the execution.
-subscription.Dispose();
+Task<bool> stopped = sync.IsExecuting.Where(static executing => !executing).Skip(1).FirstAsync().ToTask();
+IDisposable execution = sync.Execute().Subscribe(static _ => { }, static _ => { });
+execution.Dispose();
+_ = await stopped;
+
+Console.WriteLine("Sync cancelled");
+
+// Output:
+// 4
+// 4
+// 4
+// 4
+// Sync cancelled
 ```
 
-But what if we want to cancel the execution based on an external factor, just as we did with observables? Since we only have access to the `CancellationToken` and not the `CancellationTokenSource`, it's not immediately obvious how we can achieve this.
+**2. Take the token alongside your own parameter.** `SendRenewalReceiptAsync` and `BorrowAsync` both take a
+`CancellationToken` alongside their parameter, and pass it on to whatever they `await`.
 
-Besides forgoing TPL completely \(which is recommended if possible, but not always practical\), there are actually quite a few ways to achieve this. Perhaps the easiest is to use `CreateFromObservable` instead:
+```csharp
+LibraryDesk desk = new();
 
-Ideally avoid using `Signal.FromAsync` with a cancelation token as Exceptions do not bubble as expected, Replace any calls that use this with a ReactiveCommand and initialise it with the `ReactiveCommand.CreateFromTask(async (ct) =>{});` method.
+Func<int, CancellationToken, Task> sendReceipt = desk.SendRenewalReceiptAsync;
+using ReactiveCommand<int, RxVoid> receipt = ReactiveCommand.CreateFromTask(sendReceipt);
+using ReactiveCommand<int, RxVoid> receiptWhileOpen = ReactiveCommand.CreateFromTask(sendReceipt, desk.WhenAnyValue(d => d.IsOpen));
+using ReactiveCommand<int, RxVoid> receiptImmediate = ReactiveCommand.CreateFromTask(sendReceipt, Sequencer.Immediate);
+using ReactiveCommand<int, RxVoid> receiptGuarded = ReactiveCommand.CreateFromTask(sendReceipt, desk.WhenAnyValue(d => d.IsOpen), Sequencer.Immediate);
 
-```cs
-public class SomeViewModel : ReactiveObject
-{
-    public SomeViewModel()
-    {
-        // Handle class exceptions
-        ThrownExceptions
-            .Subscribe(ex => Console.Out.WriteLine("SomeViewModel threw:" + ex.Message));
+_ = await receipt.Execute(1);
+_ = await receiptWhileOpen.Execute(2);
+_ = await receiptImmediate.Execute(3);
+_ = await receiptGuarded.Execute(4);
 
-        // Create a command to execute the asynchronous operation
-        this.DoSomethingCommand = ReactiveCommand
-            .CreateFromTask(ct => this.DoSomethingAsync(ct));
+Console.WriteLine(string.Join(", ", desk.RenewalReceipts));
 
-        // Create a command for bindings to execute the asynchronous operation
-        // This can be skipped if you don't need to bind to the command and just want to execute it
-        // i.e. var disposable = DoSomethingCommand.Execute().TakeUntil(this.CancelCommand).Subscribe();
-        // This will execute the command and cancel it when the `CancelCommand` is executed but can also be canceled by disposing the disposable
-        this.CancelableCommand = ReactiveCommand
-            .CreateFromObservable(
-                () => DoSomethingCommand.Execute()
-                    .TakeUntil(this.CancelCommand));
-
-        // Create a command to cancel the asynchronous operation
-        this.CancelCommand = ReactiveCommand
-            .Create(() => { },
-            this.CancelableCommand.IsExecuting);
-
-        // Handle exceptions
-        CancelableCommand.ThrownExceptions
-            .Subscribe(ex => Console.Out.WriteLine("CancelableCommand threw:" + ex.Message));
-        DoSomethingCommand.ThrownExceptions
-            .Subscribe(ex => Console.Out.WriteLine("DoSomethingCommand threw:" + ex.Message));
-    }
-
-    public ReactiveCommand<RxVoid, RxVoid> CancelableCommand { get; }
-
-    public ReactiveCommand<RxVoid, RxVoid> DoSomethingCommand { get; }
-
-    public ReactiveCommand<RxVoid, RxVoid> CancelCommand { get; }
-
-    private async Task DoSomethingAsync(CancellationToken ct)
-    {
-        await Task.Delay(TimeSpan.FromSeconds(3), ct);
-    }
-}
+// Output:
+// 1, 2, 3, 4
 ```
 
-This approach allows us to use exactly the same technique as with the stream-only solution discussed above. The difference is that our observable pipeline includes execution of TPL-based asychronous code.
+`CreateFromTask<TParam, TResult>(Func<TParam, CancellationToken, Task<TResult>>, ...)` is the same idea with a
+result: `BorrowAsync` takes a book id and a token, and returns the `Book` it lent out.
+
+```csharp
+LibraryDesk desk = new();
+
+using ReactiveCommand<int, Book> borrow = ReactiveCommand.CreateFromTask<int, Book>(desk.BorrowAsync);
+using ReactiveCommand<int, Book> borrowWhileOpen = ReactiveCommand.CreateFromTask<int, Book>(desk.BorrowAsync, desk.WhenAnyValue(d => d.IsOpen));
+using ReactiveCommand<int, Book> borrowImmediate = ReactiveCommand.CreateFromTask<int, Book>(desk.BorrowAsync, Sequencer.Immediate);
+using ReactiveCommand<int, Book> borrowGuarded = ReactiveCommand.CreateFromTask<int, Book>(desk.BorrowAsync, desk.WhenAnyValue(d => d.IsOpen), Sequencer.Immediate);
+
+Book first = await borrow.Execute(1);
+Book second = await borrowWhileOpen.Execute(2);
+Book third = await borrowImmediate.Execute(3);
+Book fourth = await borrowGuarded.Execute(4);
+
+Console.WriteLine(first.Title);
+Console.WriteLine(second.Title);
+Console.WriteLine(third.Title);
+Console.WriteLine(fourth.Title);
+Console.WriteLine(desk.LoanCount);
+
+// Output:
+// Clean Code
+// The Pragmatic Programmer
+// Design Patterns
+// Refactoring
+// 4
+```
+
+Both overloads follow the pattern `CreateFromTask` already uses on the [basics page](index.md): the parameter
+comes first, then the optional `canExecute` and `outputScheduler` arguments, in either order or together. Every
+overload of `CreateFromTask` — with or without a parameter, a result, or a `CancellationToken` — is named there
+too.
+
+## Cancellation is cooperative
+
+Disposing a cancellable execution cancels the token right away, but the `async` method still owns the decision to
+stop. Nothing forces it to return early: a token is only a request. The method usually notices only when it
+awaits something that watches the token itself, such as `Task.Delay` or an I/O call, and that call throws
+`OperationCanceledException`. Until then, the task keeps running, and `IsExecuting` stays `true`. Cooperative
+cancellation is a general .NET pattern, not something specific to `ReactiveCommand`; write your `async` methods to
+check or pass through the token so they actually stop when asked.
+
+## Choosing between the two
+
+Reach for `TakeUntil` when the cancellation source is already an observable, such as another command or a stream
+of user input. Reach for a `CancellationToken` overload when your execution logic is `async` and calls other
+`Task`-based APIs, since the token is the standard way .NET APIs accept cancellation. Both stop the same thing:
+the execution subscription for one call to `Execute`. Neither affects the command itself, which stays ready for
+its next execution once the current one ends.
+
+## At a glance
+
+| Member | What it does |
+| --- | --- |
+| `IDisposable.Dispose()` on the result of `Execute` | Cancels that one execution. |
+| `TakeUntil` | Unsubscribes an execution's observable when another observable ticks. |
+| `CreateFromTask(Func<CancellationToken, Task>, ...)` | Cancellable, no parameter, no result. |
+| `CreateFromTask<TResult>(Func<CancellationToken, Task<TResult>>, ...)` | Cancellable, no parameter, a result. |
+| `CreateFromTask<TParam>(Func<TParam, CancellationToken, Task>, ...)` | Cancellable, a parameter, no result. |
+| `CreateFromTask<TParam, TResult>(Func<TParam, CancellationToken, Task<TResult>>, ...)` | Cancellable, a parameter, a result. |

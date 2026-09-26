@@ -19,9 +19,9 @@ Start with the walkthrough, which uses Avalonia. Later sections cover the invoke
 
 ```csharp
 TextBlock titleLabel = new();
-var refused = false;
+bool refused = false;
 
-var worker = new Thread(() =>
+Thread worker = new Thread(() =>
 {
     try
     {
@@ -112,7 +112,7 @@ TodoItem item = new() { Title = OriginalTitle };
 
 using (item.BindOneWay(titleLabel, x => x.Title, x => x.Text))
 {
-    var worker = new Thread(() => item.Title = FirstSyncedTitle);
+    Thread worker = new Thread(() => item.Title = FirstSyncedTitle);
     worker.Start();
     worker.Join();
 
@@ -139,7 +139,7 @@ List<string?> writes = [];
 using (titleLabel.WhenChanged(x => x.Text).Subscribe(writes.Add))
 using (item.BindOneWay(titleLabel, x => x.Title, x => x.Text))
 {
-    var worker = new Thread(() =>
+    Thread worker = new Thread(() =>
     {
         item.Title = FirstSyncedTitle;
         item.Title = SecondSyncedTitle;
@@ -171,9 +171,9 @@ TextBlock titleLabel = new();
 MauiLabel unclaimed = new();
 AvaloniaViewThreadInvoker invoker = new();
 List<string> log = [];
-var accessFromWorker = true;
+bool accessFromWorker = true;
 
-var worker = new Thread(() => accessFromWorker = invoker.CheckAccess(titleLabel));
+Thread worker = new Thread(() => accessFromWorker = invoker.CheckAccess(titleLabel));
 worker.Start();
 worker.Join();
 invoker.Post(titleLabel, static state => ((List<string>)state!).Add(PostedText), log);
@@ -218,11 +218,11 @@ A binding that finds no invoker for its target writes on the calling thread. It 
 ```csharp
 AvaloniaTodoView view = new();
 TodoItem item = new() { Title = OriginalTitle };
-var failure = string.Empty;
+string? failure = string.Empty;
 
 using (item.BindOneWay(view, x => x.Title, v => v.RemainingLabel.Text))
 {
-    var worker = new Thread(() =>
+    Thread worker = new Thread(() =>
     {
         try
         {
@@ -290,14 +290,14 @@ The example below sets `MainThread` to the shared Avalonia scheduler and changes
 ```csharp
 TextBlock titleLabel = new();
 TodoItem item = new() { Title = OriginalTitle };
-var sequencer = AvaloniaScheduler.Instance;
+AvaloniaScheduler sequencer = AvaloniaScheduler.Instance;
 BindingSchedulers.MainThread = sequencer;
 
 try
 {
     using (item.BindOneWay(titleLabel, x => x.Title, x => x.Text))
     {
-        var worker = new Thread(() => item.Title = SyncedTitle);
+        Thread worker = new Thread(() => item.Title = SyncedTitle);
         worker.Start();
         worker.Join();
 
@@ -358,7 +358,7 @@ try
 {
     using (item.BindOneWay(titleLabel, x => x.Title, x => x.Text))
     {
-        var worker = new Thread(() => item.Title = SyncedTitle);
+        Thread worker = new Thread(() => item.Title = SyncedTitle);
         worker.Start();
         worker.Join();
 
@@ -392,7 +392,7 @@ try
 
     using (item.BindOneWay(titleLabel, x => x.Title, x => x.Text))
     {
-        var worker = new Thread(() => item.Title = SyncedTitle);
+        Thread worker = new Thread(() => item.Title = SyncedTitle);
         worker.Start();
         worker.Join();
 
@@ -427,11 +427,11 @@ TextBlock titleLabel = new();
 TodoItem item = new() { Title = OriginalTitle };
 List<string> delivered = [];
 
-var routed = BindingSchedulers.ObserveOnViewThread(item.WhenChanged(x => x.Title), titleLabel);
+IObservable<string> routed = BindingSchedulers.ObserveOnViewThread(item.WhenChanged(x => x.Title), titleLabel);
 
 using (routed.Subscribe(delivered.Add))
 {
-    var worker = new Thread(() => item.Title = SyncedTitle);
+    Thread worker = new Thread(() => item.Title = SyncedTitle);
     worker.Start();
     worker.Join();
 
@@ -458,11 +458,11 @@ TodoItem item = new() { Title = OriginalTitle };
 AvaloniaViewThreadInvoker fallback = new();
 List<string> delivered = [];
 
-var routed = BindingSchedulers.ObserveOnViewThread(item.WhenChanged(x => x.Title), titleLabel, fallback);
+IObservable<string> routed = BindingSchedulers.ObserveOnViewThread(item.WhenChanged(x => x.Title), titleLabel, fallback);
 
 using (routed.Subscribe(delivered.Add))
 {
-    var worker = new Thread(() => item.Title = SyncedTitle);
+    Thread worker = new Thread(() => item.Title = SyncedTitle);
     worker.Start();
     worker.Join();
 
@@ -483,10 +483,10 @@ Renew car registration, Renew car registration (reviewed)
 
 ```csharp
 TodoItem item = new() { Title = OriginalTitle };
-var sequencer = AvaloniaScheduler.Instance;
+AvaloniaScheduler sequencer = AvaloniaScheduler.Instance;
 List<string> delivered = [];
 
-var routed = BindingSchedulers.ObserveOnSequencer(item.WhenChanged(x => x.Title), sequencer);
+IObservable<string> routed = BindingSchedulers.ObserveOnSequencer(item.WhenChanged(x => x.Title), sequencer);
 
 using (routed.Subscribe(delivered.Add))
 {
@@ -644,10 +644,10 @@ The WPF and WinForms modules also register an observer for their platform's prop
 The example below builds an app with the MAUI module. It checks that the invoker and both converters are registered, and that the converter service holds the converters only after `ImportFrom`.
 
 ```csharp
-var builder = RxBindingBuilder.CreateReactiveUIBindingBuilder();
-var app = builder.WithCoreServices().WithMaui().BuildApp();
+ReactiveUIBindingBuilder builder = RxBindingBuilder.CreateReactiveUIBindingBuilder();
+IReactiveUIBindingInstance app = builder.WithCoreServices().WithMaui().BuildApp();
 ViewThreadInvokers.Refresh();
-var converters = app.Current!.GetServices<IBindingTypeConverter>().ToArray();
+IBindingTypeConverter[] converters = app.Current!.GetServices<IBindingTypeConverter>().ToArray();
 
 Console.WriteLine(app.Current!.GetServices<IViewThreadInvoker>().OfType<DispatcherViewThreadInvoker>().Any());
 Console.WriteLine(converters.OfType<BooleanToVisibilityTypeConverter>().Any());
@@ -679,7 +679,7 @@ MauiBindingModule module = new();
 
 module.Configure(resolver);
 
-var converters = resolver.GetServices<IBindingTypeConverter>().ToArray();
+IBindingTypeConverter[] converters = resolver.GetServices<IBindingTypeConverter>().ToArray();
 
 Console.WriteLine(resolver.GetServices<IViewThreadInvoker>().OfType<DispatcherViewThreadInvoker>().Any());
 Console.WriteLine(converters.OfType<BooleanToVisibilityTypeConverter>().Any());
@@ -698,7 +698,7 @@ The builder calls chain from either builder type. The first example holds the bu
 using ModernDependencyResolver resolver = new();
 IAppBuilder appBuilder = resolver.CreateReactiveUIBindingBuilder();
 
-var chained = appBuilder.WithMaui();
+IReactiveUIBindingBuilder chained = appBuilder.WithMaui();
 
 Console.WriteLine(ReferenceEquals(appBuilder, chained));
 ```
@@ -711,9 +711,9 @@ The second example holds the builder as `IReactiveUIBindingBuilder` and checks t
 
 ```csharp
 using ModernDependencyResolver resolver = new();
-var builder = (IReactiveUIBindingBuilder)resolver.CreateReactiveUIBindingBuilder();
+IReactiveUIBindingBuilder? builder = (IReactiveUIBindingBuilder)resolver.CreateReactiveUIBindingBuilder();
 
-var chained = builder.WithWpf();
+IReactiveUIBindingBuilder? chained = builder.WithWpf();
 
 Console.WriteLine(ReferenceEquals(builder, chained));
 ```
@@ -733,7 +733,7 @@ The fallback is the platform package's own invoker, through its `Instance` prope
 The first example follows an upload whose progress arrives on a pool thread. It runs without a module, so `ForTarget` finds nothing. The write reaches the progress bar on its owning thread, because the generated binding carries the WPF invoker.
 
 ```csharp
-WpfUploadWindow view = new();
+using WinFormsUploadForm view = new();
 
 Console.WriteLine(ViewThreadInvokers.ForTarget(view.UploadProgressBar) is null);
 
@@ -792,7 +792,7 @@ An Avalonia control raises `PropertyChanged` with the name of the property. That
 
 ```csharp
 AvaloniaTodoView view = new();
-var notifying = (INotifyPropertyChanged)view.FilterTextBox;
+INotifyPropertyChanged notifying = (INotifyPropertyChanged)view.FilterTextBox;
 notifying.PropertyChanged += static (_, e) => Console.WriteLine(e.PropertyName);
 
 view.FilterTextBox.Text = CarFilter;
@@ -805,8 +805,8 @@ Text
 `WhenChanged` observes that event. The example below observes `Text` and sets the text once. The first value is the empty text the box held when the observation started, and the second is the new text.
 
 ```csharp
-AvaloniaTodoView view = new();
-List<string?> texts = [];
+using WinFormsTodoForm view = new();
+List<string> texts = [];
 
 using (view.FilterTextBox.WhenChanged(x => x.Text).Subscribe(texts.Add))
 {
@@ -827,12 +827,12 @@ WPF controls are `DispatcherObject` instances, and each belongs to one dispatche
 ```csharp
 DispatcherViewThreadInvoker invoker = new();
 WpfUploadWindow view = new();
-var progressBar = view.UploadProgressBar;
+System.Windows.Controls.ProgressBar? progressBar = view.UploadProgressBar;
 List<string> log = [];
 object unclaimed = new();
-var accessFromWorker = true;
+bool accessFromWorker = true;
 
-var worker = new Thread(() =>
+Thread? worker = new Thread(() =>
 {
     accessFromWorker = invoker.CheckAccess(progressBar);
     invoker.Post(progressBar, static state => ((List<string>)state!).Add(PostedText), log);
@@ -880,9 +880,9 @@ posted
 A `null` callback throws `ArgumentNullException`, as it does in every platform invoker. The example below passes `null` to `Post` and records the exception. The invoker rejects the missing callback at once instead of failing later on the UI thread.
 
 ```csharp
-DispatcherViewThreadInvoker invoker = new();
-WpfUploadWindow view = new();
-var rejected = false;
+ControlViewThreadInvoker invoker = new();
+using WinFormsUploadForm view = new();
+bool rejected = false;
 
 try
 {
@@ -904,9 +904,9 @@ WPF also refuses a write from a thread that does not own the control. The exampl
 
 ```csharp
 WpfUploadWindow view = new();
-var refused = false;
+bool refused = false;
 
-var worker = new Thread(() =>
+Thread? worker = new Thread(() =>
 {
     try
     {
@@ -932,13 +932,13 @@ True
 The WPF module registers the dependency-property observer and the invoker. It adds no Visibility converter. Register both converters yourself with `WithConverter`. The example below shows that the converter service has no Visibility converters after `WithWpf`. It then registers both converters and checks that the observer, the invoker and the converters are all in place.
 
 ```csharp
-var builder = RxBindingBuilder.CreateReactiveUIBindingBuilder();
+ReactiveUIBindingBuilder? builder = RxBindingBuilder.CreateReactiveUIBindingBuilder();
 _ = builder.WithCoreServices().WithWpf();
 
 Console.WriteLine(builder.ConverterService.TypedConverters.TryGetConverter(typeof(bool), typeof(Visibility)) is null);
 Console.WriteLine(builder.ConverterService.TypedConverters.TryGetConverter(typeof(Visibility), typeof(bool)) is null);
 
-var app = builder
+IReactiveUIBindingInstance? app = builder
     .WithConverter(new BooleanToVisibilityTypeConverter())
     .WithConverter(new VisibilityToBooleanTypeConverter())
     .BuildApp();
@@ -982,7 +982,7 @@ The provider raises after each change and carries no value, so the subscriber re
 ```csharp
 DependencyObjectObservableForProperty provider = new();
 WpfTodoWindow view = new();
-var expression = Expression.Constant(view.FilterTextBox);
+ConstantExpression? expression = Expression.Constant(view.FilterTextBox);
 List<string> texts = [];
 
 using (provider.GetNotificationForProperty(view.FilterTextBox, expression, TextPropertyName, false, false).Subscribe(change => texts.Add(((TextBox)change.Sender).Text)))
@@ -1005,8 +1005,8 @@ The provider throws `ArgumentException` for a property the control has no depend
 ```csharp
 DependencyObjectObservableForProperty provider = new();
 WpfTodoWindow view = new();
-var expression = Expression.Constant(view.FilterTextBox);
-var rejected = false;
+ConstantExpression? expression = Expression.Constant(view.FilterTextBox);
+bool rejected = false;
 
 try
 {
@@ -1027,7 +1027,7 @@ True
 `WhenChanged` reads the dependency property at build time. The example below observes `Text` on a WPF text box and sets it once. The result matches the Avalonia example, so the same code works on both platforms.
 
 ```csharp
-WpfTodoWindow view = new();
+using WinFormsTodoForm view = new();
 List<string> texts = [];
 
 using (view.FilterTextBox.WhenChanged(x => x.Text).Subscribe(texts.Add))
@@ -1071,9 +1071,9 @@ A WinForms `Control` has an owning thread only after it has a window handle. Bef
 ControlViewThreadInvoker invoker = new();
 using WinFormsUploadForm view = new();
 List<string> log = [];
-var accessFromWorker = false;
+bool accessFromWorker = false;
 
-var worker = new Thread(() => accessFromWorker = invoker.CheckAccess(view.UploadProgressBar));
+Thread? worker = new Thread(() => accessFromWorker = invoker.CheckAccess(view.UploadProgressBar));
 worker.Start();
 worker.Join();
 invoker.Post(view.UploadProgressBar, static state => ((List<string>)state!).Add(PostedText), log);
@@ -1092,13 +1092,13 @@ This example creates the handle first. The worker thread may not write, and the 
 ```csharp
 ControlViewThreadInvoker invoker = new();
 using WinFormsUploadForm view = new();
-var progressBar = view.UploadProgressBar;
+System.Windows.Forms.ProgressBar? progressBar = view.UploadProgressBar;
 _ = progressBar.Handle;
 List<string> log = [];
 object unclaimed = new();
-var accessFromWorker = true;
+bool accessFromWorker = true;
 
-var worker = new Thread(() =>
+Thread? worker = new Thread(() =>
 {
     accessFromWorker = invoker.CheckAccess(progressBar);
     invoker.Post(progressBar, static state => ((List<string>)state!).Add(PostedText), log);
@@ -1131,7 +1131,7 @@ A `null` callback throws `ArgumentNullException`, as it does in every platform i
 ```csharp
 ControlViewThreadInvoker invoker = new();
 using WinFormsUploadForm view = new();
-var rejected = false;
+bool rejected = false;
 
 try
 {
@@ -1154,10 +1154,10 @@ When `Control.CheckForIllegalCrossThreadCalls` is `true`, WinForms refuses a wri
 ```csharp
 using WinFormsUploadForm view = new();
 _ = view.UploadProgressBar.Handle;
-var refused = false;
+bool refused = false;
 Control.CheckForIllegalCrossThreadCalls = true;
 
-var worker = new Thread(() =>
+Thread? worker = new Thread(() =>
 {
     try
     {
@@ -1181,7 +1181,7 @@ True
 The WinForms module registers the event-based observer and the control invoker. `WinFormsCreatesObservableForProperty` follows a public `{Name}Changed` event on a component, such as `TextChanged` for `Text`. It reports an affinity of 8 for a property that has one, and 0 otherwise. Read the [mechanisms](mechanisms.md) page for how the affinity picks between observers. The example below builds an app with the WinForms module and checks that the observer and the invoker are registered.
 
 ```csharp
-var app = RxBindingBuilder.CreateReactiveUIBindingBuilder()
+IReactiveUIBindingInstance? app = RxBindingBuilder.CreateReactiveUIBindingBuilder()
     .WithCoreServices()
     .WithWinForms()
     .BuildApp();
@@ -1229,7 +1229,7 @@ The observer raises after each `TextChanged` and carries no value, so the subscr
 ```csharp
 WinFormsCreatesObservableForProperty observer = new();
 using WinFormsTodoForm view = new();
-var expression = Expression.Constant(view.FilterTextBox);
+ConstantExpression? expression = Expression.Constant(view.FilterTextBox);
 List<string> texts = [];
 
 using (observer.GetNotificationForProperty(view.FilterTextBox, expression, TextPropertyName, false, false).Subscribe(change => texts.Add(((TextBox)change.Sender).Text)))
@@ -1252,8 +1252,8 @@ The observer throws `ArgumentException` for a property that has no changed event
 ```csharp
 WinFormsCreatesObservableForProperty observer = new();
 using WinFormsTodoForm view = new();
-var expression = Expression.Constant(view.FilterTextBox);
-var rejected = false;
+ConstantExpression? expression = Expression.Constant(view.FilterTextBox);
+bool rejected = false;
 
 try
 {
@@ -1312,12 +1312,12 @@ The three members work like the other platforms. With no dispatcher, as in a uni
 ```csharp
 DispatcherViewThreadInvoker invoker = new();
 StorageBrowserView view = new();
-var progressBar = view.UploadProgressBar;
+ProgressBar progressBar = view.UploadProgressBar;
 List<string> log = [];
 object unclaimed = new();
-var accessFromWorker = false;
+bool accessFromWorker = false;
 
-var worker = new Thread(() => accessFromWorker = invoker.CheckAccess(progressBar));
+Thread worker = new Thread(() => accessFromWorker = invoker.CheckAccess(progressBar));
 worker.Start();
 worker.Join();
 invoker.Post(progressBar, static state => ((List<string>)state!).Add(PostedText), log);
@@ -1343,11 +1343,11 @@ You can also call the members through the `IViewThreadInvoker` type. That is how
 public static void CallInvokerThroughInterface(IViewThreadInvoker invoker)
 {
     StorageBrowserView view = new();
-    var progressBar = view.UploadProgressBar;
+    ProgressBar progressBar = view.UploadProgressBar;
     List<string> log = [];
 
-    var claimed = invoker.Claims(progressBar);
-    var mayWrite = invoker.CheckAccess(progressBar);
+    bool claimed = invoker.Claims(progressBar);
+    bool mayWrite = invoker.CheckAccess(progressBar);
     invoker.Post(progressBar, static state => ((List<string>)state!).Add(PostedText), log);
 
     Console.WriteLine(claimed);

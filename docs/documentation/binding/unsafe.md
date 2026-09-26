@@ -18,12 +18,12 @@ The examples use a small to-do app. `OriginalTitle` holds the text `Renew car re
 **1. See what a plain call does with a stored path.** The lambda lives in the variable `titleColumn`, so the generator cannot read it at the call. The plain `WhenChanged` is a **stub**, a method that only throws. The message names the twin to use.
 
 ```csharp
-var item = new TodoItem { Title = OriginalTitle };
+TodoItem item = new TodoItem { Title = OriginalTitle };
 Expression<Func<TodoItem, string>> titleColumn = x => x.Title;
 
 try
 {
-    using var subscription = item.WhenChanged(titleColumn).Subscribe(Console.WriteLine);
+    using IDisposable subscription = item.WhenChanged(titleColumn).Subscribe(Console.WriteLine);
 }
 catch (InvalidOperationException ex)
 {
@@ -38,12 +38,12 @@ No generated WhenChanged dispatch matched this call site. Use WhenChangedUnsafe 
 **2. Call the twin before the app is built.** `WhenChangedUnsafe` reads the path at run time. It then asks the registered services how to observe `Title`. The app has registered none, so the call fails. The example prints the first sentence of the message.
 
 ```csharp
-var item = new TodoItem { Title = OriginalTitle };
+TodoItem item = new TodoItem { Title = OriginalTitle };
 Expression<Func<TodoItem, string>> titleColumn = x => x.Title;
 
 try
 {
-    using var subscription = item.WhenChangedUnsafe(titleColumn).Subscribe(Console.WriteLine);
+    using IDisposable subscription = item.WhenChangedUnsafe(titleColumn).Subscribe(Console.WriteLine);
 }
 catch (InvalidOperationException ex)
 {
@@ -70,10 +70,10 @@ _ = builder
 **4. Call the twin again.** The services are registered, so the twin reads the path and observes the property. It delivers the current title when you subscribe.
 
 ```csharp
-var item = new TodoItem { Title = OriginalTitle };
+TodoItem item = new TodoItem { Title = OriginalTitle };
 Expression<Func<TodoItem, string>> titleColumn = x => x.Title;
 
-using var subscription = item.WhenChangedUnsafe(titleColumn).Subscribe(Console.WriteLine);
+using IDisposable subscription = item.WhenChangedUnsafe(titleColumn).Subscribe(Console.WriteLine);
 ```
 
 ```text
@@ -94,9 +94,9 @@ The analyzer marks a call the generator cannot read with the info diagnostic `RX
 Every observation method has a twin. A twin takes an `Expression<Func<TObj, T>>` in place of a lambda the generator reads. Your code can build that expression itself. This example builds `row => row.Title` from a name known only at run time.
 
 ```csharp
-var item = new TodoItem { Title = OriginalTitle };
-var row = Expression.Parameter(typeof(TodoItem), "row");
-var titleColumn = Expression.Lambda<Func<TodoItem, string>>(Expression.Property(row, nameof(TodoItem.Title)), row);
+TodoItem item = new TodoItem { Title = OriginalTitle };
+ParameterExpression row = Expression.Parameter(typeof(TodoItem), "row");
+Expression<Func<TodoItem, string>> titleColumn = Expression.Lambda<Func<TodoItem, string>>(Expression.Property(row, nameof(TodoItem.Title)), row);
 List<string> titles = [];
 
 using (item.WhenChangedUnsafe(titleColumn).Subscribe(titles.Add))
@@ -128,7 +128,7 @@ The [example project](https://github.com/reactiveui/ReactiveUI.Binding.SourceGen
 **Add a selector.** A selector turns the observed values into one result. It receives the values in the order of the paths. This selector joins a title and a done flag into one line, so a screen can show one value instead of two. The output shows a line for the starting state and a line after the flag changes.
 
 ```csharp
-var item = new TodoItem { Title = OriginalTitle };
+TodoItem item = new TodoItem { Title = OriginalTitle };
 Expression<Func<TodoItem, string>> titleColumn = x => x.Title;
 Expression<Func<TodoItem, bool>> doneColumn = x => x.IsDone;
 List<string> lines = [];
@@ -148,7 +148,7 @@ Console.WriteLine(string.Join(", ", lines));
 **Observe before a change.** `WhenChangingUnsafe` delivers the value a property held before each change, and nothing when you subscribe. The object must raise `INotifyPropertyChanging`. This example changes the title twice and receives the two earlier titles.
 
 ```csharp
-var item = new EditableTodoItem { Title = OriginalTitle };
+EditableTodoItem item = new EditableTodoItem { Title = OriginalTitle };
 Expression<Func<EditableTodoItem, string>> titleColumn = x => x.Title;
 List<string> titles = [];
 
@@ -168,7 +168,7 @@ Renew car registration, Renew car registration online
 **Map a value with a selector.** A selector turns the observed values into one result, and it receives the values in the order of the paths. `WhenAnyValueUnsafe` takes a selector even for one path. This selector maps each title to its length.
 
 ```csharp
-var item = new TodoItem { Title = OriginalTitle };
+TodoItem item = new TodoItem { Title = OriginalTitle };
 Expression<Func<TodoItem, string>> titleColumn = x => x.Title;
 List<int> lengths = [];
 
@@ -187,7 +187,7 @@ Console.WriteLine(string.Join(", ", lengths));
 **Read the change itself.** `WhenAnyUnsafe` passes each change to the selector. A change holds the object that changed, in `Sender`, and the new value, in `Value`.
 
 ```csharp
-var item = new TodoItem { Title = OriginalTitle };
+TodoItem item = new TodoItem { Title = OriginalTitle };
 Expression<Func<TodoItem, string>> titleColumn = x => x.Title;
 List<string> lines = [];
 
@@ -254,7 +254,7 @@ A binding twin takes two expressions, one for each side, and an optional convers
 **Copy a property one way.** The `BindOneWayUnsafe` call takes the source, then the target, then the two expressions. Without a conversion the two properties share one type.
 
 ```csharp
-var viewModel = await LoadTodoAsync();
+TodoListViewModel viewModel = await LoadTodoAsync();
 TodoView view = new();
 Expression<Func<TodoListViewModel, string>> source = x => x.FilterText;
 Expression<Func<TodoView, string>> target = v => v.FilterTextBox.Text;
@@ -299,7 +299,7 @@ using (viewModel.BindTwoWayUnsafe(
 **Start from the view.** `OneWayBindUnsafe` and `BindUnsafe` are called on the view and take the view model as the first argument. `OneWayBindUnsafe` accepts a selector.
 
 ```csharp
-var viewModel = await LoadTodoAsync();
+TodoListViewModel viewModel = await LoadTodoAsync();
 TodoView view = new() { ViewModel = viewModel };
 Expression<Func<TodoListViewModel, int>> source = x => x.RemainingCount;
 Expression<Func<TodoView, string>> target = v => v.RemainingLabel.Text;
@@ -317,7 +317,7 @@ using (view.OneWayBindUnsafe(viewModel, source, target, static count => $"{count
 A path through an indexer, such as `x => x.Items[0].Title`, is one the generator leaves alone and RXUIBIND006 reports. The `Unsafe` overloads read it at run time. The binding observes the item the indexer returns, so renaming that item updates the box.
 
 ```csharp
-var viewModel = await LoadTodoAsync();
+TodoListViewModel viewModel = await LoadTodoAsync();
 TodoView view = new() { ViewModel = viewModel };
 Expression<Func<TodoListViewModel, string>> source = x => x.Items[0].Title;
 Expression<Func<TodoView, string>> target = v => v.SelectedTitleTextBox.Text;
@@ -342,7 +342,7 @@ Renew registration online
 **Write a stream to a property.** `BindToUnsafe` writes each value a stream delivers. It converts the value with the converter registered for the two types. Pass a hint, a converter or both to change that. A null target writes nothing.
 
 ```csharp
-var viewModel = await LoadTodoAsync();
+TodoListViewModel viewModel = await LoadTodoAsync();
 TodoView view = new();
 Expression<Func<TodoListViewModel, TodoItem?>> source = x => x.SelectedItem;
 Expression<Func<TodoView, string?>> target = v => v.SelectedTitleTextBox.Text;
@@ -407,7 +407,7 @@ RENEW CAR REGISTRATION
 **Run a command for each value.** `InvokeCommandUnsafe` runs the command a property holds for each value of a stream. It skips a value while the property holds no command or the command cannot run. A null target runs nothing. The example waits for the command with a `TaskCompletionSource` that a `PropertyChanged` handler completes. The excerpts leave that wait-handler out.
 
 ```csharp
-var viewModel = await LoadTodoAsync();
+TodoListViewModel viewModel = await LoadTodoAsync();
 Expression<Func<TodoListViewModel, TodoItem?>> source = x => x.SelectedItem;
 Expression<Func<TodoListViewModel, ICommand?>> command = x => x.CompleteCommand;
 
@@ -427,7 +427,7 @@ Console.WriteLine(viewModel.RemainingCount);
 **Bind a command to a button.** `BindCommandUnsafe` connects the command to the control. It finds the way to do that in the registered command binders, and step 3 registered one for a MAUI `Button`. Without a binder for the control, the command is not connected. Passing `null` as the last argument picks the control's default event. A null view model binds nothing.
 
 ```csharp
-var viewModel = await LoadTodoAsync();
+TodoListViewModel viewModel = await LoadTodoAsync();
 TodoView view = new() { ViewModel = viewModel };
 Expression<Func<TodoListViewModel, Command?>> command = x => x.AddCommand;
 Expression<Func<TodoView, Button>> button = v => v.AddButton;
@@ -498,7 +498,7 @@ using (view.BindInteractionUnsafe(
         return Task.CompletedTask;
     }))
 {
-    var confirmed = await viewModel.ConfirmTransfer.Handle(viewModel.Draft);
+    bool confirmed = await viewModel.ConfirmTransfer.Handle(viewModel.Draft);
 
     Console.WriteLine(confirmed);
 }
@@ -520,7 +520,7 @@ using (view.BindInteractionUnsafe(
         return Signal.Return(true);
     }))
 {
-    var confirmed = await viewModel.ConfirmTransfer.Handle(viewModel.Draft);
+    bool confirmed = await viewModel.ConfirmTransfer.Handle(viewModel.Draft);
 
     Console.WriteLine(confirmed);
 }
@@ -559,7 +559,7 @@ created.
 
 ```csharp
 BehaviorSignal<string> titles = new(OriginalTitle);
-var viewModel = new TodoHeadlineViewModel(titles);
+TodoHeadlineViewModel viewModel = new TodoHeadlineViewModel(titles);
 List<string> raised = [];
 viewModel.PropertyChanged += (_, e) => raised.Add(e.PropertyName ?? string.Empty);
 
@@ -587,7 +587,7 @@ A null sequencer means the binding writes on the thread that owns the target. An
 The sequencer goes after the expressions and any conversion `Func` values. When you pass converters, the order is the converters, the sequencer, then the hint. The example uses a `VirtualClock` from `ReactiveUI.Primitives`. It holds the work until the example calls `Start()`, as a UI thread does between two turns of its message loop.
 
 ```csharp
-var viewModel = await LoadTodoAsync();
+TodoListViewModel viewModel = await LoadTodoAsync();
 TodoView view = new();
 VirtualClock sequencer = new();
 Expression<Func<TodoListViewModel, string>> source = x => x.FilterText;
@@ -638,7 +638,7 @@ using (viewModel.BindTwoWayUnsafe(view, source, target, sequencer))
 A conversion `Func` goes before the sequencer. This call turns an `int` count into text for a label, and the label stays empty until the sequencer starts.
 
 ```csharp
-var viewModel = await LoadTodoAsync();
+TodoListViewModel viewModel = await LoadTodoAsync();
 TodoView view = new();
 VirtualClock sequencer = new();
 Expression<Func<TodoListViewModel, int>> source = x => x.RemainingCount;
@@ -662,7 +662,7 @@ using (viewModel.BindOneWayUnsafe(view, source, target, static count => count.To
 Converter objects go before the sequencer and the hint goes after it. This call passes a converter object, the sequencer and a hint that asks for upper case. The output shows the converted title once the sequencer starts.
 
 ```csharp
-var viewModel = await LoadTodoAsync();
+TodoListViewModel viewModel = await LoadTodoAsync();
 TodoView view = new();
 VirtualClock sequencer = new();
 Expression<Func<TodoListViewModel, TodoItem?>> source = x => x.SelectedItem;
@@ -712,7 +712,7 @@ using (viewModel.BindTwoWayUnsafe(view, source, target, new DecimalToStringTypeC
 `OneWayBindUnsafe` takes a selector before the sequencer. `BindUnsafe` takes two conversion `Func` values, or two converters and a hint. This call starts from the view and turns a count into text with a selector. The label stays empty until the sequencer starts.
 
 ```csharp
-var viewModel = await LoadTodoAsync();
+TodoListViewModel viewModel = await LoadTodoAsync();
 TodoView view = new() { ViewModel = viewModel };
 VirtualClock sequencer = new();
 Expression<Func<TodoListViewModel, int>> source = x => x.RemainingCount;
@@ -770,7 +770,7 @@ A two-way binding copies every edit at once. Sometimes one side should wait. A f
 `ViewToViewModel` is the default, so the first example names no direction. The binding holds the view edit until the `commit` stream fires. It then copies the text to the view model.
 
 ```csharp
-var viewModel = await LoadTodoAsync();
+TodoListViewModel viewModel = await LoadTodoAsync();
 TodoView view = new() { ViewModel = viewModel };
 Signal<EventArgs> commit = new();
 
@@ -801,10 +801,10 @@ Pass `TriggerUpdate.ViewModelToView` after the stream to hold view model changes
 The binding reads the property when the stream fires, not when the property changes. Several changes between two signals become one write with the latest value. This example changes the text twice and counts one write.
 
 ```csharp
-var viewModel = await LoadTodoAsync();
+TodoListViewModel viewModel = await LoadTodoAsync();
 TodoView view = new() { ViewModel = viewModel };
 Signal<EventArgs> refresh = new();
-var writes = 0;
+int writes = 0;
 
 using (view.BindUnsafe(viewModel, x => x.FilterText, v => v.FilterTextBox.Text, refresh, TriggerUpdate.ViewModelToView))
 {
@@ -868,7 +868,7 @@ Most binding members end with a `bindingExpression` string. It names the bound e
 `RuntimeObservationFallback` has `WhenChanged`, `WhenChanging` and `WhenAnyValue`. Each takes one, two or three property expressions. The after-change methods deliver the current value when you subscribe. When a link along the path is null, they deliver nothing until the path resolves. The methods for two or three paths deliver once every path has a value.
 
 ```csharp
-var item = new TodoItem { Title = OriginalTitle };
+TodoItem item = new TodoItem { Title = OriginalTitle };
 List<string> titles = [];
 
 using (RuntimeObservationFallback.WhenChanged(item, x => x.Title).Subscribe(titles.Add))
@@ -886,7 +886,7 @@ Renew car registration, Renew car registration online
 Two paths deliver a `PropertyValues` struct with both values on every change. This call watches a title and a done flag, and each change prints both. You get a consistent pair without reading the second property yourself.
 
 ```csharp
-var item = new TodoItem { Title = OriginalTitle };
+TodoItem item = new TodoItem { Title = OriginalTitle };
 
 using (RuntimeObservationFallback.WhenChanged(item, x => x.Title, x => x.IsDone).Subscribe(static values => Console.WriteLine($"{values.Property1} {values.Property2}")))
 {
@@ -904,7 +904,7 @@ Renew car registration True
 `WhenChanging` delivers the value before each change. The object must raise `INotifyPropertyChanging`, and the call delivers nothing when you subscribe. This call changes the title once and collects the value the title held before that change. Use it when you need the old value, for example to undo an edit.
 
 ```csharp
-var item = new EditableTodoItem { Title = OriginalTitle };
+EditableTodoItem item = new EditableTodoItem { Title = OriginalTitle };
 List<string> titles = [];
 
 using (RuntimeObservationFallback.WhenChanging(item, x => x.Title).Subscribe(titles.Add))
@@ -922,7 +922,7 @@ Renew car registration
 It accepts up to three paths. With two paths, each change delivers both values as they stood before the change. This call changes the notes, and the output shows the old notes with the title.
 
 ```csharp
-var item = new EditableTodoItem { Title = OriginalTitle, Notes = OriginalNotes };
+EditableTodoItem item = new EditableTodoItem { Title = OriginalTitle, Notes = OriginalNotes };
 
 using (RuntimeObservationFallback.WhenChanging(item, x => x.Title, x => x.Notes).Subscribe(static values => Console.WriteLine($"{values.Property1} {values.Property2}")))
 {
@@ -939,7 +939,7 @@ Three paths follow the same pattern.
 `WhenAnyValue` delivers the value after each change, with one, two or three paths. This first call watches one property and collects the title when you subscribe and again after the change.
 
 ```csharp
-var item = new TodoItem { Title = OriginalTitle };
+TodoItem item = new TodoItem { Title = OriginalTitle };
 List<string> titles = [];
 
 using (RuntimeObservationFallback.WhenAnyValue(item, x => x.Title).Subscribe(titles.Add))
@@ -957,7 +957,7 @@ Renew car registration, Renew car registration online
 With two paths, `WhenAnyValue` delivers a pair after each change. This call raises the priority, and the output shows the pair before and after, so a screen can redraw with both values at once.
 
 ```csharp
-var item = new TodoItem { Title = OriginalTitle };
+TodoItem item = new TodoItem { Title = OriginalTitle };
 
 using (RuntimeObservationFallback.WhenAnyValue(item, x => x.Title, x => x.Priority).Subscribe(static values => Console.WriteLine($"{values.Property1} {values.Property2}")))
 {
@@ -981,7 +981,7 @@ The methods are `BindOneWay`, `BindTwoWay`, `OneWayBind`, `Bind` and `BindTo`. T
 `BindOneWay` and `BindTwoWay` take the source first and the target second. `OneWayBind` and `Bind` take the view first. The `null` and the string at the end of each call are the sequencer and the expression text. This call carries a filter text from a view model to a text box. It shows the simplest binding call, and the output shows the text box holding the new filter.
 
 ```csharp
-var viewModel = await LoadTodoAsync();
+TodoListViewModel viewModel = await LoadTodoAsync();
 TodoView view = new();
 
 using (RuntimeBindingFallback.BindOneWay(viewModel, view, x => x.FilterText, v => v.FilterTextBox.Text, null, FilterExpression))
@@ -999,7 +999,7 @@ car
 `OneWayBind` starts from the view and takes a conversion `Func` when the two properties differ in type. This call turns a count into the text of a label, and the output shows the label holding the text as soon as the binding starts.
 
 ```csharp
-var viewModel = await LoadTodoAsync();
+TodoListViewModel viewModel = await LoadTodoAsync();
 TodoView view = new() { ViewModel = viewModel };
 
 using (RuntimeBindingFallback.OneWayBind(
@@ -1022,7 +1022,7 @@ using (RuntimeBindingFallback.OneWayBind(
 `Bind` carries a property both ways and starts from the view. This call types text into a text box and reads the text back from the view model, so the output shows the edit reaching the view model.
 
 ```csharp
-var viewModel = await LoadTodoAsync();
+TodoListViewModel viewModel = await LoadTodoAsync();
 TodoView view = new() { ViewModel = viewModel };
 
 using (RuntimeBindingFallback.Bind(view, viewModel, x => x.FilterText, v => v.FilterTextBox.Text, null, FilterExpression))
@@ -1058,7 +1058,7 @@ using (RuntimeBindingFallback.BindTwoWay(viewModel, view, x => x.Draft.Amount, v
 The `Bind` overloads that take an update stream end with the stream and a `TriggerUpdate` value, in place of the sequencer and the expression text. This call holds the view edit until `commit` fires. The output shows the view model empty after the edit and holding the text after the signal.
 
 ```csharp
-var viewModel = await LoadTodoAsync();
+TodoListViewModel viewModel = await LoadTodoAsync();
 TodoView view = new() { ViewModel = viewModel };
 Signal<EventArgs> commit = new();
 
@@ -1082,8 +1082,8 @@ using (RuntimeBindingFallback.Bind(view, viewModel, x => x.FilterText, v => v.Fi
 `BindTo` takes the stream first. A null target drops the values, because a view has no property to write before it exists. The three `null` arguments are the hint, the converter and the sequencer. This call passes a null target and selects an item. The output shows the selection changing and the call not failing, because a view often does not exist yet when a stream starts.
 
 ```csharp
-var viewModel = await LoadTodoAsync();
-var selected = RuntimeObservationFallback.WhenChanged(viewModel, x => x.SelectedItem);
+TodoListViewModel viewModel = await LoadTodoAsync();
+IObservable<TodoItem?> selected = RuntimeObservationFallback.WhenChanged(viewModel, x => x.SelectedItem);
 TodoView? missing = default;
 
 using (RuntimeBindingFallback.BindTo(selected, missing, v => v.SelectedTitleTextBox.Text, null, null, null, SelectedTitleExpression))
@@ -1103,9 +1103,9 @@ True
 `RuntimeBindingConverter.TryConvert` converts a value from one type to another. It returns `false` and leaves the default in `result` when no converter can do it. When nothing is registered for the two types, a value that already is the target type, or a null the target can hold, passes through unchanged. A converter you pass wins over the registered ones. Otherwise it uses the converter registered for the two types. The hint goes to the converter, which decides what it means. This call converts a to-do item to text with a converter you name and a hint that asks for upper case. Use it to test a converter without a binding.
 
 ```csharp
-var item = new TodoItem { Title = OriginalTitle };
+TodoItem item = new TodoItem { Title = OriginalTitle };
 
-var converted = RuntimeBindingConverter.TryConvert<TodoItem, string>(item, TodoItemTitleConverter.UpperCaseHint, new TodoItemTitleConverter(), out var text);
+bool converted = RuntimeBindingConverter.TryConvert<TodoItem, string>(item, TodoItemTitleConverter.UpperCaseHint, new TodoItemTitleConverter(), out var text);
 
 Console.WriteLine(converted);
 Console.WriteLine(text);
@@ -1119,9 +1119,9 @@ RENEW CAR REGISTRATION
 Pass `null` for the hint and the converter to use the registered converter. The methods `ConvertWithRegisteredConverter` and `ConvertWithConversionHint` in the [example project](https://github.com/reactiveui/ReactiveUI.Binding.SourceGenerators/blob/main/src/examples/Documentation/Pages/unsafe/FallbackRuntimeExamples.cs) show both. The next call asks for a conversion that no converter provides, from `TodoItem` to `int`. It returns `false` and the default of the result type, so check the result before you use the value.
 
 ```csharp
-var item = new TodoItem { Title = OriginalTitle };
+TodoItem item = new TodoItem { Title = OriginalTitle };
 
-var converted = RuntimeBindingConverter.TryConvert<TodoItem, int>(item, null, null, out var number);
+bool converted = RuntimeBindingConverter.TryConvert<TodoItem, int>(item, null, null, out var number);
 
 Console.WriteLine(converted);
 Console.WriteLine(number);
@@ -1138,7 +1138,7 @@ A value typed as `object`, the way a picker or a list holds its selection, often
 object status = DraftStatus;
 
 // Nothing converts object to string, but the value is a string, so it passes through as it is.
-var converted = RuntimeBindingConverter.TryConvert<object, string>(status, null, null, out var text);
+bool converted = RuntimeBindingConverter.TryConvert<object, string>(status, null, null, out var text);
 
 Console.WriteLine(converted);
 Console.WriteLine(text);
@@ -1152,7 +1152,7 @@ Draft
 `TwoWayConverters.Create` pairs a forward and a reverse conversion into a `TwoWayConverterPair` and infers both types. This call builds a pair between a `decimal` and text and runs each direction. The output shows both conversions giving the same text.
 
 ```csharp
-var pair = TwoWayConverters.Create<decimal, string>(
+TwoWayConverterPair<decimal, string> pair = TwoWayConverters.Create<decimal, string>(
     static amount => amount.ToString("F2", CultureInfo.InvariantCulture),
     static text => decimal.Parse(text, CultureInfo.InvariantCulture));
 
@@ -1172,7 +1172,7 @@ Func<decimal, string> forward = static amount => amount.ToString("F2", CultureIn
 Func<string, decimal> reverse = static text => decimal.Parse(text, CultureInfo.InvariantCulture);
 TwoWayConverterPair<decimal, string> pair = new(forward, reverse);
 TwoWayConverterPair<decimal, string> same = new(forward, reverse);
-var swapped = pair with { Forward = static amount => amount.ToString("F0", CultureInfo.InvariantCulture) };
+TwoWayConverterPair<decimal, string> swapped = pair with { Forward = static amount => amount.ToString("F0", CultureInfo.InvariantCulture) };
 
 Console.WriteLine(pair.Equals(same));
 Console.WriteLine(pair.Equals(swapped));
@@ -1206,8 +1206,8 @@ True
 `InvokeCommand` takes the stream, the target and the command property. As before, the excerpt leaves out the `TaskCompletionSource` wait-handler. This call runs the complete command for each item that is selected. The output shows the remaining count falling to two.
 
 ```csharp
-var viewModel = await LoadTodoAsync();
-var selected = RuntimeObservationFallback.WhenAnyValue(viewModel, x => x.SelectedItem);
+TodoListViewModel viewModel = await LoadTodoAsync();
+IObservable<TodoItem?> selected = RuntimeObservationFallback.WhenAnyValue(viewModel, x => x.SelectedItem);
 
 using (RuntimeCommandFallback.InvokeCommand(selected, viewModel, x => x.CompleteCommand))
 {
@@ -1237,7 +1237,7 @@ using (RuntimeInteractionFallback.BindInteraction(
     }),
     "x => x.ConfirmTransfer"))
 {
-    var confirmed = await viewModel.ConfirmTransfer.Handle(viewModel.Draft);
+    bool confirmed = await viewModel.ConfirmTransfer.Handle(viewModel.Draft);
 
     Console.WriteLine(confirmed);
 }
@@ -1268,7 +1268,7 @@ Draft.Amount
 ```csharp
 Expression<Func<TransferViewModel, decimal>> path = x => x.Draft.Amount;
 
-var chain = new List<Expression>(path.Body.GetExpressionChain());
+List<Expression> chain = new List<Expression>(path.Body.GetExpressionChain());
 
 Console.WriteLine(chain.Count);
 Console.WriteLine(((MemberExpression)chain[0]).Member.Name);
@@ -1300,7 +1300,7 @@ Id
 ```csharp
 Expression<Func<TransferViewModel, decimal>> path = x => x.Draft.Amount;
 
-var parent = (MemberExpression)path.Body.GetParent()!;
+MemberExpression parent = (MemberExpression)path.Body.GetParent()!;
 
 Console.WriteLine(parent.Member.Name);
 ```
@@ -1314,8 +1314,8 @@ Draft
 ```csharp
 Expression<Func<TodoItem, string>> path = x => x.Tags[0];
 
-var indexer = Reflection.Rewrite(path.Body);
-var arguments = indexer.GetArgumentsArray();
+Expression indexer = Reflection.Rewrite(path.Body);
+object?[]? arguments = indexer.GetArgumentsArray();
 
 Console.WriteLine(indexer.NodeType);
 Console.WriteLine(arguments!.Length);
@@ -1338,10 +1338,10 @@ True
 **Read and write one member.** A fetcher reads a member and a setter writes it. Each has two forms. The `ForProperty` form returns `null` for a member that is not a property or a field. The `OrThrow` form throws `ArgumentException`. The fetcher for a field throws `InvalidOperationException` when the field holds null. The fetcher takes the object and the indexer arguments, and the setter takes the object, the value and the indexer arguments. The arguments are `null` for a property.
 
 ```csharp
-var item = new TodoItem { Title = OriginalTitle };
-var title = typeof(TodoItem).GetProperty(TitleName);
+TodoItem item = new TodoItem { Title = OriginalTitle };
+PropertyInfo? title = typeof(TodoItem).GetProperty(TitleName);
 
-var fetcher = Reflection.GetValueFetcherForProperty(title);
+Func<object?, object?[]?, object?>? fetcher = Reflection.GetValueFetcherForProperty(title);
 
 Console.WriteLine((string)fetcher!(item, null)!);
 Console.WriteLine(Reflection.GetValueFetcherForProperty(typeof(TodoItem).GetMethod(nameof(TodoItem.Clone))) is null);
@@ -1355,8 +1355,8 @@ True
 The `OrThrow` fetcher fails loudly for a member it cannot read, which is better when a missing property is a mistake. The `Throws` method in the example reports whether an action throws the exception you name. This call reads the title, and then asks for a fetcher for a method, which throws.
 
 ```csharp
-var item = new TodoItem { Title = OriginalTitle };
-var fetcher = Reflection.GetValueFetcherOrThrow(typeof(TodoItem).GetProperty(TitleName));
+TodoItem item = new TodoItem { Title = OriginalTitle };
+Func<object?, object?[]?, object?> fetcher = Reflection.GetValueFetcherOrThrow(typeof(TodoItem).GetProperty(TitleName));
 
 Console.WriteLine((string)fetcher(item, null)!);
 Console.WriteLine(Throws<ArgumentException>(static () => Reflection.GetValueFetcherOrThrow(typeof(TodoItem).GetMethod(nameof(TodoItem.Clone)))));
@@ -1370,8 +1370,8 @@ True
 A setter writes the value it receives. This call builds a setter for the title and writes a new title with it. The output shows the new title, and then shows that the `ForProperty` setter returns `null` for a method.
 
 ```csharp
-var item = new TodoItem { Title = OriginalTitle };
-var setter = Reflection.GetValueSetterForProperty(typeof(TodoItem).GetProperty(TitleName));
+TodoItem item = new TodoItem { Title = OriginalTitle };
+Action<object?, object?, object?[]?>? setter = Reflection.GetValueSetterForProperty(typeof(TodoItem).GetProperty(TitleName));
 
 setter!(item, RenamedTitle, null);
 
@@ -1387,8 +1387,8 @@ True
 The `OrThrow` setter writes the title in the same way and throws for a method. Choose it when you want a mistake to stop the program instead of doing nothing.
 
 ```csharp
-var item = new TodoItem { Title = OriginalTitle };
-var setter = Reflection.GetValueSetterOrThrow(typeof(TodoItem).GetProperty(TitleName));
+TodoItem item = new TodoItem { Title = OriginalTitle };
+Action<object?, object?, object?[]?> setter = Reflection.GetValueSetterOrThrow(typeof(TodoItem).GetProperty(TitleName));
 
 setter(item, RenamedTitle, null);
 
@@ -1406,9 +1406,9 @@ True
 ```csharp
 TransferViewModel viewModel = new(new InMemoryBankingBackend());
 viewModel.Draft.Amount = AmountValue;
-var chain = CreateChain<TransferViewModel, decimal>(static x => x.Draft.Amount);
+List<Expression> chain = CreateChain<TransferViewModel, decimal>(static x => x.Draft.Amount);
 
-var found = Reflection.TryGetValueForPropertyChain<decimal>(out var amount, viewModel, chain);
+bool found = Reflection.TryGetValueForPropertyChain<decimal>(out var amount, viewModel, chain);
 
 Console.WriteLine(found);
 Console.WriteLine(amount);
@@ -1422,10 +1422,10 @@ True
 It returns `false` and a default value when a link along the path is null. This path ends at `SelectedItem!.Title`, and no item is selected. The output shows `False` and a null title, so you can tell a missing value from an empty one.
 
 ```csharp
-var viewModel = new TodoListViewModel(InMemoryTodoStore.CreateSeeded());
-var chain = CreateChain<TodoListViewModel, string>(static x => x.SelectedItem!.Title);
+TodoListViewModel viewModel = new TodoListViewModel(InMemoryTodoStore.CreateSeeded());
+List<Expression> chain = CreateChain<TodoListViewModel, string>(static x => x.SelectedItem!.Title);
 
-var found = Reflection.TryGetValueForPropertyChain<string>(out var title, viewModel, chain);
+bool found = Reflection.TryGetValueForPropertyChain<string>(out var title, viewModel, chain);
 
 Console.WriteLine(found);
 Console.WriteLine(title is null);
@@ -1441,9 +1441,9 @@ True
 ```csharp
 TransferViewModel viewModel = new(new InMemoryBankingBackend());
 viewModel.Draft.Amount = AmountValue;
-var chain = CreateChain<TransferViewModel, decimal>(static x => x.Draft.Amount);
+List<Expression> chain = CreateChain<TransferViewModel, decimal>(static x => x.Draft.Amount);
 
-var found = Reflection.TryGetAllValuesForPropertyChain(out var changes, viewModel, chain);
+bool found = Reflection.TryGetAllValuesForPropertyChain(out var changes, viewModel, chain);
 
 Console.WriteLine(found);
 Console.WriteLine(changes.Length);
@@ -1466,9 +1466,9 @@ True
 
 ```csharp
 TransferViewModel viewModel = new(new InMemoryBankingBackend());
-var chain = CreateChain<TransferViewModel, decimal>(static x => x.Draft.Amount);
+List<Expression> chain = CreateChain<TransferViewModel, decimal>(static x => x.Draft.Amount);
 
-var written = Reflection.TrySetValueToPropertyChain(viewModel, chain, AmountValue);
+bool written = Reflection.TrySetValueToPropertyChain(viewModel, chain, AmountValue);
 
 Console.WriteLine(written);
 Console.WriteLine(viewModel.Draft.Amount);
@@ -1482,10 +1482,10 @@ True
 By default the method throws when a link is not a property or a field. A fourth argument of `false` skips such a link instead and returns `false` when the last member cannot be written. This call sets the title of an item with the fourth argument `false`, and the output shows the title changed.
 
 ```csharp
-var item = new TodoItem { Tags = [FirstTag] };
-var chain = CreateChain<TodoItem, string>(static x => x.Title);
+TodoItem item = new TodoItem { Tags = [FirstTag] };
+List<Expression> chain = CreateChain<TodoItem, string>(static x => x.Title);
 
-var written = Reflection.TrySetValueToPropertyChain(item, chain, RenamedTitle, false);
+bool written = Reflection.TrySetValueToPropertyChain(item, chain, RenamedTitle, false);
 
 Console.WriteLine(written);
 Console.WriteLine(item.Title);

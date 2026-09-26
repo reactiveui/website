@@ -51,7 +51,7 @@ A real UI framework builds the controls from markup. The example view creates th
 A binding needs data to show, so this gives the later steps four to-do items to work with.
 
 ```csharp
-var viewModel = new TodoListViewModel(InMemoryTodoStore.CreateSeeded());
+TodoListViewModel viewModel = new TodoListViewModel(InMemoryTodoStore.CreateSeeded());
 
 await viewModel.LoadAsync();
 
@@ -70,9 +70,9 @@ The code below watches the title of the first item and prints every title the st
 It then renames the item, so you can see the stream report the change without any polling.
 
 ```csharp
-var viewModel = new TodoListViewModel(InMemoryTodoStore.CreateSeeded());
+TodoListViewModel viewModel = new TodoListViewModel(InMemoryTodoStore.CreateSeeded());
 await viewModel.LoadAsync();
-var registration = viewModel.Items[0];
+TodoItem registration = viewModel.Items[0];
 
 using (registration.WhenChanged(static x => x.Title).Subscribe(Console.WriteLine))
 {
@@ -104,8 +104,8 @@ The code below shows the number of unfinished items in a label, then finishes an
 You never write the update yourself: the label follows the view model.
 
 ```csharp
-var viewModel = new TodoListViewModel(InMemoryTodoStore.CreateSeeded());
-var view = new TodoView();
+TodoListViewModel viewModel = new TodoListViewModel(InMemoryTodoStore.CreateSeeded());
+TodoView view = new TodoView();
 await viewModel.LoadAsync();
 
 using (viewModel.BindOneWay(view, static x => x.RemainingCount, static v => v.RemainingLabel.Text, static count => count.ToString(CultureInfo.InvariantCulture)))
@@ -144,7 +144,7 @@ The code below creates a binding, disposes it at once, and then finishes an item
 It shows that a disposed binding stops writing to the view, so a screen that closes leaves nothing behind.
 
 ```csharp
-var binding = viewModel.BindOneWay(view, static x => x.RemainingCount, static v => v.RemainingLabel.Text, static count => count.ToString(CultureInfo.InvariantCulture));
+IDisposable binding = viewModel.BindOneWay(view, static x => x.RemainingCount, static v => v.RemainingLabel.Text, static count => count.ToString(CultureInfo.InvariantCulture));
 binding.Dispose();
 
 viewModel.SelectedItem = viewModel.Items[0];

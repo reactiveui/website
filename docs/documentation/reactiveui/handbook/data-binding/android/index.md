@@ -2,78 +2,42 @@
 NoTitle: true
 Order: 7
 ---
-Change your base class to one of the Reactive Activity / Fragment classes
-(i.e. ReactiveActivity&lt;T&gt;), *or* implement `IViewFor` on your View
-and ensure that your ViewModel signals changes.
+.NET for Android gives a view no built-in way to raise a change notification, so a binding has nothing to
+subscribe to unless the view raises one itself. To bind a view to a view model, implement `IViewFor<TViewModel>`
+on the view. ReactiveUI's Android base classes already do this: `ReactiveActivity<TViewModel>` and
+`ReactiveFragment<TViewModel>` in the core `ReactiveUI` package, and their AppCompat and Jetpack equivalents,
+`ReactiveUI.AndroidX.ReactiveAppCompatActivity<TViewModel>`, `ReactiveUI.AndroidX.ReactiveFragment<TViewModel>`
+and the rest, in `ReactiveUI.AndroidX`. Derive from one of them and the `ViewModel` property, and the change
+notifications it raises, come for free.
+
+The school timetable app on [Android](../../platforms/android.md) shows both families side by side. Its main
+screen derives from the AndroidX base class:
 
 ```csharp
-public class TheViewModel : ReactiveObject
-{
-    private string theText;
-
-    public string TheText
-    {
-        get { return this.theText; }
-        set { this.RaiseAndSetIfChanged(ref this.theText, value); }
-    }
-}
+public sealed class MainActivity : AndroidX.ReactiveAppCompatActivity<TimetableViewModel>
 ```
 
-```xml
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="https://schemas.android.com/apk/res/android"
-  android:orientation="vertical"
-  android:layout_width="fill_parent"
-  android:layout_height="fill_parent">
-  <EditText
-    android:id="@+id/TheEditText"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" />
-  <TextView
-    android:id="@+id/TheTextView"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" />
-</LinearLayout>
-```
+Its absence screen derives from the plain, non-AppCompat base class instead, because it predates AndroidX:
 
 ```csharp
-// You can derive from ReactiveActivity<T> if you don't want to re-implement IViewFor<T>
-[Activity (Label = "RxUISample-Android", MainLauncher = true)]
-public class TestActivity : ReactiveActivity, IViewFor<TheViewModel>
-{
-    protected override void OnCreate(Bundle bundle)
-    {
-        base.OnCreate(bundle);
-
-        // Set our view from the "main" layout resource
-        SetContentView(Resource.Layout.Main);
-
-        ViewModel = new TheViewModel();
-
-        // WireUpControls looks through your layout file, finds all controls
-        // with an id defined, and binds them to the controls defined in this class
-        // This is basically the same functionality as https://jakewharton.github.io/butterknife/ provides
-        this.WireUpControls();
-
-        this.Bind(this.ViewModel, x => x.TheText, x => x.TheEditText.Text);
-        this.OneWayBind(this.ViewModel, x => x.TheText, x => x.TheTextView.Text);
-    }
-
-    public EditText TheEditText { get; private set; }
-
-    public TextView TheTextView { get; private set; }
-
-    TheViewModel _ViewModel;
-    public TheViewModel ViewModel
-    {
-        get { return _ViewModel; }
-        set { this.RaiseAndSetIfChanged(ref _ViewModel, value); }
-    }
-
-    object IViewFor.ViewModel
-    {
-        get { return ViewModel; }
-        set { ViewModel = (TheViewModel)value; }
-    }
-}
+public sealed class AbsenceActivity : ReactiveActivity<AbsenceViewModel>
 ```
+
+Both give you a `ViewModel` property and the `IViewFor.ViewModel` explicit implementation a caller uses when it
+only knows the view model as `object`. Once a view has one, it can read `ViewModel` the way any other property
+observation does, with `WhenAnyValue`. The lesson detail fragment reads its `ViewModel` this way and updates two
+labels whenever it changes, instead of a two-way binding:
+
+```csharp
+this.WhenAnyValue(fragment => fragment.ViewModel).Subscribe(lesson =>
+{
+    SubjectLabel!.Text = lesson?.Subject;
+    RoomLabel!.Text = lesson is null ? null : $"Room {lesson.Room}";
+});
+```
+
+`SubjectLabel` and `RoomLabel` above are wired to their layout resources by [WireUpControls](wire-up-controls.md),
+so the fragment never calls `FindViewById` itself.
+
+See [Android](../../platforms/android.md) for the complete app: activation, lists, paging, dialogs, preferences,
+service binding, and the rest of what `ReactiveUI.AndroidX` adds on top of `IViewFor<TViewModel>`.

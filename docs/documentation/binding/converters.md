@@ -25,15 +25,15 @@ The examples set the current culture to the invariant culture, so their output i
 **2. Call `TryConvert`.** Pass the value, the conversion hint and an `out` variable for the result. The call returns `true` when the conversion worked. It returns `false` when it did not, and the `out` variable then holds the default of the target type. A converter reports a bad value through the return value and does not throw. Pass `null` as the hint when you have none. The excerpt below converts one good text and one bad text, so you see both results.
 
 ```csharp
-var converter = new StringToIntegerTypeConverter();
+StringToIntegerTypeConverter converter = new StringToIntegerTypeConverter();
 
 // Success case: valid issue number
-var success = converter.TryConvert("42", conversionHint: null, out var issueNumber);
+bool success = converter.TryConvert("42", conversionHint: null, out var issueNumber);
 Console.WriteLine(success);
 Console.WriteLine(issueNumber);
 
 // Failure case: non-numeric input
-var failure = converter.TryConvert(InvalidNumberText, conversionHint: null, out var failResult);
+bool failure = converter.TryConvert(InvalidNumberText, conversionHint: null, out var failResult);
 Console.WriteLine(failure);
 Console.WriteLine(failResult);
 ```
@@ -50,10 +50,10 @@ False
 **3. Convert back for display.** A converter for the opposite direction turns the `int` into text for a label. Converting a number to text always succeeds. The excerpt formats an issue number and a zero, so you see the text a label would show.
 
 ```csharp
-var converter = new IntegerToStringTypeConverter();
+IntegerToStringTypeConverter converter = new IntegerToStringTypeConverter();
 
 // Success case: display issue number
-var success = converter.TryConvert(IssueNumber, conversionHint: null, out var issueText);
+bool success = converter.TryConvert(IssueNumber, conversionHint: null, out var issueText);
 Console.WriteLine(success);
 Console.WriteLine(issueText);
 
@@ -120,15 +120,15 @@ Seven numeric types have a converter in each direction. The parse converters use
 The range check matters for the small types. A port number is a `short`, so `99999` does not fit. `TryConvert` returns `false` and does not wrap around. The excerpt parses one valid port and one that is too large.
 
 ```csharp
-var converter = new StringToShortTypeConverter();
+StringToShortTypeConverter converter = new StringToShortTypeConverter();
 
 // Success case: valid port number
-var success = converter.TryConvert("8080", conversionHint: null, out var portNumber);
+bool success = converter.TryConvert("8080", conversionHint: null, out var portNumber);
 Console.WriteLine(success);
 Console.WriteLine(portNumber);
 
 // Failure case: port out of valid range
-var overflow = converter.TryConvert("99999", conversionHint: null, out _);
+bool overflow = converter.TryConvert("99999", conversionHint: null, out _);
 Console.WriteLine(overflow);
 ```
 
@@ -141,15 +141,15 @@ False
 All seven parse converters work the same way. This excerpt shows the first three. Each one also reports its affinity.
 
 ```csharp
-var toByte = new StringToByteTypeConverter();
+StringToByteTypeConverter toByte = new StringToByteTypeConverter();
 _ = toByte.TryConvert("255", conversionHint: null, out var colorChannel);
 Console.WriteLine($"{colorChannel} affinity {toByte.GetAffinityForObjects()}");
 
-var toShort = new StringToShortTypeConverter();
+StringToShortTypeConverter toShort = new StringToShortTypeConverter();
 _ = toShort.TryConvert("8080", conversionHint: null, out var portNumber);
 Console.WriteLine($"{portNumber} affinity {toShort.GetAffinityForObjects()}");
 
-var toInteger = new StringToIntegerTypeConverter();
+StringToIntegerTypeConverter toInteger = new StringToIntegerTypeConverter();
 _ = toInteger.TryConvert("42", conversionHint: null, out var issueNumber);
 Console.WriteLine($"{issueNumber} affinity {toInteger.GetAffinityForObjects()}");
 ```
@@ -163,15 +163,15 @@ Console.WriteLine($"{issueNumber} affinity {toInteger.GetAffinityForObjects()}")
 The formatting converters follow the same pattern in the other direction. This excerpt turns three numbers into text and prints each affinity, so you can confirm that they all rank the same.
 
 ```csharp
-var fromByte = new ByteToStringTypeConverter();
+ByteToStringTypeConverter fromByte = new ByteToStringTypeConverter();
 _ = fromByte.TryConvert(ColorChannelValue, conversionHint: null, out var colorChannel);
 Console.WriteLine($"{colorChannel} affinity {fromByte.GetAffinityForObjects()}");
 
-var fromShort = new ShortToStringTypeConverter();
+ShortToStringTypeConverter fromShort = new ShortToStringTypeConverter();
 _ = fromShort.TryConvert(PortNumber, conversionHint: null, out var portNumber);
 Console.WriteLine($"{portNumber} affinity {fromShort.GetAffinityForObjects()}");
 
-var fromInteger = new IntegerToStringTypeConverter();
+IntegerToStringTypeConverter fromInteger = new IntegerToStringTypeConverter();
 _ = fromInteger.TryConvert(IssueNumber, conversionHint: null, out var issueNumber);
 Console.WriteLine($"{issueNumber} affinity {fromInteger.GetAffinityForObjects()}");
 ```
@@ -201,15 +201,15 @@ The `DateOnly` and `TimeOnly` converters exist on .NET 8 and later. The .NET Fra
 A user types a due date and time into a task app. This excerpt parses one valid text and one invalid text, so you see how a bad date fails.
 
 ```csharp
-var converter = new StringToDateTimeTypeConverter();
+StringToDateTimeTypeConverter converter = new StringToDateTimeTypeConverter();
 
 // Success case: valid date-time
-var success = converter.TryConvert("2025-12-25T10:30:00", conversionHint: null, out var dueDateTime);
+bool success = converter.TryConvert("2025-12-25T10:30:00", conversionHint: null, out var dueDateTime);
 Console.WriteLine(success);
 Console.WriteLine(dueDateTime);
 
 // Failure case: invalid date format
-var failure = converter.TryConvert("not-a-date", conversionHint: null, out _);
+bool failure = converter.TryConvert("not-a-date", conversionHint: null, out _);
 Console.WriteLine(failure);
 ```
 
@@ -222,15 +222,15 @@ False
 A time of day fails when it is out of range. `25:00:00` is not a time. The excerpt parses a valid start time and then that bad one.
 
 ```csharp
-var converter = new StringToTimeOnlyTypeConverter();
+StringToTimeOnlyTypeConverter converter = new StringToTimeOnlyTypeConverter();
 
 // Success case: valid time
-var success = converter.TryConvert("14:30:00", conversionHint: null, out var startTime);
+bool success = converter.TryConvert("14:30:00", conversionHint: null, out var startTime);
 Console.WriteLine(success);
 Console.WriteLine(startTime);
 
 // Failure case: invalid time format
-var failure = converter.TryConvert("25:00:00", conversionHint: null, out _);
+bool failure = converter.TryConvert("25:00:00", conversionHint: null, out _);
 Console.WriteLine(failure);
 ```
 
@@ -243,9 +243,9 @@ False
 A duration formats as `hours:minutes:seconds` whatever the culture. The excerpt formats a project estimate of one and a half hours for display.
 
 ```csharp
-var converter = new TimeSpanToStringTypeConverter();
+TimeSpanToStringTypeConverter converter = new TimeSpanToStringTypeConverter();
 
-var success = converter.TryConvert(ProjectDuration, conversionHint: null, out var formatted);
+bool success = converter.TryConvert(ProjectDuration, conversionHint: null, out var formatted);
 Console.WriteLine(success);
 Console.WriteLine(formatted);
 ```
@@ -258,19 +258,19 @@ True
 A `DateTimeOffset` keeps its offset from UTC in the text. This excerpt also shows the four converters that serve one type: text to value, value to text, and the two nullable forms that [Nullable values](#nullable-values) explains.
 
 ```csharp
-var toOffset = new StringToDateTimeOffsetTypeConverter();
+StringToDateTimeOffsetTypeConverter toOffset = new StringToDateTimeOffsetTypeConverter();
 _ = toOffset.TryConvert(ModifiedTimeText, conversionHint: null, out var modifiedTime);
 Console.WriteLine($"{modifiedTime} affinity {toOffset.GetAffinityForObjects()}");
 
-var fromOffset = new DateTimeOffsetToStringTypeConverter();
+DateTimeOffsetToStringTypeConverter fromOffset = new DateTimeOffsetToStringTypeConverter();
 _ = fromOffset.TryConvert(FileLastModifiedTime, conversionHint: null, out var modifiedTimeText);
 Console.WriteLine($"{modifiedTimeText} affinity {fromOffset.GetAffinityForObjects()}");
 
-var toOptionalOffset = new StringToNullableDateTimeOffsetTypeConverter();
+StringToNullableDateTimeOffsetTypeConverter toOptionalOffset = new StringToNullableDateTimeOffsetTypeConverter();
 _ = toOptionalOffset.TryConvert(ModifiedTimeText, conversionHint: null, out var optionalModifiedTime);
 Console.WriteLine($"{optionalModifiedTime} affinity {toOptionalOffset.GetAffinityForObjects()}");
 
-var fromOptionalOffset = new NullableDateTimeOffsetToStringTypeConverter();
+NullableDateTimeOffsetToStringTypeConverter fromOptionalOffset = new NullableDateTimeOffsetToStringTypeConverter();
 _ = fromOptionalOffset.TryConvert((DateTimeOffset?)FileLastModifiedTime, conversionHint: null, out var optionalModifiedTimeText);
 Console.WriteLine($"{optionalModifiedTimeText} affinity {fromOptionalOffset.GetAffinityForObjects()}");
 ```
@@ -295,15 +295,15 @@ The [API reference](api.md#dates-and-times) lists every date and time converter.
 `StringToBooleanTypeConverter` accepts `true` and `false` in any letter case. Any other text fails. The excerpt parses `True` and then `maybe`, so you see one success and one failure.
 
 ```csharp
-var converter = new StringToBooleanTypeConverter();
+StringToBooleanTypeConverter converter = new StringToBooleanTypeConverter();
 
 // Success case: feature enabled
-var success = converter.TryConvert("True", conversionHint: null, out var isEnabled);
+bool success = converter.TryConvert("True", conversionHint: null, out var isEnabled);
 Console.WriteLine(success);
 Console.WriteLine(isEnabled);
 
 // Failure case: invalid toggle input
-var failure = converter.TryConvert("maybe", conversionHint: null, out _);
+bool failure = converter.TryConvert("maybe", conversionHint: null, out _);
 Console.WriteLine(failure);
 ```
 
@@ -316,15 +316,15 @@ False
 `StringToGuidTypeConverter` reads a GUID in a standard text form. `GuidToStringTypeConverter` writes the hyphenated `D` format. The excerpt parses a valid GUID and then text that is not one.
 
 ```csharp
-var converter = new StringToGuidTypeConverter();
+StringToGuidTypeConverter converter = new StringToGuidTypeConverter();
 
 // Success case: valid GUID format
-var success = converter.TryConvert("550e8400-e29b-41d4-a716-446655440000", conversionHint: null, out var correlationId);
+bool success = converter.TryConvert("550e8400-e29b-41d4-a716-446655440000", conversionHint: null, out var correlationId);
 Console.WriteLine(success);
 Console.WriteLine(correlationId);
 
 // Failure case: invalid GUID format
-var failure = converter.TryConvert("not-a-guid", conversionHint: null, out _);
+bool failure = converter.TryConvert("not-a-guid", conversionHint: null, out _);
 Console.WriteLine(failure);
 ```
 
@@ -337,9 +337,9 @@ False
 `StringToUriTypeConverter` accepts relative and absolute URIs. It fails for `null` and for text that cannot form a URI. `UriToStringTypeConverter` writes the URI back as text. The excerpt formats a repository URL for display in a link.
 
 ```csharp
-var converter = new UriToStringTypeConverter();
+UriToStringTypeConverter converter = new UriToStringTypeConverter();
 
-var success = converter.TryConvert(ReactiveUiRepositoryUrl, conversionHint: null, out var urlText);
+bool success = converter.TryConvert(ReactiveUiRepositoryUrl, conversionHint: null, out var urlText);
 Console.WriteLine(success);
 Console.WriteLine(urlText);
 ```
@@ -352,19 +352,19 @@ https://github.com/reactiveui/ReactiveUI
 `bool` and `Guid` also have nullable converters. This excerpt runs all four for a `bool` in one method, so you see the whole set side by side.
 
 ```csharp
-var toBoolean = new StringToBooleanTypeConverter();
+StringToBooleanTypeConverter toBoolean = new StringToBooleanTypeConverter();
 _ = toBoolean.TryConvert("True", conversionHint: null, out var isEnabled);
 Console.WriteLine($"{isEnabled} affinity {toBoolean.GetAffinityForObjects()}");
 
-var fromBoolean = new BooleanToStringTypeConverter();
+BooleanToStringTypeConverter fromBoolean = new BooleanToStringTypeConverter();
 _ = fromBoolean.TryConvert(true, conversionHint: null, out var enabledText);
 Console.WriteLine($"{enabledText} affinity {fromBoolean.GetAffinityForObjects()}");
 
-var toOptionalBoolean = new StringToNullableBooleanTypeConverter();
+StringToNullableBooleanTypeConverter toOptionalBoolean = new StringToNullableBooleanTypeConverter();
 _ = toOptionalBoolean.TryConvert("False", conversionHint: null, out var isOptionalEnabled);
 Console.WriteLine($"{isOptionalEnabled} affinity {toOptionalBoolean.GetAffinityForObjects()}");
 
-var fromOptionalBoolean = new NullableBooleanToStringTypeConverter();
+NullableBooleanToStringTypeConverter fromOptionalBoolean = new NullableBooleanToStringTypeConverter();
 _ = fromOptionalBoolean.TryConvert((bool?)false, conversionHint: null, out var optionalEnabledText);
 Console.WriteLine($"{optionalEnabledText} affinity {fromOptionalBoolean.GetAffinityForObjects()}");
 ```
@@ -390,20 +390,20 @@ A view model often holds an optional value, such as a due date that is not set y
 Empty text is a valid answer to "is there a value?", so the text to nullable converters succeed on it. The excerpt parses a number, an empty string and bad text.
 
 ```csharp
-var converter = new StringToNullableIntegerTypeConverter();
+StringToNullableIntegerTypeConverter converter = new StringToNullableIntegerTypeConverter();
 
 // Success case: valid issue number
-var success = converter.TryConvert("42", conversionHint: null, out var issueNumber);
+bool success = converter.TryConvert("42", conversionHint: null, out var issueNumber);
 Console.WriteLine(success);
 Console.WriteLine(issueNumber);
 
 // Success case: empty string returns null
-var empty = converter.TryConvert(string.Empty, conversionHint: null, out var noIssue);
+bool empty = converter.TryConvert(string.Empty, conversionHint: null, out var noIssue);
 Console.WriteLine(empty);
 Console.WriteLine(noIssue is null);
 
 // Failure case: invalid text
-var failure = converter.TryConvert(InvalidNumberText, conversionHint: null, out _);
+bool failure = converter.TryConvert(InvalidNumberText, conversionHint: null, out _);
 Console.WriteLine(failure);
 ```
 
@@ -418,9 +418,9 @@ False
 Pass a nullable value to the nullable to text converters. Cast a plain value to its nullable type first, as `(byte?)` does here. The excerpt formats an optional color channel for display.
 
 ```csharp
-var converter = new NullableByteToStringTypeConverter();
+NullableByteToStringTypeConverter converter = new NullableByteToStringTypeConverter();
 
-var success = converter.TryConvert((byte?)ColorChannelValue, conversionHint: null, out var channelText);
+bool success = converter.TryConvert((byte?)ColorChannelValue, conversionHint: null, out var channelText);
 Console.WriteLine(success);
 Console.WriteLine(channelText);
 ```
@@ -433,19 +433,19 @@ True
 Wrap converters serve the numeric types. Each reports its type pair and its affinity. The excerpt wraps four whole-number types and prints each result, so you see the target change from the plain type to its `Nullable` form.
 
 ```csharp
-var wrapByte = new ByteToNullableByteTypeConverter();
+ByteToNullableByteTypeConverter wrapByte = new ByteToNullableByteTypeConverter();
 _ = wrapByte.TryConvertTyped(ColorChannelValue, conversionHint: null, out var colorChannel);
 Console.WriteLine($"{wrapByte.FromType} -> {wrapByte.ToType}: {colorChannel} (affinity {wrapByte.GetAffinityForObjects()})");
 
-var wrapShort = new ShortToNullableShortTypeConverter();
+ShortToNullableShortTypeConverter wrapShort = new ShortToNullableShortTypeConverter();
 _ = wrapShort.TryConvertTyped(PortNumber, conversionHint: null, out var portNumber);
 Console.WriteLine($"{wrapShort.FromType} -> {wrapShort.ToType}: {portNumber} (affinity {wrapShort.GetAffinityForObjects()})");
 
-var wrapInteger = new IntegerToNullableIntegerTypeConverter();
+IntegerToNullableIntegerTypeConverter wrapInteger = new IntegerToNullableIntegerTypeConverter();
 _ = wrapInteger.TryConvertTyped(IssueNumber, conversionHint: null, out var issueNumber);
 Console.WriteLine($"{wrapInteger.FromType} -> {wrapInteger.ToType}: {issueNumber} (affinity {wrapInteger.GetAffinityForObjects()})");
 
-var wrapLong = new LongToNullableLongTypeConverter();
+LongToNullableLongTypeConverter wrapLong = new LongToNullableLongTypeConverter();
 _ = wrapLong.TryConvertTyped(FileSize, conversionHint: null, out var fileSize);
 Console.WriteLine($"{wrapLong.FromType} -> {wrapLong.ToType}: {fileSize} (affinity {wrapLong.GetAffinityForObjects()})");
 ```
@@ -460,15 +460,15 @@ System.Int64 -> System.Nullable`1[System.Int64]: 524288 (affinity 2)
 Unwrap converters go the other way. The fractional types show the pattern for `float`, `double` and `decimal`. The excerpt unwraps one value of each type and prints the pair, so you see the `Nullable` source become the plain target.
 
 ```csharp
-var unwrapSingle = new NullableSingleToSingleTypeConverter();
+NullableSingleToSingleTypeConverter unwrapSingle = new NullableSingleToSingleTypeConverter();
 _ = unwrapSingle.TryConvertTyped((float?)Pi, conversionHint: null, out var pi);
 Console.WriteLine($"{unwrapSingle.FromType} -> {unwrapSingle.ToType}: {pi} (affinity {unwrapSingle.GetAffinityForObjects()})");
 
-var unwrapDouble = new NullableDoubleToDoubleTypeConverter();
+NullableDoubleToDoubleTypeConverter unwrapDouble = new NullableDoubleToDoubleTypeConverter();
 _ = unwrapDouble.TryConvertTyped((double?)EulersNumber, conversionHint: null, out var eulersNumber);
 Console.WriteLine($"{unwrapDouble.FromType} -> {unwrapDouble.ToType}: {eulersNumber} (affinity {unwrapDouble.GetAffinityForObjects()})");
 
-var unwrapDecimal = new NullableDecimalToDecimalTypeConverter();
+NullableDecimalToDecimalTypeConverter unwrapDecimal = new NullableDecimalToDecimalTypeConverter();
 _ = unwrapDecimal.TryConvertTyped((decimal?)TransferAmount, conversionHint: null, out var transferAmount);
 Console.WriteLine($"{unwrapDecimal.FromType} -> {unwrapDecimal.ToType}: {transferAmount} (affinity {unwrapDecimal.GetAffinityForObjects()})");
 ```
@@ -512,8 +512,8 @@ Two converters do not follow the `From`-`To` pattern.
 `StringConverter` passes a `string` through unchanged. It serves a binding between two `string` properties. A `null` or a value that is not a `string` fails. The excerpt passes a task title through and prints the two types the converter serves.
 
 ```csharp
-var converter = new StringConverter();
-var success = converter.TryConvertTyped("Renew car registration", null, out var result);
+StringConverter converter = new StringConverter();
+bool success = converter.TryConvertTyped("Renew car registration", null, out var result);
 
 Console.WriteLine(success);
 Console.WriteLine(result);
@@ -531,7 +531,7 @@ System.String
 It reports the same affinity as the other built-in converters. The excerpt prints that number.
 
 ```csharp
-var converter = new StringConverter();
+StringConverter converter = new StringConverter();
 
 Console.WriteLine(converter.GetAffinityForObjects());
 ```
@@ -543,10 +543,10 @@ Console.WriteLine(converter.GetAffinityForObjects());
 `EqualityTypeConverter` turns any value into a `bool`. The result says whether the value equals the conversion hint. Use it to show whether a value matches a choice, such as whether an item's priority is `High`. The conversion always succeeds, and two `null` values are equal. `TodoItem` and `TodoPriority` come from the shared example app. The excerpt compares one item's priority with `High` and then with `Low`.
 
 ```csharp
-var converter = new EqualityTypeConverter();
+EqualityTypeConverter converter = new EqualityTypeConverter();
 TodoItem item = new() { Title = "Renew car registration", Priority = TodoPriority.High };
 
-var success = converter.TryConvertTyped(item.Priority, TodoPriority.High, out var isHigh);
+bool success = converter.TryConvertTyped(item.Priority, TodoPriority.High, out var isHigh);
 
 Console.WriteLine(success);
 Console.WriteLine(isHigh);
@@ -567,7 +567,7 @@ False
 The converter serves the type pair `object` to `bool`. Its affinity is 1, so a converter for that pair with a higher affinity replaces it. The excerpt prints the pair and the affinity.
 
 ```csharp
-var converter = new EqualityTypeConverter();
+EqualityTypeConverter converter = new EqualityTypeConverter();
 
 Console.WriteLine($"{converter.FromType} -> {converter.ToType}");
 Console.WriteLine(converter.GetAffinityForObjects());
@@ -592,7 +592,7 @@ Console.WriteLine(BindingConverters.Current.TypedConverters.GetAllConverters().A
 IReactiveUIBindingBuilder builder = RxBindingBuilder.CreateReactiveUIBindingBuilder();
 _ = builder.WithCoreServices().BuildApp();
 
-var converter = BindingConverters.Current.TypedConverters.TryGetConverter(typeof(int), typeof(string));
+IBindingTypeConverter? converter = BindingConverters.Current.TypedConverters.TryGetConverter(typeof(int), typeof(string));
 
 Console.WriteLine(BindingConverters.Current.TypedConverters.GetAllConverters().Any());
 Console.WriteLine(converter!.GetType().Name);
@@ -607,7 +607,7 @@ IntegerToStringTypeConverter
 `GetAllConverters` returns a copy of every registered converter. `TryGetConverter` takes the source and target types. It returns the converter with the highest affinity for that exact pair. On a tie, the converter registered first wins. It returns `null` when no converter serves the pair, or when every converter for the pair reports an affinity of zero or less. The excerpt looks up four type pairs and checks that the last one has no converter.
 
 ```csharp
-var registry = BindingConverters.Current.TypedConverters;
+BindingTypeConverterRegistry registry = BindingConverters.Current.TypedConverters;
 
 Console.WriteLine(registry.TryGetConverter(typeof(bool), typeof(string))!.GetType().Name);
 Console.WriteLine(registry.TryGetConverter(typeof(string), typeof(Guid))!.GetType().Name);
@@ -641,7 +641,7 @@ A view shows or hides a control with a `Visibility` value, and a view model hold
 The hints are flags, so `Inverse | UseHidden` applies both. The conversion always succeeds. The excerpt shows a finished to-do item's mark with no hint, with `UseHidden` and with `Inverse`, so you see each mapping.
 
 ```csharp
-var converter = new BooleanToVisibilityTypeConverter();
+BooleanToVisibilityTypeConverter converter = new BooleanToVisibilityTypeConverter();
 
 _ = converter.TryConvert(true, conversionHint: null, out var doneMark);
 Console.WriteLine(doneMark);
@@ -662,7 +662,7 @@ Collapsed
 `VisibilityToBooleanTypeConverter` goes back. Only `Visible` gives `true`. `Hidden` and `Collapsed` give `false`. The `Inverse` hint flips the result. The excerpt reads a `Visible` value and then a `Collapsed` value with `Inverse`.
 
 ```csharp
-var converter = new VisibilityToBooleanTypeConverter();
+VisibilityToBooleanTypeConverter converter = new VisibilityToBooleanTypeConverter();
 
 _ = converter.TryConvert(Microsoft.Maui.Visibility.Visible, conversionHint: null, out var isDone);
 Console.WriteLine(isDone);

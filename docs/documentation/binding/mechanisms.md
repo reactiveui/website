@@ -73,7 +73,7 @@ public sealed class StorageConnectionObservableForProperty : ICreatesObservableF
 **2. Register it.** `WithRegistration` adds the provider to the service locator. `ObservationAffinityChecker.Refresh()` clears the cached scores so the next observation reads the new registration. `HasHigherAffinityPlugin` asks whether a registered provider outranks a given score, here the fallback score.
 
 ```csharp
-var outranksBefore = ObservationAffinityChecker.HasHigherAffinityPlugin(typeof(StorageConnection), StatePropertyName, BindingAffinity.Fallback, false);
+bool outranksBefore = ObservationAffinityChecker.HasHigherAffinityPlugin(typeof(StorageConnection), StatePropertyName, BindingAffinity.Fallback, false);
 
 Console.WriteLine($"Provider outranks the fallback before registering: {outranksBefore}");
 
@@ -87,7 +87,7 @@ _ = builder
 ObservationAffinityChecker.Refresh();
 
 Console.WriteLine($"Provider is registered: {AppLocator.Current.GetServices<ICreatesObservableForProperty>().Contains(provider)}");
-var outranksAfter = ObservationAffinityChecker.HasHigherAffinityPlugin(typeof(StorageConnection), StatePropertyName, BindingAffinity.Fallback, false);
+bool outranksAfter = ObservationAffinityChecker.HasHigherAffinityPlugin(typeof(StorageConnection), StatePropertyName, BindingAffinity.Fallback, false);
 
 Console.WriteLine($"Provider outranks the fallback after registering: {outranksAfter}");
 ```
@@ -193,7 +193,7 @@ This excerpt compares every score with a provider that bids `Explicit` for `Note
 
 foreach (var (name, score) in scores)
 {
-    var outranked = ObservationAffinityChecker.HasHigherAffinityPlugin(typeof(TodoItem), NotesPropertyName, score, false);
+    bool outranked = ObservationAffinityChecker.HasHigherAffinityPlugin(typeof(TodoItem), NotesPropertyName, score, false);
 
     Console.WriteLine($"{name} ({score}): provider outranks it = {outranked}");
 }
@@ -354,7 +354,7 @@ IReactiveUIBindingBuilder builder = RxBindingBuilder.CreateReactiveUIBindingBuil
 
 _ = builder.WithCoreServices().BuildApp();
 
-foreach (var provider in AppLocator.Current.GetServices<ICreatesObservableForProperty>())
+foreach (ICreatesObservableForProperty provider in AppLocator.Current.GetServices<ICreatesObservableForProperty>())
 {
     Console.WriteLine(provider.GetType().Name);
 }
@@ -470,7 +470,7 @@ Notifications before a change: 0
 The full interface call takes all five arguments. This excerpt picks the registered provider with the highest bid, as the run-time engine does, and calls it through `ICreatesObservableForProperty`. The last two arguments are `beforeChanged` and `suppressWarnings`. This provider delivers the two changes and nothing on subscription.
 
 ```csharp
-var registered = AppLocator.Current
+ICreatesObservableForProperty registered = AppLocator.Current
     .GetServices<ICreatesObservableForProperty>()
     .MaxBy(static candidate => candidate.GetAffinityForObject(typeof(StorageConnection), StatePropertyName, false))!;
 Expression<Func<StorageConnection, ConnectionState>> property = x => x.State;
@@ -514,24 +514,24 @@ Connected
 Generated code makes a choice for each link of a property path. It asks `FindHigherAffinityPlugin` for a registered provider that outranks the score of the mechanism it was generated from. `HasHigherAffinityPlugin` gives the same answer as a `bool`. The excerpt asks at four generated scores. The provider outranks the fallback, and it is the provider that outranks the `PropertyChanged` score. An equal score and a higher score both keep the generated mechanism.
 
 ```csharp
-var connectionType = typeof(StorageConnection);
+Type connectionType = typeof(StorageConnection);
 
-var outranksFallback = ObservationAffinityChecker.HasHigherAffinityPlugin(connectionType, StatePropertyName, BindingAffinity.Fallback, false);
-var winnerOverPropertyChanged = ObservationAffinityChecker.FindHigherAffinityPlugin(connectionType, StatePropertyName, BindingAffinity.Explicit, false);
+bool outranksFallback = ObservationAffinityChecker.HasHigherAffinityPlugin(connectionType, StatePropertyName, BindingAffinity.Fallback, false);
+ICreatesObservableForProperty? winnerOverPropertyChanged = ObservationAffinityChecker.FindHigherAffinityPlugin(connectionType, StatePropertyName, BindingAffinity.Explicit, false);
 
 Console.WriteLine($"Outranks the fallback: {outranksFallback}");
 Console.WriteLine($"Outranks the PropertyChanged provider: {winnerOverPropertyChanged?.GetType().Name}");
 
 // A tie goes to the generated mechanism, and so does a higher generated score.
-var outranksEqual = ObservationAffinityChecker.HasHigherAffinityPlugin(connectionType, StatePropertyName, BindingAffinity.WinFormsEvent, false);
-var winnerOverHigher = ObservationAffinityChecker.FindHigherAffinityPlugin(connectionType, StatePropertyName, BindingAffinity.Kvo, false);
+bool outranksEqual = ObservationAffinityChecker.HasHigherAffinityPlugin(connectionType, StatePropertyName, BindingAffinity.WinFormsEvent, false);
+ICreatesObservableForProperty? winnerOverHigher = ObservationAffinityChecker.FindHigherAffinityPlugin(connectionType, StatePropertyName, BindingAffinity.Kvo, false);
 
 Console.WriteLine($"Outranks an equal score: {outranksEqual}");
 Console.WriteLine($"Nothing outranks a higher score: {winnerOverHigher is null}");
 
 // The provider answers for one property and only after a change.
-var forEndpoint = ObservationAffinityChecker.FindHigherAffinityPlugin(connectionType, nameof(StorageConnection.Endpoint), BindingAffinity.Fallback, false);
-var beforeChange = ObservationAffinityChecker.FindHigherAffinityPlugin(connectionType, StatePropertyName, BindingAffinity.Fallback, true);
+ICreatesObservableForProperty? forEndpoint = ObservationAffinityChecker.FindHigherAffinityPlugin(connectionType, nameof(StorageConnection.Endpoint), BindingAffinity.Fallback, false);
+ICreatesObservableForProperty? beforeChange = ObservationAffinityChecker.FindHigherAffinityPlugin(connectionType, StatePropertyName, BindingAffinity.Fallback, true);
 
 Console.WriteLine($"Nothing answers for Endpoint: {forEndpoint is null}");
 Console.WriteLine($"Nothing answers before a change: {beforeChange is null}");
@@ -552,7 +552,7 @@ Nothing answers before a change: True
 Expression<Func<TodoItem, bool>> isDone = x => x.IsDone;
 PropertyObservable<bool> generated = new(item, nameof(TodoItem.IsDone), static source => ((TodoItem)source).IsDone, true);
 
-var chosen = PluginObservationSource.Choose(
+IObservable<bool> chosen = PluginObservationSource.Choose(
     item,
     isDone.Body,
     nameof(TodoItem.IsDone),
@@ -579,7 +579,7 @@ EventObservable<ConnectionState> generated = new(
     () => connection.State,
     true);
 
-var chosen = PluginObservationSource.Choose(
+IObservable<ConnectionState> chosen = PluginObservationSource.Choose(
     connection,
     state.Body,
     StateName,
@@ -601,7 +601,7 @@ A low generated score hands the observation to the provider, and a high one keep
 Expression<Func<StorageConnection, ConnectionState>> property = x => x.State;
 UnchangingPropertyObservable<ConnectionState> generated = new(connection.State);
 
-var lowGenerated = PluginObservationSource.Choose(
+IObservable<ConnectionState> lowGenerated = PluginObservationSource.Choose(
     connection,
     property.Body,
     StatePropertyName,
@@ -609,7 +609,7 @@ var lowGenerated = PluginObservationSource.Choose(
     BindingAffinity.Fallback,
     static source => ((StorageConnection)source).State,
     generated);
-var highGenerated = PluginObservationSource.Choose(
+IObservable<ConnectionState> highGenerated = PluginObservationSource.Choose(
     connection,
     property.Body,
     StatePropertyName,
@@ -676,7 +676,7 @@ PluginPropertyObservable<ConnectionState> observable = new(
     static source => ((StorageConnection)source).State,
     false,
     true);
-var observer = Witness.Create<ConnectionState>(static state => Console.WriteLine(state));
+IObserver<ConnectionState> observer = Witness.Create<ConnectionState>(static state => Console.WriteLine(state));
 
 using (observable.Subscribe(observer))
 {
@@ -696,7 +696,7 @@ Connected
 
 ```csharp
 Expression<Func<StorageConnection, ConnectionState>> property = x => x.State;
-var notifications = provider.GetNotificationForProperty(connection, property.Body, StatePropertyName);
+IObservable<IObservedChange<object, object?>> notifications = provider.GetNotificationForProperty(connection, property.Body, StatePropertyName);
 ObservableForPropertySink<StorageConnection, ConnectionState> sink = new(
     connection,
     property.Body,
@@ -723,7 +723,7 @@ The sink also accepts an observer object. Use this form when you have an `IObser
 
 ```csharp
 Expression<Func<StorageConnection, ConnectionState>> property = x => x.State;
-var notifications = provider.GetNotificationForProperty(connection, property.Body, StatePropertyName);
+IObservable<IObservedChange<object, object?>> notifications = provider.GetNotificationForProperty(connection, property.Body, StatePropertyName);
 ObservableForPropertySink<StorageConnection, ConnectionState> sink = new(
     connection,
     property.Body,
@@ -731,7 +731,7 @@ ObservableForPropertySink<StorageConnection, ConnectionState> sink = new(
     () => connection.State,
     false,
     true);
-var observer = Witness.Create<IObservedChange<StorageConnection, ConnectionState>>(static change => Console.WriteLine(change.Value));
+IObserver<IObservedChange<StorageConnection, ConnectionState>> observer = Witness.Create<IObservedChange<StorageConnection, ConnectionState>>(static change => Console.WriteLine(change.Value));
 
 using (sink.Subscribe(observer))
 {
@@ -782,7 +782,7 @@ The sink constructor also takes the values directly, so you do not need the para
 Expression<Func<StorageBrowserViewModel, ConnectionState>> property = x => x.Connection.State;
 Expression[] links = [.. Reflection.Rewrite(property.Body).GetExpressionChain()];
 ExpressionChainSink<StorageBrowserViewModel, ConnectionState> sink = new(browser, property.Body, links, false, false, true, true);
-var observer = Witness.Create<IObservedChange<StorageBrowserViewModel, ConnectionState>>(static change => Console.WriteLine(change.Value));
+IObserver<IObservedChange<StorageBrowserViewModel, ConnectionState>> observer = Witness.Create<IObservedChange<StorageBrowserViewModel, ConnectionState>>(static change => Console.WriteLine(change.Value));
 
 using (sink.Subscribe(observer))
 {
@@ -835,9 +835,9 @@ public IDisposable? BindCommandToObject<T>(ICommand? command, T? target, IObserv
 `AttachToClicks` builds the binding from Primitives parts. A `BehaviorSignal` keeps the latest command parameter, and it starts with null. The binder feeds it from the `commandParameter` stream. A click runs the command only when `CanExecute` accepts the parameter. `Merge` joins the parameter stream with each `CanExecuteChanged` event, which re-reads the parameter, so `button.IsEnabled` follows `CanExecute`. An `ActionDisposable` puts the original `IsEnabled` back. A `MultipleDisposable` bundles every part, so disposing the binding detaches all of them. See [signals](../primitives/signals.md) and [disposables](../primitives/disposables.md).
 
 ```csharp
-var wasEnabled = button.IsEnabled;
+bool wasEnabled = button.IsEnabled;
 BehaviorSignal<object?> parameter = new(null);
-var canExecuteChanged = Signal.FromEventPattern(handler => command.CanExecuteChanged += handler, handler => command.CanExecuteChanged -= handler);
+IObservable<EventPattern<EventArgs>> canExecuteChanged = Signal.FromEventPattern(handler => command.CanExecuteChanged += handler, handler => command.CanExecuteChanged -= handler);
 
 return new(
     commandParameter.Subscribe(parameter.OnNext),
@@ -893,7 +893,7 @@ Binder outranks the fallback for an entry: False
 With the binder registered, `BindCommand` never touches the button's own `Command` property. The binder enables the button while the command can run and runs the command on each click. A click after you dispose the binding does nothing. The binder prints a line each time it attaches.
 
 ```csharp
-var added = viewModel.WhenChanged(x => x.SelectedItem).Where(static item => item is not null).Take(1).GetAwaiter();
+IAwaitSignal<TodoItem> added = viewModel.WhenChanged(x => x.SelectedItem).Where(static item => item is not null).Take(1).GetAwaiter();
 
 using (view.BindCommand(viewModel, x => x.AddCommand, v => v.AddButton))
 {
@@ -910,7 +910,7 @@ using (view.BindCommand(viewModel, x => x.AddCommand, v => v.AddButton))
     Console.WriteLine(viewModel.Items[^1].Title);
 }
 
-var itemCount = viewModel.Items.Count;
+int itemCount = viewModel.Items.Count;
 
 viewModel.NewTitle = PlumberTitle;
 ((IButtonController)view.AddButton).SendClicked();
@@ -930,7 +930,7 @@ A click after disposing adds nothing: True
 A stream of parameters is another `BindCommand` argument. The binder passes the latest value to the command, and it enables the button only while the command accepts that value. Here the upload button stays disabled until the first file arrives on the stream. See [Bindings](bindings.md).
 
 ```csharp
-var stored = browser.WhenChanged(x => x.Objects).Where(static objects => objects.Any(static item => item.Key == ScreenshotName)).Take(1).GetAwaiter();
+IAwaitSignal<IReadOnlyList<StorageObject>> stored = browser.WhenChanged(x => x.Objects).Where(static objects => objects.Any(static item => item.Key == ScreenshotName)).Take(1).GetAwaiter();
 
 using (view.BindCommand(browser, x => x.UploadCommand, v => v.UploadButton, uploads))
 {
@@ -961,7 +961,7 @@ Name an event and the binder receives the event name and the type of its event d
 ```csharp
 browser.CurrentPrefix = PhotoFolder;
 
-var listed = browser.WhenChanged(x => x.Objects).Skip(1).Take(1).GetAwaiter();
+IAwaitSignal<IReadOnlyList<StorageObject>> listed = browser.WhenChanged(x => x.Objects).Skip(1).Take(1).GetAwaiter();
 
 using (view.BindCommand(browser, x => x.RefreshCommand, v => v.RefreshButton, nameof(Button.Clicked)))
 {
@@ -983,7 +983,7 @@ You can also call a binder yourself. The default-event overload takes the comman
 ```csharp
 browser.CurrentPrefix = string.Empty;
 
-var listed = browser.WhenChanged(x => x.Objects).Skip(1).Take(1).GetAwaiter();
+IAwaitSignal<IReadOnlyList<StorageObject>> listed = browser.WhenChanged(x => x.Objects).Skip(1).Take(1).GetAwaiter();
 
 using (binder.BindCommandToObject(browser.RefreshCommand, view.RefreshButton, ImmutableEmptySignal<object>.Instance))
 {
@@ -1002,10 +1002,10 @@ The click binder is attached to the Refresh button
 The overload with `addHandler` and `removeHandler` names the event through two delegates. The binder subscribes and unsubscribes through them, so nothing is looked up by name and the call is compatible with Native AOT. The excerpt binds the reconnect button, which starts disabled-looking work only when the command can run, and prints the link state after the click.
 
 ```csharp
-var button = view.ConnectButton;
+Button button = view.ConnectButton;
 storage.Disconnect();
 
-var connected = browser.WhenChanged(x => x.ConnectionStatus).Where(static state => state == ConnectionState.Connected).Take(1).GetAwaiter();
+IAwaitSignal<ConnectionState> connected = browser.WhenChanged(x => x.ConnectionStatus).Where(static state => state == ConnectionState.Connected).Take(1).GetAwaiter();
 
 using (binder.BindCommandToObject<Button, EventArgs>(
     browser.ConnectCommand,
@@ -1036,7 +1036,7 @@ Connection: Connected
 ```csharp
 browser.CurrentPrefix = string.Empty;
 
-var listed = browser.WhenChanged(x => x.Objects).Skip(1).Take(1).GetAwaiter();
+IAwaitSignal<IReadOnlyList<StorageObject>>? listed = browser.WhenChanged(x => x.Objects).Skip(1).Take(1).GetAwaiter();
 
 using (CommandInvoker.Invoke(browser.WhenChanged(x => x.CurrentPrefix), browser.RefreshCommand))
 {
@@ -1068,8 +1068,8 @@ The second overload takes a stream of commands and executes whichever command ar
 browser.CurrentPrefix = string.Empty;
 await browser.LoadObjectsAsync().ConfigureAwait(false);
 
-var objectCount = browser.Objects.Count;
-var stored = browser.WhenChanged(x => x.Objects).Where(static objects => objects.Any(static item => item.Key == ThirdScreenshotName)).Take(1).GetAwaiter();
+int objectCount = browser.Objects.Count;
+IAwaitSignal<IReadOnlyList<StorageObject>> stored = browser.WhenChanged(x => x.Objects).Where(static objects => objects.Any(static item => item.Key == ThirdScreenshotName)).Take(1).GetAwaiter();
 
 using (CommandInvoker.Invoke(uploads, commands))
 {
@@ -1151,7 +1151,7 @@ Any of these observables also accepts an observer object in place of a lambda. A
 ```csharp
 TodoItem item = new() { Title = RegistrationTitle };
 PropertyObservable<bool> isUrgent = new(item, nameof(TodoItem.Priority), static source => ((TodoItem)source).Priority == TodoPriority.High, true);
-var observer = Witness.Create<bool>(Console.WriteLine);
+IObserver<bool> observer = Witness.Create<bool>(Console.WriteLine);
 
 using (isUrgent.Subscribe(observer))
 {
@@ -1190,7 +1190,7 @@ The same observable works with an observer object. This excerpt reads the title 
 ```csharp
 DraftTodo draft = new() { Title = RegistrationTitle };
 PropertyChangingObservable<string> beforeChange = new(draft, nameof(DraftTodo.Title), static source => ((DraftTodo)source).Title);
-var observer = Witness.Create<string>(Console.WriteLine);
+IObserver<string> observer = Witness.Create<string>(Console.WriteLine);
 
 using (beforeChange.Subscribe(observer))
 {
@@ -1245,7 +1245,7 @@ The next excerpt passes an observer object and prints only the property name of 
 DraftTodo draft = new() { Title = RegistrationTitle };
 Expression<Func<DraftTodo, string>> title = x => x.Title;
 NotifyPropertyChangedObservable afterChange = new(draft, title.Body, nameof(DraftTodo.Title), false);
-var observer = Witness.Create<IObservedChange<object, object?>>(static change => Console.WriteLine(change.GetPropertyName()));
+IObserver<IObservedChange<object, object?>> observer = Witness.Create<IObservedChange<object, object?>>(static change => Console.WriteLine(change.GetPropertyName()));
 
 using (afterChange.Subscribe(observer))
 {
@@ -1317,7 +1317,7 @@ EventObservable<bool> isOpen = new(
     handler => connection.StateChanged -= handler,
     () => connection.State == ConnectionState.Connected,
     true);
-var observer = Witness.Create<bool>(Console.WriteLine);
+IObserver<bool> observer = Witness.Create<bool>(Console.WriteLine);
 
 using (isOpen.Subscribe(observer))
 {
@@ -1355,9 +1355,9 @@ With an observer object, the subscription delivers the same single value. Keep t
 ```csharp
 StorageObject file = new() { Key = "photos/2026/launch.png" };
 UnchangingPropertyObservable<string> key = new(file.Key);
-var observer = Witness.Create<string>(Console.WriteLine);
+IObserver<string> observer = Witness.Create<string>(Console.WriteLine);
 
-using var subscription = key.Subscribe(observer);
+using IDisposable subscription = key.Subscribe(observer);
 ```
 
 ```text
@@ -1396,7 +1396,7 @@ An observer object receives the same `BindingChange` values. This excerpt publis
 
 ```csharp
 AppliedChangeObservable applied = new();
-var observer = Witness.Create<BindingChange>(static change => Console.WriteLine($"{change.Value}, from the view model: {change.FromViewModel}"));
+IObserver<BindingChange> observer = Witness.Create<BindingChange>(static change => Console.WriteLine($"{change.Value}, from the view model: {change.FromViewModel}"));
 
 using (applied.Subscribe(observer))
 {
@@ -1414,8 +1414,8 @@ A two-way `Bind` returns a binding whose `Changed` property is an `AppliedChange
 TodoListViewModel viewModel = new(InMemoryTodoStore.CreateSeeded());
 TodoView view = new() { ViewModel = viewModel };
 
-using var binding = view.Bind(viewModel, x => x.NewTitle, v => v.NewTitleTextBox.Text);
-using var subscription = binding.Changed.Subscribe(static change => Console.WriteLine($"{change.Value}, from the view model: {change.FromViewModel}"));
+using IReactiveBinding<TodoView, BindingChange> binding = view.Bind(viewModel, x => x.NewTitle, v => v.NewTitleTextBox.Text);
+using IDisposable subscription = binding.Changed.Subscribe(static change => Console.WriteLine($"{change.Value}, from the view model: {change.FromViewModel}"));
 
 view.NewTitleTextBox.Text = RenamedTitle;
 viewModel.NewTitle = FinalTitle;
@@ -1451,25 +1451,7 @@ using (CombineLatestObservable
 [x] Renew car registration online
 ```
 
-Three sources work the same way. This excerpt joins the title, the done flag and the priority into one summary. Changing only the priority delivers a new summary, because the other two sources keep their latest values.
-
-```csharp
-TodoItem item = new() { Title = RegistrationTitle };
-
-using (CombineLatestObservable
-    .Create(Title(item), IsDone(item), Priority(item), static (title, isDone, priority) => $"{title} {isDone} {priority}")
-    .Subscribe(Console.WriteLine))
-{
-    item.Priority = TodoPriority.High;
-}
-```
-
-```text
-Renew car registration False Normal
-Renew car registration False High
-```
-
-`CombineLatestObservable.Create` accepts up to sixteen sources and follows the same pattern for every count. You pass the sources and then a selector that takes one value for each source. The [example project](https://github.com/reactiveui/ReactiveUI.Binding.SourceGenerators/blob/main/src/examples/Documentation/Pages/mechanisms/CombineLatestExamples.cs) has one method for each count from four to sixteen.
+Every larger count follows the same pattern: pass the sources and then a selector that takes one value for each source. `CombineLatestObservable.Create` overloads take from 2 to 16 sources. The [example project](https://github.com/reactiveui/ReactiveUI.Binding.SourceGenerators/blob/main/src/examples/Documentation/Pages/mechanisms/CombineLatestExamples.cs) has one method for each count from two to sixteen.
 
 ## Where to go next
 

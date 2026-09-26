@@ -152,7 +152,7 @@ internal interface ISettingsPolicyApi
     [Post("/people")]
     Task<string> BufferedAsync([Body(true)] Person person); // always buffered
 
-    [Get("/tenants/{tenant}/people")]
+    [Get("/policy/{tenant}")]
     Task<HttpRequestMessage> UnmatchedAsync();
 }
 ```
@@ -166,11 +166,12 @@ string reply = await api.InheritedAsync(new(1, "Ada")); // sent buffered, with a
 `UnmatchedAsync` declares `{tenant}` without a matching method argument.
 With `AllowUnmatchedRouteParameters` false, the default, building that request throws `ArgumentException`.
 True keeps the placeholder for code that will rewrite it later. It does not supply a tenant value.
+The build warns about `{tenant}` with [`RF015`](../diagnostics.md#rf015-in-detail).
 
 ```csharp
 RefitSettings settings = new(serializer) { AllowUnmatchedRouteParameters = true };
 ISettingsPolicyApi api = RestService.ForGenerated<ISettingsPolicyApi>(httpClient, settings);
-using HttpRequestMessage request = await api.UnmatchedAsync(); // request.RequestUri: "/tenants/{tenant}/people"
+using HttpRequestMessage request = await api.UnmatchedAsync(); // request.RequestUri: "/policy/{tenant}"
 ```
 
 Configure either setting before creating the client.

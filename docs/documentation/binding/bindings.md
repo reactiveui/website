@@ -27,7 +27,7 @@ Every call takes its property paths as lambdas written inline, so the generator 
 **1. Name the two properties.** The first lambda names the source property and the second names the target property. A lambda can be a **property path**, a chain of properties ([Observing](observing.md#follow-a-path-of-properties) covers paths). This path passes through `SelectedIssue`, which is `null` until the user picks an issue. The binding follows each link. While a link is `null` the label's `Text` stays `null`, and when `SelectedIssue` changes the binding moves to the new issue. `OpenIssueBoardAsync` loads the view model from the in-memory GitHub server.
 
 ```csharp
-var board = await OpenIssueBoardAsync();
+IssueBoardViewModel board = await OpenIssueBoardAsync();
 IssueBoardView view = new();
 
 using (board.BindOneWay(view, x => x.SelectedIssue!.Title, v => v.IssueTitleLabel.Text))
@@ -52,7 +52,7 @@ Add gift-card support
 **2. Convert when the types differ.** The plain overload needs the same type on both sides. When the types differ, pass a conversion function after the two lambdas. To show an enum in a `string` label, the function turns each state into text. Mark a function `static` when it uses nothing from the method around it.
 
 ```csharp
-var board = await OpenIssueBoardAsync();
+IssueBoardViewModel board = await OpenIssueBoardAsync();
 IssueBoardView view = new();
 
 using (board.BindOneWay(view, x => x.SelectedIssue!.State, v => v.StateLabel.Text, static state => state == IssueState.Open ? OpenText : ClosedText))
@@ -73,7 +73,7 @@ Closed
 **3. Stop the binding.** `BindOneWay` returns an `IDisposable`. Dispose it when the view goes away. After that the label keeps the last text it was given. Dispose every binding you create: a live binding holds both objects in memory.
 
 ```csharp
-var list = await OpenTodoListAsync();
+TodoListViewModel list = await OpenTodoListAsync();
 TodoView view = new();
 
 using (list.BindOneWay(view, x => x.RemainingCount, v => v.RemainingLabel.Text, static count => count.ToString(CultureInfo.InvariantCulture)))
@@ -102,7 +102,7 @@ Console.WriteLine(view.RemainingLabel.Text);
 `OneWayBind` does the same work from the view's side. Call it on a view that implements `IViewFor` ([Views](views.md)) and pass the view model. It reads the view model and writes the view, and it returns an `IReactiveBinding` instead of an `IDisposable`. That object is a disposable that also reports what the binding writes, as [Read what a binding reports](#read-what-a-binding-reports) shows. A view-first call reads its view model from the view's `ViewModel` property; while that property is empty, the binding waits for one.
 
 ```csharp
-var list = await OpenTodoListAsync();
+TodoListViewModel list = await OpenTodoListAsync();
 TodoView view = new() { ViewModel = list };
 
 using (view.OneWayBind(list, x => x.FilterText, v => v.FilterTextBox.Text))
@@ -119,7 +119,7 @@ car
 A path can run through a field. A control you name in markup, such as `x:Name="TitleLabel"`, is a field of the view, so `v => v.TitleLabel.Text` binds into it. The field is read once and the rest of the path is observed as usual.
 
 ```csharp
-var list = await OpenTodoListAsync();
+TodoListViewModel list = await OpenTodoListAsync();
 TodoHeadingView view = new() { ViewModel = list };
 
 // TitleLabel is a field, like every x:Name control; the path runs through it.
@@ -141,7 +141,7 @@ Book dentist appointment
 While the path passes through a null, such as `SelectedItem` with nothing selected, `OneWayBind` and `Bind` write nothing and the view keeps what it shows. A control that refuses null never receives one. `BindOneWay` and `BindTwoWay` instead write the default, which clears the target.
 
 ```csharp
-var list = await OpenTodoListAsync();
+TodoListViewModel list = await OpenTodoListAsync();
 TodoHeadingView view = new() { ViewModel = list };
 
 using (view.OneWayBind(list, x => x.SelectedItem!.Title, v => v.TitleLabel.Text))
@@ -178,7 +178,7 @@ Each call takes the same kinds of extra arguments, and each kind adds an overloa
 A **converter object** implements `IBindingTypeConverter`. It converts one pair of types and can act on a **hint**, an extra value whose meaning the converter defines. Pass the object after the two lambdas, then the hint. A converter you name outranks every converter the library registers ([Converters](converters.md) lists them and [Custom converters](custom-converters.md) shows how to write one). `CurrencyTextConverter` in the example turns a `decimal` into text with a dollar sign. Its hint is the number format, and it shows two decimal places when you pass none.
 
 ```csharp
-var accounts = await OpenAccountsAsync();
+AccountsViewModel accounts = await OpenAccountsAsync();
 AccountsView view = new();
 
 using (accounts.BindOneWay(view, x => x.TotalBalance, v => v.TotalBalanceLabel.Text, new CurrencyTextConverter(), GroupedFormat))
@@ -218,7 +218,7 @@ A call that names a converter object is matched to its generated code by the fil
 A binding writes to its target on the thread that owns the target ([Threading and platforms](threading.md) explains how it finds that thread). To pick another place, pass a **sequencer** as the last argument. A sequencer decides when and on which thread queued work runs. `VirtualClock` in the example is a sequencer that runs its work only when the example calls `AdvanceBy`, so the example can show the write waiting. [Choose a sequencer for one binding](threading.md#deliver-a-binding-on-a-sequencer) shows how to choose one for your app.
 
 ```csharp
-var board = await OpenIssueBoardAsync();
+IssueBoardViewModel board = await OpenIssueBoardAsync();
 IssueBoardView view = new();
 VirtualClock uiThread = new();
 
@@ -242,7 +242,7 @@ Written: 'Checkout button unresponsive on Safari'
 `BindOneWay`, `OneWayBind`, `BindTwoWay` and `Bind` all accept a sequencer, and it comes last. A `null` sequencer means the same as naming none: the write happens on the thread that owns the target, and a target with no owning thread is written at once. Name the argument, as in `scheduler: null` below, because a bare `null` also fits the string parameters of the overload that takes no sequencer.
 
 ```csharp
-var board = await OpenIssueBoardAsync();
+IssueBoardViewModel board = await OpenIssueBoardAsync();
 IssueBoardView view = new();
 
 using (board.BindOneWay(view, x => x.SelectedIssue!.Title, v => v.IssueTitleLabel.Text, scheduler: null))
@@ -265,7 +265,7 @@ Add gift-card support
 `BindTwoWay` watches both properties and copies whichever one changes to the other. It also writes the source value to the target when you create the binding. Disposing the binding disconnects both directions.
 
 ```csharp
-var list = await OpenTodoListAsync();
+TodoListViewModel list = await OpenTodoListAsync();
 TodoView view = new();
 
 using (list.BindTwoWay(view, x => x.FilterText, v => v.FilterTextBox.Text))
@@ -344,7 +344,7 @@ using (draft.BindTwoWay(view, x => x.Amount, v => v.AmountTextBox.Text, toText, 
 A list holds its selection as an `object`, so a two-way binding to a selection converts in each direction. A one-way binding shows the selected title in a detail box.
 
 ```csharp
-var viewModel = await OpenTodoListAsync();
+TodoListViewModel viewModel = await OpenTodoListAsync();
 TodoView view = new() { ViewModel = viewModel };
 view.ItemsList.ItemsSource = viewModel.Items;
 
@@ -355,14 +355,14 @@ using (viewModel.BindOneWay(view, x => x.SelectedItem!.Title, v => v.SelectedTit
     Console.WriteLine(view.SelectedTitleTextBox.Text ?? NothingSelectedText);
 
     // The user clicks the second row.
-    var dentist = viewModel.Items[DentistIndex];
+    TodoItem dentist = viewModel.Items[DentistIndex];
     view.ItemsList.SelectedItem = dentist;
 
     Console.WriteLine(ReferenceEquals(viewModel.SelectedItem, dentist));
     Console.WriteLine(view.SelectedTitleTextBox.Text);
 
     // Code selects the first item, and the list follows.
-    var renew = viewModel.Items[0];
+    TodoItem renew = viewModel.Items[0];
     viewModel.SelectedItem = renew;
 
     Console.WriteLine(ReferenceEquals(view.ItemsList.SelectedItem, renew));
@@ -447,7 +447,7 @@ using (view.Bind(viewModel, x => x.Draft.Amount, v => v.AmountTextBox.Text, Form
 A picker or a list holds its selection as an `object`. `Bind` can carry it into a `string` property without a converter: nothing is registered from `object` to `string`, but a value that already is a string passes through as it is.
 
 ```csharp
-var list = await OpenTodoListAsync();
+TodoListViewModel list = await OpenTodoListAsync();
 TodoTagFilterView view = new() { ViewModel = list };
 
 // No converter is registered from object to string; a string in SelectedItem passes through as it is.
@@ -510,7 +510,7 @@ True
 `Bind` reports a `BindingChange` for each value. `BindingChange` is a record struct with two parts: the `Value` and `FromViewModel`, which tells an edit in the view apart from the echo of the binding's own write. The first change below came from the view model, and the second came from the box.
 
 ```csharp
-var list = await OpenTodoListAsync();
+TodoListViewModel list = await OpenTodoListAsync();
 TodoView view = new() { ViewModel = list };
 List<BindingChange> changes = [];
 
@@ -524,7 +524,7 @@ using (binding.Changed.Subscribe(changes.Add))
     view.FilterTextBox.Text = DentistFilter;
 }
 
-foreach (var change in changes)
+foreach (BindingChange change in changes)
 {
     Console.WriteLine($"{change.Value}, from the view model: {change.FromViewModel}");
 }
@@ -540,14 +540,14 @@ dentist, from the view model: False
 You can build a `ReactiveBinding<TView, TValue>` yourself from a view, a stream of changes, a direction and the subscription that does the work. Disposing it disposes the subscription once, however often you call `Dispose`. The example builds one with `BindingDirection.AsyncOneWay`.
 
 ```csharp
-var list = await OpenTodoListAsync();
+TodoListViewModel list = await OpenTodoListAsync();
 TodoView view = new() { ViewModel = list };
 Signal<int> remainingChanges = new();
-var subscription = Scope.Create(static () => Console.WriteLine("subscription disposed"));
+IDisposable subscription = Scope.Create(static () => Console.WriteLine("subscription disposed"));
 
 ReactiveBinding<TodoView, int> binding = new(view, remainingChanges, BindingDirection.AsyncOneWay, subscription);
 List<int> seen = [];
-using var reader = binding.Changed.Subscribe(seen.Add);
+using IDisposable reader = binding.Changed.Subscribe(seen.Add);
 
 remainingChanges.OnNext(list.RemainingCount);
 
@@ -644,7 +644,7 @@ using (view.BindUnsafe(viewModel, x => x.ScoreToRecord, v => v.ScoreEntry.Text, 
 You can leave the converters out. Then the registered converter for the pair of types runs, and a pair of `string` properties passes the text through. The box stays empty until the stream signals, then shows the view model's value, and typing in the box still reaches the view model at once.
 
 ```csharp
-var list = await OpenTodoListAsync();
+TodoListViewModel list = await OpenTodoListAsync();
 TodoView view = new() { ViewModel = list };
 Signal<RxVoid> refresh = new();
 
@@ -670,7 +670,7 @@ dentist
 Pass a `null` stream, cast to `IObservable<RxVoid>?`, and the binding observes both properties and writes in both directions as they change. The cast picks the overload.
 
 ```csharp
-var list = await OpenTodoListAsync();
+TodoListViewModel list = await OpenTodoListAsync();
 TodoView view = new() { ViewModel = list };
 
 using (view.BindUnsafe(list, x => x.FilterText, v => v.FilterTextBox.Text, (IObservable<RxVoid>?)null))
@@ -697,7 +697,7 @@ The same works with converters, and with a stream that commits an amount when th
 `BindTo` hands each write to the thread that owns the target, so the stream needs no `ObserveOn`. When the value type differs from the property type, the converter registered for that pair runs ([Converters](converters.md)). When no converter is registered for the pair, such as an enum stream and a `string` property, `BindTo` writes nothing and reports nothing. Convert the value in the stream first, as `Select(state => state.ToString())` does.
 
 ```csharp
-var browser = await OpenBucketAsync();
+StorageBrowserViewModel browser = await OpenBucketAsync();
 StorageBrowserView view = new();
 
 using (browser.WhenChanged(x => x.UploadPercent).Select(static percent => percent / PercentPerBar).BindTo(view, v => v.UploadProgressBar.Progress))
@@ -717,7 +717,7 @@ using (browser.WhenChanged(x => x.UploadPercent).Select(static percent => percen
 `BindTo` has four overloads: the plain call, one with a converter to use instead of the registered ones, one with a conversion hint, and one with both. A hint that is a `string` would bind to the caller's expression parameter, so name the argument. The hint here is a number format.
 
 ```csharp
-var accounts = await OpenAccountsAsync();
+AccountsViewModel accounts = await OpenAccountsAsync();
 AccountsView view = new();
 
 using (accounts.WhenChanged(x => x.TotalBalance).BindTo(view, v => v.TotalBalanceLabel.Text, conversionHint: GroupedFormat))
@@ -733,7 +733,7 @@ using (accounts.WhenChanged(x => x.TotalBalance).BindTo(view, v => v.TotalBalanc
 Sometimes the registered converters do not give the text you want. Name a converter to use it instead of every converter the library registers. Here `CurrencyTextConverter` adds a dollar sign to the balance.
 
 ```csharp
-var accounts = await OpenAccountsAsync();
+AccountsViewModel accounts = await OpenAccountsAsync();
 AccountsView view = new();
 
 using (accounts.WhenChanged(x => x.TotalBalance).BindTo(view, v => v.TotalBalanceLabel.Text, new CurrencyTextConverter()))
@@ -749,7 +749,7 @@ $17,680.75
 Pass the hint and the converter together when the converter needs a hint. The hint comes first. The converter in the example reads the hint as a number format, so the total loses its decimal places.
 
 ```csharp
-var accounts = await OpenAccountsAsync();
+AccountsViewModel accounts = await OpenAccountsAsync();
 AccountsView view = new();
 
 using (accounts.WhenChanged(x => x.TotalBalance).BindTo(view, v => v.TotalBalanceLabel.Text, GroupedFormat, new CurrencyTextConverter()))
@@ -765,9 +765,9 @@ $17,681
 A stream can come from an event. The example turns each `TextChanged` event of the filter box into the new text and writes it to the view model, so each text the user types narrows the list.
 
 ```csharp
-var list = await OpenTodoListAsync();
+TodoListViewModel list = await OpenTodoListAsync();
 TodoView view = new();
-var typedTexts = Signal.FromEventPattern<TextChangedEventArgs>(handler => view.FilterTextBox.TextChanged += handler, handler => view.FilterTextBox.TextChanged -= handler)
+IObservable<string> typedTexts = Signal.FromEventPattern<TextChangedEventArgs>(handler => view.FilterTextBox.TextChanged += handler, handler => view.FilterTextBox.TextChanged -= handler)
     .Select(static pattern => pattern.EventArgs.NewTextValue);
 
 using (typedTexts.BindTo(list, x => x.FilterText))
@@ -790,10 +790,10 @@ dentist
 A value can arrive on a background thread, such as a socket callback. `BindTo` hands the write to the label's owning thread, so the stream needs no `ObserveOn`. A console process has no UI thread, so here the write runs where the value arrived.
 
 ```csharp
-var storage = InMemoryObjectStorage.CreateSeeded();
+InMemoryObjectStorage storage = InMemoryObjectStorage.CreateSeeded();
 StorageBrowserViewModel browser = new(storage);
 StorageBrowserView view = new();
-var callerThread = Environment.CurrentManagedThreadId;
+int callerThread = Environment.CurrentManagedThreadId;
 
 using (browser.WhenChanged(x => x.ConnectionStatus)
     .Do(state => Console.WriteLine($"{state} arrived on another thread: {Environment.CurrentManagedThreadId != callerThread}"))
@@ -826,7 +826,7 @@ TodoListViewModel viewModel = new(InMemoryTodoStore.CreateSeeded());
 await viewModel.LoadAsync();
 TodoView view = new() { ViewModel = viewModel };
 
-using var binding = view.BindCommand(viewModel, x => x.AddCommand, v => v.AddButton);
+using IDisposable binding = view.BindCommand(viewModel, x => x.AddCommand, v => v.AddButton);
 
 Console.WriteLine(view.AddButton.IsEnabled);
 
@@ -847,16 +847,16 @@ TodoListViewModel viewModel = new(InMemoryTodoStore.CreateSeeded());
 await viewModel.LoadAsync();
 TodoView view = new() { ViewModel = viewModel };
 
-using var binding = view.BindCommand(viewModel, x => x.CompleteCommand, v => v.CompleteButton, toEvent: ClickedEventName);
+using IDisposable binding = view.BindCommand(viewModel, x => x.CompleteCommand, v => v.CompleteButton, toEvent: ClickedEventName);
 
 // No item is selected, so the command refuses the click.
 ((IButtonController)view.CompleteButton).SendClicked();
 
 Console.WriteLine(viewModel.RemainingCount);
 
-var item = viewModel.Items[0];
+TodoItem item = viewModel.Items[0];
 viewModel.SelectedItem = item;
-var completed = item.WhenChanged(x => x.IsDone).Where(static done => done).FirstAsync();
+Task<bool> completed = item.WhenChanged(x => x.IsDone).Where(static done => done).FirstAsync();
 ((IButtonController)view.CompleteButton).SendClicked();
 await completed;
 
@@ -885,7 +885,7 @@ await viewModel.OpenCourseAsync();
 GradebookView view = new() { ViewModel = viewModel };
 view.CandidateList.ItemsSource = viewModel.Candidates.ToList();
 
-using var binding = view.BindCommand(viewModel, x => x.EnrolCommand, v => v.EnrolButton, view.CandidateList.WhenChanged(x => x.SelectedItem));
+using IDisposable binding = view.BindCommand(viewModel, x => x.EnrolCommand, v => v.EnrolButton, view.CandidateList.WhenChanged(x => x.SelectedItem));
 
 Console.WriteLine(view.EnrolButton.IsEnabled);
 
@@ -893,7 +893,7 @@ view.CandidateList.SelectedItem = viewModel.Candidates[DiegoCandidateIndex];
 
 Console.WriteLine(view.EnrolButton.IsEnabled);
 
-var rosterLoaded = viewModel.WhenChanged(x => x.Roster).Skip(1).FirstAsync();
+Task<IReadOnlyList<Student>> rosterLoaded = viewModel.WhenChanged(x => x.Roster).Skip(1).FirstAsync();
 ((IButtonController)view.EnrolButton).SendClicked();
 await rosterLoaded;
 
@@ -909,14 +909,14 @@ True
 The stream form takes `toEvent` too. Here each file the user picks is a value of a `Signal`, and the button is bound through `Clicked`.
 
 ```csharp
-var browser = await OpenPhotosFolderAsync();
+StorageBrowserViewModel browser = await OpenPhotosFolderAsync();
 StorageBrowserView view = new() { ViewModel = browser };
 Signal<UploadRequest> pickedFiles = new();
 
-using var binding = view.BindCommand(browser, x => x.UploadCommand, v => v.UploadButton, pickedFiles, toEvent: ClickedEventName);
+using IDisposable binding = view.BindCommand(browser, x => x.UploadCommand, v => v.UploadButton, pickedFiles, toEvent: ClickedEventName);
 
 pickedFiles.OnNext(SpringCampaign());
-var uploaded = browser.WhenChanged(x => x.IsUploading).Skip(1).Where(static uploading => !uploading).FirstAsync();
+Task<bool> uploaded = browser.WhenChanged(x => x.IsUploading).Skip(1).Where(static uploading => !uploading).FirstAsync();
 ((IButtonController)view.UploadButton).SendClicked();
 await uploaded;
 
@@ -930,11 +930,11 @@ Console.WriteLine(browser.Objects.Count);
 The other overload takes a lambda on the view model, and the parameter is that property. The upload button stays disabled until a file is picked, and the pick reaches the command as its parameter.
 
 ```csharp
-var browser = await OpenPhotosFolderAsync();
+StorageBrowserViewModel browser = await OpenPhotosFolderAsync();
 UploadPanelViewModel viewModel = new(browser);
 UploadPanelView view = new() { ViewModel = viewModel };
 
-using var binding = view.BindCommand(viewModel, x => x.UploadCommand, v => v.UploadButton, x => x.PendingUpload);
+using IDisposable binding = view.BindCommand(viewModel, x => x.UploadCommand, v => v.UploadButton, x => x.PendingUpload);
 
 Console.WriteLine(view.UploadButton.IsEnabled);
 
@@ -942,7 +942,7 @@ viewModel.PendingUpload = SpringCampaign();
 
 Console.WriteLine(view.UploadButton.IsEnabled);
 
-var uploaded = browser.WhenChanged(x => x.IsUploading).Skip(1).Where(static uploading => !uploading).FirstAsync();
+Task<bool> uploaded = browser.WhenChanged(x => x.IsUploading).Skip(1).Where(static uploading => !uploading).FirstAsync();
 ((IButtonController)view.UploadButton).SendClicked();
 await uploaded;
 
@@ -960,14 +960,14 @@ photos/2026/spring-campaign.png
 The lambda form takes `toEvent` in the same way. Use it when the click, and not the button's enabled state, should decide when the command runs. The view model's `PendingUpload` property supplies the parameter.
 
 ```csharp
-var browser = await OpenPhotosFolderAsync();
+StorageBrowserViewModel browser = await OpenPhotosFolderAsync();
 UploadPanelViewModel viewModel = new(browser);
 UploadPanelView view = new() { ViewModel = viewModel };
 
-using var binding = view.BindCommand(viewModel, panel => panel.UploadCommand, v => v.UploadButton, panel => panel.PendingUpload, toEvent: ClickedEventName);
+using IDisposable binding = view.BindCommand(viewModel, panel => panel.UploadCommand, v => v.UploadButton, panel => panel.PendingUpload, toEvent: ClickedEventName);
 
 viewModel.PendingUpload = SpringCampaign();
-var uploaded = browser.WhenChanged(x => x.IsUploading).Skip(1).Where(static uploading => !uploading).FirstAsync();
+Task<bool> uploaded = browser.WhenChanged(x => x.IsUploading).Skip(1).Where(static uploading => !uploading).FirstAsync();
 ((IButtonController)view.UploadButton).SendClicked();
 await uploaded;
 
@@ -999,8 +999,8 @@ Each `BindCommand` call is its own binding, and it returns an `IDisposable`. Dis
 StatementExportViewModel viewModel = new() { HasStatement = true };
 StatementExportView view = new() { ViewModel = viewModel };
 
-var attached = view.BindCommand(viewModel, x => x.ExportCommand, v => v.ExportButton);
-var clicked = view.BindCommand(viewModel, x => x.ExportCommand, v => v.ExportButton, toEvent: ClickedEventName);
+IDisposable attached = view.BindCommand(viewModel, x => x.ExportCommand, v => v.ExportButton);
+IDisposable clicked = view.BindCommand(viewModel, x => x.ExportCommand, v => v.ExportButton, toEvent: ClickedEventName);
 
 Console.WriteLine(ReferenceEquals(viewModel.ExportCommand, view.ExportButton.Command));
 
@@ -1034,7 +1034,7 @@ False
 An `ICreatesCommandBinding` decides how a command reaches a control. The runtime asks every registered binder how well it fits the control and uses the one with the highest score, its **affinity**. A score of `0` means the binder cannot bind the control ([Mechanisms](mechanisms.md#write-a-command-binder) shows how to write and register one). The example binder, `ClickedCommandBinder`, scores a MAUI `Button` at `10` and any other control at `0`. Ask a binder for its score with `GetAffinityForObject`.
 
 ```csharp
-var binder = ChooseBinder();
+ICreatesCommandBinding binder = ChooseBinder();
 
 Console.WriteLine(binder.GetAffinityForObject<Button>(hasEventTarget: false));
 Console.WriteLine(binder.GetAffinityForObject<Entry>(hasEventTarget: false));
@@ -1050,7 +1050,7 @@ A binder has three `BindCommandToObject` methods. Each returns an `IDisposable` 
 ```csharp
 StatementExportViewModel viewModel = new() { HasStatement = true };
 StatementExportView view = new();
-var binder = ChooseBinder();
+ICreatesCommandBinding binder = ChooseBinder();
 
 using (binder.BindCommandToObject(viewModel.ExportCommand, view.ExportButton, Signal.Never<object?>()))
 {
@@ -1074,10 +1074,10 @@ The second binds an event by name, which is what `toEvent` reaches. It returns `
 ```csharp
 StatementExportViewModel viewModel = new() { HasStatement = true };
 StatementExportView view = new();
-var binder = ChooseBinder();
+ICreatesCommandBinding binder = ChooseBinder();
 
-using var clicked = binder.BindCommandToObject<Button, EventArgs>(viewModel.ExportCommand, view.ExportButton, Signal.Never<object?>(), ClickedEventName);
-var pressed = binder.BindCommandToObject<Button, EventArgs>(viewModel.ExportCommand, view.ExportButton, Signal.Never<object?>(), PressedEventName);
+using IDisposable? clicked = binder.BindCommandToObject<Button, EventArgs>(viewModel.ExportCommand, view.ExportButton, Signal.Never<object?>(), ClickedEventName);
+IDisposable? pressed = binder.BindCommandToObject<Button, EventArgs>(viewModel.ExportCommand, view.ExportButton, Signal.Never<object?>(), PressedEventName);
 
 ((IButtonController)view.ExportButton).SendClicked();
 
@@ -1096,9 +1096,9 @@ The third takes the add and remove handlers for an event. Use it when you know t
 
 ```csharp
 TodoView view = new();
-var binder = ChooseBinder();
+ICreatesCommandBinding binder = ChooseBinder();
 Command search = new(static () => Console.WriteLine("search"));
-var entry = view.FilterTextBox;
+Entry entry = view.FilterTextBox;
 
 using (binder.BindCommandToObject<Entry, TextChangedEventArgs>(
     search,
@@ -1128,14 +1128,14 @@ The example runs the sign-in command each time the access token changes. A blank
 ```csharp
 IssueBoardViewModel viewModel = new(InMemoryGitHubServer.CreateSeeded());
 
-using var subscription = viewModel.WhenChanged(x => x.Token).InvokeCommand(viewModel.SignInCommand);
+using IDisposable subscription = viewModel.WhenChanged(x => x.Token).InvokeCommand(viewModel.SignInCommand);
 
 viewModel.Token = "   ";
 
 Console.WriteLine(viewModel.IsSignedIn);
 Console.WriteLine(viewModel.RateLimitRemaining);
 
-var loaded = viewModel.WhenChanged(x => x.Repositories).Where(static repositories => repositories.Count > 0).FirstAsync();
+Task<IReadOnlyList<Repository>> loaded = viewModel.WhenChanged(x => x.Repositories).Where(static repositories => repositories.Count > 0).FirstAsync();
 viewModel.Token = InMemoryGitHubServer.PriyaToken;
 await loaded;
 
@@ -1151,13 +1151,13 @@ True
 A second overload takes an object and a lambda for a command property, and it reads the command from the property. A `null` command drops the values offered while it stands. A later command takes over from the next value, and replacing the command runs nothing by itself. Below, choosing a repository loads its issues.
 
 ```csharp
-var viewModel = await SignInAsync();
+IssueBoardViewModel viewModel = await SignInAsync();
 
-using var subscription = viewModel.WhenChanged(x => x.SelectedRepository!).InvokeCommand(viewModel, x => x.LoadIssuesCommand);
+using IDisposable subscription = viewModel.WhenChanged(x => x.SelectedRepository!).InvokeCommand(viewModel, x => x.LoadIssuesCommand);
 
 Console.WriteLine(viewModel.Issues.Count);
 
-var loaded = viewModel.WhenChanged(x => x.RateLimitRemaining).Skip(1).FirstAsync();
+Task<int> loaded = viewModel.WhenChanged(x => x.RateLimitRemaining).Skip(1).FirstAsync();
 viewModel.SelectedRepository = viewModel.Repositories[0];
 await loaded;
 
@@ -1178,15 +1178,15 @@ A view model sometimes needs an answer from the user, such as "Close this issue?
 `BindInteraction` registers a handler on the interaction that a view model property holds. The handler receives an `IInteractionContext<TInput, TOutput>` with the `Input` and the `SetOutput` method. Register a handler that returns a `Task`, and the question stays open until the task ends. In the example the close waits for the dialog.
 
 ```csharp
-var viewModel = await OpenWebshopIssuesAsync();
+IssueBoardViewModel viewModel = await OpenWebshopIssuesAsync();
 IssueBoardView view = new() { ViewModel = viewModel };
 TaskCompletionSource<bool> dialog = new(TaskCreationOptions.RunContinuationsAsynchronously);
 
-using var binding = view.BindInteraction(viewModel, x => x.ConfirmClose, async context => context.SetOutput(await dialog.Task));
+using IDisposable binding = view.BindInteraction(viewModel, x => x.ConfirmClose, async context => context.SetOutput(await dialog.Task));
 
-var issue = viewModel.Issues[0];
+Issue issue = viewModel.Issues[0];
 viewModel.SelectedIssue = issue;
-var closing = viewModel.CloseIssueAsync();
+Task closing = viewModel.CloseIssueAsync();
 
 Console.WriteLine(closing.IsCompleted);
 Console.WriteLine(issue.State);
@@ -1212,9 +1212,9 @@ viewModel.SelectedCourse = viewModel.Courses[0];
 await viewModel.OpenCourseAsync();
 viewModel.SelectedStudent = viewModel.Roster[BenRosterIndex];
 GradebookView view = new() { ViewModel = viewModel };
-var teacherConfirms = false;
+bool teacherConfirms = false;
 
-using var binding = view.BindInteraction(viewModel, x => x.ConfirmDrop, context =>
+using IDisposable binding = view.BindInteraction(viewModel, x => x.ConfirmDrop, context =>
 {
     context.SetOutput(teacherConfirms);
     return Signal.Return(context.Input.Student.Id);
@@ -1238,17 +1238,17 @@ Console.WriteLine(viewModel.Roster.Count);
 The property can have the type `IInteraction<TInput, TOutput>`, the interface that `Interaction<TInput, TOutput>` implements. `BindInteraction` accepts either.
 
 ```csharp
-var board = await OpenWebshopIssuesAsync();
+IssueBoardViewModel board = await OpenWebshopIssuesAsync();
 IssueTriageViewModel viewModel = new(board);
 IssueTriageView view = new() { ViewModel = viewModel };
 
-using var binding = view.BindInteraction(viewModel, x => x.ConfirmClose, static context =>
+using IDisposable binding = view.BindInteraction(viewModel, x => x.ConfirmClose, static context =>
 {
     context.SetOutput(context.Input.State == IssueState.Open);
     return Task.CompletedTask;
 });
 
-var issue = board.Issues[0];
+Issue issue = board.Issues[0];
 board.SelectedIssue = issue;
 await board.CloseIssueAsync();
 
@@ -1262,10 +1262,10 @@ Closed
 Disposing the binding removes its handler, so the next question goes unanswered. The first question below is answered. The second throws `UnhandledInteractionException`.
 
 ```csharp
-var viewModel = await OpenWebshopIssuesAsync();
+IssueBoardViewModel viewModel = await OpenWebshopIssuesAsync();
 IssueBoardView view = new() { ViewModel = viewModel };
-var issue = viewModel.Issues[0];
-var binding = view.BindInteraction(viewModel, x => x.ConfirmClose, static context =>
+Issue issue = viewModel.Issues[0];
+IDisposable binding = view.BindInteraction(viewModel, x => x.ConfirmClose, static context =>
 {
     context.SetOutput(false);
     return Task.CompletedTask;
@@ -1275,7 +1275,7 @@ Console.WriteLine(await viewModel.ConfirmClose.Handle(issue));
 
 binding.Dispose();
 
-var unanswered = false;
+bool unanswered = false;
 try
 {
     _ = await viewModel.ConfirmClose.Handle(issue);
@@ -1298,9 +1298,9 @@ A view often exists before its view model does. In that case `BindInteraction` r
 ```csharp
 IssueBoardView view = new();
 IssueBoardViewModel? viewModel = null;
-var handlerRuns = 0;
+int handlerRuns = 0;
 
-var binding = view.BindInteraction(viewModel, x => x.ConfirmClose, context =>
+IDisposable binding = view.BindInteraction(viewModel, x => x.ConfirmClose, context =>
 {
     handlerRuns++;
     context.SetOutput(true);
@@ -1321,14 +1321,14 @@ A screen can bind two interactions in turn. The bank confirms a large transfer, 
 ```csharp
 var (viewModel, view) = await OpenTransferScreenAsync();
 
-using var confirmation = view.BindInteraction(viewModel, x => x.ConfirmTransfer, static context =>
+using IDisposable confirmation = view.BindInteraction(viewModel, x => x.ConfirmTransfer, static context =>
 {
     Console.WriteLine("confirm");
     context.SetOutput(true);
     return Task.CompletedTask;
 });
 
-using var approval = view.BindInteraction(viewModel, x => x.ApproveTransfer, static context =>
+using IDisposable approval = view.BindInteraction(viewModel, x => x.ApproveTransfer, static context =>
 {
     Console.WriteLine("approve");
     context.SetOutput(InMemoryBankingBackend.ApprovalCode);
@@ -1353,11 +1353,11 @@ approve
 
 ```csharp
 IssueTriageViewModel triage = new(new(InMemoryGitHubServer.CreateSeeded()));
-var confirmClose = triage.ConfirmClose;
+Interaction<Issue, bool> confirmClose = triage.ConfirmClose;
 Issue issue = new() { Number = CheckoutIssueNumber };
-using var declines = confirmClose.RegisterHandler(static context => context.SetOutput(false));
-using var asksAgain = confirmClose.RegisterHandler(static context => Signal.Return(context.IsHandled));
-var confirms = confirmClose.RegisterHandler(static context =>
+using IDisposable declines = confirmClose.RegisterHandler(static context => context.SetOutput(false));
+using IDisposable asksAgain = confirmClose.RegisterHandler(static context => Signal.Return(context.IsHandled));
+IDisposable confirms = confirmClose.RegisterHandler(static context =>
 {
     context.SetOutput(true);
     return Task.CompletedTask;
@@ -1380,9 +1380,9 @@ Handlers run in reverse order of registration: the handler registered last answe
 ```csharp
 Interaction<TransferDraft, string> approval = new();
 TransferDraft draft = new();
-using var first = approval.RegisterHandler(static context => context.SetOutput(FirstAnswer));
-using var ignoring = approval.RegisterHandler(static context => Signal.Return(context.IsHandled));
-var latest = approval.RegisterHandler(static context =>
+using IDisposable first = approval.RegisterHandler(static context => context.SetOutput(FirstAnswer));
+using IDisposable ignoring = approval.RegisterHandler(static context => Signal.Return(context.IsHandled));
+IDisposable latest = approval.RegisterHandler(static context =>
 {
     context.SetOutput(LatestAnswer);
     return Task.CompletedTask;
@@ -1408,9 +1408,9 @@ Every handler receives the same context object for one question. `IInteractionCo
 Interaction<Issue, bool> confirmClose = new();
 Issue issue = new() { Number = CheckoutIssueNumber };
 
-using var registration = confirmClose.RegisterHandler(static context =>
+using IDisposable registration = confirmClose.RegisterHandler(static context =>
 {
-    var answer = (InteractionContext<Issue, bool>)context;
+    InteractionContext<Issue, bool> answer = (InteractionContext<Issue, bool>)context;
 
     Console.WriteLine(answer.Input.Number);
     Console.WriteLine(answer.IsHandled);
@@ -1438,20 +1438,20 @@ The next example checks the rules. It casts the context to `IOutputContext` and 
 Interaction<Issue, bool> confirmClose = new();
 Issue issue = new() { Number = CheckoutIssueNumber };
 Issue? receivedInput = null;
-var handledBefore = true;
-var handledAfter = false;
-var isInteractionContext = false;
-var earlyReadRefused = false;
-var readBack = false;
-var secondAnswerRefused = false;
+bool handledBefore = true;
+bool handledAfter = false;
+bool isInteractionContext = false;
+bool earlyReadRefused = false;
+bool readBack = false;
+bool secondAnswerRefused = false;
 
-using var registration = confirmClose.RegisterHandler(context =>
+using IDisposable registration = confirmClose.RegisterHandler(context =>
 {
     receivedInput = context.Input;
     handledBefore = context.IsHandled;
     isInteractionContext = context is InteractionContext<Issue, bool>;
 
-    var output = (IOutputContext<Issue, bool>)context;
+    IOutputContext<Issue, bool> output = (IOutputContext<Issue, bool>)context;
     earlyReadRefused = RefusesWithInvalidOperation(() => output.GetOutput());
 
     context.SetOutput(true);
@@ -1460,7 +1460,7 @@ using var registration = confirmClose.RegisterHandler(context =>
     secondAnswerRefused = RefusesWithInvalidOperation(() => context.SetOutput(false));
 });
 
-var answer = await confirmClose.Handle(issue);
+bool answer = await confirmClose.Handle(issue);
 
 Console.WriteLine(ReferenceEquals(issue, receivedInput));
 Console.WriteLine(handledBefore);
@@ -1488,8 +1488,8 @@ True
 When no handler answers, `Handle` throws `UnhandledInteractionException<TInput, TOutput>`. It carries the `Input` and the `Interaction` that asked.
 
 ```csharp
-var viewModel = await OpenWebshopIssuesAsync();
-var issue = viewModel.Issues[0];
+IssueBoardViewModel viewModel = await OpenWebshopIssuesAsync();
+Issue issue = viewModel.Issues[0];
 viewModel.SelectedIssue = issue;
 UnhandledInteractionException<Issue, bool>? failure = null;
 
@@ -1641,7 +1641,7 @@ Console.WriteLine(field.Reference);
 
 try
 {
-    using var second = draft.BindOneWay(field, x => x.Reference, v => v.Reference);
+    using IDisposable second = draft.BindOneWay(field, x => x.Reference, v => v.Reference);
 }
 catch (ArgumentException ex)
 {
@@ -1735,14 +1735,14 @@ public bool ExecuteHook(
 `BindOneWay`, `BindTwoWay`, `OneWayBind` and `Bind` each ask the hooks once. A refused binding that returns an `IDisposable` returns an empty one, and nothing is written to the view. A refused view-first binding returns `null`, so check for `null` before you use the result. One-way bindings pass this hook, as the second call below shows.
 
 ```csharp
-var accounts = await OpenAccountsAsync();
+AccountsViewModel accounts = await OpenAccountsAsync();
 AccountNameView view = new() { ViewModel = accounts };
 
 AppLocator.CurrentMutable.RegisterConstant<IPropertyBindingHook>(new ReadOnlyAccountHook());
 BindingHooks.Refresh();
 
-var refused = view.Bind(accounts, x => x.SelectedAccount!.Name, v => v.NameTextBox.Text);
-using var allowed = view.OneWayBind(accounts, x => x.SelectedAccount!.Name, v => v.NameTextBox.Text);
+IReactiveBinding<AccountNameView, BindingChange> refused = view.Bind(accounts, x => x.SelectedAccount!.Name, v => v.NameTextBox.Text);
+using IReactiveBinding<AccountNameView, string> allowed = view.OneWayBind(accounts, x => x.SelectedAccount!.Name, v => v.NameTextBox.Text);
 
 Console.WriteLine(refused is null);
 Console.WriteLine(allowed is null);
@@ -1761,7 +1761,7 @@ Everyday Account
 Most applications register no hook. `BindingHooks.Any` is then `false` and a binding asks nobody, so the check costs almost nothing. The example prints `Any` and binds one property.
 
 ```csharp
-var accounts = await OpenAccountsAsync();
+AccountsViewModel accounts = await OpenAccountsAsync();
 AccountNameView view = new();
 
 Console.WriteLine(BindingHooks.Any);
@@ -1780,7 +1780,7 @@ Everyday Account
 The next example registers a hook that writes down every binding. Each of the four binding methods asks the hook once, with its direction.
 
 ```csharp
-var accounts = await OpenAccountsAsync();
+AccountsViewModel accounts = await OpenAccountsAsync();
 AccountNameView view = new() { ViewModel = accounts };
 
 AppLocator.CurrentMutable.RegisterConstant<IPropertyBindingHook>(new LoggingBindingHook("log"));
@@ -1811,9 +1811,9 @@ all four bound
 A refused source-first binding returns an empty disposable. Here the hook refuses `BindTwoWay`, so the box shows nothing and an edit never reaches the account. Once the hook is gone the same binding writes the edit.
 
 ```csharp
-var accounts = await OpenAccountsAsync();
+AccountsViewModel accounts = await OpenAccountsAsync();
 AccountNameView view = new();
-var everydayName = accounts.SelectedAccount!.Name;
+string everydayName = accounts.SelectedAccount!.Name;
 
 AppLocator.CurrentMutable.RegisterConstant<IPropertyBindingHook>(new ReadOnlyAccountHook());
 BindingHooks.Refresh();
@@ -1854,7 +1854,7 @@ Household Account
 You can ask the hooks yourself with `BindingHooks.ShouldBind`. The example registers three hooks. The first and third only log, and the second refuses a two-way binding. The one-way question reaches all three. The two-way question stops at the second, so the third is never asked.
 
 ```csharp
-var accounts = await OpenAccountsAsync();
+AccountsViewModel accounts = await OpenAccountsAsync();
 AccountNameView view = new();
 
 AppLocator.CurrentMutable.RegisterConstant<IPropertyBindingHook>(new LoggingBindingHook("first"));
@@ -1862,8 +1862,8 @@ AppLocator.CurrentMutable.RegisterConstant<IPropertyBindingHook>(new ReadOnlyAcc
 AppLocator.CurrentMutable.RegisterConstant<IPropertyBindingHook>(new LoggingBindingHook("last"));
 BindingHooks.Refresh();
 
-var oneWay = BindingHooks.ShouldBind(accounts, view, Observed(accounts), Observed(view), BindingDirection.OneWay);
-var twoWay = BindingHooks.ShouldBind(accounts, view, Observed(accounts), Observed(view), BindingDirection.TwoWay);
+bool oneWay = BindingHooks.ShouldBind(accounts, view, Observed(accounts), Observed(view), BindingDirection.OneWay);
+bool twoWay = BindingHooks.ShouldBind(accounts, view, Observed(accounts), Observed(view), BindingDirection.TwoWay);
 
 Console.WriteLine(oneWay);
 Console.WriteLine(twoWay);
@@ -1883,7 +1883,7 @@ False
 `BindingHooks` reads the registrations once and keeps them. Register every hook before the first binding, or call `BindingHooks.Refresh` after you register one. The example below registers a hook late. The first binding does not ask it, and the binding after `Refresh` does.
 
 ```csharp
-var accounts = await OpenAccountsAsync();
+AccountsViewModel accounts = await OpenAccountsAsync();
 AccountNameView view = new();
 
 Console.WriteLine(BindingHooks.Any);

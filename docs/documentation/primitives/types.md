@@ -32,7 +32,7 @@ for how the pieces fit together.
 | `ConnectableSignalExtensions` | Holds the sharing operators for connectable signals. | [Sharing](sharing.md) |
 | `ConnectableSignalRxNameExtensions` | Holds the System.Reactive names of the sharing operators, such as `Publish` and `RefCount`. | [Sharing](sharing.md) |
 | `ExceptionExtensions` | Holds `Throw`, which rethrows an exception without losing its stack trace. | [Error handling](error-handling.md) |
-| `Handle<T>`, `Handle<T1, T2>`, `Handle<T1, T2, T3>` | Shared, cached lambdas that do nothing or rethrow, so operators need not allocate their own. | [Writing your own operator](advanced.md) |
+| `Handle<T>`, `Handle<T1, T2>` | Shared, cached lambdas that do nothing or rethrow, so operators need not allocate their own. Overloads take up to three type arguments. | [Writing your own operator](advanced.md) |
 | `SubscribeExtensions` | Holds the `Subscribe` overloads that take lambdas. | [Utility](utility.md) |
 
 ## `ReactiveUI.Primitives.Advanced`

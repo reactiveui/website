@@ -22,9 +22,9 @@ The source generator reads each property path while your project builds and writ
 **3. Change the property.** The subscriber receives the new title right after the setter runs. The example below performs all three steps and prints every title the subscriber receives.
 
 ```csharp
-var item = CreateRegistrationTask();
+TodoItem item = CreateRegistrationTask();
 
-using var subscription = item.WhenChanged(x => x.Title).Subscribe(Console.WriteLine);
+using IDisposable subscription = item.WhenChanged(x => x.Title).Subscribe(Console.WriteLine);
 
 item.Title = RenamedTitle;
 ```
@@ -60,9 +60,9 @@ A property path is a lambda that C# turns into an expression tree, and C# does n
 Two or more properties deliver a `PropertyValues`. It holds one member per property, named `Property1`, `Property2` and so on, in the order of the lambdas. [Read several values at once](#read-several-values-at-once) covers it in detail.
 
 ```csharp
-var item = CreateRegistrationTask();
+TodoItem item = CreateRegistrationTask();
 
-using var subscription = item.WhenChanged(x => x.Title, x => x.IsDone).Subscribe(static values => Console.WriteLine(values.Property2));
+using IDisposable subscription = item.WhenChanged(x => x.Title, x => x.IsDone).Subscribe(static values => Console.WriteLine(values.Property2));
 
 item.IsDone = true;
 ```
@@ -75,9 +75,9 @@ True
 Add a selector as the last argument to turn the values into one result. The selector receives the values directly, in the order of the lambdas.
 
 ```csharp
-var item = CreateRegistrationTask();
+TodoItem item = CreateRegistrationTask();
 
-using var subscription = item
+using IDisposable subscription = item
     .WhenChanged(x => x.Title, x => x.IsDone, static (title, isDone) => (isDone ? DoneMark : OpenMark) + title)
     .Subscribe(Console.WriteLine);
 
@@ -96,9 +96,9 @@ item.IsDone = true;
 The example prints the title again after the setter runs, so you can compare the value the subscriber saw with the value the property holds.
 
 ```csharp
-var item = CreateRegistrationTask();
+TodoItemDraft item = CreateRegistrationTask();
 
-using var subscription = item.WhenChanging(x => x.Title).Subscribe(Console.WriteLine);
+using IDisposable subscription = item.WhenChanging(x => x.Title).Subscribe(Console.WriteLine);
 
 item.Title = RenamedTitle;
 
@@ -116,9 +116,9 @@ The first line is the value at subscription. The second is the value before the 
 `WhenChanging` takes several properties in the same way as `WhenChanged`. Each emission holds the values before the change.
 
 ```csharp
-var item = CreateRegistrationTask();
+TodoItemDraft item = CreateRegistrationTask();
 
-using var subscription = item.WhenChanging(x => x.Title, x => x.IsDone).Subscribe(static values => Console.WriteLine(values.Property2));
+using IDisposable subscription = item.WhenChanging(x => x.Title, x => x.IsDone).Subscribe(static values => Console.WriteLine(values.Property2));
 
 item.IsDone = true;
 
@@ -134,9 +134,9 @@ True
 A selector turns the values before the change into one result. This one prints the status line the item had before its done flag changed.
 
 ```csharp
-var item = CreateRegistrationTask();
+TodoItemDraft item = CreateRegistrationTask();
 
-using var subscription = item
+using IDisposable subscription = item
     .WhenChanging(x => x.Title, x => x.IsDone, static (title, isDone) => $"{title} ({(isDone ? DoneText : OpenText)})")
     .Subscribe(Console.WriteLine);
 
@@ -153,9 +153,9 @@ Renew car registration (open)
 `WhenAnyValue` takes the same lambdas as `WhenChanged` and delivers the same values after each change. The selector receives the values directly, and several properties deliver a `PropertyValues`.
 
 ```csharp
-var item = CreateRegistrationTask();
+TodoItem item = CreateRegistrationTask();
 
-using var subscription = item.WhenAnyValue(x => x.Title, static title => title.Length).Subscribe(Console.WriteLine);
+using IDisposable subscription = item.WhenAnyValue(x => x.Title, static title => title.Length).Subscribe(Console.WriteLine);
 
 item.Title = RenamedTitle;
 ```
@@ -170,8 +170,8 @@ item.Title = RenamedTitle;
 A property path can pass through several objects. The board below has a selected issue, the issue has an assignee, and the assignee has a login. The observation follows every link. It delivers no value until every link has an object, and then it delivers the current login.
 
 ```csharp
-var board = await OpenWebshopBoardAsync();
-var checkoutBug = FindIssue(board, CheckoutBugNumber);
+IssueBoardViewModel board = await OpenWebshopBoardAsync();
+Issue checkoutBug = FindIssue(board, CheckoutBugNumber);
 
 List<string> logins = [];
 
@@ -196,9 +196,9 @@ priya-nair, tomas-berg
 **The observation moves with the objects.** When an object in the middle of the path is replaced, the observation attaches to the new object. It lets go of the old one.
 
 ```csharp
-var board = await OpenWebshopBoardAsync();
-var checkoutBug = FindIssue(board, CheckoutBugNumber);
-var previousAssignee = checkoutBug.Assignee!;
+IssueBoardViewModel board = await OpenWebshopBoardAsync();
+Issue checkoutBug = FindIssue(board, CheckoutBugNumber);
+User previousAssignee = checkoutBug.Assignee!;
 
 board.SelectedIssue = checkoutBug;
 
@@ -226,8 +226,8 @@ priya-nair, tomas-berg, maria-santos
 **Only a changed final value is delivered.** A change elsewhere on the path, or a change to the same value, delivers nothing.
 
 ```csharp
-var board = await OpenWebshopBoardAsync();
-var checkoutBug = FindIssue(board, CheckoutBugNumber);
+IssueBoardViewModel board = await OpenWebshopBoardAsync();
+Issue checkoutBug = FindIssue(board, CheckoutBugNumber);
 
 board.SelectedIssue = checkoutBug;
 
@@ -260,8 +260,8 @@ priya-nair, tomas-berg
 **A null in the middle delivers nothing.** When an object in the middle of the path is null, there is no final value to report. The observation waits for the next object.
 
 ```csharp
-var board = await OpenWebshopBoardAsync();
-var giftCards = FindIssue(board, GiftCardNumber);
+IssueBoardViewModel board = await OpenWebshopBoardAsync();
+Issue giftCards = FindIssue(board, GiftCardNumber);
 
 List<string> logins = [];
 
@@ -290,8 +290,8 @@ tomas-berg, maria-santos
 **A null final value is delivered.** When the path ends at the property that is null, every object on the path exists, so the null is a real value. It delivers nothing when no issue is selected.
 
 ```csharp
-var board = await OpenWebshopBoardAsync();
-var giftCards = FindIssue(board, GiftCardNumber);
+IssueBoardViewModel board = await OpenWebshopBoardAsync();
+Issue giftCards = FindIssue(board, GiftCardNumber);
 User tomas = new() { Login = TomasLogin };
 
 // The trailing ! only satisfies the compiler: the emitted values include null.
@@ -324,9 +324,9 @@ unassigned, tomas-berg, unassigned
 **Every object on the path must announce changes.** A storage object in the example raises no notification. The path `x.SelectedObject!.Key` would stop following at that object, and the analyzer reports RXUIBIND010. The generated observation reads such a link once and never again, and it writes no message. It delivers the value it read and then nothing, and it never completes, so the subscription stays open. End the path at the selection and read the key when a value arrives. A change to the key alone is not reported, and selecting the object again reads the key it has then.
 
 ```csharp
-var browser = await OpenMediaBucketAsync();
-var launchBanner = browser.Objects[LaunchBannerIndex];
-var teamOffsite = browser.Objects[TeamOffsiteIndex];
+StorageBrowserViewModel browser = await OpenMediaBucketAsync();
+StorageObject launchBanner = browser.Objects[LaunchBannerIndex];
+StorageObject teamOffsite = browser.Objects[TeamOffsiteIndex];
 
 List<string> keys = [];
 
@@ -353,9 +353,9 @@ photos/2026/launch-banner.png, photos/2026/team-offsite.jpg, photos/2026/launch-
 A path can also start on a plain property and reach a property of a property. This path reads the money available in the account a draft transfer pays from.
 
 ```csharp
-var transfer = await OpenTransferScreenAsync();
-var everyday = transfer.Accounts[EverydayAccountIndex];
-var savings = transfer.Accounts[SavingsAccountIndex];
+TransferViewModel transfer = await OpenTransferScreenAsync();
+Account everyday = transfer.Accounts[EverydayAccountIndex];
+Account savings = transfer.Accounts[SavingsAccountIndex];
 
 List<decimal> available = [];
 
@@ -385,9 +385,9 @@ using (transfer.WhenChanged(x => x.Draft.Source!.AvailableBalance).Subscribe(ava
 `WhenAny` hands its selector an observed change for each property instead of the bare value. An observed change carries the object that changed (`Sender`), the property value (`Value`) and the property expression (`Expression`). `WhenAny` takes one to twelve properties and always takes a selector. An observation that the generator wrote has no expression tree to report, so `Expression` is `null`.
 
 ```csharp
-var item = new TodoItem { Id = 1, Title = ReviewPrTitle };
+TodoItem item = new TodoItem { Id = 1, Title = ReviewPrTitle };
 
-using var subscription = item.WhenAny(x => x.Title, static change => change)
+using IDisposable subscription = item.WhenAny(x => x.Title, static change => change)
     .Subscribe(static change => Console.WriteLine($"Item {change.Sender.Id} is now '{change.Value}'"));
 
 item.Title = RenamedTitle;
@@ -401,9 +401,9 @@ Item 1 is now 'Review PR 204'
 The next example prints whether the expression is `null`.
 
 ```csharp
-var item = new TodoItem { Id = 1, Title = ReviewPrTitle };
+TodoItem item = new TodoItem { Id = 1, Title = ReviewPrTitle };
 
-using var subscription = item.WhenAny(x => x.Title, static change => change)
+using IDisposable subscription = item.WhenAny(x => x.Title, static change => change)
     .Subscribe(static change => Console.WriteLine(change.Expression is null));
 ```
 
@@ -414,9 +414,9 @@ True
 A selector can also read the value alone. This one turns the title into its length, as a character counter does.
 
 ```csharp
-var item = CreateRegistrationTask();
+TodoItem item = CreateRegistrationTask();
 
-using var subscription = item.WhenAny(x => x.Title, static title => title.Value.Length).Subscribe(Console.WriteLine);
+using IDisposable subscription = item.WhenAny(x => x.Title, static title => title.Value.Length).Subscribe(Console.WriteLine);
 
 item.Title = RenamedTitle;
 ```
@@ -429,9 +429,9 @@ item.Title = RenamedTitle;
 With several properties, the selector receives one observed change per property, in order. Read `Value` from each one.
 
 ```csharp
-var item = CreateRegistrationTask();
+TodoItem item = CreateRegistrationTask();
 
-using var subscription = item
+using IDisposable subscription = item
     .WhenAny(x => x.Title, x => x.IsDone, x => x.Priority, static (_, isDone, priority) => isDone.Value ? TodoPriority.Low : priority.Value)
     .Subscribe(static priority => Console.WriteLine(priority));
 
@@ -448,10 +448,10 @@ Low
 **A selector that throws ends the stream with an error.** `Catch` can replace the error with a value, but the stream ends after it, so later changes are never delivered.
 
 ```csharp
-var server = InMemoryGitHubServer.CreateSeeded();
+InMemoryGitHubServer server = InMemoryGitHubServer.CreateSeeded();
 IssueSearchViewModel viewModel = new(server, Webshop) { SearchTerm = FirstIssueNumber };
 
-using var subscription = viewModel
+using IDisposable subscription = viewModel
     .WhenAny(x => x.SearchTerm, static term => int.Parse(term.Value, CultureInfo.InvariantCulture))
     .Catch<int, FormatException>(static _ => Signal.Return(NotANumber))
     .Subscribe(Console.WriteLine);
@@ -472,10 +472,10 @@ viewModel.SearchTerm = ThirdIssueNumber;
 Handle the failure inside the selector when the stream has to keep going.
 
 ```csharp
-var server = InMemoryGitHubServer.CreateSeeded();
+InMemoryGitHubServer server = InMemoryGitHubServer.CreateSeeded();
 IssueSearchViewModel viewModel = new(server, Webshop) { SearchTerm = FirstIssueNumber };
 
-using var subscription = viewModel
+using IDisposable subscription = viewModel
     .WhenAny(x => x.SearchTerm, static term => int.TryParse(term.Value, CultureInfo.InvariantCulture, out var number) ? number : NotANumber)
     .Subscribe(Console.WriteLine);
 
@@ -496,10 +496,10 @@ viewModel.SearchTerm = ThirdIssueNumber;
 `ObservedChange<TSender, TValue>` is the class behind `IObservedChange<TSender, TValue>`. The generator creates one for each notification, and you can create one yourself with a sender, an expression and a value. The expression may be `null`.
 
 ```csharp
-var item = new TodoItem { Id = 1, Title = ReviewPrTitle };
+TodoItem item = new TodoItem { Id = 1, Title = ReviewPrTitle };
 Expression<Func<TodoItem, string>> expression = x => x.Title;
 
-var change = new ObservedChange<TodoItem, string>(item, expression.Body, item.Title);
+ObservedChange<TodoItem, string> change = new ObservedChange<TodoItem, string>(item, expression.Body, item.Title);
 
 Console.WriteLine(change.Sender.Title);
 Console.WriteLine(change.Expression);
@@ -515,9 +515,9 @@ Review PR
 Pass `null` for the expression when the observation needs no expression tree.
 
 ```csharp
-var item = new TodoItem { Id = 1, Title = ReviewPrTitle };
+TodoItem item = new TodoItem { Id = 1, Title = ReviewPrTitle };
 
-var change = new ObservedChange<TodoItem, string>(item, null, item.Title);
+ObservedChange<TodoItem, string> change = new ObservedChange<TodoItem, string>(item, null, item.Title);
 
 Console.WriteLine(change.Sender.Title);
 Console.WriteLine(change.Value);
@@ -535,7 +535,7 @@ The helpers below read the expression, so they need one. They live in the `React
 **`GetPropertyName` names the property.** It joins every step of the path with dots.
 
 ```csharp
-var issue = new Issue { Number = CheckoutNumber, Title = CheckoutTitle, Assignee = new User { Login = "priya-nair" } };
+Issue issue = new Issue { Number = CheckoutNumber, Title = CheckoutTitle, Assignee = new User { Login = "priya-nair" } };
 Expression<Func<Issue, string>> title = x => x.Title;
 Expression<Func<Issue, string>> assigneeLogin = x => x.Assignee!.Login;
 
@@ -554,7 +554,7 @@ Assignee.Login
 **`GetValue` reads the value.** It returns the value the change carries. When the change carries the default value, it reads the value from the sender through the expression.
 
 ```csharp
-var item = new TodoItem { Id = 1, Title = ReviewPrTitle };
+TodoItem item = new TodoItem { Id = 1, Title = ReviewPrTitle };
 Expression<Func<TodoItem, string>> expression = x => x.Title;
 
 ObservedChange<TodoItem, string> carried = new(item, expression.Body, RenamedTitle);
@@ -572,7 +572,7 @@ Review PR
 When an object in the middle of the path is null, `GetValue` throws an `InvalidOperationException` and `GetValueOrDefault` returns the default.
 
 ```csharp
-var issue = new Issue { Number = CheckoutNumber, Title = CheckoutTitle, Assignee = null };
+Issue issue = new Issue { Number = CheckoutNumber, Title = CheckoutTitle, Assignee = null };
 Expression<Func<Issue, string>> assigneeLogin = x => x.Assignee!.Login;
 
 ObservedChange<Issue, string> change = new(issue, assigneeLogin.Body, default!);
@@ -597,9 +597,9 @@ One of the properties in the expression 'Assignee.Login' was null
 **`Value()` turns a stream of changes into a stream of values.** It applies the same read to each change. 
 
 ```csharp
-var item = new TodoItem { Id = 1, Title = ReviewPrTitle };
+TodoItem item = new TodoItem { Id = 1, Title = ReviewPrTitle };
 
-using var subscription = item.WhenAny(x => x.Title, static change => change)
+using IDisposable subscription = item.WhenAny(x => x.Title, static change => change)
     .Value()
     .Subscribe(Console.WriteLine);
 
@@ -620,9 +620,9 @@ The examples read the first emission with `FirstAsync()`, which returns a `Task`
 **Read the members and deconstruct.** Deconstruction returns one variable per member.
 
 ```csharp
-var item = CreateRegistrationTask();
+TodoItem item = CreateRegistrationTask();
 
-var values = await item.WhenChanged(x => x.Title, x => x.IsDone, x => x.Priority).FirstAsync();
+PropertyValues<string, bool, TodoPriority> values = await item.WhenChanged(x => x.Title, x => x.IsDone, x => x.Priority).FirstAsync();
 
 Console.WriteLine(values.Property1);
 Console.WriteLine(values.Property2);
@@ -643,7 +643,7 @@ True
 **Read in a subscription.** A subscriber reads the members it needs from each emission.
 
 ```csharp
-var item = CreateRegistrationTask();
+TodoItem item = CreateRegistrationTask();
 List<string> lines = [];
 
 using (item
@@ -663,12 +663,12 @@ Renew car registration (Normal, done: False), Renew car registration (High, done
 **Compare emissions.** Two emissions are equal when every member is equal, and equal emissions have the same hash code.
 
 ```csharp
-var first = CreateRegistrationTask();
-var second = CreateRegistrationTask();
+TodoItem first = CreateRegistrationTask();
+TodoItem second = CreateRegistrationTask();
 
-var left = await first.WhenChanged(x => x.Title, x => x.IsDone).FirstAsync();
-var right = await second.WhenChanged(x => x.Title, x => x.IsDone).FirstAsync();
-var boxed = (object)right;
+PropertyValues<string, bool> left = await first.WhenChanged(x => x.Title, x => x.IsDone).FirstAsync();
+PropertyValues<string, bool> right = await second.WhenChanged(x => x.Title, x => x.IsDone).FirstAsync();
+object boxed = (object)right;
 
 Console.WriteLine(left == right);
 Console.WriteLine(left != right);
@@ -677,7 +677,7 @@ Console.WriteLine(left.Equals(boxed));
 Console.WriteLine(left.GetHashCode() == right.GetHashCode());
 
 second.IsDone = true;
-var finished = await second.WhenChanged(x => x.Title, x => x.IsDone).FirstAsync();
+PropertyValues<string, bool> finished = await second.WhenChanged(x => x.Title, x => x.IsDone).FirstAsync();
 
 Console.WriteLine(left == finished);
 ```
@@ -694,10 +694,10 @@ False
 **Copy with one member replaced.** `with` leaves the original unchanged.
 
 ```csharp
-var item = CreateRegistrationTask();
+TodoItem item = CreateRegistrationTask();
 
-var original = await item.WhenChanged(x => x.Title, x => x.IsDone).FirstAsync();
-var finished = original with { Property2 = true };
+PropertyValues<string, bool> original = await item.WhenChanged(x => x.Title, x => x.IsDone).FirstAsync();
+PropertyValues<string, bool> finished = original with { Property2 = true };
 
 Console.WriteLine(original.Property2);
 Console.WriteLine(finished.Property2);
@@ -711,9 +711,9 @@ True
 **Print an emission.** `ToString` names each member.
 
 ```csharp
-var item = CreateRegistrationTask();
+TodoItem item = CreateRegistrationTask();
 
-var values = await item.WhenChanged(x => x.Title, x => x.IsDone).FirstAsync();
+PropertyValues<string, bool> values = await item.WhenChanged(x => x.Title, x => x.IsDone).FirstAsync();
 
 Console.WriteLine($"Emission: {values}.");
 ```
@@ -727,11 +727,11 @@ An emission holds up to sixteen properties and follows the same pattern at every
 `PropertyValuesComparisonExamples` compares and prints emissions of each size. The first prints an emission of two properties.
 
 ```csharp
-var form = CreateTransferForm();
+TransferForm form = CreateTransferForm();
 
-var values = await form.WhenChanged(x => x.Amount, x => x.Reference).FirstAsync();
+PropertyValues<decimal, string> values = await form.WhenChanged(x => x.Amount, x => x.Reference).FirstAsync();
 
-var text = values.ToString();
+string text = values.ToString();
 
 Console.WriteLine($"Emission: {text}.");
 ```
@@ -740,36 +740,7 @@ Console.WriteLine($"Emission: {text}.");
 Emission: PropertyValues { Property1 = 250, Property2 = Rent March }.
 ```
 
-Each larger size copies the emission, changes `Property1`, and checks equality, the hash code and the text. This proves that an emission behaves the same at every size. The first example below uses three properties.
-
-```csharp
-var form = CreateTransferForm();
-
-var values = await form
-    .WhenChanged(
-        x => x.Amount,
-        x => x.Reference,
-        x => x.SourceId)
-    .FirstAsync();
-var copy = values with { };
-var edited = values with { Property1 = default };
-
-Console.WriteLine(values == copy);
-Console.WriteLine(values != edited);
-Console.WriteLine(values.Equals((object)copy));
-Console.WriteLine(values.GetHashCode() == copy.GetHashCode());
-Console.WriteLine(values.ToString().Contains("Property3 = "));
-```
-
-```text
-True
-True
-True
-True
-True
-```
-
-The larger sizes run the same five checks on more properties, up to sixteen.
+Every larger size copies the emission, changes `Property1`, and checks equality, the hash code and the text, up to sixteen properties. This proves that an emission behaves the same at every size.
 
 ## Follow a property that holds a stream
 
@@ -780,7 +751,7 @@ using RepositoryChannels webshop = new(_webshop);
 RepositoryFeedViewModel feed = new();
 feed.Follow(webshop);
 
-using var subscription = feed.WhenAnyObservable(x => x.IssueOpened).Subscribe(Console.WriteLine);
+using IDisposable subscription = feed.WhenAnyObservable(x => x.IssueOpened).Subscribe(Console.WriteLine);
 
 webshop.IssueOpened.OnNext(IssueOpenedEvent);
 ```
@@ -797,7 +768,7 @@ using RepositoryChannels mobileApp = new(_mobileApp);
 RepositoryFeedViewModel feed = new();
 feed.Follow(webshop);
 
-using var subscription = feed.WhenAnyObservable(x => x.IssueOpened).Subscribe(Console.WriteLine);
+using IDisposable subscription = feed.WhenAnyObservable(x => x.IssueOpened).Subscribe(Console.WriteLine);
 
 Console.WriteLine(webshop.IssueOpened.HasObservers);
 
@@ -824,7 +795,7 @@ using RepositoryChannels webshop = new(_webshop);
 RepositoryFeedViewModel feed = new();
 feed.Follow(webshop);
 
-using var subscription = feed.WhenAnyObservable(x => x.IssueOpened).Subscribe(Console.WriteLine);
+using IDisposable subscription = feed.WhenAnyObservable(x => x.IssueOpened).Subscribe(Console.WriteLine);
 
 feed.Unfollow();
 
@@ -848,7 +819,7 @@ using RepositoryChannels webshop = new(_webshop);
 RepositoryFeedViewModel feed = new();
 feed.Follow(webshop);
 
-using var subscription = feed
+using IDisposable subscription = feed
     .WhenAnyObservable(x => x.IssueOpened, x => x.IssueClosed)
     .Subscribe(Console.WriteLine);
 
@@ -868,7 +839,7 @@ using RepositoryChannels webshop = new(_webshop);
 RepositoryFeedViewModel feed = new();
 feed.Follow(webshop);
 
-using var subscription = feed.WhenAnyObservable(x => x.IssueOpened, x => x.ReleasePublished).Subscribe(Console.WriteLine);
+using IDisposable subscription = feed.WhenAnyObservable(x => x.IssueOpened, x => x.ReleasePublished).Subscribe(Console.WriteLine);
 
 Console.WriteLine(webshop.SubscribedStreamCount);
 ```
@@ -886,7 +857,7 @@ using RepositoryChannels webshop = new(_webshop);
 RepositoryFeedViewModel feed = new();
 feed.Follow(webshop);
 
-using var subscription = feed
+using IDisposable subscription = feed
     .WhenAnyObservable(x => x.IssueOpened, x => x.IssueClosed, static (first, last) => $"{first} / {last}")
     .Subscribe(Console.WriteLine);
 
@@ -940,10 +911,10 @@ The first three operators on their own show what the pipeline does to typed text
 ```csharp
 const string PaddedCheckout = "  checkout ";
 
-var server = InMemoryGitHubServer.CreateSeeded();
+InMemoryGitHubServer server = InMemoryGitHubServer.CreateSeeded();
 IssueSearchViewModel viewModel = new(server, Webshop);
 
-using var subscription = viewModel.WhenChanged(x => x.SearchTerm)
+using IDisposable subscription = viewModel.WhenChanged(x => x.SearchTerm)
     .Select(static term => term.Trim())
     .DistinctUntilChanged()
     .Where(static term => term.Length > 0)
@@ -964,10 +935,10 @@ gift
 
 ```csharp
 VirtualClock clock = new();
-var server = InMemoryGitHubServer.CreateSeeded();
+InMemoryGitHubServer server = InMemoryGitHubServer.CreateSeeded();
 IssueSearchViewModel viewModel = new(server, Webshop);
 
-using var subscription = viewModel.WhenAnyValue(x => x.SearchTerm)
+using IDisposable subscription = viewModel.WhenAnyValue(x => x.SearchTerm)
     .Throttle(_quietPeriod, clock)
     .Subscribe(Console.WriteLine);
 
@@ -996,12 +967,12 @@ crash
 The whole view model searches once for each settled term and shows the matches. The request counter shows that a repeated term sends no request. The example uses the real clock, so it waits a short time for each search to finish.
 
 ```csharp
-var server = await CreateSignedInServerAsync();
+InMemoryGitHubServer server = await CreateSignedInServerAsync();
 IssueSearchViewModel viewModel = new(server, Webshop);
 
-using var subscription = viewModel.StartSearching(Sequencer.Default, _quietPeriod);
+using IDisposable subscription = viewModel.StartSearching(Sequencer.Default, _quietPeriod);
 
-var quotaAtStart = server.RateLimitRemaining;
+int quotaAtStart = server.RateLimitRemaining;
 
 viewModel.SearchTerm = "  checkout ";
 await Task.Delay(_settle);
@@ -1034,10 +1005,10 @@ Add gift-card support
 `SwitchMap` protects the results from a slow response. The first search below takes longer than the second, and its response is dropped when it arrives.
 
 ```csharp
-var server = await CreateSignedInServerAsync();
+InMemoryGitHubServer server = await CreateSignedInServerAsync();
 IssueSearchViewModel viewModel = new(server, Webshop);
 
-using var subscription = viewModel.StartSearching(Sequencer.Default, _quietPeriod);
+using IDisposable subscription = viewModel.StartSearching(Sequencer.Default, _quietPeriod);
 
 // The first response takes longer than the second.
 server.Latency = _slowResponse;
@@ -1070,7 +1041,7 @@ VirtualClock clock = new();
 TransferViewModel screen = new(new InMemoryBankingBackend());
 TransferView view = new() { ViewModel = screen };
 
-using var subscription = view.AmountTextBox.WhenChanged(x => x.Text)
+using IDisposable subscription = view.AmountTextBox.WhenChanged(x => x.Text)
     .Where(static text => !string.IsNullOrEmpty(text))
     .Throttle(_quietPeriod, clock)
     .Subscribe(text => screen.Draft.Amount = decimal.Parse(text, CultureInfo.InvariantCulture));
@@ -1103,7 +1074,7 @@ Console.WriteLine(screen.Draft.Amount);
 VirtualClock clock = new();
 TodoItem item = new();
 
-using var subscription = item.WhenChanged(x => x.Notes)
+using IDisposable subscription = item.WhenChanged(x => x.Notes)
     .Skip(1)
     .Throttle(_quietPeriod, clock)
     .Subscribe(static notes => Console.WriteLine($"Saved: {notes}"));
@@ -1126,7 +1097,7 @@ Saved: Bring the plates, the receipt and a pen
 VirtualClock clock = new();
 TransferDraft draft = new();
 
-using var subscription = draft.WhenChanged(x => x.Amount)
+using IDisposable subscription = draft.WhenChanged(x => x.Amount)
     .Skip(1)
     .Sample(_sampleInterval, clock)
     .Subscribe(static amount => Console.WriteLine($"Preview {amount}"));
@@ -1152,7 +1123,7 @@ Preview 40
 ```csharp
 TransferDraft draft = new();
 
-using var subscription = draft.WhenChanged(x => x.Reference)
+using IDisposable subscription = draft.WhenChanged(x => x.Reference)
     .Skip(1)
     .Buffer(EditsPerList)
     .Subscribe(static edits => Console.WriteLine(string.Join(Separator, edits)));
@@ -1172,7 +1143,7 @@ A second count is the step: it starts a new list after that many values, so list
 ```csharp
 TransferDraft draft = new();
 
-using var subscription = draft.WhenChanged(x => x.Reference)
+using IDisposable subscription = draft.WhenChanged(x => x.Reference)
     .Skip(1)
     .Buffer(EditsPerList, EditsBetweenLists)
     .Subscribe(static edits => Console.WriteLine(string.Join(Separator, edits)));
@@ -1194,7 +1165,7 @@ A time period delivers one list for each period. The sequencer measures the peri
 VirtualClock clock = new();
 TransferDraft draft = new();
 
-using var subscription = draft.WhenChanged(x => x.Reference)
+using IDisposable subscription = draft.WhenChanged(x => x.Reference)
     .Skip(1)
     .Buffer(_bufferLength, clock)
     .Subscribe(static edits => Console.WriteLine($"Batch of {edits.Count}: {string.Join(Separator, edits)}"));
@@ -1235,7 +1206,7 @@ The examples below show each form in turn.
 ```csharp
 TodoItem item = new() { Title = DraftTitle };
 
-using var subscription = item.WhenChanged(x => x.Title)
+using IDisposable subscription = item.WhenChanged(x => x.Title)
     .Skip(1)
     .Slice(EditsPerSlice)
     .SelectMany(static slice => slice.ToList())
@@ -1256,7 +1227,7 @@ Renew, Renew car, Renew car registration
 ```csharp
 TodoItem item = new() { Title = DraftTitle };
 
-using var subscription = item.WhenChanged(x => x.Title)
+using IDisposable subscription = item.WhenChanged(x => x.Title)
     .Slice(EditsPerPair, EditsBetweenSlices)
     .SelectMany(static slice => slice.ToList())
     .Subscribe(static pair => Console.WriteLine(string.Join(" -> ", pair)));
@@ -1278,7 +1249,7 @@ Renew car -> Renew car registration
 VirtualClock clock = new();
 TransferDraft draft = new();
 
-using var subscription = draft.WhenChanged(x => x.Amount)
+using IDisposable subscription = draft.WhenChanged(x => x.Amount)
     .Skip(1)
     .Slice(_sliceLength, clock)
     .SelectMany(static slice => slice.ToList())
@@ -1303,7 +1274,7 @@ clock.AdvanceBy(_sliceLength);
 VirtualClock clock = new();
 TransferDraft draft = new();
 
-using var subscription = draft.WhenChanged(x => x.Amount)
+using IDisposable subscription = draft.WhenChanged(x => x.Amount)
     .Skip(1)
     .Slice(_sliceLength, EditsPerSlice, clock)
     .SelectMany(static slice => slice.ToList())
@@ -1327,7 +1298,7 @@ clock.AdvanceBy(_sliceLength);
 VirtualClock clock = new();
 TransferDraft draft = new();
 
-using var subscription = draft.WhenChanged(x => x.Amount)
+using IDisposable subscription = draft.WhenChanged(x => x.Amount)
     .Skip(1)
     .Slice(_sliceLength, _sliceShift, clock)
     .SelectMany(static slice => slice.ToList())
@@ -1351,7 +1322,7 @@ clock.AdvanceBy(_sliceLength);
 VirtualClock clock = new();
 TodoItem item = new();
 
-using var subscription = item.WhenChanged(x => x.Notes)
+using IDisposable subscription = item.WhenChanged(x => x.Notes)
     .Skip(1)
     .Slice(Signal.Every(_autosaveInterval, clock))
     .SelectMany(static slice => slice.ToList())
@@ -1374,7 +1345,7 @@ Bring the plates, the receipt and a pen
 ```csharp
 TodoItem item = new() { Title = DraftTitle };
 
-using var subscription = item.WhenChanged(x => x.Title)
+using IDisposable subscription = item.WhenChanged(x => x.Title)
     .Skip(1)
     .Slice(() => item.WhenChanged(x => x.IsDone).Skip(1))
     .SelectMany(static slice => slice.ToList())
@@ -1396,9 +1367,9 @@ Renew car registration
 
 ```csharp
 TodoItem item = new() { Title = DraftTitle };
-var becameUrgent = item.WhenChanged(x => x.Priority).Where(static priority => priority == TodoPriority.High);
+IObservable<TodoPriority> becameUrgent = item.WhenChanged(x => x.Priority).Where(static priority => priority == TodoPriority.High);
 
-using var subscription = item.WhenChanged(x => x.Title)
+using IDisposable subscription = item.WhenChanged(x => x.Title)
     .Skip(1)
     .Slice(becameUrgent, _ => item.WhenChanged(x => x.Priority).Where(static priority => priority != TodoPriority.High))
     .SelectMany(static slice => slice.ToList())
@@ -1424,7 +1395,7 @@ Renew car, Renew car registration
 VirtualClock clock = new();
 TodoItem item = new();
 
-using var subscription = item.WhenChanged(x => x.Notes)
+using IDisposable subscription = item.WhenChanged(x => x.Notes)
     .Skip(1)
     .Window(_windowLength, clock)
     .SelectMany(static window => window.Count())
@@ -1450,7 +1421,7 @@ A method that returns a closing stream ends each window in the same way. Here a 
 ```csharp
 TodoItem item = new();
 
-using var subscription = item.WhenChanged(x => x.Notes)
+using IDisposable subscription = item.WhenChanged(x => x.Notes)
     .Skip(1)
     .Window(() => item.WhenChanged(x => x.IsDone).Skip(1))
     .SelectMany(static window => window.Count())
@@ -1475,7 +1446,7 @@ Edits before the checkbox changed: 1
 ```csharp
 TodoItem item = new();
 
-using var subscription = item.WhenChanged(x => x.Notes)
+using IDisposable subscription = item.WhenChanged(x => x.Notes)
     .Skip(1)
     .Scan(0, static (count, _) => count + 1)
     .Subscribe(static count => Console.WriteLine($"Edits: {count}"));
@@ -1496,7 +1467,7 @@ The next example keeps the highest amount the customer has typed. This stream ke
 ```csharp
 TransferDraft draft = new();
 
-using var subscription = draft.WhenChanged(x => x.Amount)
+using IDisposable subscription = draft.WhenChanged(x => x.Amount)
     .Scan(0M, Math.Max)
     .Subscribe(static highest => Console.WriteLine($"Highest: {highest}"));
 
@@ -1519,7 +1490,7 @@ Highest: 400
 ```csharp
 TodoItem item = new();
 
-using var subscription = ObserveEdits(item)
+using IDisposable subscription = ObserveEdits(item)
     .GroupBy(static edit => edit.Field, static edit => edit.Value)
     .SelectMany(static group => group.Scan(0, static (count, _) => count + 1).Select(count => $"{group.Key} edit {count}"))
     .Subscribe(Console.WriteLine);
@@ -1542,7 +1513,7 @@ A key comparer decides which values share a group, and an initial capacity sizes
 ```csharp
 TodoItem item = new();
 
-using var subscription = item.WhenChanged(x => x.Tags)
+using IDisposable subscription = item.WhenChanged(x => x.Tags)
     .Skip(1)
     .SelectMany(static tags => tags)
     .GroupBy(static tag => tag, ExpectedTagCount, StringComparer.OrdinalIgnoreCase)
@@ -1566,7 +1537,7 @@ admin: 1
 VirtualClock clock = new();
 TodoItem item = new();
 
-using var subscription = ObserveEdits(item)
+using IDisposable subscription = ObserveEdits(item)
     .GroupByUntil(static edit => edit.Field, static edit => edit.Value, group => group.Throttle(_quietPeriod, clock))
     .SelectMany(static group => group.ToList().Select(values => $"{group.Key}: {string.Join(Separator, values)}"))
     .Subscribe(Console.WriteLine);
@@ -1595,7 +1566,7 @@ Notes: Bring the plates and the receipt
 VirtualClock uiThread = new();
 TransferDraft draft = new();
 
-using var subscription = draft.WhenChanged(x => x.Amount)
+using IDisposable subscription = draft.WhenChanged(x => x.Amount)
     .Skip(1)
     .WitnessOn(uiThread)
     .Subscribe(static amount => Console.WriteLine($"Preview {amount}"));
@@ -1620,7 +1591,7 @@ Preview 30
 VirtualClock uiThread = new();
 TransferDraft draft = new();
 
-using var subscription = draft.WhenChanged(x => x.Amount)
+using IDisposable subscription = draft.WhenChanged(x => x.Amount)
     .Skip(1)
     .WitnessLatestOn(uiThread)
     .Subscribe(static amount => Console.WriteLine($"Preview {amount}"));
@@ -1658,8 +1629,8 @@ _ = builder.WithCoreServices().BuildApp();
 The first example observes the amount of a transfer form. The chain is built with `Expression.Property`, so the compiler never sees a lambda, and the selector turns each observed change into text.
 
 ```csharp
-var form = CreateTransferForm();
-var root = Expression.Parameter(typeof(TransferForm), "x");
+TransferForm form = CreateTransferForm();
+ParameterExpression root = Expression.Parameter(typeof(TransferForm), "x");
 
 using (form
     .WhenAnyDynamic(
@@ -1679,8 +1650,8 @@ using (form
 The second example observes two chains, the amount and the reference, and passes `false` for `isDistinct`. The selector receives one observed change for each chain and joins their values.
 
 ```csharp
-var form = CreateTransferForm();
-var root = Expression.Parameter(typeof(TransferForm), "x");
+TransferForm form = CreateTransferForm();
+ParameterExpression root = Expression.Parameter(typeof(TransferForm), "x");
 
 using (form
     .WhenAnyDynamic(
@@ -1909,9 +1880,9 @@ Expression<Func<TransferForm, decimal>> amount = x => x.Amount;
 Expression[] links = [amount.Body];
 ExpressionChainParameters<TransferForm> parameters = new(form, amount.Body, links, false, true, true, false);
 
-var text = parameters.ToString();
+string text = parameters.ToString();
 
-foreach (var member in text.TrimEnd(' ', '}').Split(", "))
+foreach (string member in text.TrimEnd(' ', '}').Split(", "))
 {
     Console.WriteLine(member);
 }
@@ -1954,7 +1925,7 @@ The text of a change names each member. The example prints one change so you can
 ```csharp
 BindingChange change = new(RenamedTitle, true);
 
-var text = change.ToString();
+string text = change.ToString();
 
 Console.WriteLine($"Change: {text}.");
 ```

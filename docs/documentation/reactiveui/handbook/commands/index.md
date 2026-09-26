@@ -3,285 +3,572 @@ Order: 4
 ---
 # Commands
 
-`ReactiveCommand` is a stream-based, asynchronous-aware implementation of the [`ICommand`](https://msdn.microsoft.com/en-us/library/system.windows.input.icommand.aspx) interface. `ICommand` is often used in the [MVVM design pattern](https://docs.microsoft.com/en-us/dotnet/framework/wpf/advanced/commanding-overview) to allow the View to trigger business logic defined in the ViewModel. This allows for easier maintenance, unit testing, and the ability to reuse ViewModels across different UI frameworks. Examples of where a View might invoke a command include clicking a *Save* menu item, tapping a phone icon, or stretching an image. In these cases, the ViewModel will then invoke the business logic of saving outstanding changes, performing a phone call, or zooming into an image.
+[Run the complete page example](https://github.com/reactiveui/ReactiveUI/blob/main/src/examples/Documentation/Pages/commands/commands.csproj).
 
-## Creating commands
+A screen has buttons: *Save*, *Search*, *Delete*. Each one runs some logic in the view model, and the view needs to
+know more than just "run this": can the button be pressed right now, is the work still running, and did it fail?
+[`ICommand`](https://learn.microsoft.com/dotnet/api/system.windows.input.icommand) is the .NET interface a button
+binds to. `ReactiveCommand` implements it and adds what a reactive view model needs: a result, a running flag and a
+place for errors to go.
 
-A `ReactiveCommand` is created using static factory methods which allows you to create command logic that executes either synchronously or asynchronously. The following are the different static factory methods:
+A `ReactiveCommand<TParam, TResult>` is a command that takes a `TParam` argument and produces a `TResult`. It is also
+an `IObservable<TResult>`: a stream, a source of values that arrive over time. You subscribe to a stream to receive
+its values, and every subscription is an `IDisposable` you should dispose when you no longer need it. `RxVoid` is a
+type that carries no data, similar to `void`. Use it for a command's parameter or result when there is nothing to
+pass or nothing to report.
 
-* `CreateFromObservable()` - Execute the logic using an `IObservable`.
-* `CreateFromTask()` - Execute a C# [Task Parallel Library (TPL)](https://docs.microsoft.com/en-us/dotnet/standard/parallel-programming/task-based-asynchronous-programming) Task. This allows use also of the C# [async/await](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/async) operators. Read more on canceling commands [here](canceling.md).
-* `Create()` - Execute a synchronous Func or Action.
-* `CreateCombined()` - Execute one or more commands. Read more on combining commands [here](#combining-commands).
+## Create and run a command
 
-`ReactiveCommand<TInput, TOutput>` adds the concept of Input and Output generic types. The *Input* is often passed in by the View and it's type is captured as `TInput`, and the *Output* is the result of executing the command which type is captured as `TOutput`. `ReactiveCommand<TInput, TOutput>` is `IObservable<TOutput>` which can be used like any other `IObservable`. For example, since the `ReactiveCommand` is `IObservable` you can `Subscribe()` to it like any other observable, and add the output to a List on your view model. `RxVoid` is a value that carries no data, analogous to `void`. Use it when you don't care about the input or the output value.
+**1. Create the command.** `ReactiveCommand.Create` builds a command from a synchronous method. The command below
+clears a filter box and gives back the empty string.
 
-```cs
-// A synchronous command taking a parameter and returning nothing.
-// The RxVoid type is often used to denote the successful completion
-// of a void-returning method (C#) or a sub procedure (VB).
-ReactiveCommand<int,RxVoid> command = ReactiveCommand.Create<int>(
-    integer => Console.WriteLine(integer));
+```csharp
+using TodoListViewModel viewModel = new(InMemoryTodoStore.CreateSeeded());
+viewModel.FilterText = "bill";
+using ReactiveCommand<RxVoid, string>? clearFilter = ReactiveCommand.Create(() => viewModel.FilterText = string.Empty);
 
-// This outputs: 42
-command.Execute(42).Subscribe();
+_ = await clearFilter.Execute();
+
+Console.WriteLine($"[{viewModel.FilterText}]");
 ```
 
-All of the static factory methods that the `ReactiveCommand` class has will parameterize the resulting `ReactiveCommand<TInput, TOutput>` to be the return result of the method (i.e. if your async method returns `Task<string>`, your command will be `ReactiveCommand<TInput, string>`). This means, that subscribing to the command itself returns the results of the async method as an `IObservable`.
-
-```cs
-// An asynchronous command created from IObservable<int> that 
-// waits 2 seconds and then returns 42 integer.
-var command = ReactiveCommand.CreateFromObservable<RxVoid, int>(
-    _ => Signal.Emit(42).Shift(TimeSpan.FromSeconds(2)));
-
-// Subscribing to the observable returned by `Execute()` will 
-// tick through the value `42` with a 2-second delay.
-command.Execute(RxVoid.Default).Subscribe();
-
-// We can also subscribe to _all_ values that a command
-// emits by using the `Subscribe()` method on the
-// ReactiveCommand itself.
-command.Subscribe(value => Console.WriteLine(value));
+```text
+[]
 ```
 
-## Synchronous commands
+**2. Create an asynchronous command the same way.** `ReactiveCommand.CreateFromTask` wraps a method that returns a
+`Task`, so you can use `async`/`await` inside it. Calling `Execute()` on either kind of command returns a stream that
+delivers the result.
 
-If your command is not CPU-intensive or I/O-bound then it probably makes sense to provide synchronous execution logic. You can do so by creating a command via `ReactiveCommand.Create`:
+```csharp
+using TodoListViewModel viewModel = new(InMemoryTodoStore.CreateSeeded());
 
-```cs
-// Creates a command with synchronous execution logic
-// which is always available for execution.
-var command = ReactiveCommand.Create(
-    () => Console.WriteLine("A reactive command is invoked!")
-);
+IReadOnlyList<TodoItem> rows = await viewModel.Load.Execute();
+
+Console.WriteLine(rows.Count);
+Console.WriteLine(viewModel.RemainingCount);
 ```
 
-## Asynchronous commands
+```text
+4
+3
+```
 
-One of the most important features of `ReactiveCommand` is its built-in facilities for orchestrating asynchronous operations, commands will block re-execution while executing. A `ReactiveCommand` is itself a stream, and provides an `.IsExecuting` property (of type `IObservable<bool>`) which tells you whether the command is currently executing. This is often useful if you want to trigger activity animations or you want to prevent other commands from executing while the command is executing.
+A reader who stops here can already create and run a command. The rest of this page covers the other ways to build
+one, how a view binds to a command, and how a command reports its state.
 
-It is important to know, that ReactiveCommand itself as an `IObservable` will never complete or OnError - errors that happen in the async method will instead show up on the `ThrownExceptions` property. If it is possible that your async method can throw an exception, you should subscribe to `ThrownExceptions` or the exception will be rethrown on the UI thread.
+## Create commands
 
-Three methods are provided for creating asynchronous commands:
+Five static factory methods on `ReactiveCommand` cover every way to run logic. `Create` takes a plain method.
+`CreateFromObservable` takes logic that is already a stream. `CreateFromTask` takes a `Task`-returning method.
+`CreateRunInBackground` runs logic off the calling thread. `CreateCombined` runs several commands as one.
 
-* `CreateFromObservable()` - Execute the logic using an `IObservable`.
-* `CreateFromTask()` - Execute a C# [Task Parallel Library (TPL)](https://docs.microsoft.com/en-us/dotnet/standard/parallel-programming/task-based-asynchronous-programming) Task. This allows use also of the C# [async/await](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/async) operators. Read more on canceling commands [here](canceling.md).
-* `CreateRunInBackground()` - Execute a method on a background thread allowing UI status to update.
+Every one of them takes an optional `IObservable<bool>` for `canExecute` and an optional
+`ISequencer` that picks where the command delivers its result. A sequencer decides when and where work runs; see
+[Scheduling](../scheduling.md). Left out, a command uses `RxSchedulers.MainThreadScheduler`, the UI thread in an app.
 
-```cs
-// Here we declare a ReactiveCommand, an OAPH and a property.
-private readonly ObservableAsPropertyHelper<List<User>> _users;
-public ReactiveCommand<RxVoid, List<User>> LoadUsers { get; }
-public List<User> Users => _users.Value;
+### Create
 
-// Create a command with asynchronous execution logic. The 
-// command is always available for execution, it triggers
-// LoadUsersAsync method which returns Task<List<User>>.
-LoadUsers = ReactiveCommand.CreateFromTask(LoadUsersAsync);
+`Create(Action, ...)` runs a plain method with no parameter and no result. `Create<TParam>`, `Create<TResult>` and
+`Create<TParam, TResult>` add a parameter, a result, or both. Each of the four shapes has four overloads: the
+delegate alone, with a `canExecute` observable, with an output `ISequencer`, or with both.
 
-// Update the UI with a new value when users are loaded.
-// ToProperty extension method allows us to subscribe to 
-// LoadUsers Observable, update our OAPH and notify the UI 
-// that the value of Users property has changed.
-_users = LoadUsers.ToProperty(
-    this, x => x.Users, scheduler: RxSchedulers.MainThreadScheduler);
+```csharp
+LibraryDesk desk = new();
+List<string> log = [];
 
-// Here we subscribe to all exceptions thrown by our 
-// command and log them using ReactiveUI logging system.
-// If we forget to do this, our application will crash
-// if anything goes wrong in LoadUsers command.
-LoadUsers.ThrownExceptions.Subscribe(exception => 
+using ReactiveCommand<RxVoid, RxVoid> open = ReactiveCommand.Create(() => log.Add("Desk opened"));
+using ReactiveCommand<RxVoid, RxVoid> lendBook = ReactiveCommand.Create(() => log.Add("Book lent"), desk.WhenAnyValue(d => d.IsOpen));
+
+// The last argument is the output ISequencer: it picks where the command delivers its result, IsExecuting
+// and ThrownExceptions. Left out, a command uses RxSchedulers.MainThreadScheduler, the UI thread in an app.
+using ReactiveCommand<RxVoid, RxVoid> tidyShelf = ReactiveCommand.Create(() => log.Add("Shelf tidied"), Sequencer.Immediate);
+using ReactiveCommand<RxVoid, RxVoid> waiveFee = ReactiveCommand.Create(() => log.Add("Late fee waived"), desk.WhenAnyValue(d => d.IsOpen), Sequencer.Immediate);
+
+_ = await open.Execute();
+_ = await lendBook.Execute();
+_ = await tidyShelf.Execute();
+_ = await waiveFee.Execute();
+
+desk.IsOpen = false;
+
+foreach (string entry in log)
 {
-    this.Log().Warn("Error!", exception);
-});
+    Console.WriteLine(entry);
+}
+
+Console.WriteLine(await lendBook.CanExecute.FirstAsync());
 ```
 
-> **Note** For performance based solutions you can also use the nameof() operator override of ToProperty() which won't use the Expression. Read more on ObservableAsPropertyHelper [here](../../../binding/properties.md).
-
-`ReactiveCommand` guarantees the result of events are delivered to the provided `outputScheduler`. The executing logic thread safety is the user's responsibility but any result from the logic is guaranteed to arrive on the specified `outputScheduler`. Read more on scheduling [here](#controlling-scheduling).
-
-## Controlling executability
-
-A `ReactiveCommand` may or may not be executable in a given situation. For example, the command backing the *Save* menu item might be unavailable if there are no unsaved changes. We pass into the `ReactiveCommand` an `IObservable<bool>` of when the ReactiveCommand should be allowed to be executed. The `ReactiveCommand` uses an IObservable eventing system to determine if execution should be allowed which differs from other frameworks where you might have the command continuous poll if execution is allowed. The ReactiveCommand approach has some performance advantages in that the value is cached between the can execute observable being fired. You commonly will create your can execute observable using the [`WhenAnyValue` functions](../../../binding/observing.md) provided by the ReactiveUI framework: 
-
-```cs
-// Each time values of UserName and Password properties change,
-// the canExecute observable is signalled and the logic that 
-// determines if command execution should be allowed is executed.
-var canExecute = this.WhenAnyValue(
-    x => x.UserName, x => x.Password,
-    (userName, password) => 
-        !string.IsNullOrEmpty(userName) && 
-        !string.IsNullOrEmpty(password));
-
-// The command will be unavailable during execution of LogOnAsync
-// method, or while UserName and Password ViewModel properties are 
-// nulls or empty strings. In other words, canExecute supplements 
-// the default executability behavior, it doesn't replace it.
-var command = ReactiveCommand.CreateFromTask(LogOnAsync, canExecute);
+```text
+Desk opened
+Book lent
+Shelf tidied
+Late fee waived
+False
 ```
 
-Parameters, unlike in other frameworks, are typically *not used* in the canExecute conditions, instead, binding View properties to ViewModel properties and then using the `WhenAnyValue()` is far more common.
+| Delegate | Parameter | Result | Overloads |
+| --- | --- | --- | --- |
+| `Action` | none | none | `Create(Action)`, `Create(Action, IObservable<bool>)`, `Create(Action, ISequencer)`, `Create(Action, IObservable<bool>, ISequencer)` |
+| `Action<TParam>` | `TParam` | none | `Create<TParam>(Action<TParam>)`, `Create<TParam>(Action<TParam>, IObservable<bool>)`, `Create<TParam>(Action<TParam>, ISequencer)`, `Create<TParam>(Action<TParam>, IObservable<bool>, ISequencer)` |
+| `Func<TResult>` | none | `TResult` | `Create<TResult>(Func<TResult>)`, `Create<TResult>(Func<TResult>, IObservable<bool>)`, `Create<TResult>(Func<TResult>, ISequencer)`, `Create<TResult>(Func<TResult>, IObservable<bool>, ISequencer)` |
+| `Func<TParam, TResult>` | `TParam` | `TResult` | `Create<TParam, TResult>(Func<TParam, TResult>)`, `Create<TParam, TResult>(Func<TParam, TResult>, IObservable<bool>)`, `Create<TParam, TResult>(Func<TParam, TResult>, ISequencer)`, `Create<TParam, TResult>(Func<TParam, TResult>, IObservable<bool>, ISequencer)` |
 
-> **Warning** For performance reasons, `ReactiveCommand` does not marshal your `canExecute` observable to the main scheduler. You almost certainly want your `canExecute` observable to be ticking on the main thread, so be sure to add a call to `WitnessOn(RxSchedulers.MainThreadScheduler)` if necessary.
+### CreateFromObservable
 
-## Handling exceptions
+`CreateFromObservable` wraps logic that already returns an `IObservable<TResult>`, so a command can run a stream
+directly instead of a plain value. The command below borrows a book by id, turning the synchronous lookup into a
+single-value stream with `Signal.Emit`.
 
-If the logic you provide to a `ReactiveCommand` can fail in expected ways, you need a means of dealing with those failures. For command execution, the pipeline you get back from `Execute` will tick any errors that occur in your execution logic. However, the subscription to this observable is often instigated by the binding infrastructure. As such, it's likely that you cannot even get a hold of the observable to observe any errors.
+```csharp
+LibraryDesk desk = new();
 
-To address this dilemma, `ReactiveCommand` includes a `ThrownExceptions` observable (of type `IObservable<Exception>`). Any errors that occur in your execution logic will *also* tick through this observable. If you haven't subscribed to it, ReactiveUI will bring down your application by default. This forces you towards a pit of error-handling success.
+using ReactiveCommand<int, Book> borrow = ReactiveCommand.CreateFromObservable<int, Book>(bookId => Signal.Emit(desk.Borrow(bookId)));
+using ReactiveCommand<int, Book> borrowWhileOpen = ReactiveCommand.CreateFromObservable<int, Book>(bookId => Signal.Emit(desk.Borrow(bookId)), desk.WhenAnyValue(d => d.IsOpen));
+using ReactiveCommand<int, Book> borrowImmediate = ReactiveCommand.CreateFromObservable<int, Book>(bookId => Signal.Emit(desk.Borrow(bookId)), Sequencer.Immediate);
+using ReactiveCommand<int, Book> borrowGuarded = ReactiveCommand.CreateFromObservable<int, Book>(
+    bookId => Signal.Emit(desk.Borrow(bookId)),
+    desk.WhenAnyValue(d => d.IsOpen),
+    Sequencer.Immediate);
 
-```cs
-// Here we prevent LoadCommand from bringing our app down.
-LoadCommand.ThrownExceptions.Subscribe(error => { });
+Book first = await borrow.Execute(1);
+Book second = await borrowWhileOpen.Execute(2);
+Book third = await borrowImmediate.Execute(3);
+Book fourth = await borrowGuarded.Execute(4);
+
+Console.WriteLine(first.Title);
+Console.WriteLine(second.Title);
+Console.WriteLine(third.Title);
+Console.WriteLine(fourth.Title);
+Console.WriteLine(desk.LoanCount);
 ```
 
-Use <a href="../default-exception-handler.md">the default exception handler</a> if you'd like to override the default `ThrownExceptions` behavior. This may be useful if you have crash analytics plugins installed and would like to handle all exceptions. 
+```text
+Clean Code
+The Pragmatic Programmer
+Design Patterns
+Refactoring
+4
+```
 
-It can be tempting to *always* add a subscription to `ThrownExceptions`, even if the only recourse is to just log the problem. However, it is advisable to treat this like any other exception handling and only handle problems you can redress. If, for example, your command merely updates a property in your view model and it should never fail, any subscription to `ThrownExceptions` will serve only to obscure implementation problems. That said, be aware of the potential for intermittent problems, such as network and I/O errors. As always, a strong suite of tests will help you identify where a subscription to `ThrownExceptions` makes sense.
+| Delegate | Parameter | Overloads |
+| --- | --- | --- |
+| `Func<IObservable<TResult>>` | none | `CreateFromObservable<TResult>(Func<IObservable<TResult>>)`, `CreateFromObservable<TResult>(Func<IObservable<TResult>>, IObservable<bool>)`, `CreateFromObservable<TResult>(Func<IObservable<TResult>>, ISequencer)`, `CreateFromObservable<TResult>(Func<IObservable<TResult>>, IObservable<bool>, ISequencer)` |
+| `Func<TParam, IObservable<TResult>>` | `TParam` | `CreateFromObservable<TParam, TResult>(Func<TParam, IObservable<TResult>>)`, `CreateFromObservable<TParam, TResult>(Func<TParam, IObservable<TResult>>, IObservable<bool>)`, `CreateFromObservable<TParam, TResult>(Func<TParam, IObservable<TResult>>, ISequencer)`, `CreateFromObservable<TParam, TResult>(Func<TParam, IObservable<TResult>>, IObservable<bool>, ISequencer)` |
 
-> **Note** Your `canExecute` pipeline also has the potential to produce an error. Such cases are almost certainly a programmer error because you never want your `canExecute` pipeline to end in error. Even so, these errors will also tick through `ThrownExceptions`.
+### CreateFromTask
 
-Unfortunately you can't filter exceptions from `ThrownExceptions`. It's an "all-or-nothing affair" as Kent Boogaart says in <a href="https://kent-boogaart.com/you-i-and-reactiveui/">his book</a>. You have to do it manually by handling the exceptions you can and forwarding all the others somewhere else like the default exception handler. Use `RxState.DefaultExceptionHandler.OnNext(exceptionICantHandle)`.
+`CreateFromTask` wraps a method that returns a `Task`, so the method can use `async`/`await`. Eight delegate shapes
+cover every combination of a parameter, a result and a `CancellationToken`; each shape has the same four overloads as
+`Create`. Passing a `CancellationToken` lets the command cancel the task: disposing an execution cancels the token it
+was given, which [Cancelling commands](canceling.md) covers in full. The example below reads the number of books a
+sync returns, then cancels one mid-flight and shows `IsExecuting` drop back to `false`.
 
-Assume your command calls another command that might throw an exception. Likely, you would like to handle that exception only once, but ReactiveUI will propagate it to `ThrownExceptions` observables for both commands. See an example:
+```csharp
+LibraryDesk desk = new();
 
-```cs
-// Create a command with implementation that might throw an exception.
-var commandA = ReactiveCommand.CreateFromTask(() => throw new Exception());
-commandA.ThrownExceptions.Subscribe(ex => ErrorInteraction.Handle("Error in A!"));
+using ReactiveCommand<RxVoid, int> sync = ReactiveCommand.CreateFromTask(desk.SyncWithCentralCatalogueAsync);
+using ReactiveCommand<RxVoid, int> syncWhileOpen = ReactiveCommand.CreateFromTask(desk.SyncWithCentralCatalogueAsync, desk.WhenAnyValue(d => d.IsOpen));
+using ReactiveCommand<RxVoid, int> syncImmediate = ReactiveCommand.CreateFromTask(desk.SyncWithCentralCatalogueAsync, Sequencer.Immediate);
+using ReactiveCommand<RxVoid, int> syncGuarded = ReactiveCommand.CreateFromTask(desk.SyncWithCentralCatalogueAsync, desk.WhenAnyValue(d => d.IsOpen), Sequencer.Immediate);
 
-// Create a command that calls command A.
-var commandB = ReactiveCommand.CreateFromTask(async () =>
+Console.WriteLine(await sync.Execute());
+Console.WriteLine(await syncWhileOpen.Execute());
+Console.WriteLine(await syncImmediate.Execute());
+Console.WriteLine(await syncGuarded.Execute());
+
+Task<bool> stopped = sync.IsExecuting.Where(static executing => !executing).Skip(1).FirstAsync().ToTask();
+IDisposable execution = sync.Execute().Subscribe(static _ => { }, static _ => { });
+execution.Dispose();
+_ = await stopped;
+
+Console.WriteLine("Sync cancelled");
+```
+
+```text
+4
+4
+4
+4
+Sync cancelled
+```
+
+`IsExecuting` is an `IObservable<bool>` that reports whether the command is running. It, like the command's result
+and `ThrownExceptions`, is delivered on the output sequencer. Every `Create*` factory delivers it the same way.
+
+| Delegate | Parameter | Result | Cancellable | Overloads (each with the same four `canExecute`/`ISequencer` combinations as `Create`) |
+| --- | --- | --- | --- | --- |
+| `Func<Task>` | none | none | no | `CreateFromTask(Func<Task>, ...)` |
+| `Func<CancellationToken, Task>` | none | none | yes | `CreateFromTask(Func<CancellationToken, Task>, ...)` |
+| `Func<Task<TResult>>` | none | `TResult` | no | `CreateFromTask<TResult>(Func<Task<TResult>>, ...)` |
+| `Func<CancellationToken, Task<TResult>>` | none | `TResult` | yes | `CreateFromTask<TResult>(Func<CancellationToken, Task<TResult>>, ...)` |
+| `Func<TParam, Task>` | `TParam` | none | no | `CreateFromTask<TParam>(Func<TParam, Task>, ...)` |
+| `Func<TParam, CancellationToken, Task>` | `TParam` | none | yes | `CreateFromTask<TParam>(Func<TParam, CancellationToken, Task>, ...)` |
+| `Func<TParam, Task<TResult>>` | `TParam` | `TResult` | no | `CreateFromTask<TParam, TResult>(Func<TParam, Task<TResult>>, ...)` |
+| `Func<TParam, CancellationToken, Task<TResult>>` | `TParam` | `TResult` | yes | `CreateFromTask<TParam, TResult>(Func<TParam, CancellationToken, Task<TResult>>, ...)` |
+
+A simpler no-parameter, result-returning example shows the plain four-overload shape on its own:
+
+```csharp
+LibraryDesk desk = new();
+
+_ = desk.Borrow(1);
+_ = desk.Borrow(2);
+using ReactiveCommand<RxVoid, int> returnAll = ReactiveCommand.CreateFromTask(desk.ReturnAllBooksWithCountAsync);
+Console.WriteLine(await returnAll.Execute());
+```
+
+```text
+2
+```
+
+### CreateRunInBackground
+
+`Create` and `CreateFromTask` run their logic wherever the caller is; the caller decides whether that is off the UI
+thread. `CreateRunInBackground` instead moves the execution logic itself onto a background `ISequencer`, so a
+synchronous method that takes a while does not block the UI thread. It takes the same four delegate shapes as
+`Create` (`Action`, `Action<TParam>`, `Func<TResult>`, `Func<TParam, TResult>`), each with five overloads: the
+delegate alone, with `canExecute`, with `canExecute` and a background sequencer, with a background sequencer and an
+output sequencer, or with all three.
+
+```csharp
+LibraryDesk desk = new();
+List<string> log = [];
+
+using ReactiveCommand<RxVoid, RxVoid> logOpened = ReactiveCommand.CreateRunInBackground(() => log.Add("Desk opened"));
+using ReactiveCommand<RxVoid, RxVoid> logWhileOpen = ReactiveCommand.CreateRunInBackground(() => log.Add("Book lent"), desk.WhenAnyValue(d => d.IsOpen));
+
+// The third argument is the background ISequencer, where the execute action runs; omitted, it defaults to
+// RxSchedulers.TaskpoolScheduler. The fourth is the output ISequencer, where the result, IsExecuting and
+// ThrownExceptions are delivered; omitted, it defaults to RxSchedulers.MainThreadScheduler.
+using ReactiveCommand<RxVoid, RxVoid> logBackground = ReactiveCommand.CreateRunInBackground(
+    () => log.Add("Shelf tidied"),
+    desk.WhenAnyValue(d => d.IsOpen),
+    Sequencer.Immediate);
+using ReactiveCommand<RxVoid, RxVoid> logBackgroundAndOutput = ReactiveCommand.CreateRunInBackground(
+    () => log.Add("Late fee waived"),
+    Sequencer.Immediate,
+    Sequencer.Immediate);
+using ReactiveCommand<RxVoid, RxVoid> logAll = ReactiveCommand.CreateRunInBackground(
+    () => log.Add("Catalogue reindexed"),
+    desk.WhenAnyValue(d => d.IsOpen),
+    Sequencer.Immediate,
+    Sequencer.Immediate);
+
+_ = await logOpened.Execute();
+_ = await logWhileOpen.Execute();
+_ = await logBackground.Execute();
+_ = await logBackgroundAndOutput.Execute();
+_ = await logAll.Execute();
+
+foreach (string entry in log)
 {
-    // If command A throws an exception, the .Execute() method call 
-    // will also throw. That's why we get two error notifications - 
-    // one from commandA.ThrownExceptions and another from 
-    // commandB.ThrownExceptions.
-    await commandA.Execute(); // <= Could throw here!
-    DoSomethingElse();
-});
-
-// If anything goes wrong in command A, we get ErrorInteraction handled twice.
-commandB.ThrownExceptions.Subscribe(ex => ErrorInteraction.Handle("Error in B!"));
+    Console.WriteLine(entry);
+}
 ```
 
-The easiest way of resolving this issue is using the [`Calm`](../../../primitives/time.md) operator over the `ThrownExceptions` of both commands, joined with `Blend`. See [StackOverflow](https://stackoverflow.com/questions/26219105/what-is-the-reactiveui-way-to-handle-exceptions-when-executing-inferior-reactive). Read more on handling Interactions [here](../interactions/index.md).
-
-```cs
-// Now our ErrorInteraction will be handled only once if command A throws!
-commandA.ThrownExceptions.Blend(commandB.ThrownExceptions)
-    .Calm(TimeSpan.FromMilliseconds(250), RxSchedulers.MainThreadScheduler)
-    .Subscribe(error => ErrorInteraction.Handle("Error in B!"));
+```text
+Desk opened
+Book lent
+Shelf tidied
+Late fee waived
+Catalogue reindexed
 ```
 
-## Invoking commands
+| Delegate | Parameter | Result | Overloads |
+| --- | --- | --- | --- |
+| `Action` | none | none | `CreateRunInBackground(Action)`, `CreateRunInBackground(Action, IObservable<bool>)`, `CreateRunInBackground(Action, IObservable<bool>, ISequencer)`, `CreateRunInBackground(Action, ISequencer, ISequencer)`, `CreateRunInBackground(Action, IObservable<bool>, ISequencer, ISequencer)` |
+| `Action<TParam>` | `TParam` | none | `CreateRunInBackground<TParam>(Action<TParam>)`, `CreateRunInBackground<TParam>(Action<TParam>, IObservable<bool>)`, `CreateRunInBackground<TParam>(Action<TParam>, IObservable<bool>, ISequencer)`, `CreateRunInBackground<TParam>(Action<TParam>, ISequencer, ISequencer)`, `CreateRunInBackground<TParam>(Action<TParam>, IObservable<bool>, ISequencer, ISequencer)` |
+| `Func<TResult>` | none | `TResult` | `CreateRunInBackground<TResult>(Func<TResult>)`, `CreateRunInBackground<TResult>(Func<TResult>, IObservable<bool>)`, `CreateRunInBackground<TResult>(Func<TResult>, IObservable<bool>, ISequencer)`, `CreateRunInBackground<TResult>(Func<TResult>, ISequencer, ISequencer)`, `CreateRunInBackground<TResult>(Func<TResult>, IObservable<bool>, ISequencer, ISequencer)` |
+| `Func<TParam, TResult>` | `TParam` | `TResult` | `CreateRunInBackground<TParam, TResult>(Func<TParam, TResult>)`, `CreateRunInBackground<TParam, TResult>(Func<TParam, TResult>, IObservable<bool>)`, `CreateRunInBackground<TParam, TResult>(Func<TParam, TResult>, IObservable<bool>, ISequencer)`, `CreateRunInBackground<TParam, TResult>(Func<TParam, TResult>, ISequencer, ISequencer)`, `CreateRunInBackground<TParam, TResult>(Func<TParam, TResult>, IObservable<bool>, ISequencer, ISequencer)` |
 
-The best way to execute ReactiveCommands is via the `Execute()` method:
+### CreateCombined
 
-```cs
-// Create a command with asynchronous execution logic.
-LoadUsers = ReactiveCommand.CreateFromTask(LoadUsersAsync);
+`CreateCombined` runs a group of commands together as one, useful when several independent commands should also be
+triggerable as a batch: clearing several caches at once, or refreshing several lists together. The combined command
+collects every child command's result into a list. Writing your own combined command type, and the
+`CombinedReactiveCommand` constructors behind this factory, are covered in
+[Writing your own command type](advanced.md).
 
-// Invoke LoadUsers command using async/await syntax.
-// We could also use .Subscribe() here.
-var users = await LoadUsers.Execute();
-Console.WriteLine("You've got {0} users!", users.Count());
+```csharp
+LibraryDesk desk = new();
+_ = desk.Borrow(1);
+_ = desk.Borrow(2);
+
+using ReactiveCommand<RxVoid, int> takeBackLoans = ReactiveCommand.Create(desk.ReturnAll);
+using ReactiveCommand<RxVoid, int> countShelf = ReactiveCommand.Create(() => desk.Search(string.Empty).Count);
+using CombinedReactiveCommand<RxVoid, int> endOfDay = ReactiveCommand.CreateCombined([takeBackLoans, countShelf]);
+IList<int> firstRun = await endOfDay.Execute();
+
+using ReactiveCommand<RxVoid, int> countShelfWhileOpen = ReactiveCommand.Create(() => desk.Search(string.Empty).Count);
+using CombinedReactiveCommand<RxVoid, int> endOfDayWhileOpen = ReactiveCommand.CreateCombined([countShelfWhileOpen], desk.WhenAnyValue(d => d.IsOpen));
+IList<int> secondRun = await endOfDayWhileOpen.Execute();
+
+// The ISequencer argument picks where the combined list is delivered; omitted, it defaults to RxSchedulers.MainThreadScheduler.
+using ReactiveCommand<RxVoid, int> countShelfImmediate = ReactiveCommand.Create(() => desk.Search(string.Empty).Count);
+using CombinedReactiveCommand<RxVoid, int> endOfDayImmediate = ReactiveCommand.CreateCombined([countShelfImmediate], Sequencer.Immediate);
+IList<int> thirdRun = await endOfDayImmediate.Execute();
+
+using ReactiveCommand<RxVoid, int> countShelfGuarded = ReactiveCommand.Create(() => desk.Search(string.Empty).Count);
+using CombinedReactiveCommand<RxVoid, int> endOfDayGuarded = ReactiveCommand.CreateCombined([countShelfGuarded], desk.WhenAnyValue(d => d.IsOpen), Sequencer.Immediate);
+IList<int> fourthRun = await endOfDayGuarded.Execute();
+
+Console.WriteLine(firstRun[0]);
+Console.WriteLine(firstRun[1]);
+Console.WriteLine(secondRun[0]);
+Console.WriteLine(thirdRun[0]);
+Console.WriteLine(fourthRun[0]);
 ```
 
-Regardless of whether your command is synchronous or asynchronous in nature, you execute it via the `Execute` method. You get back an observable that will tick the command's result value when execution completes. Synchronous commands will execute immediately, so the observable you get back will already have completed. The returned observable is behavioral though, so subscribing after the fact will still tick through the result value.
-
-> **Warning** As with most streams, the observable returned by `Execute` is cold. That is, nothing will happen unless something subscribes to it or `await`s it. In those cases where you're calling `Execute` directly, it's very important to remember that it's lazy.
-
-`ReactiveCommand` implements the `ICommand` for UI framework compatibility and backwards compatibility only. It is recommended you don't use the `ICommand` interface directly in your code. `ReactiveCommand` is explicitly derived from the `ICommand` interface to avoid users accidentally calling the non-reactive style methods. The `ICommand` methods do not lend well to long-running and also asynchronous commands, such as those that perform I/O operations. The `ICommand` also focuses on an imperative style of execution over the reactive style.`ReactiveCommand` provides methods and observable properties that are the equivalent of the `ICommand` interface. `Execute()` provides an Observable which you can `Subscribe()` to execute the logic of the `ReactiveCommand` and `CanExecute` is also exposed through a read-only property. Additionally `ReactiveCommand` provides the `IsExecuting` observable which is functionally not provided by the `ICommand` interface.
-
-> **Hint** Try not to execute commands in the ViewModel constructor. If commands are invoked in the constructor, your ViewModel classes become more difficult to test, because you always have to mock out the effects of calling that commands, even if the thing you are testing is unrelated. Instead, use <a href="../when-activated.md">WhenActivated</a>.
-
-## Invoking commands in an Observable pipeline
-
-At times it can be convenient to execute a command in response to some `Observable<T>` that isn't perhaps tied to a user interaction. For example, a feature that automatically saves the current document by executing a `ReactiveCommand` every 5 minutes. The `InvokeCommand` extension makes it easy to achieve this:
-
-```cs
-// Creates a hot Observable<T> that emits a new value every 5 
-// minutes and invokes the SaveCommand<RxVoid, RxVoid>. Don't forget
-// to dispose the subscription produced by InvokeCommand().
-var interval = TimeSpan.FromMinutes(5);
-Signal.Every(interval)
-    .Select(tick => RxVoid.Default)
-    .InvokeCommand(this, x => x.SaveCommand);
+```text
+2
+4
+4
+4
+4
 ```
 
-> **Hint** `InvokeCommand` respects the command's executability. That is, if the command's `CanExecute` method returns `false`, `InvokeCommand` will not execute the command when the source observable ticks.
+Every child command passed to `CreateCombined` must be the same `ReactiveCommandBase<TParam, TResult>` type. The
+combined command can run only when every child command can run, and an extra `canExecute` observable narrows that
+further.
 
-## Combining commands
+| Overload |
+| --- |
+| `CreateCombined<TParam, TResult>(IEnumerable<ReactiveCommandBase<TParam, TResult>>)` |
+| `CreateCombined<TParam, TResult>(IEnumerable<ReactiveCommandBase<TParam, TResult>>, IObservable<bool>)` |
+| `CreateCombined<TParam, TResult>(IEnumerable<ReactiveCommandBase<TParam, TResult>>, ISequencer)` |
+| `CreateCombined<TParam, TResult>(IEnumerable<ReactiveCommandBase<TParam, TResult>>, IObservable<bool>, ISequencer)` |
 
-At times it can be useful to have several commands aggregated into one. As an example, consider a browser that allows the user to clear individual caches \(browsing history, download history, cookies\), or clear all caches. There would be a command for clearing each individual cache, each of which might have its own logic to dictate the executability of the command. It would be onerous and error-prone to have to repeat or combine all this logic for the command that clears all caches. Combined commands provide an elegant means of addressing this situation:
+A view model that just wants to reload several lists together can combine them without any of this ceremony:
 
-```cs
-var clearBrowsingHistory = ReactiveCommand.CreateFromObservable(
-    this.ClearBrowsingHistoryAsync, canClearBrowsingHistory);
+```csharp
+using TodoListViewModel home = new(InMemoryTodoStore.CreateSeeded());
+InMemoryTodoStore workStore = new();
+_ = await workStore.AddAsync("Send the quarterly report", CancellationToken.None);
+using TodoListViewModel work = new(workStore);
 
-var clearDownloadHistory = ReactiveCommand.CreateFromObservable(
-    this.ClearDownloadHistoryAsync, canClearDownloadHistory);
+using CombinedReactiveCommand<RxVoid, IReadOnlyList<TodoItem>>? refreshAll = ReactiveCommand.CreateCombined([home.Load, work.Load]);
+IList<IReadOnlyList<TodoItem>> results = await refreshAll.Execute();
 
-var clearCookies = ReactiveCommand.CreateFromObservable(
-    this.ClearCookiesAsync, canClearCookies);
-
-// Combine all these commands into one "parent" command.
-// This "parent" command will respect the executability 
-// of all child commands defined above.
-var clearAll = ReactiveCommand.CreateCombined(
-    new [] { clearBrowsingHistory, 
-             clearDownloadHistory, 
-             clearCookies });
+Console.WriteLine(results.Count);
+Console.WriteLine(home.Items.Count);
+Console.WriteLine(work.Items[0].Title);
 ```
 
-The combined command will execute the child commands asynchronously when executed. The combined command respects the executability of all child commands. That is, if any child command cannot currently execute, neither can the combined command. In addition, it is also possible for you to pass in _extra_ executability logic when creating your combined command:
-
-```cs
-// In this case, `clearAll` command will only be 
-// executable if all child commands are executable 
-// _and_ the latest value from `canClearAll` is `true`.
-IObservable<bool> canClearAll = ...;
-var clearAll = ReactiveCommand.CreateCombined(
-    new [] { clearBrowsingHistory, 
-             clearDownloadHistory, 
-             clearCookies },
-    canClearAll);
+```text
+2
+4
+Send the quarterly report
 ```
 
-All child commands provided to the `CreateCombined` method must be of the same type. You cannot combine, say, a `ReactiveCommand<RxVoid, RxVoid>` with a `ReactiveCommand<int, RxVoid>`. Nor can you combine, say, a `ReactiveCommand<RxVoid, RxVoid>` with a `ReactiveCommand<RxVoid, int>`. This is because all child commands will receive the parameter provided to the combined command, and the result of executing the combined command is a list of all child results.
+## Decide whether a command can run
 
-## Controlling scheduling
+`CanExecute` is an `IObservable<bool>` on every command. Give a factory method an `IObservable<bool>` and the command
+can run only while the latest value from that stream is `true`; a command with no `canExecute` observable can always
+run. Below, the add command follows the title box: it can run once a title is typed, and not while the box is blank.
 
-By default, `ReactiveCommand` uses `RxSchedulers.MainThreadScheduler` to surface events. That is, values from `CanExecute`, `IsExecuting`, `ThrownExceptions`, and result values from the command itself. Typically UI components are subscribed to these observables, so it's a sensible default. However, when writing unit tests for your view models, you may want more control over scheduling. All `Create*` methods take an optional `outputScheduler` parameter, so you can pass in a custom scheduler if you need to:
+```csharp
+using TodoListViewModel viewModel = new(InMemoryTodoStore.CreateSeeded());
+using IDisposable subscription = viewModel.Add.CanExecute.Subscribe(Console.WriteLine);
 
-```cs
-var command = ReactiveCommand.Create(() => { }, outputScheduler: someScheduler);
+viewModel.NewTitle = ElectricianTitle;
+viewModel.NewTitle = "   ";
 ```
 
-It's important to understand that the execution logic for a reactive command is *not* scheduled to execute on the provided scheduler (just as is the case for any `canExecute` observable you provide). Instead, it is left to the caller to implement any required scheduling inside their execution pipeline. This means it is entirely possible for your execution logic to execute on a thread other than that owned by the provided scheduler:
-
-```cs
-var command = ReactiveCommand.Create(
-    () => Console.WriteLine(Environment.CurrentManagedThreadId), 
-    outputScheduler: RxSchedulers.MainThreadScheduler
-);
-
-// This will output the ID of the thread from which you make 
-// this call, not necessarily the ID of the main thread!
-command.Execute().Subscribe();
+```text
+False
+True
+False
 ```
 
-> **Note** If you're using ReactiveUI's `With` extension method in your tests, you can create commands using the default scheduling behavior. That's because the `With` extension method will switch out `RxSchedulers.MainThreadScheduler` with the scheduler you provide it.
+`CanExecute` also turns `false` while the command is already running, so a second click cannot start it twice. A
+`canExecute` observable is not marshalled to the output sequencer, so build it from a stream that already ticks on
+the thread you want, such as `WhenAnyValue`.
 
-## Bindings
+## Handle errors
 
-`ReactiveCommand` can be connected to the View by either using XAML binding on supported platforms, or using the inbuilt [ReactiveUI binding](../data-binding/index.md) method `BindCommand`. Use of BindCommand is preferred but not required where XAML bindings are supported. Read more on this [here](../../../binding/bindings.md).
+A command never fails as a stream: it never calls `OnError`. An exception thrown inside its execution logic goes to
+`ThrownExceptions`, an `IObservable<Exception>` on every command, delivered on the output sequencer. It also
+propagates to whatever awaits or subscribes to `Execute()`, so a view model can catch it locally and still let
+`ThrownExceptions` update the rest of the screen.
 
-## Unit Testing
+```csharp
+using TodoListViewModel viewModel = new(InMemoryTodoStore.CreateSeeded());
+_ = await viewModel.Load.Execute();
+viewModel.NewTitle = "Buy groceries";
 
-Read: [Using the Visual Studio Test Runner for Mobile Development](https://kent-boogaart.com/blog/using-the-visual-studio-test-runner-for-mobile-development)
+try
+{
+    _ = await viewModel.Add.Execute();
+}
+catch (TodoStoreException)
+{
+    // The awaiting caller sees the error too; the screen shows it through ErrorMessage.
+}
 
-Don't mock ReactiveCommands. ReactiveCommand itself is already designed around testability. Also, the likelihood that you will correctly mock ReactiveCommand semantics via Moq is pretty low, it's a pretty complicated class (and if you did, you would end up doing a ton of unnecessary work).
+Console.WriteLine(viewModel.ErrorMessage);
+Console.WriteLine(viewModel.Items.Count);
+```
+
+```text
+'Buy groceries' is already on the list.
+4
+```
+
+If nothing subscribes to `ThrownExceptions`, an exception from a command's execution logic brings the application
+down. Subscribe to it, even just to log the error. Use [the default exception handler](../default-exception-handler.md)
+to change what happens to an exception nobody handles.
+
+## Invoke commands
+
+Call `Execute()` to run a command. It returns a stream that delivers the result, so `await` it or `Subscribe()` to
+it; the stream is cold, so nothing runs until something does one of those. `InvokeCommand` runs a command each time
+another stream ticks, useful for triggering a command from something other than a click, such as a timer or another
+command's result.
+
+```csharp
+using TodoListViewModel viewModel = new(InMemoryTodoStore.CreateSeeded());
+Task<IReadOnlyList<TodoItem>> loaded = viewModel.Load.FirstAsync().ToTask();
+
+using IDisposable subscription = Signal.Emit(RxVoid.Default).InvokeCommand(viewModel.Load);
+_ = await loaded;
+
+Console.WriteLine(viewModel.Items.Count);
+```
+
+```text
+4
+```
+
+`InvokeCommand` checks `CanExecute` before each run, so it does nothing while the command cannot run. Dispose the
+subscription it returns when you no longer want the source stream driving the command.
+
+## Bind a command to a view
+
+`BindCommand` is a [ReactiveUI.Binding](../../../binding/bindings.md) method that connects a view model's command to
+a control on the view: it runs the command when the control's default event fires, such as a button's `Click`, and
+disables the control while the command cannot run. Read [Bindings](../../../binding/bindings.md) for how binding
+works in depth.
+
+```csharp
+using TodoListViewModel viewModel = new(InMemoryTodoStore.CreateSeeded());
+_ = await viewModel.Load.Execute();
+using TodoListView view = new() { ViewModel = viewModel };
+
+using IDisposable binding = view.BindCommand(viewModel, x => x.Add, v => v.AddButton);
+
+view.AddButton.PerformClick();
+Console.WriteLine(viewModel.Items.Count);
+
+viewModel.NewTitle = "Book electrician";
+Task<TodoItem> added = viewModel.Add.FirstAsync().ToTask();
+view.AddButton.PerformClick();
+TodoItem item = await added;
+
+Console.WriteLine(item.Title);
+Console.WriteLine(viewModel.Items.Count);
+```
+
+```text
+4
+Book electrician
+5
+```
+
+Clicking while the title is blank does nothing, because `Add.CanExecute` is `false`. Pass a fourth argument, an
+`IObservable<TParam>`, to hand the command a parameter each time it runs. Below, completing a to-do item passes the
+item currently selected in the list.
+
+```csharp
+using TodoListViewModel viewModel = new(InMemoryTodoStore.CreateSeeded());
+_ = await viewModel.Load.Execute();
+using TodoListView view = new() { ViewModel = viewModel };
+view.ItemList.Items = viewModel.Items;
+
+using IDisposable binding = view.BindCommand(
+    viewModel,
+    x => x.Complete,
+    v => v.CompleteButton,
+    view.WhenAnyValue(v => v.ItemList.SelectedItem).WhereNotNull());
+
+view.ItemList.SelectedItem = viewModel.Items[0];
+Task<TodoItem> completed = viewModel.Complete.FirstAsync().ToTask();
+view.CompleteButton.PerformClick();
+TodoItem item = await completed;
+
+Console.WriteLine($"{item.Title}: {item.IsDone}");
+Console.WriteLine(viewModel.RemainingCount);
+```
+
+```text
+Buy groceries: True
+2
+```
+
+## A command's life cycle
+
+The diagram below follows one execution of a command from the moment it may run to the moment it stops running.
+
+```mermaid
+%%{init: {"theme": "base", "themeVariables": {"fontFamily": "Roboto, Helvetica, Arial, sans-serif", "fontSize": "15px", "primaryColor": "#DCE9FF", "primaryBorderColor": "#6C8EC4", "primaryTextColor": "#0B2447", "secondaryColor": "#E3F2E8", "secondaryBorderColor": "#7FA88C", "secondaryTextColor": "#12301C", "tertiaryColor": "#F3E5F5", "tertiaryBorderColor": "#A98BB0", "tertiaryTextColor": "#2E1437", "lineColor": "#7B8699", "textColor": "#1B1F27", "noteBkgColor": "#FFF4D6", "noteBorderColor": "#C9A94F", "noteTextColor": "#3A2A00", "actorBkg": "#DCE9FF", "actorBorder": "#6C8EC4", "actorTextColor": "#0B2447", "signalColor": "#7B8699", "signalTextColor": "#1B1F27", "labelBoxBkgColor": "#F1F3F8", "labelBoxBorderColor": "#A7AEBB", "edgeLabelBackground": "#F7F9FC", "clusterBkg": "#F7F9FC", "clusterBorder": "#C9D1DE"}}}%%
+stateDiagram-v2
+    classDef vm fill:#E3F2E8,stroke:#7FA88C,color:#12301C
+    classDef warn fill:#FDE7E4,stroke:#C98A82,color:#410E0B
+    [*] --> CanRun
+    CanRun --> Running: Execute()
+    Running --> Result: logic completes
+    Running --> Failed: logic throws
+    Result --> CanRun
+    Failed --> CanRun
+    class CanRun,Running,Result vm
+    class Failed warn
+```
+
+`CanExecute` is `true` in the first state, and `IsExecuting` is `true` only in the `Running` state. A result reports
+through the command's own stream; a failure reports through `ThrownExceptions` as well as through whatever awaits
+`Execute()`. Either way, the command returns to a state where it may run again, unless a `canExecute` observable
+says otherwise.
+
+## Where results are delivered
+
+Every `Create*` factory takes an optional `ISequencer` for its output. It picks where the command delivers its
+result, `IsExecuting` and `ThrownExceptions`; left out, that is `RxSchedulers.MainThreadScheduler`. The execution
+logic itself is not moved to that sequencer: for `Create`, `CreateFromTask` and `CreateFromObservable`, it runs
+wherever the caller invoked `Execute` from. Only `CreateRunInBackground` also takes a background `ISequencer`, which
+moves the execution logic itself off the caller's thread.
+
+```mermaid
+%%{init: {"theme": "base", "themeVariables": {"fontFamily": "Roboto, Helvetica, Arial, sans-serif", "fontSize": "15px", "primaryColor": "#DCE9FF", "primaryBorderColor": "#6C8EC4", "primaryTextColor": "#0B2447", "secondaryColor": "#E3F2E8", "secondaryBorderColor": "#7FA88C", "secondaryTextColor": "#12301C", "tertiaryColor": "#F3E5F5", "tertiaryBorderColor": "#A98BB0", "tertiaryTextColor": "#2E1437", "lineColor": "#7B8699", "textColor": "#1B1F27", "noteBkgColor": "#FFF4D6", "noteBorderColor": "#C9A94F", "noteTextColor": "#3A2A00", "actorBkg": "#DCE9FF", "actorBorder": "#6C8EC4", "actorTextColor": "#0B2447", "signalColor": "#7B8699", "signalTextColor": "#1B1F27", "labelBoxBkgColor": "#F1F3F8", "labelBoxBorderColor": "#A7AEBB", "edgeLabelBackground": "#F7F9FC", "clusterBkg": "#F7F9FC", "clusterBorder": "#C9D1DE"}}}%%
+flowchart LR
+    classDef vm fill:#E3F2E8,stroke:#7FA88C,color:#12301C
+    classDef neutral fill:#F1F3F8,stroke:#A7AEBB,color:#1B1F27
+    Caller(["Caller thread"]):::neutral -- "CreateRunInBackground moves logic here" --> Background(["Background sequencer"]):::neutral
+    Background -- "result, IsExecuting, ThrownExceptions" --> Output(["Output sequencer"]):::vm
+    Caller -- "Create / CreateFromTask / CreateFromObservable run logic here" --> Output
+```
+
+Passing `canExecute` as the last argument is a common mistake: it is always the argument before any `ISequencer`, so
+overloads that take both list `canExecute` first. See [Scheduling](../scheduling.md) for more on sequencers,
+including `Sequencer.Immediate`, used throughout this page so the examples run synchronously.
+
+## At a glance
+
+Each `ReactiveUI` package that ships a `Reactive` sibling (`ReactiveUI.Reactive`) builds `ReactiveCommand` and the
+rest of this page's types from the same source, for apps that use System.Reactive.
+
+| Member | What it does |
+| --- | --- |
+| `ReactiveCommand.Create` | Builds a command from a plain method: `Action`, `Action<TParam>`, `Func<TResult>` or `Func<TParam, TResult>`. |
+| `ReactiveCommand.CreateFromObservable` | Builds a command from a method that returns `IObservable<TResult>`. |
+| `ReactiveCommand.CreateFromTask` | Builds a command from a method that returns `Task` or `Task<TResult>`, optionally cancellable. |
+| `ReactiveCommand.CreateRunInBackground` | Builds a command whose execution logic runs on a background `ISequencer`. |
+| `ReactiveCommand.CreateCombined` | Builds a `CombinedReactiveCommand` that runs several commands together. |
+| `Execute()` | Runs the command and returns a stream of its result. |
+| `CanExecute` | An `IObservable<bool>` reporting whether the command may run. |
+| `IsExecuting` | An `IObservable<bool>` reporting whether the command is currently running. |
+| `ThrownExceptions` | An `IObservable<Exception>` of every error the execution logic throws. |
+| `InvokeCommand` | Runs a command each time a stream ticks, respecting `CanExecute`. |
+| `BindCommand` | Connects a view control's event to a command, disabling the control while it cannot run. |
+
+Production implementation: [`ReactiveCommand.cs`](https://github.com/reactiveui/ReactiveUI/blob/main/src/ReactiveUI.Core/ReactiveCommand.cs).
