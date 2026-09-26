@@ -9,9 +9,10 @@ Order: 2
 > Framework 4.6.2 reaches [end of support](https://learn.microsoft.com/lifecycle/end-of-support/end-of-support-2027)
 > on January 12, 2027. Plan to move new and existing apps to .NET 10 or later, or to .NET Framework 4.7.2 or later.
 
-Install the ReactiveUI package for your UI framework. It brings the core `ReactiveUI` package, and
-[ReactiveUI.Binding](../../../binding/index.md) for bindings, so one reference is enough for an app project.
-A class library that holds only view models references `ReactiveUI`.
+Install the ReactiveUI package for your UI framework. It brings the core `ReactiveUI` package,
+[ReactiveUI.Binding](../../../binding/index.md) for bindings and
+[ReactiveUI.SourceGenerators](../../../source-generators/index.md) for properties and commands. One reference is enough
+for an app project. A class library that holds only view models references `ReactiveUI`.
 
 ```bash
 dotnet add package ReactiveUI.WPF
@@ -95,28 +96,45 @@ any warning that starts with `RXUIBIND`. Each one names a binding that gets no g
 Moving from an earlier version? The [ReactiveUI.Binding migration guide](../../upgrading/reactiveui-binding-migration.md)
 walks through the upgrade.
 
+## Source generators come with ReactiveUI
+
+A **source generator** is a compiler add-on that writes C# code while your project builds.
+[ReactiveUI.SourceGenerators](../../../source-generators/index.md) writes reactive properties and commands for you.
+ReactiveUI 24.4 and later bring it through `ReactiveUI.Core`, so you do not install it yourself. Every project that
+references `ReactiveUI`, `ReactiveUI.Reactive` or a platform package gets its generators and analyzers.
+
+What you get:
+
+- Five attributes: `[Reactive]`, `[ReactiveCommand]`, `[ReactiveCollection]`, `[BindableDerivedList]` and
+  `[IReactiveObject]`. Add `using ReactiveUI.SourceGenerators;` to each file that uses them.
+- Code that matches the package you reference. A `ReactiveUI` project gets `ReactiveCommand<RxVoid, T>`. A
+  `ReactiveUI.Reactive` project gets `ReactiveUI.Reactive.ReactiveCommand<Unit, T>`, with the `Unit` type from
+  System.Reactive.
+- Analyzers that report an attribute the generators cannot handle.
+
+`[ObservableAsProperty]` and view registration come from ReactiveUI.Binding, which ReactiveUI also brings.
+
+A project that references a ReactiveUI.SourceGenerators version older than 4.0.0 fails to restore with error NU1605.
+Remove that `PackageReference`, or set it to 4.0.0 or later.
+
 ## Related packages
 
 These packages add to ReactiveUI. Each has its own repository and its own section.
 
 | Package | What it adds |
 |---|---|
-| [ReactiveUI.SourceGenerators](../../../source-generators/index.md) | Writes reactive properties and commands for you |
 | [ReactiveUI.Validation](../../../validation.md) | Validation rules for view models |
 | [Sextant](../../../sextant.md) | Navigation that starts from the view model |
 | [ReactiveUI.Maui.Plugins.Popup](../../../maui-plugins-popup.md) | Reactive popup pages for MAUI |
 
-ReactiveUI.Fody is legacy. Use ReactiveUI.SourceGenerators for new code. The
-[migration guide](../../../source-generators/migrating-from-fody.md) shows how to move. Xamarin is no longer supported. See
-[Xamarin to MAUI](../../upgrading/xamarin-to-maui.md).
+Xamarin is no longer supported. See [Xamarin to MAUI](../../upgrading/xamarin-to-maui.md).
 
 ## A typical solution
 
 ```text
 .
 ├── MyApp.Core (class library)
-│   ├── ReactiveUI
-│   └── ReactiveUI.SourceGenerators
+│   └── ReactiveUI
 ├── MyApp.Wpf
 │   └── ReactiveUI.WPF
 ├── MyApp.WinUI

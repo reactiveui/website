@@ -271,7 +271,9 @@ True
 
 `MapFromServiceLocator` asks the service locator each time the mapping resolves; a view that is not registered
 there throws `InvalidOperationException` instead of resolving to nothing. Use it for a view a service locator
-already owns, such as one another Splat-registered module built.
+already owns, such as one another Splat-registered module built. When the service locator holds more than one
+registration of the same `IViewFor<TViewModel>` type under different contracts,
+[the contracted overload](../../../binding/views.md#reach-two-contracted-views-registered-in-the-service-locator) tells them apart.
 
 ## Handle a missing locator
 

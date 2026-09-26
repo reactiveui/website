@@ -1,94 +1,49 @@
 ---
 Order: 4
 ---
-# Source Generators and Fody, the easy way to create properties in ReactiveUI
+# Boilerplate Code
 
-## Legacy Note
-If you are tired of writing boilerplate code for property change notifications, you can try one of the following: 
-- [PropertyChanged.Fody](https://github.com/Fody/PropertyChanged) or 
-- [ReactiveUI.Fody](https://www.nuget.org/packages/ReactiveUI.Fody).
+A view model repeats the same few shapes. Each read-write property needs a backing field and a setter that calls
+`RaiseAndSetIfChanged`. Each output property needs an `ObservableAsPropertyHelper<T>` field, a getter that returns
+its `Value`, and a `ToProperty` call. Each command needs a property and a `ReactiveCommand.Create` call.
+[View Models](index.md#write-a-property-the-view-can-bind-to) shows each shape written by hand.
 
-These two libraries are both based on [Fody](https://github.com/Fody) - an extensible tool for weaving .NET assemblies, and they'll 
-inject `INotifyPropertyChanged` code into decorated properties at compile time for you. 
+ReactiveUI brings two source generators that write these shapes for you. A **source generator** is a compiler add-on
+that writes C# code while your project builds. You install nothing extra: every project that references a ReactiveUI
+package gets both.
 
-## Recommend for new projects
-- [ReactiveUI.SourceGenerators](../../../source-generators/index.md) documents every attribute, and
-  [Migrating from Fody](../../../source-generators/migrating-from-fody.md) shows how to move existing code.
+## Let the generators write a view model
 
-This library is a Source Generator that generates properties and commands for you. It is a new way to generate properties and commands for ReactiveUI taking decorated fields and methods and generating the properties and ReactiveCommands for you.
+1. **Make the class `partial`.** The generators add their code to the other part of the class.
+2. **Add `using ReactiveUI.SourceGenerators;`** to each file that uses `[Reactive]` or `[ReactiveCommand]`.
+   ReactiveUI adds no global `using` for that namespace.
+3. **Mark each read-write property `[Reactive]`.** Declare it as a `partial` property with an empty `get` and `set`.
+4. **Mark each command method `[ReactiveCommand]`.** The generator writes a property named after the method, followed
+   by `Command`.
+5. **Mark each output property `[ObservableAsProperty]`.** Declare it as a `partial` get-only property, and assign
+   the generated `_{name}Helper` field with `ToProperty` in the constructor.
+6. **Build.** The generators write the property bodies, the fields and the commands.
 
-We recommend using [ReactiveUI.SourceGenerators](https://www.nuget.org/packages/ReactiveUI.SourceGenerators/) package that also handles `ReactiveCommands`.
-For `ObservableAsPropertyHelper<T>` properties, use the `[ObservableAsProperty]` attribute from [ReactiveUI.Binding](../../../binding/properties.md#declare-the-property-with-an-attribute).
+[ReactiveUI.SourceGenerators](../../../source-generators/index.md#write-your-first-view-model) walks through a full
+view model built this way.
 
-# The manual way to create properties in ReactiveUI
+## Which attribute writes which shape
 
-## Read-write properties
-Typically properties are declared like this:
+| Shape you would write by hand | Attribute | Comes from | Reference |
+|---|---|---|---|
+| A read-write property that calls `RaiseAndSetIfChanged` | `[Reactive]` | ReactiveUI.SourceGenerators | [Properties with `[Reactive]`](../../../source-generators/index.md#properties-with-reactive) |
+| A `ReactiveCommand` property that wraps a method | `[ReactiveCommand]` | ReactiveUI.SourceGenerators | [Commands with `[ReactiveCommand]`](../../../source-generators/index.md#commands-with-reactivecommand) |
+| An output property backed by `ObservableAsPropertyHelper<T>` | `[ObservableAsProperty]` | ReactiveUI.Binding | [Declare the property with an attribute](../../../binding/properties.md#declare-the-property-with-an-attribute) |
+| A property that follows an `ObservableCollection<T>` | `[ReactiveCollection]` | ReactiveUI.SourceGenerators | [Collections](../../../source-generators/index.md#collections) |
+| The `IReactiveObject` members on a class with another base class | `[IReactiveObject]` | ReactiveUI.SourceGenerators | [Classes that cannot derive from `ReactiveObject`](../../../source-generators/index.md#classes-that-cannot-derive-from-reactiveobject) |
 
-```cs
-private string _name;
-public string Name 
-{
-    get => _name;
-    set => this.RaiseAndSetIfChanged(ref _name, value);
-}
-```
+Use a `[Reactive]` partial property, not a `[Reactive]` field, for any property you pass to `WhenAnyValue`.
+ReactiveUI.Binding cannot see a property generated from a field, so `WhenAnyValue` on it throws at run time.
 
-## ObservableAsPropertyHelper properties
+## Analyzer messages
 
-Similarly, to declare output properties, the code looks like this:
+The ReactiveUI.SourceGenerators analyzers report an `RXUISG` warning or error when they cannot handle an attribute.
+[Analyzer messages](../../../source-generators/index.md#analyzer-messages) lists each one and what it means.
 
-```cs
-ObservableAsPropertyHelper<string> _firstName;
-public string FirstName => _firstName.Value;
-```
-
-Then the helper is initialized with a call to `ToProperty`:
-
-```cs
-// firstNameObservable is IObservable<string>
-_firstName = firstNameObservable
-  .ToProperty(this, x => x.FirstName);
-```
-
-# Using ReactiveUI.Fody - Legacy
-
-### Strongly discouraged for new projects
-
-With [ReactiveUI.Fody](https://www.nuget.org/packages/ReactiveUI.Fody/), you don't have to write boilerplate code for getters and setters of read-write properties — the package will do it automagically for you at compile time.
-All you have to do is annotate the property with the `[Reactive]` attribute, as shown below.
-
-## ReactiveUI.Fody - Read-write properties
-
-```cs
-[Reactive]
-public string Name { get; set; }
-```
-
-> **Note** `ReactiveUI.Fody` currently doesn't support inline auto property initializers in generic types. It works fine with non-generic types. But if you are working on a generic type, don't attempt to write code like `public string Name { get; set; } = "Name";`, this won't work as you might expect and will likely throw a very weird exception. To workaround this limitation, move your property initialization code to the constructor of your view model class. We know about this limitation and [have a tracking issue for this](https://github.com/reactiveui/ReactiveUI/issues/2416).
-
-## ReactiveUI.Fody - ObservableAsPropertyHelper properties
-
-With ReactiveUI.Fody, you can simply declare a read-only property using the `[ObservableAsProperty]` attribute, using either option of the two options shown below. One option is to annotate the getter of the property:
-
-```cs
-public string FirstName { [ObservableAsProperty] get; }
-```
-
-Another option is to annotate the property as a whole:
-
-```cs
-[ObservableAsProperty]
-public string FirstName { get; }
-```
-    
-The field will be generated and the property implemented at compile time. Because there is no field for you to pass to `.ToProperty`, you should use the `.ToPropertyEx` extension method provided by this library:
-
-```cs
-// firstNameObservable is IObservable<string>
-firstNameObservable.ToPropertyEx(this, x => x.FirstName);
-```
-
-This extension will assign the auto-generated field for you rather than relying on the `out` parameter.
-
-> **Note** The generated getter for property of type `T` annotated with the `[ObservableAsProperty]` attribute will return `default(T)` in case if the property isn't yet initialized via a call to `ToPropertyEx`. To be more specific, the generated getter code looks somewhat like `T PropertyName => oaph?.Value ?? default(T);`, where `oaph` is a field of type `ObservableAsProperty<T>` which is generated by the compiler.
+A project that references ReactiveUI.SourceGenerators itself, at a version older than 4.0.0, fails to restore with
+error NU1605. Remove that `PackageReference`, or set it to 4.0.0 or later.

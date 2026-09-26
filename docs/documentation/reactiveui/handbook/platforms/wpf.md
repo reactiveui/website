@@ -271,7 +271,10 @@ run-time type. Building that type while the app runs needs code the compiler nev
 Prefer to bridge the registration instead:
 `locator.CreateMappingBuilder().MapFromServiceLocator<TViewModel, IViewFor<TViewModel>>()` adds a `Map` entry whose
 view comes from the service locator, so the default hosts find it and the app stays safe to compile ahead of time.
-[WinUI](winui.md#which-views-the-hosts-find) shows it end to end.
+[WinUI](winui.md#which-views-the-hosts-find) shows it end to end. When the service locator holds more than one
+registration of the same `IViewFor<TViewModel>` type,
+[the contracted overload](../../../binding/views.md#reach-two-contracted-views-registered-in-the-service-locator)
+tells them apart.
 
 **1. Register the view with the service locator.** The school office's `OfficeNoticeView` stands in for a view from
 the office's shared library. `[ExcludeFromViewRegistration]` keeps it out of the generated lookup, and startup

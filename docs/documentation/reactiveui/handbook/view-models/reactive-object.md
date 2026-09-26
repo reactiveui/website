@@ -42,6 +42,8 @@ Console.WriteLine(string.Join(", ", changedProperties));
 
 The second assignment to `Course` sets the same value the property already holds, so `RaiseAndSetIfChanged` raises nothing for it. Only two notifications reach the subscriber.
 
+ReactiveUI brings [ReactiveUI.SourceGenerators](../../../source-generators/index.md), which can write this setter for you. Mark a `partial` property with its `[Reactive]` attribute, and the generator writes the body while your project builds. [Properties with `[Reactive]`](../../../source-generators/index.md#properties-with-reactive) covers it.
+
 ## Observe changing and changed
 
 `Changing` and `Changed` carry the same information as the classic events, as a stream instead: `Changing.Subscribe` fires just before a property changes, and `Changed.Subscribe` fires just after. Each notification is an `IReactivePropertyChangedEventArgs<TSender>`, which names the `Sender` and the `PropertyName`.
@@ -351,6 +353,8 @@ Console.WriteLine(string.Join(", ", observedGrades));
 ```
 
 Implementing `IReactiveObjectStateSlot` is optional, but worth doing whenever you already own the class: it gives the framework one field on the instance to hold that object's notification state, instead of looking the object up in a shared table on every change. `ReactiveObject` and the platform view base classes implement it too, for the same reason. The state that lives in that slot is `IExtensionState<TSender>`, an interface the library uses internally to track subscriptions, suppression and delay; you never implement or call it yourself.
+
+To skip writing these members by hand, mark a `partial` class with `[IReactiveObject]` from [ReactiveUI.SourceGenerators](../../../source-generators/index.md#classes-that-cannot-derive-from-reactiveobject), which comes with ReactiveUI. The generator writes the `IReactiveObject` implementation for you.
 
 ## ReactiveRecord for mostly-immutable data
 

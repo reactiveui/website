@@ -63,6 +63,10 @@ notification for you.
     } = string.Empty;
 ```
 
+This page writes each property body by hand so you can see what it does. In your own view models, let
+[ReactiveUI.SourceGenerators](../../source-generators/index.md) write it. ReactiveUI brings that package, so its
+`[Reactive]` attribute works with no extra install.
+
 `_subscriptions` is a `MultipleDisposable`, a container that holds several subscriptions so the view model can
 dispose all of them together when it is disposed itself. [Disposables](../../primitives/disposables.md) covers it
 and the other containers `ReactiveUI.Primitives` offers.
@@ -256,7 +260,8 @@ Each row in the results list is a `RepositoryDetailsViewModel`, built from one `
 `ReactiveCommand` is itself a stream: calling `Execute()` returns one that runs the command and delivers its
 result, so `Subscribe()` both starts it and lets you know when it finishes. The
 [commands](../handbook/commands/index.md) page covers the command's running state and how it reports its own
-errors.
+errors. The `[ReactiveCommand]` attribute from [ReactiveUI.SourceGenerators](../../source-generators/index.md), which
+comes with ReactiveUI, can write a command property like `OpenPage` from a method.
 
 ```csharp
         Repository repository = new("reactiveui/ReactiveUI", "An advanced, composable, functional reactive MVVM framework", 8400);

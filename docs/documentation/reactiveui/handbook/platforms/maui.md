@@ -755,7 +755,7 @@ Console.WriteLine(host.Content?.GetType().Name);
 // ShoppingListView
 ```
 
-The example uses a view locator of its own. In your own app, make the same call inside `ConfigureViewLocator(static locator => ...)` on the builder, so every host uses it.
+The example uses a view locator of its own. In your own app, make the same call inside `ConfigureViewLocator(static locator => ...)` on the builder, so every host uses it. When the service locator holds more than one registration of the same `IViewFor<TViewModel>` type, [the contracted overload](../../../binding/views.md#reach-two-contracted-views-registered-in-the-service-locator) tells them apart.
 
 ## Convert bool to Visibility
 

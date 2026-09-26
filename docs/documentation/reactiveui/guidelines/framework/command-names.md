@@ -42,7 +42,7 @@ the mechanism instead of the action, such as `PerformSave`.
 
 ## Naming with source generators
 
-`ReactiveUI.SourceGenerators`, a separate package, derives the command name for you: a method named `Synchronize`
+`ReactiveUI.SourceGenerators`, which comes with ReactiveUI, derives the command name for you: a method named `Synchronize`
 decorated with `[ReactiveCommand]` generates a property named `SynchronizeCommand`. The `Impl` convention above
 still applies to whatever method the generated command calls. [Reduce boilerplate code](../../handbook/view-models/boilerplate-code.md)
 covers the attribute.

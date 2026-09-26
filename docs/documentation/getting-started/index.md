@@ -26,8 +26,8 @@ ReactiveUI.Primitives and Splat sit at the bottom. Several libraries use streams
 ReactiveUI finds its services through Splat. A **stream** is a series of values that arrive over time.
 [Reactive programming](../reactive-programming/index.md) explains streams from the start.
 
-ReactiveUI builds on both. It uses ReactiveUI.Binding for bindings and view location, and it installs ReactiveUI.Binding
-for you. ReactiveUI.SourceGenerators, ReactiveUI.Validation and Sextant add to ReactiveUI.
+ReactiveUI builds on both. It uses ReactiveUI.Binding for bindings and view location, and ReactiveUI.SourceGenerators
+to write property and command code; it installs both for you. ReactiveUI.Validation and Sextant add to ReactiveUI.
 
 Refit and Akavache do not need ReactiveUI. You can use them in any .NET app.
 

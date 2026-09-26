@@ -90,6 +90,10 @@ The second assignment sets the value the property already holds, so `RaiseAndSet
 only two of the three assignments raise a notification. [Reactive Object](reactive-object.md) covers
 `RaiseAndSetIfChanged`, the `Changing`/`Changed` streams and suppressing notifications in full.
 
+You do not have to write this setter yourself. ReactiveUI brings
+[ReactiveUI.SourceGenerators](../../../source-generators/index.md), and its `[Reactive]` attribute writes the setter
+for you. [Let a source generator write the boilerplate](#let-a-source-generator-write-the-boilerplate) shows how.
+
 ## Read a property as a stream with WhenAnyValue
 
 A view model often needs to react to its own property changes, not just announce them: enable a command once a
@@ -286,10 +290,12 @@ Dispose both when the view model is done, the same way `TodoListViewModel.Dispos
 ## Let a source generator write the boilerplate
 
 Every read-write property on this page follows the same shape, and every output property follows the same
-shape too. [ReactiveUI.SourceGenerators](../../../source-generators/index.md) writes that shape for you: annotate
-a field with `[Reactive]` for a read-write property, or a method with `[ReactiveCommand]` for a command, and the
-generator writes the property or command at compile time. [Boilerplate code](boilerplate-code.md) covers it,
-alongside the older `ReactiveUI.Fody` package, in full.
+shape too. [ReactiveUI.SourceGenerators](../../../source-generators/index.md) writes that shape for you, and
+ReactiveUI brings it, so there is nothing extra to install. Mark a `partial` property with `[Reactive]` for a
+read-write property, or a method with `[ReactiveCommand]` for a command. The generator writes the property or
+command while your project builds. For an output property, mark a `partial` get-only property with
+`[ObservableAsProperty]` from ReactiveUI.Binding, and assign its generated helper field with `ToProperty`.
+[Boilerplate code](boilerplate-code.md) maps each hand-written shape to its attribute.
 
 ## Where commands fit
 
@@ -314,4 +320,4 @@ instead of ReactiveUI.Primitives.
 | `ObservableAsPropertyHelper<T>` | Holds the latest value of a stream and raises the property's change notification when it arrives. |
 | `ToProperty` | Builds an `ObservableAsPropertyHelper<T>` from a stream; see [Properties backed by observables](../../../binding/properties.md). |
 | `ReactiveProperty<T>` | A settable, validating, bindable property in one object; see [Reactive Property](reactive-property.md). |
-| `[Reactive]` / `[ReactiveCommand]` | ReactiveUI.SourceGenerators attributes that write a read-write property or a command at compile time; see [ReactiveUI.SourceGenerators](../../../source-generators/index.md). |
+| `[Reactive]` / `[ReactiveCommand]` | ReactiveUI.SourceGenerators attributes, which come with ReactiveUI, that write a read-write property or a command at compile time; see [ReactiveUI.SourceGenerators](../../../source-generators/index.md). |

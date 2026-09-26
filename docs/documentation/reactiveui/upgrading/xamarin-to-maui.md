@@ -175,9 +175,10 @@ public RecipeListViewModel(IScreen hostScreen)
 }
 ```
 
-`ReactiveUI.SourceGenerators` also still works, unchanged from Xamarin.Forms: its `[Reactive]` and
-`[ReactiveCommand]` attributes write the property and command bodies for you.
-[Source generators](../../source-generators/index.md) covers that package.
+`ReactiveUI.SourceGenerators` comes with ReactiveUI on MAUI as on every platform: its `[Reactive]` and
+`[ReactiveCommand]` attributes write the property and command bodies for you. Remove any explicit
+`ReactiveUI.SourceGenerators` reference older than 4.0.0 from the project, or restore fails with NU1605.
+[Source generators](../../source-generators/index.md) covers the attributes.
 
 ## Move navigation onto RoutingState
 

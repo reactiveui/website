@@ -484,6 +484,49 @@ The analyzer catches this at build time instead of at the warning above. RXUIBIN
 and no `Map` for `T`, so you can add the mapping before the warning ever logs. Both the warning and RXUIBIND020
 arrived in ReactiveUI.Binding 8.1.0.
 
+### Reach two contracted views registered in the service locator
+
+`MapFromServiceLocator<TViewModel, TView>` also takes a contract and a service contract, added in
+ReactiveUI.Binding 8.2.0. The `contract` parameter is the contract callers pass to `ResolveView`; the mapping only
+answers that contract. The `serviceContract` parameter is the contract the service locator registration used, so
+the mapping can tell two registrations of the same `IViewFor<TViewModel>` type apart. The next snippet registers a
+detail screen under the default service contract and a preview screen under a `"preview"` service contract, both as
+`IViewFor<TodoItem>`, then maps each one to a matching `ResolveView` contract.
+
+```csharp
+TodoItem item = CreateItem();
+DefaultViewLocator locator = new();
+AppLocator.CurrentMutable.Register<IViewFor<TodoItem>>(static () => new TodoItemDetailView());
+AppLocator.CurrentMutable.Register<IViewFor<TodoItem>>(static () => new TodoItemPreviewView(), PreviewContract);
+
+try
+{
+    _ = locator.CreateMappingBuilder()
+        .MapFromServiceLocator<TodoItem, IViewFor<TodoItem>>()
+        .MapFromServiceLocator<TodoItem, IViewFor<TodoItem>>(PreviewContract, serviceContract: PreviewContract);
+
+    IViewFor? detail = locator.ResolveView(item);
+    IViewFor? preview = locator.ResolveView(item, PreviewContract);
+
+    Console.WriteLine(detail?.GetType().Name);
+    Console.WriteLine(preview?.GetType().Name);
+}
+finally
+{
+    AppLocator.CurrentMutable.UnregisterAll<IViewFor<TodoItem>>();
+    AppLocator.CurrentMutable.UnregisterAll<IViewFor<TodoItem>>(PreviewContract);
+}
+```
+
+```text
+TodoItemDetailView
+TodoItemPreviewView
+```
+
+A mapping made this way still resolves lazily, the first time `ResolveView` asks for its contract. If the service
+locator has no registration under `serviceContract` at that point, the mapping throws `InvalidOperationException`
+naming the missing contract, instead of returning `null`.
+
 ## Handle a missing view
 
 A view model with no view resolves to `null`. The locator does not throw, because a missing view is often

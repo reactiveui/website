@@ -60,9 +60,10 @@ observer that receives an exception a subscription would otherwise drop silently
 
 ## Remove boilerplate with source generators
 
-`ReactiveUI.SourceGenerators`, a separate package, writes a property or a command for you from a decorated field or
-method: `[Reactive]` for a settable property, `[ObservableAsProperty]` for a read-only property backed by a stream,
-and `[ReactiveCommand]` for a command. [Reduce boilerplate code](../handbook/view-models/boilerplate-code.md) shows
+`ReactiveUI.SourceGenerators` comes with ReactiveUI. It writes a property or a command for you from a decorated
+property, field or method: `[Reactive]` for a settable property and `[ReactiveCommand]` for a command.
+`[ObservableAsProperty]`, for a read-only property backed by a stream, comes from ReactiveUI.Binding, which ReactiveUI
+also brings. [Reduce boilerplate code](../handbook/view-models/boilerplate-code.md) shows
 every attribute, and [Declare the property with an attribute](../../binding/properties.md#declare-the-property-with-an-attribute)
 covers `[ObservableAsProperty]`, which comes from `ReactiveUI.Binding`.
 

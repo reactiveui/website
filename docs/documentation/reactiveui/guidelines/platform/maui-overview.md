@@ -22,8 +22,8 @@ builder, binding a page to a view model, navigation and activation.
   page shows both: a `Router` navigated through `RoutedViewHost`, and MAUI's own Shell routes side by side.
 - **A custom control that needs a view model implements `IViewFor<TViewModel>` itself.** It does this the same way
   the platform's own reactive base classes do. The handbook page shows this for a custom item view.
-- **`ReactiveUI.SourceGenerators` removes the boilerplate around reactive properties, computed properties and
-  commands** on any platform, including MAUI; see [Source Generators](../../../source-generators/index.md).
+- **`ReactiveUI.SourceGenerators`, which comes with ReactiveUI, removes the boilerplate around reactive properties
+  and commands** on any platform, including MAUI; see [Source Generators](../../../source-generators/index.md).
 
 ## Platform APIs
 

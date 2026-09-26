@@ -457,7 +457,10 @@ ViewModelViewHost shows: RadarImageView
 ```
 
 In your own app, make the same call inside `ConfigureViewLocator(static locator => ...)` on the builder. The mapping
-asks the service locator each time it resolves, so the lifetime you registered the view with still applies.
+asks the service locator each time it resolves, so the lifetime you registered the view with still applies. When the
+service locator holds more than one registration of the same `IViewFor<TViewModel>` type,
+[the contracted overload](../../../binding/views.md#reach-two-contracted-views-registered-in-the-service-locator)
+tells them apart.
 
 ## Know when a view is active
 

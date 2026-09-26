@@ -194,8 +194,10 @@
 /documentation/upgrading/rxappbuilder-migration  /documentation/reactiveui/upgrading/rxappbuilder-migration/  301
 /documentation/upgrading/xamarin-to-maui/  /documentation/reactiveui/upgrading/xamarin-to-maui/  301
 /documentation/upgrading/xamarin-to-maui  /documentation/reactiveui/upgrading/xamarin-to-maui/  301
-/documentation/upgrading/fody-to-sourcegenerators/  /documentation/source-generators/migrating-from-fody/  301
-/documentation/upgrading/fody-to-sourcegenerators  /documentation/source-generators/migrating-from-fody/  301
+/documentation/upgrading/fody-to-sourcegenerators/  /documentation/source-generators/  301
+/documentation/upgrading/fody-to-sourcegenerators  /documentation/source-generators/  301
+/documentation/source-generators/migrating-from-fody/  /documentation/source-generators/  301
+/documentation/source-generators/migrating-from-fody  /documentation/source-generators/  301
 
 # Legacy docfx URLs redirected to mkdocs directory URLs.
 # Catchall while we migrate from docfx (.html) to mkdocs (directory) URLs.

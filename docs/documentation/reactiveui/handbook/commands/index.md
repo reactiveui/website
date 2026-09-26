@@ -67,6 +67,12 @@ Every one of them takes an optional `IObservable<bool>` for `canExecute` and an 
 `ISequencer` that picks where the command delivers its result. A sequencer decides when and where work runs; see
 [Scheduling](../scheduling.md). Left out, a command uses `RxSchedulers.MainThreadScheduler`, the UI thread in an app.
 
+You can also let a source generator write the command property. ReactiveUI brings
+[ReactiveUI.SourceGenerators](../../../source-generators/index.md), so there is nothing extra to install. Mark a
+method with `[ReactiveCommand]`, and the generator writes a property that calls the matching factory method for you.
+[Commands with `[ReactiveCommand]`](../../../source-generators/index.md#commands-with-reactivecommand) lists the method
+shapes it accepts and its options.
+
 ### Create
 
 `Create(Action, ...)` runs a plain method with no parameter and no result. `Create<TParam>`, `Create<TResult>` and

@@ -23,14 +23,14 @@ the libraries you use.
     dotnet add package ReactiveUI.WPF
     ```
 
-    That one reference brings `ReactiveUI`, `ReactiveUI.Binding`, `ReactiveUI.Binding.Wpf` and `ReactiveUI.Primitives`.
+    That one reference brings `ReactiveUI`, `ReactiveUI.Binding`, `ReactiveUI.Binding.Wpf`, `ReactiveUI.Primitives`
+    and the [ReactiveUI.SourceGenerators](../source-generators/index.md) generators.
 
 4. **Add the packages for your other projects.** A class library that holds your view models needs only `ReactiveUI`.
    A test project adds `ReactiveUI.Testing`.
 
     ```bash
     dotnet add package ReactiveUI
-    dotnet add package ReactiveUI.SourceGenerators
     ```
 
 5. **Start the library when your app starts.** Each library has its own setup page. For ReactiveUI, follow the
@@ -91,8 +91,8 @@ Your binding code mostly compiles as it is. Some types moved to the `ReactiveUI.
 behave differently. The [ReactiveUI.Binding migration guide](../reactiveui/upgrading/reactiveui-binding-migration.md)
 lists every change in five steps.
 
-If you use ReactiveUI.SourceGenerators, its `[ObservableAsProperty]` attribute is replaced by the one in
-ReactiveUI.Binding. The migration guide's
+`[ObservableAsProperty]` comes from ReactiveUI.Binding. For code written against the ReactiveUI.SourceGenerators 3.x
+attribute, the migration guide's
 [ReactiveUI.SourceGenerators section](../reactiveui/upgrading/reactiveui-binding-migration.md#reactiveuisourcegenerators)
 shows the change.
 
@@ -107,6 +107,18 @@ dotnet add package ReactiveUI.Binding.Wpf
 ```
 
 Then follow [Setup](../binding/setup.md) to start the library when your app starts.
+
+## ReactiveUI and ReactiveUI.SourceGenerators
+
+[ReactiveUI.SourceGenerators](../source-generators/index.md) writes reactive properties and commands for you while
+your project builds. ReactiveUI 24.4 and later bring it through `ReactiveUI.Core`. Every project that references
+`ReactiveUI`, `ReactiveUI.Reactive` or a platform package gets its generators and analyzers. You do not add it by hand.
+
+- **What you get:** the `[Reactive]`, `[ReactiveCommand]`, `[ReactiveCollection]`, `[BindableDerivedList]` and
+  `[IReactiveObject]` attributes. Add `using ReactiveUI.SourceGenerators;` to each file that uses them. The generators
+  write code for the flavor your project references.
+- **Remove your own reference.** A project that references a ReactiveUI.SourceGenerators version older than 4.0.0
+  fails to restore with error NU1605. Remove that `PackageReference`, or set it to 4.0.0 or later.
 
 ## Two flavors of each package
 
@@ -135,8 +147,7 @@ This solution keeps its view models in a class library and has one app project p
 ```text
 .
 ├── MyApp.Core (class library)
-│   ├── ReactiveUI
-│   └── ReactiveUI.SourceGenerators
+│   └── ReactiveUI
 ├── MyApp.Wpf
 │   └── ReactiveUI.WPF
 ├── MyApp.Maui
