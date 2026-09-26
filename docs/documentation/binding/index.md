@@ -210,6 +210,7 @@ of the examples. They talk to in-memory services, so no example needs a network 
 | [Views](views.md) | Use `IViewFor<T>`, the view locator and view mappings. |
 | [Threading and platforms](threading.md) | Write on the owning thread, choose a scheduler, and use the WPF, WinForms, MAUI and Avalonia packages. |
 | [Setup](setup.md) | Start the builder, find the System.Reactive package's names, publish with Native AOT and read the analyzer's diagnostics. |
+| [Members ReactiveUI.SourceGenerators writes](source-generators.md) | Observe, bind and back a property or a command that ReactiveUI.SourceGenerators writes for you. |
 | [Unsafe twins and the runtime fallback](unsafe.md) | Bind a call site that the generator cannot read. |
 | [API reference](api.md) | Look up every public type and member with its parameters and return value. |
 

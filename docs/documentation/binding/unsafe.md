@@ -15,24 +15,16 @@ Use the plain method whenever you can write the lambda in the call. It is faster
 
 The examples use a small to-do app. `OriginalTitle` holds the text `Renew car registration`, and the other constants hold sample text of the same kind.
 
-**1. See what a plain call does with a stored path.** The lambda lives in the variable `titleColumn`, so the generator cannot read it at the call. The plain `WhenChanged` is a **stub**, a method that only throws. The message names the twin to use.
+**1. See what a plain call needs.** The generator reads a property path only when the lambda is written in the call, such as `x => x.Title`. A path held in a variable, as in `item.WhenChanged(titleColumn)`, is not readable, so the plain method has nothing to run and throws when it runs. RXUIBIND021 reports that call at build time.
 
 ```csharp
 TodoItem item = new TodoItem { Title = OriginalTitle };
-Expression<Func<TodoItem, string>> titleColumn = x => x.Title;
 
-try
-{
-    using IDisposable subscription = item.WhenChanged(titleColumn).Subscribe(Console.WriteLine);
-}
-catch (InvalidOperationException ex)
-{
-    Console.WriteLine(ex.Message);
-}
+using IDisposable subscription = item.WhenChanged(x => x.Title).Subscribe(Console.WriteLine);
 ```
 
 ```text
-No generated WhenChanged dispatch matched this call site. Use WhenChangedUnsafe to resolve the expression at run time.
+Renew car registration
 ```
 
 **2. Call the twin before the app is built.** `WhenChangedUnsafe` reads the path at run time. It then asks the registered services how to observe `Title`. The app has registered none, so the call fails. The example prints the first sentence of the message.

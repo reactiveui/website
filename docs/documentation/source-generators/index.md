@@ -114,6 +114,12 @@ them gets:
 also brings. [Properties backed by observables](../binding/properties.md) covers `[ObservableAsProperty]`, and
 [Views](../binding/views.md) covers how views are registered.
 
+`WhenAnyValue`, `WhenAny`, `Bind`, `OneWayBind`, `BindCommand` and `ToProperty` work on the members
+ReactiveUI.SourceGenerators writes: a `[Reactive]` field or partial property, `[ReactiveCollection]`,
+`[BindableDerivedList]`, `[ReactiveCommand]` and `[IReactiveObject]`. When ReactiveUI.Binding has no generated binding
+for a member, such as one another source generator adds that it does not recognize, it reports
+[RXUIBIND021](../binding/index.md), a warning.
+
 ### Remove your own package reference
 
 A project that references a ReactiveUI.SourceGenerators version older than 4.0.0 fails to restore with error NU1605,
@@ -170,8 +176,6 @@ public partial class ProfileViewModel : ReactiveObject
 
 `DisplayName` starts as `"Guest"`. An initial value on a partial property needs C# 14.
 
-Use the partial property form for every property you pass to `WhenAnyValue`. The next section explains why.
-
 ### On a field
 
 `[Reactive]` also works on a private field. The generator names the property after the field: it drops a leading `_`
@@ -198,12 +202,6 @@ public partial class SettingsViewModel : ReactiveObject
 
 A field has no place for modifiers, so the attribute takes them. `SetModifier` sets the setter's access. A
 `[property: ...]` attribute list moves an attribute from the field to the generated property.
-
-> [!WARNING]
-> `WhenAnyValue` throws at run time on a property generated from a `[Reactive]` field. ReactiveUI.Binding writes the
-> code behind each `WhenAnyValue` call, and its generator cannot see a property another generator writes from a field.
-> Declare any property you observe as a `[Reactive]` partial property instead. This is a known ReactiveUI.Binding gap,
-> reported upstream.
 
 ### Options
 
@@ -282,10 +280,10 @@ returns.
 `RxVoid` is a type that carries no data. It stands in for "no parameter" and "no result". A `Task` method can also take
 a `CancellationToken` as its last parameter. The command cancels that token when its execution is canceled.
 [Canceling](../reactiveui/handbook/commands/canceling.md) covers how. Give the method at most one parameter besides
-the `CancellationToken`. The generator writes no command for a method with more, and reports nothing.
+the `CancellationToken`. The generator writes no command for a method with more, and reports RXUISG0002.
 
-Return a `Task` from an asynchronous method, never `async void`. The command waits for the `Task` and reports its
-errors. It cannot see an `async void` method finish or fail.
+Return a `Task` from an asynchronous method, never `async void`. An `async void` method reports RXUISG0008. The command
+waits for the `Task` and reports its errors. It cannot see an `async void` method finish or fail.
 
 ### Enable a command with `CanExecute`
 
@@ -375,12 +373,14 @@ public partial class ReportViewModel : ReactiveObject
 
 - **The name of a scheduler member of the class**, a field, property or method with no parameters. Use `nameof`, as
   `Count` does above. A test can then pass in a scheduler it controls.
-- **A built-in scheduler, written in full with `global::`**: `"global::ReactiveUI.RxSchedulers.MainThreadScheduler"`
-  or `"global::ReactiveUI.RxSchedulers.TaskpoolScheduler"`. In a `ReactiveUI.Reactive` project, write
-  `ReactiveUI.Reactive.RxSchedulers` instead of `ReactiveUI.RxSchedulers`.
+- **A static scheduler member, resolved the way the file would resolve it at that point.** The file's `using`
+  directives apply, so a short name such as `"RxSchedulers.MainThreadScheduler"` works when the file has
+  `using ReactiveUI;` (or `using ReactiveUI.Reactive;` in a `ReactiveUI.Reactive` project). A fully qualified name with
+  `global::`, such as `"global::ReactiveUI.RxSchedulers.MainThreadScheduler"`, always works.
 
-The generator ignores any other text, and reports nothing. Check the generated code if a command does not use the
-scheduler you named.
+When a name does not resolve to a scheduler this way, the generator reports RXUISG0021 and generates the command
+without that scheduler option. Needs ReactiveUI.SourceGenerators 4.1.0 or later; on an earlier version the generator
+silently ignores a name it cannot resolve.
 
 Keep slow or blocking work off the UI thread with `RunInBackground`.
 [Scheduling](../reactiveui/handbook/scheduling.md) explains how ReactiveUI's schedulers work.
@@ -471,16 +471,25 @@ ReactiveUI brings.
 
 | ID | Severity | When you see it |
 |---|---|---|
+| RXUISG0002 | Error | A `[ReactiveCommand]` method takes more than one parameter besides a `CancellationToken`, so no command is generated for it. Needs 4.1.0 or later. |
+| RXUISG0008 | Error | A `[ReactiveCommand]` method is `async void`, so the command cannot await it or observe its exceptions. Return `Task` instead. Needs 4.1.0 or later. |
 | RXUISG0009 | Error | The property a `[Reactive]` field would generate has the same name as the field. |
 | RXUISG0010 | Error | A `[property: ...]` attribute on a `[Reactive]` field names a type the compiler cannot find. |
 | RXUISG0011 | Error | A `[property: ...]` attribute on a `[Reactive]` field has an argument that is not valid. |
 | RXUISG0012 | Error | An attribute any generator moves to a generated member names a type the compiler cannot find. |
 | RXUISG0013 | Error | An attribute any generator moves to a generated member has an argument that is not valid. |
 | RXUISG0015 | Error | A `[Reactive]` field's name or type would clash with other generated members. |
-| RXUISG0016 | Info | A public auto-property in a ReactiveUI class can become a `[Reactive]` member. A code fix turns it into a `[Reactive]` field. Make it a partial property instead if you pass it to `WhenAnyValue`. |
+| RXUISG0016 | Info | A public auto-property in a ReactiveUI class can become a `[Reactive]` member. See the code fix below. |
 | RXUISG0018 | Error | A `[Reactive]` member sits in a class that neither derives from `ReactiveObject` nor carries `[IReactiveObject]`. |
 | RXUISG0019 | Error | A `[BindableDerivedList]` field is not a `ReadOnlyObservableCollection<T>`. |
 | RXUISG0020 | Warning | A `[Reactive]` property, or the class that holds it, is not `partial`. A code fix makes both `partial`. |
+| RXUISG0021 | Warning | A `[ReactiveCommand]` scheduler name does not resolve to a scheduler, so the command is generated without it. Needs 4.1.0 or later. |
+
+The RXUISG0016 code fix turns the property into a `[Reactive]` partial property when the project's language version
+allows a partial property (C# 13, or C# 14 for one with an initial value) and the running compiler generates partial
+properties (Roslyn 4.14 or later, which ships with the .NET 9.0.300 SDK and Visual Studio 2022 17.14). Otherwise it
+turns the property into a `[Reactive]` field. Both keep the property's change notification and its callers unchanged.
+This choice needs ReactiveUI.SourceGenerators 4.1.0 or later; an earlier version always produces a field.
 
 Most of these errors name a missing `using` or a typo. Fix the attribute and build again.
 

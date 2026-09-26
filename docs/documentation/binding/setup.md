@@ -742,6 +742,7 @@ the `Unsafe` overload that resolves the path with reflection.
 | RXUIBIND016 | Warning | The call's types are built from a type parameter | [Name types generated code can reach](#name-types-generated-code-can-reach) |
 | RXUIBIND017 | Warning | A binding writes to a WPF, WinForms or MAUI object without that platform's Binding package | [The generated fallback](threading.md#the-generated-fallback) |
 | RXUIBIND020 | Info | A view is registered only in the service locator, so `ResolveView` with an `object` view model cannot reach it | [Reach a view registered only in the service locator](views.md#reach-a-view-registered-only-in-the-service-locator) |
+| RXUIBIND021 | Warning | The call has no generated binding, so it throws at run time | [Members ReactiveUI.SourceGenerators writes](source-generators.md#when-a-member-is-still-out-of-reach) |
 
 `RXUIBIND100` is an MSBuild error, not an analyzer message. It appears when the compiler is older than Roslyn 4.8 and reads:
 "ReactiveUI.Binding's source generator requires Roslyn 4.8 or later (Visual Studio 2022 17.8+, or .NET SDK 8.0.100+)". Upgrade the build tools.
