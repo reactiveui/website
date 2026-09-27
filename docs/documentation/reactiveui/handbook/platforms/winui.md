@@ -214,38 +214,39 @@ so the window-size stream the host builds when it is constructed cannot overwrit
 ```csharp
 DefaultViewLocator locator = new();
 locator.Map<WeatherReading, WeatherReadingRowView>();
+locator.Map<WeatherReading, WeatherReadingCompactRowView>("Compact");
 
 AnalyticsViewModelViewHost host = new() { ViewLocator = locator };
 WeatherReading riverside = new("Riverside", 18.5, isStormy: false);
-WeatherReading highlands = new("Highlands", 9.0, isStormy: true);
 
 host.ViewModel = riverside;
+Console.WriteLine(host.Content?.GetType().Name);
+
+host.ViewContract = "Compact";
+Console.WriteLine(host.Content?.GetType().Name);
+
+WeatherReading highlands = new("Highlands", 9.0, isStormy: true);
 host.ViewModel = highlands;
-
-Console.WriteLine(string.Join(", ", host.ResolvedViews));
-
-host.ViewContract = "Wide";
+Console.WriteLine(host.Content?.GetType().Name);
 Console.WriteLine(host.ViewContract);
 
-string? published = null;
-using IDisposable subscription = host.ViewContractObservable.Subscribe(contract => published = contract);
-Console.WriteLine(published);
-
-bool sameObservable = ReferenceEquals(host.ViewContractObservable, host.GetValue(ViewModelViewHost.ViewContractObservableProperty));
-Console.WriteLine(sameObservable);
+Console.WriteLine(string.Join(", ", host.ResolvedViews));
 ```
 
 ```text
-(nothing), WeatherReadingRowView, WeatherReadingRowView
-Wide
-Wide
-True
+WeatherReadingRowView
+WeatherReadingCompactRowView
+WeatherReadingCompactRowView
+Compact
+(nothing), WeatherReadingRowView, WeatherReadingCompactRowView, WeatherReadingCompactRowView
 ```
 
 `AnalyticsViewModelViewHost` is a `ViewModelViewHost` subclass that overrides `ResolveViewForViewModel` to append
 the resolved view's type name to a list. The first entry, `(nothing)`, is the empty host's own construction-time
-resolution, before any `ViewModel` is assigned. `ViewModelViewHost<TViewModel>` overrides the generic
-`ResolveViewForViewModel(TViewModel?, string?)` the same way.
+resolution, before any `ViewModel` is assigned. Setting `ViewContract` after the host already has a `ViewModel`
+resolves the view registered under that contract right away, and the contract then stays in force for the next
+`ViewModel` change. `ViewModelViewHost<TViewModel>` overrides the generic `ResolveViewForViewModel(TViewModel?,
+string?)` the same way and follows a contract set after construction just as the non-generic host does.
 
 Both hosts derive from `TransitioningContentControl`, a plain `ContentControl` with a single transition. It carries
 no members of its own beyond what `ContentControl` gives it, and the example also uses it directly, further down,
