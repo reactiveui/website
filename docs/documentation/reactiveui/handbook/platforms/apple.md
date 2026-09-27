@@ -475,12 +475,14 @@ on macOS) differ between the two.
 ## The macOS window
 
 `ReactiveWindowController` wraps `NSWindowController` with `ReactiveObject` powers, since AppKit has nothing like
-a `UITableViewController` in this surface and needs its own window-level base class. `MainWindowController`
-builds the window in `CreateWindow`, which its constructor passes straight to the base constructor, then builds
-the split view once `WindowDidLoad` runs:
+a `UITableViewController` in this surface and needs its own window-level base class. It is not an `IViewFor`, so
+`MainWindowController` instead derives from `ReactiveWindowController<TViewModel>`, the generic form that adds a
+typed `ViewModel` property and lets it use `WhenActivated` and bindings the same way the other Reactive base
+classes on this page do. It builds the window in `CreateWindow`, which its constructor passes straight to the
+base constructor, then builds the split view and sets `ViewModel` once `WindowDidLoad` runs:
 
 ```csharp
-public sealed class MainWindowController : ReactiveWindowController
+public sealed class MainWindowController : ReactiveWindowController<LibraryShellViewModel>
 {
     public MainWindowController()
         : base(CreateWindow())
@@ -493,20 +495,22 @@ public sealed class MainWindowController : ReactiveWindowController
 ```
 
 ```csharp
+        LibraryShellViewModel shell = new();
+        BookCatalogViewModel catalog = new(shell, books, members);
+        ViewModel = shell;
+
         Window!.ContentViewController = new LibrarySplitViewController(shell, catalog);
 
-        // The non-generic ReactiveWindowController is not an IViewFor, so it subscribes to Activated/Deactivated
-        // directly rather than through WhenActivated.
-        _ = Activated.Subscribe(static _ => Console.WriteLine("MainWindowController activated."));
-        _ = Deactivated.Subscribe(static _ => Console.WriteLine("MainWindowController deactivated."));
+        // ViewModel is set above, so the binding below has a shell to read Title from the moment activation runs.
+        _ = this.WhenActivated(d =>
+            d(this.OneWayBind(ViewModel, static vm => vm.Title, static v => v.Window!.Title)));
     }
 ```
 
-The non-generic `ReactiveWindowController` is not an `IViewFor`, so it subscribes to `Activated`/`Deactivated`
-itself instead of wrapping the subscriptions in `WhenActivated`. Derive from `ReactiveWindowController<TViewModel>`
-instead to get a typed `ViewModel` property and use `WhenActivated` and bindings, as the other Reactive base classes
-on this page do. Either way, activation fires from `WindowDidLoad` and deactivation from AppKit's
-`NSWindow.WillCloseNotification`.
+Setting `ViewModel` before `WhenActivated` runs means the binding already has a shell to read from. Activation
+still fires from `WindowDidLoad` and deactivation from AppKit's `NSWindow.WillCloseNotification`, the same signals
+the non-generic `ReactiveWindowController` raises as `Activated` and `Deactivated`; `WhenActivated` uses them
+internally instead of the application code subscribing to them directly.
 
 ## Read the device orientation
 
