@@ -9,10 +9,10 @@ Order: 4
 > observable collections.
 
 `ReactiveCompositeCollections`, by Brad Phelan, added an `ICompositeCollection<T>`. It supported `Select`,
-`SelectMany` and `Where` the way `IEnumerable<T>` and `IObservable<T>` do, so a screen could compose and filter
+`SelectMany` and `Where`, the way `IEnumerable<T>` and `IObservable<T>` do. That let a screen compose and filter
 several source lists into one collection declaratively. The library lives at
-[Reactive Composite Collections (GitHub)](https://github.com/Weingartner/ReactiveCompositeCollections) and was
-published on [NuGet](https://www.nuget.org/packages/ReactiveCompositeCollections/).
+[Reactive Composite Collections (GitHub)](https://github.com/Weingartner/ReactiveCompositeCollections). It was
+published on [NuGet](https://www.nuget.org/packages/ReactiveCompositeCollections/) too.
 
-DynamicData covers the same ground today, with its own source lists, caches and operators, and is what
-[Collections](../../collections.md) documents.
+DynamicData covers the same ground today. It has its own source lists, caches and operators.
+[Collections](../../collections.md) documents DynamicData.

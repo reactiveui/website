@@ -1,9 +1,9 @@
 # Disable Just My Code
 
 Turn off Visual Studio's [Just My Code](https://learn.microsoft.com/visualstudio/debugger/just-my-code) feature.
-With it on, the debugger steps over framework code, including `IObservable<T>` pipelines and `async`/`await`
-state machines, so **Step Into** on a `WhenAnyValue` or `Subscribe` call skips straight past it. Turning it off
-lets you step through the framework's own code, which is where most reactive bugs actually show up.
+With it on, the debugger steps over framework code. This includes `IObservable<T>` pipelines and `async`/`await`
+state machines. So **Step Into** on a `WhenAnyValue` or `Subscribe` call skips straight past it. Turning it off
+lets you step through the framework's own code. That is where most reactive bugs actually show up.
 
 See [debugging ReactiveUI](debug-symbols.md) for the full set of debugger settings SourceLink needs, including
 this one.
@@ -19,6 +19,6 @@ Reactive debugging tip: turn on breaking on thrown exceptions before they are ha
 [Understanding exceptions while debugging with Visual
 Studio](https://devblogs.microsoft.com/devops/understanding-exceptions-while-debugging-with-visual-studio)
 
-An exception inside a stream's callback ends that subscription: the stream calls `OnError` instead of `OnNext`
-or `OnCompleted`, and stops. Breaking on the exception itself, rather than after it becomes an unhandled error,
-puts you at the exact line that failed.
+An exception inside a stream's callback ends that subscription. The stream calls `OnError` instead of `OnNext`
+or `OnCompleted`, and it stops. Break on the exception itself, rather than after it becomes an unhandled error.
+That puts you at the exact line that failed.
