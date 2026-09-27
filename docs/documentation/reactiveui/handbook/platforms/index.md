@@ -16,8 +16,9 @@ framework. A platform package connects that core to one UI framework. It adds:
   (see [Scheduling](../scheduling.md));
 - a `With<Platform>()` call for the [app builder](../rxappbuilder.md) that registers all of the above.
 
-Each page below starts from a runnable example app. The examples build on any operating system. The Windows ones run on
-Windows, and the Android one runs on a device or an emulator.
+Each page below starts from a runnable example app. Most examples build on any operating system. The Windows ones
+build only on Windows, the Apple ones build only on Windows or macOS, and the Android one runs on a device or an
+emulator.
 
 | Platform | Package | Example app |
 | --- | --- | --- |
@@ -27,6 +28,7 @@ Windows, and the Android one runs on a device or an emulator.
 | [.NET MAUI](maui.md) | `ReactiveUI.Maui` | A recipe book |
 | [Blazor](blazor.md) | `ReactiveUI.Blazor` | A to-do list |
 | [Android](android.md) | `ReactiveUI.AndroidX` | A school timetable |
+| [Apple platforms](apple.md) | `ReactiveUI` (`ios`, `maccatalyst`, `macos`, `tvos`) | A library catalog |
 
 Each package also ships as `ReactiveUI.<Platform>.Reactive`, built from the same source for apps that use
 System.Reactive.
