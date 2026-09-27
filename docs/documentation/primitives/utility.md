@@ -87,19 +87,20 @@ completed
 You can leave out the callbacks you do not need. `Subscribe()` with none at all starts the stream just for its
 side effects.
 
-> [!WARNING]
-> If you leave out the error callback, an error is not quietly ignored. It is **thrown** at the code that sent
-> it.
->
-> ```csharp
-> var live = new Signal<int>();
-> live.Subscribe(x => Console.WriteLine(x));
->
-> live.OnError(new InvalidOperationException("boom"));   // throws InvalidOperationException here
-> ```
->
-> The same happens when your value callback throws. The exception comes out of the `OnNext` call that sent the
-> value. Pass an error callback whenever a stream might fail.
+!!! warning
+
+    If you leave out the error callback, an error is not quietly ignored. It is **thrown** at the code that sent
+    it.
+
+    ```csharp
+    var live = new Signal<int>();
+    live.Subscribe(x => Console.WriteLine(x));
+
+    live.OnError(new InvalidOperationException("boom"));   // throws InvalidOperationException here
+    ```
+
+    The same happens when your value callback throws. The exception comes out of the `OnNext` call that sent the
+    value. Pass an error callback whenever a stream might fail.
 
 ### `SubscribePrimitives`
 
@@ -153,10 +154,11 @@ The callback threw on `-1`. The error went to your error callback, and `readings
 `SubscribeSafe` also takes an `IObserver<T>`, or just an error callback. `SubscribeSafePrimitives` is the
 name-clash-free version, like `SubscribePrimitives`.
 
-> [!NOTE]
-> `LinqExtensions` also has 14 static `SubscribeSafe` methods that end in a `params byte[]` or `params bool[]`
-> argument. That last argument is only there to help C# choose between overloads for nullable types. It is
-> never read, so leave it out. Call `source.SubscribeSafe(...)` as normal.
+!!! note
+
+    `LinqExtensions` also has 14 static `SubscribeSafe` methods that end in a `params byte[]` or `params bool[]`
+    argument. That last argument is only there to help C# choose between overloads for nullable types. It is
+    never read, so leave it out. Call `source.SubscribeSafe(...)` as normal.
 
 ## Choosing where your code runs
 

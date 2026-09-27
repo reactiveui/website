@@ -115,11 +115,12 @@ failed: bad data
 
 `Recover` let the `InvalidOperationException` through, because it only catches `TimeoutException`.
 
-> [!IMPORTANT]
-> Say which exception you want by giving the lambda's parameter a type: `(TimeoutException error) => ...`.
-> Writing `page.Recover<TimeoutException>(...)` does not compile. This `Recover` has two type parameters, the
-> type of value and the type of exception, and C# will not let you name only one of them. To name the types
-> yourself, name both: `page.Recover<string, TimeoutException>(error => ...)`.
+!!! important
+
+    Say which exception you want by giving the lambda's parameter a type: `(TimeoutException error) => ...`.
+    Writing `page.Recover<TimeoutException>(...)` does not compile. This `Recover` has two type parameters, the
+    type of value and the type of exception, and C# will not let you name only one of them. To name the types
+    yourself, name both: `page.Recover<string, TimeoutException>(error => ...)`.
 
 ### `Recover` on a list of streams
 
@@ -278,26 +279,27 @@ Output:
 gave up: too slow
 ```
 
-> [!WARNING]
-> Values sent by a failed try are not taken back. Your subscriber still receives them, and then receives the
-> values from the next try too.
->
-> ```csharp
-> var attempt = 0;
->
-> IObservable<int> flaky = Signal.Lazy(() =>
-> {
->     attempt++;
->     return attempt < 3
->         ? Signal.Emit(attempt).Concat(Signal.Fail<int>(new TimeoutException("too slow")))
->         : Signal.Emit(attempt);
-> });
->
-> flaky.Reattempt(2).Subscribe(x => Console.Write($"{x} "));
-> ```
->
-> Output: `1 2 3`. The first two tries each sent a value before they failed, and those values arrived. If a
-> half-finished try would leave your screen or your data in a bad state, clear it before you try again.
+!!! warning
+
+    Values sent by a failed try are not taken back. Your subscriber still receives them, and then receives the
+    values from the next try too.
+
+    ```csharp
+    var attempt = 0;
+
+    IObservable<int> flaky = Signal.Lazy(() =>
+    {
+        attempt++;
+        return attempt < 3
+            ? Signal.Emit(attempt).Concat(Signal.Fail<int>(new TimeoutException("too slow")))
+            : Signal.Emit(attempt);
+    });
+
+    flaky.Reattempt(2).Subscribe(x => Console.Write($"{x} "));
+    ```
+
+    Output: `1 2 3`. The first two tries each sent a value before they failed, and those values arrived. If a
+    half-finished try would leave your screen or your data in a bad state, clear it before you try again.
 
 ### `Retry`
 

@@ -308,11 +308,12 @@ a1 b2 | done
 
 Compare that with the output above. `b1` is missing.
 
-> [!WARNING]
-> A stream that waits its turn is not listening yet. `b` sent `b1` while `Blend` was still busy with `a`, so
-> nobody received `b1` and it was lost. A `Signal<T>` sends values whether or not anyone is subscribed.
-> Use a limit on streams like that only when losing early values is acceptable. A stream that starts its work
-> when you subscribe, such as `Signal.Range`, loses nothing, because it waits for you.
+!!! warning
+
+    A stream that waits its turn is not listening yet. `b` sent `b1` while `Blend` was still busy with `a`, so
+    nobody received `b1` and it was lost. A `Signal<T>` sends values whether or not anyone is subscribed.
+    Use a limit on streams like that only when losing early values is acceptable. A stream that starts its work
+    when you subscribe, such as `Signal.Range`, loses nothing, because it waits for you.
 
 ### `BlendUnique`
 
@@ -497,10 +498,11 @@ Output, for the same pushes:
 6 24
 ```
 
-> [!IMPORTANT]
-> To call the static form, pass an array. `LinqExtensions.CombineLatest(new[] { a, b })` hands you a list.
-> Writing `LinqExtensions.CombineLatest(a, b)` does not. With the streams listed one by one, C# picks the tuple
-> form above instead, and you get a tuple where you expected a list.
+!!! important
+
+    To call the static form, pass an array. `LinqExtensions.CombineLatest(new[] { a, b })` hands you a list.
+    Writing `LinqExtensions.CombineLatest(a, b)` does not. With the streams listed one by one, C# picks the tuple
+    form above instead, and you get a tuple where you expected a list.
 
 ### `Latch`
 

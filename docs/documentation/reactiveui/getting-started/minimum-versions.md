@@ -5,11 +5,12 @@ Order: 4
 
 Visual Studio 2022 and beyond. Currently, Visual Studio 2026 is the latest version and recommended for the best experience.
 
-> [!WARNING]
-> ReactiveUI drops a target framework after Microsoft ends support for it. .NET 8 and .NET 9 reach
-> [end of support](https://learn.microsoft.com/dotnet/core/releases-and-support) on November 10, 2026, and .NET
-> Framework 4.6.2 reaches [end of support](https://learn.microsoft.com/lifecycle/end-of-support/end-of-support-2027)
-> on January 12, 2027. Move to a newer target before then to keep receiving ReactiveUI updates.
+!!! warning
+
+    ReactiveUI drops a target framework after Microsoft ends support for it. .NET 8 and .NET 9 reach
+    [end of support](https://learn.microsoft.com/dotnet/core/releases-and-support) on November 10, 2026, and .NET
+    Framework 4.6.2 reaches [end of support](https://learn.microsoft.com/lifecycle/end-of-support/end-of-support-2027)
+    on January 12, 2027. Move to a newer target before then to keep receiving ReactiveUI updates.
 
 ## Platform Minimums
 

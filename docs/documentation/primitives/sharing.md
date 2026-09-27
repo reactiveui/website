@@ -301,9 +301,10 @@ first 2
 second 2
 ```
 
-> [!NOTE]
-> Despite its name, `ShareLatest` does not hand the latest value to a subscriber that joins late. `second`
-> never received `1`. For that, use `ReplayLive(1).AutoShare()`.
+!!! note
+
+    Despite its name, `ShareLatest` does not hand the latest value to a subscriber that joins late. `second`
+    never received `1`. For that, use `ReplayLive(1).AutoShare()`.
 
 ### `AutoShare` against `AutoConnect`
 
@@ -381,19 +382,20 @@ changed to 21.5 C
 `Changed` sends the current value as soon as you subscribe, then each new value. Subscribing to the state
 itself does the same.
 
-> [!NOTE]
-> `Changed` reports every value the stream sends, even when the kept value has not changed.
->
-> ```csharp
-> ReadOnlyState<int> tens = readings.ToReadOnlyState(0, r => r / 10);
-> tens.Changed.Subscribe(t => Console.WriteLine($"changed to {t}"));
->
-> // readings sends 21, 25, 31
-> // prints: changed to 0, changed to 2, changed to 2, changed to 3
-> ```
->
-> `21` and `25` both became `2`, and `Changed` reported `2` twice. Add `.Unique()` after `Changed` if you only
-> want real changes.
+!!! note
+
+    `Changed` reports every value the stream sends, even when the kept value has not changed.
+
+    ```csharp
+    ReadOnlyState<int> tens = readings.ToReadOnlyState(0, r => r / 10);
+    tens.Changed.Subscribe(t => Console.WriteLine($"changed to {t}"));
+
+    // readings sends 21, 25, 31
+    // prints: changed to 0, changed to 2, changed to 2, changed to 3
+    ```
+
+    `21` and `25` both became `2`, and `Changed` reported `2` twice. Add `.Unique()` after `Changed` if you only
+    want real changes.
 
 A `ReadOnlyState<T>` holds a subscription to its stream. Dispose it when you no longer need it. After that,
 reading `Value`, `Changed`, or subscribing throws an `ObjectDisposedException`.

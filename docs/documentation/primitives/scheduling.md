@@ -94,9 +94,10 @@ inner
 outer end
 ```
 
-> [!WARNING]
-> Given a delay, `Sequencer.Immediate` **blocks** the calling thread for that long, then runs the work. Never
-> give it a delay on the UI thread.
+!!! warning
+
+    Given a delay, `Sequencer.Immediate` **blocks** the calling thread for that long, then runs the work. Never
+    give it a delay on the UI thread.
 
 `ImmediateSequencer.Instance` is the same object as `Sequencer.Immediate`. The static
 `ImmediateSequencer.Schedule(action)` runs an action straight away without needing the instance.
@@ -466,9 +467,10 @@ stopped, running: False
 1 hour
 ```
 
-> [!WARNING]
-> `Start` never returns while work keeps scheduling more work, such as a timer that repeats for ever. Use
-> `AdvanceBy` for those.
+!!! warning
+
+    `Start` never returns while work keeps scheduling more work, such as a timer that repeats for ever. Use
+    `AdvanceBy` for those.
 
 ### `StartStopwatch`
 

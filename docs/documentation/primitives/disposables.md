@@ -214,9 +214,10 @@ public sealed class PriceFeed : IDisposable
 }
 ```
 
-> [!WARNING]
-> Keep a `DisposableSet` field **non-readonly**, and never copy it into a local variable. A `readonly` field or a
-> copy is a separate set: what you add to it is not in the field, and disposing the field does not dispose it.
+!!! warning
+
+    Keep a `DisposableSet` field **non-readonly**, and never copy it into a local variable. A `readonly` field or a
+    copy is a separate set: what you add to it is not in the field, and disposing the field does not dispose it.
 
 It has the same members as `MultipleDisposable`, and `Snapshot()`, which copies what it holds into a new
 `List<IDisposable>`. Its constructor takes two, three, or an array of disposables. The array form skips `null`

@@ -5,10 +5,11 @@ Order: 3
 
 [Run the complete page example](https://github.com/reactiveui/ReactiveUI/blob/main/src/examples/Documentation/Pages/platform-blazor/platform-blazor.csproj).
 
-> [!WARNING]
-> ReactiveUI drops a target framework after Microsoft ends support for it. .NET 8 and .NET 9 reach
-> [end of support](https://learn.microsoft.com/dotnet/core/releases-and-support) on November 10, 2026. Plan to
-> move new and existing apps to .NET 10 or later.
+!!! warning
+
+    ReactiveUI drops a target framework after Microsoft ends support for it. .NET 8 and .NET 9 reach
+    [end of support](https://learn.microsoft.com/dotnet/core/releases-and-support) on November 10, 2026. Plan to
+    move new and existing apps to .NET 10 or later.
 
 Add `ReactiveUI.Blazor` to your Blazor application project. It brings `ReactiveUI` and, through it,
 [ReactiveUI.Binding](../../../binding/index.md).

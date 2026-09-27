@@ -156,9 +156,10 @@ Value is 70
 Read the current value any time with `Value`, or with `TryGetValue`, which tells you whether there is one.
 Pushing the same value again sends it again. `BehaviorSignal<T>` does not skip repeats.
 
-> [!NOTE]
-> Once a `BehaviorSignal<T>` has completed, a new subscriber gets only the completion, not the current value.
-> `Value` and `TryGetValue` still give you the last value.
+!!! note
+
+    Once a `BehaviorSignal<T>` has completed, a new subscriber gets only the completion, not the current value.
+    `Value` and `TryGetValue` still give you the last value.
 
 ### `StateSignal<T>`
 

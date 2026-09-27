@@ -180,9 +180,10 @@ Input: `1` at 100 ms, `2` at 400 ms, and a 300 ms delay
 
 Use `Shift` to slow values down. Use `DelayStart` to put off starting some work.
 
-> [!WARNING]
-> `DelayStart` can lose values from a stream that sends whether or not anyone is subscribed. Anything sent
-> before the delay ends is gone.
+!!! warning
+
+    `DelayStart` can lose values from a stream that sends whether or not anyone is subscribed. Anything sent
+    before the delay ends is gone.
 
 ## Waiting for a quiet moment
 
@@ -214,9 +215,10 @@ Output, both at 100 ms:
 done
 ```
 
-> [!NOTE]
-> `Calm` only sends after a pause. A stream that sends a value more often than the wait, and never pauses,
-> sends nothing through `Calm` until it completes. Use `Probe` if you need values to keep coming out.
+!!! note
+
+    `Calm` only sends after a pause. A stream that sends a value more often than the wait, and never pauses,
+    sends nothing through `Calm` until it completes. Use `Probe` if you need values to keep coming out.
 
 ### `EmitIfQuiet`
 

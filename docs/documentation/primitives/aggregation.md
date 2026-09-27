@@ -449,10 +449,11 @@ Output:
 3
 ```
 
-> [!WARNING]
-> `ToEnumerable` **blocks**. The thread that calls it stops and waits until the stream completes. Never call it
-> on a UI thread, or your app freezes until the stream ends. A stream that never completes blocks for ever.
-> In most code, prefer `await` with `CollectListAsync`.
+!!! warning
+
+    `ToEnumerable` **blocks**. The thread that calls it stops and waits until the stream completes. Never call it
+    on a UI thread, or your app freezes until the stream ends. A stream that never completes blocks for ever.
+    In most code, prefer `await` with `CollectListAsync`.
 
 ## Waiting for results in a ReactiveUI app
 

@@ -762,9 +762,10 @@ The family covers the shapes you meet:
 
 Every one of them takes an optional `ISequencer` as a final argument.
 
-> [!NOTE]
-> `TEventArgs` must derive from `EventArgs`. For an event whose argument is some other type, such as
-> `EventHandler<int>`, use `FromEvent` instead.
+!!! note
+
+    `TEventArgs` must derive from `EventArgs`. For an event whose argument is some other type, such as
+    `EventHandler<int>`, use `FromEvent` instead.
 
 ## Running work
 
