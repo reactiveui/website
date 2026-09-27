@@ -548,12 +548,13 @@ Types: `ReactiveUI.Binding.IInteraction<TInput, TOutput>`, `ReactiveUI.Binding.I
 
 | Declaration | Description | Parameters | Returns |
 | --- | --- | --- | --- |
-| `interface IInteraction<TInput, TOutput>` | Represents an interaction between collaborating application components. | `TInput`: The interaction's input type; `TOutput`: The interaction's output type | — |
+| `interface IInteraction<TInput, TOutput>` | Represents an interaction between collaborating application components. Through this interface, `Handle` asks the question as an observable. On `Interaction<TInput, TOutput>` itself, `Handle` returns a task and `WhenHandled` returns the same observable. | `TInput`: The interaction's input type; `TOutput`: The interaction's output type | — |
 
 **Methods**
 
 | Declaration | Description | Parameters | Returns |
 | --- | --- | --- | --- |
+| `Handle(TInput input)` | Asks the question: runs the handlers, latest registered first, until one sets an output. | `TInput` `input`: The input for the interaction | [`IObservable<TOutput>`](https://learn.microsoft.com/dotnet/api/system.iobservable-1): A cold observable that runs the handlers each time it is subscribed, then emits the output and completes. It fails with [`UnhandledInteractionException<TInput, TOutput>`](bindings.md) when no handler sets an output. |
 | `RegisterHandler(Action<IInteractionContext<TInput, TOutput>> handler)` | Registers a synchronous interaction handler. | [`Action<IInteractionContext<TInput, TOutput>>`](https://learn.microsoft.com/dotnet/api/system.action-1) `handler`: The handler | [`IDisposable`](https://learn.microsoft.com/dotnet/api/system.idisposable): A disposable which, when disposed, will unregister the handler. |
 | `RegisterHandler(Func<IInteractionContext<TInput, TOutput>, Task> handler)` | Registers a task-based asynchronous interaction handler. | [`Func<IInteractionContext<TInput, TOutput>, Task>`](https://learn.microsoft.com/dotnet/api/system.func-2) `handler`: The handler | [`IDisposable`](https://learn.microsoft.com/dotnet/api/system.idisposable): A disposable which, when disposed, will unregister the handler. |
 | `RegisterHandler<TDontCare>(Func<IInteractionContext<TInput, TOutput>, IObservable<TDontCare>> handler)` | Registers an observable-based asynchronous interaction handler. | `TDontCare`: The signal type; [`Func<IInteractionContext<TInput, TOutput>, IObservable<TDontCare>>`](https://learn.microsoft.com/dotnet/api/system.func-2) `handler`: The handler | [`IDisposable`](https://learn.microsoft.com/dotnet/api/system.idisposable): A disposable which, when disposed, will unregister the handler. |
@@ -599,7 +600,8 @@ Types: `ReactiveUI.Binding.IInteraction<TInput, TOutput>`, `ReactiveUI.Binding.I
 
 | Declaration | Description | Parameters | Returns |
 | --- | --- | --- | --- |
-| `Interaction()` | Initializes a new instance of the Interaction<TInput, TOutput> class. | None. | — |
+| `Interaction()` | Initializes a new instance of the Interaction<TInput, TOutput> class that invokes handlers on the calling thread. | None. | — |
+| `Interaction(ISequencer? handlerScheduler)` | Initializes a new instance of the Interaction<TInput, TOutput> class that invokes each handler on a scheduler. | `ISequencer?` `handlerScheduler`: The scheduler each handler is invoked on, such as the main thread's; null invokes handlers on the calling thread. In the `.Reactive` package this parameter is `System.Reactive.Concurrency.IScheduler?` | — |
 
 **Methods**
 
@@ -607,10 +609,11 @@ Types: `ReactiveUI.Binding.IInteraction<TInput, TOutput>`, `ReactiveUI.Binding.I
 | --- | --- | --- | --- |
 | `protected virtual GenerateContext(TInput input)` | Creates the context every handler receives for one call to `Handle`. | `TInput` `input`: The input passed to `Handle` | [`IOutputContext<TInput, TOutput>`](bindings.md): A new interaction context carrying the input. |
 | `protected GetHandlers()` | Gets a copy of the registered handlers in order of registration. | None. | [`Func<IInteractionContext<TInput, TOutput>, Task>[]`](https://learn.microsoft.com/dotnet/api/system.func-2): The registered handlers, earliest first. |
-| `virtual Handle(TInput input)` | Runs the handlers, latest registered first, until one sets an output, and returns that output. | `TInput` `input`: The input for the interaction | [`Task<TOutput>`](https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1): A task that completes with the output the first handling handler set. |
+| `virtual Handle(TInput input)` | Runs the handlers, latest registered first, until one sets an output, and returns that output. | `TInput` `input`: The input for the interaction | [`Task<TOutput>`](https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1): A task that completes with the output the first handling handler set. Throws [`UnhandledInteractionException<TInput, TOutput>`](bindings.md) when no handler sets an output. |
 | `RegisterHandler(Action<IInteractionContext<TInput, TOutput>> handler)` | Registers a synchronous interaction handler. | [`Action<IInteractionContext<TInput, TOutput>>`](https://learn.microsoft.com/dotnet/api/system.action-1) `handler`: The handler | [`IDisposable`](https://learn.microsoft.com/dotnet/api/system.idisposable): A disposable which, when disposed, will unregister the handler. |
 | `RegisterHandler(Func<IInteractionContext<TInput, TOutput>, Task> handler)` | Registers a task-based asynchronous interaction handler. | [`Func<IInteractionContext<TInput, TOutput>, Task>`](https://learn.microsoft.com/dotnet/api/system.func-2) `handler`: The handler | [`IDisposable`](https://learn.microsoft.com/dotnet/api/system.idisposable): A disposable which, when disposed, will unregister the handler. |
 | `RegisterHandler<TDontCare>(Func<IInteractionContext<TInput, TOutput>, IObservable<TDontCare>> handler)` | Registers a handler that finishes when the observable it returns completes. | `TDontCare`: The element type of the returned observable; the values are ignored; [`Func<IInteractionContext<TInput, TOutput>, IObservable<TDontCare>>`](https://learn.microsoft.com/dotnet/api/system.func-2) `handler`: The handler; the interaction moves to the next handler once the observable completes, and a fault in the observable faults `Handle` | [`IDisposable`](https://learn.microsoft.com/dotnet/api/system.idisposable): A disposable which, when disposed, unregisters the handler. |
+| `WhenHandled(TInput input)` | Asks the question as an observable: each subscription runs `Handle` once. | `TInput` `input`: The input for the interaction | [`IObservable<TOutput>`](https://learn.microsoft.com/dotnet/api/system.iobservable-1): A cold observable that emits the output and completes, or fails with [`UnhandledInteractionException<TInput, TOutput>`](bindings.md) when no handler sets an output. Disposing the subscription drops the output; a handler that is already running still finishes. |
 
 #### `InteractionContext<TInput, TOutput>`
 
