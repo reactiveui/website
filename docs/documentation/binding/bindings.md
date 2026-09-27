@@ -1446,7 +1446,7 @@ approve
 
 ### Register handlers on the interaction
 
-`Interaction<TInput, TOutput>` has three `RegisterHandler` overloads. One takes an `Action`, one takes a method that returns a `Task`, and one takes a method that returns an `IObservable<T>`. Each returns an `IDisposable` that removes the handler. `IInteraction<TInput, TOutput>` declares the same three methods and `Handle`. The example below uses only the interface. It registers each kind of handler, asks a question and removes a handler.
+`Interaction<TInput, TOutput>` has three `RegisterHandler` overloads. One takes an `Action`, one takes a method that returns a `Task`, and one takes a method that returns an `IObservable<T>`. Each returns an `IDisposable` that removes the handler. `IInteraction<TInput, TOutput>` declares the same three methods. The example below registers each kind of handler, asks a question and removes a handler.
 
 ```csharp
 IssueTriageViewModel triage = new(new(InMemoryGitHubServer.CreateSeeded()));
@@ -1495,6 +1495,72 @@ Console.WriteLine(await approval.Handle(draft));
 ```text
 latest
 first
+```
+
+### Ask as an observable
+
+`Handle` on `Interaction<TInput, TOutput>` returns a `Task<TOutput>`, so you can `await` the answer. `WhenHandled` asks the same question as an `IObservable<TOutput>` instead. The observable is cold: nothing is asked until you subscribe, and each subscription asks the handlers again. When the handlers answer, it delivers the output and completes. Disposing the subscription drops the answer, but a handler that is already running still finishes. Below, the handler counts how often it is asked. Creating the observable asks nothing, and awaiting it twice asks twice.
+
+```csharp
+Interaction<Issue, bool> confirmClose = new();
+Issue issue = new() { Number = CheckoutIssueNumber };
+int asked = 0;
+using IDisposable registration = confirmClose.RegisterHandler(context =>
+{
+    asked++;
+    context.SetOutput(true);
+});
+
+IObservable<bool> question = confirmClose.WhenHandled(issue);
+
+Console.WriteLine(asked);
+Console.WriteLine(await Signal.ToTask(question));
+Console.WriteLine(await Signal.ToTask(question));
+Console.WriteLine(asked);
+```
+
+```text
+0
+True
+True
+2
+```
+
+Code that holds the interaction through `IInteraction<TInput, TOutput>` asks with `Handle`, which returns the same cold observable. When no handler sets an output, the observable fails with `UnhandledInteractionException<TInput, TOutput>`.
+
+```csharp
+IInteraction<Issue, bool> confirmClose = new Interaction<Issue, bool>();
+Issue issue = new() { Number = CheckoutIssueNumber };
+using IDisposable registration = confirmClose.RegisterHandler(static context => context.SetOutput(context.Input.Number == CheckoutIssueNumber));
+
+IObservable<bool> question = confirmClose.Handle(issue);
+
+Console.WriteLine(await Signal.ToTask(question));
+```
+
+```text
+True
+```
+
+### Run the handlers on a scheduler
+
+By default each handler runs on the thread that asks the question. Pass a scheduler to the constructor to run every handler on it instead. An app passes its main thread's scheduler, so a handler that opens a dialog does so on the UI thread even when a background task asks. Passing `null` keeps the default. Below, the handlers run on the task pool.
+
+```csharp
+Interaction<Issue, bool> confirmClose = new(TaskPoolSequencer.Default);
+Issue issue = new() { Number = CheckoutIssueNumber };
+using IDisposable registration = confirmClose.RegisterHandler(static context =>
+{
+    Console.WriteLine(Thread.CurrentThread.IsThreadPoolThread);
+    context.SetOutput(true);
+});
+
+Console.WriteLine(await confirmClose.Handle(issue));
+```
+
+```text
+True
+True
 ```
 
 ### Read the context
