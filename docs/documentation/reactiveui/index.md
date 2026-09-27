@@ -7,44 +7,57 @@ Source and issues: [reactiveui/ReactiveUI](https://github.com/reactiveui/Reactiv
 [getting started](getting-started/index.md), the [handbook](handbook/index.md), [guidelines](guidelines/index.md) and
 [upgrading](upgrading/index.md). ReactiveUI runs its bindings on [ReactiveUI.Binding](../binding/index.md).
 
-<p>ReactiveUI is a composable, cross-platform model-view-viewmodel framework for all .NET platforms, that is inspired by functional reactive programming. Reactive programming is a paradigm that allows you to express the idea around a feature in one readable place, abstract mutable state away from your user interfaces and improve the testability of your application.</p>
+ReactiveUI is a composable, cross-platform model-view-viewmodel (MVVM) framework. It works on every .NET platform. Functional reactive programming inspired it. That style of programming models values as streams that change over time. A stream fires an event each time its value changes. You subscribe to a stream to react to those changes.
 
-<p>It is the father of the extremely popular <a href="https://github.com/ReactiveCocoa/">ReactiveCocoa</a> framework. Internally the maintainers debate whether ReactiveUI is or is not a framework, as at its core the project is essentially a bunch of extension methods for reactive streams, built on <a href="../primitives/why-primitives.md">ReactiveUI.Primitives</a>. The project was started in 2009 by Anaïs Betts and is now old enough to attend grade school but unlike a teenager it is extremely stable and has matured over the years into a solid and fine choice for building your next application. <a href="https://github.com/reactiveui/ReactiveUI/issues/979#issuecomment-196735701" target="_blank">The framework is used by Slack, GitHub, Amazon, Elastic and Microsoft</a>.</p>
+Reactive programming lets you keep the logic for one feature in one place. It keeps mutable state out of your views. It makes your application easier to test. At its core, the project is a set of extension methods for reactive streams. Those extension methods are built on [ReactiveUI.Primitives](../primitives/why-primitives.md). [Slack, GitHub, Amazon, Elastic and Microsoft all use it](https://github.com/reactiveui/ReactiveUI/issues/979#issuecomment-196735701).
 
-<p>We believe that code is communication between people, that also happens to run on a computer. If you optimise for humans, then over a long time your project will end up better. Software should be understandable by other people; that is super important. We believe that only <a href="https://www.youtube.com/watch?v=5DZ8nC0ENdg" target="_blank">the power of reactive streams allows you to express the idea around a feature in one readable place</a>.</p>
+ReactiveUI connects three layers of your application. Those layers are the view, the view model and the model. A binding keeps a view control and a view model property in sync. A command runs a view model method when the user acts on the view. A change notification tells subscribers when a property's value changes. The diagram below shows how these pieces fit together.
 
-<p>Let’s say you have a text field, and whenever the user types something into it, you want to make a network request which searches for that query. Your designer has requested that this search query automatically execute as the user is typing but your operation team wants guarantees that only one network request is ever in transit and no more frequently than roughly once per second whilst the user is typing.</p>
+```mermaid
+%%{init: {"theme": "base", "themeVariables": {"fontFamily": "Roboto, Helvetica, Arial, sans-serif", "fontSize": "15px", "primaryColor": "#DCE9FF", "primaryBorderColor": "#6C8EC4", "primaryTextColor": "#0B2447", "secondaryColor": "#E3F2E8", "secondaryBorderColor": "#7FA88C", "secondaryTextColor": "#12301C", "tertiaryColor": "#F3E5F5", "tertiaryBorderColor": "#A98BB0", "tertiaryTextColor": "#2E1437", "lineColor": "#7B8699", "textColor": "#1B1F27", "noteBkgColor": "#FFF4D6", "noteBorderColor": "#C9A94F", "noteTextColor": "#3A2A00", "actorBkg": "#DCE9FF", "actorBorder": "#6C8EC4", "actorTextColor": "#0B2447", "signalColor": "#7B8699", "signalTextColor": "#1B1F27", "labelBoxBkgColor": "#F1F3F8", "labelBoxBorderColor": "#A7AEBB", "edgeLabelBackground": "#F7F9FC", "clusterBkg": "#F7F9FC", "clusterBorder": "#C9D1DE"}}}%%
+flowchart LR
+    classDef view fill:#DCE9FF,stroke:#6C8EC4,color:#0B2447
+    classDef vm fill:#E3F2E8,stroke:#7FA88C,color:#12301C
+    classDef model fill:#F3E5F5,stroke:#A98BB0,color:#2E1437
+    View(["View"]):::view -- "binding and commands" --> VM(["View model"]):::vm
+    VM -- "change notifications" --> View
+    VM -- "reads and writes" --> Model(["Model"]):::model
+```
 
-<img src="../../images/search-autocomplete.gif" alt="search autocomplete" />
+Notice that the view model never touches the view directly. It only exposes properties and commands, and ReactiveUI wires them up for you.
 
-<h3>How would you usually implement this?</h3>
+### An example: search as you type
 
-<p>Most modern programming today is basically imperative, meaning it models the traditional fetch-execute cycle of a CPU. Perform an instruction, fetch the next one. Perform that one, and so on. For decades, programmers have had to mould their brains to fit the paradigm of the CPU. It's been like this since the early 1980s.</p>
+Say you have a text field. You want to search a service each time the user types. Your designer wants the search to fire automatically as the user types. Your operations team wants only one search request in flight at a time. They also want no more than one request roughly every second.
 
-<p>When we rely on hoping that the behavior that emerges from a program is correct, and that reliance is based on nothing more than a programmer's correctness, then we can easily find ourselves in a sticky situation. We can try and mitigate the costs of imperative programming with things like unit tests or integration tests, but why mitigate the costs when there's a better way?</p>
+![Search results updating live as the user types in a search box](../../images/search-autocomplete.gif)
 
-<h3>There is a better way</h3>
+Most code today is imperative. An imperative program runs one instruction, then the next, then the next. This is much like how a CPU works through its fetch-execute cycle. This style has shaped how programmers write code since the early 1980s.
 
-<p>Long ago, when computer programming first came to be, machines had to be programmed quite manually. If the technician entered the correct sequence of machine codes in the correct order, then the resulting program behavior would satisfy the business requirements.  Instead of telling a computer how to do its job, which is error-prone and relies too heavily on the infallibility of the programmer, why don't we just tell it what its job is and let it figure the rest out?</p>
+An imperative solution to the search box above needs a timer. It also needs a flag for whether a request is in flight. It needs code to cancel a stale request too. You can test that code. The tests only catch the bugs you thought to write tests for.
 
-<p>ReactiveUI is inspired by the paradigm of Functional Reactive Programming, which allows you to model user input as a function that changes over time. This is super cool because it allows you to abstract mutable state away from your user interfaces and express the idea around a feature in one readable place whilst improving application testability. Reactive programming can look scary and complex at first glance, but the best way to describe reactive programming is to think of a spreadsheet:</p>
+Code is communication between people. It also happens to run on a computer. When you write code for the next person to read, your project stays healthier over time. [Reactive streams let you express a feature's idea in one readable place](https://www.youtube.com/watch?v=5DZ8nC0ENdg). That is what makes them worth learning.
 
-<br />
-<img src="../../images/frp-excel.gif" alt="frp excel" />
-<br />
+### A better way: reactive streams
 
-<br />
+ReactiveUI models the text field's input as a stream. A stream is a sequence of values that arrive over time. You can filter, delay and combine a stream with operators. This works the same way you filter and combine a collection with LINQ. It keeps the feature's logic in one readable place, including the delay and the one-request-at-a-time rule.
 
-<ul>
-    <li>Three cells, A, B, and C.</li>
-    <li>C is defined as the sum of A and B.</li>
-    <li>Whenever A or B changes, C reacts to update itself.</li>
-</ul>
+Reactive programming can look strange at first. The easiest way to picture it is a spreadsheet:
 
-<p>That's reactive programming: changes propagate throughout a system automatically. Welcome to the peanut butter and jelly of programming paradigms.</p>
+![A spreadsheet where cell C recalculates automatically when cell A or cell B changes](../../images/frp-excel.gif)
 
-<div class="youtube-video-container"><iframe src="https://www.youtube.com/embed/DYEbUF4xs1Q" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+- Three cells, A, B, and C.
+- C is defined as the sum of A and B.
+- Whenever A or B changes, C reacts to update itself.
 
-<h3>Get started</h3>
+That is reactive programming. A change in one place propagates automatically to everywhere that depends on it.
 
-<p>Sounds interesting? <a href="getting-started/index.md">Get started!</a></p>
+[Watch "Functional Reactive Programming" on YouTube](https://www.youtube.com/watch?v=DYEbUF4xs1Q)
+
+### History
+
+Anaïs Betts started ReactiveUI in 2009. The project is the father of the popular [ReactiveCocoa](https://github.com/ReactiveCocoa/) framework. It has matured over the years. Today it is a stable, solid choice for your next application.
+
+### Get started
+
+Sounds interesting? [Get started!](getting-started/index.md)

@@ -55,6 +55,19 @@ using (viewModel.Activator.Activate())
 
 The list is empty before activation and loaded once `Activate` runs the constructor's `WhenActivated` block. Leaving the `using` block disposes the `IDisposable` that `Activate` returned, which deactivates the view model and disposes everything the block created.
 
+Code that only knows a screen through `IActivatableViewModel` can activate it the same way, without knowing its concrete view model type. A navigation host that keeps a stack of screens works this way: it reads `Activator` through the interface.
+
+```csharp
+using TodoListViewModel viewModel = new(InMemoryTodoStore.CreateSeeded());
+List<IActivatableViewModel> screenStack = [viewModel];
+
+using IDisposable activation = screenStack[0].Activator.Activate();
+Console.WriteLine(viewModel.Items.Count);
+
+// Output:
+// 4
+```
+
 ## Give a view an activation block
 
 A view calls the same method, `WhenActivated`, but passes it a stream of its own view model instead of relying on reflection to find one. `TodoListView` implements `IViewFor<TodoListViewModel>` and passes `this.WhenAnyValue(x => x.ViewModel)` as that stream. Each disposable the block creates goes through the `disposables` callback.

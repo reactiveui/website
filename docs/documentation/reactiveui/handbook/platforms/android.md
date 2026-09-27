@@ -161,8 +161,9 @@ AbsenceConfirmationDialogFragment activated.
 Every one of these types also carries the classic reactive object surface. `Changed` and `Changing` observe
 property changes, and `PropertyChanged` and `PropertyChanging` are the .NET events behind them.
 `ThrownExceptions` reports errors raised inside reactive operators. `SuppressChangeNotifications()` pauses
-change notifications until its result is disposed. `AbsenceActivity` subscribes to `ThrownExceptions` and
-suppresses notifications while it fills in a freshly-created view model from an intent extra:
+change notifications until its result is disposed, and `AreChangeNotificationsEnabled()` reports whether a
+suppression is active. `AbsenceActivity` subscribes to `ThrownExceptions` and suppresses notifications while it
+fills in a freshly-created view model from an intent extra:
 
 ```csharp
 _ = ThrownExceptions.Subscribe(static error => TimetableLog.Info($"AbsenceActivity reported an exception: {error.Message}"));
@@ -175,6 +176,42 @@ using (SuppressChangeNotifications())
     ViewModel = new AbsenceViewModel { Subject = subject };
 }
 ```
+
+`MainActivity` subscribes to `Changed` and `Changing` too, alongside the same `ThrownExceptions` and
+`SuppressChangeNotifications` pattern around its own `ViewModel` assignment:
+
+```csharp
+_subscriptions.Add(Changed.Subscribe(static change => TimetableLog.Info($"MainActivity property changed: {change.PropertyName}.")));
+_subscriptions.Add(Changing.Subscribe(static change => TimetableLog.Info($"MainActivity property changing: {change.PropertyName}.")));
+_subscriptions.Add(ThrownExceptions.Subscribe(static error => TimetableLog.Info($"MainActivity reported an exception: {error.Message}.")));
+
+using (SuppressChangeNotifications())
+{
+    ViewModel = new TimetableViewModel();
+}
+```
+
+`LessonViewHolder` shows `AreChangeNotificationsEnabled()` alongside the rest of the surface, reading it both
+while a suppression is active and after it ends:
+
+```csharp
+using (SuppressChangeNotifications())
+{
+    TimetableLog.Info($"Change notifications enabled while suppressed: {AreChangeNotificationsEnabled()}.");
+}
+
+TimetableLog.Info($"Change notifications enabled once the suppression ends: {AreChangeNotificationsEnabled()}.");
+```
+
+```text
+Change notifications enabled while suppressed: False.
+Change notifications enabled once the suppression ends: True.
+```
+
+Every other reactive Android base class on this page (`ReactiveDialogFragment`, `ReactiveFragment`,
+`ReactiveFragmentActivity` and `ReactivePreferenceFragment`) carries the identical surface, inherited from the
+same `IReactiveObject` and `IHandleObservableErrors` interfaces; the app does not repeat the same four
+subscriptions on every one of them.
 
 ## Move between activities and read the result
 
@@ -207,6 +244,31 @@ _subscriptions.Add(ActivityResult.Subscribe(static result =>
 
 ```text
 MainActivity received an activity result: Ok.
+```
+
+`ReactiveUI.ReactiveActivity<TViewModel>` carries its own `ActivityResult` and `StartActivityForResultAsync`,
+separate from the AndroidX base class's members above. `AbsenceActivity` uses both overloads to start
+`AbsenceNotePromptActivity`, a small screen offering to add a note to the report, and subscribes to its own
+`ActivityResult`:
+
+```csharp
+_ = ActivityResult.Subscribe(static result =>
+    TimetableLog.Info($"AbsenceActivity's own ActivityResult observed request {result.RequestCode}: {result.ResultCode}."));
+
+Intent notePromptIntent = new(this, typeof(AbsenceNotePromptActivity));
+notePromptIntent.PutExtra(SubjectExtra, ViewModel!.Subject);
+(Android.App.Result ResultCode, Intent? Intent) notePromptByIntent = await StartActivityForResultAsync(notePromptIntent, 400);
+TimetableLog.Info($"Note prompt (by intent) finished with {notePromptByIntent.ResultCode}.");
+
+(Android.App.Result ResultCode, Intent? Intent) notePromptByType = await StartActivityForResultAsync(typeof(AbsenceNotePromptActivity), 401);
+TimetableLog.Info($"Note prompt (by type) finished with {notePromptByType.ResultCode}.");
+```
+
+```text
+AbsenceActivity's own ActivityResult observed request 400: Ok.
+Note prompt (by intent) finished with Ok.
+AbsenceActivity's own ActivityResult observed request 401: Ok.
+Note prompt (by type) finished with Ok.
 ```
 
 Only the activity base classes carry `ActivityResult` and `StartActivityForResultAsync`; the fragment and
@@ -315,12 +377,18 @@ tags each page this way as it creates it, then reads the tag straight back to sh
 
 ```csharp
 WeekdayViewHost host = new(this, parent);
-View view = host.ToView()!;
+
+// LayoutViewHost's implicit operator to View, used here instead of the ToView() alternate.
+View? convertedView = host;
+View view = convertedView ?? throw new InvalidOperationException("WeekdayViewHost converted to a null View.");
 
 WeekdayViewHost? typedHost = view.GetViewHost<WeekdayViewHost>();
 ILayoutViewHost? untypedHost = view.GetViewHost();
 TimetableLog.Info($"Weekday page tagged: typed={typedHost is not null}, untyped={untypedHost is not null}.");
 ```
+
+`LayoutViewHost` also converts to `View?` implicitly, the way this excerpt does instead of calling `ToView()`;
+both read the same backing field.
 
 ## Show a list with RecyclerView
 
@@ -331,6 +399,15 @@ TimetableLog.Info($"Weekday page tagged: typed={typedHost is not null}, untyped=
 ```csharp
 public sealed class LessonsRecyclerAdapter(ObservableCollection<LessonViewModel> lessons) : ReactiveRecyclerViewAdapter<LessonViewModel, ObservableCollection<LessonViewModel>>(lessons)
 {
+    /// <summary>The view type for a lesson held in the science lab, room 7.</summary>
+    private const int LabViewType = 1;
+
+    /// <summary>The view type for every other lesson.</summary>
+    private const int StandardViewType = 0;
+
+    public override int GetItemViewType(int position, LessonViewModel? viewModel) =>
+        viewModel?.Room == "7" ? LabViewType : StandardViewType;
+
     /// <inheritdoc/>
     public override RecyclerView.ViewHolder OnCreateViewHolder(ViewGroup parent, int viewType)
     {
@@ -341,9 +418,35 @@ public sealed class LessonsRecyclerAdapter(ObservableCollection<LessonViewModel>
         View itemView = inflater.Inflate(Resource.Layout.lesson_item, parent, false)
             ?? throw new InvalidOperationException("Inflating lesson_item produced no view.");
 
+        if (viewType == LabViewType)
+        {
+            TimetableLog.Info("Lesson row created for the science lab (room 7).");
+        }
+
         return new LessonViewHolder(itemView);
     }
 }
+```
+
+```text
+Lesson row created for the science lab (room 7).
+```
+
+`GetItemViewType(int, TViewModel?)` is the overload to override: it gets the position and the view model
+already resolved, so a view type can depend on the view model's own data. `RecyclerView` itself calls the
+non-generic `GetItemViewType(int)` while it lays out and recycles rows; the base class implements that overload
+once, to resolve the view model at the given position and forward to the one above, so app code never overrides
+it directly. `ItemCount`, inherited from `RecyclerView.Adapter`, reports how many rows the adapter currently
+holds:
+
+```csharp
+LessonsRecyclerAdapter lessonsAdapter = new(ViewModel.Lessons);
+LessonsRecyclerView!.SetAdapter(lessonsAdapter);
+TimetableLog.Info($"Lessons adapter reports {lessonsAdapter.ItemCount} items.");
+```
+
+```text
+Lessons adapter reports 6 items.
 ```
 
 `ReactiveRecyclerViewAdapter<TViewModel>` is the lower-level, single-generic form: it takes an
@@ -375,10 +478,19 @@ constructor passes `itemView` straight to the base constructor, then does the re
 
 `Selected` reports the row's adapter position when it is tapped; `SelectedWithViewModel` reports the view model
 it holds at that moment instead. `LongClicked` and `LongClickedWithViewModel` report the same two shapes for a
-long press. `AreChangeNotificationsEnabled()`, `View` and `AllPublicProperties` round out the holder's surface:
-the first mirrors `SuppressChangeNotifications`, `View` is the inherited `LayoutViewHost.View`, and
-`AllPublicProperties` lists the holder's public properties for reflection-based wiring. The holder's
-`[DynamicallyAccessedMembers]` annotation tells the trimmer to keep those properties, so it stays safe to trim.
+long press. The constructor also reads the holder's own `View`, the inherited `LayoutViewHost.View`. It shows
+the rest of the reactive object surface too, the same surface covered under
+[Detect activation](#detect-activation) above: `Changed`, `Changing`, `ThrownExceptions`,
+`SuppressChangeNotifications()` and `AreChangeNotificationsEnabled()`.
+
+```csharp
+TimetableLog.Info($"Lesson row view: {View.GetType().Name}.");
+```
+
+`AllPublicProperties`, a `protected` property the reflection-based `*Unsafe` hosts fill for older code that
+reads it, stays unused here: `LessonViewHolder` wires its controls through the ordinary `WireUpControls()` call
+above, which needs no such cache. The holder's `[DynamicallyAccessedMembers]` annotation tells the trimmer to
+keep its public properties regardless, so it stays safe to trim.
 
 ## Page through view models
 
@@ -415,6 +527,10 @@ TimetableLog.Info($"Weekday pager adapter reports {adapter.Count} pages.");
 Weekday pager adapter reports 5 pages.
 Weekday pager moved to Tuesday.
 ```
+
+`InstantiateItem`, `DestroyItem` and `IsViewFromObject` are the `PagerAdapter` overrides that do this work.
+AndroidX's `ViewPager` calls them internally as pages scroll into and out of range. `WeekdayPagerActivity` never
+calls them directly; it only builds the adapter and hands it to `pager.Adapter`.
 
 `ReactivePagerAdapter<TViewModel>` is the single-generic form: it pages any
 `IObservable<IReactiveChangeSet<TViewModel>>`, the same change-set stream `ToReactiveChangeSet()` produces from
@@ -626,7 +742,33 @@ Device orientation: Rotation0.
 
 `UsbManagerExtensions.PermissionRequested` turns a USB permission dialog into a stream of the granted result,
 for either a `UsbDevice` or a `UsbAccessory`, instead of a `BroadcastReceiver` your code registers and
-unregisters. It needs a physical or emulated USB device attached, so this example does not exercise it.
+unregisters. Some timetable devices use a USB barcode scanner to check students in, so `MainActivity` asks for
+permission to talk to any USB device or accessory already plugged in when it starts:
+
+```csharp
+private void RequestAttendanceScannerPermission()
+{
+    if (GetSystemService(UsbService) is not UsbManager usbManager)
+    {
+        return;
+    }
+
+    foreach (UsbDevice device in usbManager.DeviceList?.Values ?? [])
+    {
+        _subscriptions.Add(usbManager.PermissionRequested(this, device)
+            .Subscribe(granted => TimetableLog.Info($"USB device {device.DeviceName} permission granted: {granted}.")));
+    }
+
+    foreach (UsbAccessory accessory in usbManager.GetAccessoryList() ?? [])
+    {
+        _subscriptions.Add(usbManager.PermissionRequested(this, accessory)
+            .Subscribe(granted => TimetableLog.Info($"USB accessory {accessory.Model} permission granted: {granted}.")));
+    }
+}
+```
+
+Neither loop finds a device on a plain emulator, so this method logs nothing unless a scanner is attached. A
+physical or emulated USB device is still needed to see the granted result itself.
 
 ## At a glance
 
@@ -646,7 +788,8 @@ unregisters. It needs a physical or emulated USB device attached, so this exampl
 | `Changed` / `Changing` / `PropertyChanged` / `PropertyChanging` | Observe and raise property changes, as on any `ReactiveObject` |
 | `ThrownExceptions` | Reports errors raised inside reactive operators |
 | `SuppressChangeNotifications()` | Pauses change notifications until the result is disposed |
-| `ActivityResult` | An observable of every activity result received |
+| `AreChangeNotificationsEnabled()` | Reports whether a `SuppressChangeNotifications()` suppression is currently active |
+| `ActivityResult` | An observable of every activity result received; both `ReactiveActivity<TViewModel>` and the AndroidX activity base classes carry their own |
 | `StartActivityForResultAsync(Intent, int)` / `StartActivityForResultAsync(Type, int)` | Starts an activity and awaits its result as a `Task` |
 | `ControlFetcherMixins.WireUpControls(...)` (both namespaces) | Finds controls in a layout by naming convention; see [Wire up controls](../data-binding/android/wire-up-controls.md) |
 | `ControlFetcherMixins.GetControl(...)` | Fetches one control by resource name without a property |
@@ -654,8 +797,10 @@ unregisters. It needs a physical or emulated USB device attached, so this exampl
 | `ControlFetcherMixins.GetResourceName(PropertyInfo)` | Reads the resource name a property wires to |
 | `ControlFetcherMixins.ResolveStrategy` | `Implicit`, `ExplicitOptIn` and `ExplicitOptOut`: which properties `WireUpControls` wires |
 | `WireUpResourceAttribute` | Opts a property in under `ExplicitOptIn`, with an optional resource name override |
+| `WireUpResourceAttribute.ResourceNameOverride` | The resource name the constructor argument set, or `null` |
 | `IgnoreResourceAttribute` | Opts a property out under `ExplicitOptOut` |
 | `LayoutViewHost` | Inflates a layout into a `View` your code owns, wiring its children by hand with no reflection |
+| `LayoutViewHost.implicit operator View?(LayoutViewHost)` | Converts a host to its backing `View`, the same value `ToView()` returns |
 | `LayoutViewHostUnsafe` | A `LayoutViewHost` whose constructor can wire its children by reflection (auto-wireup) |
 | `ReactiveViewHost<TViewModel>` | A `LayoutViewHost` that is also an `IViewFor<TViewModel>` |
 | `ReactiveViewHostUnsafe<TViewModel>` | A `ReactiveViewHost<TViewModel>` whose constructor can wire its children by reflection (auto-wireup) |
@@ -663,9 +808,13 @@ unregisters. It needs a physical or emulated USB device attached, so this exampl
 | `ViewMixins.GetViewHost()` / `GetViewHost<T>()` | Reads the host a `View` was tagged with when it was hosted |
 | `AndroidX.ReactiveRecyclerViewAdapter<TViewModel, TCollection>` | Adapts a collection of view models to a `RecyclerView` |
 | `AndroidX.ReactiveRecyclerViewAdapter<TViewModel>` | Adapts a change-set stream of view models to a `RecyclerView` |
+| `GetItemViewType(int, TViewModel?)` | Override to pick a view type from the position and its view model |
+| `GetItemViewType(int)` | The non-generic override `RecyclerView` calls; resolves the view model and forwards to the overload above |
+| `ItemCount` | The number of rows the adapter currently holds |
 | `AndroidX.ReactiveRecyclerViewViewHolder<TViewModel>` | A `RecyclerView.ViewHolder` that is an `IViewFor<TViewModel>`, with `Selected`, `SelectedWithViewModel`, `LongClicked` and `LongClickedWithViewModel` |
 | `AndroidX.ReactivePagerAdapter<TViewModel, TCollection>` | Pages a collection of view models through a `ViewPager` |
 | `AndroidX.ReactivePagerAdapter<TViewModel>` | Pages a change-set stream of view models through a `ViewPager` |
+| `InstantiateItem(ViewGroup, int)` / `DestroyItem(ViewGroup, int, Object)` / `IsViewFromObject(View, Object)` | `PagerAdapter` overrides `ViewPager` calls internally as pages scroll into and out of range |
 | `ContextExtensions.ServiceBound(...)` / `ServiceBound<TBinder>(...)` | Binds a service and exposes its binder as a stream |
 | `AutoSuspendHelper` | Turns activity lifecycle callbacks into suspend/resume signals |
 | `AutoSuspendHelper.LatestBundle` | The bundle from the most recent `OnSaveInstanceState`, or `null` on a cold launch |
@@ -675,4 +824,4 @@ unregisters. It needs a physical or emulated USB device attached, so this exampl
 | `BundleSuspensionDriver.SaveState<T>(T)` / `LoadState()` | The untyped, reflection-based overloads; not callable from a trimmed or AOT page project |
 | `PlatformOperations.GetOrientation()` | Returns the display's current rotation, such as `"Rotation0"` |
 | `SharedPreferencesExtensions.PreferenceChanged()` | A stream of the key each changed shared preference used |
-| `UsbManagerExtensions.PermissionRequested(...)` | A stream of the granted result for a USB device or accessory permission request; needs real or emulated hardware |
+| `UsbManagerExtensions.PermissionRequested(...)` | A stream of the granted result for a USB device or accessory permission request |

@@ -692,6 +692,38 @@ Console.WriteLine(host.ViewModel.Recipes.Count);
 // 3
 ```
 
+### Observe or customize each resolution
+
+Both hosts call a protected `ResolveViewForViewModel(object? viewModel, string? contract)` method internally whenever `ViewModel` or the view contract changes. Override it in a subclass to run code around the base resolution, for example to log which view model resolved.
+
+```csharp
+AppLocator.CurrentMutable.Register<IViewFor<RecipeListViewModel>>(static () => new RecipeListContentView());
+
+LoggingViewModelViewHost host = new();
+host.ViewModel = new RecipeListViewModel(new RecipeBookScreen());
+host.ViewModel = null;
+
+Console.WriteLine(string.Join(", ", host.ResolvedViewModelTypes));
+
+// Output:
+// RecipeListViewModel
+```
+
+`ViewModelViewHost<TViewModel>` overrides the same method, so a generic host can add behavior too:
+
+```csharp
+AppLocator.CurrentMutable.Register<IViewFor<RecipeListViewModel>>(static () => new RecipeListContentView());
+
+LoggingRecipeViewHost host = new();
+host.ViewModel = new RecipeListViewModel(new RecipeBookScreen());
+host.ViewModel = new RecipeListViewModel(new RecipeBookScreen());
+
+Console.WriteLine(host.ResolutionCount);
+
+// Output:
+// 2
+```
+
 ## Show a view only the service locator knows
 
 `ViewModelViewHost` and `RoutedViewHost` ask the [view locator](../view-location/index.md) for a view in two steps, and neither step uses reflection. The first step is the view lookup the source generator writes for every view class in your project that implements `IViewFor<T>`. That lookup asks Splat's service locator for the view first, which is why the examples above can register `RecipeListContentView` there. The second step is the views you add to the view locator with `Map`. So the hosts are safe to trim and to publish with Native AOT.
@@ -805,6 +837,22 @@ Console.WriteLine(invertedVisibleIsFalse);
 // False
 ```
 
+`GetAffinityForObjects` reports how well each converter matches a binding; the [converter service](../../../binding/converters.md) calls it when it picks a converter. Both converters return the same built-in score.
+
+On the Windows build, both converters' `TryConvert` overloads convert to and from `Microsoft.UI.Xaml.Visibility` instead of the MAUI `Visibility` type shown above. This page's plain `net10.0` target does not compile against WinUI, so the example project does not exercise those overloads.
+
+```csharp
+BooleanToVisibilityTypeConverter toVisibility = new();
+VisibilityToBooleanTypeConverter toBoolean = new();
+
+Console.WriteLine(toVisibility.GetAffinityForObjects());
+Console.WriteLine(toBoolean.GetAffinityForObjects());
+
+// Output:
+// 2
+// 2
+```
+
 ## Register MAUI's own services
 
 `WithMaui` and `UseReactiveUI` load `ReactiveUI.Maui.Registrations`, the module that fills a [dependency resolver](../registration.md) with the two services MAUI binding needs: the activation fetcher and the two visibility converters above. `ReactiveUI.Maui` and plain `ReactiveUI` each have a type named `Registrations`, so an app that needs both keeps the platform one's full name, as the example below does.
@@ -823,7 +871,7 @@ Console.WriteLine(resolver.GetServices<IBindingTypeConverter>().Count());
 // 2
 ```
 
-Two further members appear only in the Windows build of `ReactiveUI.Maui`, alongside its WinUI-based sequencer. `AutoDataTemplateBindingHook` supplies a default `DataTemplate` for an `ItemsControl` that has none of its own, so an unbound item still shows through `ViewModelViewHost`. `ReactiveUserControl<TViewModel>` is a WinUI `UserControl` base with the same `ViewModel`/`BindingContext` pattern as the page bases above. Neither needs WinUI to compile against on this page's plain `net10.0` target, so the example project does not exercise them.
+Two further members appear only in the Windows build of `ReactiveUI.Maui`, alongside its WinUI-based sequencer. `AutoDataTemplateBindingHook` supplies a default `DataTemplate` for an `ItemsControl` that has none of its own, so an unbound item still shows through `ViewModelViewHost`. Its `DefaultItemTemplate` property builds that template. Its `ExecuteHook` method is the binding hook that a `Bind`/`OneWayBind` call runs before setting the target, the same way `ContentControlBindingHook` does on WinForms. `ReactiveUserControl<TViewModel>` is a WinUI `UserControl` base with the same `ViewModel`/`BindingContext` pattern as the page bases above. None of the three needs WinUI to compile against on this page's plain `net10.0` target, so the example project does not exercise them.
 
 ## Check device orientation
 
@@ -880,12 +928,16 @@ Console.WriteLine(operations.GetOrientation() ?? "(null)");
 | `ViewModelViewHost.ViewContract` / `ViewContractObservable` | The contract used to resolve the view, fixed or as a stream; each new contract resolves the view again. |
 | `ViewModelViewHost.ContractFallbackByPass` | Stops falling back to the default view for an unregistered contract. |
 | `ViewModelViewHost.ViewLocator` | Overrides the service-located locator for this host alone. |
-| `ViewModelViewHost.ResolveViewForViewModel(object, string?)` | Protected resolution member `ViewModel` and contract changes call. |
+| `ViewModelViewHost.ResolveViewForViewModel(object?, string?)` | Protected resolution method `ViewModel` and contract changes call; override to observe or customize a resolution. |
 | `ViewModelViewHost<TViewModel>` | Types `ViewModel` to the view model's own type. |
+| `ViewModelViewHost<TViewModel>.ResolveViewForViewModel(object?, string?)` | The generic host's own override of the resolution method above. |
 | `BooleanToVisibilityTypeConverter` | Converts `bool` to `Visibility`. |
+| `BooleanToVisibilityTypeConverter.GetAffinityForObjects()` / `VisibilityToBooleanTypeConverter.GetAffinityForObjects()` | Report the built-in affinity score the [converter service](../../../binding/converters.md) uses to pick a converter. |
 | `VisibilityToBooleanTypeConverter` | Converts `Visibility` back to `bool`. |
 | `BooleanToVisibilityHint` | `None`, `Inverse` and `UseHidden`, the hints both converters read. |
 | `ReactiveUI.Maui.Registrations` | Registers the activation fetcher and the two converters. |
 | `AutoDataTemplateBindingHook` | Windows-only default item template for an unbound `ItemsControl`. |
+| `AutoDataTemplateBindingHook.DefaultItemTemplate` | The `DataTemplate` the hook assigns; Windows-only. |
+| `AutoDataTemplateBindingHook.ExecuteHook(...)` | The binding hook `Bind`/`OneWayBind` runs; Windows-only. |
 | `ReactiveUserControl<TViewModel>` | Windows-only WinUI `UserControl` base with the same sync. |
 | `PlatformOperations` | Reports device orientation; always `null` on MAUI. |

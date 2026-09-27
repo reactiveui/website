@@ -17,9 +17,9 @@ System.Reactive.
 
 ## Configure ReactiveUI at startup
 
-Call `UseReactiveUI` on the `MauiAppBuilder` in `MauiProgram.CreateMauiApp`, with a delegate that configures the
-`IReactiveUIBuilder` the way `RxAppBuilder` would elsewhere. `WithMauiConverters` here registers MAUI's
-boolean-to-visibility converters; a real app's delegate also registers its views and services.
+Call `UseReactiveUI` on the `MauiAppBuilder` in `MauiProgram.CreateMauiApp`. Pass it a delegate that configures
+the `IReactiveUIBuilder`, the same way `RxAppBuilder` would elsewhere. `WithMauiConverters` here registers
+MAUI's boolean-to-visibility converters. A real app's delegate also registers its views and services.
 
 ```csharp
 _ = mauiBuilder.UseReactiveUI(builder =>
@@ -30,11 +30,11 @@ _ = mauiBuilder.UseReactiveUI(builder =>
 ```
 
 `UseReactiveUI` registers MAUI's platform module, converters and dispatcher-backed main-thread sequencer.
-[RxAppBuilder](../../handbook/rxappbuilder.md) covers the builder itself, and [.NET MAUI](../../handbook/platforms/maui.md)
-covers everything you build with the package: `ReactiveContentPage<T>` and the other reactive page bases, binding
-a page to its view model, showing a router's current page, and navigating between pages.
+[RxAppBuilder](../../handbook/rxappbuilder.md) covers the builder itself. [.NET MAUI](../../handbook/platforms/maui.md)
+covers everything you build with the package. That includes `ReactiveContentPage<T>` and the other reactive page
+bases, binding a page to its view model, showing a router's current page, and navigating between pages.
 
-A view model implementing `IScreen` gives it a router to navigate; see [Routing](../../handbook/routing.md).
-The [compelling example](../compelling-example.md) walks through a first view model and view. There is no
-`ReactiveUI.Validation` code in this installation's example project; see [Validation](../../../validation.md)
+A view model that implements `IScreen` gets a router to navigate with. See [Routing](../../handbook/routing.md).
+The [compelling example](../compelling-example.md) walks through a first view model and view. This
+installation's example project has no `ReactiveUI.Validation` code. See [Validation](../../../validation.md)
 for validation rules on a view model.

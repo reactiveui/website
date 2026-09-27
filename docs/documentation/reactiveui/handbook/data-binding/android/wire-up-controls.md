@@ -6,17 +6,17 @@ that gap. Call it once, and it finds every eligible property on your `Activity`,
 `ILayoutViewHost`. It assigns each one the control with the matching resource ID, instead of a `FindViewById`
 call per field. It works the way [Butterknife](https://jakewharton.github.io/butterknife/) does for Java Android
 code.
-The [school timetable app](../../platforms/android.md) uses it throughout; the examples below are all from that
+The [school timetable app](../../platforms/android.md) uses it throughout. The examples below are all from that
 app.
 
 ## Naming policy
 
 `WireUpControls` builds a dictionary of every resource ID name in your layouts, lowercased, mapped to the actual
-resource ID; the mapping mirrors the generated `Resource.designer.cs` file. Because the lookup is
+resource ID. The mapping mirrors the generated `Resource.designer.cs` file. Because the lookup is
 case-insensitive, you cannot reuse the same resource name with two different casings across your layouts.
 Android generates a distinct ID for each casing, so there is no single ID `WireUpControls` could map both to.
 Layout files commonly use a lower-case-first name such as `subjectLabel`, while a C# property uses an
-upper-case-first name such as `SubjectLabel`; the lowercased lookup is why that difference does not need a
+upper-case-first name such as `SubjectLabel`. The lowercased lookup is why that difference does not need a
 `[WireUpResource]` override.
 
 ## Resolve strategies
@@ -50,8 +50,8 @@ foreach (PropertyInfo member in wiredMembers)
 WireUpControls found 3 members to wire.
 ```
 
-`GetWireUpMembers` returns the properties a strategy would wire without wiring them, and `GetResourceName`
-reads the resource name one property resolves to; both are useful for a diagnostic like the one above. The
+`GetWireUpMembers` returns the properties a strategy would wire without wiring them. `GetResourceName`
+reads the resource name one property resolves to. Both are useful for a diagnostic like the one above. The
 activity's layout, `activity_main.xml`, declares the three resources those properties resolve to:
 
 ```xml
@@ -88,7 +88,7 @@ activity's layout, `activity_main.xml`, declares the three resources those prope
 ```
 
 `LessonsRecyclerView`, `BadgeContainer` and `DetailContainer` are the three writable `View`-typed properties
-`MainActivity` declares; `FeaturedLessonCard` and `PeeksRow` are assigned separately in code, so `Implicit`
+`MainActivity` declares. `FeaturedLessonCard` and `PeeksRow` are assigned separately in code. So `Implicit`
 wires only the properties the activity actually declares as `View` subtypes. `LessonCardView`, a compound view
 inflated into the top of that layout, wires its own two labels the same way, from inside its own constructor:
 
@@ -127,9 +127,26 @@ against the inflated row view, from its constructor body:
     this.WireUpControls();
 ```
 
+A fragment calls a two-argument overload instead, since it wires against its inflated view rather than itself.
+`LessonNotesFragment` uses the convenience form of that overload, which takes only the view and applies
+`Implicit` without naming it:
+
+```csharp
+View view = inflater!.Inflate(Resource.Layout.fragment_lesson_notes, container, false)
+    ?? throw new InvalidOperationException("Inflating fragment_lesson_notes produced no view.");
+
+// The convenience overload: no resolve strategy to state, since Implicit is what most fragments want.
+AndroidX.ControlFetcherMixins.WireUpControls(this, view);
+```
+
+The core, non-AndroidX `ReactiveUI.ControlFetcherMixins` declares the same two overloads for the platform's own
+`Android.App.Fragment`. This page does not show them. Attaching a classic `Fragment` to an activity needs the
+classic `Activity.FragmentManager`. The Android platform itself deprecated that at API level 28, and the
+timetable app targets a newer API than that.
+
 ### Explicit opt-in
 
-Under `ExplicitOptIn`, only a property that carries `[WireUpResource]` is wired; every other property is
+Under `ExplicitOptIn`, only a property that carries `[WireUpResource]` is wired. Every other property is
 ignored, with no type check. `[WireUpResource]` takes an optional resource name, for a property whose name does
 not match its resource. `AbsenceStatusView`, a compound view, opts in its one label from its constructor body:
 
@@ -164,6 +181,23 @@ instead of as an extension method:
 
 ```csharp
 AndroidX.ControlFetcherMixins.WireUpControls(this, view, ControlFetcherMixins.ResolveStrategy.ExplicitOptIn);
+```
+
+`[WireUpResource]`'s constructor argument is stored on `ResourceNameOverride`. `GetResourceName()` reads it as a
+fallback when a property carries no override. `LessonDetailFragment` also reads it directly, off the attribute
+itself:
+
+```csharp
+// The name SubjectLabel was wired under: WireUpResourceAttribute.ResourceNameOverride, read directly
+// rather than through GetResourceName().
+WireUpResourceAttribute? subjectAttribute = typeof(LessonDetailFragment)
+    .GetProperty(nameof(SubjectLabel))!
+    .GetCustomAttribute<WireUpResourceAttribute>();
+TimetableLog.Info($"SubjectLabel's resource name override: {subjectAttribute?.ResourceNameOverride}.");
+```
+
+```text
+SubjectLabel's resource name override: detailSubject.
 ```
 
 The fragment's layout carries a third control, `detailIcon`, that no property wires. `GetControl` fetches it
@@ -220,7 +254,7 @@ public TextView? UnusedLabel { get; set; }
 Without `[IgnoreResource]`, `ExplicitOptOut` would try to wire `UnusedLabel` to a resource named `unusedlabel`
 and throw a `MissingFieldException`, since `activity_absence.xml` declares no such resource. `GetControl` above
 fetches `extraLabel` directly on the activity, the same way `LessonDetailFragment` fetched `detailIcon` on a
-`View`; called with no argument, it resolves the resource named after the calling member instead.
+`View`. Called with no argument, it resolves the resource named after the calling member instead.
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -249,17 +283,18 @@ fetches `extraLabel` directly on the activity, the same way `LessonDetailFragmen
 `LessonCountBadgeHost`, a host with no view model, wires its one label through the auto-wireup constructor of
 `LayoutViewHostUnsafe` instead of a call to `WireUpControls` in its own body. Its constructor passes
 `attachToRoot: false`, `performAutoWireup: true` and `resolveStrategy: ControlFetcherMixins.ResolveStrategy.Implicit`
-to the base constructor, which performs the same `Implicit` wire-up once inflation finishes; the constructor's
-own body adds nothing further. `ReactiveViewHostUnsafe<TViewModel>` offers the same constructor for a host with a view
-model. The reflection-free `LayoutViewHost` and `ReactiveViewHost<TViewModel>` have no such constructor.
+to the base constructor. That base constructor calls the `ILayoutViewHost` overload of `WireUpControls` itself
+once inflation finishes. The constructor's own body adds nothing further. `ReactiveViewHostUnsafe<TViewModel>`
+offers the same constructor for a host with a view model. `FirstLessonPeekHost` passes the same two flags to
+it. The reflection-free `LayoutViewHost` and `ReactiveViewHost<TViewModel>` have no such constructor.
 
 A host that wires its child without reflection, and stays trim- and AOT-safe, uses the `bind`-callback
 constructor instead and calls `FindViewById` itself. `WeekdayViewHost`, one page of the weekday pager, passes
 `bind: static (host, view) => ((WeekdayViewHost)host)._weekdayLabel = view.FindViewById<TextView>(Resource.Id.weekdayLabel)`
 to the base constructor this way.
 
-Every `WireUpControls` overload, and `GetControl`, carries `RequiresUnreferencedCode` and `RequiresDynamicCode`:
-both reflect over your assembly's generated resource type to resolve a name to an integer ID. The `bind`-callback
+Every `WireUpControls` overload, and `GetControl`, carries `RequiresUnreferencedCode` and `RequiresDynamicCode`.
+Both reflect over your assembly's generated resource type to resolve a name to an integer ID. The `bind`-callback
 constructor above needs neither. `MissingFieldException` is what any `WireUpControls` overload throws when a
 property cannot be resolved to a matching resource, whichever strategy is in effect.
 

@@ -215,7 +215,39 @@ directly.
 `TableContentSetMethodBindingConverter`. Each gives an affinity of 10 to a source that implements
 `IEnumerable<Control>` against its own collection type, and 0 to anything else. The generated binding fills
 both collection types itself, so these converters matter only for code that asks the converter registry
-directly.
+directly, the way the calls below do.
+
+```csharp
+PanelSetMethodBindingConverter converter = new();
+
+Console.WriteLine(converter.GetAffinityForObjects(typeof(List<Label>), typeof(Control.ControlCollection)));
+Console.WriteLine(converter.GetAffinityForObjects(typeof(string), typeof(Control.ControlCollection)));
+
+// Output:
+// 10
+// 0
+```
+
+`PerformSet` is the other half: it is what the generated binding calls to clear the target collection and add
+every control from the new value.
+
+```csharp
+using Panel panel = new();
+using Label first = new() { Text = "Chicken soup" };
+using Label second = new() { Text = "Bread rolls" };
+
+PanelSetMethodBindingConverter converter = new();
+converter.PerformSet(panel.Controls, new List<Label> { first, second }, arguments: null);
+
+Console.WriteLine(panel.Controls.Count);
+Console.WriteLine(((Label)panel.Controls[0]).Text);
+
+// Output:
+// 2
+// Chicken soup
+```
+
+`TableContentSetMethodBindingConverter` works the same way, against a `TableLayoutControlCollection` instead.
 
 ## Detect activation
 
@@ -561,6 +593,10 @@ last changed `ViewModel` when the router subscription assigned the member's card
 | `ActivationForViewFetcher` | Turns a control's handle and visibility events into the activation signal |
 | `PlatformOperations` | Answers `GetOrientation()`; always `null` on the desktop |
 | `PanelSetMethodBindingConverter` | Binds a collection of controls into a `Panel` |
+| `PanelSetMethodBindingConverter.GetAffinityForObjects(Type?, Type?)` | Scores 10 for a source of `Control`s against `Control.ControlCollection`, else 0 |
+| `PanelSetMethodBindingConverter.PerformSet(object?, object?, object?[]?)` | Clears the panel's `Controls` and adds every control from the new value |
 | `TableContentSetMethodBindingConverter` | Binds a collection of controls into a `TableLayoutPanel` |
+| `TableContentSetMethodBindingConverter.GetAffinityForObjects(Type?, Type?)` | Scores 10 for a source of `Control`s against `TableLayoutControlCollection`, else 0 |
+| `TableContentSetMethodBindingConverter.PerformSet(object?, object?, object?[]?)` | Clears the table's `Controls` and adds every control from the new value |
 | `ContentControlBindingHook` | A binding hook that always lets the binding proceed |
 | `Registrations` | The module `WithWinForms` loads: platform operations, activation fetcher, both converters, four type converters |

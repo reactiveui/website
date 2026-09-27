@@ -91,6 +91,15 @@ view uses. The window's XAML names the generic argument with `x:TypeArguments`.
 </reactiveui:ReactiveWindow>
 ```
 
+`ViewContractObservable` is the stream a host reads its `ViewContract` from; setting `ViewContract` itself is really
+setting this to a stream of one value. An app whose layout never changes with device orientation can replace the
+default, orientation-built stream with a fixed one:
+
+```csharp
+Host.ViewContractObservable = Signal.Emit<string?>("desktop");
+Console.WriteLine($"Host view contract observable set: {Host.GetValue(RoutedViewHost.ViewContractObservableProperty) is not null}");
+```
+
 The two Unsafe hosts in the bottom panel show the school office's notices. The
 [service locator section](#show-a-view-only-the-service-locator-knows) covers them.
 
@@ -106,6 +115,10 @@ Host.Duration = TimeSpan.FromMilliseconds(250);
 Host.DefaultContent = "Pick a student to begin.";
 Host.TransitionStarted += static (_, _) => Console.WriteLine("Transition started.");
 Host.TransitionCompleted += static (_, _) => Console.WriteLine("Transition completed.");
+```
+
+```csharp
+CourseListViewModel courseList = new(ViewModel, courses);
 
 // The "d(...)" style registers one disposable at a time, rather than collecting them into a
 // MultipleDisposable first; RoutedViewHost's own constructor uses the same style internally.
@@ -113,8 +126,7 @@ _ = this.WhenActivated(d =>
 {
     Host.Router = ViewModel!.Router;
     Host.ViewLocator = ViewLocator.GetCurrent();
-    d(ViewModel.Router.Navigate.Execute(new CourseListViewModel(ViewModel, courses))
-        .Subscribe());
+    d(ViewModel.Router.Navigate.Execute(courseList).Subscribe());
     Console.WriteLine($"View contract: {Host.ViewContract ?? "(none)"}");
 
     // BindingRoot is the same view model as ViewModel, exposed under the name every ReactiveUI view uses.
@@ -180,7 +192,7 @@ A page like `CourseListView` is a `ReactiveUserControl<TViewModel>`: a `UserCont
 
         <StackPanel DockPanel.Dock="Right" Width="180" Margin="16,0,0,0">
             <TextBlock Text="Selected student" FontWeight="Bold" Margin="0,0,0,8" />
-            <reactiveui:ViewModelViewHost x:Name="SummaryHost" />
+            <local:LoggingViewModelViewHost x:Name="SummaryHost" />
             <Button x:Name="OpenButton" Content="Open grade" Margin="0,16,0,0" />
         </StackPanel>
 
@@ -223,6 +235,35 @@ than the full-width slide `Host` uses.
 SummaryHost.DefaultContent = "Select a student to preview their grade.";
 SummaryHost.Transition = TransitioningContentControl.TransitionType.Move;
 SummaryHost.Direction = TransitioningContentControl.TransitionDirection.Up;
+```
+
+`ContractFallbackByPass` stops the host from falling back to an uncontracted view when a view under the current
+contract is missing. `ViewContractObservable` is the stream `ViewContract` itself is built from. `Host` uses the
+same pair above, on `RoutedViewHost` instead of `ViewModelViewHost`. Reading each one back through its dependency
+property field, rather than the wrapper property, confirms both are backed by the same storage:
+
+```csharp
+SummaryHost.ContractFallbackByPass = true;
+Console.WriteLine($"Contract fallback bypass (via field): {(bool)SummaryHost.GetValue(ViewModelViewHost.ContractFallbackByPassProperty)}");
+
+SummaryHost.ViewContractObservable = Signal.Emit<string?>(null);
+Console.WriteLine($"Summary host contract observable set: {SummaryHost.GetValue(ViewModelViewHost.ViewContractObservableProperty) is not null}");
+```
+
+`SummaryHost` is a `LoggingViewModelViewHost`, not a plain `ViewModelViewHost`: it overrides the protected
+`ResolveViewForViewModel(object?, string?)`, the method a host calls every time its `ViewModel` or view contract
+changes, to log the view it resolved after calling the base implementation.
+
+```csharp
+public sealed class LoggingViewModelViewHost : ViewModelViewHost
+{
+    /// <inheritdoc/>
+    protected override void ResolveViewForViewModel(object? viewModel, string? contract)
+    {
+        base.ResolveViewForViewModel(viewModel, contract);
+        Console.WriteLine($"Summary panel resolved: {(viewModel is null ? "(none)" : Content?.GetType().Name)}");
+    }
+}
 ```
 
 A view can build its bindings and return them instead of registering each one through `d`. `StudentSummaryView`
@@ -335,6 +376,93 @@ Binding hook: AutoDataTemplateBindingHookUnsafe
 In your own app, add the same `WithRegistration` call to the `RxAppBuilder.CreateReactiveUIBuilder()` chain, before
 `BuildApp()`.
 
+Each hook's `DefaultItemTemplate` is the `DataTemplate` it assigns; an app can inspect or reuse it directly instead
+of registering the hook.
+
+```csharp
+DataTemplate template = AutoDataTemplateBindingHook.DefaultItemTemplate.Value;
+DependencyObject root = template.LoadContent();
+Console.WriteLine($"Default item template hosts each item in a: {root.GetType().Name}");
+
+DataTemplate unsafeTemplate = AutoDataTemplateBindingHookUnsafe.DefaultItemTemplate.Value;
+DependencyObject unsafeRoot = unsafeTemplate.LoadContent();
+Console.WriteLine($"Unsafe default item template hosts each item in a: {unsafeRoot.GetType().Name}");
+```
+
+```text
+Default item template hosts each item in a: ViewModelViewHost
+Unsafe default item template hosts each item in a: ViewModelViewHostUnsafe
+```
+
+## Every transition, and a view that isn't an `IViewFor`
+
+`TransitioningContentControl` supports five transitions (`Fade`, `Move`, `Slide`, `Drop`, `Bounce`) and four
+directions (`Up`, `Down`, `Left`, `Right`). `Host` and `SummaryHost` above use `Slide`/`Left` and `Move`/`Up`.
+`NoticeBoardHost` and `LatestNoticeHost` pick two more. A page-name banner built entirely in code picks the last
+one. It sets its direction and duration through the raw dependency properties, instead of the `Direction` and
+`Duration` wrapper properties the other hosts use:
+
+```csharp
+NoticeBoardHost.Transition = TransitioningContentControl.TransitionType.Drop;
+NoticeBoardHost.Direction = TransitioningContentControl.TransitionDirection.Right;
+LatestNoticeHost.Transition = TransitioningContentControl.TransitionType.Fade;
+```
+
+```csharp
+PageNameBanner.Transition = TransitioningContentControl.TransitionType.Bounce;
+PageNameBanner.SetValue(TransitioningContentControl.TransitionDirectionProperty, TransitioningContentControl.TransitionDirection.Down);
+_ = PageNameBanner.SetBinding(
+    TransitioningContentControl.TransitionDurationProperty,
+    new System.Windows.Data.Binding(nameof(AppShell.PageBannerDuration)) { Source = ViewModel });
+```
+
+`NoticeStatusText`, `CommandStatusText` and `PageSummaryText` are plain `TextBlock` labels, not `IViewFor` instances
+of their own. `WpfViewForMixins.WhenActivated` has a twin for each block style — `Action<Action<IDisposable>>`,
+`Action<MultipleDisposable>` and `Func<IEnumerable<IDisposable>>` — that also takes an explicit `IViewFor`. A plain
+element like these three labels uses it to tie its activation to a window or view that is one:
+
+```csharp
+_ = NoticeStatusText.WhenActivated(
+    d => d(noticeBoard.Router.CurrentViewModel.Subscribe(page =>
+        NoticeStatusText.Text = $"Notice board page: {page?.UrlPathSegment ?? "(none)"}")),
+    this);
+
+_ = CommandStatusText.WhenActivated(
+    d => d.Add(courseList.OpenStudent.IsExecuting.Subscribe(executing =>
+        CommandStatusText.Text = executing ? "Opening student..." : "Idle")),
+    this);
+
+_ = PageSummaryText.WhenActivated(
+    () =>
+    [
+        ViewModel!.Router.CurrentViewModel.CombineLatest(
+            noticeBoard.Router.CurrentViewModel,
+            static (course, notice) => $"{course?.UrlPathSegment ?? "start"} / {notice?.UrlPathSegment ?? "none"}")
+            .Subscribe(text => PageSummaryText.Text = text)
+    ],
+    this);
+```
+
+The parameterless `WhenActivated()` overload activates a view with no disposables of its own, purely to trigger an
+`IActivatableViewModel`'s activation. `OfficeHoursBannerView` has nothing to bind — its text is fixed — so it uses
+this overload just to log when its view model activates:
+
+```csharp
+public sealed class OfficeHoursBannerView : ReactiveUserControl<OfficeHoursBannerViewModel>
+{
+    private readonly TextBlock _text = new() { Text = "Office hours: 9am-4pm, Monday to Friday." };
+
+    public OfficeHoursBannerView()
+    {
+        Content = _text;
+        ViewModel = new OfficeHoursBannerViewModel();
+        ViewModel.Activator.Activated.Subscribe(static _ => Console.WriteLine("Office hours banner activated."));
+
+        _ = this.WhenActivated();
+    }
+}
+```
+
 ## Bind with validation
 
 `BindWithValidation` binds a control two-way to a view model property without a generated field for the control.
@@ -439,27 +567,47 @@ WithWpfConverters/WithWpfScheduler configured: True
 WPF main-thread scheduler: DispatcherSequencer
 Binding hook: AutoDataTemplateBindingHook
 Binding hook: AutoDataTemplateBindingHookUnsafe
+Default item template hosts each item in a: ViewModelViewHost
+Unsafe default item template hosts each item in a: ViewModelViewHostUnsafe
 Auto-suspend idle timeout: 00:00:20
+Host view contract observable set: True
 View contract: (none)
 BindingRoot's router has 1 page(s) on screen.
+Office hours banner activated.
+Contract fallback bypass (via field): True
+Summary host contract observable set: True
 Transition started.
+Contract fallback bypass (via field): True
+Summary host contract observable set: True
+Summary panel resolved: (none)
 Transition completed.
 Courses loaded: 2
 Students listed: 4
 RoutedViewHostUnsafe shows: OfficeNoticeView (Parent evening is on Tuesday.)
 ViewModelViewHostUnsafe shows: OfficeNoticeView (Reports are due on Friday.)
+Page name banner: courses
+Notice status: Notice board page: notice
+Command status: Idle
+Page summary: courses / notice
+Summary panel resolved: StudentSummaryView
 Selected in the summary panel: Ada Lovelace
 Transition started.
 Editing Ada Lovelace's grade.
 Navigated to: students/Ada Lovelace
 Typed grade: 97
+Contract fallback bypass (via field): True
+Summary host contract observable set: True
+Summary panel resolved: (none)
+Summary panel resolved: StudentSummaryView
 Saved grade for Ada Lovelace: 97
 Back on: courses
 Closing window.
 ```
 
-The `Transition started.` and `Transition completed.` lines come from the WPF dispatcher, so where they fall between
-the other lines can differ from run to run.
+The smoke run waits for the first page to finish sliding in, so the first `Transition started.` has its
+`Transition completed.`. It closes the window before the second animation ends, so that transition has no completed
+line. Where `Summary panel resolved:`, `Office hours banner activated.` and the status labels' first values land
+relative to each other depends on when each element loads into the visual tree, so it can differ from run to run.
 
 Selecting a student updates the `ViewModelViewHost` preview immediately, without navigating. Opening a student
 navigates the router, plays a transition, and shows `students/Ada Lovelace` as the current page's
@@ -558,13 +706,28 @@ Alert label: Storm warning issued
 ```
 
 Both `AutoResubscribeOnError="True"` above tell the behavior and the trigger to re-subscribe to `StateObservable`
-and `Observable` if either ever fails, instead of leaving the panel or the alert label stuck. Both types also have a
-`SchedulerOverride`, for a test that wants to assert their effect right after raising it instead of pumping a
-dispatcher: setting it to `Sequencer.Immediate` before assigning `StateObservable`/`Observable` delivers on the
-calling thread, with no dispatcher involved.
+and `Observable` if either ever fails, instead of leaving the panel or the alert label stuck. `TargetObject` is the
+element the behavior calls `VisualStateManager.GoToState` on. The XAML above binds it to `StatusPanel` itself; code
+that builds the behavior without XAML sets the same dependency property with `SetValue`:
 
 ```csharp
 FollowObservableStateBehavior stateBehavior = new() { SchedulerOverride = Sequencer.Immediate };
+
+// A test that builds the behavior in code, rather than XAML, sets TargetObject through its dependency
+// property field with SetValue; the window's XAML sets the same property with a binding instead.
+stateBehavior.SetValue(FollowObservableStateBehavior.TargetObjectProperty, targetElement);
+Console.WriteLine($"TargetObject via SetValue: {stateBehavior.GetValue(FollowObservableStateBehavior.TargetObjectProperty) == targetElement}");
+```
+
+```text
+TargetObject via SetValue: True
+```
+
+Both types also have a `SchedulerOverride`, for a test that wants to assert their effect right after raising it
+instead of pumping a dispatcher: setting it to `Sequencer.Immediate` before assigning `StateObservable`/`Observable`
+delivers on the calling thread, with no dispatcher involved.
+
+```csharp
 stateBehavior.Attach(probeElement);
 stateBehavior.StateObservable = Signal.Emit("Stormy");
 ```
@@ -613,8 +776,8 @@ contract that changes with orientation.
 | Member | What it does |
 | --- | --- |
 | `ActivationForViewFetcher` | Tells `WhenActivated` when a WPF `FrameworkElement` (or its containing `Window`) is on screen. Installed by `Wpf.Registrations`. |
-| `AutoDataTemplateBindingHook` | Supplies a default `DataTemplate` for an `ItemsControl` bound to view models, showing each one through a `ViewModelViewHost`. |
-| `AutoDataTemplateBindingHookUnsafe` | The same default template, with each item shown through a `ViewModelViewHostUnsafe`. Marked `[RequiresDynamicCode]`. |
+| `AutoDataTemplateBindingHook` | Supplies a default `DataTemplate` for an `ItemsControl` bound to view models, showing each one through a `ViewModelViewHost`. `DefaultItemTemplate` is the template itself. |
+| `AutoDataTemplateBindingHookUnsafe` | The same default template, with each item shown through a `ViewModelViewHostUnsafe`. Marked `[RequiresDynamicCode]`. `DefaultItemTemplate` is the template itself. |
 | `AutoSuspendHelper` | Forwards a WPF `Application`'s `Startup`, `Activated`, `Deactivated` and `Exit` events into the suspension host, with `IdleTimeout` controlling how long it waits before asking you to save. |
 | `WpfReactiveUIBuilderExtensions.WithWpf(IReactiveUIBuilder)` / `WithWpf(IAppBuilder)` | Registers the WPF view hosts, activation fetcher, converters and main-thread sequencer. |
 | `WpfReactiveUIBuilderExtensions.WithWpfConverters` | Registers the WPF-specific value converters on their own. |
@@ -624,16 +787,16 @@ contract that changes with orientation.
 | `ReactivePage<TViewModel>` | A WPF `Page` that implements `IViewFor<TViewModel>`, for apps that navigate with `Frame`/`NavigationWindow` instead of, or alongside, a router. |
 | `ReactiveUserControl<TViewModel>` | A `UserControl` that implements `IViewFor<TViewModel>`. |
 | `ReactiveWindow<TViewModel>` | A `Window` that implements `IViewFor<TViewModel>`. |
-| `RoutedViewHost` | Shows the view for the router's current page, resolved through `ViewLocator` from generated and `Map` views without reflection; shows `DefaultContent` when the stack is empty. |
+| `RoutedViewHost` | Shows the view for the router's current page, resolved through `ViewLocator` from generated and `Map` views without reflection; shows `DefaultContent` when the stack is empty. `ViewContractObservable` is the stream `ViewContract` is built from. |
 | `RoutedViewHostUnsafe` | A `RoutedViewHost` that also asks the service locator, for a view registered only there. Marked `[RequiresDynamicCode]`. |
-| `TransitioningContentControl` | The `ContentControl` `RoutedViewHost` and `ViewModelViewHost` build on; animates between old and new content with `Transition`, `Direction` and `Duration`, and raises `TransitionStarted`/`TransitionCompleted`. |
+| `TransitioningContentControl` | The `ContentControl` `RoutedViewHost` and `ViewModelViewHost` build on; animates between old and new content with `Transition` (`Fade`, `Move`, `Slide`, `Drop`, `Bounce`), `Direction` (`Up`, `Down`, `Left`, `Right`) and `Duration`, and raises `TransitionStarted`/`TransitionCompleted`. |
 | `ValidationBindingMixins.BindWithValidation` | Binds a control two-way to a view model property, finding the control by name in the view's visual tree instead of through a generated field. |
-| `ViewModelViewHost` | Shows the view for whatever view model its own `ViewModel` property holds, with no router involved. Finds generated and `Map` views without reflection. |
+| `ViewModelViewHost` | Shows the view for whatever view model its own `ViewModel` property holds, with no router involved. Finds generated and `Map` views without reflection. `ViewContractObservable` is the stream `ViewContract` is built from; `ContractFallbackByPass` stops it falling back to an uncontracted view; `ResolveViewForViewModel` is the protected method it calls to resolve and show the view, and a subclass can override it. |
 | `ViewModelViewHostUnsafe` | A `ViewModelViewHost` that also asks the service locator, for a view registered only there. Marked `[RequiresDynamicCode]`. |
 | `Wpf.Registrations` | The `IWantsToRegisterStuff` that `WithWpf` runs to register the platform services above; not the Unsafe twins. |
 | `WpfViewForMixins.GetIsDesignMode` | Reports whether the WPF designer is loading the view, so a constructor can skip work the designer cannot run. |
-| `WpfViewForMixins.WhenActivated` | The `Action<Action<IDisposable>>`, `Func<IEnumerable<IDisposable>>`, `Action<MultipleDisposable>` and no-argument overloads that run a block while a WPF view is active. |
-| `ReactiveUI.Blend.FollowObservableStateBehavior` | A Blend behavior that drives a `VisualStateManager` state from a stream of state names. |
-| `ReactiveUI.Blend.ObservableTrigger` | A Blend trigger that runs its actions each time an observable delivers a value. |
+| `WpfViewForMixins.WhenActivated` | The `Action<Action<IDisposable>>`, `Func<IEnumerable<IDisposable>>`, `Action<MultipleDisposable>` and no-argument overloads that run a block while a WPF view is active, each with a twin that also takes an explicit `IViewFor` for a plain element that isn't one itself. |
+| `ReactiveUI.Blend.FollowObservableStateBehavior` | A Blend behavior that drives a `VisualStateManager` state from a stream of state names. `TargetObject` is the element it calls `GoToState` on; `AutoResubscribeOnError` re-subscribes `StateObservable` after a failure. |
+| `ReactiveUI.Blend.ObservableTrigger` | A Blend trigger that runs its actions each time an observable delivers a value. `AutoResubscribeOnError` re-subscribes `Observable` after a failure. |
 | `ReactiveUIBuilderDrawingExtensions.WithDrawing` | Registers an `IBitmapLoader` for platforms, including WPF, that need one. |
 | `ReactiveUI.Drawing.Registrations` | The `IWantsToRegisterStuff` that `WithDrawing` runs. |

@@ -358,7 +358,7 @@ To skip writing these members by hand, mark a `partial` class with `[IReactiveOb
 
 ## ReactiveRecord for mostly-immutable data
 
-`ReactiveRecord` is the record equivalent of `ReactiveObject`. A record's properties are normally set once at construction with `init`, so most of a `ReactiveRecord`'s surface never raises a notification. Use it for a value that is mostly fixed but has one or two fields a later step can still edit, such as a moderator's note added after a grade is finalized. `CourseResult` in the example is a finalized grade: `StudentName`, `Course` and `Grade` are `init`-only. Only `ModeratorNotes` can change after construction, through `AddModeratorNote`, the same pattern as `Student.AddGrade` above.
+`ReactiveRecord` is the record equivalent of `ReactiveObject`. A record's properties are normally set once at construction with `init`, so most of a `ReactiveRecord`'s surface never raises a notification. Use it for a value that is mostly fixed but has one or two fields a later step can still edit. A moderator's note added after a grade is finalized is one example. `CourseResult` in the example is a finalized grade: `StudentName`, `Course` and `Grade` are `init`-only. Only `ModeratorNotes` can change after construction, through `AddModeratorNote`, the same pattern as `Student.AddGrade` above.
 
 ```csharp
 public sealed record CourseResult : ReactiveRecord
@@ -444,7 +444,7 @@ Console.WriteLine(original.StudentName == corrected.StudentName);
 // True
 ```
 
-`ReactiveRecord.Equals(ReactiveRecord)` compares two records by value, using the derived record's own properties. The notification state `ReactiveRecord` holds for each instance takes no part. So two results created separately with the same values are equal, and `==` agrees. `Equals` works this way even when both records are known only through the `ReactiveRecord` base type, such as inside a routine that audits every record type in a data layer without knowing their concrete types.
+`ReactiveRecord.Equals(ReactiveRecord)` compares two records by value, using the derived record's own properties. The notification state `ReactiveRecord` holds for each instance takes no part. So two results created separately with the same values are equal, and `==` agrees. `Equals` works this way even when both records are known only through the `ReactiveRecord` base type. That covers a routine that audits every record type in a data layer without knowing their concrete types.
 
 ```csharp
 CourseResult original = new() { StudentName = "Katherine Johnson", Course = "Orbital Mechanics", Grade = 99 };

@@ -114,6 +114,41 @@ The model is [`ReactiveUI.Binding.SourceGenerators/README.md`](https://github.co
 the problem first, then a numbered walkthrough of the first use, then reference sections. A reader who stops
 after the walkthrough can already do the thing.
 
+### Diagrams: soft-tone Material 3
+
+The site renders ```` ```mermaid ```` fences (NuStreamDocs.Mermaid, Mermaid 10). Every diagram uses the same palette,
+taken from Material 3 container roles and seeded from the site's ReactiveUI blue (`#319af3`). Fills are light tones with
+dark text, so a diagram reads in both the light and dark site themes. Copy the `init` line and the `classDef` lines
+exactly. Do not invent colours.
+
+```mermaid
+%%{init: {"theme": "base", "themeVariables": {"fontFamily": "Roboto, Helvetica, Arial, sans-serif", "fontSize": "15px", "primaryColor": "#DCE9FF", "primaryBorderColor": "#6C8EC4", "primaryTextColor": "#0B2447", "secondaryColor": "#E3F2E8", "secondaryBorderColor": "#7FA88C", "secondaryTextColor": "#12301C", "tertiaryColor": "#F3E5F5", "tertiaryBorderColor": "#A98BB0", "tertiaryTextColor": "#2E1437", "lineColor": "#7B8699", "textColor": "#1B1F27", "noteBkgColor": "#FFF4D6", "noteBorderColor": "#C9A94F", "noteTextColor": "#3A2A00", "actorBkg": "#DCE9FF", "actorBorder": "#6C8EC4", "actorTextColor": "#0B2447", "signalColor": "#7B8699", "signalTextColor": "#1B1F27", "labelBoxBkgColor": "#F1F3F8", "labelBoxBorderColor": "#A7AEBB", "edgeLabelBackground": "#F7F9FC", "clusterBkg": "#F7F9FC", "clusterBorder": "#C9D1DE"}}}%%
+flowchart LR
+    classDef view fill:#DCE9FF,stroke:#6C8EC4,color:#0B2447
+    classDef vm fill:#E3F2E8,stroke:#7FA88C,color:#12301C
+    classDef model fill:#F3E5F5,stroke:#A98BB0,color:#2E1437
+    classDef warn fill:#FDE7E4,stroke:#C98A82,color:#410E0B
+    classDef neutral fill:#F1F3F8,stroke:#A7AEBB,color:#1B1F27
+    View(["View"]):::view -- "binds to" --> VM(["View model"]):::vm
+    VM -- "reads and writes" --> Model(["Model"]):::model
+```
+
+| Class | Tone | Use for |
+| --- | --- | --- |
+| `view` | soft blue (primary container) | views, controls, anything the user sees |
+| `vm` | soft green (secondary container) | view models, commands, reactive objects |
+| `model` | soft lavender (tertiary container) | models, stores, services, data |
+| `warn` | soft rose (error container) | errors, exceptions, failure paths |
+| `neutral` | soft grey (surface variant) | infrastructure: sequencers, the builder, the resolver |
+
+- Use a diagram only where it shows something faster than words: data flowing between view, view model and model; a
+  command's life cycle; a navigation stack; activation and deactivation; where work runs; suspension states. Most
+  pages need at most two.
+- Use rounded shapes (`(["text"])` or `("text")`) and `flowchart LR` unless the flow is a stack or a timeline. Use
+  `sequenceDiagram` for "who calls whom, in what order" and `stateDiagram-v2` for life cycles.
+- Keep to about eight nodes. Labels are plain words a grade 8 reader follows, in the page's own terms.
+- Put each diagram after the paragraph that introduces it, and follow it with one sentence saying what to notice.
+
 ## In Flight: Per-Operator Pages For ReactiveUI.Primitives
 
 The site is to carry one page per operator family for `ReactiveUI.Primitives`, with an example for every

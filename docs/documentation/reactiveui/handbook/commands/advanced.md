@@ -7,10 +7,10 @@ Order: 3
 
 The [basics page](index.md) creates commands with the static factory methods on `ReactiveCommand`. Those factories
 cover almost every case, because they call the same constructors this page covers directly. Write your own command
-type when every command of a kind needs behavior the factories cannot give you: recording every parameter a
-command has run with, logging every run of a combined command, or wrapping a non-reactive command source. This
-page also covers the interfaces a view model exposes a command through, and `SwitchSubscribe`, for following a
-command property that gets replaced.
+type when every command of a kind needs behavior the factories cannot give you. Examples are recording every
+parameter a command has run with, logging every run of a combined command, or wrapping a non-reactive command
+source. This page also covers the interfaces a view model exposes a command through, and `SwitchSubscribe`, for
+following a command property that gets replaced.
 
 ## Derive from `ReactiveCommand<TParam, TResult>`
 
@@ -77,8 +77,8 @@ Console.WriteLine(string.Join(", ", borrow.History));
 ```
 
 The second constructor is for execution logic that cancels through a callback instead of by unsubscribing. It
-takes a `Func<TParam, IObservable<(IObservable<TResult> Result, Action Cancel)>>`: an observable of a tuple
-holding the result observable and a `Cancel` action. `ReactiveCommand` calls `Cancel` when the execution is
+takes a `Func<TParam, IObservable<(IObservable<TResult> Result, Action Cancel)>>`. That is an observable of a
+tuple holding the result observable and a `Cancel` action. `ReactiveCommand` calls `Cancel` when the execution is
 disposed, instead of unsubscribing from `Result` directly. Use this when the work you are wrapping only knows how
 to stop through a callback of its own, such as a printer driver.
 
@@ -105,7 +105,7 @@ Console.WriteLine(string.Join(", ", printReceipt.History));
 Disposing `execution` calls `printerToldToStop`'s setter rather than unsubscribing from `printerOutput`, because
 this constructor cancels through the `Cancel` callback the execute function supplied.
 
-A failed execution's exception reaches `ThrownExceptions` even when nothing awaits `Execute` — a plain
+A failed execution's exception reaches `ThrownExceptions` even when nothing awaits `Execute`. A plain
 subscription sees it too, because `ThrownExceptions` is a separate stream from the command's result.
 
 ```csharp
@@ -208,7 +208,7 @@ Console.WriteLine(thirdRun[0]);
 // 4
 ```
 
-`withCanExecuteAndScheduler` combines `takeBackLoans` and `countShelf`, so its list has both results; the other
+`withCanExecuteAndScheduler` combines `takeBackLoans` and `countShelf`, so its list has both results. The other
 two combine a single child, so their list holds one.
 
 ## Derive from `ReactiveCommandBase<TParam, TResult>`
@@ -217,7 +217,7 @@ two combine a single child, so their list holds one.
 `CombinedReactiveCommand<TParam, TResult>` both build on. Deriving from it directly means implementing
 `CanExecute`, `IsExecuting`, `ThrownExceptions`, `Execute()`, `Execute(TParam)` and `Subscribe` yourself. It also
 means implementing two protected hooks, `ICommandCanExecute` and `ICommandExecute`. A `System.Windows.Input.ICommand`
-caller — such as XAML binding infrastructure — routes through these hooks instead of calling `CanExecute` and
+caller, such as XAML binding infrastructure, routes through these hooks instead of calling `CanExecute` and
 `Execute` directly. A realistic reason to derive this way is adapting an existing, non-reactive command source
 into ReactiveUI's contract, rather than writing execution logic that itself produces an `IObservable`.
 
@@ -261,6 +261,45 @@ Closing the desk raises `CanExecuteChanged`, which the sample's handler turns in
 `CanExecute(null)` again. `DeskAnnouncementCommand` raises that event itself, by calling the protected
 `OnCanExecuteChanged` method `ReactiveCommandBase` defines for exactly this purpose.
 
+## Subscribe a witness directly
+
+A command is an `IObservable<TResult>`. A witness is a class that implements `IObserver<T>` itself, instead of
+using an operator such as `Subscribe(Action<T>)`. A witness can subscribe to a command the normal way, whether
+the command is a `ReactiveCommand<TParam, TResult>` or a hand-written subclass of
+`ReactiveCommandBase<TParam, TResult>`. `BookReceiptPrinter` prints a receipt for every book a command produces:
+
+```csharp
+LibraryDesk desk = new();
+BookReceiptPrinter witness = new();
+
+using ReactiveCommand<int, Book> borrow = ReactiveCommand.Create<int, Book>(desk.Borrow);
+using IDisposable subscription = borrow.Subscribe(witness);
+
+_ = await borrow.Execute(1);
+_ = await borrow.Execute(4);
+
+// Output:
+// Printed a receipt for Clean Code
+// Printed a receipt for Refactoring
+```
+
+Code that only knows a command through the abstract `ReactiveCommandBase<TParam, TResult>` subscribes a witness the
+same way, whether the command underneath was built by a factory or, like `DeskAnnouncementCommand`, by hand:
+
+```csharp
+LibraryDesk desk = new();
+DeskAnnouncementBoard board = new();
+using DeskAnnouncementCommand closingSoon = new(desk, static () => "The desk closes in ten minutes.");
+
+ReactiveCommandBase<RxVoid, string> command = closingSoon;
+using IDisposable subscription = command.Subscribe(board);
+
+_ = await command.Execute();
+
+// Output:
+// Board: The desk closes in ten minutes.
+```
+
 ## Exposing a command from a view model
 
 A view model property typed as a concrete `ReactiveCommand<TParam, TResult>` or `CombinedReactiveCommand<TParam,
@@ -285,8 +324,8 @@ Console.WriteLine(matches[0].Title);
 ```
 
 `IReactiveCommand`, without the type parameters, drops `Execute` and the result type entirely. Use it for a method
-that only needs to know whether a command is busy or ready to run — a status bar, say. Neither the command's
-parameter type nor its result type matters there.
+that only needs to know whether a command is busy or ready to run. A status bar is one example. Neither the
+command's parameter type nor its result type matters there.
 
 ```csharp
 LibraryDesk desk = new();
@@ -318,13 +357,13 @@ private static async Task<string> DescribeAsync(IReactiveCommand command)
 
 ## Following a command property that gets replaced
 
-A clerk's console screen might swap in a new search command each time the clerk switches catalogue: `SearchCommand`
-on `DeskConsoleViewModel` is an `IReactiveCommand<TParam, TResult>?` property that gets reassigned, not a fixed
-field. Subscribing to `this.WhenAnyValue(x => x.SearchCommand)` gives you the command instances themselves, one
+A clerk's console screen might swap in a new search command each time the clerk switches catalogue.
+`SearchCommand` on `DeskConsoleViewModel` is an `IReactiveCommand<TParam, TResult>?` property that gets
+reassigned, not a fixed field. Subscribing to `this.WhenAnyValue(x => x.SearchCommand)` gives you the command instances themselves, one
 per assignment. You would still have to subscribe to whichever one is current by hand, and re-subscribe every
-time it changes. `SwitchSubscribe` does that for you. Given an observable of commands, or of any inner
-observable, it follows whichever one the property currently holds, dropping the old one and subscribing to the
-new one the moment the property changes.
+time it changes. `SwitchSubscribe` does that for you. Give it an observable of commands, or of any inner
+observable. It follows whichever one the property currently holds. It drops the old one, and it subscribes to
+the new one the moment the property changes.
 
 ```mermaid
 %%{init: {"theme": "base", "themeVariables": {"fontFamily": "Roboto, Helvetica, Arial, sans-serif", "fontSize": "15px", "primaryColor": "#DCE9FF", "primaryBorderColor": "#6C8EC4", "primaryTextColor": "#0B2447", "secondaryColor": "#E3F2E8", "secondaryBorderColor": "#7FA88C", "secondaryTextColor": "#12301C", "tertiaryColor": "#F3E5F5", "tertiaryBorderColor": "#A98BB0", "tertiaryTextColor": "#2E1437", "lineColor": "#7B8699", "textColor": "#1B1F27", "noteBkgColor": "#FFF4D6", "noteBorderColor": "#C9A94F", "noteTextColor": "#3A2A00", "actorBkg": "#DCE9FF", "actorBorder": "#6C8EC4", "actorTextColor": "#0B2447", "signalColor": "#7B8699", "signalTextColor": "#1B1F27", "labelBoxBkgColor": "#F1F3F8", "labelBoxBorderColor": "#A7AEBB", "edgeLabelBackground": "#F7F9FC", "clusterBkg": "#F7F9FC", "clusterBorder": "#C9D1DE"}}}%%
@@ -396,7 +435,7 @@ result stream completes. Swapping in a new command does not call it. A `Reactive
 fact, never completes on its own. So `onCompleted` is reachable only if the outer `WhenAnyValue` observable ends.
 
 **3. Pick one of the command's own observables with a selector.** `SwitchSubscribe(selector, onNext)` projects
-each command to one of its own observables — `IsExecuting`, here — before switching and subscribing. That lets you
+each command to one of its own observables, `IsExecuting` here, before switching and subscribing. That lets you
 drive a busy indicator from whichever command is current.
 
 ```csharp
@@ -421,8 +460,8 @@ The selector overload also takes error and completion handlers, for a command ty
 same three-callback shape as step 2.
 
 `SwitchSubscribe` is not limited to command properties. Any property typed as an `IObservable<T>` can be
-swapped and followed the same way: `DeskConsoleViewModel.Progress` is a running match count that gets replaced
-each time a new search starts.
+swapped and followed the same way. `DeskConsoleViewModel.Progress` is one example: a running match count that
+gets replaced each time a new search starts.
 
 ```csharp
 DeskConsoleViewModel console = new();
@@ -446,8 +485,8 @@ Console.WriteLine(string.Join(", ", matchCounts));
 // 1, 2, 5
 ```
 
-Once `console.Progress` is reassigned to `secondSearch`, further values from `firstSearch` (`3`) are dropped; only
-`secondSearch`'s values (`5`) reach `matchCounts`.
+Once `console.Progress` is reassigned to `secondSearch`, further values from `firstSearch` (`3`) are dropped.
+Only `secondSearch`'s values (`5`) reach `matchCounts`.
 
 A selector overload also works on a plain `IObservable<T>` property, when the value you want is not the property
 itself but something it exposes. `ActiveSession` holds a `SearchSession` record whose `MatchCount` is the stream
@@ -509,10 +548,14 @@ source, for apps that use System.Reactive instead.
 
 | Member | What it does |
 | --- | --- |
-| `ReactiveCommand<TParam, TResult>` constructor (result observable) | Base constructor a subclass uses to intercept every run; `ReactiveCommand.Create*` calls the same one. |
+| `ReactiveCommand<TParam, TResult>` constructor (result observable) | Base constructor a subclass uses to intercept every run. `ReactiveCommand.Create*` calls the same one. |
 | `ReactiveCommand<TParam, TResult>` constructor (cancel callback) | Base constructor for execution logic that cancels through a callback rather than by unsubscribing. |
 | `CombinedReactiveCommand<TParam, TResult>` constructors | Three base constructors a subclass uses, with `canExecute`, an `ISequencer`, or both. |
-| `ReactiveCommandBase<TParam, TResult>` | Abstract base every command type shares: `CanExecute`, `IsExecuting`, `ThrownExceptions`, `Execute`, `Subscribe`, plus the `ICommand` hooks a subclass overrides. |
+| `ReactiveCommandBase<TParam, TResult>` | Abstract base every command type shares. That includes `CanExecute`, `IsExecuting`, `ThrownExceptions`, `Execute`, `Subscribe`, plus the `ICommand` hooks a subclass overrides. |
+| `ReactiveCommandBase<TParam, TResult>.ICommandCanExecute(object?)` | Protected hook a subclass overrides. An `ICommand` caller's `CanExecute` routes here. |
+| `ReactiveCommandBase<TParam, TResult>.ICommandExecute(object?)` | Protected hook a subclass overrides. An `ICommand` caller's `Execute` routes here. |
+| `ReactiveCommandBase<TParam, TResult>.Subscribe(IObserver<TResult>)` | Subscribes a witness directly to a command's results. |
+| `ReactiveCommand<TParam, TResult>.Subscribe(IObserver<TResult>)` | The same subscription on a plain `ReactiveCommand<TParam, TResult>`. |
 | `IReactiveCommand<TParam, TResult>` | The interface to expose a command through when a view model should not commit to a concrete command type. |
 | `IReactiveCommand` | The non-generic interface for code that only needs `CanExecute` and `IsExecuting`. |
 | `SwitchSubscribe` | Subscribes to the inner observable a property currently holds, following each replacement. |

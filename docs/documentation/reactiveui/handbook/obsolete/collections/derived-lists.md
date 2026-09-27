@@ -7,9 +7,9 @@ Order: 2
 
 ## CreateDerivedCollection
 
-`CreateDerivedCollection` projected a `ReactiveList` into another list that stayed in step with the source: adding,
-removing or filtering an item in the source updated the derived list automatically, and the derived list could also
-sort and filter on its own terms.
+`CreateDerivedCollection` projected a `ReactiveList` into another list that stayed in step with the source.
+Adding, removing or filtering an item in the source updated the derived list automatically. The derived list
+could also sort and filter on its own terms.
 
-The same projections — mapping, filtering and ordering a collection that updates as its source changes — are
-available today through DynamicData's source lists and caches. See [DynamicData operators](../../collections.md).
+DynamicData's source lists and caches offer the same projections today. That means mapping, filtering and
+ordering a collection so it updates as its source changes. See [DynamicData operators](../../collections.md).

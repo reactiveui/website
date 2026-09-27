@@ -161,11 +161,92 @@ also pushes the new value onto `ViewContractObservable`, so a binding that watch
 no view is registered for the routed view model, `ResolveViewForViewModel` throws an `InvalidOperationException`
 rather than showing nothing.
 
+Set `ViewContract` before the router navigates, and the host asks the view locator for the view registered under
+that contract, falling back to the contract-free view when none matches. A `ViewLocator` set on the host, rather
+than on the builder, keeps a set of mappings private to that host, the way each example below does.
+
+```csharp
+DefaultViewLocator locator = new();
+locator.Map<SensorMaintenanceViewModel, SensorMaintenanceView>();
+locator.Map<SensorMaintenanceViewModel, SensorMaintenanceCompactView>("Compact");
+
+WeatherShell defaultShell = new();
+RoutedViewHost defaultHost = new() { ViewLocator = locator, Router = defaultShell.Router };
+_ = defaultShell.Router.Navigate.Execute(new SensorMaintenanceViewModel(defaultShell, "Harbor", "Replace the wind vane")).Subscribe();
+Console.WriteLine(((SensorMaintenanceView)defaultHost.Content).Summary);
+
+WeatherShell compactShell = new();
+RoutedViewHost compactHost = new() { ViewLocator = locator, Router = compactShell.Router, ViewContract = "Compact" };
+_ = compactShell.Router.Navigate.Execute(new SensorMaintenanceViewModel(compactShell, "Riverside", "Clean the rain gauge")).Subscribe();
+Console.WriteLine(((SensorMaintenanceCompactView)compactHost.Content).Summary);
+Console.WriteLine(compactHost.ViewContract);
+
+string? published = null;
+using IDisposable subscription = ((IObservable<string?>)compactHost.GetValue(RoutedViewHost.ViewContractObservableProperty))
+    .Subscribe(contract => published = contract);
+Console.WriteLine(published);
+```
+
+```text
+Harbor: Replace the wind vane
+Riverside
+Compact
+Compact
+```
+
+`RoutedViewHost<TViewModel>` reads `ViewContractObservableProperty` the same way, through its own generic
+`ViewContractObservableProperty` field.
+
 `ViewModelViewHost` and its generic form add `ViewModel` and `ContractFallbackByPass` to the same set of properties
 (`ViewModelProperty` and `ContractFallbackByPassProperty`). Assign `null` and the host shows `DefaultContent`. When
 `ContractFallbackByPass` is `false` and no view matches the contract, the host falls back to a view without one;
 when it is `true`, that fallback is skipped. If no view is found at all, the host logs a warning and shows
 `DefaultContent` instead of throwing.
+
+`ViewModelViewHost` resolves through the protected `ResolveViewForViewModel(object?, string?)`, called once for the
+freshly constructed host and again for every later `ViewModel` change. Override it, calling the base implementation
+first, to add behavior of your own, such as recording which view it chose. `ViewContract` still republishes onto
+`ViewContractObservable`, the same stream the `ViewContractObservableProperty` dependency property holds. On
+`ViewModelViewHost`, though, the host looks views up with the contract stream it builds from the window's size when
+it is constructed. A `ViewContract` or `ViewContractObservable` you set later is stored and published, but the host
+does not use it to choose a view, not even on the next `ViewModel` change. When the contract must choose the view,
+host the page in a `RoutedViewHost`, which watches its `ViewContract`.
+
+```csharp
+DefaultViewLocator locator = new();
+locator.Map<WeatherReading, WeatherReadingRowView>();
+
+AnalyticsViewModelViewHost host = new() { ViewLocator = locator };
+WeatherReading riverside = new("Riverside", 18.5, isStormy: false);
+WeatherReading highlands = new("Highlands", 9.0, isStormy: true);
+
+host.ViewModel = riverside;
+host.ViewModel = highlands;
+
+Console.WriteLine(string.Join(", ", host.ResolvedViews));
+
+host.ViewContract = "Wide";
+Console.WriteLine(host.ViewContract);
+
+string? published = null;
+using IDisposable subscription = host.ViewContractObservable.Subscribe(contract => published = contract);
+Console.WriteLine(published);
+
+bool sameObservable = ReferenceEquals(host.ViewContractObservable, host.GetValue(ViewModelViewHost.ViewContractObservableProperty));
+Console.WriteLine(sameObservable);
+```
+
+```text
+(nothing), WeatherReadingRowView, WeatherReadingRowView
+Wide
+Wide
+True
+```
+
+`AnalyticsViewModelViewHost` is a `ViewModelViewHost` subclass that overrides `ResolveViewForViewModel` to append
+the resolved view's type name to a list. The first entry, `(nothing)`, is the empty host's own construction-time
+resolution, before any `ViewModel` is assigned. `ViewModelViewHost<TViewModel>` overrides the generic
+`ResolveViewForViewModel(TViewModel?, string?)` the same way.
 
 Both hosts derive from `TransitioningContentControl`, a plain `ContentControl` with a single transition. It carries
 no members of its own beyond what `ContentControl` gives it, and the example also uses it directly, further down,
@@ -247,6 +328,41 @@ their conversion hint is a `BooleanToVisibilityHint`, with members `None`, `Inve
 `ToVisibility.TryConvert` with `BooleanToVisibilityHint.None` maps `true` to `Visibility.Visible` and `false` to
 `Visibility.Collapsed`; with `Inverse`, the mapping flips. `ToBoolean.TryConvert` does the opposite conversion, so
 the assertion above proves that converting a `Visibility` back with the same hint reproduces the original flag.
+
+`GetAffinityForObjects()` is how ReactiveUI's binding resolution picks a converter: it asks every registered
+`IBindingTypeConverter` for its affinity and uses the one with the highest score. Both converters return the same
+built-in score. `BooleanToVisibilityHint.UseHidden` asks for `Visibility.Hidden` instead of `Visibility.Collapsed`
+for the non-visible value; WinUI's `Visibility` enum has no `Hidden` member, so the converter ignores the hint there.
+
+```csharp
+BooleanToVisibilityTypeConverter converter = new();
+
+_ = converter.TryConvert(false, BooleanToVisibilityHint.None, out Visibility none);
+_ = converter.TryConvert(false, BooleanToVisibilityHint.UseHidden, out Visibility useHidden);
+
+Console.WriteLine(none);
+Console.WriteLine(useHidden);
+Console.WriteLine(none == useHidden);
+```
+
+```text
+Collapsed
+Collapsed
+True
+```
+
+```csharp
+BooleanToVisibilityTypeConverter toVisibility = new();
+VisibilityToBooleanTypeConverter toBoolean = new();
+
+Console.WriteLine(toVisibility.GetAffinityForObjects());
+Console.WriteLine(toBoolean.GetAffinityForObjects());
+```
+
+```text
+2
+2
+```
 
 ## Fill a list without an `ItemTemplate`
 
@@ -505,14 +621,14 @@ fired, so this fresh subscription has nothing to deliver yet, and only the affin
 | `WinUIMainThreadScheduler` | The shared `DispatcherQueueSequencer.Main` sequencer for the WinUI UI thread. |
 | `WinUI.Registrations` | The `IWantsToRegisterStuff` `WithWinUI` installs; registers the fetcher, both converters, `PlatformOperations` and `AutoDataTemplateBindingHook`. |
 | `WinUI.ActivationForViewFetcher` | Reports affinity `10` for any `FrameworkElement`; its activation stream follows `Loading`/`Unloaded`, gated on `IsHitTestVisible`. |
-| `RoutedViewHost` / `RoutedViewHost<TViewModel>` | Shows the view for whichever page is on top of a `Router`'s stack. Finds generated and `Map` views without reflection. Properties: `Router`, `DefaultContent`, `ViewContract`, `ViewContractObservable`, `ViewLocator`. |
-| `ViewModelViewHost` / `ViewModelViewHost<TViewModel>` | Shows the view for a view model you assign directly. Adds `ViewModel` and `ContractFallbackByPass` to the routed host's properties. |
+| `RoutedViewHost` / `RoutedViewHost<TViewModel>` | Shows the view for whichever page is on top of a `Router`'s stack. Finds generated and `Map` views without reflection. Properties: `Router`, `DefaultContent`, `ViewContract`, `ViewContractObservable` (backed by `ViewContractObservableProperty`), `ViewLocator`. |
+| `ViewModelViewHost` / `ViewModelViewHost<TViewModel>` | Shows the view for a view model you assign directly. Adds `ViewModel` and `ContractFallbackByPass` to the routed host's properties. `ResolveViewForViewModel` is the protected method both override to resolve and show a view. |
 | `ReactivePage<TViewModel>` | A `Page` that implements `IViewFor<TViewModel>` through a `ViewModel` dependency property. |
 | `ReactiveUserControl<TViewModel>` | A `UserControl` that implements `IViewFor<TViewModel>` the same way. |
 | `TransitioningContentControl` | A `ContentControl` with a single transition; the base class both view hosts build on. |
 | `AutoDataTemplateBindingHook` | Assigns `DefaultItemTemplate` to an `ItemsControl` bound with no `ItemTemplate` of its own. The template names only WinUI types, so it works in a code-only app. |
 | `RoutedViewHostUnsafe` / `ViewModelViewHostUnsafe` | The hosts with one more lookup step: the service locator, for `IViewFor<T>` of the view model's run-time type. Marked `[RequiresDynamicCode]`. |
 | `AutoDataTemplateBindingHookUnsafe` | Replaces the safe hook's default template with its own `DefaultItemTemplate`, which hosts each item in a `ViewModelViewHostUnsafe`. Marked `[RequiresDynamicCode]`. |
-| `BooleanToVisibilityTypeConverter` / `VisibilityToBooleanTypeConverter` | Convert between `bool` and `Visibility`, honoring a `BooleanToVisibilityHint`. |
+| `BooleanToVisibilityTypeConverter` / `VisibilityToBooleanTypeConverter` | Convert between `bool` and `Visibility`, honoring a `BooleanToVisibilityHint`. `GetAffinityForObjects()` returns the same built-in score, `2`, for both. |
 | `BooleanToVisibilityHint` | `None`, `Inverse` and `UseHidden`; WinUI ignores `UseHidden`. |
 | `PlatformOperations` | `GetOrientation()` always returns `null` on WinUI. |
