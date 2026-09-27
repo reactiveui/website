@@ -260,7 +260,18 @@ platform base classes already do this.
 
 ## Interactions
 
-`Interaction<TInput, TOutput>.Handle` returns `Task<TOutput>`, not `IObservable<TOutput>`. Await it:
+Use ReactiveUI 25.0.1 or later. It brings ReactiveUI.Binding 8.6.0, which lets you ask an interaction as an
+observable again and run its handlers on a scheduler.
+
+Pick the call that fits your code:
+
+| You hold | Call | It returns |
+|---|---|---|
+| `Interaction<TInput, TOutput>` | `Handle(input)` | `Task<TOutput>` |
+| `Interaction<TInput, TOutput>` | `WhenHandled(input)` | `IObservable<TOutput>` |
+| `IInteraction<TInput, TOutput>` | `Handle(input)` | `IObservable<TOutput>` |
+
+`Interaction<TInput, TOutput>.Handle` returns a `Task<TOutput>`. Await it:
 
 ```csharp
 if (!await ConfirmDelete.Handle(item))
@@ -268,6 +279,32 @@ if (!await ConfirmDelete.Handle(item))
     return false;
 }
 ```
+
+Code that subscribed to `Handle`, or used it inside an observable chain, calls `WhenHandled` instead. It can also
+keep calling `Handle` through an `IInteraction<TInput, TOutput>` variable or property:
+
+```csharp
+ConfirmDelete.WhenHandled(item)
+    .Where(static confirmed => confirmed)
+    .Subscribe(_ => Items.Remove(item));
+```
+
+`WhenHandled` returns a *cold* observable. Nothing runs until you subscribe, and each subscription asks the
+question once. The observable fails with `UnhandledInteractionException<TInput, TOutput>` when no handler sets an
+output. Disposing the subscription drops the answer, but a handler that has already started still finishes.
+
+A class that implements `IInteraction<TInput, TOutput>` itself must implement `Handle(TInput)` and return an
+`IObservable<TOutput>`. Classes that use or derive from `Interaction<TInput, TOutput>` need nothing.
+
+To run every handler on the UI thread, pass the main thread's scheduler to the constructor. A handler that opens a
+dialog then runs on the right thread, whichever thread asked the question:
+
+```csharp
+public Interaction<Item, bool> ConfirmDelete { get; } = new(RxSchedulers.MainThreadScheduler);
+```
+
+The constructor takes an `ISequencer`, or an `IScheduler` in the System.Reactive flavor. Without one, or with
+`null`, handlers run on the thread that asked.
 
 A handler receives an `IInteractionContext<TInput, TOutput>` from `ReactiveUI.Binding`. Register your handlers
 against that type.
