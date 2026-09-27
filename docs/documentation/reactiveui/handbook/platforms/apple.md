@@ -147,9 +147,9 @@ macOS, where `View` has no default), then bind inside `WhenActivated` so every b
 leaves and starts again if it returns.
 
 ```csharp
-public sealed class BookListViewController : ReactiveViewController<BookCatalogViewModel>
-{
     internal UIButton LoanButton { get; } = UIButton.FromType(UIButtonType.System);
+
+    internal LoanBoardView LoanBoard { get; } = new(CGRect.Empty);
 
     public override void ViewDidLoad()
     {
@@ -174,6 +174,9 @@ public sealed class BookListViewController : ReactiveViewController<BookCatalogV
         });
     }
 ```
+
+`LoanBoard` is a compact "on loan now" list docked below the button; [Tables and collections](#tables-and-collections)
+covers what it is and how it gets its rows.
 
 `LoanButton` is `internal`, not `private`: the `this.BindCommand(...)` call above compiles to a generated,
 reflection-free dispatch, and the generator can only observe a `public` or `internal` member. A `private` target
@@ -200,6 +203,7 @@ protected override void Dispose(bool disposing)
     {
         _rows.Dispose();
         LoanButton.Dispose();
+        LoanBoard.Dispose();
     }
 
     base.Dispose(disposing);
@@ -220,8 +224,6 @@ source instead of a stack of rows, which is a different chunk of this API covere
 [Tables and collections](#tables-and-collections) below.
 
 ```csharp
-public sealed class BookRowView : ReactiveView<Book>
-{
     internal UILabel TitleLabel { get; } = new() { Font = UIFont.PreferredHeadline! };
 
     internal UILabel StatusLabel { get; } = new() { Font = UIFont.PreferredSubheadline!, TextColor = UIColor.SecondaryLabel };
@@ -394,7 +396,7 @@ carries the same `[RequiresDynamicCode]` restriction as `RoutedViewHostUnsafe`, 
 on macOS, so the library's split-view root is the one container this page shares across every Apple platform.
 
 `LibraryTabBarController` is the iPhone root: a `RoutedViewHost` catalog tab, a `MembersNavigationController`
-tab, and a `BookCoverPagerViewController` tab.
+tab, a `BookCoverPagerViewController` tab, and a `BookShelfViewController` tab.
 
 ```csharp
 public sealed class LibraryTabBarController : ReactiveTabBarController<LibraryShellViewModel>
@@ -405,7 +407,13 @@ public sealed class LibraryTabBarController : ReactiveTabBarController<LibrarySh
 ```
 
 ```csharp
-        ViewControllers = [catalogHost, membersNav, coverPager];
+        BookShelfViewController shelf = new()
+        {
+            ViewModel = catalog,
+            TabBarItem = new UITabBarItem("Shelf", null, 3),
+        };
+
+        ViewControllers = [catalogHost, membersNav, coverPager, shelf];
 
         _ = this.WhenActivated(d =>
         {
@@ -458,8 +466,6 @@ own type (`ReactiveViewController<BookCatalogViewModel>`) and how a split item i
 on macOS) differ between the two.
 
 ```csharp
-public sealed class LibrarySplitViewController : ReactiveSplitViewController<LibraryShellViewModel>
-{
     public LibrarySplitViewController(LibraryShellViewModel shell, BookCatalogViewModel catalog)
     {
         ViewModel = shell;
@@ -542,8 +548,163 @@ System.Reactive instead of the primitives this page's samples use.
 
 ## Tables and collections
 
-`ReactiveTableViewController<TViewModel>`, `ReactiveCollectionViewController<TViewModel>` and the sources and
-cells that feed them are a different chunk of this API surface, covered separately.
+`ReactiveTableViewController<TViewModel>`, `ReactiveCollectionViewController<TViewModel>` and the plain
+`ReactiveTableView<TViewModel>`/`ReactiveCollectionView<TViewModel>` views wrap `UITableView` and `UICollectionView`
+with a reactive source that keeps rows in sync with a collection. `Members` and `Books` are both
+`ObservableCollection<T>`, ReactiveUI's collection change-set support: because each implements
+`INotifyCollectionChanged`, a bound source adds and removes rows as the collection changes, with no extra code.
+These types exist only on UIKit (iOS, Mac Catalyst, tvOS); AppKit has no table or collection source.
+
+**1. Pair the collection with a cell and a header.** `TableSectionInformation<TSource, TCell>` names the collection,
+the cell type's reuse key, a row height, and an optional `Action<TCell>` that runs once a cell is dequeued.
+`TableSectionInformation<TSource>` is the base type its `Header`, `Footer`, `Collection`, `CellKeySelector`,
+`InitializeCellAction` and `SizeHint` live on, and the type `ReactiveTableViewSource<TSource>.Data` returns. A
+`TableSectionHeader` names a section from a `string`, or builds its own view from a `Func<UIView>` and a height:
+
+```csharp
+TableSectionInformation<Member, MemberCell> section = new(
+    ViewModel!.Members,
+    MemberCell.Key,
+    sizeHint: 56F,
+    static cell => Console.WriteLine($"Initializing a {cell.GetType().Name}."))
+{
+    Header = new TableSectionHeader("Members"),
+    Footer = new TableSectionHeader(
+        static () => new UILabel
+        {
+            Text = "Tap a member to see their card.",
+            TextAlignment = UITextAlignment.Center,
+            Font = UIFont.PreferredFootnote!,
+            TextColor = UIColor.SecondaryLabel,
+        },
+        24F),
+};
+IReadOnlyList<TableSectionInformation<Member, MemberCell>> sections = [section];
+```
+
+The family's constructors differ only in a fixed `NSString` reuse key versus a `Func<object?, NSString>` chosen per
+item, and whether the `Action<TCell>` is supplied; this table always shows one cell, so it never needs the per-item
+selector. `CollectionViewSectionInformation<TSource>` and `CollectionViewSectionInformation<TSource, TCell>` are the
+same two types for a `UICollectionView`.
+
+**2. Bind the sections to the table view.** `ReactiveTableViewSourceExtensions.BindTo` builds a
+`ReactiveTableViewSource<TSource>`, sets it as the table view's `Source`, and keeps `Data` current whenever the
+sections observable emits again. The overload that takes a list of sections does not register the cell class, so
+`ViewDidLoad` calls `TableView.RegisterClassForCellReuse(typeof(MemberCell), MemberCell.Key)` once itself, before the
+table ever asks for a cell:
+
+```csharp
+d(Signal.Emit(sections).BindTo(TableView, source =>
+{
+    Source = source;
+    return source.ElementSelected.Subscribe(static item => Console.WriteLine($"Selected member {((Member)item!).Name}."));
+}));
+```
+
+`initSource` runs once, right after the source is built and before `Data` is set; it is the place to keep a reference
+to the source and subscribe to `ElementSelected`, the stream of tapped rows. `InsertRowsAnimation`, `DeleteRowsAnimation`,
+`ReloadRowsAnimation`, `InsertSectionsAnimation`, `DeleteSectionsAnimation` and `ReloadSectionsAnimation` keep their
+default `UITableViewRowAnimation.Automatic` here, since this table's `Data` is set once and never changes again.
+`Source.Data[0]` then reads back the same
+`Header`, `SizeHint`, `Collection` and `InitializeCellAction` the constructor above set, this time through the
+one-argument `TableSectionInformation<TSource>` the `Data` list holds.
+
+**3. Write the cell.** `ReactiveTableViewCell<TViewModel>` is an `IViewFor<TViewModel>` `UITableViewCell`. UIKit
+dequeues one through the `(IntPtr)` constructor a class registration needs, never any other. `MemberCell` also shows
+the six classic `IReactiveObject` members every reactive Apple type carries: since `Member` is an immutable record
+rather than a `ReactiveObject`, the label follows `ViewModel` itself changing instead of a `OneWayBind` on one of its
+properties:
+
+```csharp
+        // The classic events fire for any property change; a cell can use them without going through Changed/Changing.
+        PropertyChanged += static (_, e) => Console.WriteLine($"MemberCell.{e.PropertyName} changed (classic event).");
+        PropertyChanging += static (_, e) => Console.WriteLine($"MemberCell.{e.PropertyName} changing (classic event).");
+
+        _ = this.WhenActivated(d =>
+        {
+            // Member is an immutable record, not a ReactiveObject, so the label follows ViewModel itself changing
+            // (which the cell base class does raise) rather than a OneWayBind on one of its properties.
+            d(this.WhenAnyValue(static v => v.ViewModel).Subscribe(member => NameLabel.Text = member?.Name));
+            d(Changing.Subscribe(static _ => Console.WriteLine("MemberCell changing.")));
+            d(Changed.Subscribe(static _ => Console.WriteLine("MemberCell changed.")));
+            d(ThrownExceptions.Subscribe(static error => Console.WriteLine($"MemberCell binding failed: {error.Message}")));
+            d(Activated.Subscribe(static _ => Console.WriteLine("MemberCell activated.")));
+            d(Deactivated.Subscribe(static _ => Console.WriteLine("MemberCell deactivated.")));
+        });
+```
+
+`PrepareForReuse` clears that binding target inside a `SuppressChangeNotifications()` scope, so the reset itself never
+looks like a change to anything observing the cell.
+
+**4. Host the same collection in a plain view.** `ReactiveTableView<TViewModel>` and `ReactiveCollectionView<TViewModel>`
+give a `UITableView`/`UICollectionView` an `IViewFor<TViewModel>` `ViewModel` property with no controller of its own.
+The members page uses one as a header above its table: a horizontal strip of chips, bound with the simpler overload
+that takes a collection directly and registers its own cell:
+
+```csharp
+public sealed class MemberChipStripView : ReactiveCollectionView<MembersViewModel>
+{
+    public MemberChipStripView(CGRect frame, UICollectionViewLayout layout)
+        : base(frame, layout)
+    {
+        BackgroundColor = UIColor.SystemBackground;
+
+        _ = this.WhenActivated(d =>
+            d(Signal.Emit<INotifyCollectionChanged>(ViewModel!.Members).BindTo<Member, MemberChipCell>(this)));
+    }
+}
+```
+
+`BookListViewController` does the same with a `ReactiveTableView<BookCatalogViewModel>` further down its stack,
+listing the books currently on loan.
+
+**5. Give a grid a section header.** `ReactiveCollectionViewController<TViewModel>` wraps `UICollectionView` the way
+`ReactiveTableViewController<TViewModel>` wraps `UITableView`, but its source, `ReactiveCollectionViewSource<TSource>`,
+has no header hook of its own, unlike the table source's `Header`/`Footer`. A grid that needs a header subclasses the
+source and overrides `GetViewForSupplementaryElement`, the UIKit method that returns a header or footer view, which
+`BindTo` would otherwise leave unimplemented. It returns a `ReactiveCollectionReusableView<TViewModel>`, which
+`BookShelfViewController` dequeues by class the same way it dequeues a cell. `ViewDidLoad` registers both the cell
+and the header, since the sections overload of `BindTo` registers neither, then builds the section and constructs the
+source directly instead of calling `BindTo`, since the header needs the subclass above:
+
+```csharp
+public override UICollectionReusableView GetViewForSupplementaryElement(UICollectionView collectionView, NSString elementKind, NSIndexPath indexPath)
+{
+    ShelfHeaderView header = (ShelfHeaderView)collectionView.DequeueReusableSupplementaryView(UICollectionElementKindSection.Header, HeaderKey, indexPath);
+    header.ViewModel = _catalog;
+    return header;
+}
+```
+
+```csharp
+            CollectionViewSectionInformation<Book, BookCoverCell> section = new(
+                ViewModel!.Books,
+                static _ => CoverCellKey,
+                static cell => Console.WriteLine($"Initializing a {cell.GetType().Name}."));
+            IReadOnlyList<CollectionViewSectionInformation<Book, BookCoverCell>> sections = [section];
+
+            BookShelfCollectionViewSource source = new(CollectionView!, ViewModel);
+            source.Data = sections;
+            CollectionView!.Source = source;
+```
+
+`source.Data[0]` reads back through the one-argument `CollectionViewSectionInformation<TSource>`, the same way the
+table section does. A `ReactiveCollectionReusableView<TViewModel>` reacts to `ViewModel` directly rather than through
+`WhenActivated`, because UIKit sets it right after dequeuing the view and before adding it to the hierarchy:
+
+```csharp
+        _ = this.WhenAnyValue(static v => v.ViewModel)
+            .WhereNotNull()
+            .Subscribe(vm => CountLabel.Text = $"{vm.Books.Count} book(s)");
+```
+
+**6. Normalize a batch of index changes.** `Update`, `UpdateType` and `IndexNormalizer` are the infrastructure
+`ReactiveTableViewSource<TSource>` and `ReactiveCollectionViewSource<TSource>` use internally to turn a burst of adds
+and deletes on a collection into the ordered, de-duplicated batch UIKit's own batch-update APIs require. `Update` has
+no public constructor; only `Update.CreateAdd(int)`, `Update.CreateDelete(int)` and `Update.Create(UpdateType, int)`
+build one, and `IndexNormalizer.Normalize(IEnumerable<Update>)` is the one method that consumes them. Application code
+never calls it: a source's own `Data` setter and `INotifyCollectionChanged` handler already normalize every batch
+before applying it to the table or collection view.
 
 ## At a glance
 
@@ -580,3 +741,15 @@ cells that feed them are a different chunk of this API surface, covered separate
 | `ViewModelViewHost` | Shows whichever view model is assigned to it, resolved through its own `ViewLocator` |
 | `ViewModelViewHost.ViewModel` / `ViewLocator` / `DefaultContent` / `ViewContract` / `ViewContractObservable` | The view model to show, the locator, the placeholder shown when `ViewModel` is `null`, and an optional contract |
 | `ViewModelViewHostUnsafe` | The `ViewModelViewHost` twin that also resolves a service-locator-only view; carries `[RequiresDynamicCode]` |
+| `ReactiveTableViewController<TViewModel>` / `ReactiveCollectionViewController<TViewModel>` [ios] | A `UITableViewController`/`UICollectionViewController` that is an `IViewFor<TViewModel>` |
+| `ReactiveTableView<TViewModel>` / `ReactiveCollectionView<TViewModel>` [ios] | A `UITableView`/`UICollectionView` that is an `IViewFor<TViewModel>`, usable with no controller of its own |
+| `ReactiveTableViewCell<TViewModel>` / `ReactiveCollectionViewCell<TViewModel>` [ios] | A `UITableViewCell`/`UICollectionViewCell` that is an `IViewFor<TViewModel>` |
+| `ReactiveCollectionReusableView<TViewModel>` [ios] | A `UICollectionReusableView` that is an `IViewFor<TViewModel>`; used for a grid's section header or footer |
+| `ReactiveTableViewSource<TSource>` / `ReactiveCollectionViewSource<TSource>` [ios] | Drives a table or collection view from a `Data` list of sections; the collection source has no header hook, so subclass it to add one |
+| `ReactiveTableViewSource<TSource>.Data` / `ElementSelected` / `*RowsAnimation` / `*SectionsAnimation` | The bound sections, the stream of tapped rows, and the `UITableViewRowAnimation` each kind of update uses |
+| `ReactiveCollectionViewSource<TSource>.Data` / `ElementSelected` | The bound sections, and the stream of tapped cells |
+| `ReactiveTableViewSourceExtensions.BindTo` / `ReactiveCollectionViewSourceExtensions.BindTo` [ios] | Builds a source from a collection or a list of sections, and sets it on the table or collection view |
+| `TableSectionInformation<TSource>` / `TableSectionInformation<TSource, TCell>` [ios] | A table section: its collection, cell reuse key, size hint, header and footer |
+| `CollectionViewSectionInformation<TSource>` / `CollectionViewSectionInformation<TSource, TCell>` [ios] | The same section shape for a `UICollectionView`, with no header of its own |
+| `TableSectionHeader` [ios] | A section header or footer: a `string` title, or a `Func<UIView>` and a height |
+| `Update` / `UpdateType` / `IndexNormalizer` | The batching infrastructure the sources use internally to normalize adds and deletes for UIKit |
