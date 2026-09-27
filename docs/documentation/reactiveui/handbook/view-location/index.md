@@ -145,8 +145,14 @@ registers a `DefaultViewLocator`, such as `WithCoreServices` or a platform modul
 `InvalidOperationException`, because it has no locator to add the module's views to.
 
 ```csharp
-ExampleApp.Start(static builder => _ = builder.WithViewModule<GitHubViewModule>());
+ExampleApp.Start(static builder => builder
+    .WithViewModule<GitHubViewModule>()
+    .WithRegistration(static resolver => resolver.RegisterConstant<IActivationForViewFetcher>(new VendorDialogActivationFetcher())));
 ```
+
+The `WithRegistration` call also on that builder registers an activation fetcher a later page needs; it plays
+no part in view modules. [Extending IViewFor](extending-iviewfor.md#bridge-a-third-party-base) covers what it
+does.
 
 Resolving a view model from that feature works the same as any other.
 

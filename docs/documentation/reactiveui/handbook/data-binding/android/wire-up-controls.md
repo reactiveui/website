@@ -127,6 +127,23 @@ against the inflated row view, from its constructor body:
     this.WireUpControls();
 ```
 
+A fragment calls a two-argument overload instead, since it wires against its inflated view rather than itself.
+`LessonNotesFragment` uses the convenience form of that overload, which takes only the view and applies
+`Implicit` without naming it:
+
+```csharp
+View view = inflater!.Inflate(Resource.Layout.fragment_lesson_notes, container, false)
+    ?? throw new InvalidOperationException("Inflating fragment_lesson_notes produced no view.");
+
+// The convenience overload: no resolve strategy to state, since Implicit is what most fragments want.
+AndroidX.ControlFetcherMixins.WireUpControls(this, view);
+```
+
+The core, non-AndroidX `ReactiveUI.ControlFetcherMixins` declares the same two overloads for the platform's own
+`Android.App.Fragment`. This page does not show them: attaching a classic `Fragment` to an activity needs the
+classic `Activity.FragmentManager`, which the Android platform itself deprecated at API level 28, and the
+timetable app targets a newer API than that.
+
 ### Explicit opt-in
 
 Under `ExplicitOptIn`, only a property that carries `[WireUpResource]` is wired; every other property is
@@ -164,6 +181,23 @@ instead of as an extension method:
 
 ```csharp
 AndroidX.ControlFetcherMixins.WireUpControls(this, view, ControlFetcherMixins.ResolveStrategy.ExplicitOptIn);
+```
+
+`[WireUpResource]`'s constructor argument is stored on `ResourceNameOverride`; `GetResourceName()` reads it as a
+fallback when a property carries no override. `LessonDetailFragment` also reads it directly, off the attribute
+itself:
+
+```csharp
+// The name SubjectLabel was wired under: WireUpResourceAttribute.ResourceNameOverride, read directly
+// rather than through GetResourceName().
+WireUpResourceAttribute? subjectAttribute = typeof(LessonDetailFragment)
+    .GetProperty(nameof(SubjectLabel))!
+    .GetCustomAttribute<WireUpResourceAttribute>();
+TimetableLog.Info($"SubjectLabel's resource name override: {subjectAttribute?.ResourceNameOverride}.");
+```
+
+```text
+SubjectLabel's resource name override: detailSubject.
 ```
 
 The fragment's layout carries a third control, `detailIcon`, that no property wires. `GetControl` fetches it
@@ -249,9 +283,10 @@ fetches `extraLabel` directly on the activity, the same way `LessonDetailFragmen
 `LessonCountBadgeHost`, a host with no view model, wires its one label through the auto-wireup constructor of
 `LayoutViewHostUnsafe` instead of a call to `WireUpControls` in its own body. Its constructor passes
 `attachToRoot: false`, `performAutoWireup: true` and `resolveStrategy: ControlFetcherMixins.ResolveStrategy.Implicit`
-to the base constructor, which performs the same `Implicit` wire-up once inflation finishes; the constructor's
-own body adds nothing further. `ReactiveViewHostUnsafe<TViewModel>` offers the same constructor for a host with a view
-model. The reflection-free `LayoutViewHost` and `ReactiveViewHost<TViewModel>` have no such constructor.
+to the base constructor, which calls the `ILayoutViewHost` overload of `WireUpControls` itself once inflation
+finishes; the constructor's own body adds nothing further. `ReactiveViewHostUnsafe<TViewModel>` offers the same
+constructor for a host with a view model, and `FirstLessonPeekHost` passes the same two flags to it. The
+reflection-free `LayoutViewHost` and `ReactiveViewHost<TViewModel>` have no such constructor.
 
 A host that wires its child without reflection, and stays trim- and AOT-safe, uses the `bind`-callback
 constructor instead and calls `FindViewById` itself. `WeekdayViewHost`, one page of the weekday pager, passes
