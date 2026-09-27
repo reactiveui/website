@@ -474,7 +474,7 @@ on macOS) differ between the two.
 
 ## The macOS window
 
-`ReactiveWindowController` wraps `NSWindowController` with a `ViewModel` property, since AppKit has nothing like
+`ReactiveWindowController` wraps `NSWindowController` with `ReactiveObject` powers, since AppKit has nothing like
 a `UITableViewController` in this surface and needs its own window-level base class. `MainWindowController`
 builds the window in `CreateWindow`, which its constructor passes straight to the base constructor, then builds
 the split view once `WindowDidLoad` runs:
@@ -495,17 +495,18 @@ public sealed class MainWindowController : ReactiveWindowController
 ```csharp
         Window!.ContentViewController = new LibrarySplitViewController(shell, catalog);
 
-        // ReactiveWindowController does not implement IActivatableView, unlike the view and controller types, so
-        // it subscribes to Activated/Deactivated directly rather than through WhenActivated.
+        // The non-generic ReactiveWindowController is not an IViewFor, so it subscribes to Activated/Deactivated
+        // directly rather than through WhenActivated.
         _ = Activated.Subscribe(static _ => Console.WriteLine("MainWindowController activated."));
         _ = Deactivated.Subscribe(static _ => Console.WriteLine("MainWindowController deactivated."));
     }
 ```
 
-Every other Reactive base class on this page implements the interface `WhenActivated` needs and can use it
-directly. `ReactiveWindowController` does not, so it subscribes to `Activated`/`Deactivated` itself instead of
-wrapping the subscriptions in `WhenActivated`. Both still fire the same way, from `WindowDidLoad` and from
-AppKit's `NSWindow.WillCloseNotification`.
+The non-generic `ReactiveWindowController` is not an `IViewFor`, so it subscribes to `Activated`/`Deactivated`
+itself instead of wrapping the subscriptions in `WhenActivated`. Derive from `ReactiveWindowController<TViewModel>`
+instead to get a typed `ViewModel` property and use `WhenActivated` and bindings, as the other Reactive base classes
+on this page do. Either way, activation fires from `WindowDidLoad` and deactivation from AppKit's
+`NSWindow.WillCloseNotification`.
 
 ## Read the device orientation
 
@@ -730,7 +731,8 @@ before applying it to the table or collection view.
 | `ReactiveTabBarController<TViewModel>` [ios] | A `UITabBarController` that is an `IViewFor<TViewModel>` |
 | `ReactivePageViewController<TViewModel>` [ios] | A `UIPageViewController` that is an `IViewFor<TViewModel>` |
 | `ReactiveSplitViewController<TViewModel>` | A `UISplitViewController`/`NSSplitViewController` that is an `IViewFor<TViewModel>` |
-| `ReactiveWindowController` [macos] | An `NSWindowController` that is an `IViewFor<TViewModel>`-less `ReactiveObject`, with `WindowDidLoad` |
+| `ReactiveWindowController` [macos] | An `NSWindowController` that is a `ReactiveObject`, with `WindowDidLoad` |
+| `ReactiveWindowController<TViewModel>` [macos] | An `NSWindowController` that is an `IViewFor<TViewModel>` |
 | `Activated` / `Deactivated` | Fire when a view, control or controller appears and leaves; feed [`WhenActivated`](../when-activated.md) |
 | `Changed` / `Changing` / `PropertyChanged` / `PropertyChanging` | Observe and raise property changes, as on any `ReactiveObject` |
 | `ThrownExceptions` | Reports errors raised inside reactive operators |

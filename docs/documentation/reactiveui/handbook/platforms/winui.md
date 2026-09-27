@@ -206,11 +206,10 @@ when it is `true`, that fallback is skipped. If no view is found at all, the hos
 `ViewModelViewHost` resolves through the protected `ResolveViewForViewModel(object?, string?)`, called once for the
 freshly constructed host and again for every later `ViewModel` change. Override it, calling the base implementation
 first, to add behavior of your own, such as recording which view it chose. `ViewContract` still republishes onto
-`ViewContractObservable`, the same stream the `ViewContractObservableProperty` dependency property holds. On
-`ViewModelViewHost`, though, the host looks views up with the contract stream it builds from the window's size when
-it is constructed. A `ViewContract` or `ViewContractObservable` you set later is stored and published, but the host
-does not use it to choose a view, not even on the next `ViewModel` change. When the contract must choose the view,
-host the page in a `RoutedViewHost`, which watches its `ViewContract`.
+`ViewContractObservable`, the same stream the `ViewContractObservableProperty` dependency property holds. The host
+follows whichever stream that property holds, so setting `ViewContract` or `ViewContractObservable` resolves the
+view again under the new contract, and later `ViewModel` changes keep using it. A stream you replace stops counting,
+so the window-size stream the host builds when it is constructed cannot overwrite a contract you set later.
 
 ```csharp
 DefaultViewLocator locator = new();
