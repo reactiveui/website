@@ -261,6 +261,45 @@ Closing the desk raises `CanExecuteChanged`, which the sample's handler turns in
 `CanExecute(null)` again. `DeskAnnouncementCommand` raises that event itself, by calling the protected
 `OnCanExecuteChanged` method `ReactiveCommandBase` defines for exactly this purpose.
 
+## Subscribe a witness directly
+
+A command is an `IObservable<TResult>`, so a witness — a class that implements `IObserver<T>` itself instead of
+using an operator such as `Subscribe(Action<T>)` — can subscribe to it the normal way, whether the command is a
+`ReactiveCommand<TParam, TResult>` or a hand-written subclass of `ReactiveCommandBase<TParam, TResult>`.
+`BookReceiptPrinter` prints a receipt for every book a command produces:
+
+```csharp
+LibraryDesk desk = new();
+BookReceiptPrinter witness = new();
+
+using ReactiveCommand<int, Book> borrow = ReactiveCommand.Create<int, Book>(desk.Borrow);
+using IDisposable subscription = borrow.Subscribe(witness);
+
+_ = await borrow.Execute(1);
+_ = await borrow.Execute(4);
+
+// Output:
+// Printed a receipt for Clean Code
+// Printed a receipt for Refactoring
+```
+
+Code that only knows a command through the abstract `ReactiveCommandBase<TParam, TResult>` subscribes a witness the
+same way, whether the command underneath was built by a factory or, like `DeskAnnouncementCommand`, by hand:
+
+```csharp
+LibraryDesk desk = new();
+DeskAnnouncementBoard board = new();
+using DeskAnnouncementCommand closingSoon = new(desk, static () => "The desk closes in ten minutes.");
+
+ReactiveCommandBase<RxVoid, string> command = closingSoon;
+using IDisposable subscription = command.Subscribe(board);
+
+_ = await command.Execute();
+
+// Output:
+// Board: The desk closes in ten minutes.
+```
+
 ## Exposing a command from a view model
 
 A view model property typed as a concrete `ReactiveCommand<TParam, TResult>` or `CombinedReactiveCommand<TParam,
@@ -513,6 +552,10 @@ source, for apps that use System.Reactive instead.
 | `ReactiveCommand<TParam, TResult>` constructor (cancel callback) | Base constructor for execution logic that cancels through a callback rather than by unsubscribing. |
 | `CombinedReactiveCommand<TParam, TResult>` constructors | Three base constructors a subclass uses, with `canExecute`, an `ISequencer`, or both. |
 | `ReactiveCommandBase<TParam, TResult>` | Abstract base every command type shares: `CanExecute`, `IsExecuting`, `ThrownExceptions`, `Execute`, `Subscribe`, plus the `ICommand` hooks a subclass overrides. |
+| `ReactiveCommandBase<TParam, TResult>.ICommandCanExecute(object?)` | Protected hook a subclass overrides; an `ICommand` caller's `CanExecute` routes here. |
+| `ReactiveCommandBase<TParam, TResult>.ICommandExecute(object?)` | Protected hook a subclass overrides; an `ICommand` caller's `Execute` routes here. |
+| `ReactiveCommandBase<TParam, TResult>.Subscribe(IObserver<TResult>)` | Subscribes a witness directly to a command's results. |
+| `ReactiveCommand<TParam, TResult>.Subscribe(IObserver<TResult>)` | The same subscription on a plain `ReactiveCommand<TParam, TResult>`. |
 | `IReactiveCommand<TParam, TResult>` | The interface to expose a command through when a view model should not commit to a concrete command type. |
 | `IReactiveCommand` | The non-generic interface for code that only needs `CanExecute` and `IsExecuting`. |
 | `SwitchSubscribe` | Subscribes to the inner observable a property currently holds, following each replacement. |
