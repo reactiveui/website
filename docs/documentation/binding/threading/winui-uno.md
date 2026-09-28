@@ -11,7 +11,7 @@ The invoker derives from `SequencerViewThreadInvoker<DependencyObject, Dispatche
 - `SequencerFor` returns `DispatcherQueueSequencer.For(target.DispatcherQueue)`, from the `ReactiveUI.Primitives.Uno` package. Every dependency object belongs to the dispatcher queue of the thread that created it.
 - `CheckAccess` is `true` on that queue's thread, and `Post` queues the write on it.
 
-A generated binding onto an Uno control carries `UnoViewThreadInvoker.Instance` when your project references the package, so it routes writes even when the module is not registered. The [generated fallback](index.md#the-generated-fallback) explains how. An `Unsafe` binding uses the registered invokers only, so register the module when you use `Unsafe` bindings.
+A generated binding onto an Uno control carries `UnoViewThreadInvoker.Instance` when your project references the package, so it routes writes even when the module is not registered. It works on every head. On heads other than Windows, Uno declares `DependencyObject` as an interface that each control implements, and the generator recognises either form. The binding observes the control's dependency properties through `RegisterPropertyChangedCallback`. The [generated fallback](index.md#the-generated-fallback) explains how. An `Unsafe` binding uses the registered invokers only, so register the module when you use `Unsafe` bindings.
 
 ## WinUI
 

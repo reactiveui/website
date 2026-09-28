@@ -977,7 +977,7 @@ Types: `ReactiveUI.Binding.ByteToStringTypeConverter`, `ReactiveUI.Binding.Decim
 
 | Declaration | Description | Parameters | Returns |
 | --- | --- | --- | --- |
-| `sealed class SingleToStringTypeConverter : BindingTypeConverter<float, string>` | Converts a [`float`](https://learn.microsoft.com/dotnet/api/system.single) to a [`string`](https://learn.microsoft.com/dotnet/api/system.string) using the current culture. An [`int`](https://learn.microsoft.com/dotnet/api/system.int32) hint gives the number of decimal places (the `F` format) and a [`string`](https://learn.microsoft.com/dotnet/api/system.string) hint gives the format string; a malformed format throws [`FormatException`](https://learn.microsoft.com/dotnet/api/system.formatexception). | None. | — |
+| `sealed class SingleToStringTypeConverter : BindingTypeConverter<float, string>` | Converts a [`float`](https://learn.microsoft.com/dotnet/api/system.single) to a [`string`](https://learn.microsoft.com/dotnet/api/system.string) using the invariant culture, as generated bindings do. An [`int`](https://learn.microsoft.com/dotnet/api/system.int32) hint gives the number of decimal places (the `F` format) and a [`string`](https://learn.microsoft.com/dotnet/api/system.string) hint gives the format string; both use the current culture, and a malformed format throws [`FormatException`](https://learn.microsoft.com/dotnet/api/system.formatexception). | None. | — |
 
 **Constructors**
 
