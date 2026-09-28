@@ -100,6 +100,25 @@ All eight share the same rules.
 Keep callbacks short. A batch runs on the UI thread, and the screen cannot redraw until it ends. Move slow work
 before `WitnessOn` in the chain, so it runs off the UI thread. See [best practices](best-practices.md).
 
+## Ask which thread owns a sequencer
+
+Every UI sequencer except Blazor's implements `IThreadAffineSequencer`. Its one member, `CheckAccess()`, returns
+`true` when the calling thread is the thread the sequencer runs work on. Each platform answers with its own check,
+such as `Dispatcher.CheckAccess()` on WPF and Avalonia or `!InvokeRequired` on WinForms. Blazor's sequencer runs
+work through a method you pass in, so it has no thread to ask about.
+
+**One sequencer per owner.** A static `For` method returns the sequencer for a dispatcher, control, dispatcher queue
+or looper. It returns the same sequencer each time you ask about the same owner, so work for that owner shares one
+batch. It returns the shared instance, such as `AvaloniaScheduler.Instance`, when you ask about that instance's own
+owner. WPF and Avalonia can run more than one UI thread, and `For` finds the sequencer for the thread that owns a
+given control.
+
+**Run inline on the owning thread.** `WitnessOnOwner(sequencer)` works like `WitnessOn`, with one difference. A value
+raised on the sequencer's own thread while nothing is waiting is delivered at once, in the call that raised it. Any
+other value waits for the next batch, and once a value waits, later values queue behind it, so the order stays the
+same. For example, `source.WitnessOnOwner(AvaloniaScheduler.For(control.Dispatcher))` delivers to that control's
+thread and skips the wait when it is already there.
+
 ## WPF
 
 `DispatcherSequencer` runs work through a WPF `Dispatcher`. [Your first UI update](#your-first-ui-update) shows it in a
@@ -109,6 +128,8 @@ window.
 |---|---|
 | `new DispatcherSequencer(dispatcher)` | Runs work at `DispatcherPriority.Normal`. |
 | `new DispatcherSequencer(dispatcher, priority)` | Runs work at the priority you give. |
+| `DispatcherSequencer.For(dispatcher)` | The one sequencer for that dispatcher, at `DispatcherPriority.Normal`. |
+| `CheckAccess()` | `true` on the dispatcher's thread. |
 | `Dispatcher` | The dispatcher you passed in. |
 | `Priority` | The priority you passed in. |
 
@@ -167,6 +188,8 @@ first, as `Dispose(bool)` does above.
 | Member | What it is |
 |---|---|
 | `new ControlSequencer(control)` | Runs work on the control's thread. |
+| `ControlSequencer.For(control)` | The one sequencer for that control. |
+| `CheckAccess()` | `true` when the control does not require an invoke. |
 | `Control` | The control you passed in. |
 
 ## WinUI
@@ -207,6 +230,8 @@ When the queue has shut down, as it does after the window's thread ends, schedul
 | `new DispatcherQueueSequencer(queue)` | Runs work at `DispatcherQueuePriority.Normal`. |
 | `new DispatcherQueueSequencer(queue, priority)` | Runs work at the priority you give. |
 | `queue.ToSequencer()` | The same as `new DispatcherQueueSequencer(queue)`. |
+| `DispatcherQueueSequencer.For(queue)` | The one sequencer for that queue, at `DispatcherQueuePriority.Normal`. |
+| `CheckAccess()` | `true` when the calling thread has access to the queue. |
 | `DispatcherQueue` | The queue you passed in. |
 | `Priority` | The priority you passed in. |
 
@@ -254,6 +279,8 @@ var urgent = new AvaloniaScheduler(Dispatcher.UIThread, DispatcherPriority.Norma
 | `AvaloniaScheduler.Instance` | Runs work on `Dispatcher.UIThread` at `Background` priority. |
 | `new AvaloniaScheduler(dispatcher)` | Runs work on your dispatcher at `Background` priority. |
 | `new AvaloniaScheduler(dispatcher, priority)` | Runs work at the priority you give. |
+| `AvaloniaScheduler.For(dispatcher)` | The one scheduler for that dispatcher, at `Background` priority. `Instance` for `Dispatcher.UIThread`. |
+| `CheckAccess()` | `true` on the dispatcher's thread. |
 | `Dispatcher` | The dispatcher you passed in. |
 | `Priority` | The priority you passed in. |
 
@@ -300,6 +327,8 @@ On MAUI, cancelling delayed work skips it, but the platform's timer still runs t
 |---|---|
 | `new MauiDispatcherSequencer(dispatcher)` | Runs work through the dispatcher. |
 | `dispatcher.ToSequencer()` | The same as `new MauiDispatcherSequencer(dispatcher)`. |
+| `MauiDispatcherSequencer.For(dispatcher)` | The one sequencer for that dispatcher. |
+| `CheckAccess()` | `true` when the dispatcher does not require a dispatch. |
 | `Dispatcher` | The dispatcher you passed in. |
 
 ## Blazor
@@ -520,6 +549,8 @@ var background = new HandlerSequencer(new Handler(worker.Looper!));
 |---|---|
 | `HandlerSequencer.Main` | Runs work on the app's UI thread. |
 | `new HandlerSequencer(handler)` | Runs work on the handler's thread. |
+| `HandlerSequencer.For(looper)` | The one sequencer for that looper. `Main` for the main looper. |
+| `CheckAccess()` | `true` on the handler's looper thread. |
 | `Handler` | The handler you passed in. |
 
 ## iOS, macOS, Mac Catalyst and tvOS
@@ -684,3 +715,6 @@ and `ReactiveUI.Primitives.Blazor.Reactive.Components`. On Android and Apple the
 | `HandlerSequencer.Main` | Android | The sequencer for the UI thread. |
 | `NSRunloopSequencer.Main` | Apple | The sequencer for the main queue. |
 | `DispatchSequencerState` | Any | The batching engine for a UI sequencer of your own. |
+| `IThreadAffineSequencer` | Any | A sequencer that can say whether the calling thread owns it. |
+| `For` | All but Blazor and Apple | Returns the one sequencer for a dispatcher, control, dispatcher queue or looper. |
+| `WitnessOnOwner` | Any | Delivers inline on the sequencer's own thread when nothing is waiting, and through the sequencer otherwise. |
