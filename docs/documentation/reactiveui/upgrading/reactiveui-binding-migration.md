@@ -426,4 +426,4 @@ shows how, and [Source generators](../../source-generators/index.md) covers `[IV
 - [ReactiveUI.Binding overview](../../binding/index.md)
 - [Bindings](../../binding/bindings.md)
 - [Analyzer messages](../../binding/setup.md#read-the-analyzer-messages)
-- [Threading](../../binding/threading.md)
+- [Threading](../../binding/threading/index.md)

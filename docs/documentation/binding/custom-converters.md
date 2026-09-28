@@ -396,7 +396,7 @@ Console.WriteLine(viewModel.Draft.Amount);
 99.95
 ```
 
-The converter overloads of `BindOneWay`, `BindTwoWay`, `OneWayBind` and `Bind` keep the parameter names of the library's own methods. A call that names an argument, such as `conversionHint:`, resolves to them. The scheduler parameter is optional and comes last. When you leave it out, or pass `null`, the binding writes on the thread that owns the target. See [threading](threading.md).
+The converter overloads of `BindOneWay`, `BindTwoWay`, `OneWayBind` and `Bind` keep the parameter names of the library's own methods. A call that names an argument, such as `conversionHint:`, resolves to them. The scheduler parameter is optional and comes last. When you leave it out, or pass `null`, the binding writes on the thread that owns the target. See [threading](threading/index.md).
 
 ### Build a list of views from a list of view models
 

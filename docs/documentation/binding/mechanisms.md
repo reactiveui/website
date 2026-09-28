@@ -132,7 +132,7 @@ Every mechanism uses the same scale. `BindingAffinity` holds the scores.
 | `ExactType` | 10 | A strong match, such as an `IReactiveObject`. |
 | `Kvo` | 15 | Apple key-value observing on an `NSObject`. |
 
-The source generator picks the best mechanism it can see when your project builds. A provider you register at run time replaces that choice only when its score is strictly higher. A tie keeps the generated mechanism. Among registered providers, the highest score wins and the first registered wins a tie. `ObservationAffinityChecker` reads the registrations on first use and caches the best score for each type, property and timing. Call `Refresh()` after you register a provider. The [threading](threading.md) page covers the platform mechanisms.
+The source generator picks the best mechanism it can see when your project builds. A provider you register at run time replaces that choice only when its score is strictly higher. A tie keeps the generated mechanism. Among registered providers, the highest score wins and the first registered wins a tie. `ObservationAffinityChecker` reads the registrations on first use and caches the best score for each type, property and timing. Call `Refresh()` after you register a provider. The [threading](threading/index.md) page covers the platform mechanisms.
 
 This excerpt scores three properties and names the provider that wins each. The `PropertyChanged` provider bids 5 for a `TodoItem` and 0 for a plain `StorageObject`. The fallback provider bids 1 for both. `TodoPropertyObservableForProperty` is a provider in the example project that bids a chosen score for one `TodoItem` property.
 
@@ -1457,7 +1457,7 @@ Every larger count follows the same pattern: pass the sources and then a selecto
 
 - [Observing](observing.md) covers `WhenChanged` and the other observation methods.
 - [Bindings](bindings.md) covers `BindCommand` and the other binding methods.
-- [Threading and platforms](threading.md) covers the platform mechanisms.
+- [Threading and platforms](threading/index.md) covers the platform mechanisms.
 - [Setup](setup.md) covers the builder and `WithCoreServices`.
 - [Unsafe twins and the runtime fallback](unsafe.md) covers call sites the generator cannot read.
 - [API reference](api.md) lists every public type and member.

@@ -1608,7 +1608,7 @@ Typed three amounts
 Preview 30
 ```
 
-Bindings use the same rule for view writes: only the latest value waits. [Threading and platforms](threading.md) explains it.
+Bindings use the same rule for view writes: only the latest value waits. [Threading and platforms](threading/index.md) explains it.
 
 ## Observe an expression built at run time
 
@@ -1938,7 +1938,7 @@ Change: BindingChange { Value = Renew car registration online, FromViewModel = T
 
 - [Bindings](bindings.md) copies observed values into views.
 - [Mechanisms](mechanisms.md) explains how a type announces a change and how the generator picks a way to listen.
-- [Threading and platforms](threading.md) explains where observed values are delivered.
+- [Threading and platforms](threading/index.md) explains where observed values are delivered.
 - [Unsafe twins and the runtime fallback](unsafe.md) covers calls the generator cannot read.
 - [API reference](api.md) lists every public type and member.
 

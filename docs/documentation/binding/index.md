@@ -31,7 +31,7 @@ dotnet add package ReactiveUI.Binding
 ```
 
 The example on this page shows a label from .NET MAUI, so its project also references the MAUI package,
-`ReactiveUI.Binding.Maui`. [Threading and platforms](threading.md) explains what the platform packages add.
+`ReactiveUI.Binding.Maui`. [Threading and platforms](threading/index.md) explains what the platform packages add.
 [Setup](setup.md) covers the builder, the analyzer and Native AOT.
 
 If your app uses ReactiveUI, skip this step. The ReactiveUI packages bring ReactiveUI.Binding and its platform
@@ -136,7 +136,7 @@ here `RemainingLabel` and then `Text`. A binding follows each link of the chain.
 the binding moves to the new object.
 
 The binding also picks the thread it writes on. A UI framework lets only one thread change a control.
-`BindOneWay` writes to the target on the thread that owns it. [Threading and platforms](threading.md) shows how.
+`BindOneWay` writes to the target on the thread that owns it. [Threading and platforms](threading/index.md) shows how.
 
 **4. Stop the binding.** `BindOneWay` returns an `IDisposable`, the same as `Subscribe`.
 Dispose it to stop the binding.
@@ -208,7 +208,7 @@ of the examples. They talk to in-memory services, so no example needs a network 
 | [Custom converters](custom-converters.md) | Write and register your own converter and choose a fallback. |
 | [Mechanisms](mechanisms.md) | See how a type announces a change and how the generator picks a way to listen. |
 | [Views](views.md) | Use `IViewFor<T>`, the view locator and view mappings. |
-| [Threading and platforms](threading.md) | Write on the owning thread, choose a scheduler, and use the WPF, WinForms, MAUI and Avalonia packages. |
+| [Threading and platforms](threading/index.md) | Write on the owning thread, choose a scheduler, and use the WPF, WinForms, MAUI and Avalonia packages. |
 | [Setup](setup.md) | Start the builder, find the System.Reactive package's names, publish with Native AOT and read the analyzer's diagnostics. |
 | [Members ReactiveUI.SourceGenerators writes](source-generators.md) | Observe, bind and back a property or a command that ReactiveUI.SourceGenerators writes for you. |
 | [Unsafe twins and the runtime fallback](unsafe.md) | Bind a call site that the generator cannot read. |

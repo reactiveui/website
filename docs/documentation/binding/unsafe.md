@@ -77,7 +77,7 @@ Renew car registration
 - **It reads members by reflection.** The twin walks the path at run time, so it is slower than generated code.
 - **It needs registered services.** The twin looks up how to observe each property and how to convert each value. Build the application first, as step 3 shows. The registered observation provider with the highest affinity wins. [Mechanisms](mechanisms.md) explains affinity.
 - **It warns a trimmed publish.** Each twin carries `[RequiresUnreferencedCode]`. That attribute tells the compiler the method reads members by name, so trimming and Native AOT can remove code it needs. The warning appears at your own call site. [Setup](setup.md) covers trimming.
-- **It writes on the owning thread only with a platform module.** A generated binding carries its own fallback for WPF, WinForms and MAUI. A twin uses only the invokers your app registers. [Threading and platforms](threading.md) shows how.
+- **It writes on the owning thread only with a platform module.** A generated binding carries its own fallback for WPF, WinForms and MAUI. A twin uses only the invokers your app registers. [Threading and platforms](threading/index.md) shows how.
 
 The analyzer marks a call the generator cannot read with the info diagnostic `RXUIBIND001`. [Setup](setup.md) lists the diagnostics.
 
@@ -570,7 +570,7 @@ A type with none of those members throws `InvalidOperationException` when the he
 the same initial value, initial-value factory, `deferSubscription`, scheduler and `out` arguments as `ToProperty`.
 
 ## Write on a sequencer
-A **sequencer** decides when queued work runs. [Threading and platforms](threading.md) explains sequencers and the thread that owns a view. Each property-binding twin has an overload that takes an `ISequencer`. The binding delivers each write to the target on that sequencer, and the first write waits too. A newer value replaces a value that waits.
+A **sequencer** decides when queued work runs. [Threading and platforms](threading/index.md) explains sequencers and the thread that owns a view. Each property-binding twin has an overload that takes an `ISequencer`. The binding delivers each write to the target on that sequencer, and the first write waits too. A newer value replaces a value that waits.
 
 A null sequencer means the binding writes on the thread that owns the target. An immediate sequencer writes inline. The overloads are members of `ReactiveSchedulerExtensions`.
 
@@ -1493,7 +1493,7 @@ Renew car registration online
 - [Observing](observing.md) covers the plain observation methods that these twins mirror.
 - [Bindings](bindings.md) covers the plain binding methods, commands and interactions.
 - [Mechanisms](mechanisms.md) covers the providers and binders that the fallback looks up.
-- [Threading and platforms](threading.md) covers the owning thread, sequencers and the platform modules.
+- [Threading and platforms](threading/index.md) covers the owning thread, sequencers and the platform modules.
 - [Setup](setup.md) covers the builder, trimming and the analyzer diagnostics.
 - [API reference](api.md) lists every twin and fallback member.
 

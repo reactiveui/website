@@ -242,7 +242,7 @@ Book vet appointment
 `OneWayBind` copies the remaining count to the label. `Bind` carries the text the user types back into the view
 model. `BindAccountsView` in the [example project](https://github.com/reactiveui/ReactiveUI.Binding.SourceGenerators/blob/main/src/examples/Documentation/Pages/views/ViewForExamples.cs)
 does the same for a banking screen. Every binding writes to the view on the thread that owns it. See
-[threading](threading.md).
+[threading](threading/index.md).
 
 A binding made before the view has a view model waits for one. While `view.ViewModel` is null, the binding writes
 nothing, so the label keeps its own text. Assigning a view model starts the binding, and replacing it moves the binding
@@ -1119,7 +1119,7 @@ To replace a generated view, add `[ExcludeFromViewRegistration]` to it.
 
 - [Setup](setup.md) shows the builder that registers the locator.
 - [Bindings](bindings.md) covers the view-first binding methods used above.
-- [Threading](threading.md) explains where a binding writes to a view.
+- [Threading](threading/index.md) explains where a binding writes to a view.
 - [API reference](api.md) lists every member.
 
 ## API reference

@@ -190,7 +190,7 @@ public sealed partial class PartialProtectedBaseViewModel : ObservableObject
 
 `IsDone` passes `deferSubscription: true`, so the helper does not follow `item` until something first reads
 `IsDone`. `DueDateLabel` passes a scheduler, so its notifications wait for that scheduler to run; here the
-scheduler is a `VirtualClock`, a sequencer you step by hand, which the [Threading](threading.md) page covers.
+scheduler is a `VirtualClock`, a sequencer you step by hand, which the [Threading](threading/index.md) page covers.
 
 ```csharp
 TodoItem item = new TodoItem { IsDone = false, DueDate = RegistrationDue };

@@ -177,7 +177,7 @@ The platform pages below cover the view base classes and activation for each UI 
 
 * [Windows Presentation Foundation](windows-presentation-foundation.md)
 
-* [Windows Forms](../../../binding/threading.md)
+* [Windows Forms](../../../binding/threading/winforms.md)
 
 * [Avalonia UI](avalonia.md)
 
@@ -188,7 +188,7 @@ The platform pages below cover the view base classes and activation for each UI 
 * [Observing property changes](../../../binding/observing.md) with `WhenChanged`, `WhenAnyValue` and the other observation methods.
 * [Bindings](../../../binding/bindings.md) with `BindOneWay`, `BindTwoWay`, `BindTo`, `BindCommand` and `BindInteraction`, and how a binding reports what it wrote.
 * [Converters](../../../binding/converters.md) and [custom converters](../../../binding/custom-converters.md) for values whose types differ.
-* [Notification mechanisms](../../../binding/mechanisms.md), [views](../../../binding/views.md), [threading](../../../binding/threading.md) and [setup](../../../binding/setup.md).
+* [Notification mechanisms](../../../binding/mechanisms.md), [views](../../../binding/views.md), [threading](../../../binding/threading/index.md) and [setup](../../../binding/setup.md).
 
 ## Binding calls at a glance
 

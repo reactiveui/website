@@ -318,13 +318,35 @@ Types: `ReactiveUI.Binding.PropertyValues<T1, T2, T3, T4, T5, T6, T7, T8, T9, T1
 | `Property8 { get; init; }` | The value of the eighth observed property. | None. | `T8` |
 | `Property9 { get; init; }` | The value of the ninth observed property. | None. | `T9` |
 
+### Observation for other generators
+
+[Full description and examples](source-generators.md).
+
+Types: `ReactiveUI.Binding.ObservedProperty`.
+
+#### `ObservedProperty`
+
+| Declaration | Description | Parameters | Returns |
+| --- | --- | --- | --- |
+| `static class ObservedProperty` | Observes properties for code that another source generator writes, with the behaviour of `WhenAnyValue` and without a generated binding. | None. | — |
+
+**Methods**
+
+| Declaration | Description | Parameters | Returns |
+| --- | --- | --- | --- |
+| `Create<TSource, TValue>(TSource source, Expression<Func<TSource, TValue>> property, Func<TSource, TValue> getter)` | Observes one property: its current value, then each value it changes to, skipping repeats. | `TSource : class`: The type declaring the property; `TValue`: The property's type; `TSource` `source`: The object to observe; [`Expression<Func<TSource, TValue>>`](https://learn.microsoft.com/dotnet/api/system.linq.expressions.expression-1) `property`: The property, as a lambda that names it: `x => x.Name`; [`Func<TSource, TValue>`](https://learn.microsoft.com/dotnet/api/system.func-2) `getter`: A delegate that reads the property: `x => x.Name` | [`IObservable<TValue>`](https://learn.microsoft.com/dotnet/api/system.iobservable-1): The property's values. |
+| `Create<TSource, T1, T2>(TSource source, Expression<Func<TSource, T1>> property1, Func<TSource, T1> getter1, Expression<Func<TSource, T2>> property2, Func<TSource, T2> getter2)` | Observes two properties: their current values, then a pair each time either changes. | `TSource : class`: The type declaring the properties; `T1`: The first property's type; `T2`: The second property's type; `TSource` `source`: The object to observe; [`Expression<Func<TSource, T1>>`](https://learn.microsoft.com/dotnet/api/system.linq.expressions.expression-1) `property1`: The first property, as a lambda that names it; [`Func<TSource, T1>`](https://learn.microsoft.com/dotnet/api/system.func-2) `getter1`: A delegate that reads the first property; [`Expression<Func<TSource, T2>>`](https://learn.microsoft.com/dotnet/api/system.linq.expressions.expression-1) `property2`: The second property, as a lambda that names it; [`Func<TSource, T2>`](https://learn.microsoft.com/dotnet/api/system.func-2) `getter2`: A delegate that reads the second property | [`IObservable<PropertyValues<T1, T2>>`](https://learn.microsoft.com/dotnet/api/system.iobservable-1): The two properties' values. |
+| `Create<TSource, T1, T2, TResult>(TSource source, Expression<Func<TSource, T1>> property1, Func<TSource, T1> getter1, Expression<Func<TSource, T2>> property2, Func<TSource, T2> getter2, Func<T1, T2, TResult> selector)` | Observes two properties and projects each pair of values through a selector. | `TSource : class`: The type declaring the properties; `T1`: The first property's type; `T2`: The second property's type; `TResult`: The type the selector produces; `TSource` `source`: The object to observe; [`Expression<Func<TSource, T1>>`](https://learn.microsoft.com/dotnet/api/system.linq.expressions.expression-1) `property1`: The first property, as a lambda that names it; [`Func<TSource, T1>`](https://learn.microsoft.com/dotnet/api/system.func-2) `getter1`: A delegate that reads the first property; [`Expression<Func<TSource, T2>>`](https://learn.microsoft.com/dotnet/api/system.linq.expressions.expression-1) `property2`: The second property, as a lambda that names it; [`Func<TSource, T2>`](https://learn.microsoft.com/dotnet/api/system.func-2) `getter2`: A delegate that reads the second property; [`Func<T1, T2, TResult>`](https://learn.microsoft.com/dotnet/api/system.func-3) `selector`: The projection applied to each pair of values | [`IObservable<TResult>`](https://learn.microsoft.com/dotnet/api/system.iobservable-1): The projected values. |
+| `IObservable<IObservable<TValue>?>.Switch<TValue>()` | Follows a property that holds an observable: produces what the latest observable it holds produces, as `WhenAnyObservable` does. While the property holds null, nothing is produced. | `TValue`: The type the held observables produce; [`IObservable<IObservable<TValue>?>`](https://learn.microsoft.com/dotnet/api/system.iobservable-1) `source` (receiver): The values of a property whose type is an observable | [`IObservable<TValue>`](https://learn.microsoft.com/dotnet/api/system.iobservable-1): The values of the observable the property currently holds. |
+| `IObservable<TParent?>.Then<TParent, TValue>(Expression<Func<TParent, TValue>> property, Func<TParent, TValue> getter)` | Continues a path one property further: the property of whatever object `parent` currently holds, following each replacement of that object, as `WhenAnyValue(x => x.A.B)` does. | `TParent : class`: The type of the object the path has reached; `TValue`: The next property's type; [`IObservable<TParent?>`](https://learn.microsoft.com/dotnet/api/system.iobservable-1) `parent` (receiver): The values of the path so far; [`Expression<Func<TParent, TValue>>`](https://learn.microsoft.com/dotnet/api/system.linq.expressions.expression-1) `property`: The next property, as a lambda that names it; [`Func<TParent, TValue>`](https://learn.microsoft.com/dotnet/api/system.func-2) `getter`: A delegate that reads the next property | [`IObservable<TValue>`](https://learn.microsoft.com/dotnet/api/system.iobservable-1): The next property's values, skipping repeats. While the path holds null, nothing is produced. |
+
 ## Properties
 
 ### Properties
 
 [Full description and examples](properties.md).
 
-Types: `ReactiveUI.Binding.ObservableAsPropertyAttribute`, `ReactiveUI.Binding.ObservableAsPropertyHelper<T>`, `ReactiveUI.Binding.ReactiveUIBindingExtensions`.
+Types: `ReactiveUI.Binding.ObservableAsPropertyAttribute`, `ReactiveUI.Binding.ObservableAsPropertyHelper<T>`, `ReactiveUI.Binding.ObservableAsPropertyInheritance`, `ReactiveUI.Binding.ReactiveUIBindingExtensions`.
 
 #### `ObservableAsPropertyAttribute`
 
@@ -337,6 +359,16 @@ Types: `ReactiveUI.Binding.ObservableAsPropertyAttribute`, `ReactiveUI.Binding.O
 | Declaration | Description | Parameters | Returns |
 | --- | --- | --- | --- |
 | `ObservableAsPropertyAttribute()` | Initializes a new instance of the ObservableAsPropertyAttribute class. | None. | — |
+
+**Properties**
+
+| Declaration | Description | Parameters | Returns |
+| --- | --- | --- | --- |
+| `Inheritance { get; set; }` | Gets or sets the modifier the code fix gives the property it writes for a field. A partial property carries its own modifiers. | None. | [`ObservableAsPropertyInheritance`](properties.md) |
+| `InitialValue { get; set; }` | Gets or sets the value the property returns until its helper is assigned, as a C# expression such as `"1.5d"`. For a [`string`](https://learn.microsoft.com/dotnet/api/system.string) property the text is the value itself, not an expression. When it is null, a non-nullable [`string`](https://learn.microsoft.com/dotnet/api/system.string) property returns `Empty` and any other property returns its type's default. | None. | [`string?`](https://learn.microsoft.com/dotnet/api/system.string) |
+| `PropertyName { get; set; }` | Gets or sets the name of the property the code fix writes for a method or an observable property. When it is null, the name is the member's name followed by `Property`. A partial property keeps its own name. | None. | [`string?`](https://learn.microsoft.com/dotnet/api/system.string) |
+| `ReadOnly { get; set; }` | Gets or sets a value indicating whether the helper field is `readonly`, so it can only be assigned in a constructor. The default is `false`. | None. | [`bool`](https://learn.microsoft.com/dotnet/api/system.boolean) |
+| `UseProtected { get; set; }` | Gets or sets a value indicating whether the helper field is `protected` rather than `private`. | None. | [`bool`](https://learn.microsoft.com/dotnet/api/system.boolean) |
 
 #### `ObservableAsPropertyHelper<T>`
 
@@ -380,6 +412,21 @@ Types: `ReactiveUI.Binding.ObservableAsPropertyAttribute`, `ReactiveUI.Binding.O
 | `IsSubscribed { get; }` | Gets a value indicating whether the helper has subscribed to its observable. | None. | [`bool`](https://learn.microsoft.com/dotnet/api/system.boolean) |
 | `ThrownExceptions { get; }` | Gets an observable that reports each error the source produces. | None. | [`IObservable<Exception>`](https://learn.microsoft.com/dotnet/api/system.iobservable-1) |
 | `Value { get; }` | Gets the current value of the property, subscribing first when subscription was deferred. | None. | `T` |
+
+#### `ObservableAsPropertyInheritance`
+
+| Declaration | Description | Parameters | Returns |
+| --- | --- | --- | --- |
+| `enum ObservableAsPropertyInheritance` | The modifier the [`ObservableAsPropertyAttribute`](properties.md) code fix gives the property it writes for a field. | None. | — |
+
+**Enum values**
+
+| Declaration | Description | Parameters | Returns |
+| --- | --- | --- | --- |
+| `None = 0` | No modifier. | None. | — |
+| `Virtual = 1` | The property is `virtual`. | None. | — |
+| `Override = 2` | The property is an `override`. | None. | — |
+| `New = 3` | The property hides an inherited member with `new`. | None. | — |
 
 #### `ReactiveUIBindingExtensions`
 
@@ -548,7 +595,7 @@ Types: `ReactiveUI.Binding.IInteraction<TInput, TOutput>`, `ReactiveUI.Binding.I
 
 | Declaration | Description | Parameters | Returns |
 | --- | --- | --- | --- |
-| `interface IInteraction<TInput, TOutput>` | Represents an interaction between collaborating application components. Through this interface, `Handle` asks the question as an observable. On `Interaction<TInput, TOutput>` itself, `Handle` returns a task and `WhenHandled` returns the same observable. | `TInput`: The interaction's input type; `TOutput`: The interaction's output type | — |
+| `interface IInteraction<TInput, TOutput>` | Represents an interaction between collaborating application components. | `TInput`: The interaction's input type; `TOutput`: The interaction's output type | — |
 
 **Methods**
 
@@ -600,8 +647,8 @@ Types: `ReactiveUI.Binding.IInteraction<TInput, TOutput>`, `ReactiveUI.Binding.I
 
 | Declaration | Description | Parameters | Returns |
 | --- | --- | --- | --- |
-| `Interaction()` | Initializes a new instance of the Interaction<TInput, TOutput> class that invokes handlers on the calling thread. | None. | — |
-| `Interaction(ISequencer? handlerScheduler)` | Initializes a new instance of the Interaction<TInput, TOutput> class that invokes each handler on a scheduler. | `ISequencer?` `handlerScheduler`: The scheduler each handler is invoked on, such as the main thread's; null invokes handlers on the calling thread. In the `.Reactive` package this parameter is `System.Reactive.Concurrency.IScheduler?` | — |
+| `Interaction()` | Initializes a new instance of the [`Interaction<TInput, TOutput>`](bindings.md) class that invokes handlers on the calling thread. | None. | — |
+| `Interaction(ISequencer? handlerScheduler)` | Initializes a new instance of the [`Interaction<TInput, TOutput>`](bindings.md) class that invokes each handler on a scheduler. | `ISequencer?` `handlerScheduler`: The scheduler each handler is invoked on, such as the main thread's; null invokes handlers on the calling thread | — |
 
 **Methods**
 
@@ -609,7 +656,7 @@ Types: `ReactiveUI.Binding.IInteraction<TInput, TOutput>`, `ReactiveUI.Binding.I
 | --- | --- | --- | --- |
 | `protected virtual GenerateContext(TInput input)` | Creates the context every handler receives for one call to `Handle`. | `TInput` `input`: The input passed to `Handle` | [`IOutputContext<TInput, TOutput>`](bindings.md): A new interaction context carrying the input. |
 | `protected GetHandlers()` | Gets a copy of the registered handlers in order of registration. | None. | [`Func<IInteractionContext<TInput, TOutput>, Task>[]`](https://learn.microsoft.com/dotnet/api/system.func-2): The registered handlers, earliest first. |
-| `virtual Handle(TInput input)` | Runs the handlers, latest registered first, until one sets an output, and returns that output. | `TInput` `input`: The input for the interaction | [`Task<TOutput>`](https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1): A task that completes with the output the first handling handler set. Throws [`UnhandledInteractionException<TInput, TOutput>`](bindings.md) when no handler sets an output. |
+| `virtual Handle(TInput input)` | Runs the handlers, latest registered first, until one sets an output, and returns that output. | `TInput` `input`: The input for the interaction | [`Task<TOutput>`](https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1): A task that completes with the output the first handling handler set. |
 | `RegisterHandler(Action<IInteractionContext<TInput, TOutput>> handler)` | Registers a synchronous interaction handler. | [`Action<IInteractionContext<TInput, TOutput>>`](https://learn.microsoft.com/dotnet/api/system.action-1) `handler`: The handler | [`IDisposable`](https://learn.microsoft.com/dotnet/api/system.idisposable): A disposable which, when disposed, will unregister the handler. |
 | `RegisterHandler(Func<IInteractionContext<TInput, TOutput>, Task> handler)` | Registers a task-based asynchronous interaction handler. | [`Func<IInteractionContext<TInput, TOutput>, Task>`](https://learn.microsoft.com/dotnet/api/system.func-2) `handler`: The handler | [`IDisposable`](https://learn.microsoft.com/dotnet/api/system.idisposable): A disposable which, when disposed, will unregister the handler. |
 | `RegisterHandler<TDontCare>(Func<IInteractionContext<TInput, TOutput>, IObservable<TDontCare>> handler)` | Registers a handler that finishes when the observable it returns completes. | `TDontCare`: The element type of the returned observable; the values are ignored; [`Func<IInteractionContext<TInput, TOutput>, IObservable<TDontCare>>`](https://learn.microsoft.com/dotnet/api/system.func-2) `handler`: The handler; the interaction moves to the next handler once the observable completes, and a fault in the observable faults `Handle` | [`IDisposable`](https://learn.microsoft.com/dotnet/api/system.idisposable): A disposable which, when disposed, unregisters the handler. |
@@ -2888,7 +2935,7 @@ Types: `ReactiveUI.Binding.CommandBinding.CommandBinderService`, `ReactiveUI.Bin
 | --- | --- | --- | --- |
 | `BindCommandToObject<T>(ICommand? command, T? target, IObservable<object?> commandParameter)` | Binds an [`ICommand`](https://learn.microsoft.com/dotnet/api/system.windows.input.icommand) to a UI object using the default event. The default event is determined by the implementation (e.g., Click, TouchUpInside). | `T : class`: The type of the target object; [`ICommand?`](https://learn.microsoft.com/dotnet/api/system.windows.input.icommand) `command`: The command to bind. If `null`, no binding is created; `T?` `target`: The target object, usually a UI control; [`IObservable<object?>`](https://learn.microsoft.com/dotnet/api/system.iobservable-1) `commandParameter`: An observable that provides the command parameter value | [`IDisposable?`](https://learn.microsoft.com/dotnet/api/system.idisposable): An [`IDisposable`](https://learn.microsoft.com/dotnet/api/system.idisposable) that disconnects the binding when disposed, or `null` if no binding was created. |
 | `BindCommandToObject<T, TEventArgs>(ICommand? command, T? target, IObservable<object?> commandParameter, string eventName)` | Binds an [`ICommand`](https://learn.microsoft.com/dotnet/api/system.windows.input.icommand) to a UI object to a specific named event. | `T : class`: The type of the target object; `TEventArgs`: The event argument type; [`ICommand?`](https://learn.microsoft.com/dotnet/api/system.windows.input.icommand) `command`: The command to bind. If `null`, no binding is created; `T?` `target`: The target object, usually a UI control; [`IObservable<object?>`](https://learn.microsoft.com/dotnet/api/system.iobservable-1) `commandParameter`: An observable that provides the command parameter value; [`string`](https://learn.microsoft.com/dotnet/api/system.string) `eventName`: The event to bind to | [`IDisposable?`](https://learn.microsoft.com/dotnet/api/system.idisposable): An [`IDisposable`](https://learn.microsoft.com/dotnet/api/system.idisposable) that disconnects the binding when disposed, or `null` if no binding was created. |
-| `BindCommandToObject<T, TEventArgs>(ICommand? command, T? target, IObservable<object?> commandParameter, Action<EventHandler<TEventArgs>> addHandler, Action<EventHandler<TEventArgs>> removeHandler)` | Binds a command to a specific event on a target object using explicit add/remove handler delegates. This overload is fully AOT-compatible as it avoids reflection-based event lookup. | `T : class`: The type of the target object; `TEventArgs : EventArgs`: The event arguments type; [`ICommand?`](https://learn.microsoft.com/dotnet/api/system.windows.input.icommand) `command`: The command to bind. If `null`, no binding is created; `T?` `target`: The target object; [`IObservable<object?>`](https://learn.microsoft.com/dotnet/api/system.iobservable-1) `commandParameter`: An observable that supplies command parameter values; [`Action<EventHandler<TEventArgs>>`](https://learn.microsoft.com/dotnet/api/system.action-1) `addHandler`: Adds the handler to the target event; [`Action<EventHandler<TEventArgs>>`](https://learn.microsoft.com/dotnet/api/system.action-1) `removeHandler`: Removes the handler from the target event | [`IDisposable?`](https://learn.microsoft.com/dotnet/api/system.idisposable): A disposable that unbinds the command. |
+| `BindCommandToObject<T, TEventArgs>(ICommand? command, T? target, IObservable<object?> commandParameter, Action<EventHandler<TEventArgs>> addHandler, Action<EventHandler<TEventArgs>> removeHandler)` | Binds a command to a specific event on a target object using explicit add/remove handler delegates. | `T : class`: The type of the target object; `TEventArgs : EventArgs`: The event arguments type; [`ICommand?`](https://learn.microsoft.com/dotnet/api/system.windows.input.icommand) `command`: The command to bind. If `null`, no binding is created; `T?` `target`: The target object; [`IObservable<object?>`](https://learn.microsoft.com/dotnet/api/system.iobservable-1) `commandParameter`: An observable that supplies command parameter values; [`Action<EventHandler<TEventArgs>>`](https://learn.microsoft.com/dotnet/api/system.action-1) `addHandler`: Adds the handler to the target event; [`Action<EventHandler<TEventArgs>>`](https://learn.microsoft.com/dotnet/api/system.action-1) `removeHandler`: Removes the handler from the target event | [`IDisposable?`](https://learn.microsoft.com/dotnet/api/system.idisposable): A disposable that unbinds the command. |
 | `GetAffinityForObject<T>(bool hasEventTarget)` | Returns a positive integer when this implementation supports binding a command to an object of the specified type. If the binding is not supported, the method returns a non-positive integer. In cases where multiple implementations return positive values, the one with the highest value wins. | `T`: The type of the control to bind to; [`bool`](https://learn.microsoft.com/dotnet/api/system.boolean) `hasEventTarget`: Whether the caller specifies a custom event target | [`int`](https://learn.microsoft.com/dotnet/api/system.int32): A positive integer if binding is supported, or zero/negative if not. |
 
 ### Observables
@@ -3120,8 +3167,11 @@ Types: `ReactiveUI.Binding.DefaultViewLocator`, `ReactiveUI.Binding.IViewLocator
 
 | Declaration | Description | Parameters | Returns |
 | --- | --- | --- | --- |
-| `ResolveView(object? viewModel, string? contract)` | Resolves a view for the view model using its runtime type. | [`object?`](https://learn.microsoft.com/dotnet/api/system.object) `viewModel`: The view model instance to resolve a view for; [`string?`](https://learn.microsoft.com/dotnet/api/system.string) `contract`: The contract to resolve under, or null for the default view | [`IViewFor?`](views.md): The resolved view, or `null` if no view is found. |
+| `ResolveView<TViewModel>()` | Resolves a view for a view model type under the default contract, without a view model instance. | `TViewModel : class`: The view model type | [`IViewFor<TViewModel>?`](views.md): The resolved view, or `null` when nothing maps or registers one. |
+| `ResolveView<TViewModel>(string? contract)` | Resolves a view for a view model type under a contract, without a view model instance. | `TViewModel : class`: The view model type; [`string?`](https://learn.microsoft.com/dotnet/api/system.string) `contract`: The contract to resolve under, or null for the default view | [`IViewFor<TViewModel>?`](views.md): The resolved view, or `null` when nothing maps or registers one. |
+| `ResolveView(object? viewModel, string? contract)` | Resolves a view for the view model using its runtime type, without building any type at run time. | [`object?`](https://learn.microsoft.com/dotnet/api/system.object) `viewModel`: The view model instance to resolve a view for; [`string?`](https://learn.microsoft.com/dotnet/api/system.string) `contract`: The contract to resolve under, or null for the default view | [`IViewFor?`](views.md): The resolved view with its `ViewModel` set, or `null` if no view is found. |
 | `ResolveView<TViewModel>(TViewModel viewModel, string? contract)` | Resolves a view for the view model using its compile-time type, without reflection over the view model's runtime type. | `TViewModel : class`: The type of the view model; `TViewModel` `viewModel`: The view model instance to resolve a view for; [`string?`](https://learn.microsoft.com/dotnet/api/system.string) `contract`: The contract to resolve under, or null for the default view | [`IViewFor?`](views.md): The resolved view, or `null` if no view is found. |
+| `ResolveViewUnsafe(object? viewModel, string? contract)` | Resolves a view for the view model using its runtime type, and falls back to the service locator through a type built at run time. | [`object?`](https://learn.microsoft.com/dotnet/api/system.object) `viewModel`: The view model instance to resolve a view for; [`string?`](https://learn.microsoft.com/dotnet/api/system.string) `contract`: The contract to resolve under, or null for the default view | [`IViewFor?`](views.md): The resolved view with its `ViewModel` set, or `null` if no view is found. |
 | `static SetGeneratedViewDispatch(Func<object, string, IViewFor?> dispatch)` | Adds a source-generated view dispatch function. Called by `__ReactiveUIGeneratedBindings`: from a module initializer in a C# 9 or newer project, and from its static constructor in an older one. Each assembly that contains views registers its own. | [`Func<object, string, IViewFor?>`](https://learn.microsoft.com/dotnet/api/system.func-3) `dispatch`: The dispatch function that resolves views by type-switching on the view model instance | — |
 
 #### `IViewLocator`
@@ -3134,8 +3184,9 @@ Types: `ReactiveUI.Binding.DefaultViewLocator`, `ReactiveUI.Binding.IViewLocator
 
 | Declaration | Description | Parameters | Returns |
 | --- | --- | --- | --- |
-| `ResolveView(object? viewModel, string? contract)` | Resolves a view for the view model using its runtime type. | [`object?`](https://learn.microsoft.com/dotnet/api/system.object) `viewModel`: The view model instance to resolve a view for; [`string?`](https://learn.microsoft.com/dotnet/api/system.string) `contract`: The contract to resolve under, or null for the default view | [`IViewFor?`](views.md): The resolved view, or `null` if no view is found. |
+| `ResolveView(object? viewModel, string? contract)` | Resolves a view for the view model using its runtime type, without building any type at run time. | [`object?`](https://learn.microsoft.com/dotnet/api/system.object) `viewModel`: The view model instance to resolve a view for; [`string?`](https://learn.microsoft.com/dotnet/api/system.string) `contract`: The contract to resolve under, or null for the default view | [`IViewFor?`](views.md): The resolved view, or `null` if no view is found. |
 | `ResolveView<TViewModel>(TViewModel viewModel, string? contract)` | Resolves a view for the view model using its compile-time type, without reflection over the view model's runtime type. | `TViewModel : class`: The type of the view model; `TViewModel` `viewModel`: The view model instance to resolve a view for; [`string?`](https://learn.microsoft.com/dotnet/api/system.string) `contract`: The contract to resolve under, or null for the default view | [`IViewFor?`](views.md): The resolved view, or `null` if no view is found. |
+| `ResolveViewUnsafe(object? viewModel, string? contract)` | Resolves a view for the view model using its runtime type, and falls back to steps that build a type at run time. | [`object?`](https://learn.microsoft.com/dotnet/api/system.object) `viewModel`: The view model instance to resolve a view for; [`string?`](https://learn.microsoft.com/dotnet/api/system.string) `contract`: The contract to resolve under, or null for the default view | [`IViewFor?`](views.md): The resolved view, or `null` if no view is found. |
 
 #### `ViewLocator`
 
@@ -3159,8 +3210,11 @@ Types: `ReactiveUI.Binding.DefaultViewLocator`, `ReactiveUI.Binding.IViewLocator
 
 | Declaration | Description | Parameters | Returns |
 | --- | --- | --- | --- |
-| `IViewLocator.ResolveView(object? viewModel)` | Resolves a view for the specified view model instance using the default contract. | [`IViewLocator`](views.md) `locator` (receiver); [`object?`](https://learn.microsoft.com/dotnet/api/system.object) `viewModel`: The view model instance to resolve a view for | [`IViewFor?`](views.md): The resolved view, or `null` if no view is found. |
+| `IViewLocator.ResolveView<TViewModel>()` | Resolves a view for a view model type under the default contract, without a view model instance. | `TViewModel : class`: The view model type; [`IViewLocator`](views.md) `locator` (receiver) | [`IViewFor<TViewModel>?`](views.md): The resolved view, or `null` if no view is found. |
+| `IViewLocator.ResolveView(object? viewModel)` | Resolves a view for a view model instance under the default contract, without building any type at run time. | [`IViewLocator`](views.md) `locator` (receiver); [`object?`](https://learn.microsoft.com/dotnet/api/system.object) `viewModel`: The view model instance to resolve a view for | [`IViewFor?`](views.md): The resolved view, or `null` if no view is found. |
+| `IViewLocator.ResolveView<TViewModel>(string? contract)` | Resolves a view for a view model type under a contract, without a view model instance. | `TViewModel : class`: The view model type; [`IViewLocator`](views.md) `locator` (receiver); [`string?`](https://learn.microsoft.com/dotnet/api/system.string) `contract`: The contract to resolve under, or null for the default view | [`IViewFor<TViewModel>?`](views.md): The resolved view, or `null` if no view is found. |
 | `IViewLocator.ResolveView<TViewModel>(TViewModel viewModel)` | Resolves a view for the specified view model type using the default contract. | `TViewModel : class`: The type of the view model; [`IViewLocator`](views.md) `locator` (receiver); `TViewModel` `viewModel`: The view model instance to resolve a view for | [`IViewFor?`](views.md): The resolved view, or `null` if no view is found. |
+| `IViewLocator.ResolveViewUnsafe(object? viewModel)` | Resolves a view for a view model instance under the default contract, and falls back to steps that build a type at run time. | [`IViewLocator`](views.md) `locator` (receiver); [`object?`](https://learn.microsoft.com/dotnet/api/system.object) `viewModel`: The view model instance to resolve a view for | [`IViewFor?`](views.md): The resolved view, or `null` if no view is found. |
 
 #### `ViewLocatorNotFoundException`
 
@@ -3252,12 +3306,15 @@ Types: `ReactiveUI.Binding.DefaultViewLocator`, `ReactiveUI.Binding.ExcludeFromV
 | `Map<TViewModel>(Func<IViewFor> factory)` | Maps a view model type to a view created by a factory, replacing an existing mapping for the same view model type. | `TViewModel : class`: The view model type; [`Func<IViewFor>`](https://learn.microsoft.com/dotnet/api/system.func-1) `factory`: A factory function that creates the view | [`ViewMappingBuilder`](views.md): This builder for chaining. |
 | `Map<TViewModel, TView>(string? contract)` | Maps a view model type and contract to a view type constructed with its parameterless constructor, replacing an existing mapping for the same pair. | `TViewModel : class`: The view model type; `TView : IViewFor, new()`: The view type. Must have a parameterless constructor; [`string?`](https://learn.microsoft.com/dotnet/api/system.string) `contract`: The contract the mapping is registered under; null registers the default mapping | [`ViewMappingBuilder`](views.md): This builder for chaining. |
 | `Map<TViewModel>(Func<IViewFor> factory, string? contract)` | Maps a view model type and contract to a view created by a factory, replacing an existing mapping for the same pair. | `TViewModel : class`: The view model type; [`Func<IViewFor>`](https://learn.microsoft.com/dotnet/api/system.func-1) `factory`: A factory function that creates the view; [`string?`](https://learn.microsoft.com/dotnet/api/system.string) `contract`: The contract the mapping is registered under; null registers the default mapping | [`ViewMappingBuilder`](views.md): This builder for chaining. |
+| `MapFromServiceLocator<TViewModel, TView>()` | Maps a view model type to a view the service locator creates, replacing an existing mapping for the same view model type. | `TViewModel : class`: The view model type; `TView : class, IViewFor`: The view type, as registered in the service locator | [`ViewMappingBuilder`](views.md): This builder for chaining. |
+| `MapFromServiceLocator<TViewModel, TView>(string? contract)` | Maps a view model type and contract to a view the service locator creates, replacing an existing mapping for the same pair. | `TViewModel : class`: The view model type; `TView : class, IViewFor`: The view type, as registered in the service locator; [`string?`](https://learn.microsoft.com/dotnet/api/system.string) `contract`: The contract the mapping is registered under; null registers the default mapping | [`ViewMappingBuilder`](views.md): This builder for chaining. |
+| `MapFromServiceLocator<TViewModel, TView>(string? contract, string? serviceContract)` | Maps a view model type and contract to a view the service locator creates under its own contract, replacing an existing mapping for the same pair. | `TViewModel : class`: The view model type; `TView : class, IViewFor`: The view type, as registered in the service locator; [`string?`](https://learn.microsoft.com/dotnet/api/system.string) `contract`: The contract the mapping is registered under; null registers the default mapping; [`string?`](https://learn.microsoft.com/dotnet/api/system.string) `serviceContract`: The contract the view is registered under in the service locator; null asks for the registration with no contract | [`ViewMappingBuilder`](views.md): This builder for chaining. |
 
 ## Threading
 
 ### Schedulers
 
-[Full description and examples](threading.md).
+[Full description and examples](threading/index.md).
 
 Types: `ReactiveUI.Binding.BindingSchedulers`.
 
@@ -3273,7 +3330,7 @@ Types: `ReactiveUI.Binding.BindingSchedulers`.
 | --- | --- | --- | --- |
 | `ObserveOnSequencer<T>(IObservable<T> source, ISequencer scheduler)` | Routes an observable onto a sequencer, delivering only the latest value that is waiting on it. | `T`: The type of the observed values; [`IObservable<T>`](https://learn.microsoft.com/dotnet/api/system.iobservable-1) `source`: The observable feeding a write; `ISequencer` `scheduler`: The sequencer every delivery waits on | [`IObservable<T>`](https://learn.microsoft.com/dotnet/api/system.iobservable-1): The source, observed on the sequencer with a newer value replacing one that has not been delivered. |
 | `ObserveOnViewThread<T>(IObservable<T> source, object? target)` | Routes an observable onto the thread that owns the object being written to. | `T`: The type of the observed values; [`IObservable<T>`](https://learn.microsoft.com/dotnet/api/system.iobservable-1) `source`: The observable feeding a write; [`object?`](https://learn.microsoft.com/dotnet/api/system.object) `target`: The object the write lands on | [`IObservable<T>`](https://learn.microsoft.com/dotnet/api/system.iobservable-1): The source itself when `target` is null or no registered invoker claims it; otherwise the source routed onto its thread. |
-| `ObserveOnViewThread<T>(IObservable<T> source, object? target, IViewThreadInvoker fallback)` | Routes an observable onto the thread that owns the object being written to, falling back to a known invoker. | `T`: The type of the observed values; [`IObservable<T>`](https://learn.microsoft.com/dotnet/api/system.iobservable-1) `source`: The observable feeding a write; [`object?`](https://learn.microsoft.com/dotnet/api/system.object) `target`: The object the write lands on; [`IViewThreadInvoker`](threading.md) `fallback`: The invoker for the object's platform, used when no registered invoker claims it | [`IObservable<T>`](https://learn.microsoft.com/dotnet/api/system.iobservable-1): The source itself when `target` is null; otherwise the source routed onto its thread. |
+| `ObserveOnViewThread<T>(IObservable<T> source, object? target, IViewThreadInvoker fallback)` | Routes an observable onto the thread that owns the object being written to, falling back to a known invoker. | `T`: The type of the observed values; [`IObservable<T>`](https://learn.microsoft.com/dotnet/api/system.iobservable-1) `source`: The observable feeding a write; [`object?`](https://learn.microsoft.com/dotnet/api/system.object) `target`: The object the write lands on; [`IViewThreadInvoker`](threading/index.md) `fallback`: The invoker for the object's platform, used when no registered invoker claims it | [`IObservable<T>`](https://learn.microsoft.com/dotnet/api/system.iobservable-1): The source itself when `target` is null; otherwise the source routed onto its thread. |
 | `UseSynchronizationContext(SynchronizationContext? context)` | Delivers writes from another thread through a synchronization context. | [`SynchronizationContext?`](https://learn.microsoft.com/dotnet/api/system.threading.synchronizationcontext) `context`: The context owning the view, or null to use the view's own dispatcher | — |
 
 **Properties**
@@ -3284,9 +3341,9 @@ Types: `ReactiveUI.Binding.BindingSchedulers`.
 
 ### View thread invokers
 
-[Full description and examples](threading.md).
+[Full description and examples](threading/index.md).
 
-Types: `ReactiveUI.Binding.IViewThreadInvoker`, `ReactiveUI.Binding.ViewThreadInvokers`.
+Types: `ReactiveUI.Binding.IViewThreadInvoker`, `ReactiveUI.Binding.SequencerViewThreadInvoker<TTarget, TSequencer>`, `ReactiveUI.Binding.ViewThreadInvokers`.
 
 #### `IViewThreadInvoker`
 
@@ -3302,6 +3359,27 @@ Types: `ReactiveUI.Binding.IViewThreadInvoker`, `ReactiveUI.Binding.ViewThreadIn
 | `Claims(object target)` | Determines whether this invoker handles `target`. | [`object`](https://learn.microsoft.com/dotnet/api/system.object) `target`: The object a binding writes to | [`bool`](https://learn.microsoft.com/dotnet/api/system.boolean): `true` when the object belongs to this invoker's platform; otherwise `false`. |
 | `Post(object target, Action<object?> callback, object? state)` | Queues a callback on the thread that owns `target`. | [`object`](https://learn.microsoft.com/dotnet/api/system.object) `target`: An object this invoker claims; [`Action<object?>`](https://learn.microsoft.com/dotnet/api/system.action-1) `callback`: The callback to run; [`object?`](https://learn.microsoft.com/dotnet/api/system.object) `state`: The value handed to `callback` | — |
 
+#### `SequencerViewThreadInvoker<TTarget, TSequencer>`
+
+| Declaration | Description | Parameters | Returns |
+| --- | --- | --- | --- |
+| `abstract class SequencerViewThreadInvoker<TTarget, TSequencer>` | Routes writes to a view object through the sequencer that owns the object's thread. | `TTarget : class`: The type of view object this invoker claims; `TSequencer : class, ISequencer, IThreadAffineSequencer`: The sequencer type that owns those objects' threads | — |
+
+**Constructors**
+
+| Declaration | Description | Parameters | Returns |
+| --- | --- | --- | --- |
+| `protected SequencerViewThreadInvoker()` | Initializes a new instance of the SequencerViewThreadInvoker<TTarget, TSequencer> class. | None. | — |
+
+**Methods**
+
+| Declaration | Description | Parameters | Returns |
+| --- | --- | --- | --- |
+| `CheckAccess(object target)` | Returns whether the calling thread owns the sequencer of `target`. | [`object`](https://learn.microsoft.com/dotnet/api/system.object) `target`: A `TTarget`; any other type throws [`InvalidCastException`](https://learn.microsoft.com/dotnet/api/system.invalidcastexception) | [`bool`](https://learn.microsoft.com/dotnet/api/system.boolean): `true` when the calling thread may write to `target` now. |
+| `Claims(object target)` | Returns whether `target` is a `TTarget`. | [`object`](https://learn.microsoft.com/dotnet/api/system.object) `target`: The object a binding is about to write to | [`bool`](https://learn.microsoft.com/dotnet/api/system.boolean): `true` when this invoker routes writes to `target`. |
+| `Post(object target, Action<object?> callback, object? state)` | Queues `callback` on the sequencer of `target`, or runs it inline when the target has none. | [`object`](https://learn.microsoft.com/dotnet/api/system.object) `target`: A `TTarget`; any other type throws [`InvalidCastException`](https://learn.microsoft.com/dotnet/api/system.invalidcastexception); [`Action<object?>`](https://learn.microsoft.com/dotnet/api/system.action-1) `callback`: The callback to run; [`object?`](https://learn.microsoft.com/dotnet/api/system.object) `state`: The value passed to `callback` | — |
+| `protected abstract SequencerFor(TTarget target)` | Returns the sequencer that owns the thread of `target`. | `TTarget` `target`: The object a binding writes to | `TSequencer?`: The owning sequencer, or null when `target` belongs to no thread. |
+
 #### `ViewThreadInvokers`
 
 | Declaration | Description | Parameters | Returns |
@@ -3312,7 +3390,7 @@ Types: `ReactiveUI.Binding.IViewThreadInvoker`, `ReactiveUI.Binding.ViewThreadIn
 
 | Declaration | Description | Parameters | Returns |
 | --- | --- | --- | --- |
-| `ForTarget(object? target)` | Finds the first registered invoker that claims `target`. | [`object?`](https://learn.microsoft.com/dotnet/api/system.object) `target`: The object a binding is about to write to | [`IViewThreadInvoker?`](threading.md): The invoker, or null when `target` is null or nothing claims it. |
+| `ForTarget(object? target)` | Finds the first registered invoker that claims `target`. | [`object?`](https://learn.microsoft.com/dotnet/api/system.object) `target`: The object a binding is about to write to | [`IViewThreadInvoker?`](threading/index.md): The invoker, or null when `target` is null or nothing claims it. |
 | `Refresh()` | Re-reads the registered invokers, for a host that registers one after its first binding. | None. | — |
 
 ## Setup
@@ -3663,9 +3741,104 @@ Types: `ReactiveUI.Binding.Fallback.RuntimeBindingConverter`, `ReactiveUI.Bindin
 
 ## Platforms
 
+### Avalonia
+
+[Full description and examples](threading/avalonia.md).
+
+Types: `ReactiveUI.Binding.Avalonia.AvaloniaBindingModule`, `ReactiveUI.Binding.Avalonia.AvaloniaCreatesCommandBinding`, `ReactiveUI.Binding.Avalonia.AvaloniaObjectObservableForProperty`, `ReactiveUI.Binding.Avalonia.AvaloniaViewThreadInvoker`, `ReactiveUI.Binding.Avalonia.Builder.AvaloniaBindingBuilderExtensions`.
+
+#### `AvaloniaBindingModule`
+
+| Declaration | Description | Parameters | Returns |
+| --- | --- | --- | --- |
+| `sealed class AvaloniaBindingModule` | Registers the Avalonia property observer, command binder and view thread invoker with the dependency resolver. | None. | — |
+
+**Constructors**
+
+| Declaration | Description | Parameters | Returns |
+| --- | --- | --- | --- |
+| `AvaloniaBindingModule()` | Initializes a new instance of the AvaloniaBindingModule class. | None. | — |
+
+**Methods**
+
+| Declaration | Description | Parameters | Returns |
+| --- | --- | --- | --- |
+| `Configure(IMutableDependencyResolver resolver)` | Configures the specified dependency resolver with required services and components. | `IMutableDependencyResolver` `resolver`: The dependency resolver to configure. Cannot be null | — |
+
+#### `AvaloniaCreatesCommandBinding`
+
+| Declaration | Description | Parameters | Returns |
+| --- | --- | --- | --- |
+| `sealed class AvaloniaCreatesCommandBinding` | Binds commands to Avalonia input elements, through a command source's `Command` property or through a routed event. | None. | — |
+
+**Constructors**
+
+| Declaration | Description | Parameters | Returns |
+| --- | --- | --- | --- |
+| `AvaloniaCreatesCommandBinding()` | Initializes a new instance of the AvaloniaCreatesCommandBinding class. | None. | — |
+
+**Methods**
+
+| Declaration | Description | Parameters | Returns |
+| --- | --- | --- | --- |
+| `BindCommandToObject<T>(ICommand? command, T? target, IObservable<object?> commandParameter)` | Sets `command` as the control's `Command` and binds its `CommandParameter` to `commandParameter`. | `T : class`: The control type; [`ICommand?`](https://learn.microsoft.com/dotnet/api/system.windows.input.icommand) `command`: The command, or null to clear the control's command; `T?` `target`: The control, or null when there is nothing to bind; [`IObservable<object?>`](https://learn.microsoft.com/dotnet/api/system.iobservable-1) `commandParameter`: The values the control's `CommandParameter` follows | [`IDisposable?`](https://learn.microsoft.com/dotnet/api/system.idisposable): A binding that clears the command and parameter when disposed; an empty disposable after clearing the command; or null when `target` is null, or when the command is null and the target is not a command source. |
+| `BindCommandToObject<T, TEventArgs>(ICommand? command, T? target, IObservable<object?> commandParameter, string eventName)` | Executes `command` whenever the routed event named `eventName` is raised on the control. | `T : class`: The control type; `TEventArgs`: The event's argument type; the routed event's arguments must be assignable to it; [`ICommand?`](https://learn.microsoft.com/dotnet/api/system.windows.input.icommand) `command`: The command, or null when there is nothing to bind; `T?` `target`: The control, or null when there is nothing to bind; [`IObservable<object?>`](https://learn.microsoft.com/dotnet/api/system.iobservable-1) `commandParameter`: The values passed to the command; [`string`](https://learn.microsoft.com/dotnet/api/system.string) `eventName`: The name of a routed event the control or one of its base types registers | [`IDisposable?`](https://learn.microsoft.com/dotnet/api/system.idisposable): A binding that removes the handler when disposed, or null when the command or target is null. |
+| `BindCommandToObject<T, TEventArgs>(ICommand? command, T? target, IObservable<object?> commandParameter, Action<EventHandler<TEventArgs>> addHandler, Action<EventHandler<TEventArgs>> removeHandler)` | Executes `command` whenever the event attached through `addHandler` is raised. | `T : class`: The control type; `TEventArgs : EventArgs`: The event's argument type; [`ICommand?`](https://learn.microsoft.com/dotnet/api/system.windows.input.icommand) `command`: The command, or null when there is nothing to bind; `T?` `target`: The control, or null when there is nothing to bind; [`IObservable<object?>`](https://learn.microsoft.com/dotnet/api/system.iobservable-1) `commandParameter`: The values passed to the command; [`Action<EventHandler<TEventArgs>>`](https://learn.microsoft.com/dotnet/api/system.action-1) `addHandler`: Attaches a handler to the event; [`Action<EventHandler<TEventArgs>>`](https://learn.microsoft.com/dotnet/api/system.action-1) `removeHandler`: Detaches the handler from the event | [`IDisposable?`](https://learn.microsoft.com/dotnet/api/system.idisposable): A binding that detaches the handler when disposed, or null when the command or target is null. |
+| `GetAffinityForObject<T>(bool hasEventTarget)` | Returns how well this binder handles controls of type `T`. | `T`: The control type; [`bool`](https://learn.microsoft.com/dotnet/api/system.boolean) `hasEventTarget`: `true` when the binding names an event | [`int`](https://learn.microsoft.com/dotnet/api/system.int32): Zero for a type that is not an `InputElement`; 6 for an input element bound through an event; 10 for an input element that implements `ICommandSource` and is bound without an event; otherwise zero. |
+
+#### `AvaloniaObjectObservableForProperty`
+
+| Declaration | Description | Parameters | Returns |
+| --- | --- | --- | --- |
+| `sealed class AvaloniaObjectObservableForProperty` | Observes a property of an `AvaloniaObject` through the `AvaloniaProperty` registered under its name. | None. | — |
+
+**Constructors**
+
+| Declaration | Description | Parameters | Returns |
+| --- | --- | --- | --- |
+| `AvaloniaObjectObservableForProperty()` | Initializes a new instance of the AvaloniaObjectObservableForProperty class. | None. | — |
+
+**Methods**
+
+| Declaration | Description | Parameters | Returns |
+| --- | --- | --- | --- |
+| `GetAffinityForObject(Type type, string propertyName, bool beforeChanged)` | Returns the Avalonia property affinity when the type registers an Avalonia property with the given name. | [`Type`](https://learn.microsoft.com/dotnet/api/system.type) `type`: The type that owns the property; [`string`](https://learn.microsoft.com/dotnet/api/system.string) `propertyName`: The property name; [`bool`](https://learn.microsoft.com/dotnet/api/system.boolean) `beforeChanged`: Ignored | [`int`](https://learn.microsoft.com/dotnet/api/system.int32): The Avalonia property affinity for an `AvaloniaObject` type that registers the property; otherwise zero. |
+| `GetNotificationForProperty(object sender, Expression expression, string propertyName, bool beforeChanged, bool suppressWarnings)` | Returns an observable that raises whenever the Avalonia property changes on `sender`. | [`object`](https://learn.microsoft.com/dotnet/api/system.object) `sender`: The `AvaloniaObject` to observe; [`Expression`](https://learn.microsoft.com/dotnet/api/system.linq.expressions.expression) `expression`: The expression carried on each notification; [`string`](https://learn.microsoft.com/dotnet/api/system.string) `propertyName`: The property name; [`bool`](https://learn.microsoft.com/dotnet/api/system.boolean) `beforeChanged`: Ignored; notifications are always after the change; [`bool`](https://learn.microsoft.com/dotnet/api/system.boolean) `suppressWarnings`: `true` to skip the debug message written when no property is found | [`IObservable<IObservedChange<object, object?>>`](https://learn.microsoft.com/dotnet/api/system.iobservable-1): An observable that attaches to the object's property-changed event and detaches on disposal. |
+
+#### `AvaloniaViewThreadInvoker`
+
+| Declaration | Description | Parameters | Returns |
+| --- | --- | --- | --- |
+| `sealed class AvaloniaViewThreadInvoker : SequencerViewThreadInvoker<AvaloniaObject, AvaloniaScheduler>` | Routes writes to an `AvaloniaObject` onto the `AvaloniaScheduler` of the dispatcher that owns it. | None. | — |
+
+**Constructors**
+
+| Declaration | Description | Parameters | Returns |
+| --- | --- | --- | --- |
+| `AvaloniaViewThreadInvoker()` | Initializes a new instance of the AvaloniaViewThreadInvoker class. | None. | — |
+
+**Properties**
+
+| Declaration | Description | Parameters | Returns |
+| --- | --- | --- | --- |
+| `static Instance { get; }` | Gets the shared instance, which generated bindings route their Avalonia writes through. | None. | [`AvaloniaViewThreadInvoker`](threading/avalonia.md) |
+
+#### `AvaloniaBindingBuilderExtensions`
+
+| Declaration | Description | Parameters | Returns |
+| --- | --- | --- | --- |
+| `static class AvaloniaBindingBuilderExtensions` | Avalonia-specific extensions for the ReactiveUI.Binding builder. | None. | — |
+
+**Methods**
+
+| Declaration | Description | Parameters | Returns |
+| --- | --- | --- | --- |
+| `IReactiveUIBindingBuilder.WithAvalonia()` | Registers the Avalonia module, which adds Avalonia property observation, command binding and the view thread invoker. | [`IReactiveUIBindingBuilder`](setup.md) `builder` (receiver) | [`IReactiveUIBindingBuilder`](setup.md): The builder instance for chaining. |
+| `IAppBuilder.WithAvalonia()` | Registers the Avalonia module, which adds Avalonia property observation, command binding and the view thread invoker. | `IAppBuilder` `builder` (receiver) | [`IReactiveUIBindingBuilder`](setup.md): The builder instance for chaining. |
+
 ### WPF
 
-[Full description and examples](threading.md).
+[Full description and examples](threading/wpf.md).
 
 Types: `ReactiveUI.Binding.Wpf.BooleanToVisibilityHints`, `ReactiveUI.Binding.Wpf.BooleanToVisibilityTypeConverter`, `ReactiveUI.Binding.Wpf.Builder.WpfBindingBuilderExtensions`, `ReactiveUI.Binding.Wpf.DependencyObjectObservableForProperty`, `ReactiveUI.Binding.Wpf.DispatcherViewThreadInvoker`, `ReactiveUI.Binding.Wpf.VisibilityToBooleanTypeConverter`, `ReactiveUI.Binding.Wpf.WpfBindingModule`.
 
@@ -3738,7 +3911,7 @@ Types: `ReactiveUI.Binding.Wpf.BooleanToVisibilityHints`, `ReactiveUI.Binding.Wp
 
 | Declaration | Description | Parameters | Returns |
 | --- | --- | --- | --- |
-| `sealed class DispatcherViewThreadInvoker` | Routes writes to a WPF `DispatcherObject` onto the thread its dispatcher owns. | None. | — |
+| `sealed class DispatcherViewThreadInvoker : SequencerViewThreadInvoker<DispatcherObject, DispatcherSequencer>` | Routes writes to a WPF `DispatcherObject` onto the `DispatcherSequencer` of the dispatcher that owns it. | None. | — |
 
 **Constructors**
 
@@ -3746,19 +3919,11 @@ Types: `ReactiveUI.Binding.Wpf.BooleanToVisibilityHints`, `ReactiveUI.Binding.Wp
 | --- | --- | --- | --- |
 | `DispatcherViewThreadInvoker()` | Initializes a new instance of the DispatcherViewThreadInvoker class. | None. | — |
 
-**Methods**
-
-| Declaration | Description | Parameters | Returns |
-| --- | --- | --- | --- |
-| `CheckAccess(object target)` | Returns whether the calling thread owns the target's dispatcher. | [`object`](https://learn.microsoft.com/dotnet/api/system.object) `target`: A `DispatcherObject`; any other type throws [`InvalidCastException`](https://learn.microsoft.com/dotnet/api/system.invalidcastexception) | [`bool`](https://learn.microsoft.com/dotnet/api/system.boolean): `true` when the calling thread may touch the target. |
-| `Claims(object target)` | Determines whether this invoker handles `target`. | [`object`](https://learn.microsoft.com/dotnet/api/system.object) `target`: The object a binding writes to | [`bool`](https://learn.microsoft.com/dotnet/api/system.boolean): `true` when the object belongs to this invoker's platform; otherwise `false`. |
-| `Post(object target, Action<object?> callback, object? state)` | Queues `callback` on the target's dispatcher at normal priority, or runs it inline when the target has no dispatcher. | [`object`](https://learn.microsoft.com/dotnet/api/system.object) `target`: A `DispatcherObject`; any other type throws [`InvalidCastException`](https://learn.microsoft.com/dotnet/api/system.invalidcastexception); [`Action<object?>`](https://learn.microsoft.com/dotnet/api/system.action-1) `callback`: The callback to run; [`object?`](https://learn.microsoft.com/dotnet/api/system.object) `state`: The value passed to `callback` | — |
-
 **Properties**
 
 | Declaration | Description | Parameters | Returns |
 | --- | --- | --- | --- |
-| `static Instance { get; }` | Gets the shared instance, which generated bindings route their WPF writes through. | None. | [`DispatcherViewThreadInvoker`](threading.md) |
+| `static Instance { get; }` | Gets the shared instance, which generated bindings route their WPF writes through. | None. | [`DispatcherViewThreadInvoker`](threading/wpf.md) |
 
 #### `VisibilityToBooleanTypeConverter`
 
@@ -3799,7 +3964,7 @@ Types: `ReactiveUI.Binding.Wpf.BooleanToVisibilityHints`, `ReactiveUI.Binding.Wp
 
 ### WinForms
 
-[Full description and examples](threading.md).
+[Full description and examples](threading/winforms.md).
 
 Types: `ReactiveUI.Binding.WinForms.Builder.WinFormsBindingBuilderExtensions`, `ReactiveUI.Binding.WinForms.ControlViewThreadInvoker`, `ReactiveUI.Binding.WinForms.WinFormsBindingModule`, `ReactiveUI.Binding.WinForms.WinFormsCreatesObservableForProperty`.
 
@@ -3820,7 +3985,7 @@ Types: `ReactiveUI.Binding.WinForms.Builder.WinFormsBindingBuilderExtensions`, `
 
 | Declaration | Description | Parameters | Returns |
 | --- | --- | --- | --- |
-| `sealed class ControlViewThreadInvoker` | Routes writes to a WinForms `Control` onto the thread that created its handle. | None. | — |
+| `sealed class ControlViewThreadInvoker : SequencerViewThreadInvoker<Control, ControlSequencer>` | Routes writes to a WinForms `Control` onto the `ControlSequencer` of the thread that created its handle. | None. | — |
 
 **Constructors**
 
@@ -3828,19 +3993,11 @@ Types: `ReactiveUI.Binding.WinForms.Builder.WinFormsBindingBuilderExtensions`, `
 | --- | --- | --- | --- |
 | `ControlViewThreadInvoker()` | Initializes a new instance of the ControlViewThreadInvoker class. | None. | — |
 
-**Methods**
-
-| Declaration | Description | Parameters | Returns |
-| --- | --- | --- | --- |
-| `CheckAccess(object target)` | Returns whether the calling thread may write to the control; also true while the control has no handle. | [`object`](https://learn.microsoft.com/dotnet/api/system.object) `target`: A `Control`; any other type throws [`InvalidCastException`](https://learn.microsoft.com/dotnet/api/system.invalidcastexception) | [`bool`](https://learn.microsoft.com/dotnet/api/system.boolean): `true` when `InvokeRequired` is false. |
-| `Claims(object target)` | Determines whether this invoker handles `target`. | [`object`](https://learn.microsoft.com/dotnet/api/system.object) `target`: The object a binding writes to | [`bool`](https://learn.microsoft.com/dotnet/api/system.boolean): `true` when the object belongs to this invoker's platform; otherwise `false`. |
-| `Post(object target, Action<object?> callback, object? state)` | Queues `callback` with `BeginInvoke`, or runs it inline when no invoke is required. | [`object`](https://learn.microsoft.com/dotnet/api/system.object) `target`: A `Control`; any other type throws [`InvalidCastException`](https://learn.microsoft.com/dotnet/api/system.invalidcastexception); [`Action<object?>`](https://learn.microsoft.com/dotnet/api/system.action-1) `callback`: The callback to run; [`object?`](https://learn.microsoft.com/dotnet/api/system.object) `state`: The value passed to `callback` | — |
-
 **Properties**
 
 | Declaration | Description | Parameters | Returns |
 | --- | --- | --- | --- |
-| `static Instance { get; }` | Gets the shared instance, which generated bindings route their WinForms writes through. | None. | [`ControlViewThreadInvoker`](threading.md) |
+| `static Instance { get; }` | Gets the shared instance, which generated bindings route their WinForms writes through. | None. | [`ControlViewThreadInvoker`](threading/winforms.md) |
 
 #### `WinFormsBindingModule`
 
@@ -3881,7 +4038,7 @@ Types: `ReactiveUI.Binding.WinForms.Builder.WinFormsBindingBuilderExtensions`, `
 
 ### .NET MAUI
 
-[Full description and examples](threading.md).
+[Full description and examples](threading/maui.md).
 
 Types: `ReactiveUI.Binding.Maui.BooleanToVisibilityHints`, `ReactiveUI.Binding.Maui.BooleanToVisibilityTypeConverter`, `ReactiveUI.Binding.Maui.Builder.MauiBindingBuilderExtensions`, `ReactiveUI.Binding.Maui.DispatcherViewThreadInvoker`, `ReactiveUI.Binding.Maui.MauiBindingModule`, `ReactiveUI.Binding.Maui.VisibilityToBooleanTypeConverter`.
 
@@ -3935,7 +4092,7 @@ Types: `ReactiveUI.Binding.Maui.BooleanToVisibilityHints`, `ReactiveUI.Binding.M
 
 | Declaration | Description | Parameters | Returns |
 | --- | --- | --- | --- |
-| `sealed class DispatcherViewThreadInvoker` | Routes writes to a MAUI `BindableObject` through the dispatcher it carries. | None. | — |
+| `sealed class DispatcherViewThreadInvoker : SequencerViewThreadInvoker<BindableObject, MauiDispatcherSequencer>` | Routes writes to a MAUI `BindableObject` onto the `MauiDispatcherSequencer` of the dispatcher it carries. | None. | — |
 
 **Constructors**
 
@@ -3943,19 +4100,11 @@ Types: `ReactiveUI.Binding.Maui.BooleanToVisibilityHints`, `ReactiveUI.Binding.M
 | --- | --- | --- | --- |
 | `DispatcherViewThreadInvoker()` | Initializes a new instance of the DispatcherViewThreadInvoker class. | None. | — |
 
-**Methods**
-
-| Declaration | Description | Parameters | Returns |
-| --- | --- | --- | --- |
-| `CheckAccess(object target)` | Returns whether the calling thread may write to the target; also true when the target has no dispatcher. | [`object`](https://learn.microsoft.com/dotnet/api/system.object) `target`: A `BindableObject`; any other type throws [`InvalidCastException`](https://learn.microsoft.com/dotnet/api/system.invalidcastexception) | [`bool`](https://learn.microsoft.com/dotnet/api/system.boolean): `false` only when the target's dispatcher requires a dispatch from the calling thread. |
-| `Claims(object target)` | Determines whether this invoker handles `target`. | [`object`](https://learn.microsoft.com/dotnet/api/system.object) `target`: The object a binding writes to | [`bool`](https://learn.microsoft.com/dotnet/api/system.boolean): `true` when the object belongs to this invoker's platform; otherwise `false`. |
-| `Post(object target, Action<object?> callback, object? state)` | Queues `callback` on the target's dispatcher, or runs it inline when the target has no dispatcher. | [`object`](https://learn.microsoft.com/dotnet/api/system.object) `target`: A `BindableObject`; any other type throws [`InvalidCastException`](https://learn.microsoft.com/dotnet/api/system.invalidcastexception); [`Action<object?>`](https://learn.microsoft.com/dotnet/api/system.action-1) `callback`: The callback to run; [`object?`](https://learn.microsoft.com/dotnet/api/system.object) `state`: The value passed to `callback` | — |
-
 **Properties**
 
 | Declaration | Description | Parameters | Returns |
 | --- | --- | --- | --- |
-| `static Instance { get; }` | Gets the shared instance, which generated bindings route their MAUI writes through. | None. | [`DispatcherViewThreadInvoker`](threading.md) |
+| `static Instance { get; }` | Gets the shared instance, which generated bindings route their MAUI writes through. | None. | [`DispatcherViewThreadInvoker`](threading/maui.md) |
 
 #### `MauiBindingModule`
 
@@ -3993,3 +4142,78 @@ Types: `ReactiveUI.Binding.Maui.BooleanToVisibilityHints`, `ReactiveUI.Binding.M
 | --- | --- | --- | --- |
 | `override GetAffinityForObjects()` | Returns this converter's priority among the converters registered for the same type pair. | None. | [`int`](https://learn.microsoft.com/dotnet/api/system.int32): A positive value when the converter applies; zero or less excludes it. The highest value wins and the earliest registered converter wins a tie. The built-in converters return 2, and [`EqualityTypeConverter`](converters.md) returns 1, so a larger value outranks them. |
 | `override TryConvert(Visibility from, object? conversionHint, out bool result)` | Converts a value to the target type without boxing. | [`Visibility`](https://learn.microsoft.com/dotnet/api/microsoft.maui.visibility) `from`: The value to convert; [`object?`](https://learn.microsoft.com/dotnet/api/system.object) `conversionHint`: Implementation-defined hint for conversion (e.g., format string, locale); out [`bool`](https://learn.microsoft.com/dotnet/api/system.boolean) `result`: The converted value. May be `null` when conversion succeeds for nullable targets | [`bool`](https://learn.microsoft.com/dotnet/api/system.boolean): `true` if conversion succeeded; otherwise, `false`. |
+
+### Uno Platform
+
+[Full description and examples](threading/winui-uno.md).
+
+Types: `ReactiveUI.Binding.Uno.Builder.UnoBindingBuilderExtensions`, `ReactiveUI.Binding.Uno.GlobalStaticResources`, `ReactiveUI.Binding.Uno.UnoBindingModule`, `ReactiveUI.Binding.Uno.UnoViewThreadInvoker`.
+
+#### `UnoBindingBuilderExtensions`
+
+| Declaration | Description | Parameters | Returns |
+| --- | --- | --- | --- |
+| `static class UnoBindingBuilderExtensions` | Uno Platform extensions for the ReactiveUI.Binding builder. | None. | — |
+
+**Methods**
+
+| Declaration | Description | Parameters | Returns |
+| --- | --- | --- | --- |
+| `IReactiveUIBindingBuilder.WithUno()` | Registers the Uno module, which adds the Uno view thread invoker. | [`IReactiveUIBindingBuilder`](setup.md) `builder` (receiver) | [`IReactiveUIBindingBuilder`](setup.md): The builder instance for chaining. |
+| `IAppBuilder.WithUno()` | Registers the Uno module, which adds the Uno view thread invoker. | `IAppBuilder` `builder` (receiver) | [`IReactiveUIBindingBuilder`](setup.md): The builder instance for chaining. |
+
+#### `GlobalStaticResources`
+
+| Declaration | Description | Parameters | Returns |
+| --- | --- | --- | --- |
+| `sealed class GlobalStaticResources` | Contains all the static resources defined for the application | None. | — |
+
+**Constructors**
+
+| Declaration | Description | Parameters | Returns |
+| --- | --- | --- | --- |
+| `GlobalStaticResources()` | Initializes a new instance of the GlobalStaticResources class. | None. | — |
+
+**Methods**
+
+| Declaration | Description | Parameters | Returns |
+| --- | --- | --- | --- |
+| `static Initialize()` | — | None. | — |
+| `static RegisterDefaultStyles()` | — | None. | — |
+| `static RegisterResourceDictionariesBySource()` | — | None. | — |
+
+#### `UnoBindingModule`
+
+| Declaration | Description | Parameters | Returns |
+| --- | --- | --- | --- |
+| `sealed class UnoBindingModule` | Registers the Uno Platform view thread invoker with the dependency resolver. | None. | — |
+
+**Constructors**
+
+| Declaration | Description | Parameters | Returns |
+| --- | --- | --- | --- |
+| `UnoBindingModule()` | Initializes a new instance of the UnoBindingModule class. | None. | — |
+
+**Methods**
+
+| Declaration | Description | Parameters | Returns |
+| --- | --- | --- | --- |
+| `Configure(IMutableDependencyResolver resolver)` | Configures the specified dependency resolver with required services and components. | `IMutableDependencyResolver` `resolver`: The dependency resolver to configure. Cannot be null | — |
+
+#### `UnoViewThreadInvoker`
+
+| Declaration | Description | Parameters | Returns |
+| --- | --- | --- | --- |
+| `sealed class UnoViewThreadInvoker : SequencerViewThreadInvoker<DependencyObject, DispatcherQueueSequencer>` | Routes writes to an Uno Platform `DependencyObject` onto the `DispatcherQueueSequencer` of the queue that owns it. | None. | — |
+
+**Constructors**
+
+| Declaration | Description | Parameters | Returns |
+| --- | --- | --- | --- |
+| `UnoViewThreadInvoker()` | Initializes a new instance of the UnoViewThreadInvoker class. | None. | — |
+
+**Properties**
+
+| Declaration | Description | Parameters | Returns |
+| --- | --- | --- | --- |
+| `static Instance { get; }` | Gets the shared instance, which generated bindings route their Uno writes through. | None. | [`UnoViewThreadInvoker`](threading/winui-uno.md) |

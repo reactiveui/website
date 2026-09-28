@@ -434,7 +434,7 @@ runs a module against the resolver. Each platform package also has a shortcut.
 | `WithWinForms` | `ReactiveUI.Binding.WinForms.Builder` | Event-based property observation and the control view thread invoker |
 | `WithMaui` | `ReactiveUI.Binding.Maui.Builder` | The MAUI view thread invoker and the Visibility converters |
 
-A *view thread invoker* moves a write onto the thread that owns a control. [Threading](threading.md) explains how the library
+A *view thread invoker* moves a write onto the thread that owns a control. [Threading](threading/index.md) explains how the library
 uses it. `WithMaui` registers the invoker into the built application. The snippet below asks the built application for the
 invoker and checks its type, which shows the MAUI invoker is in place for writes to reach a control's owning thread.
 
@@ -740,7 +740,7 @@ the `Unsafe` overload that resolves the path with reflection.
 | RXUIBIND014 | Error | Below C# 13, a `string` initial value passed by position makes a `ToProperty` call ambiguous | [Name the property directly](properties.md#name-the-property-directly) |
 | RXUIBIND015 | Warning | The call names a private or protected nested type | [Name types generated code can reach](#name-types-generated-code-can-reach) |
 | RXUIBIND016 | Warning | The call's types are built from a type parameter | [Name types generated code can reach](#name-types-generated-code-can-reach) |
-| RXUIBIND017 | Warning | A binding writes to a WPF, WinForms or MAUI object without that platform's Binding package | [The generated fallback](threading.md#the-generated-fallback) |
+| RXUIBIND017 | Warning | A binding writes to a WPF, WinForms or MAUI object without that platform's Binding package | [The generated fallback](threading/index.md#the-generated-fallback) |
 | RXUIBIND020 | Info | A view is registered only in the service locator, so `ResolveView` with an `object` view model cannot reach it | [Reach a view registered only in the service locator](views.md#reach-a-view-registered-only-in-the-service-locator) |
 | RXUIBIND021 | Warning | The call has no generated binding, so it throws at run time | [Members ReactiveUI.SourceGenerators writes](source-generators.md#when-a-member-is-still-out-of-reach) |
 
@@ -1118,7 +1118,7 @@ using (viewModel.WhenChanged(x => x.RemainingCount).Subscribe(Console.WriteLine)
 - [Bindings](bindings.md) covers one-way, two-way, command and interaction bindings.
 - [Converters](converters.md) and [custom converters](custom-converters.md) cover what the `With...Converter` methods register.
 - [Mechanisms](mechanisms.md) covers providers, affinity and command binders.
-- [Views](views.md) covers the view locator, and [threading](threading.md) covers invokers and schedulers.
+- [Views](views.md) covers the view locator, and [threading](threading/index.md) covers invokers and schedulers.
 - [Unsafe bindings](unsafe.md) covers the reflection overloads. The [API reference](api.md) lists every type on this page.
 
 ## API reference

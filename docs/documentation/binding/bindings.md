@@ -312,7 +312,7 @@ A call that names a converter object is matched to its generated code by the fil
 
 ## Choose when writes run
 
-A binding writes to its target on the thread that owns the target ([Threading and platforms](threading.md) explains how it finds that thread). To pick another place, pass a **sequencer** as the last argument. A sequencer decides when and on which thread queued work runs. `VirtualClock` in the example is a sequencer that runs its work only when the example calls `AdvanceBy`, so the example can show the write waiting. [Choose a sequencer for one binding](threading.md#deliver-a-binding-on-a-sequencer) shows how to choose one for your app.
+A binding writes to its target on the thread that owns the target ([Threading and platforms](threading/index.md) explains how it finds that thread). To pick another place, pass a **sequencer** as the last argument. A sequencer decides when and on which thread queued work runs. `VirtualClock` in the example is a sequencer that runs its work only when the example calls `AdvanceBy`, so the example can show the write waiting. [Choose a sequencer for one binding](threading/index.md#deliver-a-binding-on-a-sequencer) shows how to choose one for your app.
 
 ```csharp
 IssueBoardViewModel board = await OpenIssueBoardAsync();
@@ -489,7 +489,7 @@ nothing selected
 
 [`ListSelectionBindingExamples`](https://github.com/reactiveui/ReactiveUI.Binding.SourceGenerators/blob/main/src/examples/Documentation/Pages/bindings/ListSelectionBindingExamples.cs) also binds a list of items, a busy indicator and a command that follows the selection.
 
-With a sequencer, both directions go through it. Only the newest value waits: an edit that a newer edit replaces before the sequencer runs is never written. Two edits made before the sequencer runs write once, with the second ([Only the latest value waits](threading.md#only-the-newest-value-waits) gives the reason).
+With a sequencer, both directions go through it. Only the newest value waits: an edit that a newer edit replaces before the sequencer runs is never written. Two edits made before the sequencer runs write once, with the second ([Only the latest value waits](threading/index.md#only-the-newest-value-waits) gives the reason).
 
 ```csharp
 TransferDraft draft = new() { Reference = RentMarchReference };
@@ -1124,7 +1124,7 @@ True
 2
 3
 False
-``` The analyzer reports RXUIBIND007 when the control has no event to bind ([Setup](setup.md#understand-the-analyzers)). On WPF and WinForms, raise `CanExecuteChanged` on the thread that owns the button. A command that changes its state on a pool thread throws on WPF ([Threading and platforms](threading.md)).
+``` The analyzer reports RXUIBIND007 when the control has no event to bind ([Setup](setup.md#understand-the-analyzers)). On WPF and WinForms, raise `CanExecuteChanged` on the thread that owns the button. A command that changes its state on a pool thread throws on WPF ([Threading and platforms](threading/index.md)).
 
 ### Choose how a control gets its command
 
@@ -2105,7 +2105,7 @@ False
 
 - [Observing](observing.md) watches properties without writing them anywhere.
 - [Converters](converters.md) lists the converters a binding picks by itself, and [Custom converters](custom-converters.md) writes your own.
-- [Threading and platforms](threading.md) explains the owning thread and the sequencers.
+- [Threading and platforms](threading/index.md) explains the owning thread and the sequencers.
 - [Unsafe twins and the runtime fallback](unsafe.md) covers a call the generator cannot read.
 - [API reference](api.md) lists every public member with its parameters.
 
