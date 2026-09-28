@@ -15,6 +15,7 @@ Put `WitnessOn` in front of `Subscribe`, pass it the UI sequencer, and your call
 | WPF | `ReactiveUI.Primitives.Wpf` | `DispatcherSequencer` |
 | WinForms | `ReactiveUI.Primitives.WinForms` | `ControlSequencer` |
 | WinUI | `ReactiveUI.Primitives.WinUI` | `DispatcherQueueSequencer` |
+| Uno Platform | `ReactiveUI.Primitives.Uno` | `DispatcherQueueSequencer` |
 | Avalonia | `ReactiveUI.Primitives.Avalonia` | `AvaloniaScheduler` |
 | MAUI | `ReactiveUI.Primitives.Maui` | `MauiDispatcherSequencer` |
 | Blazor | `ReactiveUI.Primitives.Blazor` | `BlazorRendererSequencer`, and the `ReactiveComponentBase` component |
@@ -196,6 +197,9 @@ first, as `Dispose(bool)` does above.
 
 `DispatcherQueueSequencer` runs work through a WinUI `DispatcherQueue`. The `ToSequencer` extension makes one from
 a queue you already hold, such as a window's `DispatcherQueue` property.
+
+An Uno Platform app uses `ReactiveUI.Primitives.Uno` instead. It ships the same `DispatcherQueueSequencer`, built for
+every Uno head: desktop, WebAssembly, Android, iOS and Windows. Everything in this section applies to it unchanged.
 
 ```csharp
 using Microsoft.UI.Xaml;
