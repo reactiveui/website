@@ -45,7 +45,7 @@ Each row is one GitHub repository. The docs link goes to that library's section 
 | ReactiveUI | [reactiveui/ReactiveUI](https://github.com/reactiveui/ReactiveUI) | `ReactiveUI` | `ReactiveUI.WPF`, `ReactiveUI.WinForms`, `ReactiveUI.WinUI`, `ReactiveUI.Maui`, `ReactiveUI.AndroidX`, `ReactiveUI.Blazor`, `ReactiveUI.Blend`, `ReactiveUI.Drawing`, `ReactiveUI.Testing` | [ReactiveUI](../reactiveui/index.md) |
 | ReactiveUI for Avalonia | [reactiveui/ReactiveUI.Avalonia](https://github.com/reactiveui/ReactiveUI.Avalonia) | `ReactiveUI.Avalonia` | `ReactiveUI.Avalonia.Autofac`, `ReactiveUI.Avalonia.DryIoc`, `ReactiveUI.Avalonia.Microsoft.Extensions.DependencyInjection`, `ReactiveUI.Avalonia.Ninject` | [Avalonia](../reactiveui/getting-started/installation/avalonia.md) |
 | ReactiveUI for Uno | [reactiveui/ReactiveUI.Uno](https://github.com/reactiveui/ReactiveUI.Uno) | `ReactiveUI.Uno` | | [Uno Platform](https://platform.uno/blog/getting-started-with-uno-platform-and-reactiveui/) |
-| ReactiveUI.Binding | [reactiveui/ReactiveUI.Binding.SourceGenerators](https://github.com/reactiveui/ReactiveUI.Binding.SourceGenerators) | `ReactiveUI.Binding` | `ReactiveUI.Binding.Wpf`, `ReactiveUI.Binding.WinForms`, `ReactiveUI.Binding.Maui` | [ReactiveUI.Binding](../binding/index.md) |
+| ReactiveUI.Binding | [reactiveui/ReactiveUI.Binding.SourceGenerators](https://github.com/reactiveui/ReactiveUI.Binding.SourceGenerators) | `ReactiveUI.Binding` | `ReactiveUI.Binding.Wpf`, `ReactiveUI.Binding.WinForms`, `ReactiveUI.Binding.Maui`, `ReactiveUI.Binding.Avalonia`, `ReactiveUI.Binding.Uno` | [ReactiveUI.Binding](../binding/index.md) |
 | ReactiveUI.SourceGenerators | [reactiveui/ReactiveUI.SourceGenerators](https://github.com/reactiveui/ReactiveUI.SourceGenerators) | `ReactiveUI.SourceGenerators` | | [ReactiveUI.SourceGenerators](../source-generators/index.md) |
 | ReactiveUI.Validation | [reactiveui/ReactiveUI.Validation](https://github.com/reactiveui/ReactiveUI.Validation) | `ReactiveUI.Validation` | `ReactiveUI.Validation.AndroidX` | [ReactiveUI.Validation](../validation.md) |
 | Sextant | [reactiveui/Sextant](https://github.com/reactiveui/Sextant) | `Sextant` | `Sextant.Maui`, `Sextant.Avalonia`, `Sextant.Plugins.Popup` | [Sextant](../sextant.md) |
@@ -69,9 +69,10 @@ packages, but you do not add them by hand. Each ReactiveUI package brings the ma
 | `ReactiveUI.WPF` | `ReactiveUI.Binding.Wpf` |
 | `ReactiveUI.WinForms` | `ReactiveUI.Binding.WinForms` |
 | `ReactiveUI.Maui` | `ReactiveUI.Binding.Maui` |
+| `ReactiveUI.Avalonia` | `ReactiveUI.Binding.Avalonia` |
+| `ReactiveUI.Uno` | `ReactiveUI.Binding.Uno` |
 
-`ReactiveUI.Avalonia`, `ReactiveUI.Uno`, `ReactiveUI.WinUI`, `ReactiveUI.AndroidX` and `ReactiveUI.Blazor` bring
-`ReactiveUI.Binding` through `ReactiveUI`.
+`ReactiveUI.WinUI`, `ReactiveUI.AndroidX` and `ReactiveUI.Blazor` bring `ReactiveUI.Binding` through `ReactiveUI`.
 
 The binding methods live in the `ReactiveUI.Binding` namespace. The ReactiveUI package adds that namespace to your
 global usings. If your project turns off implicit usings with `<ImplicitUsings>disable</ImplicitUsings>`, add this
