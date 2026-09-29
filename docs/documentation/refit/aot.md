@@ -261,8 +261,10 @@ The table shows common method shapes and what Refit does with each. It makes thr
 - **JSON metadata** lists the types your JSON context must describe for the method. "(parameter)" means the
   method's `JsonTypeInfo<T>` parameter supplies that metadata. "none" means the method reads and writes no JSON.
   A generated request does not make JSON trim-safe on its own. You still list these types on your context.
-- **Native AOT smoke** names the method in `Refit.NativeAotSmoke` that covers the shape. Refit's build publishes
-  that small program with Native AOT and runs it. A dash means no native run covers the shape.
+- **Native AOT smoke** names the method that covers the shape in one of two small programs. Refit's build publishes
+  both with Native AOT and runs them on Windows, Linux and macOS. `Refit.NativeAotSmoke` references Refit's projects.
+  Methods marked "(package)" are in `Refit.NativeAotPackageSmoke`, which installs Refit, `Refit.HttpClientFactory`
+  and `Refit.Testing` from packed NuGet packages, as your app does. A dash means no native run covers the shape.
 
 The table is classifier-backed. Refit's own tests compile every example through the generator and the `RF006`
 analyzer, and they fail when a row no longer matches.
@@ -272,19 +274,19 @@ In the examples, `Todo`, `Form` and `Record` are plain classes. `Filter` is a pl
 
 | Shape | Example | Request generated | JSON metadata | Native AOT smoke |
 | --- | --- | --- | --- | --- |
-| Path value, JSON reply | `[Get("/todos/{id}")] Task<Todo> Get(int id);` | Yes | reply `Todo` | — |
+| Path value, JSON reply | `[Get("/todos/{id}")] Task<Todo> Get(int id);` | Yes | reply `Todo` | `GetAsync` (package) |
 | JSON body | `[Post("/todos")] Task<Todo> Create([Body] Todo item);` | Yes | body `Todo`, reply `Todo` | `CreateTodoAsync` |
 | JSON body with `JsonTypeInfo<T>` | `[Post("/todos")] Task<Todo> Create([Body] Todo item, JsonTypeInfo<Todo> info);` | Yes | body `Todo` (parameter), reply `Todo` (parameter) | `CreateDescribedTodoAsync` |
 | Form-url-encoded body | `[Post("/forms")] Task<string> Submit([Body(BodySerializationMethod.UrlEncoded)] Form form);` | Yes | none | `SubmitFormAsync` |
 | Query values and collections | `[Get("/search")] Task<string> Search(string q, int? page, [Query(CollectionFormat.Multi)] int[] ids);` | Yes | none | `SearchAsync` |
-| `ApiResponse<T>` reply | `[Get("/status")] Task<ApiResponse<Todo>> Status();` | Yes | reply `Todo` | `GetStatusAsync` |
+| `ApiResponse<T>` reply | `[Get("/status")] Task<ApiResponse<Todo>> Status();` | Yes | reply `Todo` | `GetStatusAsync`, `GetResponseAsync` (package) |
 | Generic body and reply | `[Post("/echo")] Task<T> Echo<T>([Body] T item);` | Yes | body `T`, reply `T` | `EchoAsync` |
 | Observable reply | `[Get("/legacy")] IObservable<HttpResponseMessage> Observe();` | Yes | none | — |
-| JSON Lines upload | `[Post("/uploads")] Task Upload([Body(BodySerializationMethod.JsonLines)] IAsyncEnumerable<Record> records);` | Yes | JSON Lines `Record` | `UploadAsync` |
-| Streamed reply | `[Get("/todos")] IAsyncEnumerable<Todo> List();` | Yes | reply `Todo` | — |
-| Multipart stream part | `[Multipart][Post("/upload")] Task Upload(StreamPart file);` | Yes | none | — |
+| JSON Lines upload | `[Post("/uploads")] Task Upload([Body(BodySerializationMethod.JsonLines)] IAsyncEnumerable<Record> records);` | Yes | JSON Lines `Record` | `UploadAsync`, `ImportAsync` (package) |
+| Streamed reply | `[Get("/todos")] IAsyncEnumerable<Todo> List();` | Yes | reply `Todo` | `WatchAsync` (package) |
+| Multipart stream part | `[Multipart][Post("/upload")] Task Upload(StreamPart file);` | Yes | none | `UploadPhotoAsync` (package) |
 | Raw string body | `[Post("/notes")] Task Note([Body] string text);` | Yes | none | — |
-| Query converter | `[Get("/filter")] Task<string> Find([QueryConverter(typeof(FilterConverter))] Filter filter);` | Yes | none | — |
+| Query converter | `[Get("/filter")] Task<string> Find([QueryConverter(typeof(FilterConverter))] Filter filter);` | Yes | none | `SearchAsync` (package) |
 | Query object of unknown shape | `[Get("/query")] Task<string> Search(object filters);` | No: `UnsupportedQueryType` | n/a | — |
 | Multipart part of unknown shape | `[Multipart][Post("/upload")] Task Upload(object payload);` | No: `UnsupportedMultipartPart` | n/a | — |
 | `[FormObject]` multipart part | `[Multipart][Post("/upload")] Task Upload([FormObject] Form form);` | No: `FormObjectMultipartPart` | n/a | — |
