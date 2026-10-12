@@ -1390,7 +1390,44 @@ False
 True
 ```
 
-A view often exists before its view model does. In that case `BindInteraction` registers nothing and does not throw, and disposing the result is safe. The handler below never runs.
+A view often exists before its view model does. The view must expose a public typed `ViewModel` property and report its changes through a supported notification mechanism. `BindInteraction` follows that property, including when it is inherited from a base class in another assembly. While it is `null`, no handler is registered. Assigning a view model registers the handler; replacing it removes the old registration and registers on the new view model. You can bind once during activation and let the host change `ViewModel`.
+
+```csharp
+IssueBoardView view = new();
+using IDisposable binding = view.BindInteraction(view.ViewModel, x => x.ConfirmClose, static context =>
+{
+    context.SetOutput(true);
+    return Task.CompletedTask;
+});
+
+Issue issue = new() { Number = CheckoutIssueNumber };
+IssueBoardViewModel first = new(InMemoryGitHubServer.CreateSeeded());
+view.ViewModel = first;
+Console.WriteLine(await first.ConfirmClose.Handle(issue));
+
+IssueBoardViewModel second = new(InMemoryGitHubServer.CreateSeeded());
+view.ViewModel = second;
+Console.WriteLine(await second.ConfirmClose.Handle(issue));
+
+try
+{
+    _ = await first.ConfirmClose.Handle(issue);
+}
+catch (UnhandledInteractionException<Issue, bool>)
+{
+    Console.WriteLine("The previous board has no handler.");
+}
+```
+
+```text
+True
+True
+The previous board has no handler.
+```
+
+Clearing `ViewModel` removes its handler too, and disposing the binding stops following replacements. A view with no public typed `ViewModel` property uses the view model argument directly.
+
+Disposing a binding before a view model is assigned is safe. The handler below never runs.
 
 ```csharp
 IssueBoardView view = new();
@@ -2122,7 +2159,7 @@ Each binding call has several overloads, and one row covers all of them. The gen
 | [`BindTo`](https://github.com/reactiveui/ReactiveUI.Binding.SourceGenerators/blob/main/src/ReactiveUI.Binding.Shared/Mixins/ReactiveUIBindingExtensions.BindTo.cs) | Writes each value of a stream to a target property. | Extension method on `IObservable<TValue>`. Returns `IDisposable`. Four overloads: plain, converter override, conversion hint, and hint with converter override. | Writes on the target's owning thread when its platform has one. When no converter matches the two types, it writes nothing and reports nothing. Name a `string` hint as `conversionHint:`. |
 | [`BindCommand`](https://github.com/reactiveui/ReactiveUI.Binding.SourceGenerators/blob/main/src/ReactiveUI.Binding.Shared/Mixins/ReactiveUIBindingExtensions.BindCommand.cs) | Attaches the command a view model property holds to a control on the view. | Extension method on a view that implements `IViewFor`. Returns `IDisposable`. Three overloads: no parameter, a stream parameter, or a view model property parameter. Each takes an optional `toEvent`. | Binds nothing when the view model is `null`. Rebinds when the command or the control changes. A `null` `toEvent` selects the control's default event. Never picks a parameter for you. |
 | [`InvokeCommand`](https://github.com/reactiveui/ReactiveUI.Binding.SourceGenerators/blob/main/src/ReactiveUI.Binding.Shared/Mixins/ReactiveUIBindingExtensions.InvokeCommand.cs) | Runs a command with each value of a stream as its parameter. | Extension method on `IObservable<T>`. Returns `IDisposable`. Two overloads: a fixed `ICommand`, or an object and a lambda for a command property. | Drops a value the command refuses, and does not queue it. The property form drops values while the command is `null`, and executes nothing when the object is `null`. |
-| [`BindInteraction`](https://github.com/reactiveui/ReactiveUI.Binding.SourceGenerators/blob/main/src/ReactiveUI.Binding.Shared/Mixins/ReactiveUIBindingExtensions.BindInteraction.cs) | Registers a handler on the interaction a view model property holds. | Extension method on a view that implements `IViewFor`. Returns `IDisposable`. Two overloads: a handler that returns `Task`, or one that returns `IObservable<T>`. | Moves the handler to the new interaction when the property changes. Registers nothing when the view model is `null`. Disposing removes the handler. |
+| [`BindInteraction`](https://github.com/reactiveui/ReactiveUI.Binding.SourceGenerators/blob/main/src/ReactiveUI.Binding.Shared/Mixins/ReactiveUIBindingExtensions.BindInteraction.cs) | Registers a handler on the interaction a view model property holds. | Extension method on a view that implements `IViewFor`. Returns `IDisposable`. Two overloads: a handler that returns `Task`, or one that returns `IObservable<T>`. | Follows the view's public typed `ViewModel`, including an inherited property from another assembly. Moves the handler when the view model or interaction changes. Registers nothing while the view model is `null`. Disposing removes the handler and stops following replacements. |
 | [`IInteraction<TInput, TOutput>`](https://github.com/reactiveui/ReactiveUI.Binding.SourceGenerators/blob/main/src/ReactiveUI.Binding.Shared/Interactions/IInteraction.cs) | A question the view model asks and a view answers. | Interface. Members: `Handle` and `RegisterHandler`. | `Interaction<TInput, TOutput>` implements it. |
 | [`IInteraction.Handle`](https://github.com/reactiveui/ReactiveUI.Binding.SourceGenerators/blob/main/src/ReactiveUI.Binding.Shared/Interactions/IInteraction.cs) | Asks the question and returns the answer. | Takes `TInput`. Returns `Task<TOutput>`. | Completes with the output that a handler sets. |
 | [`IInteraction.RegisterHandler`](https://github.com/reactiveui/ReactiveUI.Binding.SourceGenerators/blob/main/src/ReactiveUI.Binding.Shared/Interactions/IInteraction.cs) | Adds a handler. | Three overloads: `Action`, a method that returns `Task`, and a method that returns `IObservable<TDontCare>`. Returns `IDisposable`. | Disposing the result removes the handler. |
