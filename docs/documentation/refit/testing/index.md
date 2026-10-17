@@ -9,6 +9,9 @@ You should be able to test a service call even when the service is offline. `Ref
 lets your test choose the reply and inspect the request your client sends. You can check a
 successful call, an error or missing data without relying on a running server.
 
+For retryable replies, provider timing hints and a fake-clock handler, see
+[testing HTTP-aware retries](../clients/retries.md#test-retries-without-a-network).
+
 The main helper, `StubHttp`, stands in for the HTTP handler. A handler is the object that `HttpClient`
 passes each request to. `StubHttp` is a stub: a stand-in that answers with replies you set up and never
 touches the network. Your real Refit client still builds the request, so the test can catch mistakes in

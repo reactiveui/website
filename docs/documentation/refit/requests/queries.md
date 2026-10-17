@@ -12,6 +12,13 @@ Refit builds it from your method arguments.
 You can keep simple arguments as they are, rename them for the service, or group related
 filters in an object. This page shows how Refit handles each form, including collections and missing values.
 
+## Name a scalar query parameter
+
+Use `[Query][AliasAs("client_id")] string clientId` to send `client_id`.
+`[Query("client_id")]` sets the delimiter used to join nested property names. It does not
+rename the parameter, so a scalar `clientId` is sent as `clientId`.
+Keep names in `AliasAs` and use `Query` for formatting or flattening.
+
 ## Build a search request
 
 **1. Describe the query inputs.** `SearchAsync` keeps the fixed query `active=true` from its route.

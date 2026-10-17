@@ -9,9 +9,11 @@ A service can fail for a moment. It restarts, it is busy, or a network link drop
 moment later often works. This is a *retry*. A *resilience handler* is an HTTP handler that makes those retries for you
 and stops a call that takes too long.
 
-Refit has no retry feature of its own. A generated client sends through an ordinary `HttpClient`, so you add
-Microsoft's resilience handler to the client's registration. This page shows how to retry reads safely, what a retry
-does not cover, and how to get a fresh token for each retry.
+A generated client sends through an ordinary `HttpClient`, so you can add Microsoft's resilience handler to
+the client's registration. This page shows how to retry reads safely, what a retry does not cover, and how to
+get a fresh token for each retry. For Refit's independent retry handler and provider timing-header readers,
+see [HTTP-aware retries](retries.md). Do not enable retries in both handlers without accounting for their
+combined attempt count.
 
 Install `Microsoft.Extensions.Http.Resilience` beside `Refit.HttpClientFactory`. Both work with Native AOT.
 

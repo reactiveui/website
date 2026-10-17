@@ -145,6 +145,24 @@ The call uses the supplied host instead of `BaseAddress`. An invalid or relative
 `ArgumentException` while Refit builds the request. Choose URLs your app trusts when the client adds
 authorization headers, since those headers can travel to the supplied host.
 
+### Follow a relative redirect target
+
+Resolve a relative `Location` value against the URL of the request that returned it,
+then pass the resulting `Uri` to `[Url]`. Do not put a path and query into a route placeholder:
+the placeholder escapes query punctuation as part of the path.
+
+```csharp
+var requestUrl = new Uri("https://api.example/login/start");
+var location = new Uri("/callback?code=a%2Fb%3D&state=x%20y", UriKind.Relative);
+var destination = new Uri(requestUrl, location);
+using HttpRequestMessage request = await downloads.DownloadUriAsync(destination);
+Console.WriteLine(request.RequestUri); // https://api.example/callback?code=a%2Fb%3D&state=x%20y
+```
+
+This keeps the encoded query intact without splitting it into a dictionary.
+The [redirect target tests](https://github.com/reactiveui/refit/blob/main/src/tests/Refit.Tests/AbsoluteUrlDispatchTests.cs)
+check both generated and reflection request builders.
+
 ## Shared prefixes
 
 `PathPrefixAttribute.Prefix` holds the prefix supplied to its constructor.

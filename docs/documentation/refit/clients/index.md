@@ -17,6 +17,7 @@ and Native AOT. They also explain who should dispose the HTTP client.
 | [Settings](settings.md) | Set naming, serialization, request options and failure handling. |
 | [Dependency injection](dependency-injection.md) | Register generated clients, named transports and keyed clients. |
 | [Request builders](request-builders.md) | Select reflected methods by name and parameter types, or supply a request builder to client creation. |
+| [HTTP-aware retries](retries.md) | Retry transient failures, read provider timing headers and test waits with a fake clock. |
 | [Resilience](resilience.md) | Retry safe requests, set timeouts and get a fresh token for each retry with Microsoft's resilience handler. |
 | [Telemetry](telemetry.md) | Label `HttpClient`'s spans and request-duration metrics with the Refit method name and route template. |
 
