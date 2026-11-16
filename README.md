@@ -8,8 +8,8 @@ rendered by [NuStreamDocs](https://github.com/glennawatson/NuSourceDocs) — a
 emits a Material 3-themed site, including the API reference (extracted from the
 published packages via Roslyn + ICSharpCode.Decompiler).
 
-The build is a single .NET 10 program (`build/Program.cs`) wired up with
-`System.CommandLine`. The .NET 10 SDK is the only prerequisite.
+The build is a single .NET 11 program (`build/Program.cs`) wired up with
+`System.CommandLine`. The .NET 11 SDK is the only prerequisite.
 
 ## Quick start
 
@@ -74,8 +74,8 @@ renderer at the same time as the site.
 1. Fork and clone the repo.
 2. Create a branch.
 3. `./build.sh serve` — open `http://127.0.0.1:8000` and iterate on the docs.
-4. PRs against `main` build under CI (`actions/setup-dotnet@v5`) and deploy to
-   Netlify on merge.
+4. PRs against `main` build under CI with the .NET 11 SDK (`actions/setup-dotnet@v6`).
+   Changes merged to `main` deploy to Cloudflare Pages.
 
 For the renderer + API extraction internals see
 [`NuSourceDocs`](https://github.com/glennawatson/NuSourceDocs).

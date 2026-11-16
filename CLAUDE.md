@@ -9,11 +9,12 @@ If another agent entrypoint file exists, it defers to this file.
 This repository holds the source of [reactiveui.net](https://www.reactiveui.net/).
 
 - **Content:** `docs/` — every page, as markdown
-- **Build program:** `build/Program.cs` — a single .NET 10 program wired up with `System.CommandLine`
+- **Build program:** `build/Program.cs`, a single .NET 11 program wired up with `System.CommandLine`
 - **API reference package list:** `nuget-packages.json`
 - **Renderer version:** the `NuStreamDocsVersion` property in `Directory.Packages.props`
 
-The .NET 10 SDK is the only prerequisite. `README.md` covers the layout and the workflows.
+The project targets .NET 11 only. The .NET 11 SDK is the only prerequisite.
+`README.md` covers the layout and the workflows.
 
 ## Build Commands
 
