@@ -2,15 +2,20 @@
   "nugetPackageOwners": ["reactiveui"],
   "tfmPreference": [
     "net11.0",
+    "net10.0",
     "net481",
     "net471",
     "net462",
     "netstandard2.1",
     "netstandard2.0",
     "net11.0-windows10.0.19041.0",
+    "net10.0-windows10.0.19041.0",
     "net11.0-android",
+    "net10.0-android",
     "net11.0-ios",
-    "net11.0-maccatalyst"
+    "net10.0-ios",
+    "net11.0-maccatalyst",
+    "net10.0-maccatalyst"
   ],
   "additionalPackages": [
     { "id": "System.Reactive" },
@@ -40,11 +45,12 @@
     "Splat.DependencyInjection."
   ],
   "referencePackages": [
-    { "id": "ReactiveUI.Primitives", "version": "10.0.0", "targetTfm": "net11.0", "pathPrefix": "lib/net11.0" },
-    { "id": "ReactiveUI.Primitives.Core", "version": "10.0.0", "targetTfm": "net11.0", "pathPrefix": "lib/net11.0" },
-    { "id": "ReactiveUI.Primitives.Reactive", "version": "10.0.0", "targetTfm": "net11.0", "pathPrefix": "lib/net11.0" },
-    { "id": "ReactiveUI.Primitives.Avalonia.Reactive", "version": "10.0.0", "targetTfm": "net11.0", "pathPrefix": "lib/net11.0" },
-    { "id": "ReactiveUI.Disposables", "version": "10.0.0", "targetTfm": "net11.0", "pathPrefix": "lib/net11.0" },
+    { "id": "ReactiveUI.Primitives", "version": "7.4.0", "targetTfm": "net10.0", "pathPrefix": "lib/net10.0" },
+    { "id": "ReactiveUI.Primitives.Core", "version": "7.4.0", "targetTfm": "net10.0", "pathPrefix": "lib/net10.0" },
+    { "id": "ReactiveUI.Primitives.Reactive", "version": "7.4.0", "targetTfm": "net10.0", "pathPrefix": "lib/net10.0" },
+    { "id": "ReactiveUI.Primitives.Avalonia.Reactive", "version": "7.4.0", "targetTfm": "net10.0", "pathPrefix": "lib/net10.0" },
+    { "id": "ReactiveUI.Disposables", "version": "7.4.0", "targetTfm": "net10.0", "pathPrefix": "lib/net10.0" },
+    { "id": "Microsoft.NETCore.App.Ref", "version": "10.0.0", "targetTfm": "net10.0", "pathPrefix": "ref/net10.0" },
     { "id": "Microsoft.NETCore.App.Ref", "version": "11.0.0", "targetTfm": "net11.0", "pathPrefix": "ref/net11.0" },
     { "id": "Microsoft.NETFramework.ReferenceAssemblies.net461", "targetTfm": "net461", "pathPrefix": "build/.NETFramework/v4.6.1" },
     { "id": "Microsoft.NETFramework.ReferenceAssemblies.net462", "targetTfm": "net462", "pathPrefix": "build/.NETFramework/v4.6.2" },
@@ -54,11 +60,11 @@
     { "id": "Microsoft.NETFramework.ReferenceAssemblies.net481", "targetTfm": "net481", "pathPrefix": "build/.NETFramework/v4.8.1" }
   ],
   "tfmOverrides": {
-    "ReactiveUI.AndroidX": "net11.0-android37.0",
-    "ReactiveUI.Validation.AndroidX": "net11.0-android37.0",
-    "ReactiveUI.Blend": "net11.0-windows10.0.19041",
-    "ReactiveUI.Winforms": "net11.0-windows10.0.19041",
-    "ReactiveUI.WinUI": "net11.0-windows10.0.19041",
-    "ReactiveUI.Wpf": "net11.0-windows10.0.19041"
+    "ReactiveUI.AndroidX": "net10.0-android",
+    "ReactiveUI.Validation.AndroidX": "net10.0-android",
+    "ReactiveUI.Blend": "net10.0-windows10.0.19041.0",
+    "ReactiveUI.Winforms": "net10.0-windows10.0.19041.0",
+    "ReactiveUI.WinUI": "net10.0-windows10.0.19041.0",
+    "ReactiveUI.Wpf": "net10.0-windows10.0.19041.0"
   }
 }
