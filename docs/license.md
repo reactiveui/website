@@ -7,7 +7,7 @@ title: Licenses & Credits
 ## ReactiveUI
 
 ReactiveUI itself is licensed under the [MIT License](https://github.com/reactiveui/ReactiveUI/blob/main/LICENSE),
-copyright the ReactiveUI Association and Contributors.
+copyright ReactiveUI and Contributors.
 
 ## Site generation
 

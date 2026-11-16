@@ -1,5 +1,5 @@
-// Copyright (c) 2019-2026 ReactiveUI Association Incorporated and contributors. All rights reserved.
-// ReactiveUI Association Incorporated and contributors licenses this file to you under the MIT license.
+// Copyright (c) 2019-2026 ReactiveUI and Contributors. All rights reserved.
+// ReactiveUI and Contributors licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for full license information.
 
 using System;
@@ -15,32 +15,28 @@ namespace ReactiveUI.Web;
 
 /// <summary>Console formatter that emits <c>HH:mm:ss [level] message</c> with ANSI-coloured level tags.</summary>
 [SuppressMessage("Performance", "CA1812:Avoid uninstantiated internal classes", Justification = "Instantiated by the logging-options pipeline via AddConsoleFormatter<TFormatter, TOptions>.")]
-[SuppressMessage(
-    "Major Code Smell",
-    "S2479:Replace the control character at position 1 by its escape sequence '\\u001B'.",
-    Justification = "ANSI CSI introducer is the literal ESC byte (0x1B); compiler output is identical to '\\u001B'.")]
 internal sealed class TerseConsoleFormatter : ConsoleFormatter
 {
     /// <summary>Formatter name registered with the logging builder.</summary>
-    public new const string Name = "terse";
+    internal const string FormatterName = "terse";
 
     /// <summary>ANSI reset.</summary>
-    private const string AnsiReset = "[0m";
+    private const string AnsiReset = "\u001b[0m";
 
     /// <summary>ANSI green foreground.</summary>
-    private const string AnsiGreen = "[32m";
+    private const string AnsiGreen = "\u001b[32m";
 
     /// <summary>ANSI yellow foreground.</summary>
-    private const string AnsiYellow = "[33m";
+    private const string AnsiYellow = "\u001b[33m";
 
     /// <summary>ANSI red foreground.</summary>
-    private const string AnsiRed = "[31m";
+    private const string AnsiRed = "\u001b[31m";
 
     /// <summary>ANSI bold-red foreground.</summary>
-    private const string AnsiBoldRed = "[1;31m";
+    private const string AnsiBoldRed = "\u001b[1;31m";
 
     /// <summary>ANSI bright-black (gray) foreground.</summary>
-    private const string AnsiGray = "[90m";
+    private const string AnsiGray = "\u001b[90m";
 
     /// <summary>Bound formatter options.</summary>
     private readonly ConsoleFormatterOptions _options;
@@ -51,7 +47,7 @@ internal sealed class TerseConsoleFormatter : ConsoleFormatter
     /// <summary>Initializes a new instance of the <see cref="TerseConsoleFormatter"/> class.</summary>
     /// <param name="options">Console-formatter options bound from configuration.</param>
     public TerseConsoleFormatter(IOptions<ConsoleFormatterOptions> options)
-        : base(Name)
+        : base(FormatterName)
     {
         ArgumentNullException.ThrowIfNull(options);
         _options = options.Value;
@@ -92,12 +88,12 @@ internal sealed class TerseConsoleFormatter : ConsoleFormatter
     /// <returns>Coloured tag string.</returns>
     private static string LevelTag(LogLevel level) => level switch
     {
-        LogLevel.Trace => AnsiGray + "[trace]" + AnsiReset,
-        LogLevel.Debug => AnsiGray + "[debug]" + AnsiReset,
-        LogLevel.Information => AnsiGreen + "[info]" + AnsiReset,
-        LogLevel.Warning => AnsiYellow + "[warn]" + AnsiReset,
-        LogLevel.Error => AnsiRed + "[error]" + AnsiReset,
-        LogLevel.Critical => AnsiBoldRed + "[crit]" + AnsiReset,
-        _ => "[" + level.ToString().ToLowerInvariant() + "]"
+        LogLevel.Trace => $"{AnsiGray}[trace]{AnsiReset}",
+        LogLevel.Debug => $"{AnsiGray}[debug]{AnsiReset}",
+        LogLevel.Information => $"{AnsiGreen}[info]{AnsiReset}",
+        LogLevel.Warning => $"{AnsiYellow}[warn]{AnsiReset}",
+        LogLevel.Error => $"{AnsiRed}[error]{AnsiReset}",
+        LogLevel.Critical => $"{AnsiBoldRed}[crit]{AnsiReset}",
+        _ => $"[{level.ToString().ToLowerInvariant()}]"
     };
 }
