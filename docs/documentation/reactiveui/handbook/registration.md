@@ -351,4 +351,4 @@ apps that use System.Reactive.
 | `MutableDependencyResolverExtensions.RegisterSingletonViewForViewModel<TView, TViewModel>(string?)` | Registers one shared view instance for a view model type. |
 | `DependencyResolverMixins.RegisterViewsForViewModels(Assembly)` | Scans an assembly by reflection and registers every `IViewFor` implementation it finds. See [Reflection](reflection.md). |
 | `NotAWeakReference(object)` | Holds a strong reference that always reports its target as alive, for tracking a loaded module. |
-| `PreserveAttribute` | Marks a code element to keep during trimming, so reflection-based registration keeps working in a trimmed app. |
+| `DynamicDependencyAttribute` | Keeps specific constructors or members needed by reflection. Apply it to a reachable registration method. Prefer direct generic view registration when possible. |
