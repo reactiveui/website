@@ -29,6 +29,14 @@ These companies support ReactiveUI and the people who maintain it.
     [OpenAI](https://openai.com/) supports the maintainers with [Codex](https://openai.com/codex/)
     through [Codex for Open Source](https://developers.openai.com/community/codex-for-oss).
 
+-   [![Sponsored by Snyk](images/sponsors/snyk.svg)](https://snyk.io/)
+
+    ---
+
+    [Snyk](https://snyk.io/) gives the maintainers access to security tools through its
+    [Secure Developer Program](https://snyk.io/open-source/).
+
 </div>
 
 JetBrains, Claude, Anthropic, OpenAI and Codex names and logos are trademarks of their respective owners.
+Snyk and the Snyk logo are trademarks of Snyk Ltd.
