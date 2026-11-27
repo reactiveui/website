@@ -21,7 +21,12 @@
   ],
   "additionalPackages": [
     { "id": "System.Reactive" },
-    { "id": "DynamicData" }
+    { "id": "DynamicData" },
+    { "id": "ReactiveUI.Avalonia", "version": "12.*" },
+    { "id": "ReactiveUI.Avalonia.Autofac", "version": "12.*" },
+    { "id": "ReactiveUI.Avalonia.DryIoc", "version": "12.*" },
+    { "id": "ReactiveUI.Avalonia.Microsoft.Extensions.DependencyInjection", "version": "12.*" },
+    { "id": "ReactiveUI.Avalonia.Ninject", "version": "12.*" }
   ],
   "excludePackages": ["Akavache.Core", "CrissCross.XamForms", "ReactiveUI.XamForms", "Sextant.XamForms"],
   "excludePackagePrefixes": [
