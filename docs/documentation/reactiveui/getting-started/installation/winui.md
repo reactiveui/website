@@ -46,6 +46,9 @@ sequencer. [RxAppBuilder](../../handbook/rxappbuilder.md) covers the builder and
 and `ReactiveUserControl<T>`, showing a router's current page, and binding with `Bind`, `OneWayBind` and
 `BindCommand`.
 
+There is no `ReactiveWindow<T>` for WinUI 3. A WinUI 3 `Window` cannot bind and has no `ViewModel` property, so
+put your view in a `ReactivePage<T>` or `ReactiveUserControl<T>` and set it as the window's content.
+
 The [compelling example](../compelling-example.md) walks through a first view model and view. There is no
 `ReactiveUI.Validation` code in this installation's example project; see [Validation](../../../validation.md)
 for validation rules on a view model.
