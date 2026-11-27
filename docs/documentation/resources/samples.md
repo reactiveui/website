@@ -15,13 +15,11 @@ You can find a number of samples over in our [sample repository](https://github.
 
 * [ReactiveGit](https://github.com/glennawatson/reactivegit) — an app covering all ReactiveUI features including type-safe data binding and routing.
 
+* [Camelotia](https://github.com/reactiveui/Camelotia) — a file manager for cloud storage. Its WPF app shares its view models with the Avalonia app.
+
 ## Windows Forms
 
 * [ReactiveUI.Winforms.Samples](https://github.com/Asesjix/ReactiveUI.Winforms.Samples) — a set of sample projects to quickly get started with ReactiveUI and Windows Forms. Includes Windows Forms routing and data binding example!
-
-## Universal Windows Platform
-
-* [Camelotia](https://github.com/worldbeater/Camelotia) — file manager for cloud storages, contains `x:Bind` and activation examples.
 
 ## MAUI
 
@@ -38,7 +36,7 @@ You can find a number of samples over in our [sample repository](https://github.
 
 * [Radish](https://github.com/rbmkio/radish) — a cross-platform desktop client for Redis.
 
-* [Camelotia](https://github.com/worldbeater/Camelotia) — file manager for cloud storages built with ReactiveUI and Avalonia. 
+* [Camelotia](https://github.com/reactiveui/Camelotia) — a file manager for cloud storage built with ReactiveUI and Avalonia.
 
 * [Egram](https://github.com/egramtel/egram.tel) — an unofficial crossplatform Telegram client written in C#, .NET Core and Avalonia.
 
