@@ -69,4 +69,4 @@ dotnet new install Avalonia.Templates
 dotnet new avalonia.app -o MyApp -p ReactiveUI
 ```
 
-The [Avalonia samples repository](https://github.com/AvaloniaUI/avalonia-samples) has worked examples for the ReactiveUI integration, and [Camelotia](https://github.com/worldbeater/Camelotia) is a substantial open-source app combining Avalonia + ReactiveUI.
+The [Avalonia samples repository](https://github.com/AvaloniaUI/avalonia-samples) has worked examples for the ReactiveUI integration, and [Camelotia](https://github.com/reactiveui/Camelotia) is a substantial open-source app combining Avalonia + ReactiveUI.
