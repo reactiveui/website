@@ -43,3 +43,7 @@ var order = SystemJsonSerializer.DeserializeAot(stored!, metadata);
 ## Read an existing cache
 
 The metadata overloads on `SystemJsonBsonSerializer` read and write plain JSON. Reading historical binary BSON requires the serializer's BSON-capable deserialization path in an untrimmed application. Before switching serializers, back up the cache and test with records written by the old version. See [migration](migration.md).
+
+To retain an order across restarts, write the serialized bytes to an `EncryptedSqliteBlobCache` and reopen the database with the same key. Read through `reopened.Serializer.Deserialize(saved, metadata)` to use the same generated contract. [Encrypted order archive example](https://github.com/reactiveui/Akavache/blob/main/src/examples/OrderCache/OrderArchive.cs).
+
+If your existing SQLite cache contains orders written by `NewtonsoftBsonSerializer`, reopen it with `NewtonsoftSerializer`. It detects the stored format when it reads the order. The dispatch example uses `GetAndFetchLatest` to show the saved order first and its revision second. New writes use the JSON serializer you supplied when reopening the cache. [Dispatch manifest example](https://github.com/reactiveui/Akavache/blob/main/src/examples/OrderCache/DispatchManifest.cs)
