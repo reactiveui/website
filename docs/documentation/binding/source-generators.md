@@ -3,7 +3,7 @@ Order: 13
 ---
 # Members ReactiveUI.SourceGenerators writes
 
-[Run the complete page example](https://github.com/reactiveui/ReactiveUI.Binding.SourceGenerators/blob/main/src/examples/Documentation/Pages/sourcegenerators/sourcegenerators.csproj).
+[Run the complete page example](https://github.com/reactiveui/ReactiveUI.SourceGenerators/blob/main/src/examples/Documentation/Pages/sourcegenerators/sourcegenerators.csproj).
 
 [ReactiveUI.SourceGenerators](../source-generators/index.md) is another source generator. You mark a field
 `[Reactive]`, a method `[ReactiveCommand]`, or a class `[IReactiveObject]`, and it writes the property, the command
@@ -164,19 +164,38 @@ Ada
 Grace
 ```
 
+## Bind a button declared in MAUI XAML
+
+Give the button a name in XAML, such as `x:Name="CounterBtn"`. MAUI generates the corresponding field. Expose
+that field through a typed property on the page so the binding generator can read the control type.
+
+```csharp
+internal Button CounterButton => CounterBtn;
+```
+
+The counter page uses `[IViewFor<MainViewModel>]`. The view model uses `[Reactive]` for the caption and
+`[ReactiveCommand]` for the increment command. Attach the bindings in `OnAppearing` and keep their handles.
+
+```csharp
+_counterBinding ??= this.OneWayBind(ViewModel, static model => model.CounterText, static page => page.CounterButton.Text);
+_commandBinding ??= this.BindCommand(ViewModel, static model => model.IncrementCountCommand, static page => page.CounterButton);
+```
+
+Tap the button once to see **Clicked 1 time**. When the page disappears, dispose both handles and set them to
+`null` so the next appearance can reconnect them. [MAUI counter page](https://github.com/reactiveui/ReactiveUI.SourceGenerators/blob/main/src/examples/TestApps/TestMauiApplication/MainPage.xaml.cs)
+
 ## When a member is still out of reach
 
 A view member another source generator writes, such as a field a UI framework's XAML compiler adds to a partial
-view class, is not one ReactiveUI.SourceGenerators writes, so ReactiveUI.Binding still has no generated binding for
-it. A plain call on such a member reports RXUIBIND021 at build time and throws when it runs. Call the `Unsafe` twin
-instead: [Unsafe twins and the runtime fallback](unsafe.md) shows `BindUnsafe` and `BindCommandUnsafe` on a view
-built this way.
+view class, can be hidden from ReactiveUI.Binding at compile time. A direct call on such a member reports
+RXUIBIND021 at build time and throws when it runs. If you cannot expose a typed property on the view, use the
+runtime fallback. [Unsafe twins and the runtime fallback](unsafe.md)
 
 ## Run the examples
 
-The [documentation examples](https://github.com/reactiveui/ReactiveUI.Binding.SourceGenerators/tree/main/src/examples/Documentation)
+The [documentation examples](https://github.com/reactiveui/ReactiveUI.SourceGenerators/tree/main/src/examples/Documentation)
 live in folders named for their page. From the repository's `src` folder, run the example for this page:
 
 ```bash
-dotnet run --project examples/Documentation/Pages/sourcegenerators/sourcegenerators.csproj -c Release
+dotnet run --project examples/Documentation/Pages/sourcegenerators/sourcegenerators.csproj -c Release -f net11.0
 ```
