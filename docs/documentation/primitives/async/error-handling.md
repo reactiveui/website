@@ -104,6 +104,8 @@ Name both types when you call the typed form: the type the stream holds, then th
 
 ## Retrying
 
+The delivery manifest example creates a fresh read for each retry. It checks the number of read attempts and uses `Recover` to supply a cached count when the carrier stays offline. [Runnable manifest example](https://github.com/reactiveui/Primitives/blob/main/src/examples/StockLevels/ManifestRetry.cs)
+
 ### `Retry` and `Reattempt`
 
 `Retry()` subscribes again after every failure, until the stream completes. `Retry(n)` runs the stream at most `n`

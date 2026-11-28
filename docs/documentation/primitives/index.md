@@ -48,6 +48,8 @@ The shelf display connects late. It gets the last count immediately through `Rep
 The example runs with either package family on .NET 10 and .NET 11.
 [Stock level examples](https://github.com/reactiveui/Primitives/tree/main/src/examples)
 
+The same example combines a shelf count with a changing reorder limit, waits for the count to settle, and retries an offline manifest. Its barcode reader shows how to [use an R3 observable](r3-bridge.md) with a generated event subscription.
+
 ## Two names for one operator
 
 Many operators have two names, and both build the same thing. One matches LINQ or the Primitives style, such as

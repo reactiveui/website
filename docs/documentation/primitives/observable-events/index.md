@@ -144,6 +144,8 @@ static: hello
 
 ## Composing events
 
+The [barcode scanner example](../r3-bridge.md) shows how to pass a generated event stream to R3 and detach the scanner when the subscriber closes.
+
 Each event is a stream, so any operator can shape it. Wait for typing to stop, then search:
 
 ```csharp
