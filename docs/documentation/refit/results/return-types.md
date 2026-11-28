@@ -1,5 +1,6 @@
 ---
 Order: 1
+description: "The same service call can be useful in different ways."
 ---
 # Return types
 

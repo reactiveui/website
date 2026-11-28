@@ -1,5 +1,6 @@
 ---
 Order: 1
+description: "When your app asks for a person or saves a change, the service needs to know which operation to perform and which resource to use."
 ---
 # Routes and HTTP methods
 

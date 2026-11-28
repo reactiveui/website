@@ -1,5 +1,6 @@
 ---
 Order: 6
+description: "You should be able to test a service call even when the service is offline."
 ---
 # Test a Refit client
 

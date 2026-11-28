@@ -1,5 +1,6 @@
 ---
 Order: 3
+description: "The basics page creates commands with the static factory methods on ReactiveCommand."
 ---
 # Writing your own command type
 

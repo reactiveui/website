@@ -1,5 +1,6 @@
 ---
 Order: 5
+description: "Some code only deals with the result of an API call."
 ---
 # Test code that accepts a response
 

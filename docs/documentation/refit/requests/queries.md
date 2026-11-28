@@ -1,5 +1,6 @@
 ---
 Order: 2
+description: "Search and list requests often need extra choices: a search term, a page number or a set of filters."
 ---
 # Query names, values and collections
 

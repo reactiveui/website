@@ -1,5 +1,6 @@
 ---
 Order: 8
+description: "iOS, Mac Catalyst, tvOS and macOS views come from UIKit or AppKit."
 ---
 # Apple platforms
 

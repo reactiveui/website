@@ -1,5 +1,6 @@
 ---
 Order: 5
+description: "Your app may already use a wrapper for service calls, perhaps one that lets the caller decide when to start the request."
 ---
 # Custom return adapters
 

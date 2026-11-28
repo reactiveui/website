@@ -1,5 +1,6 @@
 ---
 Order: 10
+description: "A screen that shows a list has to react when the list changes: an item is added, removed, replaced or moved."
 ---
 # Collections
 

@@ -1,5 +1,6 @@
 ---
 Order: 1
+description: "A ReactiveUI app needs its services in place before anything asks for them: a scheduler to run work on the UI thread, a message bus, the views that go with each view model."
 ---
 # RxAppBuilder
 

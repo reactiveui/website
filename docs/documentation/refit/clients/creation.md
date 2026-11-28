@@ -1,5 +1,6 @@
 ---
 Order: 1
+description: "Once you have described a service on an interface, you need an object your app can call."
 ---
 # Create a client
 

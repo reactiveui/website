@@ -1,5 +1,6 @@
 ---
 Order: 7
+description: "A .NET for Android app builds its screens from Activity, Fragment and View subclasses, plus AndroidX classes such as AppCompatActivity, RecyclerView and ViewPager."
 ---
 # Android
 

@@ -1,5 +1,6 @@
 ---
 Order: 1
+description: "A test needs to know whether your app asked for the right thing."
 ---
 # Match outgoing requests
 

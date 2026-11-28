@@ -1,5 +1,6 @@
 ---
 Order: 14
+description: "A command exposes its failures through ThrownExceptions, a stream of every error the command's execution logic throws."
 ---
 # Default Exception Handler
 

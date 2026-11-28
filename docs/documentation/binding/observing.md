@@ -1,5 +1,6 @@
 ---
 Order: 2
+description: "A screen shows values that live on an object or deep inside one: the title of a to-do item, the login of an issue's assignee, the balance of the selected account."
 ---
 # Observing
 

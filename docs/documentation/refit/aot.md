@@ -1,5 +1,6 @@
 ---
 Order: 4
+description: "If you are preparing a mobile app for Native AOT, its service calls need to be ready too."
 ---
 # AOT and generated clients
 

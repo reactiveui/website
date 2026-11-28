@@ -28,7 +28,8 @@ Or via Package Manager:
 <PackageReference Include="ReactiveUI.Maui.Plugins.Popup" Version="*" />
 ```
 
-> **Note**: This package has a dependency on `Mopups`, so you don't need to install it separately.
+> [!NOTE]
+> This package has a dependency on `Mopups`, so you don't need to install it separately.
 
 ## Setup
 

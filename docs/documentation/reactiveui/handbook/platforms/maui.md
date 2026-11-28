@@ -1,5 +1,6 @@
 ---
 Order: 5
+description: "A .NET MAUI page is a BindableObject, not a ReactiveObject, and it has no ViewModel property of its own."
 ---
 # .NET MAUI
 

@@ -1,5 +1,6 @@
 ---
 Order: 10
+description: "When your app needs data from a web service, you want the call to be easy to read and use."
 ---
 # Refit
 

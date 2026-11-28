@@ -1,5 +1,6 @@
 ---
 Order: 6
+description: "Some information is useful to your HTTP code even though the service should not receive it."
 ---
 # Local request context
 

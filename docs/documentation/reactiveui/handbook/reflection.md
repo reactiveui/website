@@ -1,5 +1,6 @@
 ---
 Order: 17
+description: "Most of ReactiveUI never inspects a type at run time."
 ---
 # Members that need reflection
 

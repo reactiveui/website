@@ -1,5 +1,6 @@
 ---
 Order: 8
+description: "Most apps can describe an API on an interface and let Refit handle the request."
 ---
 # Advanced Refit APIs
 

@@ -1,5 +1,6 @@
 ---
 Order: 5
+description: "A service may need to know which app is calling, which reply format it should send, or which access token to check."
 ---
 # Headers and authorization
 

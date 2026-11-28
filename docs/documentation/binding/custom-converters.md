@@ -1,5 +1,6 @@
 ---
 Order: 6
+description: "A binding joins two properties."
 ---
 # Custom converters
 

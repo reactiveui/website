@@ -1,5 +1,6 @@
 ---
 Order: 4
+description: "A service's search parameters may not match the object your app works with."
 ---
 # Query converters
 

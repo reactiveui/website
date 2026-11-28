@@ -1,5 +1,6 @@
 ---
 Order: 6
+description: "A Blazor component re-renders when its state changes."
 ---
 # Blazor
 

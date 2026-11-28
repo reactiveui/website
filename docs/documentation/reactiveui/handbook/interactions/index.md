@@ -1,5 +1,6 @@
 ---
 Order: 7
+description: "A view model sometimes has to ask a question before it can go on: \"delete this item?\", \"which file?\", \"retry or give up?\"."
 ---
 # Interactions
 

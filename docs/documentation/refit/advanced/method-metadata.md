@@ -1,5 +1,6 @@
 ---
 Order: 4
+description: "Code that builds a request sometimes needs to carry around the method's details: its name, route, return type and the properties used to fill in the path."
 ---
 # Method metadata and client names
 

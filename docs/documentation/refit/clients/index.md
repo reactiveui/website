@@ -1,5 +1,6 @@
 ---
 Order: 2
+description: "After defining your API interface, you need to connect it to the service your app will use."
 ---
 # Clients and settings
 

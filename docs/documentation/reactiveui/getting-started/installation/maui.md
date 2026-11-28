@@ -1,5 +1,6 @@
 ---
 Order: 4
+description: "Add ReactiveUI.Maui to your MAUI application project."
 ---
 # .NET MAUI
 

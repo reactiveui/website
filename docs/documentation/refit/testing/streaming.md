@@ -1,5 +1,6 @@
 ---
 Order: 7
+description: "A streaming call hands your app each item as soon as it arrives."
 ---
 # Test streams, uploads and time
 

@@ -1,5 +1,6 @@
 ---
 Order: 3
+description: "After sending a request, your app needs to decide what to do with the reply."
 ---
 # Results
 

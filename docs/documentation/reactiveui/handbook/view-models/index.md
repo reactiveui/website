@@ -1,5 +1,6 @@
 ---
 Order: 3
+description: "A view shows things on the screen: buttons, text boxes, lists."
 ---
 # View Models
 

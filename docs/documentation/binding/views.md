@@ -1,5 +1,6 @@
 ---
 Order: 8
+description: "An application shows a screen for each view model."
 ---
 # Views
 

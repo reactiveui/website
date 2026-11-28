@@ -1,5 +1,6 @@
 ---
 Order: 4
+description: "A WinUI 3 Window is not a DependencyObject, so it cannot bind and has no ViewModel property of its own."
 ---
 # WinUI
 

@@ -1,5 +1,6 @@
 ---
 Order: 9
+description: "An app built around view models has a router, a navigation stack or a list that holds view models, not views."
 ---
 # View Location
 

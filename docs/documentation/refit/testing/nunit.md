@@ -1,5 +1,6 @@
 ---
 Order: 11
+description: "This page shows how to test a Refit client with NUnit and Refit.Testing."
 ---
 # Testing with NUnit
 

@@ -1,5 +1,6 @@
 ---
 Order: 2
+description: "A view model holds values a view displays, and the view needs to know the moment one of those values changes."
 ---
 # Reactive Object
 

@@ -1,5 +1,6 @@
 ---
 Order: 9
+description: "AndroidX support targets a native .NET for Android application."
 ---
 # AndroidX (.NET for Android)
 

@@ -1,5 +1,6 @@
 ---
 Order: 2
+description: "A large reply can take time to arrive."
 ---
 # Streaming replies
 

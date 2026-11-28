@@ -1,5 +1,6 @@
 ---
 Order: 3
+description: "A screen shows data that changes."
 ---
 # ReactiveUI.Binding
 

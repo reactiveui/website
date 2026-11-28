@@ -15,14 +15,18 @@ using NuStreamDocs.CSharpApiGenerator;
 using NuStreamDocs.Common;
 using NuStreamDocs.Emoji;
 using NuStreamDocs.Feed;
+using NuStreamDocs.GitInfo;
+using NuStreamDocs.Glossary;
 using NuStreamDocs.Highlight;
 using NuStreamDocs.Icons.FontAwesome;
 using NuStreamDocs.Icons.Material;
 using NuStreamDocs.Icons.MaterialDesign;
+using NuStreamDocs.Images;
 using NuStreamDocs.Keys;
 using NuStreamDocs.Lightbox;
 using NuStreamDocs.LinkValidator;
 using NuStreamDocs.Links;
+using NuStreamDocs.Llms;
 using NuStreamDocs.MagicLink;
 using NuStreamDocs.MarkdownExtensions;
 using NuStreamDocs.Mermaid;
@@ -32,6 +36,7 @@ using NuStreamDocs.Serve;
 using NuStreamDocs.Sitemap;
 using NuStreamDocs.SmartSymbols;
 using NuStreamDocs.Snippets;
+using NuStreamDocs.Social;
 using NuStreamDocs.SuperFences;
 using NuStreamDocs.Tags;
 using NuStreamDocs.Theme.Material3;
@@ -78,6 +83,11 @@ internal static class Program
         "Browse the public surface of the ReactiveUI ecosystem: ReactiveUI itself, ReactiveUI.Validation, Akavache, Splat, "u8
         + "Fusillade, Punchclock, Sextant, Refit, and the platform integrations. Pages are generated from the published NuGet "u8
         + "packages on every site deploy; pick a namespace to dive in."u8;
+
+    /// <summary>Gets the one-line site summary written under the title in <c>llms.txt</c>.</summary>
+    private static ReadOnlySpan<byte> LlmsSiteSummary =>
+        "ReactiveUI is a composable, cross-platform MVVM framework for .NET built on Reactive Extensions. "u8
+        + "These pages cover ReactiveUI, Splat, Akavache, Refit, Fusillade, Punchclock, Sextant and the platform integrations."u8;
 
     /// <summary>Gets the absolute repository root.</summary>
     private static DirectoryPath RootDirectory { get; } = ResolveRoot();
@@ -205,6 +215,9 @@ internal static class Program
             .WithOutput(SiteOutputPath.Value)
             .AddExtraCss((FilePath)(WebRootPath / "stylesheets" / "extra.css").Value)
             .WithLogger(_logging.For<DocBuilder>())
+            .WithSiteName("ReactiveUI"u8)
+            .WithSiteUrl(SiteUrl)
+            .WithSiteAuthor("ReactiveUI and Contributors"u8)
             .UseDirectoryUrls()
             .UseCSharpApiGenerator(
                 CSharpApiGeneratorOptions.FromManifest(RootDirectory.Value, ApiCachePath.Value) with
@@ -258,6 +271,8 @@ internal static class Program
             .UseMermaid()
             .UseEmoji()
             .UseLightbox()
+            .UseImages()
+            .UseGlossary()
             .UseKeys()
             .UseSmartSymbols()
             .UseSnippets()
@@ -271,6 +286,17 @@ internal static class Program
                 opts.WithSectionPriorities("documentation/:80,articles/:40,Announcements/:40,api/:-200"u8)
                     .AddExcludePathPrefixes("api/"u8))
             .UseSitemap()
+            .UseGitInfo()
+
+            // One SVG card per page would push the API-heavy site past Cloudflare Pages' 20,000-file limit.
+            .UseSocial(static opts => opts.WithoutSvgCards())
+
+            // llms-full.txt would bundle every API page into one file at Cloudflare Pages' 25 MiB per-file limit.
+            // The link validator checks the llms.txt head link before the plugin writes the file, so it is not emitted.
+            .UseLlms(static opts => opts
+                .WithSiteSummary(LlmsSiteSummary)
+                .WithEmitFullText(false)
+                .WithEmitHeadLink(false))
             .UseLinkValidator(LinkValidatorOptions.Default with { StrictInternal = strict }, _logging.For<LinkValidatorPlugin>())
             .UseWyamBlog(new((PathSegment)AnnouncementsFolder, "Announcements"u8.ToArray()))
             .UseWyamBlog(new((PathSegment)"articles", "Articles"u8.ToArray()))

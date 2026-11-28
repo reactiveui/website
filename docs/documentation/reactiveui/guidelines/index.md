@@ -1,5 +1,6 @@
 ---
 Order: 3
+description: "A ReactiveUI app is built from ordinary C# and a handful of library types: ReactiveObject, ReactiveCommand, and streams you subscribe to."
 ---
 # Guidelines
 

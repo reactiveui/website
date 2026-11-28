@@ -1,5 +1,6 @@
 ---
 Order: 11
+description: "Most calls in this section are read by the source generator while your project builds."
 ---
 # Unsafe twins and the runtime fallback
 

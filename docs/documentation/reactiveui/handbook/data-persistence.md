@@ -1,5 +1,6 @@
 ---
 Order: 13
+description: "An app can be paused, resumed or killed by its operating system at any moment, without warning."
 ---
 # Data Persistence
 

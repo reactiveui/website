@@ -1,5 +1,6 @@
 ---
 Order: 2
+description: "To call a web service, your app needs to describe what it wants and supply the data the service expects."
 ---
 # Requests
 

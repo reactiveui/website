@@ -1,5 +1,6 @@
 ---
 Order: 3
+description: "This page builds a small search screen: a text box, a label that shows whether results are available, and a list of matches."
 ---
 # A Compelling Example
 

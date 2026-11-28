@@ -104,7 +104,8 @@ this.ValidationRule(
     state => state.Password == state.Confirmation,
     state => $"Passwords must match: {state.Password} != {state.Confirmation}");
 ```
-> **Note** The function to extract a message (`messageFunc`) is only invoked if the function to establish validity (`isValidFunc`) returns `false`, otherwise the message is set to `string.Empty`.
+> [!NOTE]
+> The function to extract a message (`messageFunc`) is only invoked if the function to establish validity (`isValidFunc`) returns `false`, otherwise the message is set to `string.Empty`.
 
 Finally, you can directly supply an observable that streams any object (or struct) that implements `IValidationState`; or you can use the `ValidationState` base class which already implements the interface.  As the resulting object is stored directly against the context without further transformation, this can be the most performant approach:
 ```csharp
@@ -117,7 +118,8 @@ IObservable<IValidationState> usernameNotEmpty =
 this.ValidationRule(vm => vm.UserName, usernameNotEmpty);
 ```
 
-> **Note** As a valid `ValidationState` does not really require a message, there is a singleton `ValidationState.Valid` property that you are encouraged to use to indicate a valid state whenever possible, to reduce memory allocations.
+> [!NOTE]
+> As a valid `ValidationState` does not really require a message, there is a singleton `ValidationState.Valid` property that you are encouraged to use to indicate a valid state whenever possible, to reduce memory allocations.
 
 2. Add validation presentation to the View.
 
@@ -146,7 +148,8 @@ public class SampleView : ReactiveContentPage<SampleViewModel>
 }
 ```
 
-> **Note** `Name` is an `<Entry />`, `NameError` is a `<Label />`, and `FormErrors` is a `<Label />` as well. All these controls are from [.NET MAUI](https://learn.microsoft.com/dotnet/maui/).
+> [!NOTE]
+> `Name` is an `<Entry />`, `NameError` is a `<Label />`, and `FormErrors` is a `<Label />` as well. All these controls are from [.NET MAUI](https://learn.microsoft.com/dotnet/maui/).
 
 ## Extended ReactiveUI.Validation Usage
 

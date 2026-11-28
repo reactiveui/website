@@ -1,5 +1,6 @@
 ---
 Order: 10
+description: "Install the binding package and start the library when your program starts."
 ---
 # Setup
 

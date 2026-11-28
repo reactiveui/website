@@ -1,5 +1,6 @@
 ---
 Order: 2
+description: "Behind a Refit interface call are several steps: filling in the URL, adding headers, writing the body, sending the request and reading the reply."
 ---
 # Generated request helpers
 

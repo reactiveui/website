@@ -1,5 +1,6 @@
 ---
 Order: 3
+description: "Sometimes the reply's data is only part of what your app needs."
 ---
 # Response details and success checks
 

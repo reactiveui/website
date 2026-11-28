@@ -1,5 +1,6 @@
 ---
 Order: 6
+description: "When a call is slow or fails in production, you want to find it among thousands of others."
 ---
 # Telemetry
 

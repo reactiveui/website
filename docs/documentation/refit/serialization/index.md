@@ -1,5 +1,6 @@
 ---
 Order: 5
+description: "Your app works with C# objects, but a service sends and receives data in a format such as JSON or XML."
 ---
 # Serialization
 

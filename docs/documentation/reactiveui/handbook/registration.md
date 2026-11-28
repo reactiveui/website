@@ -1,5 +1,6 @@
 ---
 Order: 2
+description: "An app is built from parts that do not know about each other: a library screen, a player, a settings screen."
 ---
 # Registration
 

@@ -1,5 +1,6 @@
 ---
 Order: 11
+description: "Two parts of an app sometimes need to talk without holding a reference to each other: a view that raises an event a distant view model cares about, or a background service that has news for whichever screen happens to be open."
 ---
 # Message Bus
 

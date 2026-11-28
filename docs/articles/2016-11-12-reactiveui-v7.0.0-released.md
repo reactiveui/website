@@ -106,7 +106,8 @@ someCommand.Execute().Subscribe();
 
 For more details, please see the [extensive documentation](../documentation/reactiveui/handbook/commands/index.md) on this topic.
 
-> **Note** To enable you to ease into the migration, all previous types are available under the `ReactiveUI.Legacy` namespace. Note, however, that there is no legacy version of `RoutingState`, so any code you have that interacts with its command may require minor updates.
+> [!NOTE]
+> To enable you to ease into the migration, all previous types are available under the `ReactiveUI.Legacy` namespace. Note, however, that there is no legacy version of `RoutingState`, so any code you have that interacts with its command may require minor updates.
 
 ## Interactions are New and Exciting
 
@@ -120,7 +121,8 @@ Migrating from `UserError` to the interactions infrastructure is not really a ca
 - the view model can call `Handle` on the interaction, passing in an input value.
 - Recovery commands are no longer a built-in thing. If you need such a mechanism for your interactions, you are encouraged to write an appropriate class and use it as the input for your interaction.
 
-> **Note** To enable you to ease into the migration, all previous types are available under the `ReactiveUI.Legacy` namespace.
+> [!NOTE]
+> To enable you to ease into the migration, all previous types are available under the `ReactiveUI.Legacy` namespace.
 
 ## ToProperty is now eager by default
 

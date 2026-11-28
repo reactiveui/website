@@ -1,5 +1,6 @@
 ---
 Order: 3
+description: "A view model often needs a read-only property whose value comes from a stream: a full name built from two other properties, a count of unfinished items, a label that depends on several fields."
 ---
 # Properties backed by observables
 

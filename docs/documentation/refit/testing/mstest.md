@@ -1,5 +1,6 @@
 ---
 Order: 12
+description: "This page shows how to test a Refit client with MSTest and Refit.Testing."
 ---
 # Testing with MSTest
 

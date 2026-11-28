@@ -1,5 +1,6 @@
 ---
 Order: 5
+description: "A service can fail for a moment."
 ---
 # Resilience
 

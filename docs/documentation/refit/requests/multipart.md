@@ -1,5 +1,6 @@
 ---
 Order: 8
+description: "An upload often includes a file and a few details about it, such as a title or description."
 ---
 # Upload files with multipart requests
 

@@ -1,5 +1,6 @@
 ---
 Order: 9
+description: "A UI framework lets only one thread touch a control."
 ---
 # Threading
 

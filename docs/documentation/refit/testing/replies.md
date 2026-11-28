@@ -1,5 +1,6 @@
 ---
 Order: 2
+description: "To test how your app handles a service response, you need control over what comes back."
 ---
 # Supply test replies
 

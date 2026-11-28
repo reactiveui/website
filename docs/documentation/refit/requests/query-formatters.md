@@ -1,5 +1,6 @@
 ---
 Order: 3
+description: "Your C# property might be called PageSize, while the service expects page_size."
 ---
 # Shared query formatters
 

@@ -1,5 +1,6 @@
 ---
 Order: 8
+description: "An app with several pages needs something to track which page is current."
 ---
 # Routing
 

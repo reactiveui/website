@@ -1,5 +1,6 @@
 ---
 Order: 3
+description: "Building a query string means handling small details the same way every time: escaping spaces, leaving out missing values and joining collections in the format the service expects."
 ---
 # Generated query builder
 

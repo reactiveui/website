@@ -1,5 +1,6 @@
 ---
 Order: 4
+description: "A screen has buttons: *Save*, *Search*, *Delete*."
 ---
 # Commands
 

@@ -1,5 +1,6 @@
 ---
 Order: 3
+description: "A Windows Forms app builds its screens from Control objects: Form, Panel, TableLayoutPanel, Label, Button, and the rest."
 ---
 # Windows Forms
 

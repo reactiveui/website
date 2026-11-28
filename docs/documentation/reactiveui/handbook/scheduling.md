@@ -1,5 +1,6 @@
 ---
 Order: 12
+description: "A view model often does work on a background thread, such as downloading data or reading a file, but a screen can only be changed on its UI thread."
 ---
 # Scheduling
 

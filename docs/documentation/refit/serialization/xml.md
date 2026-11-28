@@ -1,5 +1,6 @@
 ---
 Order: 3
+description: "Some services expect XML requests and return XML replies."
 ---
 # XML content
 

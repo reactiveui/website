@@ -1,5 +1,6 @@
 ---
 Order: 5
+description: "A screen shows values that live on a view model: the title of a to-do item, how many items are left, the last error."
 ---
 # Data Binding
 

@@ -1,5 +1,6 @@
 ---
 Order: 6
+description: "A service that holds a long list rarely returns it in one reply."
 ---
 # Pagination
 

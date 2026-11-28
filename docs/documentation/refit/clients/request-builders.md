@@ -1,5 +1,6 @@
 ---
 Order: 4
+description: "Sometimes a library needs to choose an API method while the app is running, then build and send that call."
 ---
 # Request builders
 

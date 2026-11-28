@@ -1,5 +1,6 @@
 ---
 Order: 3
+description: "Several parts of your app may need the same API client."
 ---
 # Dependency injection
 

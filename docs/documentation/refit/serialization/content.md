@@ -1,5 +1,6 @@
 ---
 Order: 4
+description: "A service may exchange data a little at a time, such as one JSON record on each line."
 ---
 # Content writers and stream readers
 

@@ -1,5 +1,6 @@
 ---
 Order: 3
+description: "A form field needs three things: somewhere to hold its value, a way to tell the screen when that value changes, and a way to check the value and report what is wrong with it."
 ---
 # Reactive Property
 

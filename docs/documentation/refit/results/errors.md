@@ -1,5 +1,6 @@
 ---
 Order: 4
+description: "A failed request can tell your app more than \"something went wrong.\" A service might explain why a name was rejected or return validation messages you can show beside a form field."
 ---
 # Error bodies and problem details
 

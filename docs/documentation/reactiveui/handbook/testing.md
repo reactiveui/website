@@ -1,5 +1,6 @@
 ---
 Order: 15
+description: "A ReactiveUI app leans on state that lives for the whole process: the app builder's registered services, MessageBus.Current, and the sequencers behind RxSchedulers.MainThreadScheduler and RxSchedulers.TaskpoolScheduler."
 ---
 # Testing
 

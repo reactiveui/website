@@ -1,5 +1,6 @@
 ---
 Order: 2
+description: "Calls to the same service often need the same rules: how to write JSON, format a date, add an access token, or handle a failed reply."
 ---
 # Settings
 

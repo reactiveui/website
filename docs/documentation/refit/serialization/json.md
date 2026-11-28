@@ -1,5 +1,6 @@
 ---
 Order: 1
+description: "Refit writes your C# models into request bodies and reads reply bodies back into models."
 ---
 # JSON and generated metadata
 

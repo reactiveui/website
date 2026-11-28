@@ -1,5 +1,6 @@
 ---
 Order: 3
+description: "Older ReactiveUI code set up an app by assigning static properties on RxApp and registering services one by one on Splat's Locator."
 ---
 # Migration Guide: RxAppBuilder
 

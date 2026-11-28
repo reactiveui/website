@@ -1,5 +1,6 @@
 ---
 Order: 5
+description: "A binding often joins two properties of different types."
 ---
 # Converters
 

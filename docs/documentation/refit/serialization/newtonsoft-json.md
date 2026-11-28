@@ -1,5 +1,6 @@
 ---
 Order: 2
+description: "An existing app may already have Newtonsoft.Json converters or settings that define how its models appear in JSON."
 ---
 # Newtonsoft.Json content
 

@@ -1,5 +1,6 @@
 ---
 Order: 3
+description: "A test can pass without ever making the API call you meant to check."
 ---
 # Inspect requests and verify expectations
 

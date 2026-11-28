@@ -1,5 +1,6 @@
 ---
 Order: 4
+description: "A service will not always reply quickly or successfully."
 ---
 # Simulate network faults
 

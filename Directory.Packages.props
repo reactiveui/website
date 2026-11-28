@@ -2,7 +2,7 @@
   <PropertyGroup>
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
     <CentralPackageTransitivePinningEnabled>true</CentralPackageTransitivePinningEnabled>
-    <NuStreamDocsVersion>1.18.0</NuStreamDocsVersion>
+    <NuStreamDocsVersion>1.20.0</NuStreamDocsVersion>
     <RoslynCommonAnalyzersVersion>5.2.0</RoslynCommonAnalyzersVersion>
   </PropertyGroup>
 
@@ -50,6 +50,21 @@
     <PackageVersion Include="NuStreamDocs.Theme.Material3" Version="$(NuStreamDocsVersion)" />
     <PackageVersion Include="NuStreamDocs.Toc" Version="$(NuStreamDocsVersion)" />
     <PackageVersion Include="NuStreamDocs.Xrefs" Version="$(NuStreamDocsVersion)" />
+    <PackageVersion Include="NuStreamDocs.Glossary" Version="$(NuStreamDocsVersion)" />
+    <PackageVersion Include="NuStreamDocs.GitInfo" Version="$(NuStreamDocsVersion)" />
+    <PackageVersion Include="NuStreamDocs.Images" Version="$(NuStreamDocsVersion)" />
+    <PackageVersion Include="NuStreamDocs.Llms" Version="$(NuStreamDocsVersion)" />
+    <PackageVersion Include="NuStreamDocs.Social" Version="$(NuStreamDocsVersion)" />
+  </ItemGroup>
+
+  <!-- NuStreamDocs 1.20.0 ships against SourceDocParser 2.8.0. 2.8.1 resolves the Android
+       resource designer assembly, which removes the unresolved-reference warnings for the
+       Android API pages. Drop these pins once NuStreamDocs depends on 2.8.1 or newer. -->
+  <ItemGroup>
+    <PackageVersion Include="SourceDocParser" Version="2.8.1" />
+    <PackageVersion Include="SourceDocParser.Common" Version="2.8.1" />
+    <PackageVersion Include="SourceDocParser.NuGet" Version="2.8.1" />
+    <PackageVersion Include="SourceDocParser.Zensical" Version="2.8.1" />
   </ItemGroup>
 
   <!-- Transitive vulnerability pins. Both come in via Azure.Identity /

@@ -1,5 +1,6 @@
 ---
 Order: 1
+description: "As an app grows, so does the code around its service calls."
 ---
 # Why use Refit?
 

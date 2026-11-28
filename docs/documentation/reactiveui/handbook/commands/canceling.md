@@ -1,5 +1,6 @@
 ---
 Order: 2
+description: "A command's execution can take a while: a network search, a file copy, a long calculation."
 ---
 # Canceling command execution
 

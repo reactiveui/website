@@ -49,6 +49,11 @@
         <PackageReference Include="NuStreamDocs.Theme.Material3" />
         <PackageReference Include="NuStreamDocs.Toc" />
         <PackageReference Include="NuStreamDocs.Xrefs" />
+        <PackageReference Include="NuStreamDocs.Glossary" />
+        <PackageReference Include="NuStreamDocs.GitInfo" />
+        <PackageReference Include="NuStreamDocs.Images" />
+        <PackageReference Include="NuStreamDocs.Llms" />
+        <PackageReference Include="NuStreamDocs.Social" />
     </ItemGroup>
 
     <!-- Local-iteration: ProjectReference into the NuStreamDocs checkout so unpublished

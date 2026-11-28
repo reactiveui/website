@@ -1,5 +1,6 @@
 ---
 Order: 6
+description: "A screen only needs its subscriptions while it is on the user's device."
 ---
 # When Activated
 

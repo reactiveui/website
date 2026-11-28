@@ -1,5 +1,6 @@
 ---
 Order: 7
+description: "A property cannot tell you when it changes."
 ---
 # Mechanisms
 

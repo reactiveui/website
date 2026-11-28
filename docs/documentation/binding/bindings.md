@@ -1,5 +1,6 @@
 ---
 Order: 4
+description: "A screen shows data that lives in a view model."
 ---
 # Bindings
 
