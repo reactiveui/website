@@ -63,6 +63,9 @@ Task<User> GetUser([AliasAs("id")] int userId);
 | `RF013` | Error | A paged method is not set up in a way the generator can build. The message gives the reason. | See [build-time checks for paging](results/pagination.md#build-time-checks). |
 | `RF014` | Error | A `JsonTypeInfo<T>` parameter cannot supply metadata for the request. The message gives the reason. | See [build-time checks for JSON metadata](serialization/json.md#build-time-checks). |
 | `RF015` | Warning | A route placeholder matches no parameter. | Add a parameter with the placeholder's name, or put `[AliasAs]` with that name on an existing parameter. |
+| `RF016` | Warning (opt-in) | A positional string on `[Query]` looks like an attempt to rename the parameter. That argument sets the delimiter for nested keys. | Use `[Query(Name = "client_id")]` or `[AliasAs("client_id")]` to send a key named `client_id`. |
+
+To enable `RF016`, set `dotnet_diagnostic.RF016.severity = warning` in the C# section of your project's `.editorconfig`. For example, `[Query("client_id")] string clientId` still sends the key `clientId`. The warning points to the delimiter so you can change it to an explicit name.
 
 ## RF006 and the strict build
 

@@ -12,6 +12,26 @@ place so you can apply them across a client.
 Set up these rules before creating the client. Start with the serializer your service needs,
 then change the other settings when a request calls for them.
 
+## Configure related settings together
+
+`RefitSettings` groups settings by where they take effect. Each group shares its values with the matching top-level properties. For example, setting `settings.Url.CollectionFormat` also changes `settings.CollectionFormat`.
+
+| Group | What you can configure |
+| --- | --- |
+| `Serialization` | Content and form serializers, buffering, body streaming and compression. |
+| `Url` | Query names, value formatters, collection formatting and relative URL resolution. |
+| `Requests` | Authorization, handlers, return adapters, method arguments, headers, request options and HTTP version negotiation. |
+| `Exceptions` | HTTP and transport errors, deserialization errors, captured content and redaction. |
+
+For an API that expects repeated query keys, configure the URL group before creating the client. Limit captured error bodies separately so that a large error response does not fill a diagnostic log.
+
+```csharp
+RefitSettings settings = RefitSettings.ForJsonContext(SampleJsonContext.Default);
+settings.Url.CollectionFormat = CollectionFormat.Multi;
+settings.Exceptions.MaxExceptionContentLength = 4096;
+IClientApi api = RestService.ForGenerated<IClientApi>(httpClient, settings);
+```
+
 ## Set the serializer and formatters
 
 **1. Prepare the JSON serializer.** Build it from the JSON context described in
@@ -70,11 +90,10 @@ RefitSettings shortcut = RefitSettings.ForJsonContext(SampleJsonContext.Default)
 RefitSettings camel = RefitSettings.CamelCase().UseJsonContext(ClientNamingJsonContext.Default);
 ```
 
-Each method takes `allowReflectionFallback` too. Pass `true` to let a type the context does not list use
-reflection-based JSON. That is not trim or Native AOT safe.
+Each method also accepts `allowReflectionFallback`. In an untrimmed app, install `Refit.Reflection`, call `ReflectionSupport.EnsureRegistered()` and pass `true` to use reflection for types missing from the context.
 The same settings also work with the reflection creation methods, such as `RestService.For<T>(hostUrl, settings)`.
 See [choose whose settings apply](../serialization/json.md#choose-whose-settings-apply).
-These APIs exist on .NET 8 and later.
+These APIs exist on .NET 10 and later.
 
 ## Align naming rules with generated JSON
 
@@ -191,10 +210,10 @@ Each row describes one constructor, factory, context method, or public property.
 | [`RefitSettings.CamelCase()`](https://github.com/reactiveui/refit/blob/main/src/Refit/RefitSettings.cs) | Creates settings that serialize JSON and format URL/form keys in camelCase. | None. | New [`RefitSettings`](settings.md) using camelCase JSON and URL/form keys. |
 | [`RefitSettings.SnakeCase()`](https://github.com/reactiveui/refit/blob/main/src/Refit/RefitSettings.cs) | Creates settings that serialize JSON and format URL/form keys in snake_case. | None. | New [`RefitSettings`](settings.md) using snake_case JSON and URL/form keys. |
 | [`RefitSettings.KebabCase()`](https://github.com/reactiveui/refit/blob/main/src/Refit/RefitSettings.cs) | Creates settings that serialize JSON and format URL/form keys in kebab-case. | None. | New [`RefitSettings`](settings.md) using kebab-case JSON and URL/form keys. |
-| [`RefitSettings.ForJsonContext(JsonSerializerContext context)`](https://github.com/reactiveui/refit/blob/main/src/Refit/RefitSettings.JsonContext.cs) | Creates settings that run on a context's own options, with reflection-based JSON off. | [`JsonSerializerContext`](https://learn.microsoft.com/dotnet/api/system.text.json.serialization.jsonserializercontext) `context`: the generated context. | New [`RefitSettings`](settings.md) whose serializer is `SystemTextJsonContentSerializer.ForContext(context)`. A type the context does not list throws `NotSupportedException`. .NET 8 and later. |
-| [`RefitSettings.ForJsonContext(JsonSerializerContext context, bool allowReflectionFallback)`](https://github.com/reactiveui/refit/blob/main/src/Refit/RefitSettings.JsonContext.cs) | Creates settings that run on a context's own options, optionally with a reflection fallback. | `context`; [`bool`](https://learn.microsoft.com/dotnet/api/system.boolean) `allowReflectionFallback`: `true` lets a type the context does not list use reflection-based JSON. Not trim or Native AOT safe. | New [`RefitSettings`](settings.md). .NET 8 and later. |
-| [`UseJsonContext(JsonSerializerContext context)`](https://github.com/reactiveui/refit/blob/main/src/Refit/RefitSettings.JsonContext.cs) | Adds a context to these settings' System.Text.Json serializer, with reflection-based JSON off. | `context`: the generated context that supplies metadata for the types it lists. | These settings. Only `ContentSerializer` changes, to a serializer built on a copy of the current options plus the context. The naming policy, converters and resolvers stay in place. Throws `InvalidOperationException` when the serializer is not a `SystemTextJsonContentSerializer`. .NET 8 and later. |
-| [`UseJsonContext(JsonSerializerContext context, bool allowReflectionFallback)`](https://github.com/reactiveui/refit/blob/main/src/Refit/RefitSettings.JsonContext.cs) | Adds a context to these settings' System.Text.Json serializer, optionally with a reflection fallback. | `context`; `allowReflectionFallback`: `true` lets a type no resolver lists use reflection-based JSON. Not trim or Native AOT safe. | These settings. Throws `InvalidOperationException` when the serializer is not a `SystemTextJsonContentSerializer`. .NET 8 and later. |
+| [`RefitSettings.ForJsonContext(JsonSerializerContext context)`](https://github.com/reactiveui/refit/blob/main/src/Refit/RefitSettings.JsonContext.cs) | Creates settings that run on a context's own options, with reflection-based JSON off. | [`JsonSerializerContext`](https://learn.microsoft.com/dotnet/api/system.text.json.serialization.jsonserializercontext) `context`: the generated context. | New [`RefitSettings`](settings.md) whose serializer is `SystemTextJsonContentSerializer.ForContext(context)`. A type the context does not list throws `NotSupportedException`. .NET 10 and later. |
+| [`RefitSettings.ForJsonContext(JsonSerializerContext context, bool allowReflectionFallback)`](https://github.com/reactiveui/refit/blob/main/src/Refit/RefitSettings.JsonContext.cs) | Creates settings that run on a context's own options, optionally with a reflection fallback. | `context`; [`bool`](https://learn.microsoft.com/dotnet/api/system.boolean) `allowReflectionFallback`: `true` lets a type the context does not list use reflection-based JSON. Not trim or Native AOT safe. | New [`RefitSettings`](settings.md). .NET 10 and later. |
+| [`UseJsonContext(JsonSerializerContext context)`](https://github.com/reactiveui/refit/blob/main/src/Refit/RefitSettings.JsonContext.cs) | Adds a context to these settings' System.Text.Json serializer, with reflection-based JSON off. | `context`: the generated context that supplies metadata for the types it lists. | These settings. Only `ContentSerializer` changes, to a serializer built on a copy of the current options plus the context. The naming policy, converters and resolvers stay in place. Throws `InvalidOperationException` when the serializer is not a `SystemTextJsonContentSerializer`. .NET 10 and later. |
+| [`UseJsonContext(JsonSerializerContext context, bool allowReflectionFallback)`](https://github.com/reactiveui/refit/blob/main/src/Refit/RefitSettings.JsonContext.cs) | Adds a context to these settings' System.Text.Json serializer, optionally with a reflection fallback. | `context`; `allowReflectionFallback`: `true` lets a type no resolver lists use reflection-based JSON. Not trim or Native AOT safe. | These settings. Throws `InvalidOperationException` when the serializer is not a `SystemTextJsonContentSerializer`. .NET 10 and later. |
 | [`AuthorizationHeaderValueGetter`](https://github.com/reactiveui/refit/blob/main/src/Refit/RefitSettings.cs) | Supplies a token for a declared `[Authorize]` header that has no token. Generated preparation uses it even with a supplied `HttpClient`; a settings-created handler also uses it for an explicit token. | [`Func<HttpRequestMessage, CancellationToken, ValueTask<string>>`](https://learn.microsoft.com/dotnet/api/system.func-3) or `null`. | Token getter; default `null`. An empty returned token removes the header. |
 | [`HttpMessageHandlerFactory`](https://github.com/reactiveui/refit/blob/main/src/Refit/RefitSettings.cs) | Supplies the primary handler when Refit creates the `HttpClient`. | [`Func<HttpMessageHandler>`](https://learn.microsoft.com/dotnet/api/system.func-1) or `null`. | Handler factory; default `null`. Refit ignores it when you supply an existing `HttpClient`. |
 | [`ExceptionFactory`](https://github.com/reactiveui/refit/blob/main/src/Refit/RefitSettings.cs) | Maps unsuccessful HTTP responses to exceptions. | [`Func<HttpResponseMessage, ValueTask<Exception?>>`](https://learn.microsoft.com/dotnet/api/system.func-2). | Exception factory; default creates Refit API exceptions. A `null` result suppresses the HTTP error. |
@@ -218,7 +237,7 @@ Each row describes one constructor, factory, context method, or public property.
 | [`RequestBodySerialization`](https://github.com/reactiveui/refit/blob/main/src/Refit/RefitSettings.cs) | Selects how Refit creates JSON request-body content. | [`RequestBodySerializationMode`](../requests/bodies.md). | JSON body serialization mode; default `Default`. `Buffered` and `Streamed` require [`ISynchronousContentSerializer`](../serialization/json.md). |
 | [`RequestCompression`](https://github.com/reactiveui/refit/blob/main/src/Refit/RefitSettings.cs) | Selects the content encoding applied to every request body. | [`RequestCompression`](../requests/bodies.md). | Request-body coding; default `None`. A `[Body]` coding overrides this setting. |
 | [`RequestCompressionLevel`](https://github.com/reactiveui/refit/blob/main/src/Refit/RefitSettings.cs) | Sets the compression effort for compressed request bodies. | [`CompressionLevel`](https://learn.microsoft.com/dotnet/api/system.io.compression.compressionlevel). | Compression effort; default `Optimal`. |
-| [`RequestCompressionOptions`](https://github.com/reactiveui/refit/blob/main/src/Refit/RefitSettings.cs) | Provides per-coding compressor settings that override the compression level for that coding. | [`RequestCompressionOptions`](../requests/bodies.md) or `null` (.NET 9+). | Per-coding compressor settings; default `null`, which uses the compression level. |
+| [`RequestCompressionOptions`](https://github.com/reactiveui/refit/blob/main/src/Refit/RefitSettings.cs) | Provides per-coding compressor settings that override the compression level for that coding. | [`RequestCompressionOptions`](../requests/bodies.md) or `null` (.NET 10 and 11). | Per-coding compressor settings; default `null`, which uses the compression level. |
 | [`HttpRequestMessageOptions`](https://github.com/reactiveui/refit/blob/main/src/Refit/RefitSettings.cs) | Copies these local values to every generated request's options on modern .NET, or properties on .NET Framework. | [`Dictionary<string, object>`](https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2) or `null`; `init` only. | Local request values; default `null`. The dictionary remains mutable after initialization. |
 | [`TransportExceptionFactory`](https://github.com/reactiveui/refit/blob/main/src/Refit/RefitSettings.cs) | Maps exceptions thrown by `HttpClient.SendAsync` to the exception Refit surfaces. | [`Func<HttpRequestMessage, Exception, CancellationToken, Exception>`](https://learn.microsoft.com/dotnet/api/system.func-4). | Default preserves an `OperationCanceledException` when its token was cancelled; otherwise it wraps the failure in [`ApiRequestException`](../results/responses.md). |
 | [`Version`](https://github.com/reactiveui/refit/blob/main/src/Refit/RefitSettings.cs) | Sets the HTTP version requested on generated requests. | [`Version`](https://learn.microsoft.com/dotnet/api/system.version) (.NET 6+). | Requested HTTP version; default HTTP/1.1. |
@@ -235,7 +254,7 @@ The enum values used by these properties are:
 | [`RequestBodySerializationMode`](https://github.com/reactiveui/refit/blob/main/src/Refit/RequestBodySerializationMode.cs) | `Default` (0) | Normal asynchronous serialization. |
 | `RequestBodySerializationMode` | `Buffered` (1) | Synchronous serialization into buffered content. |
 | `RequestBodySerializationMode` | `Streamed` (2) | Synchronous serialization to the request stream. |
-| [`RequestCompression`](https://github.com/reactiveui/refit/blob/main/src/Refit/RequestCompression.cs) | `Default` (0), `None` (1), `GZip` (2), `Brotli` (3), `Zstandard` (4) | Use settings, no coding, gzip, Brotli, or Zstandard. Brotli requires .NET 8; Zstandard requires .NET 11. |
+| [`RequestCompression`](https://github.com/reactiveui/refit/blob/main/src/Refit/RequestCompression.cs) | `Default` (0), `None` (1), `GZip` (2), `Brotli` (3), `Zstandard` (4) | Use settings, no coding, gzip, Brotli, or Zstandard. Brotli is available on .NET 10 and 11. Zstandard requires .NET 11. |
 | [`CompressionLevel`](https://learn.microsoft.com/dotnet/api/system.io.compression.compressionlevel) | `Optimal` (0), `Fastest` (1), `NoCompression` (2), `SmallestSize` (3) | Compression effort choices used by `RequestCompressionLevel`. |
 | [`UrlResolutionMode`](https://github.com/reactiveui/refit/blob/main/src/Refit/UrlResolutionMode.cs) | `RefitLegacy` (0), `Rfc3986` (1) | Legacy base-path prepending or RFC 3986 URI resolution. |
 | [`System.Net.Http.HttpVersionPolicy`](https://learn.microsoft.com/dotnet/api/system.net.http.httpversionpolicy) | `RequestVersionOrLower` (0), `RequestVersionOrHigher` (1), `RequestVersionExact` (2) | HTTP version negotiation choices. |
@@ -250,4 +269,4 @@ Configure all three before calls begin.
 [Request bodies](../requests/bodies.md) explains buffering, compression and body ownership.
 [Headers](../requests/headers.md) explains validation and token declarations.
 .NET Framework settings omit `Version`, `VersionPolicy` and compression options.
-.NET 8 includes HTTP version settings but omits compression options.
+.NET 10 and 11 include HTTP version settings and compression options.

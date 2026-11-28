@@ -462,7 +462,7 @@ using TodoListViewModel viewModel = new(InMemoryTodoStore.CreateSeeded());
 _ = await viewModel.Load.Execute();
 using TodoListView view = new() { ViewModel = viewModel };
 
-using IDisposable binding = view.BindCommand(viewModel, x => x.Add, v => v.AddButton);
+using IDisposable binding = view.BindCommand(viewModel, static x => x.Add, static v => v.AddButton);
 
 view.AddButton.PerformClick();
 Console.WriteLine(viewModel.Items.Count);

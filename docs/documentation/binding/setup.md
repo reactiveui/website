@@ -3,8 +3,8 @@ Order: 10
 ---
 # Setup
 
-[Run the complete page example](https://github.com/reactiveui/ReactiveUI.Binding.SourceGenerators/blob/main/src/examples/Documentation/Pages/setup/setup.csproj).
-A second project covers the [Native AOT program](https://github.com/reactiveui/ReactiveUI.Binding.SourceGenerators/blob/main/src/examples/Documentation/Pages/setup/aot/aot.csproj).
+[Run the complete page example](https://github.com/reactiveui/ReactiveUI.SourceGenerators/blob/main/src/examples/Documentation/Pages/setup/setup.csproj).
+A second project covers the [.NET 11 Native AOT program](https://github.com/reactiveui/ReactiveUI.SourceGenerators/blob/main/src/examples/Documentation/Pages/setup/aot/aot.csproj).
 
 A binding call such as `item.WhenChanged(x => x.Title)` has to do real work when the program runs. Something must
 watch the property, convert values, write to controls and find views. This page shows how to install the package
@@ -544,6 +544,11 @@ True
 [Views](views.md) covers the locator, view contracts and generated view dispatch.
 
 ## Use the System.Reactive package
+
+The System.Reactive task row observes the initial title on `ImmediateScheduler.Instance`, then updates
+the model when the user edits the row. Disposing the two-way binding stops later edits from reaching
+the model. Both .NET 10 and .NET 11 use the generated property accessors.
+[System.Reactive task row](https://github.com/reactiveui/ReactiveUI.SourceGenerators/tree/main/src/examples/Documentation/Pages/setup/reactive)
 
 The examples on these pages use the lean `ReactiveUI.Binding` package. It schedules work with a *sequencer*, the
 object from `ReactiveUI.Primitives` that decides which thread runs a piece of work. A second package,

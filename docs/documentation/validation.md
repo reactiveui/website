@@ -3,19 +3,28 @@ Order: 5
 ---
 # User Input Validation
 
-When building applications, you often need to validate user input. This is especially true for mobile applications, where users expect immediate feedback on their actions. In this guide, we will explore how to implement user input validation in ReactiveUI applications using built-in features and the ReactiveUI.Validation package.
+Show a field error as the user edits a form, then enable submission when all fields pass. `ReactiveUI.Validation` groups the rules in a validation context. The [checkout example](https://github.com/reactiveui/ReactiveUI.Validation/tree/main/src/examples) runs the same form with `ReactiveUI.Validation` and `ReactiveUI.Validation.Reactive`.
 
 ReactiveUI itself offers a few powerful features allowing you to validate user input on fly. With [WhenAnyValue](binding/observing.md), you can listen to view model property changes and control [ReactiveCommand](reactiveui/handbook/commands/index.md) executability. When reactive command's `CanExecute` observable returns false, the control to which you bind that command stays disabled. The simplest validator looks as follows:
 
 ```cs
-// Declare name validator as IObservable<bool> which emitts a new value when name changes.
+// Recalculate validity when the name changes.
 var nameValid = this.WhenAnyValue(x => x.Name, name => !string.IsNullOrWhiteSpace(name));
 
 // The reactive command will stay disabled while name is invalid.
 var saveName = ReactiveCommand.CreateFromTask(_ => Save(this.Name), canExecute: nameValid);
 ```
 
-This definitely works for simple scenarios, but for larger forms and more complex validations you definitely need to give [ReactiveUI.Validation](https://github.com/reactiveui/reactiveUI.validation/) package a try.
+To show which field failed and why, register a rule on a view model that derives from `ReactiveValidationObject`. An error message can be fixed or computed from the rejected value.
+
+```csharp
+using var name = form.ValidationRule(x => x.Name,
+    static value => !string.IsNullOrWhiteSpace(value), "Enter a delivery name.");
+using var quantity = form.ValidationRule(x => x.Quantity,
+    static value => value > 0, static value => $"Choose more than {value} items.");
+```
+
+Read `quantity.IsValid` for that rule and `form.ValidationContext.GetIsValid()` for the full form. To show the error beside the quantity field, use `SingleLineFormatter.Default.Format(quantity.Message)` or the view model's `GetErrors(nameof(CheckoutForm.Quantity))`. If a rule applies only during one step of a form, dispose its helper when that step ends. To remove every rule for a field, call `form.ClearValidationRules(x => x.Quantity)`.
 
 ## ReactiveUI.Validation
 

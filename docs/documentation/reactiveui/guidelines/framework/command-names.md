@@ -13,7 +13,7 @@ a reader can tell which is which without opening the constructor, and give the m
 
 ```csharp
 Enrollment enrollment = new("Robotics Club") { IsEnabled = true };
-IObservable<bool> canSave = enrollment.WhenAnyValue(x => x.IsEnabled);
+IObservable<bool> canSave = enrollment.WhenAnyValue(static x => x.IsEnabled);
 
 using ReactiveCommand<RxVoid, RxVoid> saveCommand = ReactiveCommand.CreateFromTask(SaveImplAsync, canSave);
 using ReactiveCommand<string, RxVoid> searchCommand = ReactiveCommand.CreateFromTask<string, RxVoid>(SearchImplAsync);

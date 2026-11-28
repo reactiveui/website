@@ -38,10 +38,15 @@ IObservable<int> odds = numbers.Where(x => x % 2 == 1)
 **3. Subscribe.** Nothing runs until you do.
 
 ```csharp
-odds.Subscribe(x => Console.WriteLine(x));   // 10, 30, 50
+using var subscription = odds.Subscribe(static x => Console.WriteLine(x));   // 10, 30, 50
 ```
 
 `Subscribe` hands back an `IDisposable`. Dispose it to stop listening.
+
+For a running example, follow two stock displays that subscribe at different times.
+The shelf display connects late. It gets the last count immediately through `Replay(1)`, then receives each new count.
+The example runs with either package family on .NET 10 and .NET 11.
+[Stock level examples](https://github.com/reactiveui/Primitives/tree/main/src/examples)
 
 ## Two names for one operator
 

@@ -9,7 +9,7 @@ block on a page is copied from that project, and the text under it shows what th
 run, clone the repository and run its project:
 
 ```bash
-dotnet run --project src/examples/Documentation/Pages/commands
+dotnet run --project src/examples/Documentation/Pages/commands -f net11.0
 ```
 
 The examples use small apps you already know: a to-do list, a school, a library, a shop, a recipe book and a music

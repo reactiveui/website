@@ -189,6 +189,10 @@ say which origins are allowed. Name exactly one:
 | `Origins = [...]` | The origins you list. Each must be an absolute `http` or `https` address. |
 | `AnyOrigin = true` | Any `http` or `https` origin. Use it only for a service you trust completely. |
 
+The public mirror example uses an anonymous client. Its index returns a link to a
+second host, and the example checks the URI of that second request. For an authenticated
+client, name each allowed origin or use `SameOrigin = true`. [Run the paging example](https://github.com/reactiveui/refit/blob/main/src/examples/Documentation/Paging/SinglePageMethods.cs).
+
 Refit does not send a link it refuses. The sequence throws `InvalidOperationException` once you have
 finished with the page that carried the link. A link that contains user information, such as
 `https://user:secret@host/`, is always refused.
@@ -246,6 +250,17 @@ Three shorter factories cover the usual shapes. Each takes the same fetch method
 | `PagedEnumerable.FromCursor` | The next page is named by a string cursor. |
 | `PagedEnumerable.FromOffset` | The next page starts at an `int` offset. |
 | `PagedEnumerable.FromLinks` | The reply names the next page with a link. Pass a `NextLinkOriginPolicy` first. |
+
+For example, when a Jira search returns its total, add the count received to the current
+offset. Returning `null` after the final issue ends the listing.
+
+```csharp
+var byOffset = PagedEnumerable.FromOffset(issues.ReadPageAsync, page => page.Issues,
+    (page, offset) => offset + page.Issues.Count < page.Total ? offset + page.Issues.Count : null);
+```
+
+The same example follows a storage cursor and GitHub's `Link` header, using `GetLink("next")`
+with an explicit list of allowed origins. [Run all three factories](https://github.com/reactiveui/refit/blob/main/src/examples/Documentation/Paging/SinglePageMethods.cs).
 
 ## Stop early, limit and overlap
 

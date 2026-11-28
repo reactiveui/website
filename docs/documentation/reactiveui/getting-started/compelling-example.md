@@ -100,7 +100,7 @@ before landing on `SearchResults`.
 holds before the first search answers, and it returns the `ObservableAsPropertyHelper<T>` the field stores.
 
 ```csharp
-        _searchResults = this.WhenAnyValue(x => x.SearchTerm)
+        _searchResults = this.WhenAnyValue(static x => x.SearchTerm)
             .Calm(throttle)
             .Select(static term => term.Trim())
             .Unique()
@@ -175,7 +175,7 @@ reactiveui/refit
 whether the last search found anything.
 
 ```csharp
-        _isAvailable = this.WhenAnyValue(x => x.SearchResults)
+        _isAvailable = this.WhenAnyValue(static x => x.SearchResults)
             .Select(static results => results.Count > 0)
             .ToProperty(this, nameof(IsAvailable));
 ```
@@ -322,11 +322,11 @@ dispose bindings together.
         using AppViewModel viewModel = new(api, TimeSpan.FromMilliseconds(20));
         AppView view = new() { ViewModel = viewModel };
 
-        using IReactiveBinding<AppView, BindingChange> searchBinding = view.Bind(viewModel, x => x.SearchTerm, v => v.SearchBox.Text);
+        using IReactiveBinding<AppView, BindingChange> searchBinding = view.Bind(viewModel, static x => x.SearchTerm, static v => v.SearchBox.Text);
         using IReactiveBinding<AppView, IReadOnlyList<RepositoryDetailsViewModel>> resultsBinding =
-            view.OneWayBind(viewModel, x => x.SearchResults, v => v.ResultList.Items);
+            view.OneWayBind(viewModel, static x => x.SearchResults, static v => v.ResultList.Items);
         using IReactiveBinding<AppView, bool> availableBinding =
-            view.OneWayBind(viewModel, x => x.IsAvailable, v => v.AvailableLabel.IsVisible);
+            view.OneWayBind(viewModel, static x => x.IsAvailable, static v => v.AvailableLabel.IsVisible);
 
         view.SearchBox.Text = "akavache";
         Console.WriteLine(viewModel.SearchTerm);
@@ -352,9 +352,9 @@ disable the button while the command cannot run, which the [commands](../handboo
         using RepositoryDetailsViewModel details = new(repository);
         RepositoryDetailsView view = new() { ViewModel = details };
 
-        using IReactiveBinding<RepositoryDetailsView, string> titleBinding = view.OneWayBind(details, x => x.FullName, v => v.TitleLabel.Text);
-        using IReactiveBinding<RepositoryDetailsView, string> descriptionBinding = view.OneWayBind(details, x => x.Description, v => v.DescriptionLabel.Text);
-        using IDisposable commandBinding = view.BindCommand(details, x => x.OpenPage, v => v.OpenButton);
+        using IReactiveBinding<RepositoryDetailsView, string> titleBinding = view.OneWayBind(details, static x => x.FullName, static v => v.TitleLabel.Text);
+        using IReactiveBinding<RepositoryDetailsView, string> descriptionBinding = view.OneWayBind(details, static x => x.Description, static v => v.DescriptionLabel.Text);
+        using IDisposable commandBinding = view.BindCommand(details, static x => x.OpenPage, static v => v.OpenButton);
 
         Console.WriteLine(view.TitleLabel.Text);
         view.OpenButton.PerformClick();

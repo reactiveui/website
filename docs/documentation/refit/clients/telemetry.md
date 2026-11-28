@@ -90,7 +90,7 @@ instead of creating the provider yourself. The builder methods are the same.
 The problem: the `http.client.request.duration` metric groups requests by host and status. You want the time for each
 API method.
 
-**1. Add a handler that adds the tags.** `HttpMetricsEnrichmentContext.AddCallback` is part of .NET 8 and later. The
+**1. Add a handler that adds the tags.** `HttpMetricsEnrichmentContext.AddCallback` is part of .NET 10 and later. The
 callback runs when `HttpClient` records the duration of that request.
 
 ```csharp
@@ -156,7 +156,7 @@ returns null and the samples skip the tags.
 | `HttpRequestMessageOptions.MethodName` | `Refit` | Option key for the declared interface method name. |
 | `HttpRequestMessageOptions.RelativePathTemplate` | `Refit` | Option key for the unfilled route template. |
 | `HttpClientTraceInstrumentationOptions.EnrichWithHttpRequestMessage` | `OpenTelemetry.Instrumentation.Http` | Runs when `HttpClient` starts a span, with the span and the request. |
-| `HttpMetricsEnrichmentContext.AddCallback(HttpRequestMessage, Action<HttpMetricsEnrichmentContext>)` | .NET 8 and later | Adds tags to the request's `http.client.request.duration` measurement. |
+| `HttpMetricsEnrichmentContext.AddCallback(HttpRequestMessage, Action<HttpMetricsEnrichmentContext>)` | .NET 10 and later | Adds tags to the request's `http.client.request.duration` measurement. |
 
 Source: [`Telemetry.cs`](https://github.com/reactiveui/refit/blob/main/src/examples/Documentation/Telemetry/Telemetry.cs),
 [`RefitMetricsTagsHandler.cs`](https://github.com/reactiveui/refit/blob/main/src/examples/Documentation/Telemetry/RefitMetricsTagsHandler.cs)

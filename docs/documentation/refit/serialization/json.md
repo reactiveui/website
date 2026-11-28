@@ -19,7 +19,7 @@ reading and writing code for each listed type. Give the context to Refit, and Re
 those models without reflection.
 
 This page starts with one model and one call. It then covers the naming trap, your own serializer settings,
-methods that take metadata, and the serializer APIs. The context APIs are available on .NET 8 and later.
+methods that take metadata, and the serializer APIs. The context APIs are available on .NET 10 and later.
 
 Refit's generator does not write `[JsonSerializable]` entries for you. You list your types on the context yourself.
 The compiler runs Refit's generator and the JSON generator separately, and neither can read what the other writes.
@@ -316,13 +316,13 @@ catch (NotSupportedException error)
 
 The message names the missing type and the context. Add `[JsonSerializable(typeof(NewOrder))]` to fix the call.
 
-To let a type that the context does not list use reflection, pass `allowReflectionFallback: true`.
+To serialize types missing from the context in an untrimmed app, install `Refit.Reflection`, call `ReflectionSupport.EnsureRegistered()` at startup and pass `allowReflectionFallback: true`.
 Refit then adds System.Text.Json's reflection resolver after your context.
 That option is not trim or Native AOT safe. Use it in an app that is not trimmed or compiled ahead of time,
 for example while you move a large app to a context one type at a time.
 
 ```csharp
-// Reflection-based JSON is not trim or Native AOT safe.
+ReflectionSupport.EnsureRegistered();
 IOrdersApi fallback = RestService.ForGenerated<IOrdersApi>(client, OrderReadsJsonContext.Default, allowReflectionFallback: true);
 Order placed = await fallback.PlaceOrderAsync(newOrder, cancellationToken);
 Console.WriteLine(placed.Id); // 5
@@ -493,7 +493,7 @@ Other serializers can implement the capabilities that they support.
 | [`ISynchronousContentSerializer`](https://github.com/reactiveui/refit/blob/main/src/Refit/ISynchronousContentSerializer.cs) | Adds synchronous buffered and streamed request-body writers. Refit uses them for `Buffered` and `Streamed` request-body modes. |
 | [`ISynchronousContentDeserializer`](https://github.com/reactiveui/refit/blob/main/src/Refit/ISynchronousContentDeserializer.cs) | Adds a reader for an error body that Refit has already buffered as a [`string`](https://learn.microsoft.com/en-us/dotnet/api/system.string). |
 | [`IStreamingContentSerializer`](https://github.com/reactiveui/refit/blob/main/src/Refit/IStreamingContentSerializer.cs) | Adds an incremental response reader for Refit interface methods that return [`IAsyncEnumerable<T>`](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.iasyncenumerable-1). |
-| [`IJsonTypeInfoContentSerializer`](https://github.com/reactiveui/refit/blob/main/src/Refit/IJsonTypeInfoContentSerializer.cs) | Adds writers and readers that take a [`JsonTypeInfo<T>`](https://learn.microsoft.com/en-us/dotnet/api/system.text.json.serialization.metadata.jsontypeinfo-1) for one call. Refit uses them for a method that has a `JsonTypeInfo<T>` parameter. Only `SystemTextJsonContentSerializer` implements it. Available on .NET 8 and later. |
+| [`IJsonTypeInfoContentSerializer`](https://github.com/reactiveui/refit/blob/main/src/Refit/IJsonTypeInfoContentSerializer.cs) | Adds writers and readers that take a [`JsonTypeInfo<T>`](https://learn.microsoft.com/en-us/dotnet/api/system.text.json.serialization.metadata.jsontypeinfo-1) for one call. Refit uses them for a method that has a `JsonTypeInfo<T>` parameter. Only `SystemTextJsonContentSerializer` implements it. Available on .NET 10 and later. |
 
 The [complete serialization example](https://github.com/reactiveui/refit/tree/main/src/examples/Documentation/Serialization)
 exercises each capability with generated metadata and local content. Use the interface that matches
@@ -503,12 +503,12 @@ the work your serializer needs to perform; `SystemTextJsonContentSerializer` imp
 | --- | --- | --- | --- |
 | [`SystemTextJsonContentSerializer()`](https://github.com/reactiveui/refit/blob/main/src/Refit/SystemTextJsonContentSerializer.cs) | Creates a serializer with Refit's default JSON configuration. | None | Creates and retains a new [`JsonSerializerOptions`](https://learn.microsoft.com/en-us/dotnet/api/system.text.json.jsonserializeroptions) from `GetDefaultJsonSerializerOptions()`. |
 | [`SystemTextJsonContentSerializer(JsonSerializerOptions jsonSerializerOptions)`](https://github.com/reactiveui/refit/blob/main/src/Refit/SystemTextJsonContentSerializer.cs) | Creates a serializer with the supplied JSON configuration. | `jsonSerializerOptions`: [`JsonSerializerOptions`](https://learn.microsoft.com/en-us/dotnet/api/system.text.json.jsonserializeroptions) that controls JSON conversion and metadata lookup. | Retains and uses the supplied [`JsonSerializerOptions`](https://learn.microsoft.com/en-us/dotnet/api/system.text.json.jsonserializeroptions) instance. |
-| [`ForContext(JsonSerializerContext context)`](https://github.com/reactiveui/refit/blob/main/src/Refit/SystemTextJsonContentSerializer.JsonContext.cs) | Creates a serializer that runs on a context's own options, with reflection-based JSON off. | `context`: [`JsonSerializerContext`](https://learn.microsoft.com/en-us/dotnet/api/system.text.json.serialization.jsonserializercontext), the generated context. | Returns a `SystemTextJsonContentSerializer` whose options are the context's options. A type the context does not list throws [`NotSupportedException`](https://learn.microsoft.com/en-us/dotnet/api/system.notsupportedexception). Available on .NET 8 and later. |
+| [`ForContext(JsonSerializerContext context)`](https://github.com/reactiveui/refit/blob/main/src/Refit/SystemTextJsonContentSerializer.JsonContext.cs) | Creates a serializer that runs on a context's own options, with reflection-based JSON off. | `context`: [`JsonSerializerContext`](https://learn.microsoft.com/en-us/dotnet/api/system.text.json.serialization.jsonserializercontext), the generated context. | Returns a `SystemTextJsonContentSerializer` whose options are the context's options. A type the context does not list throws [`NotSupportedException`](https://learn.microsoft.com/en-us/dotnet/api/system.notsupportedexception). Available on .NET 10 and later. |
 | [`ForContext(JsonSerializerContext context, bool allowReflectionFallback)`](https://github.com/reactiveui/refit/blob/main/src/Refit/SystemTextJsonContentSerializer.JsonContext.cs) | Creates a serializer that runs on a context's own options, optionally with a reflection fallback. | `context`: the generated context; `allowReflectionFallback`: `true` lets a type the context does not list use reflection-based JSON. Not trim or Native AOT safe. | Returns a serializer. With `false` it uses the context's options unchanged. With `true` it adds a reflection resolver after the context. |
 | [`WithContext(JsonSerializerContext context)`](https://github.com/reactiveui/refit/blob/main/src/Refit/SystemTextJsonContentSerializer.JsonContext.cs) | Creates a serializer that keeps this serializer's options and adds a context, with reflection-based JSON off. | `context`: the generated context that supplies metadata for the types it lists. | Returns a serializer built on a copy of this serializer's options, or this serializer when the context is registered. The naming policy, converters and other options come from this serializer. Resolvers it holds stay first and in order. Contract modifiers of a reflection resolver move onto the context. |
 | [`WithContext(JsonSerializerContext context, bool allowReflectionFallback)`](https://github.com/reactiveui/refit/blob/main/src/Refit/SystemTextJsonContentSerializer.JsonContext.cs) | Creates a serializer that keeps this serializer's options and adds a context, optionally with a reflection fallback. | `context`; `allowReflectionFallback`: `true` lets a type no resolver lists use reflection-based JSON. Not trim or Native AOT safe. | Returns a serializer built like `WithContext(context)`. With `true` it keeps or adds a reflection resolver after the context. |
 | [`SerializerOptions`](https://github.com/reactiveui/refit/blob/main/src/Refit/SystemTextJsonContentSerializer.cs) | Gets the configuration used by this serializer. | None | Returns the same [`JsonSerializerOptions`](https://learn.microsoft.com/en-us/dotnet/api/system.text.json.jsonserializeroptions) instance passed to the constructor or created by the default constructor. |
-| [`GetDefaultJsonSerializerOptions()`](https://github.com/reactiveui/refit/blob/main/src/Refit/SystemTextJsonContentSerializer.cs) | Creates Refit's general-purpose JSON configuration. | None | Returns a fresh mutable [`JsonSerializerOptions`](https://learn.microsoft.com/en-us/dotnet/api/system.text.json.jsonserializeroptions) with camel-case names, case-insensitive matching, string-number reading, and Refit's object and enum converters. |
+| [`GetDefaultJsonSerializerOptions()`](https://github.com/reactiveui/refit/blob/main/src/Refit/SystemTextJsonContentSerializer.cs) | Creates Refit's general-purpose JSON configuration. | None | Returns a fresh mutable [`JsonSerializerOptions`](https://learn.microsoft.com/en-us/dotnet/api/system.text.json.jsonserializeroptions) with camel-case names, case-insensitive matching, strict number handling and an empty converter list. |
 | [`GetFastPathJsonSerializerOptions()`](https://github.com/reactiveui/refit/blob/main/src/Refit/SystemTextJsonContentSerializer.cs) | Creates options that can use System.Text.Json's source-generated serialization fast path after you assign generated metadata. | None | Returns a fresh mutable [`JsonSerializerOptions`](https://learn.microsoft.com/en-us/dotnet/api/system.text.json.jsonserializeroptions) with camel-case names and case-insensitive matching, without Refit converters or custom number handling. |
 | [`ToHttpContent<T>(T item)`](https://github.com/reactiveui/refit/blob/main/src/Refit/SystemTextJsonContentSerializer.cs) | Serializes a request value through Refit's normal asynchronous JSON-content path. | `item`: `T`, the request value to serialize. | Returns JSON [`HttpContent`](https://learn.microsoft.com/en-us/dotnet/api/system.net.http.httpcontent). It uses configured generated metadata when available; an interface or abstract `T` without polymorphism configuration uses the non-null value's runtime type. |
 | [`ToHttpContentSynchronous<T>(T item)`](https://github.com/reactiveui/refit/blob/main/src/Refit/SystemTextJsonContentSerializer.cs) | Serializes a request value immediately into a buffered JSON body. | `item`: `T`, the request value to serialize. | Returns UTF-8 JSON [`HttpContent`](https://learn.microsoft.com/en-us/dotnet/api/system.net.http.httpcontent) with a `ByteArrayContent` body and `application/json; charset=utf-8` content type. |
@@ -516,7 +516,6 @@ the work your serializer needs to perform; `SystemTextJsonContentSerializer` imp
 | [`FromHttpContentAsync<T>(HttpContent content, CancellationToken cancellationToken = default)`](https://github.com/reactiveui/refit/blob/main/src/Refit/SystemTextJsonContentSerializer.cs) | Reads a JSON HTTP body as a value. | `content`: [`HttpContent`](https://learn.microsoft.com/en-us/dotnet/api/system.net.http.httpcontent), the response body; `cancellationToken`: [`CancellationToken`](https://learn.microsoft.com/en-us/dotnet/api/system.threading.cancellationtoken) that cancels the read. Default: `default`. | Returns [`Task<T?>`](https://learn.microsoft.com/en-us/dotnet/api/system.threading.tasks.task-1) for the deserialized value. |
 | [`DeserializeFromString<T>(string content)`](https://github.com/reactiveui/refit/blob/main/src/Refit/SystemTextJsonContentSerializer.cs) | Reads an already buffered JSON string. | `content`: [`string`](https://learn.microsoft.com/en-us/dotnet/api/system.string), the JSON text. | Returns `T?`, the deserialized value. Invalid JSON throws [`JsonException`](https://learn.microsoft.com/en-us/dotnet/api/system.text.json.jsonexception). |
 | [`DeserializeStreamAsync<T>(Stream stream, StreamingContentFormat format, CancellationToken cancellationToken = default)`](https://github.com/reactiveui/refit/blob/main/src/Refit/SystemTextJsonContentSerializer.cs) | Reads one JSON value at a time from a framed response stream. | `stream`: [`Stream`](https://learn.microsoft.com/en-us/dotnet/api/system.io.stream), the response body; `format`: [`StreamingContentFormat`](content.md), its JSON array, JSON Lines, or SSE framing; `cancellationToken`: [`CancellationToken`](https://learn.microsoft.com/en-us/dotnet/api/system.threading.cancellationtoken) that cancels enumeration. Default: `default`. | Returns [`IAsyncEnumerable<T?>`](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.iasyncenumerable-1) that yields values as they arrive. See [streaming replies](../results/streaming.md). |
-| [`GetFieldNameForProperty(PropertyInfo propertyInfo)`](https://github.com/reactiveui/refit/blob/main/src/Refit/SystemTextJsonContentSerializer.cs) | Finds a property's explicit JSON field name for reflected integrations. | `propertyInfo`: [`PropertyInfo`](https://learn.microsoft.com/en-us/dotnet/api/system.reflection.propertyinfo), the property to inspect. | Returns the [`JsonPropertyNameAttribute`](https://learn.microsoft.com/en-us/dotnet/api/system.text.json.serialization.jsonpropertynameattribute) name, or `null` when the property has no such attribute. |
 | [`ToHttpContent<T>(T item, JsonTypeInfo<T> typeInfo)`](https://github.com/reactiveui/refit/blob/main/src/Refit/IJsonTypeInfoContentSerializer.cs) | Serializes a request value with the metadata you pass. | `item`: `T`, the request value; `typeInfo`: [`JsonTypeInfo<T>`](https://learn.microsoft.com/en-us/dotnet/api/system.text.json.serialization.metadata.jsontypeinfo-1), the metadata for `T`, such as a property of a context. | Returns JSON [`HttpContent`](https://learn.microsoft.com/en-us/dotnet/api/system.net.http.httpcontent). |
 | [`ToHttpContentSynchronous<T>(T item, JsonTypeInfo<T> typeInfo)`](https://github.com/reactiveui/refit/blob/main/src/Refit/IJsonTypeInfoContentSerializer.cs) | Serializes a request value immediately into a buffered body with the metadata you pass. | `item`: `T`; `typeInfo`: the metadata for `T`. | Returns UTF-8 JSON [`HttpContent`](https://learn.microsoft.com/en-us/dotnet/api/system.net.http.httpcontent) with a `ByteArrayContent` body. |
 | [`ToStreamingHttpContent<T>(T item, JsonTypeInfo<T> typeInfo)`](https://github.com/reactiveui/refit/blob/main/src/Refit/IJsonTypeInfoContentSerializer.cs) | Creates a body that serializes a value with the metadata you pass when the request sends it. | `item`: `T`; `typeInfo`: the metadata for `T`. | Returns [`HttpContent`](https://learn.microsoft.com/en-us/dotnet/api/system.net.http.httpcontent) that writes UTF-8 JSON to the request stream. |
@@ -534,29 +533,9 @@ Console.WriteLine(fromText?.Name); // Ada
 Console.WriteLine(fromStream?.Name); // Ada
 ```
 
-`GetFieldNameForProperty` accepts `PropertyInfo`. It supports reflected integrations and honors
-`JsonPropertyName`. It returns null when the property has no such attribute.
-It does not apply the options' naming policy here. Generated request maps avoid that reflection step.
-The example below supplies a known property carrying an explicit name and a property without that attribute.
-The same hook is available through `IHttpContentSerializer`; a custom implementation can return a name or null.
-
-```csharp
-internal sealed class JsonNamedValue
-{
-    [JsonPropertyName("wire-name")]
-    public int Value { get; init; }
-}
-```
-
-```csharp
-JsonNamedValue model = new();
-System.Reflection.PropertyInfo explicitName = model.GetType().GetProperty(nameof(JsonNamedValue.Value))!;
-System.Reflection.PropertyInfo policyOnly = typeof(Person).GetProperty(nameof(Person.Name))!;
-string? name = Serializer.GetFieldNameForProperty(explicitName);
-string? absent = Serializer.GetFieldNameForProperty(policyOnly);
-Console.WriteLine(name); // wire-name
-Console.WriteLine(absent is null); // True
-```
+`NameStyle` returns `ContentSerializerNameStyle.SystemTextJson`. Refit uses this to read
+`[JsonPropertyName]` on fields in generated form bodies. A custom serializer can implement
+`IContentSerializerNameStyle` to select the same attribute family.
 
 `DeserializeStreamAsync<T>(Stream, StreamingContentFormat, CancellationToken = default)` accepts
 array, JSON Lines or SSE framing. Here `streaming` is the serializer's `IStreamingContentSerializer`
@@ -576,7 +555,7 @@ For stream framing and cancellation, see [streaming replies](../results/streamin
 ## Call the serializer with metadata
 
 `IJsonTypeInfoContentSerializer` is for code that calls the serializer directly and has the metadata in hand.
-Each method takes a `JsonTypeInfo<T>` in place of a lookup. The context's `Order` property holds the metadata for `Order`.
+Each method takes a `JsonTypeInfo<T>` in place of a lookup. The context's `Order` property holds the metadata for `Order`. You can pass this contract even when the client's configured context describes other types.
 
 ```csharp
 RefitSettings settings = RefitSettings.ForJsonContext(OrdersJsonContext.Default);
@@ -611,7 +590,7 @@ using StringContent content = new(body);
 await using Stream stream = await content.ReadAsStreamAsync();
 
 int count = 0;
-await foreach (Order? item in serializer.DeserializeStreamAsync(stream, StreamingContentFormat.JsonLines, OrdersJsonContext.Default.Order))
+await foreach (Order? item in serializer.DeserializeStreamAsync(stream, StreamingContentFormat.JsonLines, OrdersJsonContext.Default.Order, cancellationToken))
 {
     count++;
     Console.WriteLine(item?.Customer); // Ada
@@ -623,10 +602,13 @@ await foreach (Order? item in serializer.DeserializeStreamAsync(stream, Streamin
 `SystemTextJsonContentSerializer()` creates a set of default options.
 The options overload uses your instance. `SerializerOptions` exposes that instance.
 `GetDefaultJsonSerializerOptions()` returns fresh mutable options with camel-case names,
-case-insensitive property matching, reading numbers from strings and Refit's default converters.
-On .NET 10 it also rejects duplicate JSON properties.
-The default options have no generated resolver. Configure it before the first JSON operation if this
-serializer will run in a native app, or add a context with `WithContext`.
+case-insensitive property matching and strict number handling. Enums use numbers, and untyped
+values read as `JsonElement`. On .NET 10 and 11 the options also reject duplicate properties.
+Supply a generated resolver before the first JSON operation, or use `ForContext`.
+
+For a reflection-enabled client that reads untyped values as CLR primitives and writes enums as
+camelCase strings, reference `Refit.Reflection` and call `options.AddReflectionConverters()`.
+Call `ReflectionSupport.EnsureRegistered()` at startup if you also need a reflection resolver.
 The sample exercises the default constructor and both options APIs,
 and checks that each call to `GetDefaultJsonSerializerOptions` returns an independent instance.
 
@@ -641,7 +623,7 @@ Console.WriteLine(person!.Name); // Ada
 ```
 
 
-`GetFastPathJsonSerializerOptions()` returns fresh options without Refit's default converters.
+`GetFastPathJsonSerializerOptions()` returns fresh options with the same defaults.
 Set its resolver before use.
 A fast-path writer is generated code that writes a registered model directly.
 It helps serialization; reading needs metadata.

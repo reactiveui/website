@@ -74,7 +74,7 @@ and optional minus sign are safe in a URL. Do not use that overload for other
 `ISpanFormattable` values. The generic overload with a format escapes the rendered value
 and supports other span-formattable values.
 The no-format generic overload is compiled under `NET6_0_OR_GREATER`, and its formatted
-counterpart under `NET8_0_OR_GREATER`. Both are present on Refit's .NET 8 and later targets
+counterpart under `NET8_0_OR_GREATER`. Both are present on Refit's .NET 10 and later targets
 and absent on its .NET Framework targets.
 
 `RoundTripEscapePath` keeps the `/` separators of a catch-all route value, and formats and
@@ -123,6 +123,10 @@ var request = new HttpRequestMessage(HttpMethod.Get, new Uri(absoluteUrl, UriKin
 A `Uri` contributes its `OriginalString`. It rejects null, empty and relative values with
 `ArgumentException`. For example, `RequireAbsoluteUrl("https://cdn.example.com/images/42.png")`
 returns the same text.
+
+When you set `[Url(AllowRelative = true)]`, generated code uses
+`RequireRelativeOrAbsoluteUrl`. A relative URL such as `pages/2?cursor=a%2Fb`
+keeps its encoded cursor for resolution against the client's base address.
 
 The check tests for `UriKind.Absolute`. It does not require an HTTP or HTTPS scheme.
 On Linux, `RequireAbsoluteUrl("/items")` returns `"/items"`, which .NET accepts as a file URI.
@@ -176,7 +180,7 @@ GeneratedRequestRunner.SetHeader(request, "X-Api-Version", "2", validateHeaders:
 ```
 
 `AddConfiguredRequestOptions` applies the settings' request options and the interface type.
-On .NET 8 and later it also applies the configured HTTP version and version policy.
+On .NET 10 and later it also applies the configured HTTP version and version policy.
 `AddRequestProperty<TValue>` sets a typed `HttpRequestMessage.Options` value on those
 targets. On .NET Framework it uses the request's `Properties` dictionary.
 `SetRequestTimeout` stores the per-call milliseconds for the sending helpers. A positive
@@ -268,18 +272,17 @@ using HttpContent gzip = GeneratedRequestRunner.CompressBodyContent(new StringCo
 ```
 
 Add `using System.IO.Compression;` for `CompressionLevel`. GZip is available on all Refit
-targets, Brotli on .NET 8 and later, and Zstandard on .NET 11 and later. Requesting an
-unavailable coding throws `PlatformNotSupportedException`. The .NET 10 sample checks this
-exception for Zstandard. It does not verify successful .NET 11 Zstandard compression or its options.
+targets, Brotli on .NET 10 and later, and Zstandard on .NET 11 and later. Requesting an
+unavailable coding throws `PlatformNotSupportedException`. The .NET 11 example sends
+compressed bodies and reads them back with each coding's options. [Run the compression example](https://github.com/reactiveui/refit/tree/main/src/examples/Documentation/Bodies/Compression).
 
 ## Supply form descriptors
 
 **You write** a URL-encoded body. When every property is a simple value, **Refit generates**
-code that reads each property directly and builds a `FormUrlEncodedContent`. That code calls
-`CanUnrollForm`, `BuildQueryKey` and `FormatInvariant`, and it falls back to
-`CreateUrlEncodedBodyContent(settings, form)` when the serializer is not
-`SystemTextJsonContentSerializer`. When a property is a collection, Refit generates an array
-of `FormField<TBody>` descriptors instead:
+code that reads each property directly and builds a `FormUrlEncodedContent`. It can use
+`BuildFormKey` to select the wire name for the current serializer. A serializer with custom
+naming can use the runtime path through `CreateUrlEncodedBodyContent(settings, form)`.
+When a property is a collection, Refit generates `FormField<TBody>` descriptors.
 
 ```csharp
 public sealed class TagForm
@@ -297,8 +300,8 @@ Task SaveTagsAsync([Body(BodySerializationMethod.UrlEncoded)] TagForm form);
 ```csharp
 private static readonly FormField<TagForm>[] formFields = new FormField<TagForm>[]
 {
-    new FormField<TagForm>(static body => (object?)body.Name, "Name", null, null, null, null, false),
-    new FormField<TagForm>(static body => (object?)body.Tags, "Tags", null, null, null, CollectionFormat.Csv, false),
+    new FormField<TagForm>(static body => body.Name, "Name", default, null, null, null, false),
+    new FormField<TagForm>(static body => body.Tags, "Tags", default, null, null, CollectionFormat.Csv, false),
 };
 
 request.Content = GeneratedRequestRunner.CreateUrlEncodedBodyContent<TagForm>(settings, form, formFields);
@@ -310,26 +313,23 @@ value, so `a=b` becomes `a%3Db`. It does not parse the string as an already enco
 Existing content and streams pass through. This overload uses reflection to flatten an
 ordinary object.
 
-The overload taking `FormField<TBody>[]` can use the descriptors' getters instead. That path
-applies only to a non-null object that is not a dictionary, with a
-`SystemTextJsonContentSerializer` configured. Other serializer types can need their
-property-name hook and fall back to reflection. Nested complex form values can also require
-runtime property discovery. The descriptors avoid discovery for known simple fields. They do
-not guarantee it for every body shape.
+For a non-null form object, the descriptor overload can use the getters when the serializer
+implements `IContentSerializerNameStyle`. Refit's System.Text.Json, Newtonsoft.Json and XML
+serializers each report which attribute family to use. Dictionaries and custom serializers
+that resolve field names at runtime take the fallback path. Nested complex values can still
+require runtime property discovery.
 
-`FormField<TBody>` stores the `Getter`, `ClrName`, `ExplicitName`, `PrefixSegment`,
-`Format`, `CollectionFormat` and `SerializeNull` passed to its constructor, as read-only
-properties. `ResolveFieldName` uses `ExplicitName` when it is set. Otherwise it
-formats `ClrName` with the key formatter you pass. It then prepends the prefix verbatim.
-An explicit collection format overrides the settings' default. `SerializeNull: true` emits an
-empty field for a null value; `false` omits it.
+`FormField<TBody>.Names` stores a `FormFieldNames` value. `ResolveFieldName` tries its
+explicit name first, then the name for the serializer's style, then the formatted CLR name.
+It prepends the field prefix to the result. An explicit collection format overrides the
+settings default. Set `serializeNull` to `true` to emit an empty field for a null value.
 
 ```csharp
 TagForm form = new() { Name = "Summer sale", Tags = ["shoes", "hats"] };
 FormField<TagForm>[] fields =
 [
-    new(static value => value.Name, nameof(TagForm.Name), "name", null, null, null, false),
-    new(static value => value.Tags, nameof(TagForm.Tags), null, null, null, CollectionFormat.Csv, false),
+    new(static value => value.Name, nameof(TagForm.Name), new("name", null, null, null), null, null, null, false),
+    new(static value => value.Tags, nameof(TagForm.Tags), default, null, null, CollectionFormat.Csv, false),
 ];
 using HttpContent content = GeneratedRequestRunner.CreateUrlEncodedBodyContent(settings, form, fields);
 string body = await content.ReadAsStringAsync(); // "name=Summer+sale&Tags=shoes%2Chats"
@@ -419,14 +419,16 @@ A range is a [value tuple][tuple] of two [int] positions: inclusive start and ex
 | `BuildRelativeUri(HttpClient client, string relativePath, UrlResolutionMode urlResolution)` | Combines a route with the client base path under the selected resolution rule. | [HttpClient] `client`: supplies the base path; [string] `relativePath`: route; [UrlResolutionMode] `urlResolution`: resolution rule. | [Uri]: relative URI for [`HttpClient`](https://learn.microsoft.com/dotnet/api/system.net.http.httpclient) to resolve. |
 | `BuildRelativeUri(HttpClient client, string relativePath, UrlResolutionMode urlResolution, UriFormat queryUriFormat)` | Builds a relative URI and applies the legacy query rendering mode when relevant. | [HttpClient] `client`; [string] `relativePath`; [UrlResolutionMode] `urlResolution`; [UriFormat] `queryUriFormat`: legacy path/query escaping rule. | [Uri]: relative URI. RFC resolution ignores `queryUriFormat`. |
 | `RequireAbsoluteUrl(object? url)` | Rejects a URL value that is absent or not absolute. | [object] `url`: a [string] or [Uri] with an absolute address. | [string]: original URL text. Throws `ArgumentException` if it cannot be parsed as absolute. This does not enforce HTTP/HTTPS. |
-| `RoundTripEscapePath(string? value, RefitSettings settings, ICustomAttributeProvider attributeProvider, Type type)` | Formats and escapes a catch-all path without escaping its separators. | [string] `value`: catch-all path or `null`; [RefitSettings] `settings`; [ICustomAttributeProvider] `attributeProvider`: formatting attributes; [Type] `type`: declared value type. | [string]: formatted and escaped path sections with `/` separators retained. |
-| `FormatUrlParameter(RefitSettings settings, object? value, ICustomAttributeProvider attributeProvider, Type type)` | Formats one value through the registered or default URL formatter. | [RefitSettings] `settings`; [object] `value`: value or `null`; [ICustomAttributeProvider] `attributeProvider`: attributes; [Type] `type`: declared type. | [string], nullable: result from the selected URL formatter. |
+| `RequireRelativeOrAbsoluteUrl(object? url)` | Validates a dynamic URL with `AllowRelative = true`. | A non-empty URI reference supplied as a string or a `Uri`. | The original URL text. Invalid input throws `ArgumentException`. |
+| `RoundTripEscapePath(string? value, RefitSettings settings, IParameterAttributeProvider attributeProvider, Type type)` | Formats and escapes a catch-all path without escaping its separators. | [string] `value`: catch-all path or `null`; [RefitSettings] `settings`; [IParameterAttributeProvider] `attributeProvider`: formatting attributes; [Type] `type`: declared value type. | [string]: formatted and escaped path sections with `/` separators retained. |
+| `FormatUrlParameter(RefitSettings settings, object? value, IParameterAttributeProvider attributeProvider, Type type)` | Formats one value through the registered or default URL formatter. | [RefitSettings] `settings`; [object] `value`: value or `null`; [IParameterAttributeProvider] `attributeProvider`: attributes; [Type] `type`: declared type. | [string], nullable: result from the selected URL formatter. |
 | `FormatInvariant<T>(T value, string? format)` | Renders an `IFormattable` using invariant culture without URL escaping. | `value`: an [IFormattable]; [string] `format`: format or `null`. Requires `T : IFormattable`. | [string]: invariant formatted value without URL escaping. |
 | `BuildQueryKey(RefitSettings settings, string clrName, string? explicitName, string? prefixSegment)` | Builds the final query key from an alias or formatted CLR name and optional prefix. | [RefitSettings] `settings`; [string] `clrName`: declared name; [string] `explicitName`: alias or `null`; [string] `prefixSegment`: prefix including delimiter, or `null`. | [string]: explicit or formatted name with the prefix prepended. |
+| `BuildFormKey(RefitSettings settings, string clrName, string? explicitName, string? jsonName, string? newtonsoftName, string? xmlName, string? prefixSegment)` | Builds the key for a generated form field. | Supply the field's CLR name, optional aliases and prefix. The configured serializer reports its name style. | The explicit name, serializer name or formatted CLR name, with the optional prefix. |
 | `UsesDefaultUrlParameterFormatting(RefitSettings settings)` | Checks whether URL values can use the built-in formatter fast path. | [RefitSettings] `settings`: formatters to inspect. | [bool]: whether inline URL formatting matches the pristine default formatter and the formatter map is empty. |
 | `UsesDefaultFormUrlEncodedParameterFormatting(RefitSettings settings)` | Checks whether form values use the exact built-in formatter type. | [RefitSettings] `settings`: formatter to inspect. | [bool]: whether the form formatter has the exact built-in default type. |
 | `UsesDefaultUrlParameterKeyFormatting(RefitSettings settings)` | Checks whether query keys use the exact built-in key formatter type. | [RefitSettings] `settings`: formatter to inspect. | [bool]: whether the key formatter has the exact built-in default type. |
-| `AddFormattedCollectionProperty(ref GeneratedQueryStringBuilder builder, RefitSettings settings, IEnumerable? values, string key, CollectionFormat collectionFormat, bool preEncoded, (Type ElementProviderType, ICustomAttributeProvider JoinedProvider, Type JoinedType) formatting)` | Formats and appends a collection-valued query property using the configured collection rule. | [GeneratedQueryStringBuilder] `builder`: updated by reference; [RefitSettings] `settings`; [IEnumerable] `values`: collection or `null`; [string] `key`; [CollectionFormat] `collectionFormat`; [bool] `preEncoded`; [tuple] `formatting`: element [Type], joined-value [ICustomAttributeProvider], and joined [Type]. | `void`; appends values using the two formatting passes described in [query building](query-builder.md). Null appends nothing. |
+| `AddFormattedCollectionProperty(ref GeneratedQueryStringBuilder builder, RefitSettings settings, IEnumerable? values, string key, CollectionFormat collectionFormat, bool preEncoded, (Type ElementProviderType, IParameterAttributeProvider JoinedProvider, Type JoinedType) formatting)` | Formats and appends a collection-valued query property using the configured collection rule. | [GeneratedQueryStringBuilder] `builder`: updated by reference; [RefitSettings] `settings`; [IEnumerable] `values`: collection or `null`; [string] `key`; [CollectionFormat] `collectionFormat`; [bool] `preEncoded`; [tuple] `formatting`: element [Type], joined-value [IParameterAttributeProvider], and joined [Type]. | `void`; appends values using the two formatting passes described in [query building](query-builder.md). Null appends nothing. |
 
 ## Header and option overloads
 
@@ -436,7 +438,7 @@ A range is a [value tuple][tuple] of two [int] positions: inclusive start and ex
 | `AddHeaderCollection(HttpRequestMessage request, IDictionary<string, string>? headers, bool validateHeaders)` | Applies a collection of header replacements to the request. | [HttpRequestMessage] `request`; [`IDictionary<string, string>`][dictionary] `headers`: replacements or `null`; [bool] `validateHeaders`: whether to validate syntax. | `void`; applies `SetHeader` to each entry. Null does nothing. |
 | `AddConfiguredRequestOptions(HttpRequestMessage request, RefitSettings settings, Type interfaceType)` | Copies configured request options and HTTP version settings onto a request. | [HttpRequestMessage] `request`; [RefitSettings] `settings`: options and version rules; [Type] `interfaceType`: Refit interface. | `void`; stores request options and interface type, plus HTTP version settings on modern .NET. |
 | `AddRequestProperty<TValue>(HttpRequestMessage request, string key, TValue value)` | Stores one typed request option for later request execution. | [HttpRequestMessage] `request`; [string] `key`: option key; `value`: option value. | `void`; sets a typed option, or a dictionary entry on .NET Framework. |
-| `SetRequestJsonTypeInfo<T>(HttpRequestMessage request, JsonTypeInfo<T>? typeInfo)` | Stores the metadata that describes the response body, so the reply is read with it. Generated code calls it for a method that has a `JsonTypeInfo<T>` parameter. | [HttpRequestMessage] `request`; [`JsonTypeInfo<T>`](https://learn.microsoft.com/dotnet/api/system.text.json.serialization.metadata.jsontypeinfo-1) `typeInfo`: metadata for the reply body, or `null` to store nothing. .NET 8 and later. | `void`; stores the metadata as a request option. |
+| `SetRequestJsonTypeInfo<T>(HttpRequestMessage request, JsonTypeInfo<T>? typeInfo)` | Stores the metadata that describes the response body, so the reply is read with it. Generated code calls it for a method that has a `JsonTypeInfo<T>` parameter. | [HttpRequestMessage] `request`; [`JsonTypeInfo<T>`](https://learn.microsoft.com/dotnet/api/system.text.json.serialization.metadata.jsontypeinfo-1) `typeInfo`: metadata for the reply body, or `null` to store nothing. .NET 10 and later. | `void`; stores the metadata as a request option. |
 | `SetRequestTimeout(HttpRequestMessage request, int timeoutMilliseconds)` | Records the per-request timeout for the send helper to apply. | [HttpRequestMessage] `request`; [int] `timeoutMilliseconds`: timeout in milliseconds. | `void`; stores a timeout for dispatch to apply. |
 
 ## Body helper overloads
@@ -447,7 +449,7 @@ to survive trimming when they use reflection. Read [AOT guidance](../aot.md) bef
 | Overload | Description | Parameters | Returns |
 | --- | --- | --- | --- |
 | `CreateBodyContent<TBody>(RefitSettings settings, TBody body, BodySerializationMethod serializationMethod, bool streamBody)` | Serializes a request body according to the selected body mode, preserving supplied content and streams. | [RefitSettings] `settings`; `body`: value to send; [BodySerializationMethod] `serializationMethod`; [bool] `streamBody`: whether serialized content streams. | [HttpContent]: existing content, protected stream content, raw text, or serialized body as described above. |
-| `CreateBodyContent<TBody>(RefitSettings settings, TBody body, JsonTypeInfo<TBody>? typeInfo, BodySerializationMethod serializationMethod, bool streamBody)` | Serializes a request body with the metadata a method parameter supplies. It follows the same body rules as the overload above. | [RefitSettings] `settings`; `body`: value to send; [`JsonTypeInfo<TBody>`](https://learn.microsoft.com/dotnet/api/system.text.json.serialization.metadata.jsontypeinfo-1) `typeInfo`: metadata for `TBody`, or `null` to use the serializer's own lookup; [BodySerializationMethod] `serializationMethod`; [bool] `streamBody`. | [HttpContent]: as above, with the body written through `IJsonTypeInfoContentSerializer` when `typeInfo` is set. Throws `InvalidOperationException` when the serializer does not implement it. .NET 8 and later. |
+| `CreateBodyContent<TBody>(RefitSettings settings, TBody body, JsonTypeInfo<TBody>? typeInfo, BodySerializationMethod serializationMethod, bool streamBody)` | Serializes a request body with the metadata a method parameter supplies. It follows the same body rules as the overload above. | [RefitSettings] `settings`; `body`: value to send; [`JsonTypeInfo<TBody>`](https://learn.microsoft.com/dotnet/api/system.text.json.serialization.metadata.jsontypeinfo-1) `typeInfo`: metadata for `TBody`, or `null` to use the serializer's own lookup; [BodySerializationMethod] `serializationMethod`; [bool] `streamBody`. | [HttpContent]: as above, with the body written through `IJsonTypeInfoContentSerializer` when `typeInfo` is set. Throws `InvalidOperationException` when the serializer does not implement it. .NET 10 and later. |
 | `CreateJsonLinesBodyContent<TBody>(RefitSettings settings, TBody body)` | Creates newline-delimited JSON content from one value or an enumerable body. | [RefitSettings] `settings`; `body`: one value or a sequence of values. | [HttpContent]: JSON Lines content, or existing content/stream handling. |
 | `CreateTypedJsonLinesBodyContent<TElement>(RefitSettings settings, IEnumerable<TElement>? body)` | Generator-facing. Creates JSON Lines content for a body declared as `IEnumerable<TElement>`. | [RefitSettings] `settings`; `body`: the sequence, or `null`. | [HttpContent]: writes each element as `TElement` when that gives the same JSON as `CreateJsonLinesBodyContent`, which is when `TElement` has no derived types and the serializer is the built-in System.Text.Json one. Otherwise it returns exactly what `CreateJsonLinesBodyContent` returns. |
 | `CreateAsyncJsonLinesBodyContent<TElement>(RefitSettings settings, IAsyncEnumerable<TElement>? body)` | Generator-facing. Creates JSON Lines content for a body declared as `IAsyncEnumerable<TElement>`. | [RefitSettings] `settings`; `body`: the asynchronous sequence, or `null`. | [HttpContent]: single-use content that writes each element as `TElement` as the producer yields it, ending every line with a line feed. A `null` body is written as one `null` line. |
@@ -484,14 +486,14 @@ read-only and retain the constructor arguments. None of the arguments has a defa
 
 | Overload | Description | Parameters | Returns |
 | --- | --- | --- | --- |
-| `FormField(Func<TBody, object?> getter, string clrName, string? explicitName, string? prefixSegment, string? format, CollectionFormat? collectionFormat, bool serializeNull)` | Creates a descriptor that reads and formats one URL-encoded form field. | [`Func<TBody, object?>`][getter] `getter`: reads a field; [string] `clrName`: declared name; nullable [string] arguments: explicit name, prefix with delimiter and value format; nullable [CollectionFormat] `collectionFormat`: override or settings default; [bool] `serializeNull`: whether null emits an empty field. | A [`FormField<TBody>`](https://github.com/reactiveui/refit/blob/main/src/Refit/FormField.cs) descriptor. |
-| `ResolveFieldName(IUrlParameterKeyFormatter urlParameterKeyFormatter)` | Resolves the final form key from the explicit name or configured key formatter. | [IUrlParameterKeyFormatter] `urlParameterKeyFormatter`: formats `ClrName` when no explicit name is set. | [string], nullable: resolved name with the prefix prepended. |
+| `FormField(Func<TBody, object?> getter, string clrName, FormFieldNames names, string? prefixSegment, string? format, CollectionFormat? collectionFormat, bool serializeNull)` | Describes one URL-encoded field. | The getter reads its value. The names and prefix form the wire key. The remaining arguments control value formatting, collections and nulls. | A field descriptor. |
+| `ResolveFieldName(IUrlParameterKeyFormatter urlParameterKeyFormatter, ContentSerializerNameStyle nameStyle)` | Resolves the form key. | The serializer style selects the attribute name. The key formatter handles the CLR name if the field has no explicit or serializer name. | The resolved name with its prefix. |
 
 | Property | Type | Value |
 | --- | --- | --- |
 | `Getter` | [`Func<TBody, object?>`][getter] | Reads the field value from a body instance. |
 | `ClrName` | [string] | Declared property name. |
-| `ExplicitName` | [string], nullable | Alias or serializer name; `null` uses the key formatter. |
+| `Names` | `FormFieldNames` | Holds the explicit, System.Text.Json, Newtonsoft.Json and XML field names. |
 | `PrefixSegment` | [string], nullable | Prefix including delimiter; `null` adds none. |
 | `Format` | [string], nullable | Value format; `null` uses default formatting. |
 | `CollectionFormat` | [CollectionFormat], nullable | Explicit collection rule; `null` uses settings. |
@@ -511,7 +513,7 @@ read-only and retain the constructor arguments. None of the arguments has a defa
 [span]: https://learn.microsoft.com/dotnet/api/system.readonlyspan-1
 [ISpanFormattable]: https://learn.microsoft.com/dotnet/api/system.ispanformattable
 [IFormattable]: https://learn.microsoft.com/dotnet/api/system.iformattable
-[ICustomAttributeProvider]: https://learn.microsoft.com/dotnet/api/system.reflection.icustomattributeprovider
+[IParameterAttributeProvider]: https://github.com/reactiveui/refit/blob/main/src/Refit/IParameterAttributeProvider.cs
 [IEnumerable]: https://learn.microsoft.com/dotnet/api/system.collections.ienumerable
 [dictionary]: https://learn.microsoft.com/dotnet/api/system.collections.generic.idictionary-2
 [Uri]: https://learn.microsoft.com/dotnet/api/system.uri

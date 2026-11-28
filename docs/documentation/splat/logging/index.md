@@ -27,6 +27,12 @@ By default Splat uses a NullLogger (i.e. it doesn't log). To set up logging:
 
 ### Available logging adapters
 
+For an in-process log sink, register an `ActionLogger` as `ILogger` on your resolver.
+Pass that resolver to `DefaultLogManager` and call `GetLogger(typeof(YourService))`.
+The dispatch desk example records a shipment through `Info` and checks the message and severity
+received by the sink.
+[Dispatch logger example](https://github.com/reactiveui/splat/blob/main/src/examples/DispatchDesk/Program.cs)
+
 Splat has support for the following logging frameworks:
 
 | Target | Package | NuGet |

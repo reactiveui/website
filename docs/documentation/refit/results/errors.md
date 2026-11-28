@@ -260,13 +260,9 @@ Refit's factory attempts to return a `ValidationApiException`.
 Its `Content` hides the base string property and exposes `ProblemDetails?`.
 Cast to `ApiException` when you need the raw body text.
 
-**AOT gap:** registering `ProblemDetails` in a generated context does not make this automatic conversion work.
-Its init-only `Extensions` property becomes a generated constructor parameter.
-System.Text.Json rejects binding an extension-data property to that parameter with `InvalidOperationException`.
-Refit's factory catches it, and the API call throws a plain `ApiException`.
-
-Catch `ApiException` and use the public synchronous parser as a reflection-free fallback.
-This excerpt belongs in a synchronous helper that receives the caught error:
+Refit reads the standard problem fields and extra properties with its own JSON reader.
+This also works in a Native AOT app. When you catch an existing `ApiException`
+with a valid problem body, `ValidationApiException.Create` gives you the same typed fields.
 
 ```csharp
 ValidationApiException validation = error as ValidationApiException ?? ValidationApiException.Create(error);
@@ -288,7 +284,8 @@ Console.WriteLine(error.Content); // Raw JSON
 
 The dictionaries have init setters: supply them when constructing the model, then modify their entries if needed.
 The five scalar properties have ordinary setters.
-Extension value types depend on the serializer. The synchronous parser used here reads simple values directly.
+Refit's problem reader stores extra JSON properties in `Extensions`.
+If you deserialize a `ProblemDetails` model yourself, read extra properties from the original JSON.
 Register concrete runtime types too if you write extension values back to JSON in an AOT app.
 
 `ValidationApiException.Create(ApiException)` converts an existing non-empty body synchronously.
@@ -297,9 +294,8 @@ It compares field names without regard to case, accepts string or array validati
 and reads simple extension values as booleans, numbers, strings or dates.
 Other values remain `JsonElement` values. Null/blank content raises `ArgumentException`; invalid JSON raises `JsonException`.
 
-The automatic async factory path uses your configured serializer instead.
-Missing or unusable metadata prevents conversion to the validation subtype.
-The original `ApiException` can remain, because the factory catches that conversion failure.
+The automatic factory uses the same reader. If it cannot parse the problem body,
+the caller receives the original `ApiException` and can inspect its raw content.
 
 ```csharp
 error.Content = """{"title":"Invalid name","status":400,"errors":{"name":["Name is required."]},"trace":"sample"}""";

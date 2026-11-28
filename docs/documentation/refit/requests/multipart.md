@@ -289,6 +289,13 @@ using HttpResponseMessage reply = await api.UploadAsync(new FormFields(), new("M
 // part "recipe": file name "recipe.txt"
 ```
 
+When a service expects a different field name, a custom `IHttpContentSerializer` can also implement
+`IReflectionFieldNameProvider` from `Refit.Reflection`. Return the wire name from
+`GetFieldNameForProperty(PropertyInfo)`, or return `null` to keep the CLR property name.
+An explicit `[AliasAs]` takes precedence. The example sends both `Tags` values under `tag`,
+keeps `caption` for the aliased title and leaves `Note` under its CLR name.
+[Upload field serializer](https://github.com/reactiveui/refit/blob/main/src/examples/Documentation/Multipart/Legacy/UploadFieldSerializer.cs)
+
 ## Obsolete attachment naming
 
 `AttachmentNameAttribute(name)` stores its supplied string in read-only `Name`.

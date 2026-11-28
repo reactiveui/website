@@ -150,14 +150,14 @@ Generated code supplies those attributes through an attribute provider, without 
 the parameter with reflection. For the `page` parameter above, **Refit generates** one cached field:
 
 ```csharp
-private static readonly ICustomAttributeProvider pageAttributeProvider =
+private static readonly IParameterAttributeProvider pageAttributeProvider =
     new GeneratedSingleTypeParameterAttributeProvider(typeof(QueryAttribute), new object[] { new QueryAttribute() { Format = "D3" } });
 ```
 
 `GeneratedSingleTypeParameterAttributeProvider` takes one exact attribute type and its `object[]`.
 When a parameter has several attribute types, such as `[Query]` and `[AliasAs]`, generated code
 uses `GeneratedParameterAttributeProvider` instead. It takes a `Dictionary<Type, object[]>`.
-Its static `Empty` field supplies no attributes. Both implement `ICustomAttributeProvider`.
+Its static `Empty` field supplies no attributes. Both implement `IParameterAttributeProvider`.
 
 For both types, `GetCustomAttributes(bool)` returns every attribute.
 `GetCustomAttributes(Type, bool)` returns only the array for that exact type, or an empty
@@ -269,7 +269,7 @@ join them before the second pass. Generated code calls this method only when you
 customized URL formatting. Otherwise it uses the collection methods directly, as shown above.
 
 The three span-format methods are compiled under `NET6_0_OR_GREATER`. Refit's shipped
-.NET 8, 9, 10, and 11 surfaces include them; its .NET Framework surfaces omit them.
+.NET 10 and 11 targets include these overloads.
 The [request helpers](request-helpers.md) describe path formatting and body construction.
 
 ## Query builder API reference
@@ -301,7 +301,7 @@ The methods returning `void` update this builder in place. The formatted methods
 
 ## Attribute provider API reference
 
-Both providers implement [ICustomAttributeProvider]. They retain supplied arrays rather than
+Both providers implement [IParameterAttributeProvider]. They retain supplied arrays rather than
 copying them. `inherit` is a required [bool] argument that these implementations ignore.
 The `Type` lookups match an exact type rather than its base types.
 
@@ -326,14 +326,14 @@ The URL formatter entry point accepts either attribute provider:
 
 | Overload | Description | Parameters | Returns |
 | --- | --- | --- | --- |
-| `GeneratedRequestRunner.FormatUrlParameter(RefitSettings settings, object? value, ICustomAttributeProvider attributeProvider, Type type)` | Formats one query value through the configured URL formatter. | [RefitSettings](../clients/settings.md) `settings`: formatter configuration; [object] `value`: value or `null`; [ICustomAttributeProvider] `attributeProvider`: attributes for formatting; [Type] `type`: declared value type. | [string], nullable: result from the selected URL formatter. |
+| `GeneratedRequestRunner.FormatUrlParameter(RefitSettings settings, object? value, IParameterAttributeProvider attributeProvider, Type type)` | Formats one query value through the configured URL formatter. | [RefitSettings](../clients/settings.md) `settings`: formatter configuration; [object] `value`: value or `null`; [IParameterAttributeProvider] `attributeProvider`: attributes for formatting; [Type] `type`: declared value type. | [string], nullable: result from the selected URL formatter. |
 
 [string]: https://learn.microsoft.com/dotnet/api/system.string
 [bool]: https://learn.microsoft.com/dotnet/api/system.boolean
 [object]: https://learn.microsoft.com/dotnet/api/system.object
 [Type]: https://learn.microsoft.com/dotnet/api/system.type
 [ISpanFormattable]: https://learn.microsoft.com/dotnet/api/system.ispanformattable
-[ICustomAttributeProvider]: https://learn.microsoft.com/dotnet/api/system.reflection.icustomattributeprovider
+[IParameterAttributeProvider]: https://github.com/reactiveui/refit/blob/main/src/Refit/IParameterAttributeProvider.cs
 [attribute-map]: https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2
 [CollectionFormat]: ../requests/queries.md
 

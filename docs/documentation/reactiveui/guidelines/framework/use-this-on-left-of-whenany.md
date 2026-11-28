@@ -15,7 +15,7 @@ it on the dependency directly.
 public PreferLessonReminderViewModel(Timetable timetable)
 {
     Timetable = timetable;
-    _nextClass = this.WhenAny(x => x.Timetable.NextClass, static change => change.Value)
+    _nextClass = this.WhenAny(static x => x.Timetable.NextClass, static change => change.Value)
         .ToProperty(this, nameof(NextClass));
 }
 ```
@@ -24,7 +24,7 @@ public PreferLessonReminderViewModel(Timetable timetable)
 
 ```csharp
 public AvoidLessonReminderViewModel(Timetable timetable) =>
-    _nextClass = timetable.WhenAny(x => x.NextClass, static change => change.Value)
+    _nextClass = timetable.WhenAny(static x => x.NextClass, static change => change.Value)
         .ToProperty(this, nameof(NextClass));
 ```
 
@@ -68,7 +68,7 @@ screen is done with it:
 
 ```csharp
 MultipleDisposable disposables = [];
-timetable.WhenAnyValue(x => x.NextClass)
+timetable.WhenAnyValue(static x => x.NextClass)
     .Subscribe(announcements.Add)
     .DisposeWith(disposables);
 

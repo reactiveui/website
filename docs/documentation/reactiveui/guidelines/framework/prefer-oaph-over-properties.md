@@ -64,7 +64,7 @@ longer says what it claims to say.
 `ObservableAsPropertyHelper<bool>` built from `WhenAny`:
 
 ```csharp
-_canEnroll = this.WhenAny(x => x.RosterFetched, x => x.RegistrarFree, static (fetched, free) => fetched.Value && free.Value)
+_canEnroll = this.WhenAny(static x => x.RosterFetched, static x => x.RegistrarFree, static (fetched, free) => fetched.Value && free.Value)
     .ToProperty(this, nameof(CanEnroll));
 ```
 

@@ -8,8 +8,9 @@ response header and waits before sending a fresh request. Without a valid hint, 
 exponential backoff: each wait grows until it reaches a configured limit.
 
 The handler is opt-in and works with both generated Refit clients and ordinary `HttpClient`.
-It lives in `Refit` on .NET 8 and later. It needs no interface attributes, generator changes
-or resilience package.
+It ships in `Refit` for .NET 10, .NET 11 and the supported .NET Framework targets.
+The runnable example checks how many requests the handler sends and which response the caller receives.
+[Run the retry example](https://github.com/reactiveui/refit/tree/main/src/examples/Documentation/Pages/clients-resilience).
 
 ## Make a retrying client
 
@@ -146,6 +147,27 @@ headers. Bodies are serialized once into a bounded buffer. The default limit is 
 set through `MaxRequestContentBufferSize`. Oversized bodies fail before the first send.
 Do not use retries for unbounded streaming uploads.
 
+For a POST that the server can safely repeat, give the operation a stable key. The server must recognize the key and apply the write only once. This example retries a conflict once and buffers up to 128 bytes.
+
+```csharp
+HttpRetryOptions options = new()
+{
+    MaxRetries = 1,
+    Replay = { RetryUnsafeMethods = true, MaxRequestContentBufferSize = 128 },
+    Responses = { ShouldRetry = static response => response.StatusCode == HttpStatusCode.Conflict },
+};
+
+using var client = new HttpClient(stub.CreateRetryHandler(options));
+using var request = new HttpRequestMessage(HttpMethod.Post, "https://people.example/dispatch")
+{
+    Content = new StringContent("ready"),
+};
+request.Headers.Add("Idempotency-Key", "dispatch-17");
+using var response = await client.SendAsync(request, cancellationToken);
+```
+
+The [runnable retry example](https://github.com/reactiveui/refit/blob/main/src/examples/Documentation/Resilience/ServerRetryHints.cs) matches the body and key on both attempts and checks the final status.
+
 The handler disposes failed responses and cloned requests. The caller owns the original
 request and final response. The handler does not read or buffer response content.
 
@@ -156,6 +178,20 @@ A GitHub secondary limit without timing headers cannot be distinguished from an 
 403 by a header-only reader.
 
 ## Test retries without a network
+
+Use the `Backoff`, `Responses` and `Replay` properties to group related settings. The
+handler copies the values when you create it. This policy accepts Azure timing headers
+and returns the last response when the server asks for more than five seconds.
+
+```csharp
+HttpRetryOptions options = new()
+{
+    MaxRetries = 3,
+    Backoff = { MaxDelay = TimeSpan.FromSeconds(5) },
+    Responses = { DelayProvider = RetryDelayProviders.Azure },
+    Replay = { RetryHttpRequestExceptions = false },
+};
+```
 
 `Refit.Testing` provides `RetryReply.After` for seconds or dates and `RetryReply.Header` for
 provider-specific or deliberately invalid hints. Each match creates a fresh response.
@@ -202,7 +238,7 @@ chooses replacement application data, so it belongs above the HTTP layer.
 
 Both `Microsoft.Extensions.Resilience` and `Microsoft.Extensions.Http.Resilience` are
 [built on Polly](https://learn.microsoft.com/dotnet/core/resilience/).
-They remain optional. See [Microsoft resilience integration](resilience.md).
+They remain optional. See [registering a retry handler](resilience.md).
 Do not stack retry strategies without calculating their combined attempts.
 Three retries in each of two layers can produce sixteen network sends.
 

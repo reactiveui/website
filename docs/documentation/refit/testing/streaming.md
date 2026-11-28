@@ -171,6 +171,12 @@ catch (HttpIOException error)
 Your app keeps the items that arrived before the drop. Check that it keeps them and reports the error. Use
 `Fail(exception)` instead of `Disconnect()` when you want the read to throw an exception of your own.
 
+To reproduce a partial network read, send the first part of a JSON line with
+`source.ReleaseText` and its remaining UTF-8 bytes with `source.ReleaseBytes`.
+The client can finish reading that line before the test calls `source.Fail(error)`.
+`ReadChunks` counts data chunks and `ReleasedChunks` includes the failure marker.
+[Run the raw chunk example in TestingStreaming.cs](https://github.com/reactiveui/refit/blob/main/src/examples/Documentation/Testing/TestingStreaming.cs).
+
 ### Stall the body
 
 The problem: how do you prove headers arrived while the body is still stalled?
