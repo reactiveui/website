@@ -4,7 +4,7 @@ description: "A view model often needs a read-only property whose value comes fr
 ---
 # Properties backed by observables
 
-[Run the complete page example](https://github.com/reactiveui/ReactiveUI.Binding.SourceGenerators/blob/main/src/examples/Documentation/Pages/properties/properties.csproj).
+[Run the complete page example](https://github.com/reactiveui/ReactiveUI.SourceGenerators/blob/main/src/examples/Documentation/Pages/properties/properties.csproj).
 
 A view model often needs a read-only property whose value comes from a stream: a full name built from two other
 properties, a count of unfinished items, a label that depends on several fields. `ToProperty` turns a stream into
@@ -387,14 +387,14 @@ alias.
 
 | Member | What it does | Type and values | Notes |
 | --- | --- | --- | --- |
-| [`ToProperty`](https://github.com/reactiveui/ReactiveUI.Binding.SourceGenerators/blob/main/src/ReactiveUI.Binding.Shared/Mixins/ReactiveUIBindingExtensions.ToProperty.cs) | Backs a read-only property with an observable's latest value. | Extension method on `IObservable<TRet>`. Takes the declaring object and a selector `Func<TObj, TRet>` of the form `x => x.Property`, or the property's name as a constant string. Optional: an initial value or a `Func<TRet>` factory for one, `deferSubscription`, an `ISequencer?` scheduler, and an `out ObservableAsPropertyHelper<TRet>` that also returns the helper. Returns [`ObservableAsPropertyHelper<TRet>`](#observableaspropertyhelpert). | The selector has to be written inline at the call. A call the generator cannot read throws `InvalidOperationException` when it runs. RXUIBIND012 and RXUIBIND013 report why. |
-| [`ObservableAsPropertyAttribute`](https://github.com/reactiveui/ReactiveUI.Binding.SourceGenerators/blob/main/src/ReactiveUI.Binding.Shared/Bindings/ObservableAsPropertyAttribute.cs) | Marks a partial, get-only property as backed by an `ObservableAsPropertyHelper<T>`. | Attribute, usable once per property. | Needs C# 13 or newer. The generator writes the property body and a field named `_{name}Helper`, which you assign with `ToProperty`. |
+| [`ToProperty`](https://github.com/reactiveui/ReactiveUI.SourceGenerators/blob/main/src/ReactiveUI.Binding.Shared/Mixins/ReactiveUIBindingExtensions.ToProperty.cs) | Backs a read-only property with an observable's latest value. | Extension method on `IObservable<TRet>`. Takes the declaring object and a selector `Func<TObj, TRet>` of the form `x => x.Property`, or the property's name as a constant string. Optional: an initial value or a `Func<TRet>` factory for one, `deferSubscription`, an `ISequencer?` scheduler, and an `out ObservableAsPropertyHelper<TRet>` that also returns the helper. Returns [`ObservableAsPropertyHelper<TRet>`](#observableaspropertyhelpert). | The selector has to be written inline at the call. A call the generator cannot read throws `InvalidOperationException` when it runs. RXUIBIND012 and RXUIBIND013 report why. |
+| [`ObservableAsPropertyAttribute`](https://github.com/reactiveui/ReactiveUI.SourceGenerators/blob/main/src/ReactiveUI.Binding.Shared/Bindings/ObservableAsPropertyAttribute.cs) | Marks a partial, get-only property as backed by an `ObservableAsPropertyHelper<T>`. | Attribute, usable once per property. | Needs C# 13 or newer. The generator writes the property body and a field named `_{name}Helper`, which you assign with `ToProperty`. |
 
 ### `ObservableAsPropertyHelper<T>`
 
 | Declaration | Description | Parameters | Returns |
 | --- | --- | --- | --- |
-| `sealed class ObservableAsPropertyHelper<T> : IDisposable` | [Backs a read-only "output property" with an observable.](https://github.com/reactiveui/ReactiveUI.Binding.SourceGenerators/blob/main/src/ReactiveUI.Binding.Shared/Bindings/ObservableAsPropertyHelper.cs) | `T` is the type of the property value. | — |
+| `sealed class ObservableAsPropertyHelper<T> : IDisposable` | [Backs a read-only "output property" with an observable.](https://github.com/reactiveui/ReactiveUI.SourceGenerators/blob/main/src/ReactiveUI.Binding.Shared/Bindings/ObservableAsPropertyHelper.cs) | `T` is the type of the property value. | — |
 
 **Constructors**
 

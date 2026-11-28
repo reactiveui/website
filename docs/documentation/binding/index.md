@@ -4,7 +4,7 @@ description: "A screen shows data that changes."
 ---
 # ReactiveUI.Binding
 
-[Run the complete page example](https://github.com/reactiveui/ReactiveUI.Binding.SourceGenerators/blob/main/src/examples/Documentation/Pages/index/index.csproj).
+[Run the complete page example](https://github.com/reactiveui/ReactiveUI.SourceGenerators/blob/main/src/examples/Documentation/Pages/index/index.csproj).
 
 A screen shows data that changes. When the title of a to-do item changes, the label that shows it must change too.
 When the user types in a box, the view model must learn the new text.
@@ -195,7 +195,7 @@ Every page in this section uses the same sample apps, so a type you meet on one 
 | School | A gradebook with students, courses, enrolments, assignments and grades. |
 | Bank | Accounts, payees and transfers with validation. |
 
-The apps live in the [Common folder](https://github.com/reactiveui/ReactiveUI.Binding.SourceGenerators/tree/main/src/examples/Documentation/Common)
+The apps live in the [Common folder](https://github.com/reactiveui/ReactiveUI.SourceGenerators/tree/main/src/examples/Documentation/Common)
 of the examples. They talk to in-memory services, so no example needs a network or a database.
 
 ## Find a topic
@@ -217,7 +217,7 @@ of the examples. They talk to in-memory services, so no example needs a network 
 
 ## Run the examples
 
-The [documentation examples](https://github.com/reactiveui/ReactiveUI.Binding.SourceGenerators/tree/main/src/examples/Documentation)
+The [documentation examples](https://github.com/reactiveui/ReactiveUI.SourceGenerators/tree/main/src/examples/Documentation)
 live in folders named for their page. Each page links to its folder. Each folder is a small program that
 prints what the page shows. The page examples reference the library source projects, including the generator that writes the binding code.
 
@@ -227,14 +227,14 @@ An example prints its results with `Console.WriteLine`, and the page shows those
 From the repository's `src` folder, run the example for this page:
 
 ```bash
-dotnet run --project examples/Documentation/Pages/index/index.csproj -c Release
+dotnet run --project examples/Documentation/Pages/index/index.csproj -c Release -f net11.0
 ```
 
 ## API reference
 
 | Member | What it does | Type and values | Notes |
 | --- | --- | --- | --- |
-| [`WhenChanged`](https://github.com/reactiveui/ReactiveUI.Binding.SourceGenerators/blob/main/src/ReactiveUI.Binding.Shared/Mixins/ReactiveUIBindingExtensions.WhenChanged.WideArity.cs) | Watches a property. It delivers the current value when you subscribe, then the new value after each change. | Extension method on `TObj : class`. Takes `Expression<Func<TObj, T1>> property1`. Returns [`IObservable<T1>`](https://learn.microsoft.com/dotnet/api/system.iobservable-1). Other forms take up to 16 properties and return `PropertyValues<T1..T16>`. | The lambda has to be written inline at the call. A call the generator cannot read throws `InvalidOperationException` when it runs. The [Observing](observing.md) page covers the other forms. |
-| [`WhenChangedUnsafe`](https://github.com/reactiveui/ReactiveUI.Binding.SourceGenerators/blob/main/src/ReactiveUI.Binding.Shared/Mixins/ReactiveUIBindingExtensions.WhenChanged.WideArity.Unsafe.cs) | Watches a property by reflection, for a lambda the generator cannot read. | Extension method on `TObj : class`. Takes `Expression<Func<TObj, T1>> property1`. Returns `IObservable<T1>`. Other forms take up to 16 properties. | Carries `RequiresUnreferencedCode`. Throws `ArgumentNullException` for a null object or lambda. |
-| [`BindOneWay`](https://github.com/reactiveui/ReactiveUI.Binding.SourceGenerators/blob/main/src/ReactiveUI.Binding.Shared/Mixins/ReactiveUIBindingExtensions.Binding.cs) | Copies a source property to a target property, then again after each change. It writes on the thread that owns the target. | Extension method on `TSource : class`. Takes `TTarget : class target`, a source lambda and a target lambda. The target lambda may be a property path. Add a `Func<TSourceProp, TTargetProp> conversionFunc` when the two types differ. Returns [`IDisposable`](https://learn.microsoft.com/dotnet/api/system.idisposable). | Dispose the result to stop the binding. A call the generator cannot read throws `InvalidOperationException` when it runs. Forms that take an `ISequencer` scheduler or an `IBindingTypeConverter` are declared in [`ReactiveSchedulerExtensions`](https://github.com/reactiveui/ReactiveUI.Binding.SourceGenerators/blob/main/src/ReactiveUI.Binding.Shared/Mixins/ReactiveSchedulerExtensions.cs). The [Bindings](bindings.md) page covers them. |
-| [`BindOneWayUnsafe`](https://github.com/reactiveui/ReactiveUI.Binding.SourceGenerators/blob/main/src/ReactiveUI.Binding.Shared/Mixins/ReactiveUIBindingExtensions.Binding.Unsafe.cs) | Binds one way by reflection, for a lambda the generator cannot read. | Extension method on `TSource : class`. Takes the same arguments as `BindOneWay`, with or without a `conversionFunc`. Returns `IDisposable`. | Carries `RequiresUnreferencedCode`. [Unsafe twins and the runtime fallback](unsafe.md) covers it. |
+| [`WhenChanged`](https://github.com/reactiveui/ReactiveUI.SourceGenerators/blob/main/src/ReactiveUI.Binding.Shared/Mixins/ReactiveUIBindingExtensions.WhenChanged.WideArity.cs) | Watches a property. It delivers the current value when you subscribe, then the new value after each change. | Extension method on `TObj : class`. Takes `Expression<Func<TObj, T1>> property1`. Returns [`IObservable<T1>`](https://learn.microsoft.com/dotnet/api/system.iobservable-1). Other forms take up to 16 properties and return `PropertyValues<T1..T16>`. | The lambda has to be written inline at the call. A call the generator cannot read throws `InvalidOperationException` when it runs. The [Observing](observing.md) page covers the other forms. |
+| [`WhenChangedUnsafe`](https://github.com/reactiveui/ReactiveUI.SourceGenerators/blob/main/src/ReactiveUI.Binding.Shared/Mixins/ReactiveUIBindingExtensions.WhenChanged.WideArity.Unsafe.cs) | Watches a property by reflection, for a lambda the generator cannot read. | Extension method on `TObj : class`. Takes `Expression<Func<TObj, T1>> property1`. Returns `IObservable<T1>`. Other forms take up to 16 properties. | Carries `RequiresUnreferencedCode`. Throws `ArgumentNullException` for a null object or lambda. |
+| [`BindOneWay`](https://github.com/reactiveui/ReactiveUI.SourceGenerators/blob/main/src/ReactiveUI.Binding.Shared/Mixins/ReactiveUIBindingExtensions.Binding.cs) | Copies a source property to a target property, then again after each change. It writes on the thread that owns the target. | Extension method on `TSource : class`. Takes `TTarget : class target`, a source lambda and a target lambda. The target lambda may be a property path. Add a `Func<TSourceProp, TTargetProp> conversionFunc` when the two types differ. Returns [`IDisposable`](https://learn.microsoft.com/dotnet/api/system.idisposable). | Dispose the result to stop the binding. A call the generator cannot read throws `InvalidOperationException` when it runs. Forms that take an `ISequencer` scheduler or an `IBindingTypeConverter` are declared in [`ReactiveSchedulerExtensions`](https://github.com/reactiveui/ReactiveUI.SourceGenerators/blob/main/src/ReactiveUI.Binding.Shared/Mixins/ReactiveSchedulerExtensions.cs). The [Bindings](bindings.md) page covers them. |
+| [`BindOneWayUnsafe`](https://github.com/reactiveui/ReactiveUI.SourceGenerators/blob/main/src/ReactiveUI.Binding.Shared/Mixins/ReactiveUIBindingExtensions.Binding.Unsafe.cs) | Binds one way by reflection, for a lambda the generator cannot read. | Extension method on `TSource : class`. Takes the same arguments as `BindOneWay`, with or without a `conversionFunc`. Returns `IDisposable`. | Carries `RequiresUnreferencedCode`. [Unsafe twins and the runtime fallback](unsafe.md) covers it. |

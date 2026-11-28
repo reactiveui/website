@@ -101,9 +101,8 @@ Bind the properties and the command to your view with `Bind` and `BindCommand`.
 `ReactiveUI.Reactive` and every platform package build on `ReactiveUI.Core`, so any project that references one of
 them gets:
 
-- **Five attributes:** `[Reactive]`, `[ReactiveCommand]`, `[ReactiveCollection]`, `[BindableDerivedList]` and
-  `[IReactiveObject]`. They live in the `ReactiveUI.SourceGenerators` namespace. ReactiveUI adds no global `using` for
-  it, so add `using ReactiveUI.SourceGenerators;` to each file that uses them.
+- **View model attributes** such as `[Reactive]`, `[ReactiveCommand]`, `[ReactiveCollection]`, `[BindableDerivedList]`
+  and `[IReactiveObject]`. Add `using ReactiveUI.SourceGenerators;` to files that use them.
 - **Code for the package you reference.** A `ReactiveUI` project gets `ReactiveUI.ReactiveCommand<RxVoid, T>`. A
   `ReactiveUI.Reactive` project gets `ReactiveUI.Reactive.ReactiveCommand<Unit, T>`, with the `Unit` type from
   System.Reactive. The attributes and the code you write are the same for both.
@@ -432,6 +431,9 @@ public partial class InboxViewModel : ReactiveObject
 The class gets an `Unread` property. The field must be a `ReadOnlyObservableCollection<T>`, or the generator reports
 RXUISG0019.
 
+In the review queue example, replacing the pending batch stops notifications from the old batch. Completing a review
+adds it to a read-only list that the screen can display. [Run the review queue](https://github.com/reactiveui/ReactiveUI.SourceGenerators/blob/main/src/examples/Documentation/Pages/sourcegenerators/SourceGeneratorsExamples.cs)
+
 ## Classes that cannot derive from `ReactiveObject`
 
 A class that already has a base class cannot also derive from `ReactiveObject`. Mark it `[IReactiveObject]`, and the
@@ -456,6 +458,10 @@ public partial class ContactViewModel : ModelBase
 
 ## Other source generators in the same project
 
+ReactiveUI.Binding recognises the view model type declared by `[IViewFor<TViewModel>]` and the members
+declared with `[Reactive]` and `[ReactiveCommand]`. A MAUI page can bind a button's caption and command
+using those declarations. [Bind a button declared in MAUI XAML](../binding/source-generators.md#bind-a-button-declared-in-maui-xaml)
+
 Each source generator sees only the code you wrote, not the code other generators write. The `System.Text.Json`
 source generator cannot see a property that `[Reactive]` writes. To serialize a view model with a
 `JsonSerializerContext`, declare the view model in one project and the context in a second project that references
@@ -471,6 +477,36 @@ A generated host watches its own properties, such as `ViewModel` and `Router`, t
 ReactiveUI.SourceGenerators 4.2.0, it does this through ReactiveUI.Binding's `ObservedProperty` when the project has
 ReactiveUI.Binding 8.4.0 or later, so it follows the same rules as `WhenAnyValue`. With an older ReactiveUI.Binding,
 the host follows `PropertyChanged` itself, and the generator reports RXUISG0022.
+
+## Register a view at startup
+
+Mark a view with `[RegisterView]` and call `RegisterGeneratedViews()` on the ReactiveUI builder before
+`BuildApp()`. The generator reads the view model type from the view's `IViewFor<TViewModel>`.
+For a named singleton view, the playlist example uses
+`[RegisterView<GeneratedPlaylistViewModel>(Contract = "compact", IsSingleton = true)]`.
+Requesting the compact view twice returns the same instance. [Register and resolve playlist views](https://github.com/reactiveui/ReactiveUI/blob/main/src/examples/Documentation/Pages/registration/GeneratedViewRegistrationExamples.cs)
+
+## Save changes to selected properties
+
+Mark a partial class with `[DataContract]` and `[AutoPersist]`. Mark the properties to save with
+`[DataMember]`, then pass the generated `AutoPersistMetadata` to `AutoPersist` with your save callback.
+The note example watches changes to its title and body. Opening the note only changes its last-opened time,
+so that edit does not schedule a save. [Save a note using generated metadata](https://github.com/reactiveui/ReactiveUI/blob/main/src/examples/Documentation/Pages/data-persistence/GeneratedAutoPersistExamples.cs)
+
+## Validate a reactive property
+
+Apply `[ReactiveValidation]` to a partial class that owns `ReactiveProperty<T>` properties. Put DataAnnotations
+such as `[Required]` and `[Range]` on those properties. After the properties have been created, call the generated
+`ConfigureValidation()` in the constructor. The signup example sets a valid name and age, then reads each
+property's `HasErrors` to confirm that its error cleared. [Student signup validation](https://github.com/reactiveui/ReactiveUI/tree/main/src/examples/Documentation/Pages/reactive-property)
+
+## Find Android controls by resource ID
+
+Add `[WireUpControls]` from `ReactiveUI.SourceGenerators.Android` to a partial activity. Call the generated
+`WireUpControls()` after `SetContentView` loads its layout. Use `[WireUpResource("statusLabel")]` when the
+property and resource have different names, and `[IgnoreResource]` to leave a property alone. With
+`[WireUpControls(ExplicitOptIn = true)]`, only properties marked with `[WireUpResource]` take part.
+[Android absence activity](https://github.com/reactiveui/ReactiveUI/blob/main/src/examples/Documentation/Pages/platform-android/GeneratedAbsenceActivity.cs)
 
 ## Analyzer messages
 

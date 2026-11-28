@@ -23,7 +23,7 @@ of these docs. Pick a library below, or start with the pages that cover them all
     [:material-download: Install](reactiveui/getting-started/installation/index.md) ·
     [:fontawesome-brands-github: GitHub](https://github.com/reactiveui/ReactiveUI)
 
--   [![](https://raw.githubusercontent.com/reactiveui/ReactiveUI.Binding.SourceGenerators/main/images/logo.png){ .rxui-logo } **ReactiveUI.Binding**](binding/index.md){ .rxui-project-link }
+-   [![](https://raw.githubusercontent.com/reactiveui/ReactiveUI.SourceGenerators/main/images/logo.png){ .rxui-logo } **ReactiveUI.Binding**](binding/index.md){ .rxui-project-link }
 
     ---
 
@@ -31,7 +31,7 @@ of these docs. Pick a library below, or start with the pages that cover them all
 
     [:material-arrow-right: Docs](binding/index.md) ·
     [:material-download: Setup](binding/setup.md) ·
-    [:fontawesome-brands-github: GitHub](https://github.com/reactiveui/ReactiveUI.Binding.SourceGenerators)
+    [:fontawesome-brands-github: GitHub](https://github.com/reactiveui/ReactiveUI.SourceGenerators)
 
 -   [![](https://raw.githubusercontent.com/reactiveui/styleguide/master/logo/main.png){ .rxui-logo } **ReactiveUI.SourceGenerators**](source-generators/index.md){ .rxui-project-link }
 
