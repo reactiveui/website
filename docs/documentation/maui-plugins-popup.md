@@ -59,6 +59,24 @@ public static class MauiProgram
 }
 ```
 
+A startup callback can configure ReactiveUI before the plugin builds its services. Pass
+`configureReactiveUI: builder => ...` for that callback or `backPressHandler: () => ...`
+to handle a device back press. One overload accepts both callbacks.
+
+## Run the delivery popup example
+
+The example opens a bound delivery note, replaces an open popup and then closes the stack.
+Creating the observable with `PushPopup(page)` leaves the stack unchanged. Awaiting
+`ToTask(cancellationToken)` subscribes and waits for the push. The opening events arrive
+in order, first `PushingObservable()`, then `PushedObservable()`. Popping produces the
+matching `PoppingObservable()` and `PoppedObservable()` events.
+
+Use a page's `Navigation` or inject Mopups' `IPopupNavigation` into a service. Both expose
+the same operations. In the console runner an in-memory stack supplies the events. In a
+MAUI app, the page can also subscribe to `BackgroundClick` in `OnAppearing` and release
+that subscription through `ControlBindings.Clear()` in `OnDisappearing`.
+[Delivery popup source and run commands](https://github.com/reactiveui/Maui.Plugins.Popup/tree/main/src/examples)
+
 ## Quick Start Example
 
 ### 1. Create a ViewModel
@@ -662,12 +680,10 @@ this.Navigation.PushPopup(popup).Subscribe();
 
 ### ConfigureReactiveUIPopup Not Found
 
-**Problem**: Extension method not available
-
-**Solution**: Ensure you have the correct using statement:
+Import the namespace that extends `MauiAppBuilder` in your startup file.
 
 ```csharp
-using ReactiveUI.Maui.Plugins.Popup;
+using Microsoft.Maui.Hosting;
 ```
 
 ### ViewModel Not Binding

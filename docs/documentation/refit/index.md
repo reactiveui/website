@@ -136,9 +136,8 @@ stay in the source project when the page does not need them.
 From the Refit checkout's `src` folder, run:
 
 ```bash
-dotnet run --project examples/Documentation/Documentation.csproj -c Release
+dotnet run --project examples/Documentation/Pages/index/index.csproj -c Release -f net10.0
 ```
 
-The program supplies local HTTP replies and checks the documented results.
-Its `Common/SampleHost.cs` owns the HTTP client for the whole run.
-Its `Program.cs` calls each topic's example and disposes the host when the run ends.
+This project runs the first request above against a local reply and checks the person's name.
+To run another topic, use the project linked on its page.

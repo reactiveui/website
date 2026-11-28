@@ -11,7 +11,7 @@ will read and write the JSON models used by those calls.
 
 This page brings those two pieces together: a generated Refit client and a generated JSON
 context. It walks through the setup, explains where it helps, and shows how to publish and run the example.
-The JSON context APIs are available on .NET 8 and later.
+The JSON context APIs are available on .NET 10 and later.
 
 ## Where this helps in real apps
 

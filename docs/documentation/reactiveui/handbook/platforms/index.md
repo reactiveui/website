@@ -29,6 +29,8 @@ emulator.
 | [Blazor](blazor.md) | `ReactiveUI.Blazor` | A to-do list |
 | [Android](android.md) | `ReactiveUI.AndroidX` | A school timetable |
 | [Apple platforms](apple.md) | `ReactiveUI` (`ios`, `maccatalyst`, `macos`, `tvos`) | A library catalog |
+| [Uno Platform](uno.md) | `ReactiveUI.Uno` | SQLite Studio and an IoT dashboard |
+| [Avalonia](../../getting-started/installation/avalonia.md) | `ReactiveUI.Avalonia` | A desktop showcase and four container startup examples |
 
 Each package also ships as `ReactiveUI.<Platform>.Reactive`, built from the same source for apps that use
 System.Reactive.

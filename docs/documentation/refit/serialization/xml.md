@@ -76,15 +76,11 @@ Console.WriteLine(person?.Name); // Ada
 ## Buffered parsing and field names
 
 `DeserializeFromString<T>` reads an already buffered XML string synchronously.
-`GetFieldNameForProperty` returns the `ElementName` from `[XmlElement]`, then the
-`AttributeName` from `[XmlAttribute]` when no element attribute exists. It returns `null`
-without either attribute.
+The serializer's `NameStyle` is `ContentSerializerNameStyle.Xml`. Refit uses `[XmlElement]` and `[XmlAttribute]` for generated form field names.
 
 ```csharp
 WirePerson? person = serializer.DeserializeFromString<WirePerson>("<person><Id>1</Id><display_name>Ada</display_name></person>");
-string? name = serializer.GetFieldNameForProperty(typeof(WirePerson).GetProperty(nameof(WirePerson.Name))!);
 Console.WriteLine(person?.Name); // Ada
-Console.WriteLine(name); // display_name
 ```
 
 ## Settings reference
@@ -165,7 +161,6 @@ ToolingCompilation.RequireNoErrors(compilation);
 | [`ToHttpContent<T>(T item)`](https://github.com/reactiveui/refit/blob/main/src/Refit.Xml/XmlContentSerializer.cs) | Serializes a value for an XML HTTP request. | `item`: value to serialize | Returns [`HttpContent`](https://learn.microsoft.com/en-us/dotnet/api/system.net.http.httpcontent) with media type `application/xml` and the configured writer charset. `null` throws [`ArgumentNullException`](https://learn.microsoft.com/en-us/dotnet/api/system.argumentnullexception). The runtime type selects the cached `XmlSerializer`. |
 | [`FromHttpContentAsync<T>(HttpContent content, CancellationToken cancellationToken = default)`](https://github.com/reactiveui/refit/blob/main/src/Refit.Xml/XmlContentSerializer.cs) | Reads and deserializes an XML HTTP response. | `content`: [`HttpContent`](https://learn.microsoft.com/en-us/dotnet/api/system.net.http.httpcontent) to read; `cancellationToken`: [`CancellationToken`](https://learn.microsoft.com/en-us/dotnet/api/system.threading.cancellationtoken), default `default` | Returns [`Task<T?>`](https://learn.microsoft.com/en-us/dotnet/api/system.threading.tasks.task-1). It buffers the content as a string, then parses it synchronously with the serializer for `T`; cancellation applies while reading the content. |
 | [`DeserializeFromString<T>(string content)`](https://github.com/reactiveui/refit/blob/main/src/Refit.Xml/XmlContentSerializer.cs) | Deserializes buffered XML text. | `content`: [`string`](https://learn.microsoft.com/en-us/dotnet/api/system.string) containing XML | Returns `T?` parsed with the configured reader, default namespace, and attribute overrides. |
-| [`GetFieldNameForProperty(PropertyInfo propertyInfo)`](https://github.com/reactiveui/refit/blob/main/src/Refit.Xml/XmlContentSerializer.cs) | Finds the XML field name declared on a property. | `propertyInfo`: [`PropertyInfo`](https://learn.microsoft.com/en-us/dotnet/api/system.reflection.propertyinfo) to inspect | Returns the `ElementName` from an [`XmlElementAttribute`](https://learn.microsoft.com/en-us/dotnet/api/system.xml.serialization.xmlelementattribute), otherwise the `AttributeName` from an [`XmlAttributeAttribute`](https://learn.microsoft.com/en-us/dotnet/api/system.xml.serialization.xmlattributeattribute), otherwise `null`. A null property throws [`ArgumentNullException`](https://learn.microsoft.com/en-us/dotnet/api/system.argumentnullexception). |
 
 These APIs do not stream a sequence of models through `IAsyncEnumerable<T>`.
 The configured XML serializer also does not implement Refit's synchronous request-writing
@@ -177,7 +172,7 @@ The complete [optional serializer project](https://github.com/reactiveui/refit/b
 targets .NET 10 and C# 14. Run from the Refit checkout's `src` folder:
 
 ```bash
-dotnet run --project examples/Documentation/Serialization/Other/Other.csproj -c Release -p:LangVersion=14.0
+dotnet run --project examples/Documentation/Serialization/Other/Other.csproj -c Release -f net11.0
 ```
 
 The separate executable checks XML settings and both parsing methods. The native

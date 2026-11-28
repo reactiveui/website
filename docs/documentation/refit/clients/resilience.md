@@ -6,16 +6,12 @@ Order: 5
 [Run the complete page example](https://github.com/reactiveui/refit/blob/main/src/examples/Documentation/Pages/clients-resilience/clients-resilience.csproj).
 
 A service can fail for a moment. It restarts, it is busy, or a network link drops. Sending the same request again a
-moment later often works. This is a *retry*. A *resilience handler* is an HTTP handler that makes those retries for you
-and stops a call that takes too long.
+moment later often works. This is a *retry*. Refit's `HttpRetryHandler` can retry a read
+while `HttpClient.Timeout` limits how long the whole call can take.
 
-A generated client sends through an ordinary `HttpClient`, so you can add Microsoft's resilience handler to
-the client's registration. This page shows how to retry reads safely, what a retry does not cover, and how to
-get a fresh token for each retry. For Refit's independent retry handler and provider timing-header readers,
-see [HTTP-aware retries](retries.md). Do not enable retries in both handlers without accounting for their
-combined attempt count.
-
-Install `Microsoft.Extensions.Http.Resilience` beside `Refit.HttpClientFactory`. Both work with Native AOT.
+Register the handler with `Refit.HttpClientFactory`. Its position in the HTTP handler chain
+determines whether a retry picks up a fresh authorization token.
+For provider-specific wait times and replay settings, see [HTTP-aware retries](retries.md).
 
 ## Retry reads safely
 
@@ -36,28 +32,28 @@ internal interface IResilientPeopleApi
 }
 ```
 
-**2. Choose the retry options.** The standard handler retries every HTTP method by default. A POST that timed out may
-still have created the person, and sending it again could create a second one. `DisableForUnsafeHttpMethods` keeps
-retries to methods that are safe to repeat, such as GET.
+**2. Choose the retry options.** The handler retries safe methods such as GET by default.
+A POST that timed out may already have created a person. Leave replay of unsafe methods disabled for that endpoint.
 
 ```csharp
-internal static void ConfigureRetries(HttpStandardResilienceOptions options)
+internal static HttpRetryHandler CreateRetryHandler() => new(new HttpRetryOptions
 {
-    options.Retry.MaxRetryAttempts = 3;
-    options.Retry.Delay = TimeSpan.FromMilliseconds(100);
-    options.Retry.DisableForUnsafeHttpMethods(); // POST, PUT, PATCH, DELETE and CONNECT are sent once
-    options.AttemptTimeout.Timeout = TimeSpan.FromSeconds(5); // limits each try
-    options.TotalRequestTimeout.Timeout = TimeSpan.FromSeconds(20); // limits every try and wait together
-}
+    MaxRetries = 3,
+    BaseDelay = TimeSpan.FromMilliseconds(100),
+});
 ```
 
-**3. Add the handler to the registration.** Call `AddStandardResilienceHandler` on the builder that
+**3. Add the handler to the registration.** Call `AddHttpMessageHandler` on the builder that
 `AddRefitGeneratedClient<T>` returns.
 
 ```csharp
 services.AddRefitGeneratedClient<IResilientPeopleApi>(SampleJsonContext.Default)
-    .ConfigureHttpClient(static client => client.BaseAddress = new Uri("https://people.example"))
-    .AddStandardResilienceHandler(ConfigureRetries);
+    .ConfigureHttpClient(static client =>
+    {
+        client.BaseAddress = new Uri("https://people.example");
+        client.Timeout = TimeSpan.FromSeconds(20);
+    })
+    .AddHttpMessageHandler(CreateRetryHandler);
 ```
 
 **4. Call the client.** The first try gets `503 Service Unavailable`. The handler waits, tries again and gets the
@@ -77,7 +73,7 @@ The resilience handler sees HTTP responses. It does not see what Refit does with
 
 | Situation | What happens |
 | --- | --- |
-| A POST gets `503` | With `DisableForUnsafeHttpMethods`, the handler sends it once. Refit throws `ApiException` with status `ServiceUnavailable`. |
+| A POST gets `503` | The handler sends it once with the default replay settings. Refit throws `ApiException` with status `ServiceUnavailable`. |
 | A GET gets `200` with a body Refit cannot read | The handler sees a success and stops. Refit then fails to read the body and throws `ApiException`. A retry would not help, because the service sent a bad body. |
 | The caller cancels | The call ends with `OperationCanceledException`, even during a wait between tries. |
 
@@ -94,13 +90,8 @@ catch (ApiException error)
 
 ## Choose the timeouts
 
-The standard handler has two timeouts:
-
-- **Attempt timeout** limits one try. A try that takes longer is cancelled and can be retried.
-- **Total request timeout** limits the whole call: every try and every wait between them.
-
-`HttpClient.Timeout` still applies around everything, and it defaults to 100 seconds. Keep the total request timeout
-shorter than it, or the client stops the call before the handler finishes retrying. For one slow method, Refit's
+`HttpClient.Timeout` covers all attempts and waits. The example gives the call 20 seconds in total.
+The caller can cancel earlier through the method's cancellation token. For one slow method, Refit's
 `[Timeout]` attribute sets a deadline for that method's calls. See
 [per-call deadline policies](../requests/bodies.md#uri-and-per-call-deadline-policies).
 
@@ -119,13 +110,10 @@ again.
 ```csharp
 IHttpClientBuilder builder = services.AddRefitGeneratedClient<IResilientPeopleApi>(SampleJsonContext.Default)
     .ConfigureHttpClient(static client => client.BaseAddress = new Uri("https://people.example"));
-builder.AddStandardResilienceHandler(ConfigureRetries); // added first: the outer handler, which repeats what follows
+builder.AddHttpMessageHandler(CreateRetryHandler);
 builder.AddAuthorizationHeaderValueProvider((_, _, _) =>
     ValueTask.FromResult($"token-{Interlocked.Increment(ref tokensIssued)}")); // added second: runs again for every try
 ```
-
-Keep the builder in a variable. `AddStandardResilienceHandler` returns a resilience pipeline builder, not the
-`IHttpClientBuilder`, so you cannot chain the token provider after it.
 
 ```csharp
 Console.WriteLine(string.Join(", ", tokensSent)); // token-1, token-2: the retry asked for a new token
@@ -137,7 +125,7 @@ If you add the two handlers in the other order, the token is fetched once and ev
 
 A retry sends the same request content again. A [JSON Lines upload](../requests/bodies.md#upload-many-records-as-json-lines)
 from an `IAsyncEnumerable<T>` can be sent only once, so a second try throws `InvalidOperationException` instead of
-sending the records again. `DisableForUnsafeHttpMethods` already keeps POST and PUT uploads to one try. To retry an
+sending the records again. The default replay settings keep POST and PUT uploads to one try. To retry an
 upload, call the method again with a new sequence, as
 [retry a failed upload](../requests/bodies.md#retry-a-failed-upload) shows.
 
@@ -148,8 +136,8 @@ fetching the earlier pages again.
 
 | API | Package | Description |
 | --- | --- | --- |
-| `IHttpClientBuilder.AddStandardResilienceHandler(Action<HttpStandardResilienceOptions>)` | `Microsoft.Extensions.Http.Resilience` | Adds rate limiting, a total timeout, retries, a circuit breaker and an attempt timeout, in that order. |
-| `HttpRetryStrategyOptions.DisableForUnsafeHttpMethods()` | `Microsoft.Extensions.Http.Resilience` | Stops retries for POST, PUT, PATCH, DELETE and CONNECT. |
+| `HttpRetryHandler(HttpRetryOptions)` | `Refit` | Applies the selected retry and replay settings to requests. |
+| `IHttpClientBuilder.AddHttpMessageHandler(...)` | `Microsoft.Extensions.Http` | Adds a handler to the registered client's pipeline. |
 | `IHttpClientBuilder.AddAuthorizationHeaderValueProvider(...)` | `Refit.HttpClientFactory` | Sets the `Authorization` header from a delegate before each request that passes through it. |
 
 Microsoft's [HTTP resilience guide](https://learn.microsoft.com/dotnet/core/resilience/http-resilience) describes every

@@ -19,7 +19,7 @@ the button's enabled state to `CanExecute`, so a click while the command cannot 
 using TodoListViewModel viewModel = new(InMemoryTodoStore.CreateSeeded());
 _ = await viewModel.Load.Execute();
 using TodoListView view = new() { ViewModel = viewModel };
-using IDisposable binding = view.BindCommand(viewModel, x => x.Add, v => v.AddButton);
+using IDisposable binding = view.BindCommand(viewModel, static x => x.Add, static v => v.AddButton);
 
 view.AddButton.PerformClick(); // NewTitle is blank: CanExecute is false, so the button is disabled and nothing happens.
 Console.WriteLine(viewModel.Items.Count);

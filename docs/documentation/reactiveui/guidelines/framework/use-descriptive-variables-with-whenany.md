@@ -13,8 +13,8 @@ one boolean:
 
 ```csharp
 using IDisposable subscription = student.WhenAny(
-        x => x.Enrollment.IsEnabled,
-        x => x.Enrollment.IsLoading,
+        static x => x.Enrollment.IsEnabled,
+        static x => x.Enrollment.IsLoading,
         static (isEnabled, isLoading) => isEnabled.Value && isLoading.Value)
     .Subscribe(canJoin => log.Add(canJoin ? "Can join now" : "Cannot join yet"));
 ```
@@ -26,8 +26,8 @@ rule it is: join only once enrollment is both enabled and finished loading.
 
 ```csharp
 using IDisposable subscription = student.WhenAny(
-        x => x.Enrollment.IsEnabled,
-        x => x.Enrollment.IsLoading,
+        static x => x.Enrollment.IsEnabled,
+        static x => x.Enrollment.IsLoading,
         static (x, y) => x.Value && y.Value)
     .Subscribe(canJoin => log.Add(canJoin ? "Can join now" : "Cannot join yet"));
 ```

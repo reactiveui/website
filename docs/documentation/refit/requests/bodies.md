@@ -224,7 +224,7 @@ The server receives one line per record:
 - **Every line ends with a line feed**, the last one too. The server can handle each record as soon as its line arrives.
 - **Each record is written as `T`** with the configured serializer. When you pass a JSON context, Refit uses
   the metadata it generated for `T`.
-- **Cancellation reaches the producer.** On .NET 8 and later, the call's `CancellationToken` flows into the
+- **Cancellation reaches the producer.** On .NET 10 and later, the call's `CancellationToken` flows into the
   producer and into every write. Refit always disposes the producer's enumerator, so `finally` blocks and
   `using` statements in the producer run. On .NET Framework, Refit checks for cancellation between writes.
 
@@ -395,7 +395,7 @@ Person fallbackResult = await fallbackApi.JsonAsync(new(1, "Ada"));
 `Default` follows settings. `None` opts that body out of compression.
 `CompressionLevel` applies when the attribute explicitly selects a coding.
 
-Gzip works on every Refit target. Brotli needs .NET 8 or later.
+Gzip works on every Refit target. Brotli needs .NET 10 or later.
 Zstandard deliberately requires .NET 11; it is unavailable in these .NET 10 examples.
 Unsupported codings throw `PlatformNotSupportedException` when Refit builds the request.
 
@@ -404,7 +404,7 @@ Unsupported codings throw `PlatformNotSupportedException` when Refit builds the 
 | `Default = 0` | The attribute takes coding and level from settings. Settings set to `Default` do not compress. |
 | `None = 1` | No coding; an attribute can opt out of a settings-level coding. |
 | `GZip = 2` | `Content-Encoding: gzip`. |
-| `Brotli = 3` | `Content-Encoding: br` on .NET 8 and later. |
+| `Brotli = 3` | `Content-Encoding: br` on .NET 10 and later. |
 | `Zstandard = 4` | `Content-Encoding: zstd` on .NET 11 and later. |
 
 These policies are declared on generated API methods. The local timeout constant is 25 milliseconds.
@@ -440,7 +440,7 @@ internal interface IBodyPolicyApi
 }
 ```
 
-`RequestCompressionOptions` exists on .NET 9 and later, with a public default constructor.
+`RequestCompressionOptions` exists on .NET 10 and 11, with a public default constructor.
 Its nullable `GZip` and `Brotli` properties accept `ZLibCompressionOptions` and
 `BrotliCompressionOptions`. A nonnull options object for a coding overrides the compression level
 for that coding. A null property leaves that coding using its resolved level.
@@ -575,7 +575,7 @@ Per-call cancellation is in [RequestExecutionHelpers.cs](https://github.com/reac
 | [`JsonLinesContent<T>`](https://github.com/reactiveui/refit/blob/main/src/Refit/JsonLinesContent%7BT%7D.cs) | `HttpContent` that writes a sequence as JSON Lines, serializing every element as `T`. Pass it as a body to force the declared type. | `JsonLinesContent(IEnumerable<T> items, IHttpContentSerializer serializer)`; `JsonLinesContent(IAsyncEnumerable<T> items, IHttpContentSerializer serializer)`. | Reads the sequence one element at a time, with no `Content-Length`. Content from an `IEnumerable<T>` reads the sequence again on every send and adds no line feed after the last line. Content from an `IAsyncEnumerable<T>` ends every line with a line feed, can be sent once, and throws `InvalidOperationException` when sent again. |
 | [`RequestBodySerializationMode`](https://github.com/reactiveui/refit/blob/main/src/Refit/RequestBodySerializationMode.cs) | Selects how Refit writes serialized JSON request content. | Enum values below. | Configure through `RefitSettings.RequestBodySerialization`. |
 | [`RequestCompression`](https://github.com/reactiveui/refit/blob/main/src/Refit/RequestCompression.cs) | Selects the content coding applied to a request body. | Enum values below. | Configure a default in `RefitSettings` or override it on `BodyAttribute`. |
-| [`RequestCompressionOptions`](https://github.com/reactiveui/refit/blob/main/src/Refit/RequestCompressionOptions.cs) | Holds optional compressor-specific settings that replace the resolved compression level for each coding. | Available on .NET 9 and later. | Assign it to `RefitSettings.RequestCompressionOptions`. |
+| [`RequestCompressionOptions`](https://github.com/reactiveui/refit/blob/main/src/Refit/RequestCompressionOptions.cs) | Holds optional compressor-specific settings that replace the resolved compression level for each coding. | Available on .NET 10 and 11. | Assign it to `RefitSettings.RequestCompressionOptions`. |
 | [`TimeoutAttribute`](https://github.com/reactiveui/refit/blob/main/src/Refit/TimeoutAttribute.cs) | Applies a per-call timeout to a Refit interface method. | Applies to a method. | A positive timeout cancels the request when it elapses. |
 | [`BodySerializationMethod.Default = 0`](https://github.com/reactiveui/refit/blob/main/src/Refit/BodySerializationMethod.cs) | Uses Refit's standard body rules. | `0` | Passes `HttpContent` and streams through, sends strings as plain text, and uses the configured serializer for other values. |
 | [`BodySerializationMethod.Json = 1`](https://github.com/reactiveui/refit/blob/main/src/Refit/BodySerializationMethod.cs) | Retains the former name for serialized content. | `1`; obsolete. | Uses the configured serializer, including for strings. Use `Serialized` in new code. |
@@ -588,13 +588,13 @@ Per-call cancellation is in [RequestExecutionHelpers.cs](https://github.com/reac
 | [`RequestCompression.Default = 0`](https://github.com/reactiveui/refit/blob/main/src/Refit/RequestCompression.cs) | Inherits the coding from `RefitSettings.RequestCompression`. | `0` | Uses the settings coding and level. |
 | [`RequestCompression.None = 1`](https://github.com/reactiveui/refit/blob/main/src/Refit/RequestCompression.cs) | Disables compression for this body. | `1` | Sends no content coding even when settings choose one. |
 | [`RequestCompression.GZip = 2`](https://github.com/reactiveui/refit/blob/main/src/Refit/RequestCompression.cs) | Compresses the body with gzip. | `2`; every Refit target. | Sends `Content-Encoding: gzip`. |
-| [`RequestCompression.Brotli = 3`](https://github.com/reactiveui/refit/blob/main/src/Refit/RequestCompression.cs) | Compresses the body with Brotli. | `3`; .NET 8 and later. | Sends `Content-Encoding: br`. |
+| [`RequestCompression.Brotli = 3`](https://github.com/reactiveui/refit/blob/main/src/Refit/RequestCompression.cs) | Compresses the body with Brotli. | `3`; .NET 10 and later. | Sends `Content-Encoding: br`. |
 | [`RequestCompression.Zstandard = 4`](https://github.com/reactiveui/refit/blob/main/src/Refit/RequestCompression.cs) | Compresses the body with Zstandard. | `4`; .NET 11 and later. | Sends `Content-Encoding: zstd`. |
 | [`BodyAttribute()`](https://github.com/reactiveui/refit/blob/main/src/Refit/BodyAttribute.cs) | Creates a body parameter attribute without overrides. | None. | Uses `SerializationMethod.Default` and leaves `Buffered` unset so settings decide. |
 | [`BodyAttribute(bool buffered)`](https://github.com/reactiveui/refit/blob/main/src/Refit/BodyAttribute.cs) | Creates a body parameter attribute with an explicit buffering policy. | `buffered`: [`bool`](https://learn.microsoft.com/dotnet/api/system.boolean). | Sets `Buffered`; serialization remains `Default`. |
 | [`BodyAttribute(BodySerializationMethod serializationMethod, bool buffered)`](https://github.com/reactiveui/refit/blob/main/src/Refit/BodyAttribute.cs) | Creates a body parameter attribute with explicit serialization and buffering policies. | `serializationMethod`: `BodySerializationMethod`; `buffered`: [`bool`](https://learn.microsoft.com/dotnet/api/system.boolean). | Sets both properties. |
 | [`BodyAttribute(BodySerializationMethod serializationMethod)`](https://github.com/reactiveui/refit/blob/main/src/Refit/BodyAttribute.cs) | Creates a body parameter attribute with an explicit serialization method. | `serializationMethod`: `BodySerializationMethod`. | Sets `SerializationMethod` and leaves `Buffered` unset so settings decide. |
-| [`RequestCompressionOptions()`](https://github.com/reactiveui/refit/blob/main/src/Refit/RequestCompressionOptions.cs) | Creates empty compressor-specific settings. | None; .NET 9 and later. | All coding option properties are `null`, so compression uses its resolved level. |
+| [`RequestCompressionOptions()`](https://github.com/reactiveui/refit/blob/main/src/Refit/RequestCompressionOptions.cs) | Creates empty compressor-specific settings. | None. Available on .NET 10 and 11. | All coding option properties are `null`, so compression uses its resolved level. |
 | [`TimeoutAttribute(int milliseconds)`](https://github.com/reactiveui/refit/blob/main/src/Refit/TimeoutAttribute.cs) | Creates a method timeout attribute. | `milliseconds`: [`int`](https://learn.microsoft.com/dotnet/api/system.int32). | A positive value applies the per-call deadline; zero or a negative value disables it. |
 | [`BodyAttribute.Buffered`](https://github.com/reactiveui/refit/blob/main/src/Refit/BodyAttribute.cs) | Gets the per-body buffering override. | Read-only [`bool?`](https://learn.microsoft.com/dotnet/api/system.boolean). | `null` uses `RefitSettings.Buffered`; `true` buffers content before sending and `false` skips it. |
 | [`BodyAttribute.SerializationMethod`](https://github.com/reactiveui/refit/blob/main/src/Refit/BodyAttribute.cs) | Gets the selected body serialization method. | Read-only `BodySerializationMethod`; default `Default`. | Determines how ordinary body values become HTTP content. |

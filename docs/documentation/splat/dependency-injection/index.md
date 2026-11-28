@@ -13,6 +13,8 @@ Since ReactiveUI 6, [Splat](https://github.com/reactiveui/splat) is used by Reac
 
 ## Why Splat?
 
+For compile-time factories, see [generate service registrations](generated-registrations.md). The example resolves a printer with a shared receipt counter and checks the lifetime of each dependency.
+
 > "I generally think a lot of the advice around IoC/DI is pretty bad in the domain of 'cross-platform mobile applications', because you have to remember that a lot of their ideas were written for web apps, not mobile or desktop apps.
 >
 > For example, the vast majority of popular IoC containers concern themselves solely with resolution speed on a warm cache, while basically completely disregarding memory usage or startup time - this is 100% fine for server applications, because these things don't matter; but for a mobile app? Startup time is huge.
@@ -75,6 +77,13 @@ public FeedsViewModel(IBlobCache cache = null)
 ```
  
 ## Advanced Usage
+
+To give two parts of an app different registrations, call `Duplicate()` on a
+`ModernDependencyResolver`. The copy starts with the original registrations.
+Register an override in the copy, then call `UnregisterCurrent<T>(contract)` to reveal
+the previous registration. The dispatch desk example uses this to give the evening
+shift a different depot while the day shift keeps its original location.
+[Dispatch desk example](https://github.com/reactiveui/splat/tree/main/src/examples/DispatchDesk)
 
 Splat's dependency resolver, accessible using `AppLocator.Current` conceptually resembles the below:
 

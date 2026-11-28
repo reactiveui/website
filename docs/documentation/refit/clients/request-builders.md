@@ -3,7 +3,7 @@ Order: 4
 ---
 # Request builders
 
-[Run the complete page example](https://github.com/reactiveui/refit/blob/main/src/examples/Documentation/Pages/clients-request-builders/clients-request-builders.csproj).
+Run the [reflection request builder example](https://github.com/reactiveui/refit/tree/main/src/examples/Documentation/Clients/Reflection) to select a method at runtime. The [generated client example](https://github.com/reactiveui/refit/tree/main/src/examples/Documentation/Pages/clients-request-builders) builds the same requests by calling the overloads directly.
 
 Sometimes a library needs to choose an API method while the app is running, then build and
 send that call. Refit's request builders provide the lower-level pieces for that work.

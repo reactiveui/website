@@ -145,6 +145,17 @@ The call uses the supplied host instead of `BaseAddress`. An invalid or relative
 `ArgumentException` while Refit builds the request. Choose URLs your app trusts when the client adds
 authorization headers, since those headers can travel to the supplied host.
 
+When the service returns links relative to the client's base address, accept either kind
+of link with `AllowRelative = true`. The generated request preserves the encoded query.
+
+```csharp
+[Get("/")]
+Task<HttpRequestMessage> FollowAsync([Url(AllowRelative = true)] Uri link);
+
+// In the caller:
+using var next = await downloads.FollowAsync(new Uri("reports/next?cursor=a%2Fb", UriKind.Relative));
+```
+
 ### Follow a relative redirect target
 
 Resolve a relative `Location` value against the URL of the request that returned it,

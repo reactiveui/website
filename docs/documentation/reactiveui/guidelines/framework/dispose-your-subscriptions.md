@@ -17,7 +17,7 @@ label bound to it would refresh.
 ```csharp
 public PreferGradeAnnouncer(Student student) =>
     this.WhenActivated(disposables =>
-        student.WhenAnyValue(x => x.Grade)
+        student.WhenAnyValue(static x => x.Grade)
             .Subscribe(grade => Console.WriteLine($"Prefer: {student.Name}'s grade is now {grade}"))
             .DisposeWith(disposables));
 ```
@@ -50,7 +50,7 @@ nothing to call.
 
 ```csharp
 public AvoidGradeAnnouncer(Student student) =>
-    student.WhenAnyValue(x => x.Grade).Subscribe(grade => Console.WriteLine($"Avoid: {student.Name}'s grade is now {grade}"));
+    student.WhenAnyValue(static x => x.Grade).Subscribe(grade => Console.WriteLine($"Avoid: {student.Name}'s grade is now {grade}"));
 ```
 
 ```csharp
@@ -83,7 +83,7 @@ Student student = new("Grace", "Robotics Club");
 List<int> grades = [];
 
 // No DisposeWith: student's own PropertyChanged event holds this subscription, and dies with student itself.
-student.WhenAnyValue(x => x.Grade).Subscribe(grades.Add);
+student.WhenAnyValue(static x => x.Grade).Subscribe(grades.Add);
 
 student.Grade = 88;
 student.Grade = 95;

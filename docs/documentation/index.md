@@ -69,6 +69,15 @@ of these docs. Pick a library below, or start with the pages that cover them all
     [:material-arrow-right: Docs](maui-plugins-popup.md) ·
     [:fontawesome-brands-github: GitHub](https://github.com/reactiveui/Maui.Plugins.Popup)
 
+-   [**Reactive Presentation Foundation**](reactive-presentation-foundation/index.md){ .rxui-project-link }
+
+    ---
+
+    Runs supported WPF views and controls on a portable desktop backend.
+
+    [:material-arrow-right: Docs](reactive-presentation-foundation/index.md) ·
+    [:fontawesome-brands-github: GitHub](https://github.com/reactiveui/ReactivePresentationFoundation)
+
 </div>
 
 ## Foundations
@@ -117,21 +126,32 @@ of these docs. Pick a library below, or start with the pages that cover them all
     [:material-arrow-right: Docs](akavache/index.md) ·
     [:fontawesome-brands-github: GitHub](https://github.com/reactiveui/Akavache)
 
--   [![](https://raw.githubusercontent.com/reactiveui/punchclock/main/images/logo.png){ .rxui-logo } **Punchclock**](https://github.com/reactiveui/punchclock#readme){ .rxui-project-link }
+-   [![](https://raw.githubusercontent.com/reactiveui/punchclock/main/images/logo.png){ .rxui-logo } **Punchclock**](punchclock/index.md){ .rxui-project-link }
 
     ---
 
     A queue that limits how many tasks run at once.
 
-    [:fontawesome-brands-github: Read the guide on GitHub](https://github.com/reactiveui/punchclock#readme)
+    [:material-arrow-right: Docs](punchclock/index.md) ·
+    [:fontawesome-brands-github: GitHub](https://github.com/reactiveui/punchclock)
 
--   [![](https://raw.githubusercontent.com/reactiveui/styleguide/master/logo_fusillade/main.png){ .rxui-logo } **Fusillade**](https://github.com/reactiveui/Fusillade#readme){ .rxui-project-link }
+-   [![](https://raw.githubusercontent.com/reactiveui/styleguide/master/logo_fusillade/main.png){ .rxui-logo } **Fusillade**](fusillade/index.md){ .rxui-project-link }
 
     ---
 
     An `HttpClient` handler that sends requests in order of importance.
 
-    [:fontawesome-brands-github: Read the guide on GitHub](https://github.com/reactiveui/Fusillade#readme)
+    [:material-arrow-right: Docs](fusillade/index.md) ·
+    [:fontawesome-brands-github: GitHub](https://github.com/reactiveui/Fusillade)
+
+-   [**SignalR client**](signalr/index.md){ .rxui-project-link }
+
+    ---
+
+    Calls hub methods and receives live updates from an ASP.NET Core server.
+
+    [:material-arrow-right: Docs](signalr/index.md) ·
+    [:fontawesome-brands-github: GitHub](https://github.com/reactiveui/AspNetCore.SignalR.Client.Rx)
 
 </div>
 

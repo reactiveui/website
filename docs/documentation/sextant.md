@@ -216,6 +216,10 @@ public class App : Application
 
 ## Navigation Services
 
+To pass an order number to an editor and return its save result to the previous page,
+see [Pass data between Sextant pages](sextant-navigation-parameters.md). The example also opens
+a modal and checks that closing it leaves the page stack intact.
+
 Sextant provides two main navigation services:
 
 ### IViewStackService
@@ -531,14 +535,28 @@ dotnet add package Sextant.Plugins.Popup
 ### Setup
 
 ```csharp
+using Mopups.Hosting;
+using Mopups.Services;
+using ReactiveUI.Binding.Reactive;
+using Sextant;
+using Sextant.Maui;
 using Sextant.Plugins.Popup;
+using Splat;
 
-// In MauiProgram.cs
 builder.ConfigureMopups();
-
-// Register popup service
-AppLocator.CurrentMutable.RegisterPopupViewStackService();
+AppLocator.CurrentMutable.RegisterLazySingleton<IPopupViewStackService>(static () =>
+    new PopupViewStackService(
+        AppLocator.Current.GetNavigationView() ?? throw new InvalidOperationException("Register the navigation view first."),
+        MopupService.Instance,
+        ViewLocator.GetCurrent(),
+        new DefaultViewModelFactory()));
 ```
+
+Register the navigation view and configure ReactiveUI before resolving this service. Pair each popup
+model with a `SextantPopupPage<TViewModel>` through `RegisterViewForNavigation`. Sextant resolves the
+page and sets its model before Mopups opens it. The MAUI example opens a delivery note from the
+home page and lets the user close it by tapping the background.
+[MAUI registration and delivery note example](https://github.com/reactiveui/Sextant/tree/main/src/examples/SextantSample.Maui)
 
 ### Usage
 

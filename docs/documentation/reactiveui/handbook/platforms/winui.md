@@ -19,6 +19,8 @@ for the packages and project setup.
 
 ## Configure ReactiveUI for WinUI
 
+You can run the dashboard walkthrough from a terminal in a signed-in Windows desktop session. From the ReactiveUI repository, run `dotnet run --project src/examples/Documentation/Pages/platform-winui -c Release -f net11.0-windows10.0.19041.0 -- --smoke`. It opens the window, checks the views as you navigate, then closes it.
+
 **1. Call `WithWinUI()` on the builder.** It configures the core services, sets the main thread
 [sequencer](../scheduling.md) and the task-pool sequencer, registers the WinUI converters, and installs
 `WinUI.Registrations`. The dashboard's own startup also registers its three views with the

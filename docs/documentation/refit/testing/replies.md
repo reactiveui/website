@@ -27,6 +27,32 @@ The generated factory avoids reflection fallback, making it the suitable client 
 `Reply.With(body, status)` chooses another status. Both serialize when the handler builds the reply.
 The [first test](index.md#make-your-first-test) runs both overloads and checks the typed request body.
 
+## Give a reply its own JSON contract
+
+Pass a property from your generated JSON context to `Reply.With` when a route needs its own JSON settings,
+or when you use `StubHttp` with a plain `HttpClient`. The property supplies a `JsonTypeInfo<T>` that tells
+System.Text.Json how to write the object without reflection. The two-argument call returns HTTP 200.
+Pass a status as the third argument to return a different code.
+
+```csharp
+TestingPerson person = new(1, "Ada");
+using StubHttp stub = new();
+stub.Add(Route.Get("/people/1"), Reply.With(person, TestingJsonContext.Default.TestingPerson));
+stub.Add(Route.Post("/people"), Reply.With(person, TestingJsonContext.Default.TestingPerson, HttpStatusCode.Created));
+```
+
+For a JSON object with keys chosen at runtime, register `[JsonSerializable(typeof(JsonObject))]`
+on the context. Then pass the object and `TestingJsonContext.Default.JsonObject` to the same overload.
+
+```csharp
+JsonObject profile = new() { ["display_name"] = person.Name };
+stub.Add(Route.Get("/profile"), Reply.With(profile, TestingJsonContext.Default.JsonObject));
+```
+
+Each match gets fresh `application/json` content. If the client reads the response as a model,
+supply compatible metadata on the read side too.
+[Run the typed reply example](https://github.com/reactiveui/refit/blob/main/src/examples/Documentation/Testing/TypedJsonReply.cs).
+
 ## JSON, text and custom content
 
 You need replies of different shapes: JSON, an error body, plain text, raw bytes, a bare status, or a reply
@@ -161,6 +187,8 @@ Keep one serializer configuration per handler.
 | --- | --- | --- | --- |
 | [`Reply.With<T>(T body)`](https://github.com/reactiveui/refit/blob/main/src/Refit.Testing/Reply.cs) | Creates a typed successful reply using the handler's serializer. | `body`: generic type `T` | Returns [`StubResponse`](replies.md) that serializes the body with the handler serializer and uses [`HttpStatusCode.OK`](https://learn.microsoft.com/en-us/dotnet/api/system.net.httpstatuscode). |
 | [`Reply.With<T>(T body, HttpStatusCode status)`](https://github.com/reactiveui/refit/blob/main/src/Refit.Testing/Reply.cs) | Creates a typed reply while choosing a non-default status. | `body`: generic type `T`; `status`: [`HttpStatusCode`](https://learn.microsoft.com/en-us/dotnet/api/system.net.httpstatuscode) | Returns [`StubResponse`](replies.md) with serialized content and the supplied status. |
+| `Reply.With<T>(T body, JsonTypeInfo<T> typeInfo)` | Writes JSON using the supplied contract. | A body and its generated metadata. | A fresh JSON response with status 200 on each match. |
+| `Reply.With<T>(T body, JsonTypeInfo<T> typeInfo, HttpStatusCode status)` | Writes JSON with a chosen status. | A body, its generated metadata and an HTTP status. | A fresh JSON response with that status on each match. |
 | [`Reply.Json(string body)`](https://github.com/reactiveui/refit/blob/main/src/Refit.Testing/Reply.cs) | Creates a successful reply from raw JSON text. | `body`: [`string`](https://learn.microsoft.com/en-us/dotnet/api/system.string) JSON text | Returns [`StubResponse`](replies.md) with UTF-8 `application/json` content and status [`HttpStatusCode.OK`](https://learn.microsoft.com/en-us/dotnet/api/system.net.httpstatuscode). |
 | [`Reply.Json(string body, HttpStatusCode status)`](https://github.com/reactiveui/refit/blob/main/src/Refit.Testing/Reply.cs) | Creates a raw JSON reply with a caller-selected status. | `body`: [`string`](https://learn.microsoft.com/en-us/dotnet/api/system.string) JSON text; `status`: [`HttpStatusCode`](https://learn.microsoft.com/en-us/dotnet/api/system.net.httpstatuscode) | Returns JSON [`StubResponse`](replies.md) with the supplied status. |
 | [`Reply.Text(string body)`](https://github.com/reactiveui/refit/blob/main/src/Refit.Testing/Reply.cs) | Creates a plain-text successful reply. | `body`: [`string`](https://learn.microsoft.com/en-us/dotnet/api/system.string) text | Returns [`StubResponse`](replies.md) with UTF-8 `text/plain` content and status [`HttpStatusCode.OK`](https://learn.microsoft.com/en-us/dotnet/api/system.net.httpstatuscode). |
