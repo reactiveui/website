@@ -43,6 +43,7 @@ Splat has support for the following logging frameworks:
 | Microsoft Extensions Logging | [Splat.Microsoft.Extensions.Logging][SplatMicrosoftExtensionsLoggingNuGet] | [![SplatMicrosoftExtensionsLoggingBadge]][SplatMicrosoftExtensionsLoggingNuGet] |
 | NLog | [Splat.NLog][SplatNLogNuGet] | [![SplatNLogBadge]][SplatNLogNuGet] |
 | Serilog | [Splat.Serilog][SplatSerilogNuGet] | [![SplatSerilogBadge]][SplatSerilogNuGet] |
+| Exceptionless | `Splat.Exceptionless` | [NuGet package](https://www.nuget.org/packages/Splat.Exceptionless/) |
 
 [SplatNuGet]: https://www.nuget.org/packages/Splat/
 [SplatBadge]: https://img.shields.io/nuget/v/Splat.svg
@@ -62,7 +63,7 @@ This is a simple built in logger, Console logging is not available on every plat
 ```cs
 // I only want to hear about errors
 var logger = new ConsoleLogger() { Level = LogLevel.Error };
-AppLocator.CurrentMutable.RegisterConstant(logger, typeof(ILogger));
+AppLocator.CurrentMutable.RegisterConstant<ILogger>(logger);
 ```
 
 #### Debug
@@ -72,7 +73,7 @@ This is a simple built in logger, useful during early development, but you may w
 ```cs
 // I only want to hear about errors
 var logger = new DebugLogger() { Level = LogLevel.Error };
-AppLocator.CurrentMutable.RegisterConstant(logger, typeof(ILogger));
+AppLocator.CurrentMutable.RegisterConstant<ILogger>(logger);
 ```
 
 #### Log4Net
@@ -124,8 +125,12 @@ First configure Serilog. For guidance see [configuration basics](https://github.
 using Splat.Serilog;
 
 // Then in your service locator initialisation
-AppLocator.CurrentMutable.UseSerilogFullLogger()
+AppLocator.CurrentMutable.UseSerilogFullLogger();
 ```
+
+#### Forward a Microsoft log message to Splat
+
+To send messages written through Microsoft logging into an existing Splat logger, add Splat to the Microsoft logger factory with `AddSplat()`. The dispatch example configures a Serilog sink in Splat, writes a Microsoft warning and checks the message received by Serilog. It also shows how to inspect NLog, log4net and Exceptionless messages locally. [Dispatch logging example](https://github.com/reactiveui/splat/blob/main/src/examples/DispatchAdapters/DispatchLogs.cs)
 
 #### Using a different logging framework
 

@@ -19,5 +19,7 @@ dotnet add package Splat
   Microsoft.Extensions.DependencyInjection and other containers.
 - [Logging](logging/index.md) covers the logging API and the adapters for Serilog, NLog, log4net and
   Microsoft.Extensions.Logging.
+- [Drawing and resizing](drawing.md) shows how to encode a label and read it back as a thumbnail.
+- [Feature tracking](feature-tracking.md) records screen navigation, child operations and errors.
 
 The source and the full package list are in the [reactiveui/splat](https://github.com/reactiveui/splat) repository.
