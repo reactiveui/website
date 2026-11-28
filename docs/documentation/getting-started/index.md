@@ -36,4 +36,4 @@ Refit and Akavache do not need ReactiveUI. You can use them in any .NET app.
 1. [Install the packages](installation.md) you need.
 2. Follow the getting started page of the library you picked.
 3. Browse the [samples](../resources/samples.md) to see complete apps.
-4. Ask questions in the [ReactiveUI Slack](https://join.slack.com/t/reactivex/shared_invite/zt-lt48skpz-G5WDYOAuzA80_MByZrLT0g).
+4. Ask questions in [GitHub Discussions](https://github.com/reactiveui/ReactiveUI/discussions).
